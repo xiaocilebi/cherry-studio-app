@@ -50,7 +50,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   return (
     <YStack flex={1}>
-      <BlurView style={{ flex: 1 }} intensity={60} tint="default">
+      <BlurView style={{ flex: 1, backgroundColor: '#ffffffbb' }} intensity={60} tint="default">
         <YStack gap={10} flex={1} padding={20}>
           <YStack>
             <DrawerItemList {...props} />
