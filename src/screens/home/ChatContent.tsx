@@ -6,9 +6,7 @@ import { Button } from 'tamagui'
 
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
-import { useMessages } from '@/hooks/useMessages'
 import { Topic } from '@/types/assistant'
-import { AssistantMessageStatus } from '@/types/message'
 
 import Messages from './messages/Messages'
 
@@ -18,7 +16,6 @@ interface ChatContentProps {
 
 const ChatContent = ({ topic }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
-  const { messages } = useMessages(topic.id)
   const scrollViewRef = useRef<ScrollView>(null)
 
   const [showScrollToBottomButton, setShowScrollToBottomButton] = useState(false)
@@ -33,10 +30,6 @@ const ChatContent = ({ topic }: ChatContentProps) => {
 
   const scrollToBottom = () => {
     scrollViewRef.current?.scrollToEnd({ animated: true })
-  }
-
-  const handleContentSizeChange = () => {
-    scrollToBottom()
   }
 
   const handleScroll = (event: NativeScrollEvent) => {
@@ -57,10 +50,6 @@ const ChatContent = ({ topic }: ChatContentProps) => {
     }
   }
 
-  const lastMessage = messages[messages.length - 1]
-  const isLastMessageSuccessful = lastMessage?.status === AssistantMessageStatus.SUCCESS
-  const shouldShowScrollButton = showScrollToBottomButton && isLastMessageSuccessful
-
   return (
     <View style={styles.container}>
       <MotiScrollView
@@ -75,14 +64,12 @@ const ChatContent = ({ topic }: ChatContentProps) => {
           type: 'timing'
         }}
         showsVerticalScrollIndicator={false}
-        onContentSizeChange={handleContentSizeChange}
-        onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}
-        scrollEventThrottle={16}>
+        onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}>
         <Messages key={topic.id} assistant={assistant} topic={topic} />
       </MotiScrollView>
 
       <AnimatePresence>
-        {shouldShowScrollButton && (
+        {showScrollToBottomButton && (
           <MotiView
             key="scroll-to-bottom-button"
             style={styles.fab}
