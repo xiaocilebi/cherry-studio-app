@@ -54,7 +54,9 @@
       "placeholder": "随便问点什么",
       "start_check_model": "让我们开始",
       "save": "保存",
-      "recents": "最近"
+      "recents": "最近",
+      "checking": "检查中...",
+      "success": "成功 🎉"
     },
     "chat": {
       "topics": {
@@ -71,7 +73,10 @@
       },
       "default.name": "默认",
       "title": "欢迎使用 Cherry Studio!",
-      "welcome": "我是您的生产力 AI 助手。您可以创建助手、管理模型等。"
+      "welcome": "我是您的生产力 AI 助手。您可以创建助手、管理模型等。",
+      "citation": "+ {{count}} 个来源",
+      "think": "正在思考 {{seconds}} 秒",
+      "think_expand": "点击看穿我的心思"
     },
     "common": {
       "cancel": "取消",
@@ -97,13 +102,23 @@
       "file": "文件",
       "photo": "照片",
       "clear_all": "清除全部",
-      "camera": "相机"
+      "camera": "相机",
+      "close": "关闭",
+      "source": "源",
+      "today": "今天",
+      "yesterday": "昨天",
+      "this_week": "本周",
+      "last_week": "上周",
+      "last_month": "上月",
+      "older": "更老",
+      "others": "其他"
     },
     "errors": {
       "cannotOpenLink": "无法打开链接: {{error}}",
       "linkErrorTitle": "打开链接出错",
       "deviceCannotHandleLink": "您的设备无法处理此链接: {{href}}",
-      "cannotOpenLinkTitle": "无法打开链接"
+      "cannotOpenLinkTitle": "无法打开链接",
+      "error_title": "错误"
     },
     "history": {
       "topics.empty": "未找到主题",
@@ -129,20 +144,42 @@
         "cloud_backup": "云端备份设置",
         "third_party": "第三方连接",
         "landrop": {
-          "title": "[to be translated]:Landrop",
+          "title": "蓝卓投送",
           "scan_qr_code": {
-            "title": "[to be translated]:Scan QR Code",
-            "description": "[to be translated]:Scan QR Code from Cherry Studio"
+            "title": "扫描二维码",
+            "description": "请使用樱桃工作室扫码",
+            "success": "连接成功 🎉",
+            "success_description": "现在可以点击发送按钮来恢复数据了！"
           },
           "status": {
-            "title": "[to be translated]:Connection Status",
-            "idle": "[to be translated]:Idle",
-            "connecting": "[to be translated]:Connecting...",
-            "connected": "[to be translated]:Connected",
-            "zip_file_start": "[to be translated]:File Transfer Started",
-            "zip_file_end": "[to be translated]:File Transfer Completed",
-            "disconnected": "[to be translated]:Disconnected",
-            "error": "[to be translated]:Connection Error"
+            "title": "连接状态",
+            "idle": "待机",
+            "connecting": "连接中...",
+            "connected": "已连接",
+            "zip_file_start": "文件传输已开始",
+            "zip_file_end": "文件传输完成",
+            "disconnected": "断开连接",
+            "error": "连接错误"
+          },
+          "filename": "文件名"
+        },
+        "restore": {
+          "error": "恢复错误",
+          "error_message": "恢复过程中出现错误，请检查文件并重试。",
+          "steps": {
+            "restore_topics": "恢复主题",
+            "restore_messages_blocks": "恢复消息和屏蔽",
+            "restore_llm_providers": "恢复LLM提供商",
+            "restore_assistants": "恢复助手",
+            "restore_websearch": "恢复网络搜索"
+          },
+          "progress": {
+            "success": "恢复成功",
+            "error": "恢复错误",
+            "pending": "恢复中...",
+            "success_description": "恢复成功，祝您使用愉快！",
+            "error_description": "还原过程中出现错误。请检查文件后重试。",
+            "pending_description": "正在恢复数据，请稍候..."
           }
         }
       },
@@ -183,7 +220,6 @@
         "api_check.title": "检测",
         "api_check.tooltip": "选择用于检测的模型",
         "enabled": "开启",
-        "checked": "已检查",
         "auth": {
           "title": "{{provider}}服务",
           "login": "登录",
@@ -192,7 +228,8 @@
         },
         "api_host.placeholder": "请输入 API 主机",
         "not_found": "未找到提供商",
-        "not_found_message": "导航到提供商页面时出现错误"
+        "not_found_message": "导航到提供商页面时出现错误",
+        "added": "添加"
       },
       "proxy.title": "代理地址",
       "theme.window.style.opaque": "不透明窗口",
@@ -206,9 +243,6 @@
       "assistant.show.icon": "显示模型图标",
       "tray.title": "启用系统托盘图标",
       "websearch": {
-        "tavily": {
-          "api_key.placeholder": "输入 Tavily API 密钥"
-        },
         "title": "网络搜索",
         "selectPlaceholder": "请选择网页搜索提供商...",
         "searchWithDates": "包含日期��索",
@@ -231,12 +265,14 @@
           },
           "api": {
             "title": "API 服务提供商"
-          }
+          },
+          "title": "网络搜索服务提供商"
         },
-        "check_success": "检查成功",
+        "check_success": "检查成功 🎉",
         "check_success_message": "API 运作正常",
         "check_fail": "检查失败",
-        "check_error": "检查错误"
+        "check_error": "检查错误",
+        "empty": "暂无提供者..."
       },
       "modelAndService": "AI模型与服务",
       "dataAndSecurity": "数据与安全",
@@ -337,7 +373,7 @@
           "empty_database_id": "数据库 ID 未配置",
           "error": "连接错误，请检查网络配置和 API 密钥以及数据库 ID",
           "fail": "连接失败，请检查网络和 API 密钥以及数据库 ID",
-          "success": "连接成功"
+          "success": "连接成功 🎉"
         },
         "database_id": "Notion 数据库 ID",
         "database_id_placeholder": "输入 Notion 数据库 ID",
@@ -492,11 +528,16 @@
       "topic": {
         "title": "主题",
         "recent": "最近的主题"
+      },
+      "assistant": {
+        "title": "助手",
+        "recent": "最新助手"
       }
     },
     "topics": {
       "title": "主题",
-      "title.recent": "最近的主题"
+      "title.recent": "最近的主题",
+      "new_topic": "新话题"
     }
   }
 }

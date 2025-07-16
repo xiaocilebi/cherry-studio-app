@@ -54,7 +54,9 @@
       "placeholder": "隨便問些什麼",
       "start_check_model": "讓我們開始",
       "save": "保存",
-      "recents": "最近"
+      "recents": "最近",
+      "checking": "檢查中...",
+      "success": "成功！"
     },
     "chat": {
       "topics": {
@@ -71,7 +73,10 @@
       },
       "default.name": "預設",
       "title": "歡迎使用 Cherry Studio!",
-      "welcome": "我是您的生產力 AI 助手。您可以建立助理、管理模型等。"
+      "welcome": "我是您的生產力 AI 助手。您可以建立助理、管理模型等。",
+      "citation": "+ {{count}} 個來源",
+      "think": "思考中，{{seconds}}秒",
+      "think_expand": "點擊讀懂我的心"
     },
     "common": {
       "cancel": "取消",
@@ -97,7 +102,16 @@
       "file": "檔案",
       "photo": "相片",
       "clear_all": "清除全部",
-      "camera": "相機"
+      "camera": "相機",
+      "close": "關閉",
+      "source": "來源",
+      "today": "今天",
+      "yesterday": "昨天",
+      "this_week": "本週",
+      "last_week": "上週",
+      "last_month": "上個月",
+      "older": "較舊",
+      "others": "其他人"
     },
     "history": {
       "topics.empty": "未找到主題",
@@ -123,20 +137,42 @@
         "cloud_backup": "雲端備份設定",
         "third_party": "第三方連接",
         "landrop": {
-          "title": "[to be translated]:Landrop",
+          "title": "Landrop",
           "scan_qr_code": {
-            "title": "[to be translated]:Scan QR Code",
-            "description": "[to be translated]:Scan QR Code from Cherry Studio"
+            "title": "掃描QR碼",
+            "description": "從Cherry Studio掃描QR碼",
+            "success": "連接成功 🎉",
+            "success_description": "您現在可以點擊發送按鈕來恢復資料！"
           },
           "status": {
-            "title": "[to be translated]:Connection Status",
-            "idle": "[to be translated]:Idle",
-            "connecting": "[to be translated]:Connecting...",
-            "connected": "[to be translated]:Connected",
-            "zip_file_start": "[to be translated]:File Transfer Started",
-            "zip_file_end": "[to be translated]:File Transfer Completed",
-            "disconnected": "[to be translated]:Disconnected",
-            "error": "[to be translated]:Connection Error"
+            "title": "連線狀態",
+            "idle": "閒置",
+            "connecting": "連線中...",
+            "connected": "已連線",
+            "zip_file_start": "檔案傳輸已開始",
+            "zip_file_end": "檔案傳輸完成",
+            "disconnected": "已斷線",
+            "error": "連接錯誤"
+          },
+          "filename": "檔名"
+        },
+        "restore": {
+          "error": "恢復錯誤",
+          "error_message": "還原過程中發生錯誤。請檢查檔案並再次嘗試。",
+          "steps": {
+            "restore_topics": "恢復主題",
+            "restore_messages_blocks": "恢復訊息與封鎖",
+            "restore_llm_providers": "恢復LLM供應商",
+            "restore_assistants": "還原助理",
+            "restore_websearch": "恢復網路搜尋"
+          },
+          "progress": {
+            "success": "還原成功",
+            "error": "恢復錯誤",
+            "pending": "正在還原...",
+            "success_description": "恢復成功，祝您使用愉快！",
+            "error_description": "還原過程中發生錯誤。請檢查檔案並再試一次。",
+            "pending_description": "恢復資料中，請稍候..."
           }
         }
       },
@@ -177,7 +213,6 @@
         "api_check.title": "檢測",
         "api_check.tooltip": "選擇用於檢測的模型",
         "enabled": "開啟",
-        "checked": "已檢查",
         "auth": {
           "title": "{{provider}} 服務",
           "login": "登入",
@@ -186,7 +221,8 @@
         },
         "api_host.placeholder": "請輸入 API 主機",
         "not_found": "找不到提供商",
-        "not_found_message": "導航到提供商頁面時發生錯誤"
+        "not_found_message": "導航到提供商頁面時發生錯誤",
+        "added": "已新增"
       },
       "proxy.title": "代理地址",
       "theme.window.style.opaque": "不透明窗口",
@@ -200,9 +236,6 @@
       "assistant.show.icon": "顯示模型圖示",
       "tray.title": "啟用系統匣圖示",
       "websearch": {
-        "tavily": {
-          "api_key.placeholder": "輸入 Tavily API 金鑰"
-        },
         "title": "網絡搜索",
         "selectPlaceholder": "請選擇網頁搜尋提供商...",
         "searchWithDates": "包含日期搜尋",
@@ -225,12 +258,14 @@
           },
           "api": {
             "title": "API 服務提供商"
-          }
+          },
+          "title": "網頁搜尋服務供應商"
         },
         "check_success": "檢查成功",
         "check_success_message": "API 運作正常",
         "check_fail": "檢查失敗",
-        "check_error": "檢查錯誤"
+        "check_error": "檢查錯誤",
+        "empty": "尚未提供者..."
       },
       "modelAndService": "AI 模型與服務",
       "dataAndSecurity": "資料與安全性",
@@ -486,17 +521,23 @@
       "topic": {
         "title": "主題",
         "recent": "最近的主題"
+      },
+      "assistant": {
+        "title": "助手",
+        "recent": "近期助手"
       }
     },
     "topics": {
       "title": "主題",
-      "title.recent": "最近的主題"
+      "title.recent": "最近的主題",
+      "new_topic": "新主題"
     },
     "errors": {
       "cannotOpenLink": "無法打開連結: {{error}}",
       "linkErrorTitle": "打開連結錯誤",
       "deviceCannotHandleLink": "您的設備無法處理此連結: {{href}}",
-      "cannotOpenLinkTitle": "無法打開連結"
+      "cannotOpenLinkTitle": "無法打開連結",
+      "error_title": "錯誤"
     }
   }
 }
