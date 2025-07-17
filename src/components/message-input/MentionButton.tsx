@@ -1,11 +1,13 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { AtSign } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { Button } from 'tamagui'
 
 import { Model } from '@/types/assistant'
 import { useIsDark } from '@/utils'
 import { getGreenColor } from '@/utils/color'
+import { haptic } from '@/utils/haptic'
 
 import ModelSheet from '../sheets/ModelSheet'
 
@@ -19,6 +21,7 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePress = () => {
+    haptic(ImpactFeedbackStyle.Light)
     bottomSheetModalRef.current?.present()
   }
 

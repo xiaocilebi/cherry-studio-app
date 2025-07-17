@@ -1,10 +1,12 @@
 import { Globe } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { Button } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
 import { getGreenColor } from '@/utils/color'
+import { haptic } from '@/utils/haptic'
 
 interface WebsearchButtonProps {
   assistant: Assistant
@@ -15,6 +17,7 @@ export const WebsearchButton: React.FC<WebsearchButtonProps> = ({ assistant, upd
   const isDark = useIsDark()
 
   const handlePress = () => {
+    haptic(ImpactFeedbackStyle.Light)
     updateAssistant({
       ...assistant,
       enableWebSearch: !assistant.enableWebSearch

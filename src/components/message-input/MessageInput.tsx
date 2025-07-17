@@ -1,3 +1,4 @@
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { isEmpty } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useState } from 'react'
@@ -13,6 +14,7 @@ import { Assistant, Model, Topic } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { useIsDark } from '@/utils'
+import { haptic } from '@/utils/haptic'
 
 import { AddAssetsButton } from './AddAssetsButton'
 import FilePreview from './FilePreview'
@@ -39,8 +41,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssista
 
   const sendMessage = async () => {
     if (isEmpty(text.trim()) || !assistant) {
+      haptic(ImpactFeedbackStyle.Rigid)
       return
     }
+
+    haptic(ImpactFeedbackStyle.Medium)
 
     setText('')
     setFiles([])

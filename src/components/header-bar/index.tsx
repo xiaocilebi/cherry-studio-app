@@ -1,10 +1,12 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, ParamListBase, useNavigation } from '@react-navigation/native'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { XStack } from 'tamagui'
 
 import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
+import { haptic } from '@/utils/haptic'
 
 import { AssistantSelection } from './AssistantSelection'
 import { MenuButton } from './MenuButton'
@@ -19,6 +21,7 @@ export const HeaderBar = ({ topic }: HeaderBarProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
 
   const handleMenuPress = () => {
+    haptic(ImpactFeedbackStyle.Soft)
     navigation.dispatch(DrawerActions.openDrawer())
   }
 
