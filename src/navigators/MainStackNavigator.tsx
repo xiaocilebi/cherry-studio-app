@@ -1,6 +1,6 @@
 import '@/i18n'
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
 import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
@@ -37,7 +37,7 @@ import WelcomeScreen from '@/screens/WelcomeScreen'
 import { useAppSelector } from '@/store'
 import { RootStackParamList } from '@/types/naviagate'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createStackNavigator<RootStackParamList>()
 
 export default function MainStackNavigator() {
   const welcomeShown = useAppSelector(state => state.app.welcomeShown)
