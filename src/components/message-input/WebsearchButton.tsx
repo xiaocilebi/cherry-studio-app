@@ -1,6 +1,7 @@
 import { Globe } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
+import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
@@ -17,6 +18,7 @@ export const WebsearchButton: React.FC<WebsearchButtonProps> = ({ assistant, upd
   const isDark = useIsDark()
 
   const handlePress = () => {
+    Keyboard.dismiss()
     haptic(ImpactFeedbackStyle.Light)
     updateAssistant({
       ...assistant,

@@ -2,6 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { AtSign } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
+import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
 import { Model } from '@/types/assistant'
@@ -21,6 +22,7 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePress = () => {
+    Keyboard.dismiss()
     haptic(ImpactFeedbackStyle.Light)
     bottomSheetModalRef.current?.present()
   }

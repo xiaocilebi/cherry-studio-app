@@ -1,6 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
+import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
 import { FileType } from '@/types/file'
@@ -18,6 +19,7 @@ export const AddAssetsButton: React.FC<AddAssetsButtonProps> = ({ files, setFile
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePress = () => {
+    Keyboard.dismiss()
     haptic(ImpactFeedbackStyle.Light)
     bottomSheetModalRef.current?.present()
   }

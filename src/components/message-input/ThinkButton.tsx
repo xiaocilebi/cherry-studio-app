@@ -1,8 +1,11 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
+import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
+import { haptic } from '@/utils/haptic'
 
 import {
   MdiLightbulbAutoOutline,
@@ -40,6 +43,8 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
   }
 
   const handlePress = () => {
+    Keyboard.dismiss()
+    haptic(ImpactFeedbackStyle.Light)
     bottomSheetModalRef.current?.present()
   }
 
