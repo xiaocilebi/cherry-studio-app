@@ -112,7 +112,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
         backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
-      <BottomSheetScrollView>
+      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
         <YStack gap={5} padding="20">
           <XStack gap={5}>
             <Stack flex={1}>
