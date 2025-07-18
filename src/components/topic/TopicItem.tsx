@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
 import { FC, useEffect, useRef, useState } from 'react' // CHANGED: Imported useMemo
@@ -9,10 +8,11 @@ import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-hand
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { Text, XStack } from 'tamagui'
 
+import { useNavigation } from '@/hooks/useNavigation'
+import { getCurrentTopicId } from '@/hooks/useTopic'
 import i18n from '@/i18n'
-import { deleteTopicById } from '@/services/TopicService'
+import { deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Topic } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 
 type TimeFormat = 'time' | 'date'
@@ -29,6 +29,7 @@ interface RenderRightActionsProps {
 }
 
 const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swipeableRef }) => {
+  const { navigateToChatScreen, navigateToHomeScreen } = useNavigation()
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [50, 0])
 
@@ -41,6 +42,16 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
     try {
       swipeableRef.current?.close()
       await deleteTopicById(topic.id)
+
+      if (topic.id === getCurrentTopicId()) {
+        const nextTopic = await getNewestTopic()
+
+        if (nextTopic) {
+          navigateToChatScreen(nextTopic.id)
+        } else {
+          navigateToHomeScreen()
+        }
+      }
     } catch (error) {
       console.error('Delete Topic error', error)
     }
@@ -65,14 +76,14 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   const isDark = useIsDark()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const swipeableRef = useRef<SwipeableMethods>(null)
-  const navigation = useNavigation<NavigationProps>()
+  const { navigateToChatScreen } = useNavigation()
 
   const renderRightActions = (progress: SharedValue<number>, _: SharedValue<number>) => {
     return <RenderRightActions progress={progress} topic={topic} swipeableRef={swipeableRef} />
   }
 
   const openTopic = () => {
-    navigation.navigate('ChatScreen', { topicId: topic.id })
+    navigateToChatScreen(topic.id)
   }
 
   const date = new Date(topic.updatedAt)

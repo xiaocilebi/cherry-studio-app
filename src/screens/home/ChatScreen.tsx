@@ -1,6 +1,6 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { LinearGradient } from '@tamagui/linear-gradient'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native'
 import { styled, YStack } from 'tamagui'
 
@@ -9,7 +9,7 @@ import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTopic } from '@/hooks/useTopic'
-import { NavigationProps, RootStackParamList } from '@/types/naviagate'
+import { RootStackParamList } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 
 import ChatContent from './ChatContent'
@@ -19,25 +19,10 @@ type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
 
 const ChatScreen = () => {
   const route = useRoute<ChatScreenRouteProp>()
-  const navigation = useNavigation<NavigationProps>()
   const { topicId } = route.params
   const isDark = useIsDark()
   const { updateAssistant } = useAssistant('default')
   const { topic, isLoading } = useTopic(topicId)
-  const [firstLoadDone, setFirstLoadDone] = useState(false)
-
-  useEffect(() => {
-    if (!isLoading && !firstLoadDone) {
-      setFirstLoadDone(true)
-    }
-  }, [isLoading, firstLoadDone])
-
-  // fix: 当drawer删除当前topic则跳转到home获取new topic
-  useEffect(() => {
-    if (firstLoadDone && !topic) {
-      navigation.navigate('HomeScreen')
-    }
-  }, [firstLoadDone, topic])
 
   if (!topic || isLoading) {
     return (

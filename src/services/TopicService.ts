@@ -19,6 +19,7 @@ export async function createNewTopic(assistant: Assistant): Promise<Topic> {
     updatedAt: new Date().toISOString(),
     messages: []
   }
+  console.log('createNewTopic', newTopic.id)
   await _upsertTopics(newTopic)
   return newTopic
 }

@@ -13,9 +13,7 @@ import { transformDbToTopic } from './topics.queries'
  * @returns 一个 Assistant 对象。
  */
 export function transformDbToAssistant(dbRecord: any): Assistant {
-  const topics = Array.isArray(dbRecord.topics)
-    ? dbRecord.topics.map(transformDbToTopic) // 👈 关键改动在这里
-    : []
+  const topics = Array.isArray(dbRecord.topics) ? dbRecord.topics.map(transformDbToTopic) : []
   return {
     id: dbRecord.id,
     name: dbRecord.name,
