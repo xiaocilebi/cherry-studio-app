@@ -33,22 +33,7 @@ export const RESTORE_STEP_CONFIGS = {
   RESTORE_WEBSEARCH: {
     id: 'restore_websearch' as RestoreStepId,
     titleKey: 'settings.data.restore.steps.restore_websearch'
-  },
-
-  // 局域网恢复特有步骤
-  NETWORK_DISCOVERY: {
-    id: 'network_discovery' as RestoreStepId,
-    titleKey: 'settings.data.restore.steps.network_discovery'
-  },
-  NETWORK_CONNECT: { id: 'network_connect' as RestoreStepId, titleKey: 'settings.data.restore.steps.network_connect' },
-  NETWORK_DOWNLOAD: {
-    id: 'network_download' as RestoreStepId,
-    titleKey: 'settings.data.restore.steps.network_download'
-  },
-
-  // 本地恢复特有步骤
-  FILE_VALIDATION: { id: 'file_validation' as RestoreStepId, titleKey: 'settings.data.restore.steps.file_validation' },
-  FILE_EXTRACTION: { id: 'file_extraction' as RestoreStepId, titleKey: 'settings.data.restore.steps.file_extraction' }
+  }
 } as const
 
 // 预定义的步骤组合
@@ -60,18 +45,9 @@ export const DEFAULT_RESTORE_STEPS: StepConfig[] = [
   RESTORE_STEP_CONFIGS.RESTORE_WEBSEARCH
 ]
 
-export const LOCAL_RESTORE_STEPS: StepConfig[] = [
-  RESTORE_STEP_CONFIGS.FILE_VALIDATION,
-  RESTORE_STEP_CONFIGS.FILE_EXTRACTION,
-  ...DEFAULT_RESTORE_STEPS
-]
+export const LOCAL_RESTORE_STEPS: StepConfig[] = [...DEFAULT_RESTORE_STEPS]
 
-export const NETWORK_RESTORE_STEPS: StepConfig[] = [
-  RESTORE_STEP_CONFIGS.NETWORK_DISCOVERY,
-  RESTORE_STEP_CONFIGS.NETWORK_CONNECT,
-  RESTORE_STEP_CONFIGS.NETWORK_DOWNLOAD,
-  ...DEFAULT_RESTORE_STEPS
-]
+export const NETWORK_RESTORE_STEPS: StepConfig[] = [...DEFAULT_RESTORE_STEPS]
 
 const createStepsFromConfig = (stepConfigs: StepConfig[], t: (key: string) => string): RestoreStep[] => {
   return stepConfigs.map(config => ({
