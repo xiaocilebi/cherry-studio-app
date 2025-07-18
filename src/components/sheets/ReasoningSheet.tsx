@@ -145,12 +145,12 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
         })
       }
 
-      ;(ref as React.MutableRefObject<BottomSheetModal>)?.current?.dismiss()
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
 
     const sheetOptions = supportedOptions.map(option => ({
       value: option,
-      label: t(`assistants.settings.reasoning.${option === 'auto' ? 'default' : option}`),
+      label: t(`assistants.settings.reasoning.${option === 'auto' ? 'auto' : option}`),
       icon: createThinkingIcon(option),
       isSelected: currentReasoningEffort === option,
       action: () => onValueChange(option)
