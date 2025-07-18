@@ -24,7 +24,11 @@ const AssistantDetails: React.FC<AssistantDetailsProps> = ({ assistant, onEdit }
           <Text fontSize={18} fontWeight="bold">
             {assistant.name}
           </Text>
-          {assistant.model && <Text color="$gray10">@{assistant.model?.name}</Text>}
+          {assistant.model && (
+            <Text color="$gray10" ellipsizeMode="tail">
+              @{assistant.model?.name}
+            </Text>
+          )}
         </YStack>
       </XStack>
       <XStack
@@ -68,7 +72,14 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
     <Popover open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
         <Button chromeless iconAfter={<ChevronDown size={16} />}>
-          <Text fontWeight="bold">{assistant.name}</Text>
+          <YStack alignItems="center" gap={5}>
+            <Text fontSize={18} fontWeight="bold" lineHeight={23}>
+              {assistant.name}
+            </Text>
+            <Text fontSize={12} lineHeight={23}>
+              {assistant.model?.name}
+            </Text>
+          </YStack>
         </Button>
       </Popover.Trigger>
 
