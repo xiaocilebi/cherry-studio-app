@@ -12,13 +12,11 @@ const HomeScreen = () => {
   const { navigateToChatScreen } = useNavigation()
 
   useEffect(() => {
-    console.log('HomeScreen useEffect')
     runAsyncFunction(async () => {
       try {
         const newestTopic = await getNewestTopic()
 
         if (newestTopic) {
-          console.log('HomeScreen navigateToChatScreen', newestTopic.id)
           navigateToChatScreen(newestTopic.id)
         } else {
           const defaultAssistant = await getDefaultAssistant()

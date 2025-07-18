@@ -12,7 +12,6 @@ export function getCurrentTopicId(): string {
 }
 
 export function useTopic(topicId: string) {
-  console.log('useTopic', topicId)
   const query = db.select().from(topicSchema).where(eq(topicSchema.id, topicId))
 
   // add deps https://stackoverflow.com/questions/79258085/drizzle-orm-uselivequery-doesnt-detect-parameters-change

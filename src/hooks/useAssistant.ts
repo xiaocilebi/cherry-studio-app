@@ -24,8 +24,6 @@ export function useAssistant(assistantId: string) {
     }
   }
 
-  console.log('useAssistant', assistantId, rawAssistant)
-
   const processedAssistant = transformDbToAssistant(rawAssistant[0])
 
   return {

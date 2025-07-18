@@ -13,7 +13,6 @@ import { topics } from '../schema'
  * @returns 一个 Topic 对象。
  */
 export function transformDbToTopic(dbRecord: any): Topic {
-  console.log('Transforming DB record to Topic:', dbRecord)
   return {
     id: dbRecord.id,
     assistantId: dbRecord.assistant_id,

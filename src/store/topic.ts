@@ -13,7 +13,6 @@ const topicSlice = createSlice({
   initialState,
   reducers: {
     setCurrentTopicId: (state, action: PayloadAction<string>) => {
-      console.log('setCurrentTopicId', action)
       state.currentTopicId = action.payload
     }
   }
