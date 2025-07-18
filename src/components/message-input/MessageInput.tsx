@@ -14,6 +14,7 @@ import { Assistant, Model, Topic } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { useIsDark } from '@/utils'
+import { getGreenColor } from '@/utils/color'
 import { haptic } from '@/utils/haptic'
 
 import { AddAssetsButton } from './AddAssetsButton'
@@ -74,6 +75,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssista
     return null
   }
 
+  const showBackgroundColor = (assistant.webSearchProviderId || assistant.enableWebSearch) && isReasoning
+
   return (
     <View>
       <YStack gap={10}>
@@ -93,14 +96,21 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssista
         </XStack>
         {/* button */}
         <XStack justifyContent="space-between" alignItems="center">
-          <XStack gap={5} alignItems="center">
+          <XStack gap={10} alignItems="center">
             <AddAssetsButton files={files} setFiles={setFiles} />
-            {(assistant.webSearchProviderId || assistant.enableWebSearch) && (
-              <WebsearchButton assistant={assistant} updateAssistant={updateAssistant} />
-            )}
-            {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
+            <XStack
+              gap={14}
+              paddingHorizontal={showBackgroundColor ? 12 : 0}
+              paddingVertical={10}
+              backgroundColor={showBackgroundColor ? getGreenColor(isDark, 20) : undefined}
+              borderRadius={48}>
+              {(assistant.webSearchProviderId || assistant.enableWebSearch) && (
+                <WebsearchButton assistant={assistant} updateAssistant={updateAssistant} />
+              )}
+              {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
+            </XStack>
           </XStack>
-          <XStack gap={5} alignItems="center">
+          <XStack gap={10} alignItems="center">
             <MentionButton mentions={mentions} setMentions={setMentions} />
             <AnimatePresence exitBeforeEnter>
               {text ? (

@@ -26,7 +26,7 @@ export const AddAssetsButton: React.FC<AddAssetsButtonProps> = ({ files, setFile
 
   return (
     <>
-      <Button chromeless size={24} icon={<AssetsIcon size={24} />} onPress={handlePress} />
+      <Button circular chromeless size={20} icon={<AssetsIcon size={20} />} onPress={handlePress} />
 
       <FileSheet ref={bottomSheetModalRef} files={files} setFiles={setFiles} />
     </>

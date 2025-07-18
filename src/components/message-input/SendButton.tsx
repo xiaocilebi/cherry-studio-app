@@ -7,5 +7,5 @@ interface SendButtonProps {
 }
 
 export const SendButton: React.FC<SendButtonProps> = ({ onSend }) => {
-  return <Button chromeless size={24} icon={<Send size={24} />} onPress={onSend} />
+  return <Button circular chromeless size={20} icon={<Send size={20} />} onPress={onSend} />
 }

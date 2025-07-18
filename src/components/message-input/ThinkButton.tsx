@@ -25,7 +25,7 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const getIcon = () => {
-    const size = 24
+    const size = 20
 
     switch (assistant.settings?.reasoning_effort) {
       case 'auto':
@@ -50,7 +50,7 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
 
   return (
     <>
-      <Button chromeless size={24} icon={getIcon()} onPress={handlePress} />
+      <Button chromeless circular size={20} icon={getIcon()} onPress={handlePress} />
 
       <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
     </>

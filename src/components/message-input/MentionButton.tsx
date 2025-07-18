@@ -30,9 +30,10 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
   return (
     <>
       <Button
+        circular
         chromeless
-        size={24}
-        icon={<AtSign size={24} />}
+        size={20}
+        icon={<AtSign size={20} />}
         color={mentions.length > 0 ? getGreenColor(isDark, 100) : undefined}
         onPress={handlePress}
       />
