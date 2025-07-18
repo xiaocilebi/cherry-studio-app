@@ -4,27 +4,24 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text } from 'tamagui'
 
-import { Assistant, ReasoningEffortOptions } from '@/types/assistant'
+import { Assistant } from '@/types/assistant'
 
 import { ReasoningSheet } from '../sheets/ReasoningSheet'
 
 interface ReasoningSelectProps {
   assistant: Assistant
-  onValueChange: (value: string) => void
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export function ReasoningSelect({ assistant, onValueChange }: ReasoningSelectProps) {
+export function ReasoningSelect({ assistant, updateAssistant }: ReasoningSelectProps) {
   const { t } = useTranslation()
-  const reasoningEffort = assistant?.settings?.reasoning_effort || 'auto'
+
+  const reasoningEffort = assistant?.settings?.reasoning_effort || 'off'
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePresentModalPress = () => {
     bottomSheetModalRef.current?.present()
-  }
-
-  const handleValueChange = (newValue: ReasoningEffortOptions) => {
-    onValueChange?.(newValue)
   }
 
   return (
@@ -47,7 +44,7 @@ export function ReasoningSelect({ assistant, onValueChange }: ReasoningSelectPro
         </Text>
       </Button>
 
-      <ReasoningSheet ref={bottomSheetModalRef} value={reasoningEffort} onValueChange={handleValueChange} />
+      <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
     </>
   )
 }

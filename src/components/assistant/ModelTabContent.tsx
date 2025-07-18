@@ -17,7 +17,7 @@ import { ReasoningSelect } from './ReasoningSelect'
 
 interface ModelTabContentProps {
   assistant: Assistant
-  updateAssistant: (assistant: Assistant) => void
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
 export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentProps) {
@@ -164,10 +164,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         {isReasoning && (
           <SettingRow>
             <Text>{t('assistants.settings.reasoning')}</Text>
-            <ReasoningSelect
-              assistant={assistant}
-              onValueChange={value => handleSettingsChange('reasoning_effort', value)}
-            />
+            <ReasoningSelect assistant={assistant} updateAssistant={updateAssistant} />
           </SettingRow>
         )}
       </SettingGroup>

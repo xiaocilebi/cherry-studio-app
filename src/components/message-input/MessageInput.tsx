@@ -98,20 +98,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssista
             {(assistant.webSearchProviderId || assistant.enableWebSearch) && (
               <WebsearchButton assistant={assistant} updateAssistant={updateAssistant} />
             )}
-            {isReasoning && (
-              <ThinkButton
-                reasoningEffort={assistant.settings?.reasoning_effort}
-                onReasoningEffortChange={async value =>
-                  await updateAssistant({
-                    ...assistant,
-                    settings: {
-                      ...assistant.settings,
-                      reasoning_effort: value
-                    }
-                  })
-                }
-              />
-            )}
+            {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
           </XStack>
           <XStack gap={5} alignItems="center">
             <MentionButton mentions={mentions} setMentions={setMentions} />

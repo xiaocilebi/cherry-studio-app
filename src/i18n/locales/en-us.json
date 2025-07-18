@@ -27,6 +27,7 @@
       "settings.max_tokens": "Enable Max Tokens Limit",
       "settings.max_tokens_value": "Max Tokens Limits",
       "settings.reasoning": "Reasoning Effort",
+      "settings.reasoning.off": "Off",
       "settings.reasoning.auto": "Auto",
       "settings.reasoning.low": "Low",
       "settings.reasoning.medium": "Medium",

@@ -2,9 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { useRef } from 'react'
 import { Button } from 'tamagui'
 
-import { ReasoningEffortOptions } from '@/types/assistant'
-import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
+import { Assistant } from '@/types/assistant'
 
 import {
   MdiLightbulbAutoOutline,
@@ -16,18 +14,17 @@ import {
 import { ReasoningSheet } from '../sheets/ReasoningSheet'
 
 interface ThinkButtonProps {
-  reasoningEffort: ReasoningEffortOptions | undefined
-  onReasoningEffortChange: (value: ReasoningEffortOptions) => void
+  assistant: Assistant
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export const ThinkButton: React.FC<ThinkButtonProps> = ({ reasoningEffort, onReasoningEffortChange }) => {
-  const isDark = useIsDark()
+export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssistant }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const getIcon = () => {
     const size = 24
 
-    switch (reasoningEffort) {
+    switch (assistant.settings?.reasoning_effort) {
       case 'auto':
         return <MdiLightbulbAutoOutline size={size} />
       case 'high':
@@ -46,21 +43,11 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ reasoningEffort, onRea
     bottomSheetModalRef.current?.present()
   }
 
-  const handleValueChange = (newValue: ReasoningEffortOptions) => {
-    onReasoningEffortChange(newValue)
-  }
-
   return (
     <>
-      <Button
-        chromeless
-        size={24}
-        icon={getIcon()}
-        onPress={handlePress}
-        color={reasoningEffort !== undefined ? getGreenColor(isDark, 100) : undefined}
-      />
+      <Button chromeless size={24} icon={getIcon()} onPress={handlePress} />
 
-      <ReasoningSheet ref={bottomSheetModalRef} value={reasoningEffort || 'auto'} onValueChange={handleValueChange} />
+      <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
     </>
   )
 }
