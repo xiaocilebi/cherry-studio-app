@@ -1,5 +1,5 @@
 import { MotiView } from 'moti'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Input, TextArea, YStack } from 'tamagui'
 
@@ -13,6 +13,28 @@ interface PromptTabContentProps {
 
 export function PromptTabContent({ assistant, updateAssistant }: PromptTabContentProps) {
   const { t } = useTranslation()
+
+  const [formData, setFormData] = useState({
+    name: assistant?.name || '',
+    prompt: assistant?.prompt || ''
+  })
+
+  useEffect(() => {
+    setFormData({
+      name: assistant?.name || '',
+      prompt: assistant?.prompt || ''
+    })
+  }, [assistant])
+
+  const handleBlur = () => {
+    if (formData.name !== assistant.name || formData.prompt !== assistant.prompt) {
+      updateAssistant({
+        ...assistant,
+        name: formData.name,
+        prompt: formData.prompt
+      })
+    }
+  }
 
   return (
     <MotiView
@@ -32,8 +54,9 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
           height={49}
           padding={16}
           placeholder={t('assistants.name')}
-          value={assistant?.name}
-          onChangeText={name => updateAssistant({ ...assistant, name })}
+          value={formData.name}
+          onChangeText={name => setFormData(prev => ({ ...prev, name }))}
+          onBlur={handleBlur}
         />
       </YStack>
       <YStack width="100%" gap={8} flex={1}>
@@ -42,10 +65,11 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
           flex={1}
           padding={15}
           placeholder={t('common.prompt')}
-          value={assistant?.prompt}
           multiline
-          onChangeText={prompt => updateAssistant({ ...assistant, prompt })}
           verticalAlign="top"
+          value={formData.prompt}
+          onChangeText={prompt => setFormData(prev => ({ ...prev, prompt }))}
+          onBlur={handleBlur}
         />
       </YStack>
     </MotiView>
