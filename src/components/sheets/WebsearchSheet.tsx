@@ -1,5 +1,5 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react' // REMOVED: useState
 import React from 'react'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
@@ -10,7 +10,7 @@ import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface WebsearchSheetProps {
   providerId?: string
-  setProviderId: (providerId: string) => void
+  setProviderId: (providerId: string | undefined) => void
   providers: WebSearchProvider[]
 }
 
@@ -18,18 +18,17 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
   ({ providers, providerId, setProviderId }, ref) => {
     const theme = useTheme()
     const isDark = useIsDark()
-    const [provider, setProvider] = useState<WebSearchProvider | undefined>(providers.find(p => p.id === providerId))
 
-    // 添加背景组件渲染函数
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
     )
 
-    const handleProviderToggle = async (providerId: string) => {
-      const newProvider = providers.find(p => p.id === providerId)
-      if (!newProvider) return
-      setProvider(newProvider)
-      setProviderId(newProvider?.id)
+    const handleProviderToggle = (id: string) => {
+      if (id === providerId) {
+        setProviderId(undefined)
+      } else {
+        setProviderId(id)
+      }
     }
 
     return (
@@ -55,14 +54,14 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
                 chromeless
                 paddingHorizontal={8}
                 paddingVertical={8}
-                backgroundColor={provider?.id === p.id ? (isDark ? '$green20Dark' : '$green20Light') : 'transparent'}>
+                backgroundColor={providerId === p.id ? (isDark ? '$green20Dark' : '$green20Light') : 'transparent'}>
                 <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
                   <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
-                    {/* Model icon */}
+                    {/* Provider icon */}
                     <XStack justifyContent="center" alignItems="center" flexShrink={0}>
                       <WebsearchProviderIcon provider={p} />
                     </XStack>
-                    {/* Model name */}
+                    {/* Provider name */}
                     <Text numberOfLines={1} ellipsizeMode="tail" flex={1}>
                       {p.name}
                     </Text>

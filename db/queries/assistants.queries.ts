@@ -57,7 +57,7 @@ function transformAssistantToDb(assistant: Assistant): any {
     default_model: assistant.defaultModel ? JSON.stringify(assistant.defaultModel) : null,
     settings: assistant.settings ? JSON.stringify(assistant.settings) : null,
     enable_web_search: assistant.enableWebSearch ? 1 : 0,
-    websearch_provider_id: assistant.webSearchProviderId,
+    websearch_provider_id: assistant.webSearchProviderId === undefined ? null : assistant.webSearchProviderId,
     enable_generate_image: assistant.enableGenerateImage ? 1 : 0,
     // mcp_servers: assistant.mcpServers ? JSON.stringify(assistant.mcpServers) : null,
     knowledge_recognition: assistant.knowledgeRecognition,
