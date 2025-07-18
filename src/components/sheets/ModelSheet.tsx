@@ -139,8 +139,12 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                     chromeless
                     paddingHorizontal={8}
                     paddingVertical={8}
-                    backgroundColor={
+                    borderWidth={1}
+                    borderColor={
                       selectedModels.includes(item.value) ? (isDark ? '$green20Dark' : '$green20Light') : 'transparent'
+                    }
+                    backgroundColor={
+                      selectedModels.includes(item.value) ? (isDark ? '$green10Dark' : '$green10Light') : 'transparent'
                     }>
                     <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
                       <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
