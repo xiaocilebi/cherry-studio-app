@@ -395,6 +395,7 @@
       },
       "websearch": {
         "empty": "No Provider yet...",
+        "empty.description": "Click Button To Add Provider",
         "api_service": "API Service",
         "api_host": "API Host",
         "api_host.placeholder": "Please enter API host",

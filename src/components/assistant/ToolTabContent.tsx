@@ -84,7 +84,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
         ref={bottomSheetModalRef}
         providerId={providerId}
         setProviderId={setProviderId}
-        providers={apiProviders}
+        providers={apiProviders.filter(p => p.apiKey)}
       />
     </MotiView>
   )
