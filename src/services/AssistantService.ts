@@ -106,7 +106,7 @@ export async function createAssistant() {
     name: i18n.t('assistant.default.name'),
     prompt: i18n.t('assistant.default.prompt'),
     topics: [],
-    type: 'assistant'
+    type: 'external'
   }
 
   await saveAssistant(newAssistant)
@@ -119,7 +119,7 @@ export function createBlankAssistant() {
     name: 'Blank Assistant',
     prompt: '',
     topics: [],
-    type: 'assistant'
+    type: 'external'
   }
   return blankAssistant
 }

@@ -26,8 +26,8 @@ async function getFileContent(file: FileType) {
 async function getMessageParam(message: Message): Promise<MessageItem[]> {
   const param: MessageItem[] = []
 
-  const content = getMainTextContent(message)
-  const files = findFileBlocks(message)
+  const content = await getMainTextContent(message)
+  const files = await findFileBlocks(message)
 
   param.push({
     role: message.role,
@@ -118,7 +118,7 @@ export async function estimateUserPromptUsage({
  * @returns {Promise<Usage>} 返回一个 Usage 对象，包含 prompt_tokens、completion_tokens、total_tokens
  */
 export async function estimateMessageUsage(message: Partial<Message>): Promise<Usage> {
-  const fileBlocks = findFileBlocks(message as Message)
+  const fileBlocks = await findFileBlocks(message as Message)
   const files = fileBlocks.map(f => f.file)
 
   let imageTokens = 0
