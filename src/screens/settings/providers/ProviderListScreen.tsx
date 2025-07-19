@@ -26,13 +26,10 @@ export default function ProviderListScreen() {
   const [selectedProviderType, setSelectedProviderType] = useState<string | undefined>(undefined)
   const [providerName, setProviderName] = useState('')
 
-  // --- 新增代码：开始 ---
-  // 功能：根据搜索框中的文本，过滤供应商列表
-  // 逻辑：检查每个供应商的名称 (p.name) 是否包含搜索文本 (searchQuery)，不区分大小写
+
   const filteredProviders = providers.filter(
     p => p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
-  // --- 新增代码：结束 ---
 
   const handleProviderTypeChange = (value: string) => {
     setSelectedProviderType(value)
@@ -83,8 +80,6 @@ export default function ProviderListScreen() {
             <CustomRadialGradientBackground style={{ radius: 2 }}>
               <ScrollView backgroundColor="$colorTransparent">
                 <SettingGroup>
-                  {/* --- 修改代码：将渲染的列表从 providers 改为经过搜索过滤后的 filteredProviders --- */}
-                  {/* --- 如果过滤后列表为空，此处将不会渲染任何内容 --- */}
                   {filteredProviders.map(p => (
                     <ProviderItem key={p.id} provider={p} mode="checked" />
                   ))}
