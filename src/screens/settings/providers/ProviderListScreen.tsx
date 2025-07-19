@@ -26,6 +26,11 @@ export default function ProviderListScreen() {
   const [selectedProviderType, setSelectedProviderType] = useState<string | undefined>(undefined)
   const [providerName, setProviderName] = useState('')
 
+
+  const filteredProviders = providers.filter(
+    p => p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   const handleProviderTypeChange = (value: string) => {
     setSelectedProviderType(value)
   }
@@ -75,7 +80,7 @@ export default function ProviderListScreen() {
             <CustomRadialGradientBackground style={{ radius: 2 }}>
               <ScrollView backgroundColor="$colorTransparent">
                 <SettingGroup>
-                  {providers.map(p => (
+                  {filteredProviders.map(p => (
                     <ProviderItem key={p.id} provider={p} mode="checked" />
                   ))}
                 </SettingGroup>

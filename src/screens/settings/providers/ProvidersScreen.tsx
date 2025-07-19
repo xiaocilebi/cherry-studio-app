@@ -3,6 +3,7 @@ import { Plus } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
+
 import { ScrollView, useTheme, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
@@ -21,6 +22,10 @@ export default function ProvidersScreen() {
   const navigation = useNavigation<NavigationProps>()
   const [searchQuery, setSearchQuery] = useState('')
   const { providers, isLoading } = useAllProviders()
+
+  const displayedProviders = providers
+    .filter(p => p.enabled)
+    .filter(p => p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
   const onAddProvider = () => {
     navigation.navigate('ProviderListScreen')
@@ -52,6 +57,7 @@ export default function ProvidersScreen() {
       <SettingContainer>
         <SearchInput placeholder={t('settings.provider.search')} value={searchQuery} onChangeText={setSearchQuery} />
 
+
         {providers.length === 0 ? (
           <EmptyModelView onAddModel={onAddProvider} />
         ) : (
@@ -60,11 +66,9 @@ export default function ProvidersScreen() {
             <CustomRadialGradientBackground style={{ radius: 2 }}>
               <ScrollView backgroundColor="$colorTransparent" showsVerticalScrollIndicator={false}>
                 <SettingGroup>
-                  {providers
-                    .filter(p => p.enabled)
-                    .map(p => (
-                      <ProviderItem key={p.id} provider={p} mode="enabled" />
-                    ))}
+                  {displayedProviders.map(p => (
+                    <ProviderItem key={p.id} provider={p} mode="enabled" />
+                  ))}
                 </SettingGroup>
               </ScrollView>
             </CustomRadialGradientBackground>
