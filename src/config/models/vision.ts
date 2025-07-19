@@ -9,8 +9,10 @@ const visionAllowedModels = [
   'gemini-2\\.5',
   'gemini-exp',
   'claude-3',
+  'claude-sonnet-4',
+  'claude-opus-4',
   'vision',
-  'glm-4v',
+  'glm-4(?:\\.\\d+)?v(?:-[\\w-]+)?',
   'qwen-vl',
   'qwen2-vl',
   'qwen2.5-vl',
@@ -29,7 +31,10 @@ const visionAllowedModels = [
   'o4(?:-[\\w-]+)?',
   'deepseek-vl(?:[\\w-]+)?',
   'kimi-latest',
-  'gemma-3(?:-[\\w-]+)'
+  'gemma-3(?:-[\\w-]+)',
+  'doubao-seed-1[.-]6(?:-[\\w-]+)?',
+  'kimi-thinking-preview',
+  `gemma3(?:-[\\w-]+)`
 ]
 
 const visionExcludedModels = [
@@ -48,6 +53,7 @@ export const VISION_REGEX = new RegExp(
   'i'
 )
 
+// Updated with more comprehensive logic
 export function isVisionModel(model: Model): boolean {
   if (!model) {
     return false
@@ -57,9 +63,13 @@ export function isVisionModel(model: Model): boolean {
   //   return false
   // }
 
-  if (model.provider === 'doubao') {
-    return VISION_REGEX.test(model.name) || model.type?.includes('vision') || false
+  if (model.provider === 'doubao' || model.id.includes('doubao')) {
+    return VISION_REGEX.test(model.name) || VISION_REGEX.test(model.id) || model.type?.includes('vision') || false
   }
 
   return VISION_REGEX.test(model.id) || model.type?.includes('vision') || false
+}
+
+export const isVisionModels = (models: Model[]) => {
+  return models.every(model => isVisionModel(model))
 }

@@ -16,7 +16,9 @@ export const FUNCTION_CALLING_MODELS = [
   'glm-4(?:-[\\w-]+)?',
   'learnlm(?:-[\\w-]+)?',
   'gemini(?:-[\\w-]+)?', // 提前排除了gemini的嵌入模型
-  'grok-3(?:-[\\w-]+)?'
+  'grok-3(?:-[\\w-]+)?',
+  'doubao-seed-1[.-]6(?:-[\\w-]+)?',
+  'kimi-k2(?:-[\\w-]+)?'
 ]
 
 const FUNCTION_CALLING_EXCLUDED_MODELS = [
@@ -24,7 +26,8 @@ const FUNCTION_CALLING_EXCLUDED_MODELS = [
   'imagen(?:-[\\w-]+)?',
   'o1-mini',
   'o1-preview',
-  'AIDC-AI/Marco-o1'
+  'AIDC-AI/Marco-o1',
+  'gemini-1(?:\\.[\\w-]+)?'
 ]
 
 export const FUNCTION_CALLING_REGEX = new RegExp(
@@ -32,7 +35,16 @@ export const FUNCTION_CALLING_REGEX = new RegExp(
   'i'
 )
 
-export function isFunctionCallingModel(model: Model): boolean {
+export const CLAUDE_SUPPORTED_WEBSEARCH_REGEX = new RegExp(
+  `\\b(?:claude-3(-|\\.)(7|5)-sonnet(?:-[\\w-]+)|claude-3(-|\\.)5-haiku(?:-[\\w-]+)|claude-sonnet-4(?:-[\\w-]+)?|claude-opus-4(?:-[\\w-]+)?)\\b`,
+  'i'
+)
+
+export function isFunctionCallingModel(model?: Model): boolean {
+  if (!model) {
+    return false
+  }
+
   if (model.type?.includes('function_calling')) {
     return true
   }
@@ -43,6 +55,10 @@ export function isFunctionCallingModel(model: Model): boolean {
 
   if (model.provider === 'qiniu') {
     return ['deepseek-v3-tool', 'deepseek-v3-0324', 'qwq-32b', 'qwen2.5-72b-instruct'].includes(model.id)
+  }
+
+  if (model.provider === 'doubao' || model.id.includes('doubao')) {
+    return FUNCTION_CALLING_REGEX.test(model.id) || FUNCTION_CALLING_REGEX.test(model.name)
   }
 
   if (['deepseek', 'anthropic'].includes(model.provider)) {

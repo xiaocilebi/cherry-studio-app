@@ -14,7 +14,7 @@ export function isEmbeddingModel(model: Model): boolean {
     return false
   }
 
-  if (model.provider === 'doubao') {
+  if (model.provider === 'doubao' || model.id.includes('doubao')) {
     return EMBEDDING_REGEX.test(model.name)
   }
 
