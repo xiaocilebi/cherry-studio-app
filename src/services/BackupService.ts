@@ -1,6 +1,7 @@
 import { Directory, File, Paths } from 'expo-file-system/next'
 import { unzip } from 'react-native-zip-archive'
 
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { BackupData, ExportIndexedData, ExportReduxData } from '@/types/databackup'
 import { FileType } from '@/types/file'
@@ -12,6 +13,7 @@ import { upsertMessages } from '../../db/queries/messages.queries'
 import { upsertProviders } from '../../db/queries/providers.queries'
 import { upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
 import { upsertTopics } from './TopicService'
+const logger = loggerService.withContext('Backup Service')
 
 const fileStorageDir = new Directory(Paths.cache, 'Files')
 
@@ -91,7 +93,7 @@ export async function restore(backupFile: Omit<FileType, 'md5'>, onProgress: OnP
     await restoreIndexedDbData(indexedData, onProgress)
     await restoreReduxData(reduxData, onProgress)
   } catch (error) {
-    console.log('restore error: ', error)
+    logger.error('restore error: ', error)
     throw error
   }
 }

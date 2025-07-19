@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import { RestoreStep } from '@/components/settings/data/RestoreProgressModal'
 import { ProgressUpdate, restore, RestoreStepId } from '@/services/BackupService'
+import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
 import { uuid } from '@/utils'
 import { getFileType } from '@/utils/file'
+const logger = loggerService.withContext('useRestore')
 
 // 定义步骤配置类型
 export interface StepConfig {
@@ -139,7 +141,7 @@ export function useRestore(options: UseRestoreOptions = {}) {
       await customRestoreFunction(fileObject, handleProgressUpdate)
       setOverallStatus('success')
     } catch (err) {
-      console.log('Error during restore process:', err)
+      logger.error('Error during restore process:', err)
       handleError()
     }
   }

@@ -1,11 +1,13 @@
 import { eq } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { Topic } from '@/types/assistant'
 import { Message } from '@/types/message'
 import { safeJsonParse } from '@/utils/json'
 
 import { db } from '..'
 import { topics } from '../schema'
+const logger = loggerService.withContext('DataBase Topics')
 
 /**
  * 将数据库记录转换为 Topic 类型。
@@ -63,7 +65,7 @@ export async function getTopicById(topicId: string): Promise<Topic | undefined> 
     const topic = transformDbToTopic(result[0])
     return topic
   } catch (error) {
-    console.error(`Error getting topic by ID ${topicId}:`, error)
+    logger.error(`Error getting topic by ID ${topicId}:`, error)
     throw error
   }
 }
@@ -95,7 +97,7 @@ export async function updateTopicMessages(topicId: string, messages: Message[]) 
     // 更新数据库中的主题记录
     await db.update(topics).set(dbRecord).where(eq(topics.id, topicId))
   } catch (error) {
-    console.error(`Error updating topic messages for topic ID ${topicId}:`, error)
+    logger.error(`Error updating topic messages for topic ID ${topicId}:`, error)
     throw error
   }
 }
@@ -127,7 +129,7 @@ export async function upsertTopics(topicsToUpsert: Topic | Topic[]): Promise<Top
     const flattenedResults = results.flat()
     return flattenedResults.map(transformDbToTopic)
   } catch (error) {
-    console.error('Error upserting topic(s):', error)
+    logger.error('Error upserting topic(s):', error)
     throw error
   }
 }
@@ -152,7 +154,7 @@ export async function getTopics(): Promise<Topic[]> {
     // 按 updatedAt 排序，最新的在前面
     return topicsWithMessages.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
   } catch (error) {
-    console.error('Error getting topics:', error)
+    logger.error('Error getting topics:', error)
     throw error
   }
 }
@@ -161,7 +163,7 @@ export async function deleteTopicById(topicId: string): Promise<void> {
   try {
     await db.delete(topics).where(eq(topics.id, topicId))
   } catch (error) {
-    console.error(`Error deleting topic with ID ${topicId}:`, error)
+    logger.error(`Error deleting topic with ID ${topicId}:`, error)
     throw error
   }
 }

@@ -1,5 +1,7 @@
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { MCPTool } from '@/types/tool'
+const logger = loggerService.withContext('Prompt')
 
 export const buildSystemPrompt = async (
   userSystemPrompt: string,
@@ -30,7 +32,7 @@ export const buildSystemPrompt = async (
     //     const language = store.getState().settings.language
     //     userSystemPrompt = userSystemPrompt.replace(/{{language}}/g, language)
     //   } catch (error) {
-    //     console.error('Failed to get language:', error)
+    //     logger.error('Failed to get language:', error)
     //     userSystemPrompt = userSystemPrompt.replace(/{{language}}/g, 'Unknown System Language')
     //   }
     // }
@@ -39,7 +41,7 @@ export const buildSystemPrompt = async (
       try {
         userSystemPrompt = userSystemPrompt.replace(/{{model_name}}/g, assistant?.model?.name || 'Unknown Model')
       } catch (error) {
-        console.error('Failed to get model name:', error)
+        logger.error('Failed to get model name:', error)
         userSystemPrompt = userSystemPrompt.replace(/{{model_name}}/g, 'Unknown Model')
       }
     }
@@ -50,7 +52,7 @@ export const buildSystemPrompt = async (
     //     const username = store.getState().settings.userName || 'Unknown Username'
     //     userSystemPrompt = userSystemPrompt.replace(/{{username}}/g, username)
     //   } catch (error) {
-    //     console.error('Failed to get username:', error)
+    //     logger.error('Failed to get username:', error)
     //     userSystemPrompt = userSystemPrompt.replace(/{{username}}/g, 'Unknown Username')
     //   }
     // }

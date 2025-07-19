@@ -1,11 +1,13 @@
 import { eq } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { Message } from '@/types/message'
 import { safeJsonParse } from '@/utils/json'
 
 import { db } from '..'
 import { messages } from '../schema'
 import { getBlocksIdByMessageId } from './messageBlocks.queries'
+const logger = loggerService.withContext('DataBase Messages')
 
 /**
  * 将数据库记录转换为 Message 类型。
@@ -102,7 +104,7 @@ export async function getMessageById(messageId: string): Promise<Message | undef
     message.blocks = blocks
     return message
   } catch (error) {
-    console.error(`Error getting message by ID ${messageId}:`, error)
+    logger.error(`Error getting message by ID ${messageId}:`, error)
     throw error
   }
 }
@@ -132,7 +134,7 @@ export async function getMessagesByTopicId(topicId: string): Promise<Message[]> 
 
     return messagesResult
   } catch (error) {
-    console.error(`Error getting messages for topic ID ${topicId}:`, error)
+    logger.error(`Error getting messages for topic ID ${topicId}:`, error)
     throw error
   }
 }
@@ -166,7 +168,7 @@ export async function upsertMessages(messagesToUpsert: Message | Message[]): Pro
 
     return flattenedResults.map(transformDbToMessage)
   } catch (error) {
-    console.error('Error upserting message(s):', error)
+    logger.error('Error upserting message(s):', error)
     throw error
   }
 }
@@ -175,7 +177,7 @@ export async function removeAllMessages() {
   try {
     await db.delete(messages)
   } catch (error) {
-    console.error('Error removing all messages:', error)
+    logger.error('Error removing all messages:', error)
     throw error
   }
 }

@@ -16,10 +16,12 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { CustomSwitch } from '@/components/ui/Switch'
 import { useProvider } from '@/hooks/useProviders'
+import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
 import { NavigationProps, RootStackParamList } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getGreenColor } from '@/utils/color'
+const logger = loggerService.withContext('ProviderSettingsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ProviderSettingsScreen'>
 
@@ -67,7 +69,7 @@ export default function ProviderSettingsScreen() {
   }
 
   const onSettingModel = (model: Model) => {
-    console.log('[ProviderSettingsPage] onSettingModel', model)
+    logger.info('[ProviderSettingsPage] onSettingModel', model)
   }
 
   const handleEnabledChange = async (checked: boolean) => {
@@ -77,7 +79,7 @@ export default function ProviderSettingsScreen() {
       try {
         await updateProvider(updatedProvider)
       } catch (error) {
-        console.error('Failed to save provider:', error)
+        logger.error('Failed to save provider:', error)
       }
     }
   }

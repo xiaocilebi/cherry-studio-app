@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
 import { ISheet } from '@/components/ui/Sheet'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('Add Model Sheet')
 
 interface AddModelSheetProps {
   bottomSheetRef: React.RefObject<BottomSheet | null>
   isOpen: boolean
   onClose: () => void
-  // Add any other props needed, e.g., for provider ID if adding model to a specific provider
-  // onAddModel: (modelData: any) => void; // Callback function when model is added
 }
 
 export function AddModelSheet({
@@ -27,21 +27,17 @@ export function AddModelSheet({
 
   const handleAddModel = () => {
     if (!modelId.trim()) {
-      // Handle error (e.g., show a toast message)
-      console.warn('Model ID is required.')
+      logger.warn('Model ID is required.')
       return
     }
 
-    // Construct model data object
     const newModelData = {
       id: modelId,
       name: modelName,
       group: modelGroup
-      // Add other model properties here
     }
-    // onAddModel(newModelData);
-    console.log('Adding model:', newModelData) // Placeholder for actual add logic
-    onClose() // Close the sheet after adding
+
+    onClose()
   }
 
   return (

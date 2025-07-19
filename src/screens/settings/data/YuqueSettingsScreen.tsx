@@ -4,13 +4,15 @@ import { Alert } from 'react-native'
 
 import { useDataBackupProvider } from '@/hooks/useDataBackup'
 import ProviderSettingsScreen, { ProviderConfig } from '@/screens/settings/data/DataProviderSettingsScreen'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('YuqueSettingsScreen')
 
 export default function YuqueSettingsScreen() {
   const { t } = useTranslation()
   const { provider, updateProvider } = useDataBackupProvider('yuque')
 
   async function checkConnection() {
-    console.log('Checking Yuque connection...')
+    logger.info('Checking Yuque connection...')
 
     if (!provider || !provider.yuqueToken) {
       Alert.alert(t('settings.data.yuque.check.empty_token'))

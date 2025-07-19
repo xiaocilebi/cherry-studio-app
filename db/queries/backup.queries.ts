@@ -1,5 +1,9 @@
+import { loggerService } from '@/services/LoggerService'
+
 import { db } from '../index'
 import { backup_providers } from '../schema'
+
+const logger = loggerService.withContext('DataBase Backup')
 
 export function transformDbToDataBackupProvider(dbRecord: any) {
   if (!dbRecord) return null
@@ -94,7 +98,7 @@ export async function upsertDataBackupProviders(providersToUpsert: any[]) {
 
     return await Promise.all(upsertPromises)
   } catch (error) {
-    console.error('Error upserting backup providers:', error)
+    logger.error('Error upserting backup providers:', error)
     throw error
   }
 }

@@ -1,6 +1,7 @@
 import { getSystemProviders } from '@/config/providers'
 import { DEFAULT_CONTEXTCOUNT, DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE } from '@/constants'
 import i18n from '@/i18n'
+import { loggerService } from '@/services/LoggerService'
 import { Assistant, AssistantSettings, Model, Provider, Topic } from '@/types/assistant'
 import { uuid } from '@/utils'
 
@@ -11,6 +12,7 @@ import {
   upsertAssistants
 } from '../../db/queries/assistants.queries'
 import { getProviderById } from '../../db/queries/providers.queries'
+const logger = loggerService.withContext('Assistant Service')
 
 export async function getDefaultAssistant(): Promise<Assistant> {
   return await getAssistantById('default')
@@ -20,7 +22,7 @@ export async function getAssistantById(assistantId: string): Promise<Assistant> 
   const assistant = await _getAssistantById(assistantId)
 
   if (!assistant) {
-    console.error(`Assistant with ID ${assistantId} not found`)
+    logger.error(`Assistant with ID ${assistantId} not found`)
     throw new Error(`Assistant with ID ${assistantId} not found`)
   }
 
@@ -95,7 +97,7 @@ export async function saveAssistant(assistant: Assistant): Promise<void> {
   try {
     await upsertAssistants([assistant])
   } catch (error) {
-    console.error('Error saving assistant:', error)
+    logger.error('Error saving assistant:', error)
     throw new Error('Failed to save assistant')
   }
 }
@@ -128,7 +130,7 @@ export async function getStarredAssistants(): Promise<Assistant[]> {
   try {
     return await _getStarredAssistants()
   } catch (error) {
-    console.error('Failed to get starred assistants:', error)
+    logger.error('Failed to get starred assistants:', error)
     return []
   }
 }
@@ -137,7 +139,7 @@ export async function deleteAssistantById(assistantId: string) {
   try {
     await _deleteAssistantById(assistantId)
   } catch (error) {
-    console.error('Failed to delete Assistant', error)
+    logger.error('Failed to delete Assistant', error)
   }
 }
 
@@ -146,7 +148,7 @@ export async function getRecentAssistants(): Promise<Assistant[]> {
     const starredAssistants = await getStarredAssistants()
     return starredAssistants.filter(assistant => assistant.topics.length > 0)
   } catch (error) {
-    console.error('Failed to get starred assistants:', error)
+    logger.error('Failed to get starred assistants:', error)
     return []
   }
 }

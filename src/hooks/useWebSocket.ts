@@ -3,6 +3,9 @@ import { File, Paths } from 'expo-file-system/next'
 import { useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('useWebSocket')
+
 // 定义 WebSocket 连接状态的枚举
 export enum WebSocketStatus {
   IDLE = 'idle',
@@ -55,14 +58,14 @@ export function useWebSocket() {
       file.create()
       file.write(completeData)
 
-      console.log(`File ${file.name} saved successfully`)
-      console.log(`File Path: ${file.uri}`)
+      logger.info(`File ${file.name} saved successfully`)
+      logger.info(`File Path: ${file.uri}`)
 
       // 清理缓存数据
       zipFileChunk.current = { chunk: [], size: 0 }
       zipFileInfo.current = { filename: '', totalSize: 0 }
     } catch (error) {
-      console.error('Failed to write zip file:', error)
+      logger.error('Failed to write zip file:', error)
       setStatus(WebSocketStatus.ERROR)
     }
   }
@@ -74,38 +77,38 @@ export function useWebSocket() {
 
     try {
       setStatus(WebSocketStatus.CONNECTING)
-      console.log('ip', ip)
+      logger.info('ip', ip)
       socket.current = io(`http://${ip}`, { timeout: 5000, reconnection: true })
 
       // 连接客户端
       socket.current.on('connect', () => {
-        console.log('connected to WebSocket server')
+        logger.info('connected to WebSocket server')
         setStatus(WebSocketStatus.CONNECTED)
         socket.current?.emit('message', 'This is from iPhone')
       })
 
       // 接收连接成功消息
       socket.current.on('message_received', (data: { success: boolean }) => {
-        console.log('message received from WebSocket server:', data)
+        logger.info('message received from WebSocket server:', data)
       })
 
       // 断开连接
       socket.current.on('disconnect', () => {
-        console.log('disconnected from WebSocket server')
+        logger.info('disconnected from WebSocket server')
         setStatus(WebSocketStatus.DISCONNECTED)
         socket.current = null
       })
 
       // 连接错误
       socket.current.on('connect_error', error => {
-        console.error('WebSocket connection error:', error)
+        logger.error('WebSocket connection error:', error)
         setStatus(WebSocketStatus.ERROR)
         socket.current = null
       })
 
       // 文件接收开始
       socket.current.on('zip-file-start', (data: { filename: string; totalSize: number }) => {
-        console.log('zip-file-start:', data)
+        logger.info('zip-file-start:', data)
         setStatus(WebSocketStatus.ZIP_FILE_START)
         zipFileInfo.current = data
         setFilename(data.filename)
@@ -119,12 +122,12 @@ export function useWebSocket() {
         zipFileChunk.current.size += chunkData.length
         const progress = Math.min((zipFileChunk.current.size / zipFileInfo.current.totalSize) * 100, 100)
         setProgress(progress)
-        console.log('zip-file-chunk:', Math.floor(progress), '%')
+        logger.info('zip-file-chunk:', Math.floor(progress), '%')
       })
 
       // 文件接收结束
       socket.current.on('zip-file-end', async () => {
-        console.log('zip-file-end')
+        logger.info('zip-file-end')
 
         // 写入文件
         await writeZipFile()
@@ -132,7 +135,7 @@ export function useWebSocket() {
         setProgress(100)
       })
     } catch (error) {
-      console.error('Failed to get IP address:', error)
+      logger.error('Failed to get IP address:', error)
       setStatus(WebSocketStatus.ERROR)
     }
   }

@@ -1,3 +1,5 @@
+// Define the structure for the callbacks that the StreamProcessor will invoke
+import { loggerService } from '@/services/LoggerService'
 import { ExternalToolResult } from '@/types'
 import { Chunk, ChunkType } from '@/types/chunk'
 import { GenerateImageResponse } from '@/types/image'
@@ -5,7 +7,7 @@ import { MCPToolResponse } from '@/types/mcp'
 import { Response } from '@/types/message'
 import { AssistantMessageStatus } from '@/types/message'
 import { WebSearchResponse } from '@/types/websearch'
-// Define the structure for the callbacks that the StreamProcessor will invoke
+const logger = loggerService.withContext('StreamProcessingService')
 
 export interface StreamProcessorCallbacks {
   // LLM response created
@@ -138,11 +140,11 @@ export function createStreamProcessor(callbacks: StreamProcessorCallbacks = {}) 
 
         default: {
           // Handle unknown chunk types or log an error
-          console.warn(`Unknown chunk type: ${data.type}`)
+          logger.warn(`Unknown chunk type: ${data.type}`)
         }
       }
     } catch (error) {
-      console.error('Error processing stream chunk:', error)
+      logger.error('Error processing stream chunk:', error)
       callbacks.onError?.(error)
     }
   }

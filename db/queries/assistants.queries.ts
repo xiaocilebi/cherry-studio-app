@@ -1,11 +1,14 @@
 import { eq } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { safeJsonParse } from '@/utils/json'
 
 import { db } from '..'
 import { assistants } from '../schema'
 import { transformDbToTopic } from './topics.queries'
+
+const logger = loggerService.withContext('DataBase Assistants')
 
 /**
  * 将数据库记录转换为 Assistant 类型。
@@ -74,7 +77,7 @@ export async function getAllAssistants(): Promise<Assistant[]> {
     const result = await db.select().from(assistants)
     return result.map(transformDbToAssistant)
   } catch (error) {
-    console.error('Error getting all assistants:', error)
+    logger.error('Error getting all assistants:', error)
     throw error
   }
 }
@@ -89,7 +92,7 @@ export async function getStarredAssistants(): Promise<Assistant[]> {
     })
     return results.map(transformDbToAssistant)
   } catch (error) {
-    console.error('Error getting star assistants:', error)
+    logger.error('Error getting star assistants:', error)
     throw error
   }
 }
@@ -104,7 +107,7 @@ export async function getAssistantById(id: string): Promise<Assistant | null> {
 
     return transformDbToAssistant(result[0])
   } catch (error) {
-    console.error('Error getting assistant by ID:', error)
+    logger.error('Error getting assistant by ID:', error)
     throw error
   }
 }
@@ -129,7 +132,7 @@ export async function upsertAssistants(assistantsToUpsert: Assistant[]) {
     )
     await Promise.all(upsertPromises)
   } catch (error) {
-    console.error('Error upserting assistants:', error)
+    logger.error('Error upserting assistants:', error)
     throw error
   }
 }
@@ -138,7 +141,7 @@ export async function deleteAssistantById(id: string) {
   try {
     await db.delete(assistants).where(eq(assistants.id, id))
   } catch (error) {
-    console.error(`Error deleting assistant with ID ${id}:`, error)
+    logger.error(`Error deleting assistant with ID ${id}:`, error)
     throw error
   }
 }

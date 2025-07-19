@@ -4,8 +4,11 @@ import { ActivityIndicator } from 'react-native'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useNavigation } from '@/hooks/useNavigation'
 import { getDefaultAssistant } from '@/services/AssistantService'
+import { loggerService } from '@/services/LoggerService'
 import { createNewTopic, getNewestTopic } from '@/services/TopicService'
 import { runAsyncFunction } from '@/utils'
+
+const logger = loggerService.withContext('HomeScreen')
 
 // todo: 当侧边栏删除当前主页的topic会进入加载状态
 const HomeScreen = () => {
@@ -24,7 +27,7 @@ const HomeScreen = () => {
           navigateToChatScreen(newTopic.id)
         }
       } catch (error) {
-        console.error('There is some errors in Home Screen', error)
+        logger.error('Get Newest Topic', error)
       }
     })
   }, [])

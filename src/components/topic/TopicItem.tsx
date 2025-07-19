@@ -11,9 +11,11 @@ import { Text, XStack } from 'tamagui'
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import i18n from '@/i18n'
+import { loggerService } from '@/services/LoggerService'
 import { deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Topic } from '@/types/assistant'
 import { useIsDark } from '@/utils'
+const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
 
@@ -53,7 +55,7 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
         }
       }
     } catch (error) {
-      console.error('Delete Topic error', error)
+      logger.error('Delete Topic error', error)
     }
   }
 

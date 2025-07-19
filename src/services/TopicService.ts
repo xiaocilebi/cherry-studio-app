@@ -1,5 +1,6 @@
 import { t } from 'i18next'
 
+import { loggerService } from '@/services/LoggerService'
 import { Assistant, Topic } from '@/types/assistant'
 import { uuid } from '@/utils'
 
@@ -9,6 +10,7 @@ import {
   getTopics as _getTopics,
   upsertTopics as _upsertTopics
 } from '../../db/queries/topics.queries'
+const logger = loggerService.withContext('Topic Service')
 
 export async function createNewTopic(assistant: Assistant): Promise<Topic> {
   const newTopic: Topic = {
@@ -19,7 +21,7 @@ export async function createNewTopic(assistant: Assistant): Promise<Topic> {
     updatedAt: new Date().toISOString(),
     messages: []
   }
-  console.log('createNewTopic', newTopic.id)
+  logger.info('createNewTopic', newTopic.id)
   await _upsertTopics(newTopic)
   return newTopic
 }
@@ -49,7 +51,7 @@ export async function deleteTopicById(topicId: string): Promise<void> {
   try {
     await _deleteTopicById(topicId)
   } catch (error) {
-    console.error('Failed to delete topic:', error)
+    logger.error('Failed to delete topic:', error)
     throw error
   }
 }
@@ -64,7 +66,7 @@ export async function getTopicById(topicId: string): Promise<Topic | null> {
 
     return topic
   } catch (error) {
-    console.error('Failed to get topic by ID:', error)
+    logger.error('Failed to get topic by ID:', error)
     return null
   }
 }
@@ -73,7 +75,7 @@ export async function getTopics(): Promise<Topic[]> {
   try {
     return await _getTopics()
   } catch (error) {
-    console.error('Failed to get topics')
+    logger.error('Failed to get topics', error)
     return []
   }
 }

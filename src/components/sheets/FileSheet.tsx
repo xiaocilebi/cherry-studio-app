@@ -10,10 +10,12 @@ import { Modal, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { uploadFiles } from '@/services/FileService'
+import { loggerService } from '@/services/LoggerService'
 import { FileType, FileTypes } from '@/types/file'
 import { useIsDark, uuid } from '@/utils'
 import { getTextPrimaryColor } from '@/utils/color'
 import { getFileType } from '@/utils/file'
+const logger = loggerService.withContext('File Sheet')
 
 interface FileSheetProps {
   files: FileType[]
@@ -34,7 +36,7 @@ const FileSheet = forwardRef<BottomSheetModal, FileSheetProps>(({ files, setFile
     const cameraPermission = await requestPermission()
 
     if (!cameraPermission.granted) {
-      console.log('Camera permission denied')
+      logger.info('Camera permission denied')
       return
     }
 
@@ -74,7 +76,7 @@ const FileSheet = forwardRef<BottomSheetModal, FileSheetProps>(({ files, setFile
         setFiles([...files, ...uploadedFiles])
       }
     } catch (error) {
-      console.error('Error taking picture:', error)
+      logger.error('Error taking picture:', error)
     } finally {
       setCameraVisible(false)
     }
@@ -109,7 +111,7 @@ const FileSheet = forwardRef<BottomSheetModal, FileSheetProps>(({ files, setFile
       const uploadedFiles = await uploadFiles(_files)
       setFiles([...files, ...uploadedFiles])
     } catch (error) {
-      console.error('Error selecting image:', error)
+      logger.error('Error selecting image:', error)
     } finally {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
@@ -140,7 +142,7 @@ const FileSheet = forwardRef<BottomSheetModal, FileSheetProps>(({ files, setFile
       const uploadedFiles = await uploadFiles(_files)
       setFiles([...files, ...uploadedFiles])
     } catch (error) {
-      console.error('Error selecting file:', error)
+      logger.error('Error selecting file:', error)
     } finally {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }

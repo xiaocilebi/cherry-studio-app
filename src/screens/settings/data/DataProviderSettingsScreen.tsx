@@ -13,6 +13,9 @@ import { ApiCheckSheet } from '@/components/settings/websearch/ApiCheckSheet'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { CustomSwitch } from '@/components/ui/Switch'
 import { useDataBackupProvider } from '@/hooks/useDataBackup'
+import { loggerService } from '@/services/LoggerService'
+import { ApiStatus } from '@/types/assistant'
+const logger = loggerService.withContext('ProviderSettingsScreen')
 
 export type ProviderField = {
   type: 'input' | 'password' | 'switch'
@@ -37,7 +40,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
   const navigation = useNavigation()
 
   const [showApiKey, setShowApiKey] = useState<Record<string, boolean>>({})
-  const [checkLoading, setCheckLoading] = useState(false)
+  const [checkApiStatus, setCheckApiStatus] = useState<ApiStatus>('idle')
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
   const { provider, isLoading, updateProvider } = useDataBackupProvider(config.providerType)
@@ -93,22 +96,24 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
       }
 
       await updateProvider(updatedProvider)
-      console.log('Provider config updated:', key, value)
+      logger.info('Provider config updated:', key, value)
     } catch (error) {
-      console.error('Error updating provider config:', error)
+      logger.error('Error updating provider config:', error)
       Alert.alert(t(`settings.${config.providerType}.update.fail`))
     }
   }
 
   async function checkConnection() {
-    setCheckLoading(true)
+    setCheckApiStatus('processing')
 
     try {
       await config.checkConnectionFn()
+      setCheckApiStatus('success')
     } catch (error) {
+      setCheckApiStatus('error')
       throw error
     } finally {
-      setCheckLoading(false)
+      setCheckApiStatus('idle')
     }
   }
 
@@ -210,7 +215,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
         apiKey={provider[config.fields.find(f => f.type === 'password')?.key || ''] || ''}
         onClose={handleBottomSheetClose}
         onStartModelCheck={checkConnection}
-        loading={checkLoading}
+        checkApiStatus={checkApiStatus}
       />
     </SafeAreaContainer>
   )

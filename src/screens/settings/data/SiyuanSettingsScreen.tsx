@@ -4,13 +4,15 @@ import { Alert } from 'react-native'
 
 import { useDataBackupProvider } from '@/hooks/useDataBackup'
 import ProviderSettingsScreen, { ProviderConfig } from '@/screens/settings/data/DataProviderSettingsScreen'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('SiyuanSettingsScreen')
 
 export default function SiyuanSettingsScreen() {
   const { t } = useTranslation()
   const { provider } = useDataBackupProvider('siyuan')
 
   async function checkConnection() {
-    console.log('Checking Siyuan connection...')
+    logger.info('Checking Siyuan connection...')
 
     if (!provider || !provider.siyuanApiUrl || !provider.siyuanToken) {
       Alert.alert(t('settings.siyuan.check.empty_config'))

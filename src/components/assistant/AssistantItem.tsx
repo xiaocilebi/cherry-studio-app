@@ -11,10 +11,12 @@ import { Stack, Text, XStack, YStack } from 'tamagui'
 
 import i18n from '@/i18n'
 import { deleteAssistantById } from '@/services/AssistantService'
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getTextPrimaryColor, getTextSecondaryColor } from '@/utils/color'
+const logger = loggerService.withContext('Assistant Item')
 
 type TimeFormat = 'time' | 'date'
 
@@ -43,7 +45,7 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, assistant, 
       swipeableRef.current?.close()
       await deleteAssistantById(assistant.id)
     } catch (error) {
-      console.error('Delete Assistant error', error)
+      logger.error('Delete Assistant error', error)
     }
   }
 

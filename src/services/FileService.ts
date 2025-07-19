@@ -1,8 +1,10 @@
 import { Directory, File, Paths } from 'expo-file-system/next'
 
+import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
 
 import { deleteFileById, getAllFiles, getFileById, upsertFiles } from '../../db/queries/files.queries'
+const logger = loggerService.withContext('File Service')
 
 const fileStorageDir = new Directory(Paths.cache, 'Files')
 
@@ -42,7 +44,7 @@ export async function uploadFiles(files: Omit<FileType, 'md5'>[]): Promise<FileT
         path: destinationFile.uri
       }
     } catch (error) {
-      console.error('Error uploading file:', error)
+      logger.error('Error uploading file:', error)
       throw new Error(`Failed to upload file: ${file.name}`)
     }
   })
@@ -65,7 +67,7 @@ async function deleteFile(id: string, force: boolean = false): Promise<void> {
 
     sourceFile.delete()
   } catch (error) {
-    console.error('Error deleting file:', error)
+    logger.error('Error deleting file:', error)
     throw new Error(`Failed to delete file: ${id}`)
   }
 }

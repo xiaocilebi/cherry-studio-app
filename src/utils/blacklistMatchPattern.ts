@@ -1,5 +1,7 @@
+import { loggerService } from '@/services/LoggerService'
 import { WebSearchState } from '@/store/websearch'
 import { WebSearchProviderResponse } from '@/types/websearch'
+const logger = loggerService.withContext('Blacklist Match Pattern')
 
 /*
  * MIT License
@@ -204,7 +206,7 @@ export async function parseSubscribeContent(url: string): Promise<string[]> {
   try {
     // 获取订阅源内容
     const response = await fetch(url)
-    console.log('[parseSubscribeContent] response', response)
+    logger.info('[parseSubscribeContent] response', response)
 
     if (!response.ok) {
       throw new Error('Failed to fetch subscribe content')
@@ -221,7 +223,7 @@ export async function parseSubscribeContent(url: string): Promise<string[]> {
       .map(line => line.trim())
       .filter(pattern => parseMatchPattern(pattern) !== null)
   } catch (error) {
-    console.error('Error parsing subscribe content:', error)
+    logger.error('Error parsing subscribe content:', error)
     throw error
   }
 }
@@ -230,7 +232,7 @@ export async function filterResultWithBlacklist(
   response: WebSearchProviderResponse,
   websearch: WebSearchState
 ): Promise<WebSearchProviderResponse> {
-  console.log('[filterResultWithBlacklist]', response)
+  logger.info('[filterResultWithBlacklist]', response)
 
   // 没有结果或者没有黑名单规则时，直接返回原始结果
   if (
@@ -264,14 +266,14 @@ export async function filterResultWithBlacklist(
         const regexPattern = pattern.slice(1, -1)
         regexPatterns.push(new RegExp(regexPattern, 'i'))
       } catch (error) {
-        console.error('Invalid regex pattern:', pattern, error)
+        logger.error('Invalid regex pattern:', pattern, error)
       }
     } else {
       // 处理匹配模式格式
       try {
         patternMap.set(pattern, pattern)
       } catch (error) {
-        console.error('Invalid match pattern:', pattern, error)
+        logger.error('Invalid match pattern:', pattern, error)
       }
     }
   })
@@ -292,12 +294,12 @@ export async function filterResultWithBlacklist(
       const matchesPattern = patternMap.get(result.url).length > 0
       return !matchesPattern
     } catch (error) {
-      console.error('Error processing URL:', result.url, error)
+      logger.error('Error processing URL:', result.url, error)
       return true // 如果URL解析失败，保留该结果
     }
   })
 
-  console.log('filterResultWithBlacklist filtered results:', filteredResults)
+  logger.info('filterResultWithBlacklist filtered results:', filteredResults)
 
   return {
     ...response,

@@ -2,7 +2,9 @@ import { getLocales } from 'expo-localization'
 
 import assistantsEnJsonData from '@/resources/data/assistants-en.json'
 import assistantsZhJsonData from '@/resources/data/assistants-zh.json'
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
+const logger = loggerService.withContext('Assistant')
 
 export function getSystemAssistants(): Assistant[] {
   const defaultAssistant: Assistant = {
@@ -51,7 +53,7 @@ export function getBuiltInAssistants(): Assistant[] {
       return []
     }
   } catch (error) {
-    console.error('Error reading assistants data:', error)
+    logger.error('Error reading assistants data:', error)
     return []
   }
 }

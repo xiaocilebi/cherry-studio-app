@@ -1,8 +1,10 @@
+import { loggerService } from '@/services/LoggerService'
 import { WebSearchState } from '@/store/websearch'
 import { WebSearchProvider, WebSearchProviderResponse } from '@/types/websearch'
 import { BochaSearchParams, BochaSearchResponse } from '@/utils/bocha'
 
 import BaseWebSearchProvider from './BaseWebSearchProvider'
+const logger = loggerService.withContext('BochaProvider')
 
 export default class BochaProvider extends BaseWebSearchProvider {
   constructor(provider: WebSearchProvider) {
@@ -66,7 +68,7 @@ export default class BochaProvider extends BaseWebSearchProvider {
         }))
       }
     } catch (error) {
-      console.error('Bocha search failed:', error)
+      logger.error('Bocha search failed:', error)
       throw new Error(`Search failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }

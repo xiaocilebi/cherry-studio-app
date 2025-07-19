@@ -1,5 +1,8 @@
 import { t } from 'i18next'
 
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('Utils Error')
+
 export function getErrorDetails(err: any, seen = new WeakSet()): any {
   // Handle circular references
   if (err === null || typeof err !== 'object' || seen.has(err)) {
@@ -21,6 +24,7 @@ export function getErrorDetails(err: any, seen = new WeakSet()): any {
       result[prop] = getErrorDetails(value, seen)
     } catch (e) {
       result[prop] = '<Unable to access property>'
+      logger.error('getErrorDetails', e)
     }
   }
 
@@ -28,7 +32,7 @@ export function getErrorDetails(err: any, seen = new WeakSet()): any {
 }
 
 export function formatErrorMessage(error: any): string {
-  console.error('Original error:', error)
+  logger.error('Original error:', error)
 
   try {
     const detailedError = getErrorDetails(error)
@@ -42,6 +46,8 @@ export function formatErrorMessage(error: any): string {
       .join('\n')
     return `Error Details:\n${formattedJson}`
   } catch (e) {
+    logger.error('Error formatting error message:', e)
+
     try {
       return `Error: ${String(error)}`
     } catch {
@@ -58,6 +64,8 @@ export function formatMessageError(error: any): Record<string, any> {
     delete detailedError?.request_id
     return detailedError
   } catch (e) {
+    logger.error('formatMessageError', e)
+
     try {
       return { message: String(error) }
     } catch {

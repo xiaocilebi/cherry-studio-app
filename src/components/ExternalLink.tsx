@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Alert, OpaqueColorValue } from 'react-native'
 import { Button, GetThemeValueForKey, Text } from 'tamagui'
 
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('External Link Component')
+
 interface ExternalLinkProps {
   href: string
   children: React.ReactNode
@@ -25,7 +28,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({ href, children, color = '$t
         const message = t('errors.cannotOpenLink', {
           error: error instanceof Error ? error.message : String(error)
         })
-        console.error(message, error)
+        logger.error('External Link Press', error)
 
         if (onError) {
           onError(error instanceof Error ? error : new Error(String(error)))
@@ -35,7 +38,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({ href, children, color = '$t
       }
     } else {
       const message = t('errors.deviceCannotHandleLink', { href })
-      console.warn(message)
+      logger.warn('External Link Not Supported', message)
 
       if (onError) {
         onError(new Error(message))

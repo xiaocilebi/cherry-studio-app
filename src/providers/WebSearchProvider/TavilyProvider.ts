@@ -1,9 +1,11 @@
 import { fetch } from 'expo/fetch'
 
+import { loggerService } from '@/services/LoggerService'
 import { WebSearchState } from '@/store/websearch'
 import { WebSearchProvider, WebSearchProviderResponse, WebSearchProviderResult } from '@/types/websearch'
 
 import BaseWebSearchProvider from './BaseWebSearchProvider'
+const logger = loggerService.withContext('TavilyProvider')
 
 interface RawSearchResult {
   title?: string
@@ -14,7 +16,7 @@ interface RawSearchResult {
 export default class TavilyProvider extends BaseWebSearchProvider {
   constructor(provider: WebSearchProvider) {
     super(provider)
-    console.log('TavilyProvider initialized with provider:', provider)
+    logger.info('TavilyProvider initialized with provider:', provider)
 
     if (!this.apiKey) {
       throw new Error('API key is required for Tavily provider')
@@ -82,7 +84,7 @@ export default class TavilyProvider extends BaseWebSearchProvider {
         results: formattedResults
       }
     } catch (error) {
-      console.error('Tavily search failed:', error)
+      logger.error('Tavily search failed:', error)
       throw new Error(`Search failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }

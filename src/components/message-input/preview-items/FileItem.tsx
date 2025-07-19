@@ -6,10 +6,12 @@ import FileViewer from 'react-native-file-viewer'
 import { Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { FileIcon } from '@/components/icons/FileIcon'
+import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
 import { useIsDark } from '@/utils'
 import { getGreenColor } from '@/utils/color'
 import { formatFileSize } from '@/utils/file'
+const logger = loggerService.withContext('File Item')
 
 interface FileItemProps {
   file: FileType
@@ -23,7 +25,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
 
   const handlePreview = () => {
     FileViewer.open(file.path, { displayName: file.name }).catch(error => {
-      console.error('打开文件时出错:', error)
+      logger.error('Handle Preview Error', error)
     })
   }
 

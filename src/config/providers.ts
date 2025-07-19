@@ -482,7 +482,7 @@ export function getSystemProviders(): Provider[] {
       models: SYSTEM_MODELS.silicon,
       isSystem: true,
       enabled: true,
-      checked: true,
+
       isAuthed: false
     },
     {
@@ -494,7 +494,7 @@ export function getSystemProviders(): Provider[] {
       models: SYSTEM_MODELS.aihubmix,
       isSystem: true,
       enabled: false,
-      checked: true,
+
       isAuthed: true
     },
     {
@@ -525,8 +525,7 @@ export function getSystemProviders(): Provider[] {
       apiHost: 'https://openrouter.ai/api/v1/',
       models: SYSTEM_MODELS.openrouter,
       isSystem: true,
-      enabled: false,
-      checked: true
+      enabled: false
     },
     {
       id: 'ppio',
@@ -606,8 +605,7 @@ export function getSystemProviders(): Provider[] {
       apiHost: 'https://api.anthropic.com/',
       models: SYSTEM_MODELS.anthropic,
       isSystem: true,
-      enabled: true,
-      checked: true
+      enabled: true
     },
     {
       id: 'openai',
@@ -617,8 +615,7 @@ export function getSystemProviders(): Provider[] {
       apiHost: 'https://api.openai.com',
       models: SYSTEM_MODELS.openai,
       isSystem: true,
-      enabled: false,
-      checked: true
+      enabled: false
     },
     {
       id: 'azure-openai',
@@ -639,8 +636,7 @@ export function getSystemProviders(): Provider[] {
       apiHost: 'https://generativelanguage.googleapis.com',
       models: SYSTEM_MODELS.gemini,
       isSystem: true,
-      enabled: true,
-      checked: true
+      enabled: true
     },
     {
       id: 'zhipu',

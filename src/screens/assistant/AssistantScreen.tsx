@@ -14,8 +14,10 @@ import { SearchInput } from '@/components/ui/SearchInput'
 import { useStarAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
+import { loggerService } from '@/services/LoggerService'
 import { NavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
+const logger = loggerService.withContext('DataBase Assistants')
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
@@ -37,19 +39,19 @@ export default function AssistantScreen() {
   const handleRecentFilter = () => {
     setShowRecents(!showRecents)
     // 在这里处理筛选逻辑
-    console.log('Filter by recents:', !showRecents)
+    logger.info('Filter by recents:', !showRecents)
   }
 
   const handleSavedFilter = () => {
     setShowSaved(!showSaved)
     // 在这里处理筛选逻辑
-    console.log('Filter by saved:', !showSaved)
+    logger.info('Filter by saved:', !showSaved)
   }
 
   const handleTagsFilter = () => {
     setShowTags(!showTags)
     // 在这里处理筛选逻辑
-    console.log('Filter by tags:', !showTags)
+    logger.info('Filter by tags:', !showTags)
   }
 
   if (isLoading) {

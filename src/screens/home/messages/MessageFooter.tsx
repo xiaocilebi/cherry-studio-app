@@ -5,6 +5,7 @@ import { Button, View, XStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
 import { fetchTranslate } from '@/services/ApiService'
+import { loggerService } from '@/services/LoggerService'
 import { regenerateAssistantMessage } from '@/services/MessagesService'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
@@ -13,6 +14,7 @@ import { findTranslationBlocks, getMainTextContent } from '@/utils/messageUtils/
 
 import { removeManyBlocks } from '../../../../db/queries/messageBlocks.queries'
 import { upsertMessages } from '../../../../db/queries/messages.queries'
+const logger = loggerService.withContext('MessageFooter')
 
 interface MessageFooterProps {
   assistant: Assistant
@@ -30,7 +32,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
         const translationBlocks = await findTranslationBlocks(message)
         setIsTranslated(translationBlocks.length > 0)
       } catch (error) {
-        console.error('Error checking translation:', error)
+        logger.error('Error checking translation:', error)
         setIsTranslated(false)
       }
     }
@@ -42,11 +44,11 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
     // todo: 暂时无法复制翻译后的message
     try {
       const filteredMessages = await filterMessages([message])
-      console.log('Filtered Messages:', filteredMessages)
+      logger.info('Filtered Messages:', filteredMessages)
       const mainContent = await getMainTextContent(filteredMessages[0])
       await Clipboard.setStringAsync(mainContent)
     } catch (error) {
-      console.error('Error copying message:', error)
+      logger.error('Error copying message:', error)
       // 可以添加 toast 提示用户复制失败
     }
   }
@@ -55,7 +57,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
     try {
       await regenerateAssistantMessage(message, assistant)
     } catch (error) {
-      console.error('Error regenerating message:', error)
+      logger.error('Error regenerating message:', error)
       // 可以添加 toast 提示用户重新生成失败
     }
   }
@@ -68,7 +70,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
       await fetchTranslate({ assistantMessageId: messageId, message: message })
       setIsTranslated(true) // 翻译成功后更新状态
     } catch (error) {
-      console.error('Error during translation:', error)
+      logger.error('Error during translation:', error)
       // 可以添加 toast 提示用户翻译失败
     } finally {
       setIsTranslating(false)
@@ -89,7 +91,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
       await upsertMessages(updatedMessage)
       setIsTranslated(false) // 删除成功后更新状态
     } catch (error) {
-      console.error('Error deleting translation:', error)
+      logger.error('Error deleting translation:', error)
       // 可以添加 toast 提示用户删除失败
     }
   }
@@ -97,18 +99,18 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
   // const onDownload = async () => {
   //   try {
   //     // TODO: 实现下载功能
-  //     console.log('Download functionality not implemented yet')
+  //     logger.log('Download functionality not implemented yet')
   //   } catch (error) {
-  //     console.error('Error downloading message:', error)
+  //     logger.error('Error downloading message:', error)
   //   }
   // }
 
   // const onExternalLink = async () => {
   //   try {
   //     // TODO: 实现外部链接功能
-  //     console.log('External link functionality not implemented yet')
+  //     logger.log('External link functionality not implemented yet')
   //   } catch (error) {
-  //     console.error('Error opening external link:', error)
+  //     logger.error('Error opening external link:', error)
   //   }
   // }
 

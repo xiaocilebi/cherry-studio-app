@@ -7,12 +7,14 @@ import { ScrollView, useTheme, YStack } from 'tamagui'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
+import { loggerService } from '@/services/LoggerService'
 import { NavigationProps } from '@/types/naviagate'
 import { SubscribeSource } from '@/types/websearch'
 
 import BlacklistSettings from './BlacklistSettings'
 import GeneralSettings from './GeneralSettings'
 import ProviderSettings from './ProviderSettings'
+const logger = loggerService.withContext('WebSearchSettingsScreen')
 
 const blacklistSubscription: SubscribeSource[] = [{ key: 1, url: 'https://git.io/ublacklist', name: 'git.io' }]
 
@@ -37,15 +39,15 @@ export default function WebSearchSettingsScreen() {
 
   // Blacklist handlers
   const handleRefreshSubscription = (subscribe: SubscribeSource) => {
-    console.log('Refreshing subscription for:', subscribe)
+    logger.info('Refreshing subscription for:', subscribe)
   }
 
   const handleRefreshAllSubscriptions = () => {
-    console.log('Refreshing all subscriptions')
+    logger.info('Refreshing all subscriptions')
   }
 
   const handleAddSubscription = () => {
-    console.log('Adding new subscription')
+    logger.info('Adding new subscription')
   }
 
   return (

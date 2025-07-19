@@ -1,10 +1,12 @@
 import { eq } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { WebSearchProvider } from '@/types/websearch'
 import { safeJsonParse } from '@/utils/json'
 
 import { db } from '..'
 import { websearch_providers } from '../schema'
+const logger = loggerService.withContext('DataBase WebSearchProviders')
 
 /**
  * 将数据库记录转换为 WebSearchProvider 类型。
@@ -65,7 +67,7 @@ export async function upsertWebSearchProviders(providersToUpsert: WebSearchProvi
     )
     await Promise.all(upsertPromises)
   } catch (error) {
-    console.error('Error in upsertWebSearchProviders:', error)
+    logger.error('Error in upsertWebSearchProviders:', error)
     throw error
   }
 }
@@ -80,7 +82,7 @@ export async function getWebSearchProviderById(providerId: string): Promise<WebS
 
     return transformDbToWebSearchProvider(result[0])
   } catch (error) {
-    console.error('Error in getWebSearchProviderById:', error)
+    logger.error('Error in getWebSearchProviderById:', error)
     throw error
   }
 }
@@ -95,7 +97,7 @@ export async function getAllWebSearchProviders(): Promise<WebSearchProvider[]> {
 
     return result.map(transformDbToWebSearchProvider)
   } catch (error) {
-    console.error('Error in getAllWebSearchProviders:', error)
+    logger.error('Error in getAllWebSearchProviders:', error)
     throw error
   }
 }

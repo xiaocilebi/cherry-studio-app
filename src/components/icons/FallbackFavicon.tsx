@@ -2,6 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('Fallback Favicon')
+
 // 记录失败的URL的缓存键前缀
 const FAILED_FAVICON_CACHE_PREFIX = 'failed_favicon_'
 // 失败URL的缓存时间 (24小时)
@@ -95,7 +98,7 @@ const FallbackFavicon: React.FC<FallbackFaviconProps> = ({ hostname, alt }) => {
         setFaviconState({ status: 'loaded', src: bestUrl })
       } catch (error) {
         // Logger.log('All favicon requests failed:', error)
-        console.log('All favicon requests failed:', error)
+        logger.error('All favicon requests failed:', error)
         setFaviconState({ status: 'loaded', src: faviconUrls[0] })
       }
     }

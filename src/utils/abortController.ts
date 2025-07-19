@@ -1,3 +1,6 @@
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('Abort Controller')
+
 export const abortMap = new Map<string, (() => void)[]>()
 
 export const addAbortController = (id: string, abortFn: () => void) => {
@@ -30,7 +33,7 @@ export function createAbortPromise(signal: AbortSignal, finallyPromise: Promise<
     }
 
     const abortHandler = (e: Event) => {
-      console.log('[createAbortPromise] abortHandler', e)
+      logger.info('[createAbortPromise] abortHandler', e)
       reject(new DOMException('Operation aborted', 'AbortError'))
     }
 

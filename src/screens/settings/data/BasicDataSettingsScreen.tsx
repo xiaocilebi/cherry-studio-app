@@ -10,7 +10,9 @@ import { RestoreProgressModal } from '@/components/settings/data/RestoreProgress
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { LOCAL_RESTORE_STEPS, useRestore } from '@/hooks/useRestore'
+import { loggerService } from '@/services/LoggerService'
 import { NavigationProps } from '@/types/naviagate'
+const logger = loggerService.withContext('BasicDataSettingsScreen')
 
 interface SettingItemConfig {
   title: string
@@ -65,7 +67,7 @@ export default function BasicDataSettingsScreen() {
           title: t('settings.data.reset'),
           icon: <RotateCcw size={24} color="red" />,
           danger: true,
-          onPress: () => console.log('Data reset pressed')
+          onPress: () => logger.info('Data reset pressed')
         }
       ]
     },
@@ -86,7 +88,7 @@ export default function BasicDataSettingsScreen() {
           title: t('settings.data.clear_cache.button'),
           icon: <Trash2 size={24} color="red" />,
           danger: true,
-          onPress: () => console.log('Clear cache pressed')
+          onPress: () => logger.info('Clear cache pressed')
         }
       ]
     }

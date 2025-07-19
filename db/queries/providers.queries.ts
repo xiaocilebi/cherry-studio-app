@@ -1,10 +1,12 @@
 import { eq } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { Provider } from '@/types/assistant'
 import { safeJsonParse } from '@/utils/json'
 
 import { db } from '..'
 import { providers } from '../schema'
+const logger = loggerService.withContext('DataBase Providers')
 
 /**
  * 将数据库记录转换为 Provider 类型。
@@ -70,7 +72,7 @@ export async function upsertProviders(providersToUpsert: Provider[]) {
     )
     await Promise.all(upsertPromises)
   } catch (error) {
-    console.error('Error in upsertProviders:', error)
+    logger.error('Error in upsertProviders:', error)
     throw error
   }
 }
@@ -85,7 +87,7 @@ export async function getProviderById(providerId: string): Promise<Provider | un
 
     return transformDbToProvider(result[0])
   } catch (error) {
-    console.error('Error in getProviderById:', error)
+    logger.error('Error in getProviderById:', error)
     throw error
   }
 }
@@ -100,7 +102,7 @@ export async function getAllProviders(): Promise<Provider[]> {
 
     return result.map(transformDbToProvider)
   } catch (error) {
-    console.error('Error in getAllProviders:', error)
+    logger.error('Error in getAllProviders:', error)
     throw error
   }
 }

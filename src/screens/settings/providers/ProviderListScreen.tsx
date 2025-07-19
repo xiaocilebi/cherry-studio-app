@@ -14,6 +14,8 @@ import CustomRadialGradientBackground from '@/components/ui/CustomRadialGradient
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('ProviderListScreen')
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
@@ -26,10 +28,7 @@ export default function ProviderListScreen() {
   const [selectedProviderType, setSelectedProviderType] = useState<string | undefined>(undefined)
   const [providerName, setProviderName] = useState('')
 
-
-  const filteredProviders = providers.filter(
-    p => p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredProviders = providers.filter(p => p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
   const handleProviderTypeChange = (value: string) => {
     setSelectedProviderType(value)
@@ -53,8 +52,8 @@ export default function ProviderListScreen() {
   }
 
   const handleAddProvider = () => {
-    console.log('Provider Name:', providerName)
-    console.log('Provider Type:', selectedProviderType)
+    logger.info('Provider Name:', providerName)
+    logger.info('Provider Type:', selectedProviderType)
   }
 
   return (

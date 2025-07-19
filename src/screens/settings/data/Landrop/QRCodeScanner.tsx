@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next'
 import { Button, Spinner, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer } from '@/components/settings'
+import { loggerService } from '@/services/LoggerService'
 
 import { Overlay } from './Overlay'
+const logger = loggerService.withContext('QRCodeScanner')
 
 interface QRCodeScannerProps {
   onQRCodeScanned: (ip: string) => void
@@ -40,7 +42,7 @@ export function QRCodeScanner({ onQRCodeScanned }: QRCodeScannerProps) {
         onQRCodeScanned(ip)
       }
     } catch (error) {
-      console.error('Failed to parse QR code data:', error)
+      logger.error('Failed to parse QR code data:', error)
     }
   }
 

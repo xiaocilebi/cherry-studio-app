@@ -21,11 +21,13 @@ import { isVisionModel } from '@/config/models/vision'
 import { isWebSearchModel } from '@/config/models/webSearch'
 import { useProvider } from '@/hooks/useProviders'
 import { fetchModels } from '@/services/ApiService'
+import { loggerService } from '@/services/LoggerService'
 import { Model, Provider } from '@/types/assistant'
 import { RootStackParamList } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getGreenColor } from '@/utils/color'
 import { getDefaultGroupName } from '@/utils/naming'
+const logger = loggerService.withContext('ManageModelsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ManageModelsScreen'>
 
@@ -164,7 +166,7 @@ export default function ManageModelsScreen() {
         const transformedModels = transformApiModels(modelsFromApi, provider)
         setAllModels(uniqBy(transformedModels, 'id'))
       } catch (error) {
-        console.error('Failed to fetch models', error)
+        logger.error('Failed to fetch models', error)
         setAllModels([])
       } finally {
         setIsLoading(false)

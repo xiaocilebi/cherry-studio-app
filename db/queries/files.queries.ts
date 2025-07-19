@@ -1,9 +1,11 @@
 import { eq } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
 
 import { db } from '..'
 import { files } from '../schema'
+const logger = loggerService.withContext('DataBase Files')
 
 /**
  * 将数据库记录转换为 File 类型。
@@ -61,7 +63,7 @@ export async function getAllFiles(): Promise<FileType[] | null> {
 
     return result.map(transformDbToFile)
   } catch (error) {
-    console.error('Error getting all files:', error)
+    logger.error('Error getting all files:', error)
     throw error
   }
 }
@@ -82,7 +84,7 @@ export async function getFileById(id: string): Promise<FileType | null> {
 
     return transformDbToFile(result[0])
   } catch (error) {
-    console.error('Error getting file by ID:', error)
+    logger.error('Error getting file by ID:', error)
     throw error
   }
 }
@@ -117,7 +119,7 @@ async function upsertFile(filesToUpsert: FileType, allFilesMeta?: Pick<FileType,
         set: dbRecord
       })
   } catch (error) {
-    console.error('Error upserting file:', error)
+    logger.error('Error upserting file:', error)
     throw error
   }
 }
@@ -134,7 +136,7 @@ export async function upsertFiles(filesToUpsert: FileType[]) {
     const upsertPromises = filesToUpsert.map(self => upsertFile(self, allFilesMeta))
     await Promise.all(upsertPromises)
   } catch (error) {
-    console.error('Error upserting files:', error)
+    logger.error('Error upserting files:', error)
     throw error
   }
 }
@@ -149,7 +151,7 @@ export async function deleteFileById(fileId: string) {
   try {
     return await db.delete(files).where(eq(files.id, fileId))
   } catch (error) {
-    console.error('Error deleting file by ID:', error)
+    logger.error('Error deleting file by ID:', error)
     throw error
   }
 }

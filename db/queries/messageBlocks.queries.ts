@@ -1,10 +1,12 @@
 import { eq, inArray } from 'drizzle-orm'
 
+import { loggerService } from '@/services/LoggerService'
 import { MessageBlock, MessageBlockStatus, MessageBlockType } from '@/types/message'
 
 import { db } from '..'
 // import { db } from '..'
 import { messageBlocks } from '../schema'
+const logger = loggerService.withContext('DataBase Message Blocks')
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 
@@ -81,9 +83,7 @@ export function transformDbToMessageBlock(dbRecord: any): MessageBlock {
         ...base,
         type: MessageBlockType.TRANSLATION,
         content: dbRecord.content || '',
-        sourceBlockId: dbRecord.source_block_id || undefined,
-        sourceLanguage: dbRecord.source_language || undefined,
-        targetLanguage: dbRecord.target_language || ''
+        sourceBlockId: dbRecord.source_block_id || undefined
       }
 
     case MessageBlockType.CITATION:
@@ -118,7 +118,7 @@ export function transformDbToMessageBlock(dbRecord: any): MessageBlock {
 
 // MessageBlock 转换为数据库记录
 function transformMessageBlockToDb(messageBlock: MessageBlock): any {
-  console.log('Transforming message block to DB record:', messageBlock)
+  logger.info('Transforming message block to DB record:', messageBlock)
   const base = {
     id: messageBlock.id,
     message_id: messageBlock.messageId,
@@ -175,9 +175,7 @@ function transformMessageBlockToDb(messageBlock: MessageBlock): any {
       return {
         ...base,
         content: messageBlock.content,
-        source_block_id: messageBlock.sourceBlockId || null,
-        source_language: messageBlock.sourceLanguage || null,
-        target_language: messageBlock.targetLanguage
+        source_block_id: messageBlock.sourceBlockId || null
       }
 
     case MessageBlockType.CITATION:
@@ -217,7 +215,7 @@ export async function upsertBlocks(blocks: MessageBlock | MessageBlock[]) {
     )
     await Promise.all(upsertPromises)
   } catch (error) {
-    console.error('Error upserting block(s):', error)
+    logger.error('Error upserting block(s):', error)
     throw error
   }
 }
@@ -267,7 +265,7 @@ export async function updateOneBlock(update: { id: string; changes: Partial<Mess
       await db.update(messageBlocks).set(dbChanges).where(eq(messageBlocks.id, id))
     }
   } catch (error) {
-    console.error(`Error updating block with ID ${update.id}:`, error)
+    logger.error(`Error updating block with ID ${update.id}:`, error)
     throw error
   }
 }
@@ -280,7 +278,7 @@ export async function removeOneBlock(blockId: string) {
   try {
     await db.delete(messageBlocks).where(eq(messageBlocks.id, blockId))
   } catch (error) {
-    console.error(`Error removing block with ID ${blockId}:`, error)
+    logger.error(`Error removing block with ID ${blockId}:`, error)
     throw error
   }
 }
@@ -295,7 +293,7 @@ export async function removeManyBlocks(blockIds: string[]) {
   try {
     await db.delete(messageBlocks).where(inArray(messageBlocks.id, blockIds))
   } catch (error) {
-    console.error('Error removing multiple blocks:', error)
+    logger.error('Error removing multiple blocks:', error)
     throw error
   }
 }
@@ -307,7 +305,7 @@ export async function removeAllBlocks() {
   try {
     await db.delete(messageBlocks)
   } catch (error) {
-    console.error('Error removing all blocks:', error)
+    logger.error('Error removing all blocks:', error)
     throw error
   }
 }
@@ -324,7 +322,7 @@ export async function getBlocksByMessageId(messageId: string): Promise<MessageBl
     const dbRecords = await db.select().from(messageBlocks).where(eq(messageBlocks.message_id, messageId))
     return dbRecords.map(transformDbToMessageBlock)
   } catch (error) {
-    console.error(`Error getting blocks for message ID ${messageId}:`, error)
+    logger.error(`Error getting blocks for message ID ${messageId}:`, error)
     throw error
   }
 }
@@ -343,7 +341,7 @@ export async function getBlocksIdByMessageId(messageId: string): Promise<string[
 
     return dbRecords.map(record => record.id)
   } catch (error) {
-    console.error(`Error getting block IDs for message ID ${messageId}:`, error)
+    logger.error(`Error getting block IDs for message ID ${messageId}:`, error)
     throw error
   }
 }
@@ -358,7 +356,7 @@ export async function getBlockById(blockId: string): Promise<MessageBlock | null
 
     return transformDbToMessageBlock(dbRecord[0])
   } catch (error) {
-    console.error(`Error getting block with ID ${blockId}:`, error)
+    logger.error(`Error getting block with ID ${blockId}:`, error)
     throw error
   }
 }

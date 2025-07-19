@@ -1,3 +1,6 @@
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('Utils Json')
+
 /**
  * 判断字符串是否是 json 字符串
  * @param {any} str 字符串
@@ -41,7 +44,7 @@ export const safeJsonParse = (jsonString: string | null, defaultValue: any = und
   try {
     return JSON.parse(jsonString)
   } catch (e) {
-    console.error('JSON parse error for string:', e, jsonString)
+    logger.error('JSON parse error for string:', e, jsonString)
     return defaultValue
   }
 }

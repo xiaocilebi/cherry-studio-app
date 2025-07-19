@@ -3,9 +3,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
+import { loggerService } from '@/services/LoggerService'
 import { Provider } from '@/types/assistant'
 
 import { SettingGroup, SettingGroupTitle, SettingRow } from '..'
+const logger = loggerService.withContext('Auth Card')
 
 interface ServiceSectionProps {
   provider: Provider
@@ -23,17 +25,17 @@ const AuthCard: React.FC<ServiceSectionProps> = ({
   const { t } = useTranslation()
 
   const handleLoginPress = () => {
-    console.log('Login pressed - 处理OAuth登录逻辑，类似原代码中的OAuthButton功能')
+    logger.info('Login pressed - 处理OAuth登录逻辑，类似原代码中的OAuthButton功能')
     onLoginPress?.()
   }
 
   const handleBalanceRechargePress = () => {
-    console.log('Balance Recharge pressed - 调用充值功能，类似原代码中的providerCharge函数')
+    logger.info('Balance Recharge pressed - 调用充值功能，类似原代码中的providerCharge函数')
     onBalanceRechargePress?.()
   }
 
   const handleFeeBillsPress = () => {
-    console.log('Fee Bills pressed - 查看账单功能，类似原代码中的providerBills函数')
+    logger.info('Fee Bills pressed - 查看账单功能，类似原代码中的providerBills函数')
     onFeeBillsPress?.()
   }
 

@@ -15,7 +15,9 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import { AvatarEditButton } from '@/components/ui/AvatarEditButton'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
+import { loggerService } from '@/services/LoggerService'
 import { RootStackParamList } from '@/types/naviagate'
+const logger = loggerService.withContext('AssistantDetailScreen')
 
 type AssistantDetailRouteProp = RouteProp<RootStackParamList, 'AssistantDetailScreen'>
 
@@ -63,11 +65,11 @@ export default function AssistantDetailScreen() {
               editIcon={assistant?.emoji ? <ArrowLeftRight size={24} /> : <PenLine size={24} />}
               onEditPress={() => {
                 // 处理编辑逻辑
-                console.log('Edit avatar')
+                logger.info('Edit avatar')
               }}
               onAvatarPress={() => {
                 // 处理头像点击逻辑（可选）
-                console.log('Avatar pressed')
+                logger.info('Avatar pressed')
               }}
             />
           </XStack>

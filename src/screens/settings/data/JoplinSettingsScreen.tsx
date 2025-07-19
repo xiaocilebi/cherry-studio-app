@@ -4,13 +4,15 @@ import { Alert } from 'react-native'
 
 import { useDataBackupProvider } from '@/hooks/useDataBackup'
 import ProviderSettingsScreen, { ProviderConfig } from '@/screens/settings/data/DataProviderSettingsScreen'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('JoplinSettingsScreen')
 
 export default function JoplinSettingsScreen() {
   const { t } = useTranslation()
   const { provider } = useDataBackupProvider('joplin')
 
   async function checkConnection() {
-    console.log('Checking Joplin connection...')
+    logger.info('Checking Joplin connection...')
 
     if (!provider || !provider.joplinUrl) {
       Alert.alert(t('settings.data.yuque.check.empty_url'))

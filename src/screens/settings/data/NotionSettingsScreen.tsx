@@ -5,13 +5,15 @@ import { Alert } from 'react-native'
 
 import { useDataBackupProvider } from '@/hooks/useDataBackup'
 import ProviderSettingsScreen, { ProviderConfig } from '@/screens/settings/data/DataProviderSettingsScreen'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('NotionSettingsScreen')
 
 export default function NotionSettingsScreen() {
   const { t } = useTranslation()
   const { provider } = useDataBackupProvider('notion')
 
   async function checkConnection() {
-    console.log('Checking Notion connection...')
+    logger.info('Checking Notion connection...')
 
     if (!provider || !provider.notionApiKey) {
       Alert.alert(t('settings.notion.check.empty_api_key'))

@@ -8,6 +8,8 @@ import { Image, Text, useTheme, XStack, YStack } from 'tamagui'
 import { SettingContainer, SettingGroup, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
+import { loggerService } from '@/services/LoggerService'
+const logger = loggerService.withContext('AboutScreen')
 
 export default function AboutScreen() {
   const { t } = useTranslation()
@@ -18,7 +20,7 @@ export default function AboutScreen() {
     try {
       await ExpoLinking.openURL(url)
     } catch (error) {
-      console.error('Failed to open link:', error)
+      logger.error('Failed to open link:', error)
     }
   }
 

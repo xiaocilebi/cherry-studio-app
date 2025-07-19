@@ -1,4 +1,6 @@
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
+const logger = loggerService.withContext('assistants')
 
 export function groupByCategories(data: Assistant[]) {
   const groupedMap = new Map<string, Assistant[]>()
@@ -29,7 +31,7 @@ export function groupByCategories(data: Assistant[]) {
 export function getAssistantWithTopic(assistants, topics) {
   // 1. 输入验证：确保传入的是数组
   if (!Array.isArray(assistants) || !Array.isArray(topics)) {
-    console.error('getAssistantWithTopic 错误：assistants 和 topics 都必须是数组类型。')
+    logger.error('getAssistantWithTopic 错误：assistants 和 topics 都必须是数组类型。')
     // 根据需求，可以选择抛出错误或者返回一个空数组
     return []
     // throw new Error("Both assistants and topics must be arrays.");

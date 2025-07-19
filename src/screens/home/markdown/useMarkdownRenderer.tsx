@@ -6,7 +6,10 @@ import MathJax from 'react-native-mathjax-svg'
 import { Text, View } from 'tamagui'
 import temml from 'temml'
 
+import { loggerService } from '@/services/LoggerService'
+
 import { markdownColors } from './MarkdownStyles'
+const logger = loggerService.withContext('useMarkdownRenderer')
 
 const markdownItInstance = markdownIt().use(markdownItMath, {
   inlineAllowWhiteSpacePadding: true,
@@ -36,7 +39,7 @@ export const useMarkdownRenderer = (isDark: boolean) => {
         </View>
       )
     } catch (error) {
-      console.error('Error rendering equation:', error)
+      logger.error('Error rendering equation:', error)
       return <Text key={node.key}>[Math Error]</Text>
     }
   }

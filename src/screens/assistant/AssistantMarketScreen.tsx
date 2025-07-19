@@ -13,10 +13,13 @@ import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
+import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { groupByCategories } from '@/utils/assistants'
 
 import SafeAreaContainer from '../../components/ui/SafeAreaContainer'
+const logger = loggerService.withContext('AssistantMarketScreen')
+
 interface TabConfig {
   value: string
   label: string
@@ -124,7 +127,7 @@ export default function AssistantMarketScreen() {
   }
 
   const handleBookmarkPress = () => {
-    console.log('Bookmark pressed')
+    logger.info('Bookmark pressed')
   }
 
   const renderTabList = (

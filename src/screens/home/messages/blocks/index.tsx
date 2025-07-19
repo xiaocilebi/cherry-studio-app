@@ -2,6 +2,7 @@ import { FC, memo } from 'react'
 import React from 'react'
 import { View, XStack } from 'tamagui'
 
+import { loggerService } from '@/services/LoggerService'
 import { MainTextMessageBlock, MessageBlock, MessageBlockStatus, MessageBlockType } from '@/types/message'
 
 import CitationBlock from './CitationBlock'
@@ -12,6 +13,7 @@ import MainTextBlock from './MainTextBlock'
 import PlaceholderBlock from './PlaceholderBlock'
 import ThinkingBlock from './ThinkingBlock'
 import TranslationBlock from './TranslationBlock'
+const logger = loggerService.withContext('Message Blocks Index')
 
 interface MessageBlockRendererProps {
   blocks: MessageBlock[]
@@ -108,7 +110,7 @@ const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks }) => {
             blockComponent = <ErrorBlock key={block.id} block={block} />
             break
           default:
-            console.warn('Unsupported block type in MessageBlockRenderer:', (block as any).type, block)
+            logger.warn('Unsupported block type in MessageBlockRenderer:', (block as any).type, block)
             break
         }
 

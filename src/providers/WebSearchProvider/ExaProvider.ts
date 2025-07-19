@@ -1,9 +1,11 @@
 import { fetch } from 'expo/fetch'
 
+import { loggerService } from '@/services/LoggerService'
 import { WebSearchState } from '@/store/websearch'
 import { WebSearchProvider, WebSearchProviderResponse } from '@/types/websearch'
 
 import BaseWebSearchProvider from './BaseWebSearchProvider'
+const logger = loggerService.withContext('ExaProvider')
 
 export default class ExaProvider extends BaseWebSearchProvider {
   constructor(provider: WebSearchProvider) {
@@ -60,7 +62,7 @@ export default class ExaProvider extends BaseWebSearchProvider {
         })
       }
     } catch (error) {
-      console.error('Exa search failed:', error)
+      logger.error('Exa search failed:', error)
       throw new Error(`Search failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }

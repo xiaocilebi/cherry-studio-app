@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 
 import WebSearchEngineProvider from '@/providers/WebSearchProvider'
+import { loggerService } from '@/services/LoggerService'
 import { setWebSearchStatus } from '@/store/runtime'
 import { WebSearchState } from '@/store/websearch'
 import { ExtractResults } from '@/types/extract'
@@ -13,6 +14,7 @@ import {
 import { hasObjectKey } from '@/utils'
 
 import { getAllWebSearchProviders, getWebSearchProviderById } from '../../db/queries/websearchProviders.queries'
+const logger = loggerService.withContext('WebSearch Service')
 
 export default class WebSearchService {
   private static instance: WebSearchService
@@ -122,7 +124,7 @@ export default class WebSearchService {
   public async checkSearch(): Promise<{ valid: boolean; error?: any }> {
     try {
       const response = await this.search('test query')
-      console.log('[checkSearch] Search response:', response)
+      logger.info('[checkSearch] Search response:', response)
       // 优化的判断条件：检查结果是否有效且没有错误
       return { valid: response.results !== undefined, error: undefined }
     } catch (error) {
@@ -161,7 +163,7 @@ export default class WebSearchService {
   public async processWebsearch(extractResults: ExtractResults, requestId: string): Promise<WebSearchProviderResponse> {
     // 检查 websearch 和 question 是否有效
     if (!extractResults.websearch?.question || extractResults.websearch.question.length === 0) {
-      console.log('[processWebsearch] No valid question found in extractResults.websearch')
+      logger.info('[processWebsearch] No valid question found in extractResults.websearch')
       return { results: [] }
     }
 

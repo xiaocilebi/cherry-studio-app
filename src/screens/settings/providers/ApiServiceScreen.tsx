@@ -16,9 +16,11 @@ import { isEmbeddingModel } from '@/config/models/embedding'
 import { PROVIDER_CONFIG } from '@/config/providers'
 import { useProvider } from '@/hooks/useProviders'
 import { checkApi } from '@/services/ApiService'
+import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
 import { NavigationProps, RootStackParamList } from '@/types/naviagate'
 import { getModelUniqId } from '@/utils/model'
+const logger = loggerService.withContext('ApiServiceScreen')
 
 type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ApiServiceScreen'>
 
@@ -121,7 +123,7 @@ export default function ApiServiceScreen() {
       await checkApi(provider, selectedModel)
       setCheckApiStatus('success')
     } catch (error: any) {
-      console.error('Model check failed:', error)
+      logger.error('Model check failed:', error)
       const errorMessage =
         error && error.message
           ? ' ' + (error.message.length > 100 ? error.message.substring(0, 100) + '...' : error.message)

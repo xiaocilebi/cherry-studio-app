@@ -10,6 +10,7 @@ import { CompletionsParams } from '@/aiCore/middleware/schemas'
 import { buildStreamTextParams, convertMessagesToSdkMessages } from '@/aiCore/transformParameters'
 import { isEmbeddingModel } from '@/config/models/embedding'
 import i18n from '@/i18n'
+import { loggerService } from '@/services/LoggerService'
 import { Assistant, Model, Provider } from '@/types/assistant'
 import { Chunk, ChunkType } from '@/types/chunk'
 import { AssistantMessageStatus, Message, MessageBlock, MessageBlockStatus, MessageBlockType } from '@/types/message'
@@ -22,6 +23,7 @@ import { getMessageById, upsertMessages } from '../../db/queries/messages.querie
 import { createBlankAssistant, getAssistantById, getAssistantProvider, getDefaultModel } from './AssistantService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 import { getTopicById, upsertTopics } from './TopicService'
+const logger = loggerService.withContext('fetchChatCompletion')
 
 export async function fetchChatCompletion({
   messages,
@@ -89,7 +91,7 @@ export async function fetchTranslate({
   let callbacks: StreamProcessorCallbacks = {}
   callbacks = {
     onLLMResponseCreated: async () => {
-      console.log(`[onLLMResponseCreated] Created initial placeholder block with ID`)
+      logger.info(`[onLLMResponseCreated] Created initial placeholder block with ID`)
 
       const baseBlock = createBaseMessageBlock(assistantMessageId, MessageBlockType.UNKNOWN, {
         status: MessageBlockStatus.PROCESSING
@@ -100,7 +102,7 @@ export async function fetchTranslate({
       const toBeUpdatedMessage = await getMessageById(baseBlock.messageId)
 
       if (!toBeUpdatedMessage) {
-        console.error(`[onLLMResponseCreated] Message ${baseBlock.messageId} not found.`)
+        logger.error(`[onLLMResponseCreated] Message ${baseBlock.messageId} not found.`)
         return
       }
 
@@ -144,7 +146,7 @@ export async function fetchTranslate({
         await updateOneBlock({ id: translationBlockId, changes })
         translationBlockId = null
       } else {
-        console.warn(
+        logger.warn(
           `[onTextComplete] Received text.complete but last block was not TRANSLATION  or lastBlockId  is null.`
         )
       }
@@ -179,7 +181,7 @@ export async function fetchTranslate({
   try {
     return (await AI.completions(modelId, aiSdkParams, middlewareConfig)).getText() || ''
   } catch (error: any) {
-    console.error('Error during translation:', error)
+    logger.error('Error during translation:', error)
     return ''
   }
 }
@@ -253,11 +255,11 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
 }
 
 export async function fetchTopicNaming(topicId: string) {
-  console.log('Fetching topic naming...')
+  logger.info('Fetching topic naming...')
   const topic = await getTopicById(topicId)
 
   if (!topic) {
-    console.error(`[fetchTopicNaming] Topic with ID ${topicId} not found.`)
+    logger.error(`[fetchTopicNaming] Topic with ID ${topicId} not found.`)
     return
   }
 
@@ -308,7 +310,7 @@ export async function fetchTopicNaming(topicId: string) {
   try {
     return (await AI.completions(modelId, aiSdkParams, middlewareConfig)).getText() || ''
   } catch (error: any) {
-    console.error('Error during translation:', error)
+    logger.error('Error during translation:', error)
     return ''
   }
 }

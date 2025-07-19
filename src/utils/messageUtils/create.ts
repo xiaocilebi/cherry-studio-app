@@ -1,3 +1,4 @@
+import { loggerService } from '@/services/LoggerService'
 import { Assistant, Topic } from '@/types/assistant'
 import { FileType, FileTypes } from '@/types/file'
 import {
@@ -19,6 +20,7 @@ import {
 } from '@/types/message'
 
 import { uuid } from '..'
+const logger = loggerService.withContext('Message Utils Create')
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
@@ -99,7 +101,7 @@ export function createImageBlock(
   overrides: Partial<Omit<ImageMessageBlock, 'id' | 'messageId' | 'type'>> = {}
 ): ImageMessageBlock {
   if (overrides.file && overrides.file.type !== FileTypes.IMAGE) {
-    console.warn('Attempted to create ImageBlock with non-image file type:', overrides.file.type)
+    logger.warn('Attempted to create ImageBlock with non-image file type:', overrides.file.type)
   }
 
   const { file, url, metadata, ...baseOverrides } = overrides
@@ -174,7 +176,7 @@ export function createFileBlock(
   overrides: Partial<Omit<FileMessageBlock, 'id' | 'messageId' | 'type' | 'file'>> = {}
 ): FileMessageBlock {
   if (file.type === FileTypes.IMAGE) {
-    console.warn('Use createImageBlock for image file types.')
+    logger.warn('Use createImageBlock for image file types.')
   }
 
   return {
@@ -293,7 +295,7 @@ export function createMessage(
   let blocks: string[] = initialBlocks || []
 
   if (role !== 'system' && (!initialBlocks || initialBlocks.length === 0)) {
-    console.warn('createMessage: initialContent provided but no initialBlocks. Block must be created separately.')
+    logger.warn('createMessage: initialContent provided but no initialBlocks. Block must be created separately.')
   }
 
   blocks = blocks.map(String)
@@ -390,7 +392,7 @@ export const resetAssistantMessage = (
 ): Message => {
   // Ensure we are only resetting assistant messages
   if (originalMessage.role !== 'assistant') {
-    console.warn(
+    logger.warn(
       `[resetAssistantMessage] Attempted to reset a non-assistant message (ID: ${originalMessage.id}, Role: ${originalMessage.role}). Returning original.`
     )
     return originalMessage

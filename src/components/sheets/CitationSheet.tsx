@@ -4,11 +4,13 @@ import React, { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
+import { loggerService } from '@/services/LoggerService'
 import { Citation } from '@/types/websearch'
 import { useIsDark } from '@/utils'
 import { getWebsiteBrand } from '@/utils/websearch'
 
 import FallbackFavicon from '../icons/FallbackFavicon'
+const logger = loggerService.withContext('Citation Sheet')
 
 interface CitationSheetProps {
   citations: Citation[]
@@ -97,11 +99,11 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
         const message = t('errors.cannotOpenLink', {
           error: error instanceof Error ? error.message : String(error)
         })
-        console.error(message, error)
+        logger.error(message, error)
       }
     } else {
       const message = t('errors.deviceCannotHandleLink', { url })
-      console.warn(message)
+      logger.warn(message)
     }
   }
 

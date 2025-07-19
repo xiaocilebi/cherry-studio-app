@@ -18,6 +18,7 @@ import { PortalProvider, TamaguiProvider } from 'tamagui'
 
 import { getDataBackupProviders } from '@/config/backup'
 import { getWebSearchProviders } from '@/config/websearchProviders'
+import { loggerService } from '@/services/LoggerService'
 import store, { persistor, RootState, useAppDispatch } from '@/store'
 import { setInitialized } from '@/store/app'
 
@@ -34,6 +35,7 @@ import AppNavigator from './navigators/AppNavigator'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
+const logger = loggerService.withContext('DataBase Assistants')
 
 // 数据库初始化组件
 function DatabaseInitializer() {
@@ -48,7 +50,7 @@ function DatabaseInitializer() {
       if (initialized) return
 
       try {
-        console.log('First launch, initializing app data...')
+        logger.info('First launch, initializing app data...')
         const systemAssistants = getSystemAssistants()
         const builtInAssistants = getBuiltInAssistants()
         await upsertAssistants([...systemAssistants, ...builtInAssistants])
@@ -59,18 +61,18 @@ function DatabaseInitializer() {
         const dataBackupProviders = getDataBackupProviders()
         await upsertDataBackupProviders(dataBackupProviders)
         dispatch(setInitialized(true))
-        console.log('App data initialized successfully.')
+        logger.info('App data initialized successfully.')
       } catch (e) {
-        console.error('Failed to initialize app data', e)
+        logger.error('Failed to initialize app data', e)
       }
     }
 
     const handleMigrations = async () => {
       if (success) {
-        console.log('Migrations completed successfully', expoDb.databasePath)
+        logger.info('Migrations completed successfully', expoDb.databasePath)
         await initializeApp()
       } else if (error) {
-        console.error('Migrations failed', error)
+        logger.error('Migrations failed', error)
       }
     }
 

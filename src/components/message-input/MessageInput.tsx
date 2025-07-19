@@ -9,6 +9,7 @@ import { styled, TextArea, View, XStack, YStack } from 'tamagui'
 
 import { isReasoningModel } from '@/config/models/reasoning'
 import { useAssistant } from '@/hooks/useAssistant'
+import { loggerService } from '@/services/LoggerService'
 import { sendMessage as _sendMessage } from '@/services/MessagesService'
 import { getUserMessage } from '@/services/MessagesService'
 import { Assistant, Model, Topic } from '@/types/assistant'
@@ -25,6 +26,8 @@ import { SendButton } from './SendButton'
 import { ThinkButton } from './ThinkButton'
 import { VoiceButton } from './VoiceButton'
 import { WebsearchButton } from './WebsearchButton'
+const logger = loggerService.withContext('Message Input')
+
 interface MessageInputProps {
   topic: Topic
   updateAssistant: (assistant: Assistant) => Promise<void>
@@ -68,7 +71,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssista
 
       await _sendMessage(message, blocks, assistant, topic.id)
     } catch (error) {
-      console.error('Error sending message:', error)
+      logger.error('Error sending message:', error)
     }
   }
 

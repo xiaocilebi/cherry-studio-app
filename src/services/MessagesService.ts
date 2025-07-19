@@ -1,3 +1,4 @@
+import { loggerService } from '@/services/LoggerService'
 import { ExternalToolResult } from '@/types'
 import { Assistant, Model, Topic, Usage } from '@/types/assistant'
 import { FileType, FileTypes } from '@/types/file'
@@ -35,6 +36,7 @@ import { getDefaultModel } from './AssistantService'
 import { OrchestrationService } from './OrchestrationService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 import { estimateMessagesUsage } from './TokenService'
+const logger = loggerService.withContext('Messages Service')
 
 /**
  * Creates a user message object and associated blocks based on input.
@@ -132,7 +134,7 @@ export async function sendMessage(
     // ]
 
     if (userMessage.blocks.length === 0) {
-      console.warn('sendMessage: No blocks in the provided message.')
+      logger.warn('sendMessage: No blocks in the provided message.')
       return
     }
 
@@ -154,7 +156,7 @@ export async function sendMessage(
       await fetchAndProcessAssistantResponseImpl(topicId, assistant, assistantMessage)
     }
   } catch (error) {
-    console.error('Error in sendMessage:', error)
+    logger.error('Error in sendMessage:', error)
   }
 }
 
@@ -169,7 +171,7 @@ export async function regenerateAssistantMessage(assistantMessage: Message, assi
     const originalUserQuery = allMessagesForTopic.find(m => m.id === assistantMessage.askId)
 
     if (!originalUserQuery) {
-      console.error(
+      logger.error(
         `[regenerateAssistantResponseThunk] Original user query (askId: ${assistantMessage.askId}) not found for assistant message ${assistantMessage.id}. Cannot regenerate.`
       )
       return
@@ -180,7 +182,7 @@ export async function regenerateAssistantMessage(assistantMessage: Message, assi
 
     if (!messageToResetEntity) {
       // No need to check topicId again as selector implicitly handles it
-      console.error(
+      logger.error(
         `[regenerateAssistantResponseThunk] Assistant message ${assistantMessage.id} not found in entities despite being in the topic list. State might be inconsistent.`
       )
       return
@@ -226,7 +228,7 @@ export async function regenerateAssistantMessage(assistantMessage: Message, assi
       async () => await fetchAndProcessAssistantResponseImpl(topicId, assistantConfigForRegen, resetAssistantMsg)
     )
   } catch (error) {
-    console.error('Error in regenerateAssistantMessage:', error)
+    logger.error('Error in regenerateAssistantMessage:', error)
   }
 }
 
@@ -238,7 +240,7 @@ export async function saveMessageAndBlocksToDB(message: Message, blocks: Message
 
     // get topic from database
     const topic = await getTopicById(message.topicId)
-    console.log('saveMessageAndBlocksToDB topic:', topic)
+    logger.info('saveMessageAndBlocksToDB topic:', topic)
 
     if (topic) {
       const _messageIndex = topic.messages.findIndex(m => m.id === message.id)
@@ -256,10 +258,10 @@ export async function saveMessageAndBlocksToDB(message: Message, blocks: Message
 
       await updateTopicMessages(topic.id, updatedMessages)
     } else {
-      console.error(`[saveMessageAndBlocksToDB] Topic ${message.topicId} not found.`)
+      logger.error(`[saveMessageAndBlocksToDB] Topic ${message.topicId} not found.`)
     }
   } catch (error) {
-    console.error('Error saving message blocks:', error)
+    logger.error('Error saving message blocks:', error)
   }
 }
 
@@ -308,7 +310,7 @@ export async function fetchAndProcessAssistantResponseImpl(
       const toBeUpdatedMessage = await getMessageById(newBlock.messageId)
 
       if (!toBeUpdatedMessage) {
-        console.error(`[upsertBlockReference] Message ${newBlock.messageId} not found.`)
+        logger.error(`[upsertBlockReference] Message ${newBlock.messageId} not found.`)
         return
       }
 
@@ -332,7 +334,7 @@ export async function fetchAndProcessAssistantResponseImpl(
       const updatedMessage = await upsertMessages(toBeUpdatedMessage)
 
       if (!updatedMessage) {
-        console.error(`[handleBlockTransition] Failed to update message ${toBeUpdatedMessage.id} in state.`)
+        logger.error(`[handleBlockTransition] Failed to update message ${toBeUpdatedMessage.id} in state.`)
         return
       }
     }
@@ -343,7 +345,7 @@ export async function fetchAndProcessAssistantResponseImpl(
     const userMessageIndex = allMessagesForTopic.findIndex(m => m?.id === userMessageId)
 
     if (userMessageIndex === -1) {
-      console.error(
+      logger.error(
         `[fetchAndProcessAssistantResponseImpl] Triggering user message ${userMessageId} (askId of ${assistantMsgId}) not found. Falling back.`
       )
       const assistantMessageIndexFallback = allMessagesForTopic.findIndex(m => m?.id === assistantMsgId)
@@ -405,7 +407,7 @@ export async function fetchAndProcessAssistantResponseImpl(
           await updateOneBlock({ id: mainTextBlockId, changes })
           mainTextBlockId = null
         } else {
-          console.warn(
+          logger.warn(
             `[onTextComplete] Received text.complete but last block was not MAIN_TEXT (was ${lastBlockType}) or lastBlockId  is null.`
           )
         }
@@ -459,7 +461,7 @@ export async function fetchAndProcessAssistantResponseImpl(
           }
           await updateOneBlock({ id: thinkingBlockId, changes })
         } else {
-          console.warn(
+          logger.warn(
             `[onThinkingComplete] Received thinking.complete but last block was not THINKING (was ${lastBlockType}) or lastBlockId  is null.`
           )
         }
@@ -467,7 +469,7 @@ export async function fetchAndProcessAssistantResponseImpl(
         thinkingBlockId = null
       },
       onExternalToolInProgress: async () => {
-        console.log('[onExternalToolInProgress] External tool is in progress...')
+        logger.info('[onExternalToolInProgress] External tool is in progress...')
         const citationBlock = createCitationBlock(assistantMsgId, {}, { status: MessageBlockStatus.PROCESSING })
         citationBlockId = citationBlock.id
         await handleBlockTransition(citationBlock, MessageBlockType.CITATION)
@@ -481,12 +483,12 @@ export async function fetchAndProcessAssistantResponseImpl(
           }
           await updateOneBlock({ id: citationBlockId, changes })
         } else {
-          console.error('[onExternalToolComplete] citationBlockId is null. Cannot update.')
+          logger.error('[onExternalToolComplete] citationBlockId is null. Cannot update.')
         }
       },
 
       onError: async error => {
-        console.dir(error, { depth: null })
+        logger.error(error, { depth: null })
         const isErrorTypeAbort = isAbortError(error)
         let pauseErrorLanguagePlaceholder = ''
 
@@ -533,7 +535,7 @@ export async function fetchAndProcessAssistantResponseImpl(
         const toBeUpdatedMessage = await getMessageById(assistantMsgId)
 
         if (!toBeUpdatedMessage) {
-          console.error(`[upsertBlockReference] Message ${assistantMsgId} not found.`)
+          logger.error(`[upsertBlockReference] Message ${assistantMsgId} not found.`)
           return
         }
 
@@ -542,7 +544,7 @@ export async function fetchAndProcessAssistantResponseImpl(
         const updatedMessage = await upsertMessages(toBeUpdatedMessage)
 
         if (!updatedMessage) {
-          console.error(`[onError] Failed to update message ${toBeUpdatedMessage.id} in state.`)
+          logger.error(`[onError] Failed to update message ${toBeUpdatedMessage.id} in state.`)
           return
         }
 
@@ -557,7 +559,7 @@ export async function fetchAndProcessAssistantResponseImpl(
         const finalAssistantMsg = await getMessageById(assistantMsgId)
 
         if (!finalAssistantMsg) {
-          console.error(`[onComplete] Assistant message ${assistantMsgId} not found.`)
+          logger.error(`[onComplete] Assistant message ${assistantMsgId} not found.`)
           return
         }
 
@@ -625,7 +627,7 @@ export async function fetchAndProcessAssistantResponseImpl(
       streamProcessorCallbacks
     )
   } catch (error) {
-    console.error('Error in fetchAndProcessAssistantResponseImpl:', error)
+    logger.error('Error in fetchAndProcessAssistantResponseImpl:', error)
   }
 }
 
@@ -637,7 +639,7 @@ export async function multiModelResponses(
   triggeringMessage: Message, // userMessage or messageToResend
   mentionedModels: Model[]
 ) {
-  console.log('multiModelResponses')
+  logger.info('multiModelResponses')
   const assistantMessageStubs: Message[] = []
   const tasksToQueue: { assistantConfig: Assistant; messageStub: Message }[] = []
 
