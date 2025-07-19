@@ -72,6 +72,8 @@ export interface TranslationMessageBlock extends BaseMessageBlock {
   type: MessageBlockType.TRANSLATION
   content: string
   sourceBlockId?: string // Optional: ID of the block that was translated
+  sourceLanguage?: string
+  targetLanguage: string
 }
 
 // 代码块 - 专门处理代码
@@ -179,8 +181,6 @@ export type Message = {
   blocks: MessageBlock['id'][]
 }
 
-export type GroupedMessage = Message & { index: number }
-
 export interface Response {
   text?: string
   reasoning_content?: string
@@ -199,9 +199,6 @@ export interface MessageInputBaseParams {
   topic: Topic
   content?: string
   files?: FileType[]
-  /**
-   * @deprecated
-   */
   knowledgeBaseIds?: string[]
   mentions?: Model[]
   /**
