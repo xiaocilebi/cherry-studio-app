@@ -1,12 +1,12 @@
-import { isOpenAILLMModel } from '@/config/models/webSearch'
+import { isSupportedModel } from '@/config/models'
 import { Model, Provider } from '@/types/assistant'
 import { GenerateImageParams } from '@/types/image'
 import { MCPCallToolResponse, MCPToolResponse, ToolCallResponse } from '@/types/mcp'
 import {
+  NewApiModel,
   RequestOptions,
   SdkInstance,
   SdkMessageParam,
-  SdkModel,
   SdkParams,
   SdkRawChunk,
   SdkRawOutput,
@@ -23,11 +23,7 @@ import { OpenAIAPIClient } from './openai/OpenAIApiClient'
 import { OpenAIResponseAPIClient } from './openai/OpenAIResponseAPIClient'
 import { RequestTransformer, ResponseChunkTransformer } from './types'
 
-/**
- * AihubmixAPIClient - 根据模型类型自动选择合适的ApiClient
- * 使用装饰器模式实现，在ApiClient层面进行模型路由
- */
-export class AihubmixAPIClient extends BaseApiClient {
+export class NewAPIClient extends BaseApiClient {
   // 使用联合类型而不是any，保持类型安全
   private clients: Map<string, AnthropicAPIClient | GeminiAPIClient | OpenAIResponseAPIClient | OpenAIAPIClient> =
     new Map()
@@ -37,27 +33,18 @@ export class AihubmixAPIClient extends BaseApiClient {
   constructor(provider: Provider) {
     super(provider)
 
-    const providerExtraHeaders = {
-      ...provider,
-      extra_headers: {
-        ...provider.extra_headers,
-        'APP-Code': 'MLTG2087'
-      }
-    }
-
-    // 初始化各个client - 现在有类型安全
-    const claudeClient = new AnthropicAPIClient(providerExtraHeaders)
-    const geminiClient = new GeminiAPIClient({ ...providerExtraHeaders, apiHost: 'https://aihubmix.com/gemini' })
-    const openaiClient = new OpenAIResponseAPIClient(providerExtraHeaders)
-    const defaultClient = new OpenAIAPIClient(providerExtraHeaders)
+    const claudeClient = new AnthropicAPIClient(provider)
+    const geminiClient = new GeminiAPIClient(provider)
+    const openaiClient = new OpenAIAPIClient(provider)
+    const openaiResponseClient = new OpenAIResponseAPIClient(provider)
 
     this.clients.set('claude', claudeClient)
     this.clients.set('gemini', geminiClient)
     this.clients.set('openai', openaiClient)
-    this.clients.set('default', defaultClient)
+    this.clients.set('openai-response', openaiResponseClient)
 
     // 设置默认client
-    this.defaultClient = defaultClient
+    this.defaultClient = openaiClient
     this.currentClient = this.defaultClient as BaseApiClient
   }
 
@@ -87,47 +74,51 @@ export class AihubmixAPIClient extends BaseApiClient {
    * 根据模型获取合适的client
    */
   private getClient(model: Model): BaseApiClient {
-    const id = model.id.toLowerCase()
+    if (!model.endpoint_type) {
+      throw new Error('Model endpoint type is not defined')
+    }
 
-    // claude开头
-    if (id.startsWith('claude')) {
+    if (model.endpoint_type === 'anthropic') {
       const client = this.clients.get('claude')
 
       if (!client || !this.isValidClient(client)) {
-        throw new Error('Claude client not properly initialized')
+        throw new Error('Failed to get claude client')
       }
 
       return client
     }
 
-    // gemini开头 且不以-nothink、-search结尾
-    if (
-      (id.startsWith('gemini') || id.startsWith('imagen')) &&
-      !id.endsWith('-nothink') &&
-      !id.endsWith('-search') &&
-      !id.includes('embedding')
-    ) {
+    if (model.endpoint_type === 'openai-response') {
+      const client = this.clients.get('openai-response')
+
+      if (!client || !this.isValidClient(client)) {
+        throw new Error('Failed to get openai-response client')
+      }
+
+      return client
+    }
+
+    if (model.endpoint_type === 'gemini') {
       const client = this.clients.get('gemini')
 
       if (!client || !this.isValidClient(client)) {
-        throw new Error('Gemini client not properly initialized')
+        throw new Error('Failed to get gemini client')
       }
 
       return client
     }
 
-    // OpenAI系列模型
-    if (isOpenAILLMModel(model)) {
+    if (model.endpoint_type === 'openai' || model.endpoint_type === 'image-generation') {
       const client = this.clients.get('openai')
 
       if (!client || !this.isValidClient(client)) {
-        throw new Error('OpenAI client not properly initialized')
+        throw new Error('Failed to get openai client')
       }
 
       return client
     }
 
-    return this.defaultClient as BaseApiClient
+    throw new Error('Invalid model endpoint type: ' + model.endpoint_type)
   }
 
   /**
@@ -175,9 +166,25 @@ export class AihubmixAPIClient extends BaseApiClient {
     return client.getEmbeddingDimensions(model)
   }
 
-  async listModels(): Promise<SdkModel[]> {
-    // 可以聚合所有client的模型，或者使用默认client
-    return this.defaultClient.listModels()
+  override async listModels(): Promise<NewApiModel[]> {
+    try {
+      const sdk = await this.defaultClient.getSdkInstance()
+      // Explicitly type the expected response shape so that `data` is recognised.
+      const response = await sdk.request<{ data: NewApiModel[] }>({
+        method: 'get',
+        path: '/models'
+      })
+      const models: NewApiModel[] = response.data ?? []
+
+      models.forEach(model => {
+        model.id = model.id.trim()
+      })
+
+      return models.filter(isSupportedModel)
+    } catch (error) {
+      console.error('Error listing models:', error)
+      return []
+    }
   }
 
   async getSdkInstance(): Promise<SdkInstance> {

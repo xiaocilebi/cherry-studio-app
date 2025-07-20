@@ -34,6 +34,7 @@
     "@cherrystudio/ai-core": "^1.0.0-alpha.5",
     "@google/genai": "^1.0.1",
     "@gorhom/bottom-sheet": "^5.1.5",
+    "@mistralai/mistralai": "^1.7.4",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-native-community/datetimepicker": "8.3.0",
     "@react-native-masked-view/masked-view": "0.3.2",

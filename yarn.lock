@@ -2674,6 +2674,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mistralai/mistralai@npm:^1.7.4":
+  version: 1.7.4
+  resolution: "@mistralai/mistralai@npm:1.7.4"
+  dependencies:
+    zod-to-json-schema: "npm:^3.24.1"
+  peerDependencies:
+    zod: ">= 3"
+  checksum: 10c0/d1ece1cb690dc50fde3bd7b0feec6211aa63d1331032bd84d82bfc85704467da560ed213f2c4683f9983cc4004e26e04bac6d052f20848668503d7d14a8ad839
+  languageName: node
+  linkType: hard
+
 "@mixmark-io/domino@npm:^2.2.0":
   version: 2.2.0
   resolution: "@mixmark-io/domino@npm:2.2.0"
@@ -6248,6 +6259,7 @@ __metadata:
     "@cherrystudio/ai-core": "npm:^1.0.0-alpha.5"
     "@google/genai": "npm:^1.0.1"
     "@gorhom/bottom-sheet": "npm:^5.1.5"
+    "@mistralai/mistralai": "npm:^1.7.4"
     "@mozilla/readability": "npm:^0.6.0"
     "@react-native-async-storage/async-storage": "npm:2.1.2"
     "@react-native-community/datetimepicker": "npm:8.3.0"
