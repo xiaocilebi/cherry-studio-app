@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
 import { WebSearchProvider } from '@/types/websearch'
-import { getWebSearchProviderIcon } from '@/utils/icon'
+import { getWebSearchProviderIcon } from '@/utils/icons/websearch'
 
 interface WebsearchProviderIconProps {
   provider: WebSearchProvider

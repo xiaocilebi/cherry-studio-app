@@ -207,3 +207,5 @@ export interface MessageInputBaseParams {
   enabledMCPs?: MCPServer[]
   usage?: CompletionUsage
 }
+
+export type GroupedMessage = Message & { index: number }

@@ -38,7 +38,38 @@ export default {
       ],
       'expo-localization',
       'expo-asset',
-      'expo-font',
+      [
+        'expo-font',
+        {
+          fonts: ['./src/assets/fonts/JetBrainsMono-Regular.ttf'],
+          android: {
+            fonts: [
+              {
+                fontFamily: 'JetBrainsMono',
+                fontDefinitions: [
+                  {
+                    path: './src/assets/fonts/JetBrainsMono-Regular.ttf',
+                    weight: 700
+                  }
+                ]
+              }
+            ]
+          },
+          ios: {
+            fonts: [
+              {
+                fontFamily: 'JetBrainsMono',
+                fontDefinitions: [
+                  {
+                    path: './src/assets/fonts/JetBrainsMono-Regular.ttf',
+                    weight: 700
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
       'expo-web-browser',
       'expo-sqlite',
       [

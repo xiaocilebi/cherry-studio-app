@@ -5,6 +5,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { DefaultTheme, NavigationContainer, ThemeProvider } from '@react-navigation/native'
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin'
+import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
 import { StatusBar } from 'expo-status-bar'
@@ -42,6 +43,9 @@ function DatabaseInitializer() {
   const { success, error } = useMigrations(db, migrations)
   const initialized = useSelector((state: RootState) => state.app.initialized)
   const dispatch = useAppDispatch()
+  const [loaded] = useFonts({
+    JetbrainMono: require('./assets/fonts/JetBrainsMono-Regular.ttf')
+  })
 
   useDrizzleStudio(expoDb)
 

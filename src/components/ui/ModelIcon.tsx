@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
 import { Model } from '@/types/assistant'
-import { getModelOrProviderIcon } from '@/utils/icon'
+import { getModelOrProviderIcon } from '@/utils/icons'
 
 interface ModelIconProps {
   model: Model

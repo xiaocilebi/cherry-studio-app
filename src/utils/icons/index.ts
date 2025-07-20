@@ -1,3 +1,5 @@
+const iconCache = new Map<string, any>()
+
 const MODEL_ICONS_DARK = {
   chatgpt: require('@/assets/images/llmIcons/dark/openai.png'),
   o1: require('@/assets/images/llmIcons/dark/openai.png'),
@@ -76,6 +78,31 @@ const MODEL_ICONS_LIGHT = {
   perplexity: require('@/assets/images/llmIcons/light/perplexity.png'),
   sonar: require('@/assets/images/llmIcons/light/perplexity.png'),
   stable: require('@/assets/images/llmIcons/light/stability.png')
+}
+
+export function getModelIcon(modelId: string, isDark: boolean): any {
+  const cacheKey = `${modelId}-${isDark}`
+
+  // 检查缓存
+  if (iconCache.has(cacheKey)) {
+    return iconCache.get(cacheKey)
+  }
+
+  const modelIcons = isDark ? MODEL_ICONS_DARK : MODEL_ICONS_LIGHT
+  let result = null
+
+  for (const key in modelIcons) {
+    const regex = new RegExp(key, 'i')
+
+    if (regex.test(modelId)) {
+      result = modelIcons[key as keyof typeof modelIcons]
+      break
+    }
+  }
+
+  // 缓存结果
+  iconCache.set(cacheKey, result)
+  return result
 }
 
 const PROVIDER_ICONS_DARK = {
@@ -174,67 +201,19 @@ const PROVIDER_ICONS_LIGHT = {
   default: require('@/assets/images/llmIcons/light/openai.png')
 }
 
-const WEB_SEARCH_PROVIDER_ICONS = {
-  google: require('@/assets/images/websearchIcons/google.png'),
-  bing: require('@/assets/images/websearchIcons/bing.png'),
-  baidu: require('@/assets/images/websearchIcons/baidu.png'),
-  exa: require('@/assets/images/websearchIcons/exa.png'),
-  bocha: require('@/assets/images/websearchIcons/bocha.png'),
-  searxng: require('@/assets/images/websearchIcons/searxng.png'),
-  tavily: require('@/assets/images/websearchIcons/tavily.png')
-}
-
-const DATA_BACKUP_ICONS = {
-  joplin: require('@/assets/images/dataIcons/joplin.png'),
-  notion: require('@/assets/images/dataIcons/notion.png'),
-  nutstore: require('@/assets/images/dataIcons/nutstore.png'),
-  obsidian: require('@/assets/images/dataIcons/obsidian.png'),
-  siyuan: require('@/assets/images/dataIcons/siyuan.png'),
-  yuque: require('@/assets/images/dataIcons/yuque.png')
-}
-
-// 添加缓存
-const modelIconCache = new Map<string, any>()
-const providerIconCache = new Map<string, any>()
-
-export function getModelIcon(modelId: string, isDark: boolean): any {
-  const cacheKey = `${modelId}-${isDark}`
-
-  // 检查缓存
-  if (modelIconCache.has(cacheKey)) {
-    return modelIconCache.get(cacheKey)
-  }
-
-  const modelIcons = isDark ? MODEL_ICONS_DARK : MODEL_ICONS_LIGHT
-  let result = null
-
-  for (const key in modelIcons) {
-    const regex = new RegExp(key, 'i')
-
-    if (regex.test(modelId)) {
-      result = modelIcons[key as keyof typeof modelIcons]
-      break
-    }
-  }
-
-  // 缓存结果
-  modelIconCache.set(cacheKey, result)
-  return result
-}
-
 export function getProviderIcon(providerId: string, isDark: boolean): any {
   const cacheKey = `${providerId}-${isDark}`
 
   // 检查缓存
-  if (providerIconCache.has(cacheKey)) {
-    return providerIconCache.get(cacheKey)
+  if (iconCache.has(cacheKey)) {
+    return iconCache.get(cacheKey)
   }
 
   const providerIcons = isDark ? PROVIDER_ICONS_DARK : PROVIDER_ICONS_LIGHT
   const result = providerIcons[providerId as keyof typeof providerIcons] || providerIcons.default
 
   // 缓存结果
-  providerIconCache.set(cacheKey, result)
+  iconCache.set(cacheKey, result)
   return result
 }
 
@@ -248,54 +227,4 @@ export function getModelOrProviderIcon(modelId: string, providerId: string, isDa
 
   // 如果没有模型图标，则使用提供商图标
   return getProviderIcon(providerId, isDark)
-}
-
-export function getWebSearchProviderIcon(providerId: string, isDark: boolean): any {
-  const cacheKey = `${providerId}-${isDark}`
-
-  // 检查缓存
-  if (providerIconCache.has(cacheKey)) {
-    return providerIconCache.get(cacheKey)
-  }
-
-  const webSearchIcons = WEB_SEARCH_PROVIDER_ICONS
-  let result = null
-
-  for (const key in webSearchIcons) {
-    const regex = new RegExp(key, 'i')
-
-    if (regex.test(providerId)) {
-      result = webSearchIcons[key as keyof typeof webSearchIcons]
-      break
-    }
-  }
-
-  // 缓存结果
-  providerIconCache.set(cacheKey, result)
-  return result
-}
-
-export function getDataBackupIcon(providerId: string, isDark: boolean): any {
-  const cacheKey = `${providerId}-${isDark}`
-
-  // 检查缓存
-  if (providerIconCache.has(cacheKey)) {
-    return providerIconCache.get(cacheKey)
-  }
-
-  const dataBackupIcons = DATA_BACKUP_ICONS
-  let result = null
-
-  for (const key in dataBackupIcons) {
-    const regex = new RegExp(key, 'i')
-
-    if (regex.test(providerId)) {
-      result = dataBackupIcons[key as keyof typeof dataBackupIcons]
-      break
-    }
-  }
-
-  // 缓存结果
-  providerIconCache.set(cacheKey, result)
-  return result
 }

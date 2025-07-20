@@ -2,7 +2,7 @@ import React from 'react'
 import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
-import { getDataBackupIcon } from '@/utils/icon'
+import { getDataBackupIcon } from '@/utils/icons/dataBackup'
 
 interface DataBackupIconProps {
   provider: string

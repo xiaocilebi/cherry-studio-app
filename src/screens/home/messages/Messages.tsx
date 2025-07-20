@@ -1,7 +1,7 @@
 import { FlashList } from '@shopify/flash-list'
 import { FC } from 'react'
 import React from 'react'
-import { View } from 'tamagui'
+import { View, YStack } from 'tamagui'
 
 import { useMessages } from '@/hooks/useMessages'
 import { Assistant, Topic } from '@/types/assistant'
@@ -31,6 +31,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         renderItem={renderMessageGroup}
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         estimatedItemSize={100} // 估算值可能需要根据内容调整
+        ItemSeparatorComponent={() => <YStack height={20} />}
       />
     </View>
   )

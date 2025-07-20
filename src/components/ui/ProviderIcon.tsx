@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
 import { Provider } from '@/types/assistant'
-import { getProviderIcon } from '@/utils/icon'
+import { getProviderIcon } from '@/utils/icons/'
 
 interface ProviderIconProps {
   provider: Provider
