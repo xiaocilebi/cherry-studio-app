@@ -73,7 +73,7 @@ function DatabaseInitializer() {
     }
 
     const handleMigrations = async () => {
-      if (success) {
+      if (success && loaded) {
         logger.info('Migrations completed successfully', expoDb.databasePath)
         await initializeApp()
       } else if (error) {
@@ -82,7 +82,7 @@ function DatabaseInitializer() {
     }
 
     handleMigrations()
-  }, [success, error, initialized, dispatch])
+  }, [success, error, initialized, dispatch, loaded])
 
   useEffect(() => {
     SplashScreen.hideAsync()

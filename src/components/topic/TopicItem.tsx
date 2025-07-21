@@ -32,7 +32,7 @@ interface RenderRightActionsProps {
 }
 
 const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swipeableRef }) => {
-  const { navigateToChatScreen, navigateToHomeScreen } = useNavigation()
+  const { navigateToChatScreen } = useNavigation()
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [50, 0])
 
