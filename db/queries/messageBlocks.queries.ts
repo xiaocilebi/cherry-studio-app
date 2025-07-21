@@ -229,8 +229,6 @@ export async function updateOneBlock(update: { id: string; changes: Partial<Mess
     const { id, changes } = update
     const dbChanges: { [key: string]: any } = {}
 
-    // 使用 KeysOfUnion 辅助类型来正确地类型化键数组。
-    // 这会创建一个包含任何块类型中所有可能键的联合类型。
     const jsonFields: KeysOfUnion<MessageBlock>[] = [
       'model',
       'metadata',
@@ -244,19 +242,20 @@ export async function updateOneBlock(update: { id: string; changes: Partial<Mess
     ]
 
     for (const key in changes) {
-      // 我们必须将 `changes` 转换为 `any` 来动态访问其属性，
-      // 因为 TypeScript 无法保证给定的 `key` 存在于 `MessageBlock` 联合类型中的每一种类型上。
       const value = (changes as any)[key]
       if (value === undefined) continue
 
-      // 为了类型兼容性，对 `includes` 方法使用字符串数组断言。
-      if ((jsonFields as string[]).includes(key)) {
-        dbChanges[key] = JSON.stringify(value)
-      } else if (key === 'thinking_millsec') {
+      // 检查是否是需要特殊处理的数字字段
+      if (key === 'thinking_millsec') {
         dbChanges.thinking_millsec = value
-      } else if (key === 'content' && typeof value === 'object') {
-        dbChanges.content = JSON.stringify(value)
-      } else {
+      }
+      // 检查是否是应该被序列化的字段（包括 jsonFields 和其他任何对象/数组）
+      // `value !== null` 是为了防止 typeof null === 'object' 的情况
+      else if ((jsonFields as string[]).includes(key) || (typeof value === 'object' && value !== null)) {
+        dbChanges[key] = JSON.stringify(value)
+      }
+      // 只处理原始类型（string, number, boolean, null）
+      else {
         dbChanges[key] = value
       }
     }
@@ -265,7 +264,9 @@ export async function updateOneBlock(update: { id: string; changes: Partial<Mess
       await db.update(messageBlocks).set(dbChanges).where(eq(messageBlocks.id, id))
     }
   } catch (error) {
-    logger.error(`Error updating block with ID ${update.id}:`, error)
+    // 增加日志记录，以便调试时能看到导致问题的 dbChanges 对象
+    logger.error(`Error updating block with ID ${update.id}. Changes prepared for DB:`, update.changes)
+    logger.error('Original error:', error)
     throw error
   }
 }
