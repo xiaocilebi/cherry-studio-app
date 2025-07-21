@@ -31,7 +31,6 @@ const HomeScreen = () => {
         logger.error('Get Newest Topic on Home Screen', error)
       }
     })
-    // 依赖项建议为空数组，确保只在首次挂载时运行
   }, [navigation])
 
   return (
