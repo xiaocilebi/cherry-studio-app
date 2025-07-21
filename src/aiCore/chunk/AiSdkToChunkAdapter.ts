@@ -192,13 +192,15 @@ export class AiSdkToChunkAdapter {
             }
           })
         } else {
-          this.onChunk({
-            type: ChunkType.LLM_WEB_SEARCH_COMPLETE,
-            llm_web_search: {
-              results: final.webSearchResults,
-              source: WebSearchSource.AISDK
-            }
-          })
+          if (final.webSearchResults.length > 0) {
+            this.onChunk({
+              type: ChunkType.LLM_WEB_SEARCH_COMPLETE,
+              llm_web_search: {
+                results: final.webSearchResults,
+                source: WebSearchSource.AISDK
+              }
+            })
+          }
         }
 
         final.webSearchResults = []
