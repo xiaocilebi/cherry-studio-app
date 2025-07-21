@@ -30,7 +30,7 @@ const HomeScreen = () => {
         logger.error('Get Newest Topic', error)
       }
     })
-  }, [])
+  }, [navigateToChatScreen])
 
   return (
     <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>

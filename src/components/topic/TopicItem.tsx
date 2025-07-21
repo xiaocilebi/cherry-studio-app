@@ -50,8 +50,10 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
 
         if (nextTopic) {
           navigateToChatScreen(nextTopic.id)
+          logger.info('navigateToChatScreen', nextTopic)
         } else {
           navigateToHomeScreen()
+          logger.info('navigateToHomeScreen')
         }
       }
     } catch (error) {
