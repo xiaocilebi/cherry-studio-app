@@ -1,6 +1,7 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native'
+import { ActivityIndicator, Keyboard, Platform, TouchableWithoutFeedback } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { YStack } from 'tamagui'
 
 import { HeaderBar } from '@/components/header-bar'
