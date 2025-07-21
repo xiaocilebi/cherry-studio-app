@@ -56,6 +56,7 @@ export const createCitationCallbacks = (deps: CitationCallbacksDependencies) => 
         const citationBlock = createCitationBlock(assistantMsgId, {}, { status: MessageBlockStatus.PROCESSING })
         citationBlockId = citationBlock.id
         await blockManager.handleBlockTransition(citationBlock, MessageBlockType.CITATION)
+        logger.debug('onLLMWebSearchInProgress', citationBlock)
       }
     },
 
@@ -124,6 +125,7 @@ export const createCitationCallbacks = (deps: CitationCallbacksDependencies) => 
         }
 
         await blockManager.handleBlockTransition(citationBlock, MessageBlockType.CITATION)
+        logger.debug('onLLMWebSearchComplete', citationBlock)
       }
     },
 
