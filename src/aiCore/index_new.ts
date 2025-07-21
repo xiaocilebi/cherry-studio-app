@@ -164,6 +164,7 @@ export default class ModernAiProvider {
 
     // 2. 推理模型时添加推理插件
     if (middlewareConfig.enableReasoning) {
+      logger.info('buildPlugins', middlewareConfig.enableReasoning)
       plugins.push(reasoningTimePlugin)
     }
 

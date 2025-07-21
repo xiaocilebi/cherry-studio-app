@@ -275,7 +275,7 @@ const getBlockThrottler = async (id: string) => {
 /**
  * 更新单个消息块。
  */
-const throttledBlockUpdate = async (id: string, blockUpdate: any) => {
+export const throttledBlockUpdate = async (id: string, blockUpdate: any) => {
   const throttler = await getBlockThrottler(id)
   // store.dispatch(updateOneBlock({ id, changes: blockUpdate }))
   throttler(blockUpdate)
@@ -284,7 +284,7 @@ const throttledBlockUpdate = async (id: string, blockUpdate: any) => {
 /**
  * 取消单个块的节流更新，移除节流器和 RAF。
  */
-const cancelThrottledBlockUpdate = (id: string) => {
+export const cancelThrottledBlockUpdate = (id: string) => {
   const rafId = blockUpdateRafs.get(id)
 
   if (rafId) {
@@ -300,7 +300,7 @@ const cancelThrottledBlockUpdate = (id: string) => {
   }
 }
 
-const saveUpdatesToDB = async (
+export const saveUpdatesToDB = async (
   messageId: string,
   topicId: string,
   messageUpdates: Partial<Message>, // 需要更新的消息字段
@@ -331,7 +331,7 @@ const updateExistingMessageAndBlocksInDB = async (
 }
 
 // 新增: 辅助函数，用于获取并保存单个更新后的 Block 到数据库
-const saveUpdatedBlockToDB = async (blockId: string | null, messageId: string, topicId: string) => {
+export const saveUpdatedBlockToDB = async (blockId: string | null, messageId: string, topicId: string) => {
   if (!blockId) {
     console.warn('[DB Save Single Block] Received null/undefined blockId. Skipping save.')
     return
@@ -745,7 +745,6 @@ export async function fetchAndProcessAssistantResponseImpl(
       saveUpdatesToDB,
       assistant
     })
-    console.log('callbacks', callbacks)
     const streamProcessorCallbacks = createStreamProcessor(callbacks)
 
     const orchestrationService = new OrchestrationService()

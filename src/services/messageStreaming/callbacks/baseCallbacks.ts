@@ -60,6 +60,7 @@ export const createBaseCallbacks = async (deps: BaseCallbacksDependencies) => {
         status: MessageBlockStatus.PROCESSING
       })
       await blockManager.handleBlockTransition(baseBlock as PlaceholderMessageBlock, MessageBlockType.UNKNOWN)
+      logger.debug('onLLMResponseCreated', baseBlock)
     },
     // onBlockCreated: async () => {
     //   if (blockManager.hasInitialPlaceholder) {
@@ -120,6 +121,7 @@ export const createBaseCallbacks = async (deps: BaseCallbacksDependencies) => {
       }
 
       await saveUpdatesToDB(assistantMsgId, topicId, errorStatus, [])
+      logger.error('onError', errorBlock)
     },
 
     onComplete: async (status: AssistantMessageStatus, response?: Response) => {
@@ -175,6 +177,7 @@ export const createBaseCallbacks = async (deps: BaseCallbacksDependencies) => {
 
       await upsertMessages({ ...finalAssistantMsg, ...messageUpdates })
       await saveUpdatesToDB(assistantMsgId, topicId, messageUpdates, [])
+      logger.debug('onComplete', messageUpdates)
     }
   }
 }

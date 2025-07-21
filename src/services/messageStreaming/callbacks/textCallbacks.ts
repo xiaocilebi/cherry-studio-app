@@ -31,6 +31,7 @@ export const createTextCallbacks = (deps: TextCallbacksDependencies) => {
         }
         mainTextBlockId = blockManager.initialPlaceholderBlockId!
         blockManager.smartBlockUpdate(mainTextBlockId, changes, MessageBlockType.MAIN_TEXT, true)
+        logger.debug('onTextStart', changes)
       } else if (!mainTextBlockId) {
         const newBlock = createMainTextBlock(assistantMsgId, '', {
           status: MessageBlockStatus.STREAMING
@@ -54,6 +55,7 @@ export const createTextCallbacks = (deps: TextCallbacksDependencies) => {
           citationReferences: citationBlockId ? [{ citationBlockId, citationBlockSource }] : []
         }
         blockManager.smartBlockUpdate(mainTextBlockId!, blockChanges, MessageBlockType.MAIN_TEXT)
+        logger.debug('onTextChunk', blockChanges)
       }
     },
 
@@ -65,8 +67,9 @@ export const createTextCallbacks = (deps: TextCallbacksDependencies) => {
         }
         blockManager.smartBlockUpdate(mainTextBlockId, changes, MessageBlockType.MAIN_TEXT, true)
         mainTextBlockId = null
+        logger.debug('onTextComplete', changes)
       } else {
-        console.warn(
+        logger.warn(
           `[onTextComplete] Received text.complete but last block was not MAIN_TEXT (was ${blockManager.lastBlockType}) or lastBlockId is null.`
         )
       }

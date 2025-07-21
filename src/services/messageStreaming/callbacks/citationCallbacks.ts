@@ -24,6 +24,7 @@ export const createCitationCallbacks = (deps: CitationCallbacksDependencies) => 
       const citationBlock = createCitationBlock(assistantMsgId, {}, { status: MessageBlockStatus.PROCESSING })
       citationBlockId = citationBlock.id
       await blockManager.handleBlockTransition(citationBlock, MessageBlockType.CITATION)
+      logger.debug('onExternalToolInProgress', citationBlock)
     },
 
     onExternalToolComplete: (externalToolResult: ExternalToolResult) => {
@@ -34,6 +35,7 @@ export const createCitationCallbacks = (deps: CitationCallbacksDependencies) => 
           status: MessageBlockStatus.SUCCESS
         }
         blockManager.smartBlockUpdate(citationBlockId, changes, MessageBlockType.CITATION, true)
+        logger.debug('onExternalToolComplete', externalToolResult)
       } else {
         console.error('[onExternalToolComplete] citationBlockId is null. Cannot update.')
       }
@@ -42,15 +44,14 @@ export const createCitationCallbacks = (deps: CitationCallbacksDependencies) => 
     onLLMWebSearchInProgress: async () => {
       if (blockManager.hasInitialPlaceholder) {
         // blockManager.lastBlockType = MessageBlockType.CITATION
-        console.log('blockManager.initialPlaceholderBlockId', blockManager.initialPlaceholderBlockId)
         citationBlockId = blockManager.initialPlaceholderBlockId!
-        console.log('citationBlockId', citationBlockId)
 
         const changes = {
           type: MessageBlockType.CITATION,
           status: MessageBlockStatus.PROCESSING
         }
         blockManager.smartBlockUpdate(citationBlockId, changes, MessageBlockType.CITATION)
+        logger.debug('onLLMWebSearchInProgress', citationBlockId)
       } else {
         const citationBlock = createCitationBlock(assistantMsgId, {}, { status: MessageBlockStatus.PROCESSING })
         citationBlockId = citationBlock.id
@@ -90,6 +91,8 @@ export const createCitationCallbacks = (deps: CitationCallbacksDependencies) => 
         if (blockManager.hasInitialPlaceholder) {
           citationBlockId = blockManager.initialPlaceholderBlockId
         }
+
+        logger.debug('onLLMWebSearchComplete', llmWebSearchResult)
       } else {
         const citationBlock = createCitationBlock(
           assistantMsgId,
