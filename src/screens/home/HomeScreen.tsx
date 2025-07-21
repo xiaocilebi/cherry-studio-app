@@ -11,7 +11,6 @@ import { runAsyncFunction } from '@/utils'
 
 const logger = loggerService.withContext('HomeScreen')
 
-// todo: 当侧边栏删除当前主页的topic会进入加载状态
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProps>()
 
