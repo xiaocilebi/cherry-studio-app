@@ -27,9 +27,9 @@ export function getAiSdkProviderId(provider: Provider): ProviderId | 'openai-com
     return provider.id as ProviderId
   }
 
-  if (AiCore.isSupported(provider.type)) {
-    return provider.type as ProviderId
-  }
+  // if (AiCore.isSupported(provider.type)) {
+  //   return provider.type as ProviderId
+  // }
 
   return provider.id as ProviderId
 }

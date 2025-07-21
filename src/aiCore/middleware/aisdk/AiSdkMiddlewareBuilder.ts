@@ -151,11 +151,14 @@ function addProviderSpecificMiddlewares(builder: AiSdkMiddlewareBuilder, config:
     case 'openai':
 
     case 'azure-openai': {
-      const tagName = config.model?.id.includes('gemini') ? tagNameArray[1] : tagNameArray[0]
-      builder.add({
-        name: 'thinking-tag-extraction',
-        middleware: extractReasoningMiddleware({ tagName })
-      })
+      if (config.enableReasoning) {
+        const tagName = config.model?.id.includes('gemini') ? tagNameArray[1] : tagNameArray[0]
+        builder.add({
+          name: 'thinking-tag-extraction',
+          middleware: extractReasoningMiddleware({ tagName })
+        })
+      }
+
       break
     }
 
