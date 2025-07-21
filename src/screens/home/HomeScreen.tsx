@@ -32,7 +32,7 @@ const HomeScreen = () => {
       }
     })
     // 依赖项建议为空数组，确保只在首次挂载时运行
-  }, [])
+  }, [navigation])
 
   return (
     <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
