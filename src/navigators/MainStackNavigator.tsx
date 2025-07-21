@@ -44,7 +44,7 @@ export default function MainStackNavigator() {
   const welcomeShown = useAppSelector(state => state.app.welcomeShown)
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="TestScreen">
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       {/* index */}
       {!welcomeShown && <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />}
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
