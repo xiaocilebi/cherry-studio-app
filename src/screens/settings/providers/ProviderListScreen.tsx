@@ -1,7 +1,10 @@
 import BottomSheet from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { Plus } from '@tamagui/lucide-icons'
-import React, { useRef, useState } from 'react'
+
+import debounce from 'lodash/debounce'
+
+import React, { useRef, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { ScrollView, Text, YStack } from 'tamagui'
@@ -24,11 +27,35 @@ export default function ProviderListScreen() {
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
   const { providers, isLoading } = useAllProviders()
-  const [searchQuery, setSearchQuery] = useState('')
+  
+
+  const [inputValue, setInputValue] = useState('')
+
+  const [filterQuery, setFilterQuery] = useState('')
+
   const [selectedProviderType, setSelectedProviderType] = useState<string | undefined>(undefined)
   const [providerName, setProviderName] = useState('')
 
-  const filteredProviders = providers.filter(p => p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+
+  const debouncedSetQuery = useCallback(
+    debounce((query: string) => {
+      setFilterQuery(query)
+    }, 500),
+    [] 
+  )
+
+  
+  const handleInputChange = (text: string) => {
+    
+    setInputValue(text)
+    
+    debouncedSetQuery(text)
+  }
+
+ 
+  const filteredProviders = providers.filter(
+    p => p.name && p.name.toLowerCase().includes(filterQuery.toLowerCase())
+  )
 
   const handleProviderTypeChange = (value: string) => {
     setSelectedProviderType(value)
@@ -72,7 +99,12 @@ export default function ProviderListScreen() {
         </SafeAreaContainer>
       ) : (
         <SettingContainer>
-          <SearchInput placeholder={t('settings.provider.search')} value={searchQuery} onChangeText={setSearchQuery} />
+         
+          <SearchInput
+            placeholder={t('settings.provider.search')}
+            value={inputValue}
+            onChangeText={handleInputChange}
+          />
 
           <YStack flex={1} gap={8}>
             <Text>{t('settings.provider.title')}</Text>
