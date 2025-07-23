@@ -8,7 +8,7 @@ import { uuid } from '@/utils'
 import {
   deleteAssistantById as _deleteAssistantById,
   getAssistantById as _getAssistantById,
-  getStarredAssistants as _getStarredAssistants,
+  getExternalAssistants as _getExternalAssistants,
   upsertAssistants
 } from '../../db/queries/assistants.queries'
 import { getProviderById } from '../../db/queries/providers.queries'
@@ -127,9 +127,9 @@ export function createBlankAssistant() {
   return blankAssistant
 }
 
-export async function getStarredAssistants(): Promise<Assistant[]> {
+export async function getExternalAssistants(): Promise<Assistant[]> {
   try {
-    return await _getStarredAssistants()
+    return await _getExternalAssistants()
   } catch (error) {
     logger.error('Failed to get starred assistants:', error)
     return []
@@ -146,7 +146,7 @@ export async function deleteAssistantById(assistantId: string) {
 
 export async function getRecentAssistants(): Promise<Assistant[]> {
   try {
-    const starredAssistants = await getStarredAssistants()
+    const starredAssistants = await getExternalAssistants()
     return starredAssistants.filter(assistant => assistant.topics.length > 0)
   } catch (error) {
     logger.error('Failed to get starred assistants:', error)

@@ -14,6 +14,7 @@ import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getTextPrimaryColor, getTextSecondaryColor } from '@/utils/color'
+import { formateEmoji } from '@/utils/formats'
 const logger = loggerService.withContext('Assistant Item')
 
 interface AssistantItemProps {
@@ -83,7 +84,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
         paddingHorizontal={20}
         onPress={editAssistant}>
         <XStack gap={14} maxWidth="90%">
-          <Text fontSize={35}>{assistant.emoji}</Text>
+          <Text fontSize={35}>{formateEmoji(assistant.emoji)}</Text>
           <YStack gap={8} flex={1} justifyContent="center">
             <Text
               fontSize={14}

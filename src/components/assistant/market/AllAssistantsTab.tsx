@@ -11,7 +11,6 @@ import { Assistant } from '@/types/assistant'
 interface AllAssistantsTabProps {
   assistantGroups: Record<string, Assistant[]>
   onArrowClick: (groupKey: string) => void
-  setIsBottomSheetOpen: (isOpen: boolean) => void
   onAssistantPress: (assistant: Assistant) => void
 }
 
@@ -21,12 +20,7 @@ interface GroupItem {
   assistants: Assistant[]
 }
 
-const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({
-  assistantGroups,
-  onArrowClick,
-  setIsBottomSheetOpen,
-  onAssistantPress
-}) => {
+const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistantGroups, onArrowClick, onAssistantPress }) => {
   // 将分组数据转换为扁平化的列表数据
   const flatData = Object.keys(assistantGroups).map(
     (groupKey): GroupItem => ({
@@ -50,12 +44,7 @@ const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({
         <ScrollView flex={1} horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap={20}>
             {item.assistants.slice(0, 5).map(assistant => (
-              <AssistantItemCard
-                key={assistant.id}
-                assistant={assistant}
-                setIsBottomSheetOpen={setIsBottomSheetOpen}
-                onAssistantPress={onAssistantPress}
-              />
+              <AssistantItemCard key={assistant.id} assistant={assistant} onAssistantPress={onAssistantPress} />
             ))}
           </XStack>
         </ScrollView>

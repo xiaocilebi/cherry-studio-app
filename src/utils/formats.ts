@@ -7,6 +7,11 @@ import { Citation, WebSearchProviderResponse, WebSearchSource } from '@/types/we
 
 import { findImageBlocks } from './messageUtils/find'
 
+export function formateEmoji(emoji?: string) {
+  if (!emoji) return ''
+  return emoji.replace(/\r\n/g, '').trim()
+}
+
 export async function addImageFileToContents(messages: Message[]) {
   const lastAssistantMessage = messages.findLast(m => m.role === 'assistant')
   if (!lastAssistantMessage) return messages

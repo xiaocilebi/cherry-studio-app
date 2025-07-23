@@ -5,21 +5,20 @@ import { Button, Text, XStack, YStack } from 'tamagui'
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
 import { getGreenColor } from '@/utils/color'
+import { formateEmoji } from '@/utils/formats'
 
 import GroupTag from './market/GroupTag'
 
 interface AssistantItemCardProps {
   assistant: Assistant
-  setIsBottomSheetOpen: (isOpen: boolean) => void
   onAssistantPress: (assistant: Assistant) => void
 }
 
-const AssistantItemCard = ({ assistant, setIsBottomSheetOpen, onAssistantPress }: AssistantItemCardProps) => {
+const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
   const isDark = useIsDark()
 
   const handlePress = () => {
     onAssistantPress(assistant)
-    setIsBottomSheetOpen(true)
   }
 
   return (
@@ -36,7 +35,7 @@ const AssistantItemCard = ({ assistant, setIsBottomSheetOpen, onAssistantPress }
         <BookmarkMinus size={20} color="white" />
       </Button>
       <YStack gap={7} alignItems="center" justifyContent="center" height="100%">
-        <Text fontSize={30}>{assistant.emoji?.replace(/\r\n/g, '')}</Text>
+        <Text fontSize={30}>{formateEmoji(assistant.emoji)}</Text>
         <Text textAlign="center" numberOfLines={2} ellipsizeMode="tail">
           {assistant.name}
         </Text>

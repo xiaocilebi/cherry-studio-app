@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { debounce } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
@@ -30,20 +30,14 @@ export default function AssistantMarketScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
 
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
 
   const { assistants: builtInAssistants } = useBuiltInAssistants()
 
-  const handleBottomSheetClose = () => {
-    setIsBottomSheetOpen(false)
-    setSelectedAssistant(null)
-  }
-
   const handleAssistantItemPress = (assistant: Assistant) => {
     setSelectedAssistant(assistant)
-    setIsBottomSheetOpen(true)
+    bottomSheetRef.current?.present()
   }
 
   const [actualFilterType, setActualFilterType] = useState<FilterType>('all')
@@ -147,7 +141,6 @@ export default function AssistantMarketScreen() {
         <AllAssistantsTab
           assistantGroups={assistantGroupsForDisplay}
           onArrowClick={handleArrowClick}
-          setIsBottomSheetOpen={setIsBottomSheetOpen}
           onAssistantPress={handleAssistantItemPress}
         />
       </Tabs.Content>
@@ -155,11 +148,7 @@ export default function AssistantMarketScreen() {
         .filter(({ value }) => value !== 'all')
         .map(({ value }) => (
           <Tabs.Content key={value} value={value} flex={1}>
-            <CategoryAssistantsTab
-              assistants={filterAssistants}
-              setIsBottomSheetOpen={setIsBottomSheetOpen}
-              onAssistantPress={handleAssistantItemPress}
-            />
+            <CategoryAssistantsTab assistants={filterAssistants} onAssistantPress={handleAssistantItemPress} />
           </Tabs.Content>
         ))}
     </>
@@ -194,14 +183,7 @@ export default function AssistantMarketScreen() {
           {renderTabContents}
         </Tabs>
       </SettingContainer>
-      {selectedAssistant && (
-        <AssistantItemSheet
-          bottomSheetRef={bottomSheetRef}
-          isOpen={isBottomSheetOpen}
-          onClose={handleBottomSheetClose}
-          assistant={selectedAssistant}
-        />
-      )}
+      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} />
     </SafeAreaContainer>
   )
 }

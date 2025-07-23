@@ -7,21 +7,12 @@ import { Assistant } from '@/types/assistant'
 
 interface CategoryAssistantsTabProps {
   assistants: Assistant[]
-  setIsBottomSheetOpen: (isOpen: boolean) => void
   onAssistantPress: (assistant: Assistant) => void
 }
 
-const CategoryAssistantsTab: React.FC<CategoryAssistantsTabProps> = ({
-  assistants,
-  setIsBottomSheetOpen,
-  onAssistantPress
-}) => {
+const CategoryAssistantsTab: React.FC<CategoryAssistantsTabProps> = ({ assistants, onAssistantPress }) => {
   const renderItem = ({ item }: { item: Assistant }) => (
-    <AssistantItemRow
-      assistant={item}
-      setIsBottomSheetOpen={setIsBottomSheetOpen}
-      onAssistantPress={onAssistantPress}
-    />
+    <AssistantItemRow assistant={item} onAssistantPress={onAssistantPress} />
   )
 
   return (

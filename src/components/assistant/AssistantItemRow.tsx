@@ -8,16 +8,14 @@ import { useIsDark } from '@/utils'
 
 interface AssistantItemRowProps {
   assistant: Assistant
-  setIsBottomSheetOpen: (isOpen: boolean) => void
   onAssistantPress: (assistant: Assistant) => void
 }
 
-const AssistantItemRow: FC<AssistantItemRowProps> = ({ assistant, setIsBottomSheetOpen, onAssistantPress }) => {
+const AssistantItemRow: FC<AssistantItemRowProps> = ({ assistant, onAssistantPress }) => {
   const isDark = useIsDark()
 
   const handlePress = () => {
     onAssistantPress(assistant)
-    setIsBottomSheetOpen(true)
   }
 
   return (
