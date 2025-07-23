@@ -5,7 +5,8 @@ import { FC, ReactNode } from 'react'
 import React from 'react'
 import { Stack, Text, XStack, YStack } from 'tamagui'
 
-import { Assistant } from '@/types/assistant'
+import { useAssistant } from '@/hooks/useAssistant'
+import { Topic } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getGreenColor, getTextSecondaryColor } from '@/utils/color'
@@ -16,7 +17,7 @@ import { ModelIcon } from '../ui/ModelIcon'
 import GroupTag from './market/GroupTag'
 
 interface AssistantCardProps {
-  assistant: Assistant
+  topic: Topic
 }
 
 interface ActionTagProps {
@@ -54,9 +55,14 @@ const ActionTag: FC<ActionTagProps> = ({ icon, label, onPress }) => {
   )
 }
 
-export const AssistantCard: FC<AssistantCardProps> = ({ assistant }) => {
+export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
   const isDark = useIsDark()
   const navigation = useNavigation<NavigationProps>()
+  const { assistant } = useAssistant(topic.assistantId)
+
+  if (!assistant) {
+    return null
+  }
 
   const actionMenu = [
     {
@@ -67,7 +73,7 @@ export const AssistantCard: FC<AssistantCardProps> = ({ assistant }) => {
     {
       icon: <UserChangeIcon />,
       label: 'change',
-      onPress: () => {}
+      onPress: () => navigation.navigate('AssistantScreen')
     },
     {
       icon: <ModelChangeIcon />,
@@ -139,11 +145,13 @@ export const AssistantCard: FC<AssistantCardProps> = ({ assistant }) => {
                   ))}
               </XStack>
             </YStack>
-            <XStack>
-              <Text numberOfLines={2} ellipsizeMode="tail">
-                {assistant.prompt}
-              </Text>
-            </XStack>
+            {assistant.prompt.trim() && (
+              <XStack>
+                <Text numberOfLines={2} ellipsizeMode="tail">
+                  {assistant.prompt}
+                </Text>
+              </XStack>
+            )}
           </YStack>
           <XStack gap={5} alignItems="center" justifyContent="center">
             {actionMenu.map((item, index) => (

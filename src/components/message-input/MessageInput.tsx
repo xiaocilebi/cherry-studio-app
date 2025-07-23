@@ -12,7 +12,7 @@ import { useAssistant } from '@/hooks/useAssistant'
 import { loggerService } from '@/services/LoggerService'
 import { sendMessage as _sendMessage } from '@/services/MessagesService'
 import { getUserMessage } from '@/services/MessagesService'
-import { Assistant, Model, Topic } from '@/types/assistant'
+import { Model, Topic } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { useIsDark } from '@/utils'
@@ -30,13 +30,12 @@ const logger = loggerService.withContext('Message Input')
 
 interface MessageInputProps {
   topic: Topic
-  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssistant }) => {
+export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const { t } = useTranslation()
   const isDark = useIsDark()
-  const { assistant, isLoading } = useAssistant(topic.assistantId)
+  const { assistant, isLoading, updateAssistant } = useAssistant(topic.assistantId)
 
   const [text, setText] = useState('')
   const [files, setFiles] = useState<FileType[]>([])

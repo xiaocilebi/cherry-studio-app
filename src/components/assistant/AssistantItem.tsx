@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
 import { FC, useRef } from 'react'
@@ -8,10 +7,12 @@ import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-hand
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { Text, XStack, YStack } from 'tamagui'
 
+import { useNavigation } from '@/hooks/useNavigation'
+import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
+import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getTextPrimaryColor, getTextSecondaryColor } from '@/utils/color'
 import { formateEmoji } from '@/utils/formats'
@@ -19,6 +20,7 @@ const logger = loggerService.withContext('Assistant Item')
 
 interface AssistantItemProps {
   assistant: Assistant
+  onAssistantPress: (assistant: Assistant) => void
 }
 
 interface RenderRightActionsProps {
@@ -28,6 +30,7 @@ interface RenderRightActionsProps {
 }
 
 const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, assistant, swipeableRef }) => {
+  const { navigateToHomeScreen } = useNavigation()
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [50, 0])
 
@@ -39,7 +42,14 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, assistant, 
   const handleDelete = async () => {
     try {
       swipeableRef.current?.close()
+
+      // 如果当前删除的assistant包含current topic 就navigate到home screen获取default topic
+      if (await isTopicOwnedByAssistant(assistant.id, getCurrentTopicId())) {
+        navigateToHomeScreen()
+      }
+
       await deleteAssistantById(assistant.id)
+      await deleteTopicsByAssistantId(assistant.id)
     } catch (error) {
       logger.error('Delete Assistant error', error)
     }
@@ -60,17 +70,16 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, assistant, 
   )
 }
 
-const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
+const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) => {
   const isDark = useIsDark()
   const swipeableRef = useRef<SwipeableMethods>(null)
-  const navigation = useNavigation<NavigationProps>()
 
   const renderRightActions = (progress: SharedValue<number>, _: SharedValue<number>) => {
     return <RenderRightActions progress={progress} assistant={assistant} swipeableRef={swipeableRef} />
   }
 
-  const editAssistant = () => {
-    navigation.navigate('AssistantDetailScreen', { assistantId: assistant.id })
+  const handlePress = () => {
+    onAssistantPress(assistant)
   }
 
   return (
@@ -82,7 +91,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
         alignItems="center"
         paddingVertical={12}
         paddingHorizontal={20}
-        onPress={editAssistant}>
+        onPress={handlePress}>
         <XStack gap={14} maxWidth="90%">
           <Text fontSize={35}>{formateEmoji(assistant.emoji)}</Text>
           <YStack gap={8} flex={1} justifyContent="center">

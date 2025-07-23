@@ -49,12 +49,19 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
   const handleChatPress = async () => {
     if (assistant) {
-      const newAssistant: Assistant = {
-        ...assistant,
-        id: uuid(),
-        type: 'external'
+      let newAssistant: Assistant
+
+      if (assistant.type === 'external') {
+        newAssistant = assistant
+      } else {
+        newAssistant = {
+          ...assistant,
+          id: uuid(),
+          type: 'external'
+        }
+        await saveAssistant(newAssistant)
       }
-      await saveAssistant(newAssistant)
+
       const topic = await createNewTopic(newAssistant)
       navigateToChatScreen(topic.id)
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()

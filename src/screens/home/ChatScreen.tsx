@@ -8,26 +8,21 @@ import { AssistantCard } from '@/components/assistant/AssistantCard'
 import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
-import { useAssistant } from '@/hooks/useAssistant'
 import { useTopic } from '@/hooks/useTopic'
-import { loggerService } from '@/services/LoggerService'
 import { RootStackParamList } from '@/types/naviagate'
 
 import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
 
-const logger = loggerService.withContext('ChatScreen')
 type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
 
 const ChatScreen = () => {
   const route = useRoute<ChatScreenRouteProp>()
   const { topicId } = route.params
-  logger.info('topicId', topicId)
-  const { assistant, updateAssistant } = useAssistant('1')
   const { topic, isLoading } = useTopic(topicId)
   const [showAssistantCard, setShowAssistantCard] = useState(false)
 
-  if (!topic || isLoading || !assistant) {
+  if (!topic || isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
         <ActivityIndicator />
@@ -48,10 +43,10 @@ const ChatScreen = () => {
               setShowAssistantCard={setShowAssistantCard}
             />
 
-            {showAssistantCard && <AssistantCard assistant={assistant} />}
+            {showAssistantCard && <AssistantCard topic={topic} />}
 
             {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
-            <MessageInput topic={topic} updateAssistant={updateAssistant} />
+            <MessageInput topic={topic} />
           </YStack>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

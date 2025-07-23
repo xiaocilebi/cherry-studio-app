@@ -168,3 +168,55 @@ export async function deleteTopicById(topicId: string): Promise<void> {
     throw error
   }
 }
+
+/**
+ * 根据助手 ID 获取所有主题。
+ * @param assistantId - 助手的 ID。
+ * @returns 一个 Topic 对象数组。
+ */
+export async function getTopicsByAssistantId(assistantId: string): Promise<Topic[]> {
+  try {
+    const results = await db.select().from(topics).where(eq(topics.assistant_id, assistantId))
+
+    if (results.length === 0) {
+      return []
+    }
+
+    const topicsWithMessages = results.map(dbRecord => transformDbToTopic(dbRecord))
+
+    // 按 updatedAt 排序，最新的在前面
+    return topicsWithMessages.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+  } catch (error) {
+    logger.error(`Error getting topics by assistant ID ${assistantId}:`, error)
+    throw error
+  }
+}
+
+/**
+ * 根据助手 ID 删除所有相关主题。
+ * @param assistantId - 助手的 ID。
+ * @returns 无返回值，但会在数据库中删除所有相关主题。
+ */
+export async function deleteTopicsByAssistantId(assistantId: string): Promise<void> {
+  try {
+    await db.delete(topics).where(eq(topics.assistant_id, assistantId))
+  } catch (error) {
+    logger.error(`Error deleting topics by assistant ID ${assistantId}:`, error)
+    throw error
+  }
+}
+
+export async function isTopicOwnedByAssistant(assistantId: string, topicId: string): Promise<boolean> {
+  try {
+    const result = await db.select().from(topics).where(eq(topics.id, topicId)).limit(1)
+
+    if (result.length === 0) {
+      return false
+    }
+
+    return result[0].assistant_id === assistantId
+  } catch (error) {
+    logger.error(`Error checking if topic ${topicId} belongs to assistant ${assistantId}:`, error)
+    throw error
+  }
+}

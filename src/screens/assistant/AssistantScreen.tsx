@@ -1,12 +1,14 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ChevronDown, Funnel } from '@tamagui/lucide-icons'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
 import AssistantItem from '@/components/assistant/AssistantItem'
+import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -16,6 +18,7 @@ import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
+import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getAssistantWithTopic } from '@/utils/assistants'
@@ -33,6 +36,14 @@ export default function AssistantScreen() {
   const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
+
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
+
+  const handleAssistantItemPress = (assistant: Assistant) => {
+    setSelectedAssistant(assistant)
+    bottomSheetRef.current?.present()
+  }
 
   const onAddAssistant = async () => {
     const newAssistant = await createAssistant()
@@ -116,17 +127,18 @@ export default function AssistantScreen() {
         <FlashList
           showsVerticalScrollIndicator={false}
           data={assistantWithTopics}
-          renderItem={({ item }) => <AssistantItem assistant={item} />}
+          renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
           keyExtractor={item => item.id}
           estimatedItemSize={80}
           ItemSeparatorComponent={() => <YStack height={16} />}
           ListEmptyComponent={
             <YStack flex={1} justifyContent="center" alignItems="center" paddingTop="$8">
-              <Text>{t('common.no_results_found')}</Text>
+              <Text>{t('settings.assistant.empty')}</Text>
             </YStack>
           }
         />
       </SettingContainer>
+      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} />
     </SafeAreaContainer>
   )
 }

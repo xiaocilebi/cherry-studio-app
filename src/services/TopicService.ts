@@ -6,8 +6,11 @@ import { uuid } from '@/utils'
 
 import {
   deleteTopicById as _deleteTopicById,
+  deleteTopicsByAssistantId as _deleteTopicsByAssistantId,
   getTopicById as _getTopicById,
   getTopics as _getTopics,
+  getTopicsByAssistantId as _getTopicsByAssistantId,
+  isTopicOwnedByAssistant as _isTopicOwnedByAssistant,
   upsertTopics as _upsertTopics
 } from '../../db/queries/topics.queries'
 const logger = loggerService.withContext('Topic Service')
@@ -77,5 +80,32 @@ export async function getTopics(): Promise<Topic[]> {
   } catch (error) {
     logger.error('Failed to get topics', error)
     return []
+  }
+}
+
+export async function getTopicsByAssistantId(assistantId: string): Promise<Topic[]> {
+  try {
+    return await _getTopicsByAssistantId(assistantId)
+  } catch (error) {
+    logger.error('Failed to get topics By AssistantId', assistantId, error)
+    return []
+  }
+}
+
+export async function isTopicOwnedByAssistant(assistantId: string, topicId: string): Promise<boolean> {
+  try {
+    return await _isTopicOwnedByAssistant(assistantId, topicId)
+  } catch (error) {
+    logger.error('Failed to get topics By AssistantId', assistantId, error)
+    return false
+  }
+}
+
+export async function deleteTopicsByAssistantId(assistantId: string): Promise<void> {
+  try {
+    await _deleteTopicsByAssistantId(assistantId)
+  } catch (error) {
+    logger.error('Failed to delete topic:', error)
+    throw error
   }
 }
