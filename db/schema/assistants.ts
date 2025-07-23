@@ -19,6 +19,5 @@ export const assistants = sqliteTable('assistants', {
   knowledge_recognition: text('knowledge_recognition'),
   tags: text('tags'),
   group: text('group'),
-  isStar: integer('isStar', { mode: 'boolean' }),
   websearch_provider_id: text('websearch_provider_id')
 })

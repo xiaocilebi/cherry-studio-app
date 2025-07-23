@@ -1,6 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { BookmarkMinus } from '@tamagui/lucide-icons'
 import { debounce } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,16 +8,16 @@ import { ScrollView, Tabs, Text } from 'tamagui'
 import AllAssistantsTab from '@/components/assistant/market/AllAssistantsTab'
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import CategoryAssistantsTab from '@/components/assistant/market/CategoryAssistantsTab'
+import { UnionIcon } from '@/components/icons/UnionIcon'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
-import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
+import { NavigationProps } from '@/types/naviagate'
 import { groupByCategories } from '@/utils/assistants'
 
 import SafeAreaContainer from '../../components/ui/SafeAreaContainer'
-const logger = loggerService.withContext('AssistantMarketScreen')
 
 interface TabConfig {
   value: string
@@ -29,7 +28,7 @@ type FilterType = 'all' | string
 
 export default function AssistantMarketScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProps>()
 
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
@@ -126,8 +125,8 @@ export default function AssistantMarketScreen() {
     navigation.goBack()
   }
 
-  const handleBookmarkPress = () => {
-    logger.info('Bookmark pressed')
+  const handleNavigateToMyAssistants = () => {
+    navigation.navigate('AssistantScreen')
   }
 
   const renderTabList = (
@@ -172,8 +171,8 @@ export default function AssistantMarketScreen() {
         title={t('assistants.market.title')}
         onBackPress={handleBackPress}
         rightButton={{
-          icon: <BookmarkMinus size={24} />,
-          onPress: handleBookmarkPress
+          icon: <UnionIcon size={24} />,
+          onPress: handleNavigateToMyAssistants
         }}
       />
       <SettingContainer>

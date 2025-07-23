@@ -59,7 +59,7 @@ export function useAssistants() {
   }
 }
 
-export function useStarAssistants() {
+export function useExternalAssistants() {
   // bug: https://github.com/drizzle-team/drizzle-orm/issues/2660
   // const query = db.query.assistants.findMany({
   //   where: eq(assistantsSchema.isStar, true),
@@ -68,7 +68,7 @@ export function useStarAssistants() {
   //   }
   // })
 
-  const query = db.select().from(assistantsSchema).where(eq(assistantsSchema.isStar, true))
+  const query = db.select().from(assistantsSchema).where(eq(assistantsSchema.type, 'external'))
   const { data: rawAssistants, updatedAt } = useLiveQuery(query)
 
   const updateAssistants = async (assistants: Assistant[]) => {

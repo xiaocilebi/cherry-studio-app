@@ -33,26 +33,22 @@ export type ProgressUpdate = {
 }
 
 type OnProgressCallback = (update: ProgressUpdate) => void
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 async function restoreIndexedDbData(data: ExportIndexedData, onProgress: OnProgressCallback) {
   onProgress({ step: 'restore_topics', status: 'in_progress' })
   await upsertTopics(data.topics)
   onProgress({ step: 'restore_topics', status: 'completed' })
-  await sleep(1000) // Mock delay
 
   onProgress({ step: 'restore_messages_blocks', status: 'in_progress' })
   await upsertBlocks(data.message_blocks)
   await upsertMessages(data.messages)
   onProgress({ step: 'restore_messages_blocks', status: 'completed' })
-  await sleep(1000) // Mock delay
 }
 
 async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCallback) {
   onProgress({ step: 'restore_llm_providers', status: 'in_progress' })
   await upsertProviders(data.llm.providers)
   onProgress({ step: 'restore_llm_providers', status: 'completed' })
-  await sleep(1000) // Mock delay
 
   onProgress({ step: 'restore_assistants', status: 'in_progress' })
   const allSourceAssistants = [data.assistants.defaultAssistant, ...data.assistants.assistants]
@@ -62,18 +58,15 @@ async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCal
     (assistant, index) =>
       ({
         ...assistant,
-        type: index === 0 ? 'system' : 'external',
-        isStar: true
+        type: index === 0 ? 'system' : 'external'
       }) as Assistant
   )
   await upsertAssistants(assistants)
   onProgress({ step: 'restore_assistants', status: 'completed' })
-  await sleep(1000) // Mock delay
 
   onProgress({ step: 'restore_websearch', status: 'in_progress' })
   await upsertWebSearchProviders(data.websearch.providers)
   onProgress({ step: 'restore_websearch', status: 'completed' })
-  await sleep(1000) // Mock delay
 }
 
 export async function restore(backupFile: Omit<FileType, 'md5'>, onProgress: OnProgressCallback) {

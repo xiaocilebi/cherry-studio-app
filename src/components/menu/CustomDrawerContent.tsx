@@ -1,7 +1,7 @@
 import { DrawerContentComponentProps, DrawerItemList } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Avatar, Button, Stack, Text, View, XStack, YStack } from 'tamagui'
@@ -10,16 +10,14 @@ import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { BlurView } from '@/components/ui/BlurView'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
-import { useStarAssistants } from '@/hooks/useAssistant'
+import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getAssistantWithTopic } from '@/utils/assistants'
 
 import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
 import { SettingDivider } from '../settings'
-import { TabItem } from './MenuTab'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
@@ -27,17 +25,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const navigation = useNavigation<NavigationProps>()
 
   const { topics, isLoading: isLoadingTopics } = useTopics()
-  const { assistants, isLoading: isLoadingAssistants } = useStarAssistants()
-  const [activeTab, setActiveTab] = useState<string>('topic')
-
-  const menuTabs: TabItem[] = [
-    { id: 'assistant', label: t('menu.assistant.title') },
-    { id: 'topic', label: t('menu.topic.title') }
-  ]
-
-  const handleAssistantsSeeAll = () => {
-    props.navigation.navigate('Main', { screen: 'AssistantScreen' })
-  }
+  const { isLoading: isLoadingAssistants } = useExternalAssistants()
 
   const handleTopicSeeAll = () => {
     props.navigation.navigate('Main', { screen: 'TopicScreen' })
@@ -50,8 +38,6 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       </SafeAreaContainer>
     )
   }
-
-  const assistantWithTopics = getAssistantWithTopic(assistants, topics)
 
   return (
     <YStack flex={1}>

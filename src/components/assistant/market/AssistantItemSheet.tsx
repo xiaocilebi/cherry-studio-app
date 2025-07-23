@@ -1,12 +1,11 @@
-import BottomSheet from '@gorhom/bottom-sheet'
-import { BookmarkMinus } from '@tamagui/lucide-icons'
+import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import Markdown from 'react-native-markdown-display'
-import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { StyleSheet } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
-import { BlurView } from '@/components/ui/BlurView'
-import { ISheet } from '@/components/ui/Sheet'
+import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { useSize } from '@/hooks/useSize'
 import { Assistant } from '@/types/assistant'
 
@@ -25,56 +24,47 @@ export default function AssistantItemSheet({ assistant, bottomSheetRef, isOpen, 
   const { height } = useSize()
   const theme = useTheme()
 
+  const footerComponent = () => {
+    return (
+      <XStack justifyContent="space-between">
+        <UnionPlusIcon size={34} />
+        <Button backgroundColor="$foregroundGreen" borderRadius={40} height={42} width="70%">
+          {t('assistants.market.button.chat')}
+        </Button>
+      </XStack>
+    )
+  }
+
   return (
-    <ISheet
-      enableDynamicSizing={false}
-      bottomSheetRef={bottomSheetRef}
-      footer={
-        // 按钮区域
-        <BlurView intensity={100} style={{ backgroundColor: theme.background075.val }}>
-          <XStack justifyContent="center" alignItems="center" paddingHorizontal={20} padding={10} gap={20}>
-            <BookmarkMinus size={24} />
-            <Button backgroundColor="$foregroundGreen" borderRadius={40} height={42} width="70%">
-              {t('assistants.market.button.chat')}
-            </Button>
-          </XStack>
-        </BlurView>
-      }
-      header={
-        <YStack justifyContent="center" alignItems="center" paddingVertical={10} top={0}>
-          <Text fontSize={84}>{assistant.emoji?.replace(/\r\n/g, '')}</Text>
-          <XStack gap={20}>
-            {assistant.group &&
-              assistant.group.map((group, index) => (
-                <GroupTag key={index} group={group} paddingHorizontal={16} borderWidth={1} borderColor="$color12" />
-              ))}
-          </XStack>
-        </YStack>
-      }
-      maxDynamicContentSize={height * 0.75}
-      snapPoints={snapPoints}
-      isOpen={isOpen}
-      onClose={onClose}>
-      <YStack flex={1} paddingTop={10}>
-        <View flex={1} paddingHorizontal={20} maxHeight="100%">
-          <YStack alignItems="center" gap={10} paddingVertical={10}>
-            <Text style={{}}>{assistant.description}</Text>
-            <Text>
-              <Markdown
-                style={{
-                  text: {
-                    color: theme.color.val
-                  },
-                  list_item: {
-                    color: theme.color.val
-                  }
-                }}>
-                {assistant.prompt}
-              </Markdown>
-            </Text>
+    <GestureHandlerRootView style={styles.container}>
+      <BottomSheetModal footerComponent={footerComponent}>
+        <YStack>
+          <YStack justifyContent="center" alignItems="center" paddingVertical={10} top={0}>
+            <Text fontSize={84}>{assistant.emoji?.replace(/\r\n/g, '')}</Text>
+            <XStack gap={20}>
+              {assistant.group &&
+                assistant.group.map((group, index) => (
+                  <GroupTag key={index} group={group} paddingHorizontal={16} borderWidth={1} borderColor="$color12" />
+                ))}
+            </XStack>
           </YStack>
-        </View>
-      </YStack>
-    </ISheet>
+        </YStack>
+      </BottomSheetModal>
+    </GestureHandlerRootView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 200
+  },
+  contentContainer: {
+    backgroundColor: 'white'
+  },
+  itemContainer: {
+    padding: 6,
+    margin: 6,
+    backgroundColor: '#eee'
+  }
+})

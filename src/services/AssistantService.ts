@@ -105,8 +105,9 @@ export async function saveAssistant(assistant: Assistant): Promise<void> {
 export async function createAssistant() {
   const newAssistant: Assistant = {
     id: uuid(),
-    name: i18n.t('assistant.default.name'),
-    prompt: i18n.t('assistant.default.prompt'),
+    emoji: '⭐',
+    name: i18n.t('settings.assistant.title'),
+    prompt: '',
     topics: [],
     type: 'external'
   }
