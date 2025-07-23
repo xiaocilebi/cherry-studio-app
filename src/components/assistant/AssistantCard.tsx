@@ -3,7 +3,7 @@ import { LinearGradient } from '@tamagui/linear-gradient'
 import { UserRoundPen } from '@tamagui/lucide-icons'
 import { FC, ReactNode } from 'react'
 import React from 'react'
-import { Stack, Text, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
@@ -83,27 +83,29 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
   ]
 
   return (
-    <YStack position="relative">
-      {/* Assistant Icon - Floating above detail card */}
-      <Stack position="absolute" top={10} left={0} right={0} zIndex={10} alignItems="center">
-        <LinearGradient
-          height={100}
-          width={100}
-          padding={2}
-          borderRadius={99}
-          justifyContent="center"
-          alignItems="center"
-          colors={['#C0E58D', '#3BB554']}
-          start={[0, 0]}
-          end={[1, 1]}>
-          <Text fontSize={60} textAlign="center">
-            {assistant.emoji}
-          </Text>
-        </LinearGradient>
-      </Stack>
+    <YStack alignItems="center" gap={0}>
+      {/* Assistant Icon */}
+      <LinearGradient
+        height={100}
+        width={100}
+        padding={2}
+        borderRadius={99}
+        justifyContent="center"
+        alignItems="center"
+        colors={['#C0E58D', '#3BB554']}
+        start={[0, 0]}
+        end={[1, 1]}
+        zIndex={10}
+        marginBottom={-50} // 负边距来实现重叠效果
+      >
+        <Text fontSize={60} textAlign="center">
+          {assistant.emoji}
+        </Text>
+      </LinearGradient>
       {/* Assistant Card Detail */}
       <LinearGradient
-        top={57.5}
+        width="100%"
+        maxWidth={392}
         padding={1}
         borderRadius={40}
         colors={isDark ? ['#acf3a633', '#acf3a6ff', '#acf3a633'] : ['#8de59e4d', '#81df94ff', '#8de59e4d']}
