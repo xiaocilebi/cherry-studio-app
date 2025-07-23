@@ -10,6 +10,7 @@ import { Topic } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getGreenColor, getTextSecondaryColor } from '@/utils/color'
+import { formateEmoji } from '@/utils/formats'
 
 import { ModelChangeIcon } from '../icons/ModelChangeIcon'
 import { UserChangeIcon } from '../icons/UserChangeIcon'
@@ -99,7 +100,7 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
         marginBottom={-50} // 负边距来实现重叠效果
       >
         <Text fontSize={60} textAlign="center">
-          {assistant.emoji}
+          {formateEmoji(assistant.emoji)}
         </Text>
       </LinearGradient>
       {/* Assistant Card Detail */}

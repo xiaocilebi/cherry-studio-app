@@ -1,6 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import React, { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { Button, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
@@ -75,6 +76,8 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         id: uuid(),
         type: 'external'
       })
+      Alert.alert(t('assistants.market.add.success', { assistant_name: assistant.name }))
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
   }
 

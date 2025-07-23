@@ -44,7 +44,8 @@
         },
         "button.chat": "Chat Now",
         "popular": "Popular Assistants",
-        "my_assistant": "My Assistants"
+        "my_assistant": "My Assistants",
+        "add.success": "Add {{assistant_name}} Successful"
       }
     },
     "button": {
