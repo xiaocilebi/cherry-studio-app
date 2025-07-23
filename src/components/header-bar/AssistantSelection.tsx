@@ -20,9 +20,7 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({
   return (
     <Button chromeless onPress={() => setShowAssistantCard(!showAssistantCard)}>
       <XStack gap={14} alignItems="center" justifyContent="center">
-        <YStack alignItems="center" justifyContent="center">
-          <Text fontSize={30}>{assistant.emoji}</Text>
-        </YStack>
+        <Text fontSize={30}>{assistant.emoji}</Text>
         <YStack gap={2} alignItems="center" justifyContent="center">
           <XStack gap={10} alignItems="center" justifyContent="center">
             <Text fontSize={20}>{assistant.name}</Text>
