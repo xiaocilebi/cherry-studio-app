@@ -1,4 +1,3 @@
-import { BookmarkMinus } from '@tamagui/lucide-icons'
 import { FC } from 'react'
 import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
@@ -37,9 +36,6 @@ const AssistantItemRow: FC<AssistantItemRowProps> = ({ assistant, onAssistantPre
             {assistant.description}
           </Text>
         </YStack>
-      </XStack>
-      <XStack>
-        <BookmarkMinus size={16} />
       </XStack>
     </XStack>
   )

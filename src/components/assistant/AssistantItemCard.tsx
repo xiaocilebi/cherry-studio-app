@@ -1,6 +1,5 @@
-import { BookmarkMinus } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
@@ -31,9 +30,6 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
       width={148}
       borderRadius={16}
       onPress={handlePress}>
-      <Button position="absolute" top={10} right={13} size="$2" circular chromeless zIndex={1}>
-        <BookmarkMinus size={20} color="white" />
-      </Button>
       <YStack gap={7} alignItems="center" justifyContent="center" height="100%">
         <Text fontSize={30}>{formateEmoji(assistant.emoji)}</Text>
         <Text textAlign="center" numberOfLines={2} ellipsizeMode="tail">
