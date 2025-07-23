@@ -42,8 +42,11 @@
           "language": "語言"
         },
         "button.chat": "立即聊天",
-        "popular": "熱門助理"
-      }
+        "popular": "熱門助理",
+        "my_assistant": "我的助手",
+        "add.success": "新增 {{assistant_name}} 成功"
+      },
+      "settings.reasoning.off": "關閉"
     },
     "button": {
       "add": "新增",
@@ -56,7 +59,9 @@
       "save": "保存",
       "recents": "最近",
       "checking": "檢查中...",
-      "success": "成功！"
+      "success": "成功！",
+      "sort": "排序",
+      "tag": "標籤"
     },
     "chat": {
       "topics": {
@@ -265,7 +270,8 @@
         "check_success_message": "API 運作正常",
         "check_fail": "檢查失敗",
         "check_error": "檢查錯誤",
-        "empty": "尚未提供者..."
+        "empty": "尚未提供者...",
+        "empty.description": "點擊按鈕以新增供應商"
       },
       "modelAndService": "AI 模型與服務",
       "dataAndSecurity": "資料與安全性",

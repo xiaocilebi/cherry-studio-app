@@ -42,8 +42,11 @@
           "language": "语言"
         },
         "button.chat": "立即聊天",
-        "popular": "热门助手"
-      }
+        "popular": "热门助手",
+        "my_assistant": "我的助手",
+        "add.success": "添加 {{assistant_name}} 成功"
+      },
+      "settings.reasoning.off": "关闭"
     },
     "button": {
       "add": "添加",
@@ -56,7 +59,9 @@
       "save": "保存",
       "recents": "最近",
       "checking": "检查中...",
-      "success": "成功 🎉"
+      "success": "成功 🎉",
+      "sort": "排序",
+      "tag": "标签"
     },
     "chat": {
       "topics": {
@@ -272,7 +277,8 @@
         "check_success_message": "API 运作正常",
         "check_fail": "检查失败",
         "check_error": "检查错误",
-        "empty": "暂无提供者..."
+        "empty": "暂无提供者...",
+        "empty.description": "点击按钮添加提供者"
       },
       "modelAndService": "AI模型与服务",
       "dataAndSecurity": "数据与安全",

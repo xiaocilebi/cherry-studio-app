@@ -42,8 +42,11 @@
           "language": "言語"
         },
         "button.chat": "今すぐチャット",
-        "popular": "人気アシスタント"
-      }
+        "popular": "人気アシスタント",
+        "my_assistant": "私のアシスタント",
+        "add.success": "{{assistant_name}}の追加に成功しました"
+      },
+      "settings.reasoning.off": "オフ"
     },
     "button": {
       "add": "追加",
@@ -56,7 +59,9 @@
       "save": "保存",
       "recents": "最近",
       "checking": "確認中...",
-      "success": "成功しました！"
+      "success": "成功しました！",
+      "sort": "ソート",
+      "tag": "タグ"
     },
     "chat": {
       "topics": {
@@ -265,7 +270,8 @@
         "check_success_message": "APIは正常に動作しています",
         "check_fail": "チェック失敗",
         "check_error": "チェックエラー",
-        "empty": "プロバイダーはまだありません..."
+        "empty": "プロバイダーはまだありません...",
+        "empty.description": "クリックしてプロバイダーを追加"
       },
       "modelAndService": "AIモデル＆サービス",
       "dataAndSecurity": "データ & セキュリティ",

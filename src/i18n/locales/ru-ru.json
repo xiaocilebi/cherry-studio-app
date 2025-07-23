@@ -42,8 +42,11 @@
           "language": "Язык"
         },
         "button.chat": "Чат сейчас",
-        "popular": "Популярные помощники"
-      }
+        "popular": "Популярные помощники",
+        "my_assistant": "Мои ассистенты",
+        "add.success": "{{assistant_name}} успешно добавлен"
+      },
+      "settings.reasoning.off": "Выключено"
     },
     "button": {
       "add": "Добавить",
@@ -56,7 +59,9 @@
       "save": "Сохранить",
       "recents": "Недавние",
       "checking": "Проверка...",
-      "success": "Успешно!"
+      "success": "Успешно!",
+      "sort": "Сортировать",
+      "tag": "Тег"
     },
     "chat": {
       "topics": {
@@ -265,7 +270,8 @@
         "check_success_message": "API работает правильно",
         "check_fail": "Ошибка проверки",
         "check_error": "Ошибка проверки",
-        "empty": "Поставщиков пока нет..."
+        "empty": "Поставщиков пока нет...",
+        "empty.description": "Нажмите кнопку, чтобы добавить поставщика"
       },
       "modelAndService": "Модели и сервисы ИИ",
       "dataAndSecurity": "Данные и безопасность",
