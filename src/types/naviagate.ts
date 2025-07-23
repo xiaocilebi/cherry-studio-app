@@ -29,7 +29,7 @@ export type RootStackParamList = {
   ApiServiceScreen: { providerId: string }
   TopicScreen: undefined
   AssistantScreen: undefined
-  AssistantDetailScreen: { assistantId: string }
+  AssistantDetailScreen: { assistantId: string; tab?: string }
   AssistantMarketScreen: undefined
   WebSearchProviderSettingsScreen: { providerId: string }
   TestScreen: undefined

@@ -27,8 +27,8 @@ export default function AssistantDetailScreen() {
   const navigation = useNavigation()
   const route = useRoute<AssistantDetailRouteProp>()
 
-  const { assistantId } = route.params
-  const [activeTab, setActiveTab] = useState('model')
+  const { assistantId, tab } = route.params
+  const [activeTab, setActiveTab] = useState(tab || 'prompt')
   const { assistant, isLoading, updateAssistant } = useAssistant(assistantId)
 
   if (isLoading) {

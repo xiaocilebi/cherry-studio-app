@@ -81,11 +81,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic, updateAssista
 
   const showBackgroundColor = (assistant.webSearchProviderId || assistant.enableWebSearch) && isReasoning
 
-  // 动态颜色配置
-  const gradientColors = isDark ? ['#acf3a633', '#acf3a6ff', '#acf3a633'] : ['#8de59e4d', '#81df94ff', '#8de59e4d']
-
   return (
-    <LinearGradient padding={1} borderRadius={20} colors={gradientColors} start={[0, 0]} end={[1, 1]}>
+    <LinearGradient
+      padding={1}
+      borderRadius={20}
+      colors={isDark ? ['#acf3a633', '#acf3a6ff', '#acf3a633'] : ['#8de59e4d', '#81df94ff', '#8de59e4d']}
+      start={[0, 0]}
+      end={[1, 1]}>
       <InputContent>
         <View>
           <YStack gap={10}>
