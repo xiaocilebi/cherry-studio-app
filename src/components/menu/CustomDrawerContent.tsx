@@ -1,27 +1,30 @@
 import { DrawerContentComponentProps, DrawerItemList } from '@react-navigation/drawer'
-import { Settings } from '@tamagui/lucide-icons'
-import { MotiView } from 'moti'
+import { useNavigation } from '@react-navigation/native'
+import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Avatar, Button, Tabs, Text, View, XStack, YStack } from 'tamagui'
+import { Avatar, Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
-import { AssistantList } from '@/components/assistant/AssistantList'
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { BlurView } from '@/components/ui/BlurView'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useStarAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
+import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getAssistantWithTopic } from '@/utils/assistants'
 
-import { SearchInput } from '../ui/SearchInput'
-import { MenuTab, TabItem } from './MenuTab'
+import { MarketIcon } from '../icons/MarketIcon'
+import { UnionIcon } from '../icons/UnionIcon'
+import { SettingDivider } from '../settings'
+import { TabItem } from './MenuTab'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
   const isDark = useIsDark()
+  const navigation = useNavigation<NavigationProps>()
 
   const { topics, isLoading: isLoadingTopics } = useTopics()
   const { assistants, isLoading: isLoadingAssistants } = useStarAssistants()
@@ -58,54 +61,38 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             <DrawerItemList {...props} />
           </YStack>
 
-          <YStack backgroundColor="transparent" paddingTop={20} flex={1}>
-            <MenuTab tabs={menuTabs} activeTab={activeTab} onTabChange={setActiveTab}>
-              <Tabs.Content key="topic" value="topic" flex={1}>
-                <MotiView
-                  style={{ flex: 1 }}
-                  from={{ opacity: 0, translateY: 10 }}
-                  animate={{
-                    translateY: 0,
-                    opacity: 1
-                  }}
-                  exit={{ opacity: 1, translateY: -10 }}
-                  transition={{
-                    type: 'timing'
-                  }}>
-                  <SearchInput placeholder={t('common.search_placeholder')} />
+          <YStack backgroundColor="transparent" paddingTop={40} flex={1} gap={10}>
+            <XStack
+              justifyContent="space-between"
+              alignItems="center"
+              paddingVertical={10}
+              onPress={() => navigation.navigate('AssistantMarketScreen')}>
+              <XStack gap={10} alignItems="center" justifyContent="center">
+                <MarketIcon size={20} />
+                <Text>{t('assistants.market.title')}</Text>
+              </XStack>
+              <ArrowUpRight size={20} />
+            </XStack>
 
-                  <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleTopicSeeAll}>
-                    <View flex={1} minHeight={200}>
-                      {/* 只显示7条 */}
-                      <GroupedTopicList topics={topics.slice(0, 7)} />
-                    </View>
-                  </MenuTabContent>
-                </MotiView>
-              </Tabs.Content>
-
-              <Tabs.Content key="assistant" value="assistant" flex={1}>
-                <MotiView
-                  style={{ flex: 1 }}
-                  from={{ opacity: 0, translateY: 10 }}
-                  animate={{
-                    translateY: 0,
-                    opacity: 1
-                  }}
-                  exit={{ opacity: 1, translateY: -10 }}
-                  transition={{
-                    type: 'timing'
-                  }}>
-                  <SearchInput placeholder={t('common.search_placeholder')} />
-
-                  <MenuTabContent title={t('menu.assistant.recent')} onSeeAllPress={handleAssistantsSeeAll}>
-                    <View flex={1} minHeight={200}>
-                      {/* 只显示7条 */}
-                      <AssistantList assistants={assistantWithTopics.slice(0, 7)} />
-                    </View>
-                  </MenuTabContent>
-                </MotiView>
-              </Tabs.Content>
-            </MenuTab>
+            <XStack
+              justifyContent="space-between"
+              paddingVertical={10}
+              onPress={() => navigation.navigate('AssistantScreen')}>
+              <XStack gap={10} alignItems="center" justifyContent="center">
+                <UnionIcon size={20} />
+                <Text>{t('assistants.market.my_assistant')}</Text>
+              </XStack>
+              <ArrowUpRight size={20} />
+            </XStack>
+            <Stack paddingVertical={20}>
+              <SettingDivider />
+            </Stack>
+            <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleTopicSeeAll}>
+              <View flex={1} minHeight={200}>
+                {/* 只显示7条 */}
+                <GroupedTopicList topics={topics.slice(0, 7)} />
+              </View>
+            </MenuTabContent>
           </YStack>
         </YStack>
 

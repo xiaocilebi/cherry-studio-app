@@ -43,7 +43,8 @@
           "language": "Language"
         },
         "button.chat": "Chat Now",
-        "popular": "Popular Assistants"
+        "popular": "Popular Assistants",
+        "my_assistant": "My Assistants"
       }
     },
     "button": {
