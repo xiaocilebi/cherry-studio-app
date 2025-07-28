@@ -158,7 +158,7 @@ export default function ApiServiceScreen() {
         {/* API Key 配置 */}
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} justifyContent="space-between" alignItems="center">
-            <SettingGroupTitle>{t('settings.provider.api_key.tip')}</SettingGroupTitle>
+            <SettingGroupTitle>{t('settings.provider.api_key')}</SettingGroupTitle>
             <Button
               size={16}
               icon={<ShieldCheck size={16} color="$textLink" />}
@@ -203,7 +203,7 @@ export default function ApiServiceScreen() {
         {/* API Host 配置 */}
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} alignItems="center">
-            <SettingGroupTitle>{t('settings.provider.api_host.tip')}</SettingGroupTitle>
+            <SettingGroupTitle>{t('settings.provider.api_host')}</SettingGroupTitle>
           </XStack>
           <Input
             placeholder={t('settings.provider.api_host.placeholder')}

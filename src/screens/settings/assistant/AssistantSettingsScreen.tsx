@@ -42,7 +42,7 @@ function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: ()
           </XStack>
         ) : (
           <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
-            {t('settings.models.empty.tip')}
+            {t('settings.models.empty')}
           </Text>
         )}
       </XStack>

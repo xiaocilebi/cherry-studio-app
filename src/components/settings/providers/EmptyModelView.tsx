@@ -15,7 +15,7 @@ export const EmptyModelView: React.FC<EmptyModelViewProps> = ({ onAddModel }) =>
       <YStack gap={51} width="100%" alignItems="center">
         <YStack gap={12}>
           <Text fontSize={30} fontWeight="bold" textAlign="center">
-            {t('settings.models.empty.tip')}
+            {t('settings.models.empty')}
           </Text>
           <Text fontSize={16} textAlign="center">
             {t('settings.models.empty.tooltip')}

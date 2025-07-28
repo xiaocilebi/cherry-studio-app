@@ -8,12 +8,8 @@
         "title": "Edit Assistant"
       },
       "market": {
-        "add": {
-          "success": "Add {{assistant_name}} Successful"
-        },
-        "button": {
-          "chat": "Chat Now"
-        },
+        "add.success": "Add {{assistant_name}} Successful",
+        "button.chat": "Chat Now",
         "groups": {
           "all": "All",
           "business": "Business",
@@ -28,37 +24,29 @@
       },
       "name": "Assistant Name",
       "save": "Save Assistant",
-      "search": {
-        "no_results": "No assistants found"
-      },
-      "settings": {
-        "context": "Context",
-        "max_tokens": "Enable Max Tokens Limit",
-        "max_tokens_value": "Max Tokens Limits",
-        "reasoning": {
-          "auto": "Auto",
-          "high": "High",
-          "low": "Low",
-          "medium": "Medium",
-          "off": "Off",
-          "tip": "Reasoning Effort"
-        },
-        "stream_output": "Stream Output",
-        "temperature": "Temperature",
-        "top_p": "Top P"
-      },
+      "search.no_results": "No assistants found",
+      "settings.context": "Context",
+      "settings.max_tokens": "Enable Max Tokens Limit",
+      "settings.max_tokens_value": "Max Tokens Limits",
+      "settings.reasoning": "Reasoning Effort",
+      "settings.reasoning.auto": "Auto",
+      "settings.reasoning.high": "High",
+      "settings.reasoning.low": "Low",
+      "settings.reasoning.medium": "Medium",
+      "settings.reasoning.off": "Off",
+      "settings.stream_output": "Stream Output",
+      "settings.temperature": "Temperature",
+      "settings.top_p": "Top P",
       "sort": {
         "alphabetical": "Alphabetical",
         "recent_add": "Recently Added",
         "recent_use": "Recently Used",
         "title": "Sort Assistants"
       },
-      "title": {
-        "create": "Create Assistant",
-        "edit": "Edit Assistant",
-        "recent": "Recent Assistants",
-        "tip": "Assistants"
-      }
+      "title": "Assistants",
+      "title.create": "Create Assistant",
+      "title.edit": "Edit Assistant",
+      "title.recent": "Recent Assistants"
     },
     "button": {
       "add": "Add",
@@ -82,9 +70,7 @@
         }
       },
       "citation": "+ {{count}} Sources",
-      "default": {
-        "name": "Default"
-      },
+      "default.name": "Default",
       "think": "Thinking for {{seconds}} seconds",
       "think_expand": "Tap to read my mind",
       "title": "Welcome to Cherry Studio!",
@@ -140,15 +126,9 @@
       "linkErrorTitle": "Link Opening Error"
     },
     "history": {
-      "search": {
-        "placeholder": "Search topics or messages...",
-        "topics": {
-          "empty": "No topics found, press Enter to search all messages"
-        }
-      },
-      "topics": {
-        "empty": " No topics found"
-      }
+      "search.placeholder": "Search topics or messages...",
+      "search.topics.empty": "No topics found, press Enter to search all messages",
+      "topics.empty": " No topics found"
     },
     "inputs": {
       "placeholder": "Send Message..."
@@ -268,9 +248,6 @@
           "name": "Default Assistant"
         },
         "empty": "No Assistant yet...",
-        "show": {
-          "icon": "Show model icon"
-        },
         "title": "Default Assistant",
         "topic_naming_assistant": {
           "description": "Assistant used when automatically naming a new topic",
@@ -281,12 +258,11 @@
           "name": "Translation Assistant"
         }
       },
+      "assistant.show.icon": "Show model icon",
       "data": {
         "app_data": "App Data",
-        "app_knowledge": {
-          "remove_all": "Remove Files",
-          "tip": "Knowledge Base Files"
-        },
+        "app_knowledge": "Knowledge Base Files",
+        "app_knowledge.remove_all": "Remove Files",
         "app_logs": "App Logs",
         "backup": "Data Backup",
         "basic_title": "Basic Data Settings",
@@ -295,9 +271,7 @@
           "title": "Clear Cache"
         },
         "cloud_backup": "Cloud Backup Settings",
-        "data": {
-          "title": "Data Directory"
-        },
+        "data.title": "Data Directory",
         "landrop": {
           "filename": "File Name",
           "scan_qr_code": {
@@ -344,22 +318,14 @@
       },
       "dataAndSecurity": "Data & Security",
       "general": {
-        "display": {
-          "title": "Display Settings"
-        },
-        "language": {
-          "title": "Language"
-        },
-        "privacy": {
-          "anonymous": "Anonymous report errors and statistics",
-          "title": "Privacy Settings"
-        },
-        "theme": {
-          "auto": "Auto",
-          "dark": "Dark",
-          "light": "Light",
-          "title": "Theme"
-        },
+        "display.title": "Display Settings",
+        "language.title": "Language",
+        "privacy.anonymous": "Anonymous report errors and statistics",
+        "privacy.title": "Privacy Settings",
+        "theme.auto": "Auto",
+        "theme.dark": "Dark",
+        "theme.light": "Light",
+        "theme.title": "Theme",
         "title": "General Settings"
       },
       "joplin": {
@@ -370,10 +336,8 @@
           "fail": "Joplin connection verification failed",
           "success": "Joplin connection verification successful"
         },
-        "export_reasoning": {
-          "help": "When enabled, the exported content will include the reasoning chain (thought process) generated by the assistant.",
-          "title": "Include Reasoning Chain in Export"
-        },
+        "export_reasoning.help": "When enabled, the exported content will include the reasoning chain (thought process) generated by the assistant.",
+        "export_reasoning.title": "Include Reasoning Chain in Export",
         "help": "Click here to get Joplin Authorization Token",
         "title": "Joplin Configuration",
         "token": "Joplin Authorization Token",
@@ -383,29 +347,17 @@
       },
       "modelAndService": "AI Models & Services",
       "models": {
-        "add": {
-          "model": {
-            "group": {
-              "placeholder": "Optional e.g. OpenAI",
-              "tip": "Model Group"
-            },
-            "id": {
-              "placeholder": "Required e.g. gpt-4o",
-              "tip": "Model ID"
-            },
-            "name": {
-              "placeholder": "Optional e.g. GPT-4o",
-              "tip": "Model Name"
-            },
-            "tip": "Add Model"
-          }
-        },
+        "add.model": "Add Model",
+        "add.model.group": "Model Group",
+        "add.model.group.placeholder": "Optional e.g. OpenAI",
+        "add.model.id": "Model ID",
+        "add.model.id.placeholder": "Required e.g. gpt-4o",
+        "add.model.name": "Model Name",
+        "add.model.name.placeholder": "Optional e.g. GPT-4o",
         "default_model": "Default Model",
-        "empty": {
-          "add_model": "Let's add your first model",
-          "tip": "No Model yet...",
-          "tooltip": "The page you were looking for is beyond our reach. Sorry for the inconvenience."
-        },
+        "empty": "No Model yet...",
+        "empty.add_model": "Let's add your first model",
+        "empty.tooltip": "The page you were looking for is beyond our reach. Sorry for the inconvenience.",
         "search": "Search Models...",
         "title": "Models"
       },
@@ -422,10 +374,8 @@
         },
         "database_id": "Notion Database ID",
         "database_id_placeholder": "Enter Notion Database ID",
-        "export_reasoning": {
-          "help": "When enabled, exported content will include reasoning chain (thought process).",
-          "title": "Include Reasoning Chain in Export"
-        },
+        "export_reasoning.help": "When enabled, exported content will include reasoning chain (thought process).",
+        "export_reasoning.title": "Include Reasoning Chain in Export",
         "help": "Notion Configuration Documentation",
         "page_name_key": "Page Title Field Name",
         "page_name_key_placeholder": "Enter page title field name, default is Name",
@@ -453,35 +403,22 @@
         "title": "Obsidian Configuration"
       },
       "provider": {
-        "add": {
-          "name": {
-            "placeholder": "Required e.g. OpenAI",
-            "tip": "Provider Name"
-          },
-          "title": "Add Provider",
-          "type": "Provider Type"
-        },
+        "add.name": "Provider Name",
+        "add.name.placeholder": "Required e.g. OpenAI",
+        "add.title": "Add Provider",
+        "add.type": "Provider Type",
         "added": "Added",
-        "api": {
-          "url": {
-            "preview": "Preview: {{url}}",
-            "reset": "Reset",
-            "tip": "Ending with / ignores v1, ending with # forces use of input address"
-          }
-        },
-        "api_check": {
-          "title": "Detection",
-          "tooltip": "Select the model to use for detection"
-        },
-        "api_host": {
-          "placeholder": "Please enter API host",
-          "tip": "API Host"
-        },
-        "api_key": {
-          "get": "Get API Key",
-          "placeholder": "Please enter API key",
-          "tip": "Multiple keys separated by commas"
-        },
+        "api.url.preview": "Preview: {{url}}",
+        "api.url.reset": "Reset",
+        "api.url.tip": "Ending with / ignores v1, ending with # forces use of input address",
+        "api_check.title": "Detection",
+        "api_check.tooltip": "Select the model to use for detection",
+        "api_host": "API Host",
+        "api_host.placeholder": "Please enter API host",
+        "api_key": "API Key",
+        "api_key.get": "Get API Key",
+        "api_key.placeholder": "Please enter API key",
+        "api_key.tip": "Multiple keys separated by commas",
         "api_service": "API Service",
         "auth": {
           "balance_recharge": "Balance Recharge",
@@ -489,22 +426,16 @@
           "login": "Log in",
           "title": "{{provider}} Service"
         },
-        "delete": {
-          "content": "Are you sure you want to delete this provider?",
-          "title": "Delete Provider"
-        },
+        "delete.content": "Are you sure you want to delete this provider?",
+        "delete.title": "Delete Provider",
         "enabled": "On",
-        "list": {
-          "title": "Provider List"
-        },
+        "list.title": "Provider List",
         "not_found": "Provider not found",
         "not_found_message": "There is an error navigate to the provider page.",
         "search": "Search Providers...",
         "title": "Model Provider"
       },
-      "proxy": {
-        "title": "Proxy Address"
-      },
+      "proxy.title": "Proxy Address",
       "siyuan": {
         "api_url": "Siyuan Note API URL",
         "api_url_placeholder": "e.g.: http://127.0.0.1:6806",
@@ -521,35 +452,19 @@
         "root_path": "Siyuan Note Root Path",
         "root_path_placeholder": "e.g.: /CherryStudio",
         "title": "Siyuan Note Configuration",
-        "token": {
-          "help": "Get Siyuan Note Token",
-          "tip": "Siyuan Note Token"
-        },
+        "token": "Siyuan Note Token",
+        "token.help": "Get Siyuan Note Token",
         "token_placeholder": "Please enter Siyuan Note Token"
       },
-      "theme": {
-        "window": {
-          "style": {
-            "opaque": "Opaque Window",
-            "title": "Window Style",
-            "transparent": "Transparent Window"
-          }
-        }
-      },
+      "theme.window.style.opaque": "Opaque Window",
+      "theme.window.style.title": "Window Style",
+      "theme.window.style.transparent": "Transparent Window",
       "title": "Settings",
-      "topic": {
-        "position": {
-          "left": "Left",
-          "right": "Right",
-          "tip": "Topic position"
-        },
-        "show": {
-          "time": "Show topic time"
-        }
-      },
-      "tray": {
-        "title": "Enable System Tray Icon"
-      },
+      "topic.position": "Topic position",
+      "topic.position.left": "Left",
+      "topic.position.right": "Right",
+      "topic.show.time": "Show topic time",
+      "tray.title": "Enable System Tray Icon",
       "webdav": {
         "backup": {
           "auto_backup": "Auto Backup",
@@ -576,19 +491,13 @@
         "title": "WebDAV"
       },
       "websearch": {
-        "api_host": {
-          "placeholder": "Please enter API host",
-          "tip": "API Host"
-        },
-        "api_key": {
-          "get": "Get API Key",
-          "placeholder": "Please enter API key",
-          "tip": "API Key"
-        },
+        "api_host": "API Host",
+        "api_host.placeholder": "Please enter API host",
+        "api_key": "API Key",
+        "api_key.get": "Get API Key",
+        "api_key.placeholder": "Please enter API key",
         "api_service": "API Service",
-        "blacklist": {
-          "title": "Blacklist"
-        },
+        "blacklist.title": "Blacklist",
         "blacklist_description": "Results from the following websites will not appear in search results",
         "blacklist_placeholder": "Please use the following format (separated by newlines)\nPattern matching: *://*.example.com/*\nRegular expression: /example\\.(net|org)/",
         "check_error": "Check Error",
@@ -596,10 +505,8 @@
         "check_success": "Check Success",
         "check_success_message": "The API is working properly",
         "contentLengthLimit": "Content Length Limit",
-        "empty": {
-          "description": "Click Button To Add Provider",
-          "tip": "No Provider yet..."
-        },
+        "empty": "No Provider yet...",
+        "empty.description": "Click Button To Add Provider",
         "overrideSearchService": "Override search service",
         "provider": {
           "api": {
@@ -613,9 +520,7 @@
         "searchCount": "Search Count",
         "searchWithDates": "Search with dates included",
         "selectPlaceholder": "Please Select Web Search Provider...",
-        "subscribe": {
-          "title": "Blacklist Subscription"
-        },
+        "subscribe.title": "Blacklist Subscription",
         "title": "Web Search"
       },
       "yuque": {
@@ -636,10 +541,8 @@
     },
     "topics": {
       "new_topic": "New Topic",
-      "title": {
-        "recent": "Recent Topics",
-        "tip": "Topic"
-      }
+      "title": "Topic",
+      "title.recent": "Recent Topics"
     }
   }
 }

@@ -50,7 +50,7 @@ export function AddModelSheet({
           <YStack width="100%" gap={8}>
             <XStack gap={8}>
               <Text color="red">*</Text>
-              <Text>{t('settings.models.add.model.id.tip')}</Text>
+              <Text>{t('settings.models.add.model.id')}</Text>
             </XStack>
             <BottomSheetTextInput
               placeholder={t('settings.models.add.model.id.placeholder')}
@@ -60,7 +60,7 @@ export function AddModelSheet({
           </YStack>
 
           <YStack width="100%" gap={8}>
-            <Text>{t('settings.models.add.model.name.tip')}</Text>
+            <Text>{t('settings.models.add.model.name')}</Text>
             <BottomSheetTextInput
               placeholder={t('settings.models.add.model.name.placeholder')}
               value={modelName}
@@ -69,7 +69,7 @@ export function AddModelSheet({
           </YStack>
 
           <YStack width="100%" gap={8}>
-            <Text>{t('settings.models.add.model.group.tip')}</Text>
+            <Text>{t('settings.models.add.model.group')}</Text>
             <BottomSheetTextInput
               placeholder={t('settings.models.add.model.group.placeholder')}
               value={modelGroup}
@@ -86,7 +86,7 @@ export function AddModelSheet({
             fontSize={16}
             onPress={handleAddModel}
             disabled={!modelId.trim()}>
-            {t('settings.models.add.model.tip')}
+            {t('settings.models.add.model')}
           </Button>
         </YStack>
       </YStack>
