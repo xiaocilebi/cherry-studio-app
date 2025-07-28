@@ -31,7 +31,7 @@ const HomeScreen = () => {
         logger.error('Get Newest Topic on Home Screen', error)
       }
     })
-  }, [navigation])
+  })
 
   return (
     <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>

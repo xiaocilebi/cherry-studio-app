@@ -1,12 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
 import { Plus } from '@tamagui/lucide-icons'
-
 import debounce from 'lodash/debounce'
-
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-
 import { ScrollView, useTheme, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
@@ -24,29 +21,21 @@ export default function ProvidersScreen() {
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
 
-
   const [inputValue, setInputValue] = useState('')
 
   const [filterQuery, setFilterQuery] = useState('')
 
   const { providers, isLoading } = useAllProviders()
 
+  const debouncedSetQuery = debounce((query: string) => {
+    setFilterQuery(query)
+  }, 500)
 
-  const debouncedSetQuery = useCallback(
-    debounce((query: string) => {
-      setFilterQuery(query)
-    }, 500), 
-    [] 
-  )
-
-  
   const handleInputChange = (text: string) => {
-
     setInputValue(text)
 
     debouncedSetQuery(text)
   }
-
 
   const displayedProviders = providers
     .filter(p => p.enabled)
@@ -80,12 +69,7 @@ export default function ProvidersScreen() {
       />
 
       <SettingContainer>
-     
-        <SearchInput
-          placeholder={t('settings.provider.search')}
-          value={inputValue}
-          onChangeText={handleInputChange}
-        />
+        <SearchInput placeholder={t('settings.provider.search')} value={inputValue} onChangeText={handleInputChange} />
 
         {providers.length === 0 ? (
           <EmptyModelView onAddModel={onAddProvider} />

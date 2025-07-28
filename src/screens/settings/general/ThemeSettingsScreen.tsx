@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, useTheme, XStack, YStack } from 'tamagui'
 
@@ -17,7 +17,7 @@ export default function ThemeSettingsScreen() {
   const navigation = useNavigation<NavigationProps>()
   const [currentTheme, setCurrentTheme] = useState('system')
 
-  const handleFocus = useCallback(() => {
+  const handleFocus = () => {
     const loadTheme = async () => {
       const storedTheme = await AsyncStorage.getItem('theme')
 
@@ -27,7 +27,7 @@ export default function ThemeSettingsScreen() {
     }
 
     loadTheme()
-  }, [])
+  }
 
   // TODO 当前主题切换还存在问题
   useFocusEffect(handleFocus)
