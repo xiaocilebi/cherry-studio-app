@@ -82,6 +82,100 @@ function checkDuplicateKeys(obj: I18N): string[] {
   return duplicateKeys
 }
 
+/**
+ * 将扁平化的对象转换为嵌套对象
+ * @param obj 可能包含扁平键的对象
+ * @returns 返回嵌套对象
+ */
+function flattenToNested(obj: Record<string, any>): any {
+  const result: any = {}
+  const flatKeys: { [key: string]: any } = {}
+
+  // 首先分离扁平键和普通键
+  for (const key in obj) {
+    const value = obj[key]
+
+    // 如果值本身是对象且不是数组，递归处理
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      result[key] = flattenToNested(value)
+      continue
+    }
+
+    // 收集扁平化的键
+    if (key.includes('.')) {
+      flatKeys[key] = value
+    } else {
+      result[key] = value
+    }
+  }
+
+  // 处理扁平化的键
+  for (const flatKey in flatKeys) {
+    const value = flatKeys[flatKey]
+    const path = flatKey.split('.')
+    let current = result
+
+    for (let i = 0; i < path.length; i++) {
+      const part = path[i]
+
+      if (i === path.length - 1) {
+        // 最后一部分，直接赋值
+        current[part] = value
+      } else {
+        // 中间部分，确保是对象
+        if (current[part] === undefined) {
+          current[part] = {}
+        } else if (typeof current[part] !== 'object' || Array.isArray(current[part])) {
+          // 如果已经存在但不是对象，将其转换为对象并保留原始值作为 .tip 属性
+          current[part] = { tip: current[part] }
+        }
+
+        current = current[part]
+      }
+    }
+  }
+
+  return result
+}
+
+/**
+ * 检查对象是否已经是嵌套结构
+ * @param obj 要检查的对象
+ * @returns 如果是嵌套结构返回true，否则返回false
+ */
+function isNestedStructure(obj: Record<string, any>): boolean {
+  for (const key in obj) {
+    // 如果有任何键包含点号，则认为是扁平结构
+    if (key.includes('.')) {
+      return false
+    }
+
+    // 如果值是对象，递归检查
+    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+      if (!isNestedStructure(obj[key])) {
+        return false
+      }
+    }
+  }
+
+  return true
+}
+
+/**
+ * 将可能的扁平结构转换为嵌套结构
+ * @param obj 输入对象
+ * @returns 返回嵌套结构的对象
+ */
+function ensureNestedStructure(obj: Record<string, any>): any {
+  // 如果已经是嵌套结构，直接返回
+  if (isNestedStructure(obj)) {
+    return obj
+  }
+
+  // 否则转换为嵌套结构
+  return flattenToNested(obj)
+}
+
 function syncTranslations() {
   if (!fs.existsSync(baseFilePath)) {
     console.error(`主模板文件 ${baseFileName} 不存在，请检查路径或文件名`)
@@ -93,6 +187,7 @@ function syncTranslations() {
 
   try {
     baseJson = JSON.parse(baseContent)
+    baseJson = ensureNestedStructure(baseJson)
   } catch (error) {
     console.error(`解析 ${baseFileName} 出错。${error}`)
     return
@@ -132,6 +227,7 @@ function syncTranslations() {
     try {
       const fileContent = fs.readFileSync(filePath, 'utf-8')
       targetJson = JSON.parse(fileContent)
+      targetJson = ensureNestedStructure(targetJson)
     } catch (error) {
       console.error(`解析 ${filename} 出错，跳过此文件。`, error)
       continue

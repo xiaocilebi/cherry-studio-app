@@ -99,7 +99,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
                 </>
               ) : (
                 <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
-                  {t('settings.models.empty')}
+                  {t('settings.models.empty.tip')}
                 </Text>
               )}
             </XStack>
@@ -163,7 +163,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         )}
         {isReasoning && (
           <SettingRow>
-            <Text>{t('assistants.settings.reasoning')}</Text>
+            <Text>{t('assistants.settings.reasoning.tip')}</Text>
             <ReasoningSelect assistant={assistant} updateAssistant={updateAssistant} />
           </SettingRow>
         )}

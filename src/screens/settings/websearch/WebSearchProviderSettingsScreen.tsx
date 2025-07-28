@@ -128,7 +128,7 @@ export default function WebSearchProviderSettingsScreen() {
         {provider.type === 'api' && (
           <YStack gap={8}>
             <XStack paddingHorizontal={10} height={20} justifyContent="space-between" alignItems="center">
-              <SettingGroupTitle>{t('settings.websearch.api_key')}</SettingGroupTitle>
+              <SettingGroupTitle>{t('settings.websearch.api_key.tip')}</SettingGroupTitle>
               <Button
                 size={16}
                 icon={<ShieldCheck size={16} color="$textLink" />}
@@ -174,7 +174,7 @@ export default function WebSearchProviderSettingsScreen() {
         {/* API Host 配置 */}
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} alignItems="center">
-            <SettingGroupTitle>{t('settings.websearch.api_host')}</SettingGroupTitle>
+            <SettingGroupTitle>{t('settings.websearch.api_host.tip')}</SettingGroupTitle>
           </XStack>
           <Input
             placeholder={t('settings.websearch.api_host.placeholder')}

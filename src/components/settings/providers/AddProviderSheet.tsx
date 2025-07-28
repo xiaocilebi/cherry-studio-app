@@ -51,7 +51,7 @@ export function AddProviderSheet({
           <YStack width="100%" gap={8}>
             <XStack gap={8}>
               <Text color="red">*</Text>
-              <Text>{t('settings.provider.add.name')}</Text>
+              <Text>{t('settings.provider.add.name.tip')}</Text>
             </XStack>
             <BottomSheetTextInput
               placeholder={t('settings.provider.add.name.placeholder')}

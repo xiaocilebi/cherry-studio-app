@@ -60,7 +60,7 @@ export function ApiCheckSheet({
             value={selectedModel ? getModelUniqId(selectedModel) : undefined}
             onValueChange={onModelChange}
             selectOptions={selectOptions}
-            placeholder={t('settings.models.empty')}
+            placeholder={t('settings.models.empty.tip')}
           />
         </YStack>
 

@@ -90,7 +90,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
               <YStack flex={1} justifyContent="center" alignItems="center" padding="20">
                 <Button onPress={handleNavigateToWebSearhPage}>
                   <YStack alignItems="center">
-                    <Text>{t('settings.websearch.empty')}</Text>
+                    <Text>{t('settings.websearch.empty.tip')}</Text>
                     <SettingHelpText>{t('settings.websearch.empty.description')}</SettingHelpText>
                   </YStack>
                 </Button>

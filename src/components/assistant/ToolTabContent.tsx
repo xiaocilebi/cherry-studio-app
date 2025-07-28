@@ -71,7 +71,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
                     </Text>
                   ) : (
                     <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
-                      {t('settings.websearch.empty')}
+                      {t('settings.websearch.empty.tip')}
                     </Text>
                   )}
                 </XStack>

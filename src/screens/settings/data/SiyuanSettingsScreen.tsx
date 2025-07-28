@@ -60,7 +60,7 @@ export default function SiyuanSettingsScreen() {
       {
         type: 'password',
         key: 'siyuanToken',
-        titleKey: 'settings.siyuan.token',
+        titleKey: 'settings.siyuan.token.tip',
         placeholderKey: 'settings.siyuan.token_placeholder',
         helpUrl: 'https://docs.cherry-ai.com/advanced-basic/siyuan',
         helpTextKey: 'settings.siyuan.token.help'
