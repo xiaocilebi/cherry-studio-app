@@ -1,137 +1,150 @@
 {
   "translation": {
     "assistants": {
-      "edit": {
-        "title": "Edit Assistant"
-      },
       "create": {
         "title": "Create Assistant"
       },
-      "sort": {
-        "title": "Sort Assistants",
-        "alphabetical": "Alphabetical",
-        "recent_use": "Recently Used",
-        "recent_add": "Recently Added"
+      "edit": {
+        "title": "Edit Assistant"
       },
-      "search.no_results": "No assistants found",
-      "title": "Assistants",
-      "title.recent": "Recent Assistants",
-      "title.create": "Create Assistant",
-      "title.edit": "Edit Assistant",
+      "market": {
+        "add.success": "Add {{assistant_name}} Successful",
+        "button.chat": "Chat Now",
+        "groups": {
+          "all": "All",
+          "business": "Business",
+          "career": "Career",
+          "language": "Language",
+          "tools": "Tools"
+        },
+        "my_assistant": "My Assistants",
+        "popular": "Popular Assistants",
+        "search_placeholder": "Search assistants...",
+        "title": "Assistant Market"
+      },
       "name": "Assistant Name",
       "save": "Save Assistant",
-      "settings.temperature": "Temperature",
-      "settings.top_p": "Top P",
+      "search.no_results": "No assistants found",
       "settings.context": "Context",
-      "settings.stream_output": "Stream Output",
       "settings.max_tokens": "Enable Max Tokens Limit",
       "settings.max_tokens_value": "Max Tokens Limits",
       "settings.reasoning": "Reasoning Effort",
-      "settings.reasoning.off": "Off",
       "settings.reasoning.auto": "Auto",
+      "settings.reasoning.high": "High",
       "settings.reasoning.low": "Low",
       "settings.reasoning.medium": "Medium",
-      "settings.reasoning.high": "High",
-      "market": {
-        "title": "Assistant Market",
-        "search_placeholder": "Search assistants...",
-        "groups": {
-          "all": "All",
-          "career": "Career",
-          "business": "Business",
-          "tools": "Tools",
-          "language": "Language"
-        },
-        "button.chat": "Chat Now",
-        "popular": "Popular Assistants",
-        "my_assistant": "My Assistants",
-        "add.success": "Add {{assistant_name}} Successful"
-      }
+      "settings.reasoning.off": "Off",
+      "settings.stream_output": "Stream Output",
+      "settings.temperature": "Temperature",
+      "settings.top_p": "Top P",
+      "sort": {
+        "alphabetical": "Alphabetical",
+        "recent_add": "Recently Added",
+        "recent_use": "Recently Used",
+        "title": "Sort Assistants"
+      },
+      "title": "Assistants",
+      "title.create": "Create Assistant",
+      "title.edit": "Edit Assistant",
+      "title.recent": "Recent Assistants"
     },
     "button": {
       "add": "Add",
-      "manage": "Manage",
-      "select_model": "Select Model",
-      "web_search": "Search online",
-      "image_generate": "Image generation",
-      "placeholder": "Ask something casually",
-      "start_check_model": "Let's Start",
-      "save": "Save",
-      "recents": "Recents",
-      "sort": "Sort",
-      "tag": "Tag",
       "checking": "Checking...",
-      "success": "Successful!"
+      "image_generate": "Image generation",
+      "manage": "Manage",
+      "placeholder": "Ask something casually",
+      "recents": "Recents",
+      "save": "Save",
+      "select_model": "Select Model",
+      "sort": "Sort",
+      "start_check_model": "Let's Start",
+      "success": "Successful!",
+      "tag": "Tag",
+      "web_search": "Search online"
     },
     "chat": {
-      "default.name": "Default",
-      "title": "Welcome to Cherry Studio!",
-      "welcome": "I'm your AI assistant for producers. You can create assistants, manage models, and more.",
-      "topics": {
-        "title": "Topics",
-        "list": "List",
-        "search": {
-          "results": "Results"
-        }
-      },
       "assistant": {
         "search": {
           "placeholder": "Search assistants"
         }
       },
       "citation": "+ {{count}} Sources",
+      "default.name": "Default",
       "think": "Thinking for {{seconds}} seconds",
-      "think_expand": "Tap to read my mind"
+      "think_expand": "Tap to read my mind",
+      "title": "Welcome to Cherry Studio!",
+      "topics": {
+        "list": "List",
+        "search": {
+          "results": "Results"
+        },
+        "title": "Topics"
+      },
+      "welcome": "I'm your AI assistant for producers. You can create assistants, manage models, and more."
     },
     "common": {
+      "added": " Added",
+      "camera": "Camera",
+      "cancel": "Cancel",
       "cherry_studio": "Cherry Studio",
       "cherry_studio_description": "A Powerful AI assistant for producer",
-      "cancel": "Cancel",
-      "description": "Description",
-      "language": "Language",
-      "model": "Model",
-      "name": "Name",
-      "save": "Save",
-      "manage": "Manage",
-      "enabled": "Enabled",
-      "search_placeholder": "Search...",
-      "prompt": "Prompt",
-      "preset": "Preset",
-      "tool": "Tool",
-      "added": " Added",
-      "visit": "Visit",
-      "see_all": "See All",
-      "ok": "OK",
-      "error_occurred": "An error occurred",
-      "loading": "Loading...",
-      "file": "File",
-      "photo": "Photo",
-      "camera": "Camera",
       "clear_all": "Clear All",
       "close": "Close",
-      "source": "Source",
-      "today": "Today",
-      "yesterday": "Yesterday",
-      "this_week": "This Week",
-      "last_week": "Last Week",
+      "description": "Description",
+      "enabled": "Enabled",
+      "error_occurred": "An error occurred",
+      "file": "File",
+      "language": "Language",
       "last_month": "Last Month",
+      "last_week": "Last Week",
+      "loading": "Loading...",
+      "manage": "Manage",
+      "model": "Model",
+      "name": "Name",
+      "ok": "OK",
       "older": "Older",
-      "others": "Others"
+      "others": "Others",
+      "photo": "Photo",
+      "preset": "Preset",
+      "prompt": "Prompt",
+      "save": "Save",
+      "search_placeholder": "Search...",
+      "see_all": "See All",
+      "source": "Source",
+      "this_week": "This Week",
+      "today": "Today",
+      "tool": "Tool",
+      "visit": "Visit",
+      "yesterday": "Yesterday"
     },
     "errors": {
       "cannotOpenLink": "Cannot open link: {{error}}",
-      "linkErrorTitle": "Link Opening Error",
-      "deviceCannotHandleLink": "Your device cannot handle this link: {{href}}",
       "cannotOpenLinkTitle": "Cannot Open Link",
-      "error_title": "Error"
+      "deviceCannotHandleLink": "Your device cannot handle this link: {{href}}",
+      "error_title": "Error",
+      "linkErrorTitle": "Link Opening Error"
     },
     "history": {
-      "topics.empty": " No topics found",
       "search.placeholder": "Search topics or messages...",
-      "search.topics.empty": "No topics found, press Enter to search all messages"
+      "search.topics.empty": "No topics found, press Enter to search all messages",
+      "topics.empty": " No topics found"
     },
+    "home": {},
     "inputs": {
       "placeholder": "Send Message..."
+    },
+    "menu": {
+      "assistant": {
+        "recent": "Recent Assistant",
+        "title": "Assistant"
+      },
+      "search_placeholder": "Search...",
+      "see_all": "See All",
+      "topic": {
+        "recent": "Recent Topics",
+        "title": "Topic"
+      }
     },
     "models": {
       "no_models": "No models available",
@@ -148,343 +161,21 @@
         "websearch": "WebSearch"
       }
     },
-    "settings": {
-      "about": {
-        "title": "About Us",
-        "header": "About & Feedback",
-        "contact": {
-          "title": "Contact",
-          "button": "Email"
-        },
-        "feedback": {
-          "title": "Feedback",
-          "button": "Feedback"
-        },
-        "license": {
-          "title": "License",
-          "button": "License"
-        },
-        "releases": {
-          "title": "Release Notes",
-          "button": "Releases"
-        },
-        "website": {
-          "title": "Official Website",
-          "button": "Website"
-        }
-      },
-      "assistant": {
-        "title": "Default Assistant",
-        "default_assistant": {
-          "name": "Default Assistant",
-          "description": "Assistant used when creating a new assistant, if the assistant is not set, this assistant will be used"
-        },
-        "topic_naming_assistant": {
-          "name": "Topic Naming Assistant",
-          "description": "Assistant used when automatically naming a new topic"
-        },
-        "translate_assistant": {
-          "name": "Translation Assistant",
-          "description": "Assistant used for translation service"
-        },
-        "empty": "No Assistant yet..."
-      },
-      "data": {
-        "app_data": "App Data",
-        "app_logs": "App Logs",
-        "app_knowledge": "Knowledge Base Files",
-        "app_knowledge.remove_all": "Remove Files",
-        "clear_cache": {
-          "button": "Clear Cache",
-          "title": "Clear Cache"
-        },
-        "data.title": "Data Directory",
-        "title": "Data Settings",
-        "basic_title": "Basic Data Settings",
-        "backup": "Data Backup",
-        "recovery": "Data Recovery",
-        "reset": "Data Reset",
-        "cloud_backup": "Cloud Backup Settings",
-        "third_party": "Third-party Connections",
-        "landrop": {
-          "title": "Landrop",
-          "scan_qr_code": {
-            "title": "Scan QR Code",
-            "description": "Scan QR Code from Cherry Studio",
-            "success": "Connection Successful 🎉",
-            "success_description": "You can now Click Send Button to Restore Data!"
-          },
-          "status": {
-            "title": "Connection Status",
-            "idle": "Idle",
-            "connecting": "Connecting...",
-            "connected": "Connected",
-            "zip_file_start": "File Transfer Started",
-            "zip_file_end": "File Transfer Completed",
-            "disconnected": "Disconnected",
-            "error": "Connection Error"
-          },
-          "filename": "File Name"
-        },
-        "restore": {
-          "error": "Restore Error",
-          "error_message": "An error occurred during the restore process. Please check the file and try again.",
-          "steps": {
-            "restore_topics": " Restore Topics",
-            "restore_messages_blocks": "Restore Messages and Blocks",
-            "restore_llm_providers": "Restore LLM Providers",
-            "restore_assistants": "Restore Assistants",
-            "restore_websearch": "Restore Web Search"
-          },
-          "progress": {
-            "success": "Restore Successful",
-            "error": "Restore Error",
-            "pending": "Restoring...",
-            "success_description": "Restore Successful, Enjoy your time!",
-            "error_description": "An error occurred during the restore process. Please check the file and try again.",
-            "pending_description": "Restoring data, please wait..."
-          }
-        }
-      },
-      "models": {
-        "default_model": "Default Model",
-        "empty": "No Model yet...",
-        "empty.tooltip": "The page you were looking for is beyond our reach. Sorry for the inconvenience.",
-        "empty.add_model": "Let's add your first model",
-        "search": "Search Models...",
-        "title": "Models",
-        "add.model": "Add Model",
-        "add.model.id": "Model ID",
-        "add.model.id.placeholder": "Required e.g. gpt-4o",
-        "add.model.name": "Model Name",
-        "add.model.name.placeholder": "Optional e.g. GPT-4o",
-        "add.model.group": "Model Group",
-        "add.model.group.placeholder": "Optional e.g. OpenAI"
-      },
-      "provider": {
-        "api_service": "API Service",
-        "list.title": "Provider List",
-        "add.name": "Provider Name",
-        "add.name.placeholder": "Required e.g. OpenAI",
-        "add.title": "Add Provider",
-        "add.type": "Provider Type",
-        "api.url.preview": "Preview: {{url}}",
-        "api.url.reset": "Reset",
-        "api.url.tip": "Ending with / ignores v1, ending with # forces use of input address",
-        "api_host": "API Host",
-        "api_host.placeholder": "Please enter API host",
-        "api_key": "API Key",
-        "api_key.placeholder": "Please enter API key",
-        "api_key.get": "Get API Key",
-        "api_key.tip": "Multiple keys separated by commas",
-        "api_check.title": "Detection",
-        "api_check.tooltip": "Select the model to use for detection",
-        "delete.content": "Are you sure you want to delete this provider?",
-        "delete.title": "Delete Provider",
-        "title": "Model Provider",
-        "search": "Search Providers...",
-        "enabled": "On",
-        "added": "Added",
-        "auth": {
-          "title": "{{provider}} Service",
-          "login": "Log in",
-          "balance_recharge": "Balance Recharge",
-          "free_bills": "Free Bills"
-        },
-        "not_found": "Provider not found",
-        "not_found_message": "There is an error navigate to the provider page."
-      },
-      "proxy.title": "Proxy Address",
-      "theme.window.style.opaque": "Opaque Window",
-      "theme.window.style.title": "Window Style",
-      "theme.window.style.transparent": "Transparent Window",
-      "title": "Settings",
-      "topic.position": "Topic position",
-      "topic.position.left": "Left",
-      "topic.position.right": "Right",
-      "topic.show.time": "Show topic time",
-      "assistant.show.icon": "Show model icon",
-      "tray.title": "Enable System Tray Icon",
-      "nutstore": {
-        "nutstore": "Nutstore",
-        "config": "Nutstore Configuration",
-        "title": "Nutstore Sync",
-        "username": "Nutstore Username",
-        "to_nutstore": "Backup to Nutstore",
-        "from_nutstore": "Restore from Nutstore",
-        "backupStatus": "Backup Status",
-        "backupPath": "Backup Storage Path",
-        "logout": "Log Out",
-        "login": "Login with Nutstore Account"
-      },
-      "notion": {
-        "api_key": "Notion API Key",
-        "api_key_placeholder": "Enter Notion API Key",
-        "check": {
-          "button": "Check",
-          "empty_api_key": "API key is not configured",
-          "empty_database_id": "Database ID is not configured",
-          "error": "Connection error, please check network configuration and API key and Database ID",
-          "fail": "Connection failed, please check network and API key and Database ID",
-          "success": "Connection successful"
-        },
-        "database_id": "Notion Database ID",
-        "database_id_placeholder": "Enter Notion Database ID",
-        "help": "Notion Configuration Documentation",
-        "page_name_key": "Page Title Field Name",
-        "page_name_key_placeholder": "Enter page title field name, default is Name",
-        "title": "Notion Settings",
-        "export_reasoning.title": "Include Reasoning Chain in Export",
-        "export_reasoning.help": "When enabled, exported content will include reasoning chain (thought process)."
-      },
-      "yuque": {
-        "check": {
-          "button": "Check",
-          "empty_repo_url": "Please enter the knowledge base URL first",
-          "empty_token": "Please enter the Yuque Token first",
-          "fail": "Yuque connection verification failed",
-          "success": "Yuque connection verified successfully"
-        },
-        "help": "Get Yuque Token",
-        "repo_url": "Yuque URL",
-        "repo_url_placeholder": "https://www.yuque.com/username/xxx",
-        "title": "Yuque Configuration",
-        "token": "Yuque Token",
-        "token_placeholder": "Please enter the Yuque Token"
-      },
-      "joplin": {
-        "check": {
-          "button": "Check",
-          "empty_token": "Please enter Joplin Authorization Token",
-          "empty_url": "Please enter Joplin Clipper Service URL",
-          "fail": "Joplin connection verification failed",
-          "success": "Joplin connection verification successful"
-        },
-        "help": "Click here to get Joplin Authorization Token",
-        "title": "Joplin Configuration",
-        "token": "Joplin Authorization Token",
-        "token_placeholder": "Joplin Authorization Token",
-        "url": "Joplin Web Clipper Service URL",
-        "url_placeholder": "http://127.0.0.1:41184/",
-        "export_reasoning.title": "Include Reasoning Chain in Export",
-        "export_reasoning.help": "When enabled, the exported content will include the reasoning chain (thought process) generated by the assistant."
-      },
-      "obsidian": {
-        "title": "Obsidian Configuration",
-        "default_vault": "Default Obsidian Vault",
-        "default_vault_placeholder": "Please select the default Obsidian vault",
-        "default_vault_loading": "Loading Obsidian vault...",
-        "default_vault_no_vaults": "No Obsidian vaults found",
-        "default_vault_fetch_error": "Failed to fetch Obsidian vault",
-        "default_vault_export_failed": "Export failed"
-      },
-      "siyuan": {
-        "title": "Siyuan Note Configuration",
-        "api_url": "Siyuan Note API URL",
-        "api_url_placeholder": "e.g.: http://127.0.0.1:6806",
-        "token": "Siyuan Note Token",
-        "token.help": "Get Siyuan Note Token",
-        "token_placeholder": "Please enter Siyuan Note Token",
-        "box_id": "Siyuan Note Box ID",
-        "box_id_placeholder": "Please enter Siyuan Note Box ID",
-        "root_path": "Siyuan Note Root Path",
-        "root_path_placeholder": "e.g.: /CherryStudio",
-        "check": {
-          "title": "Connection Check",
-          "button": "Check",
-          "empty_config": "Please fill in the API address and token",
-          "success": "Connection successful",
-          "fail": "Connection failed, please check API address and token",
-          "error": "Connection error, please check network connection"
-        }
-      },
-      "websearch": {
-        "empty": "No Provider yet...",
-        "empty.description": "Click Button To Add Provider",
-        "api_service": "API Service",
-        "api_host": "API Host",
-        "api_host.placeholder": "Please enter API host",
-        "api_key": "API Key",
-        "api_key.placeholder": "Please enter API key",
-        "api_key.get": "Get API Key",
-        "title": "Web Search",
-        "selectPlaceholder": "Please Select Web Search Provider...",
-        "searchWithDates": "Search with dates included",
-        "overrideSearchService": "Override search service",
-        "searchCount": "Search Count",
-        "contentLengthLimit": "Content Length Limit",
-        "blacklist.title": "Blacklist",
-        "blacklist_placeholder": "Please use the following format (separated by newlines)\nPattern matching: *://*.example.com/*\nRegular expression: /example\\.(net|org)/",
-        "blacklist_description": "Results from the following websites will not appear in search results",
-        "subscribe.title": "Blacklist Subscription",
-        "provider": {
-          "title": "Web Search Provider",
-          "free": {
-            "title": "Free Service Providers"
-          },
-          "api": {
-            "title": "API Service Providers"
-          }
-        },
-        "check_success": "Check Success",
-        "check_success_message": "The API is working properly",
-        "check_fail": "Check Fail",
-        "check_error": "Check Error"
-      },
-      "modelAndService": "AI Models & Services",
-      "dataAndSecurity": "Data & Security",
-      "general": {
-        "title": "General Settings",
-        "display.title": "Display Settings",
-        "theme.auto": "Auto",
-        "theme.dark": "Dark",
-        "theme.light": "Light",
-        "theme.title": "Theme",
-        "privacy.title": "Privacy Settings",
-        "privacy.anonymous": "Anonymous report errors and statistics",
-        "language.title": "Language"
-      },
-      "webdav": {
-        "title": "WebDAV",
-        "config": {
-          "apply": "Apply",
-          "title": "WebDAV Config",
-          "host": "WebDAV Host",
-          "host_placeholder": "http://localhost:8080",
-          "user": "WebDAV User",
-          "user_placeholder": "WebDAV User",
-          "password": "WebDAV Password",
-          "password_placeholder": "WebDAV Password",
-          "password_hint": "Must be at least 8 characters",
-          "path": "WebDAV Path",
-          "path_placeholder": "WebDAV Path"
-        },
-        "backup": {
-          "title": "Backup Settings",
-          "to_webdav": "Backup to WebDAV",
-          "from_webdav": "Restore from WebDAV",
-          "auto_backup": "Auto Backup",
-          "slim_backup": "Slim Backup",
-          "max_backups": "Maximum Backups",
-          "unlimited": "Unlimited"
-        }
-      }
-    },
     "profile": {
-      "editProfile": "Edit profile",
       "avatar": "User profile picture",
       "create": "Go to create",
       "createFirstAgent": "Click to create the first AI intelligent body",
+      "editProfile": "Edit profile",
       "noContent": "No {{type}} content yet"
     },
     "provider": {
       "aihubmix": "AiHubMix",
-      "burncloud": "BurnCloud",
       "alayanew": "Alaya NeW",
       "anthropic": "Anthropic",
       "azure-openai": "Azure OpenAI",
       "baichuan": "Baichuan",
       "baidu-cloud": "Baidu Cloud",
+      "burncloud": "BurnCloud",
       "copilot": "GitHub Copilot",
       "dashscope": "Alibaba Cloud",
       "deepseek": "DeepSeek",
@@ -514,36 +205,345 @@
       "openrouter": "OpenRouter",
       "perplexity": "Perplexity",
       "ppio": "PPIO",
+      "qiniu": "Qiniu",
       "qwenlm": "QwenLM",
       "silicon": "SiliconFlow",
       "stepfun": "StepFun",
       "tencent-cloud-ti": "Tencent Cloud TI",
       "together": "Together",
+      "tokenflux": "TokenFlux",
+      "voyageai": "Voyage AI",
       "xirang": "State Cloud Xirang",
       "yi": "Yi",
       "zhinao": "360AI",
-      "zhipu": "ZHIPU AI",
-      "voyageai": "Voyage AI",
-      "qiniu": "Qiniu",
-      "tokenflux": "TokenFlux"
+      "zhipu": "ZHIPU AI"
     },
-    "home": {},
-    "menu": {
-      "topic": {
-        "title": "Topic",
-        "recent": "Recent Topics"
+    "settings": {
+      "about": {
+        "contact": {
+          "button": "Email",
+          "title": "Contact"
+        },
+        "feedback": {
+          "button": "Feedback",
+          "title": "Feedback"
+        },
+        "header": "About & Feedback",
+        "license": {
+          "button": "License",
+          "title": "License"
+        },
+        "releases": {
+          "button": "Releases",
+          "title": "Release Notes"
+        },
+        "title": "About Us",
+        "website": {
+          "button": "Website",
+          "title": "Official Website"
+        }
       },
       "assistant": {
-        "title": "Assistant",
-        "recent": "Recent Assistant"
+        "default_assistant": {
+          "description": "Assistant used when creating a new assistant, if the assistant is not set, this assistant will be used",
+          "name": "Default Assistant"
+        },
+        "empty": "No Assistant yet...",
+        "title": "Default Assistant",
+        "topic_naming_assistant": {
+          "description": "Assistant used when automatically naming a new topic",
+          "name": "Topic Naming Assistant"
+        },
+        "translate_assistant": {
+          "description": "Assistant used for translation service",
+          "name": "Translation Assistant"
+        }
       },
-      "search_placeholder": "Search...",
-      "see_all": "See All"
+      "assistant.show.icon": "Show model icon",
+      "data": {
+        "app_data": "App Data",
+        "app_knowledge": "Knowledge Base Files",
+        "app_knowledge.remove_all": "Remove Files",
+        "app_logs": "App Logs",
+        "backup": "Data Backup",
+        "basic_title": "Basic Data Settings",
+        "clear_cache": {
+          "button": "Clear Cache",
+          "title": "Clear Cache"
+        },
+        "cloud_backup": "Cloud Backup Settings",
+        "data.title": "Data Directory",
+        "landrop": {
+          "filename": "File Name",
+          "scan_qr_code": {
+            "description": "Scan QR Code from Cherry Studio",
+            "success": "Connection Successful 🎉",
+            "success_description": "You can now Click Send Button to Restore Data!",
+            "title": "Scan QR Code"
+          },
+          "status": {
+            "connected": "Connected",
+            "connecting": "Connecting...",
+            "disconnected": "Disconnected",
+            "error": "Connection Error",
+            "idle": "Idle",
+            "title": "Connection Status",
+            "zip_file_end": "File Transfer Completed",
+            "zip_file_start": "File Transfer Started"
+          },
+          "title": "Landrop"
+        },
+        "recovery": "Data Recovery",
+        "reset": "Data Reset",
+        "restore": {
+          "error": "Restore Error",
+          "error_message": "An error occurred during the restore process. Please check the file and try again.",
+          "progress": {
+            "error": "Restore Error",
+            "error_description": "An error occurred during the restore process. Please check the file and try again.",
+            "pending": "Restoring...",
+            "pending_description": "Restoring data, please wait...",
+            "success": "Restore Successful",
+            "success_description": "Restore Successful, Enjoy your time!"
+          },
+          "steps": {
+            "restore_assistants": "Restore Assistants",
+            "restore_llm_providers": "Restore LLM Providers",
+            "restore_messages_blocks": "Restore Messages and Blocks",
+            "restore_topics": " Restore Topics",
+            "restore_websearch": "Restore Web Search"
+          }
+        },
+        "third_party": "Third-party Connections",
+        "title": "Data Settings"
+      },
+      "dataAndSecurity": "Data & Security",
+      "general": {
+        "display.title": "Display Settings",
+        "language.title": "Language",
+        "privacy.anonymous": "Anonymous report errors and statistics",
+        "privacy.title": "Privacy Settings",
+        "theme.auto": "Auto",
+        "theme.dark": "Dark",
+        "theme.light": "Light",
+        "theme.title": "Theme",
+        "title": "General Settings"
+      },
+      "joplin": {
+        "check": {
+          "button": "Check",
+          "empty_token": "Please enter Joplin Authorization Token",
+          "empty_url": "Please enter Joplin Clipper Service URL",
+          "fail": "Joplin connection verification failed",
+          "success": "Joplin connection verification successful"
+        },
+        "export_reasoning.help": "When enabled, the exported content will include the reasoning chain (thought process) generated by the assistant.",
+        "export_reasoning.title": "Include Reasoning Chain in Export",
+        "help": "Click here to get Joplin Authorization Token",
+        "title": "Joplin Configuration",
+        "token": "Joplin Authorization Token",
+        "token_placeholder": "Joplin Authorization Token",
+        "url": "Joplin Web Clipper Service URL",
+        "url_placeholder": "http://127.0.0.1:41184/"
+      },
+      "modelAndService": "AI Models & Services",
+      "models": {
+        "add.model": "Add Model",
+        "add.model.group": "Model Group",
+        "add.model.group.placeholder": "Optional e.g. OpenAI",
+        "add.model.id": "Model ID",
+        "add.model.id.placeholder": "Required e.g. gpt-4o",
+        "add.model.name": "Model Name",
+        "add.model.name.placeholder": "Optional e.g. GPT-4o",
+        "default_model": "Default Model",
+        "empty": "No Model yet...",
+        "empty.add_model": "Let's add your first model",
+        "empty.tooltip": "The page you were looking for is beyond our reach. Sorry for the inconvenience.",
+        "search": "Search Models...",
+        "title": "Models"
+      },
+      "notion": {
+        "api_key": "Notion API Key",
+        "api_key_placeholder": "Enter Notion API Key",
+        "check": {
+          "button": "Check",
+          "empty_api_key": "API key is not configured",
+          "empty_database_id": "Database ID is not configured",
+          "error": "Connection error, please check network configuration and API key and Database ID",
+          "fail": "Connection failed, please check network and API key and Database ID",
+          "success": "Connection successful"
+        },
+        "database_id": "Notion Database ID",
+        "database_id_placeholder": "Enter Notion Database ID",
+        "export_reasoning.help": "When enabled, exported content will include reasoning chain (thought process).",
+        "export_reasoning.title": "Include Reasoning Chain in Export",
+        "help": "Notion Configuration Documentation",
+        "page_name_key": "Page Title Field Name",
+        "page_name_key_placeholder": "Enter page title field name, default is Name",
+        "title": "Notion Settings"
+      },
+      "nutstore": {
+        "backupPath": "Backup Storage Path",
+        "backupStatus": "Backup Status",
+        "config": "Nutstore Configuration",
+        "from_nutstore": "Restore from Nutstore",
+        "login": "Login with Nutstore Account",
+        "logout": "Log Out",
+        "nutstore": "Nutstore",
+        "title": "Nutstore Sync",
+        "to_nutstore": "Backup to Nutstore",
+        "username": "Nutstore Username"
+      },
+      "obsidian": {
+        "default_vault": "Default Obsidian Vault",
+        "default_vault_export_failed": "Export failed",
+        "default_vault_fetch_error": "Failed to fetch Obsidian vault",
+        "default_vault_loading": "Loading Obsidian vault...",
+        "default_vault_no_vaults": "No Obsidian vaults found",
+        "default_vault_placeholder": "Please select the default Obsidian vault",
+        "title": "Obsidian Configuration"
+      },
+      "provider": {
+        "add.name": "Provider Name",
+        "add.name.placeholder": "Required e.g. OpenAI",
+        "add.title": "Add Provider",
+        "add.type": "Provider Type",
+        "added": "Added",
+        "api.url.preview": "Preview: {{url}}",
+        "api.url.reset": "Reset",
+        "api.url.tip": "Ending with / ignores v1, ending with # forces use of input address",
+        "api_check.title": "Detection",
+        "api_check.tooltip": "Select the model to use for detection",
+        "api_host": "API Host",
+        "api_host.placeholder": "Please enter API host",
+        "api_key": "API Key",
+        "api_key.get": "Get API Key",
+        "api_key.placeholder": "Please enter API key",
+        "api_key.tip": "Multiple keys separated by commas",
+        "api_service": "API Service",
+        "auth": {
+          "balance_recharge": "Balance Recharge",
+          "free_bills": "Free Bills",
+          "login": "Log in",
+          "title": "{{provider}} Service"
+        },
+        "delete.content": "Are you sure you want to delete this provider?",
+        "delete.title": "Delete Provider",
+        "enabled": "On",
+        "list.title": "Provider List",
+        "not_found": "Provider not found",
+        "not_found_message": "There is an error navigate to the provider page.",
+        "search": "Search Providers...",
+        "title": "Model Provider"
+      },
+      "proxy.title": "Proxy Address",
+      "siyuan": {
+        "api_url": "Siyuan Note API URL",
+        "api_url_placeholder": "e.g.: http://127.0.0.1:6806",
+        "box_id": "Siyuan Note Box ID",
+        "box_id_placeholder": "Please enter Siyuan Note Box ID",
+        "check": {
+          "button": "Check",
+          "empty_config": "Please fill in the API address and token",
+          "error": "Connection error, please check network connection",
+          "fail": "Connection failed, please check API address and token",
+          "success": "Connection successful",
+          "title": "Connection Check"
+        },
+        "root_path": "Siyuan Note Root Path",
+        "root_path_placeholder": "e.g.: /CherryStudio",
+        "title": "Siyuan Note Configuration",
+        "token": "Siyuan Note Token",
+        "token.help": "Get Siyuan Note Token",
+        "token_placeholder": "Please enter Siyuan Note Token"
+      },
+      "theme.window.style.opaque": "Opaque Window",
+      "theme.window.style.title": "Window Style",
+      "theme.window.style.transparent": "Transparent Window",
+      "title": "Settings",
+      "topic.position": "Topic position",
+      "topic.position.left": "Left",
+      "topic.position.right": "Right",
+      "topic.show.time": "Show topic time",
+      "tray.title": "Enable System Tray Icon",
+      "webdav": {
+        "backup": {
+          "auto_backup": "Auto Backup",
+          "from_webdav": "Restore from WebDAV",
+          "max_backups": "Maximum Backups",
+          "slim_backup": "Slim Backup",
+          "title": "Backup Settings",
+          "to_webdav": "Backup to WebDAV",
+          "unlimited": "Unlimited"
+        },
+        "config": {
+          "apply": "Apply",
+          "host": "WebDAV Host",
+          "host_placeholder": "http://localhost:8080",
+          "password": "WebDAV Password",
+          "password_hint": "Must be at least 8 characters",
+          "password_placeholder": "WebDAV Password",
+          "path": "WebDAV Path",
+          "path_placeholder": "WebDAV Path",
+          "title": "WebDAV Config",
+          "user": "WebDAV User",
+          "user_placeholder": "WebDAV User"
+        },
+        "title": "WebDAV"
+      },
+      "websearch": {
+        "api_host": "API Host",
+        "api_host.placeholder": "Please enter API host",
+        "api_key": "API Key",
+        "api_key.get": "Get API Key",
+        "api_key.placeholder": "Please enter API key",
+        "api_service": "API Service",
+        "blacklist.title": "Blacklist",
+        "blacklist_description": "Results from the following websites will not appear in search results",
+        "blacklist_placeholder": "Please use the following format (separated by newlines)\nPattern matching: *://*.example.com/*\nRegular expression: /example\\.(net|org)/",
+        "check_error": "Check Error",
+        "check_fail": "Check Fail",
+        "check_success": "Check Success",
+        "check_success_message": "The API is working properly",
+        "contentLengthLimit": "Content Length Limit",
+        "empty": "No Provider yet...",
+        "empty.description": "Click Button To Add Provider",
+        "overrideSearchService": "Override search service",
+        "provider": {
+          "api": {
+            "title": "API Service Providers"
+          },
+          "free": {
+            "title": "Free Service Providers"
+          },
+          "title": "Web Search Provider"
+        },
+        "searchCount": "Search Count",
+        "searchWithDates": "Search with dates included",
+        "selectPlaceholder": "Please Select Web Search Provider...",
+        "subscribe.title": "Blacklist Subscription",
+        "title": "Web Search"
+      },
+      "yuque": {
+        "check": {
+          "button": "Check",
+          "empty_repo_url": "Please enter the knowledge base URL first",
+          "empty_token": "Please enter the Yuque Token first",
+          "fail": "Yuque connection verification failed",
+          "success": "Yuque connection verified successfully"
+        },
+        "help": "Get Yuque Token",
+        "repo_url": "Yuque URL",
+        "repo_url_placeholder": "https://www.yuque.com/username/xxx",
+        "title": "Yuque Configuration",
+        "token": "Yuque Token",
+        "token_placeholder": "Please enter the Yuque Token"
+      }
     },
     "topics": {
+      "new_topic": "New Topic",
       "title": "Topic",
-      "title.recent": "Recent Topics",
-      "new_topic": "New Topic"
+      "title.recent": "Recent Topics"
     }
   }
 }
