@@ -30,6 +30,7 @@ const WelcomeContent = () => {
         type: 'timing'
       }}>
       {/* assistant market(Temporary) */}
+      {/*TODO: 主题色需要更改*/}
       <YStack gap={17} paddingHorizontal={20} paddingTop={40}>
         <XStack justifyContent="space-between">
           <Text>{t('assistants.market.popular')}</Text>

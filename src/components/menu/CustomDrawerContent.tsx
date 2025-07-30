@@ -4,13 +4,14 @@ import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Avatar, Button, Stack, Text, View, XStack, YStack } from 'tamagui'
+import { Avatar, Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { BlurView } from '@/components/ui/BlurView'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useExternalAssistants } from '@/hooks/useAssistant'
+import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
@@ -22,6 +23,8 @@ import { SettingDivider } from '../settings'
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
   const isDark = useIsDark()
+  const theme = useTheme()
+  const { theme: appTheme } = useSettings()
   const navigation = useNavigation<NavigationProps>()
 
   const { topics, isLoading: isLoadingTopics } = useTopics()
@@ -41,7 +44,14 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   return (
     <YStack flex={1}>
-      <BlurView style={{ flex: 1, backgroundColor: isDark ? '#000000bb' : '#ffffffbb' }} intensity={60} tint="default">
+      <BlurView
+        style={{
+          flex: 1,
+          backgroundColor:
+            appTheme === 'dark' ? '#000000bb' : appTheme === 'light' ? '#ffffffbb' : isDark ? '#000000bb' : '#ffffffbb'
+        }}
+        intensity={60}
+        tint="default">
         <YStack gap={10} flex={1} padding={20}>
           <YStack>
             <DrawerItemList {...props} />
@@ -55,9 +65,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               onPress={() => navigation.navigate('AssistantMarketScreen')}>
               <XStack gap={10} alignItems="center" justifyContent="center">
                 <MarketIcon size={20} />
-                <Text>{t('assistants.market.title')}</Text>
+                <Text color={theme.color}>{t('assistants.market.title')}</Text>
               </XStack>
-              <ArrowUpRight size={20} />
+              <ArrowUpRight size={20} color={theme.color} />
             </XStack>
 
             <XStack
@@ -66,9 +76,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               onPress={() => navigation.navigate('AssistantScreen')}>
               <XStack gap={10} alignItems="center" justifyContent="center">
                 <UnionIcon size={20} />
-                <Text>{t('assistants.market.my_assistant')}</Text>
+                <Text color={theme.color}>{t('assistants.market.my_assistant')}</Text>
               </XStack>
-              <ArrowUpRight size={20} />
+              <ArrowUpRight size={20} color={theme.color} />
             </XStack>
             <Stack paddingVertical={20}>
               <SettingDivider />
@@ -87,12 +97,12 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             <Avatar circular size={48}>
               {/* todo: set user avatar */}
               <Avatar.Image accessibilityLabel="Cam" src={require('@/assets/images/favicon.png')} />
-              <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
+              <Avatar.Fallback delayMs={600} backgroundColor={theme.blue10} />
             </Avatar>
-            <Text>{t('common.cherry_studio')}</Text>
+            <Text color={theme.color}>{t('common.cherry_studio')}</Text>
           </XStack>
           <Button
-            icon={<Settings size={24} />}
+            icon={<Settings size={24} color={theme.color} />}
             chromeless
             onPress={() => {
               props.navigation.navigate('Main', { screen: 'SettingsScreen' })

@@ -18,7 +18,7 @@ export type LanguageVarious =
 export enum ThemeMode {
   light = 'light',
   dark = 'dark',
-  auto = 'auto'
+  system = 'system'
 }
 
 export type ExternalToolResult = {

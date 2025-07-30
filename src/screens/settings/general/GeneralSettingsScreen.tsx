@@ -52,7 +52,7 @@ export default function GeneralSettingsScreen() {
 
   const getCurrentTheme = () => {
     const currentThemeOption = themeOptions.find(item => item.value === currentTheme)
-    return currentThemeOption ? currentThemeOption.label : '跟随系统'
+    return currentThemeOption ? t(currentThemeOption.label) : t('settings.general.theme.auto')
   }
 
   return (

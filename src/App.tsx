@@ -2,7 +2,7 @@ import 'react-native-reanimated'
 import '@/i18n'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { DefaultTheme, NavigationContainer, ThemeProvider } from '@react-navigation/native'
+import { NavigationContainer, ThemeProvider } from '@react-navigation/native'
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin'
 import { useFonts } from 'expo-font'
@@ -11,7 +11,7 @@ import { SQLiteProvider } from 'expo-sqlite'
 import { StatusBar } from 'expo-status-bar'
 import { Suspense, useEffect } from 'react'
 import React from 'react'
-import { ActivityIndicator, useColorScheme } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Provider, useSelector } from 'react-redux'
@@ -20,6 +20,7 @@ import { PortalProvider, TamaguiProvider } from 'tamagui'
 
 import { getDataBackupProviders } from '@/config/backup'
 import { getWebSearchProviders } from '@/config/websearchProviders'
+import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import store, { persistor, RootState, useAppDispatch } from '@/store'
 import { setInitialized } from '@/store/app'
@@ -93,14 +94,14 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const colorScheme = useColorScheme()
+  const { activeTheme, reactNavigationTheme } = useTheme()
 
   return (
-    <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme ?? 'light'}>
+    <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
       <PortalProvider>
         <KeyboardProvider>
-          <NavigationContainer theme={DefaultTheme}>
-            <ThemeProvider value={DefaultTheme}>
+          <NavigationContainer theme={reactNavigationTheme}>
+            <ThemeProvider value={reactNavigationTheme}>
               <BottomSheetModalProvider>
                 <DatabaseInitializer />
                 <AppNavigator />

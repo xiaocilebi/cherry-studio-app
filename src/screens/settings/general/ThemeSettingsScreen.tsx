@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, useTheme, XStack, YStack } from 'tamagui'
 
@@ -8,34 +8,20 @@ import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { themeOptions } from '@/config/theme'
+import { useSettings } from '@/hooks/useSettings'
+import { ThemeMode } from '@/types'
 import { NavigationProps } from '@/types/naviagate'
 
 export default function ThemeSettingsScreen() {
   const { t } = useTranslation()
+  const { theme: currentTheme, setTheme: setCurrentTheme } = useSettings()
 
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
-  const [currentTheme, setCurrentTheme] = useState('system')
 
-  const handleFocus = () => {
-    const loadTheme = async () => {
-      const storedTheme = await AsyncStorage.getItem('theme')
-
-      if (storedTheme) {
-        setCurrentTheme(storedTheme)
-      }
-    }
-
-    loadTheme()
-  }
-
-  // TODO 当前主题切换还存在问题
-  useFocusEffect(handleFocus)
-
-  const changeTheme = async (themeValue: string) => {
+  const changeTheme = async (themeValue: ThemeMode) => {
     setCurrentTheme(themeValue)
     await AsyncStorage.setItem('theme', themeValue)
-    navigation.goBack()
   }
 
   return (
@@ -55,7 +41,7 @@ export default function ThemeSettingsScreen() {
               hoverStyle={{ backgroundColor: theme['$color4'] }}
               pressStyle={{ opacity: 0.7 }}>
               <XStack alignItems="center" space>
-                <Text fontSize={16}>{opt.label}</Text>
+                <Text fontSize={16}>{t(opt.label)}</Text>
               </XStack>
 
               <XStack

@@ -6,7 +6,7 @@ import React from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { Text, XStack } from 'tamagui'
+import { Text, useTheme, XStack } from 'tamagui'
 
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
@@ -32,6 +32,7 @@ interface RenderRightActionsProps {
 }
 
 const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swipeableRef }) => {
+  const theme = useTheme()
   const { navigateToChatScreen } = useNavigation()
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [50, 0])
@@ -77,13 +78,14 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
           justifyContent: 'center'
         }}
         onPress={handleDelete}>
-        <Trash2 color="$textDelete" size={20} />
+        <Trash2 color={theme.textDelete} size={20} />
       </RectButton>
     </MotiView>
   )
 }
 
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
+  const theme = useTheme()
   const isDark = useIsDark()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const swipeableRef = useRef<SwipeableMethods>(null)
@@ -126,16 +128,16 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
     <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
       <XStack
         borderRadius={30}
-        backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+        backgroundColor={isDark ? theme.uiCardDark : theme.uiCardLight}
         justifyContent="space-between"
         alignItems="center"
         paddingVertical={15}
         paddingHorizontal={20}
         onPress={openTopic}>
-        <Text fontSize={16} numberOfLines={1} ellipsizeMode="tail" fontWeight="500" maxWidth="80%">
+        <Text fontSize={16} numberOfLines={1} ellipsizeMode="tail" fontWeight="500" maxWidth="80%" color={theme.color}>
           {topic.name}
         </Text>
-        <Text fontSize={12} color="$gray10">
+        <Text fontSize={12} color={theme.gray10}>
           {displayTime}
         </Text>
       </XStack>
