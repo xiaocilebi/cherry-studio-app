@@ -45,7 +45,7 @@ export const useMessages = (topicId: string) => {
     return () => {
       isMounted = false
     }
-  }, [rawMessages])
+  })
 
   return { messages: processedMessages }
 }

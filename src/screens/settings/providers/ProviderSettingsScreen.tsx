@@ -228,9 +228,7 @@ export default function ProviderSettingsScreen() {
                         groupName={groupName}
                         models={modelsInGroup as Model[]} // Type assertion for modelsInGroup
                         index={index}
-                        renderModelButton={(
-                          model: Model // Wrap with useCallback
-                        ) => (
+                        renderModelButton={(model: Model) => (
                           <Button
                             size={14}
                             chromeless

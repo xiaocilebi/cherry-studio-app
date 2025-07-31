@@ -33,7 +33,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
       ...assistant,
       model: model[0]
     })
-  }, [model])
+  })
 
   const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
     updateAssistant({

@@ -47,7 +47,7 @@ export default function LandropSettingsScreen() {
     }
 
     handleRestore()
-  }, [filename, startRestore, status])
+  })
 
   const handleQRCodeScanned = (ip: string) => {
     if (hasScannedRef.current) {

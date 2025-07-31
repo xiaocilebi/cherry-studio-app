@@ -31,7 +31,7 @@ export function QRCodeScanner({ onQRCodeScanned }: QRCodeScannerProps) {
     if (permission === null || !permission?.granted) {
       getPermission()
     }
-  }, [permission, requestPermission, isRequestingPermission])
+  })
 
   const handleBarcodeScanned = ({ data }: { data: string }) => {
     try {

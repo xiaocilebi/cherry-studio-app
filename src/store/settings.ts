@@ -1,10 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { ThemeMode } from '@/types'
 import { TopicNamingSetting, TranslateModelSetting } from '@/types/setting'
 
 export interface SettingsState {
   topicNamingSetting: TopicNamingSetting
   translateModelSetting: TranslateModelSetting
+  theme: ThemeMode
 }
 
 const initialState: SettingsState = {
@@ -17,7 +19,8 @@ const initialState: SettingsState = {
     sourceLanguage: undefined,
     targetLanguage: undefined,
     prompt: ''
-  }
+  },
+  theme: ThemeMode.system
 }
 
 const settingsSlice = createSlice({
@@ -29,10 +32,13 @@ const settingsSlice = createSlice({
     },
     setTranslateModelSetting: (state, action) => {
       state.translateModelSetting = action.payload
+    },
+    setTheme: (state, action: PayloadAction<ThemeMode>) => {
+      state.theme = action.payload
     }
   }
 })
 
-export const { setTopicNamingSetting, setTranslateModelSetting } = settingsSlice.actions
+export const { setTopicNamingSetting, setTranslateModelSetting, setTheme } = settingsSlice.actions
 
 export default settingsSlice.reducer

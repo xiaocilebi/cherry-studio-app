@@ -128,7 +128,7 @@ export default function ManageModelsScreen() {
     const handler = debounce(() => setDebouncedSearchText(searchText), 300)
     handler()
     return () => handler.cancel()
-  }, [searchText])
+  })
 
   const filteredModels = filterModels(allModels, debouncedSearchText, activeFilterType)
   const sortedModelGroups = groupAndSortModels(filteredModels, provider?.id || '')
@@ -174,7 +174,7 @@ export default function ManageModelsScreen() {
     }
 
     fetchAndSetModels()
-  }, [provider, provider?.id])
+  })
 
   const renderModelGroupItem = ({ item: [groupName, currentModels], index }: ListRenderItemInfo<[string, Model[]]>) => (
     <ModelGroup

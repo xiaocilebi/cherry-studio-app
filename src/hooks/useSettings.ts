@@ -1,14 +1,17 @@
 import { useAppDispatch, useAppSelector } from '@/store'
-import { setTopicNamingSetting, setTranslateModelSetting } from '@/store/settings'
+import { setTheme, setTopicNamingSetting, setTranslateModelSetting } from '@/store/settings'
+import { ThemeMode } from '@/types'
 
 export function useSettings() {
-  const { topicNamingSetting, translateModelSetting } = useAppSelector(state => state.settings)
+  const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
 
   return {
-    topicNamingSetting,
-    translateModelSetting,
+    ...settings,
     setTopicNamingSetting: setting => dispatch(setTopicNamingSetting(setting)),
-    setTranslateModelSetting: setting => dispatch(setTranslateModelSetting(setting))
+    setTranslateModelSetting: setting => dispatch(setTranslateModelSetting(setting)),
+    setTheme(theme: ThemeMode) {
+      dispatch(setTheme(theme))
+    }
   }
 }

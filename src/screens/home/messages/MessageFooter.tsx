@@ -1,6 +1,6 @@
 import { Copy, RefreshCw } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, View, XStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
@@ -26,7 +26,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
 
   const [isTranslated, setIsTranslated] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkTranslation = async () => {
       try {
         const translationBlocks = await findTranslationBlocks(message)
@@ -38,7 +38,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
     }
 
     checkTranslation()
-  }, [message.id, message.blocks])
+  })
 
   const onCopy = async () => {
     // todo: 暂时无法复制翻译后的message

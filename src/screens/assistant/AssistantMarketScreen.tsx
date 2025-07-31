@@ -52,7 +52,7 @@ export default function AssistantMarketScreen() {
     return () => {
       debouncedSetSearchText.cancel()
     }
-  }, [searchText, debouncedSetSearchText])
+  })
 
   // Filter assistants by search text first
   const getBaseFilteredAssistants = (systemAssistants: Assistant[], debouncedSearchText: string) => {

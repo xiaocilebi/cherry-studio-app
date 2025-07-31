@@ -120,7 +120,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
           }
         })
       }
-    }, [assistant, currentReasoningEffort, supportedOptions, updateAssistant, model?.id])
+    })
 
     const onValueChange = (option?: ThinkingOption) => {
       const isEnabled = option !== undefined && option !== 'off'
