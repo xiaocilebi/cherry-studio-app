@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { PenSquare } from '@tamagui/lucide-icons'
-import debounce from 'lodash/debounce'
-import React, { useCallback, useEffect, useState } from 'react'
+import { debounce } from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { useTheme } from 'tamagui'
@@ -20,39 +20,29 @@ export default function TopicScreen() {
   const { t } = useTranslation()
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
-  const { topics, isLoading } = useTopics()
-
-  // 搜索状态
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
-  // 防抖处理
-  const debouncedSetSearchText = useCallback(
-    debounce((text: string) => {
-      setDebouncedSearchText(text)
-    }, 300),
-    []
-  )
+  // 创建防抖函数，300ms 延迟
+  const debouncedSetSearch = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
 
+  const { topics, isLoading } = useTopics()
+
+  // 监听 searchText 变化，触发防抖更新
   useEffect(() => {
-    debouncedSetSearchText(searchText)
+    debouncedSetSearch(searchText)
+    
+    // 清理函数，组件卸载时取消防抖
     return () => {
-      debouncedSetSearchText.cancel()
+      debouncedSetSearch.cancel()
     }
-  }, [searchText, debouncedSetSearchText])
-
-  // 搜索过滤话题
-  const filteredTopics = topics.filter(topic => {
-    if (!debouncedSearchText) return true
-    
-    const query = debouncedSearchText.toLowerCase().trim()
-    if (!query) return true
-    
-    return (
-      (topic.name && topic.name.toLowerCase().includes(query)) ||
-      (topic.id && topic.id.toLowerCase().includes(query))
-    )
   })
+
+  const filteredTopics = topics.filter(topic =>
+    topic.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
+  )
 
   const handleAddNewTopic = async () => {
     const defaultAssistant = await getDefaultAssistant()

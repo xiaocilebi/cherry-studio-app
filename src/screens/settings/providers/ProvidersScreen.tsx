@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { Plus } from '@tamagui/lucide-icons'
 import debounce from 'lodash/debounce'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { ScrollView, useTheme, YStack } from 'tamagui'
@@ -21,25 +21,29 @@ export default function ProvidersScreen() {
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
 
-  const [inputValue, setInputValue] = useState('')
+  const [searchText, setSearchText] = useState('')
+  const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
-  const [filterQuery, setFilterQuery] = useState('')
+  // 创建防抖函数，300ms 延迟
+  const debouncedSetSearch = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
 
   const { providers, isLoading } = useAllProviders()
 
-  const debouncedSetQuery = debounce((query: string) => {
-    setFilterQuery(query)
-  }, 500)
-
-  const handleInputChange = (text: string) => {
-    setInputValue(text)
-
-    debouncedSetQuery(text)
-  }
+  // 监听 searchText 变化，触发防抖更新
+  useEffect(() => {
+    debouncedSetSearch(searchText)
+    
+    // 清理函数，组件卸载时取消防抖
+    return () => {
+      debouncedSetSearch.cancel()
+    }
+  })
 
   const displayedProviders = providers
     .filter(p => p.enabled)
-    .filter(p => p.name && p.name.toLowerCase().includes(filterQuery.toLowerCase()))
+    .filter(p => p.name.toLowerCase().includes(debouncedSearchText.toLowerCase()))
 
   const onAddProvider = () => {
     navigation.navigate('ProviderListScreen')
@@ -69,7 +73,11 @@ export default function ProvidersScreen() {
       />
 
       <SettingContainer>
-        <SearchInput placeholder={t('settings.provider.search')} value={inputValue} onChangeText={handleInputChange} />
+        <SearchInput 
+          placeholder={t('settings.provider.search')} 
+          value={searchText} 
+          onChangeText={setSearchText} 
+        />
 
         {providers.length === 0 ? (
           <EmptyModelView onAddModel={onAddProvider} />

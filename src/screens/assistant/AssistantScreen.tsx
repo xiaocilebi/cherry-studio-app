@@ -2,8 +2,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ChevronDown, Funnel } from '@tamagui/lucide-icons'
-import debounce from 'lodash/debounce'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { debounce } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button, Text, XStack, YStack } from 'tamagui'
@@ -34,7 +34,12 @@ export default function AssistantScreen() {
   // 搜索状态
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
-  
+
+  // 创建防抖函数，300ms 延迟
+  const debouncedSetSearch = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
+
   // 筛选状态
   const [showTags, setShowTags] = useState(false)
   const [showSorted, setShowSorted] = useState(false)
@@ -44,37 +49,23 @@ export default function AssistantScreen() {
   const { assistants, isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
 
-  const bottomSheetRef = useRef<BottomSheetModal>(null)
-  const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
+  // 监听 searchText 变化，触发防抖更新
+  useEffect(() => {
+    debouncedSetSearch(searchText)
+    
+    // 清理函数，组件卸载时取消防抖
+    return () => {
+      debouncedSetSearch.cancel()
+    }
+  })
 
-  // 防抖处理
-  const debouncedSetSearchText = useCallback(
-    debounce((text: string) => {
-      setDebouncedSearchText(text)
-    }, 300),
-    []
+  const filteredAssistants = assistantWithTopics.filter(assistant =>
+    assistant.name.toLowerCase().includes(debouncedSearchText.toLowerCase()) ||
+    assistant.description?.toLowerCase().includes(debouncedSearchText.toLowerCase())
   )
 
-  useEffect(() => {
-    debouncedSetSearchText(searchText)
-    return () => {
-      debouncedSetSearchText.cancel()
-    }
-  }, [searchText, debouncedSetSearchText])
-
-  // 搜索过滤助手
-  const filteredAssistants = assistantWithTopics.filter(assistant => {
-    if (!debouncedSearchText) return true
-    
-    const query = debouncedSearchText.toLowerCase().trim()
-    if (!query) return true
-    
-    return (
-      (assistant.name && assistant.name.toLowerCase().includes(query)) ||
-      (assistant.id && assistant.id.toLowerCase().includes(query)) ||
-      (assistant.description && assistant.description.toLowerCase().includes(query))
-    )
-  })
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
 
   const handleAssistantItemPress = (assistant: Assistant) => {
     setSelectedAssistant(assistant)
