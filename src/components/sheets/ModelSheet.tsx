@@ -2,7 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@g
 import { BrushCleaning } from '@tamagui/lucide-icons'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
-import { forwardRef, useCallback, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
@@ -33,12 +33,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
-  const debouncedSetQuery = useCallback(
-    debounce((query: string) => {
-      setSearchQuery(query)
-    }, 300),
-    []
-  )
+  const debouncedSetQuery = debounce((query: string) => {
+    setSearchQuery(query)
+  }, 300)
 
   const handleSearchChange = (text: string) => {
     setInputValue(text)
