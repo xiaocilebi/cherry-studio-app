@@ -6,12 +6,12 @@ CherryStudio uses a unified logging service to print and record logs. **Unless t
 
 The following are detailed instructions.
 
-## Usage in the `main` process
+## Usage in React Native
 
 ### Importing
 
 ```typescript
-import { loggerService } from '@logger'
+import { loggerService } from '@/services/LoggerService'
 ```
 
 ### Setting module information (Required by convention)
@@ -44,76 +44,81 @@ For the meaning of each level, please refer to the section below.
 The following examples show how to use `logger.info` and `logger.error`. Other levels are used in the same way:
 
 ```typescript
-logger.info('message', CONTEXT)
-logger.info('message %s %d', 'hello', 123, CONTEXT)
-logger.error('message', new Error('error message'), CONTEXT)
+logger.info('message', data1, data2, ...)
+logger.info('message', { key: 'value' })
+logger.error('message', new Error('error message'))
+logger.info('message', { logToFile: true }) // Force log to file
 ```
 
-- `message` is a required string. All other options are optional.
-- `CONTEXT` as `{ key: value, ... }` is optional and will be recorded in the log file.
+- `message` is a required string. All other parameters are optional.
+- Additional data can be passed as separate parameters and will be logged.
 - If an `Error` type is passed, the error stack will be automatically recorded.
+- To force a log entry to be written to file regardless of the current file log level, add `{ logToFile: true }` as the last parameter.
 
-### Log Levels
+### Console Log Levels
 
-- In the development environment, all log levels are printed to the terminal and recorded in the file log.
-- In the production environment, the default log level is `info`. Logs are only recorded to the file and are not printed to the terminal.
+- In the development environment, all log levels (`silly` and above) are printed to the console.
+- In the production environment, the default console log level is `info`. Only `info` level and above are printed to the console.
 
-Changing the log level:
+Changing the console log level:
 
-- You can change the log level with `logger.setLevel('newLevel')`.
-- `logger.resetLevel()` resets it to the default level.
-- `logger.getLevel()` gets the current log level.
+- You can change the console log level with `logger.setConsoleLevel('newLevel')`.
+- `logger.resetConsoleLevel()` resets it to the default level.
+- `logger.getConsoleLevel()` gets the current console log level.
 
 **Note:** Changing the log level has a global effect. Please do not change it arbitrarily in your code unless you are very clear about what you are doing.
 
-### Log Levels
+### File Log Levels
 
-- In the development environment, all log levels are printed to the `devTool`'s `console` by default.
-- In the production environment, the default log level is `info`, and logs are printed to the `devTool`'s `console`.
-- In both development and production environments, `warn` and `error` level logs are, by default, transmitted to the `main` process and recorded in the file log.
-  - In the development environment, the `main` process terminal will also print the logs transmitted from the renderer.
+- In both development and production environments, the default file log level is `info`. Only `info` level and above are written to the log file.
+- Log files are stored in the app's document directory.
 
-#### Changing the Log Level
+Changing the file log level:
 
-Same as in the `main` process, you can manage the log level using `setLevel('level')`, `resetLevel()`, and `getLevel()`.
-Similarly, changing the log level is a global adjustment.
+- You can change the file log level with `logger.setFileLogLevel('newLevel')`.
+- `logger.resetFileLogLevel()` resets it to the default level.
+- `logger.getFileLogLevel()` gets the current file log level.
 
-#### Changing the Level Transmitted to `main`
+**Note:** Changing the file log level has a global effect. Please do not change it arbitrarily in your code unless you are very clear about what you are doing.
 
-Logs from the `renderer` are sent to `main` to be managed and recorded to a file centrally (according to `main`'s file logging level). By default, only `warn` and `error` level logs are transmitted to `main`.
+### Additional Utility Methods
 
-There are two ways to change the log level for transmission to `main`:
+The LoggerService provides additional utility methods for managing log files:
 
-##### Global Change
-
-The following methods can be used to set, reset, and get the log level for transmission to `main`, respectively.
+#### Reading Log File Contents
 
 ```typescript
-logger.setLogToMainLevel('newLevel')
-logger.resetLogToMainLevel()
-logger.getLogToMainLevel()
+const logContents = await logger.getLogFileContents()
 ```
 
-**Note:** This method has a global effect. Please do not change it arbitrarily in your code unless you are very clear about what you are doing.
+This method returns the contents of the current log file as a string.
 
-##### Per-log Change
-
-By adding `{ logToMain: true }` at the end of the log call, you can force a single log entry to be transmitted to `main` (bypassing the global log level restriction), for example:
+#### Clearing Log File
 
 ```typescript
-logger.info('message', { logToMain: true })
+await logger.clearLogFile()
 ```
+
+This method deletes the current log file.
+
+#### Getting Log File Path
+
+```typescript
+const logPath = logger.getLogFilePath()
+```
+
+This method returns the absolute path to the log file.
 
 ## Log Level Usage Guidelines
 
 There are many log levels. The following are the guidelines that should be followed in CherryStudio for when to use each level:
-(Arranged from highest to lowest log level)
+(Arranged from highest to lowest priority, with numeric values from the LEVEL_MAP)
 
-| Log Level     | Core Definition & Use Case                                                                                                                                                                          | Example                                                                                                                                                                                                            |
-| :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`error`**   | **Critical error causing the program to crash or core functionality to become unusable.** <br> This is the highest-priority log, usually requiring immediate reporting or user notification.        | - Main or renderer process crash. <br> - Failure to read/write critical user data files (e.g., database, configuration files), preventing the application from running. <br> - All unhandled exceptions.           |
-| **`warn`**    | **Potential issue or unexpected situation that does not affect the program's core functionality.** <br> The program can recover or use a fallback.                                                  | - Configuration file `settings.json` is missing; started with default settings. <br> - Auto-update check failed, but does not affect the use of the current version. <br> - A non-essential plugin failed to load. |
-| **`info`**    | **Records application lifecycle events and key user actions.** <br> This is the default level that should be recorded in a production release to trace the user's main operational path.            | - Application start, exit. <br> - User successfully opens/saves a file. <br> - Main window created/closed. <br> - Starting an important task (e.g., "Start video export").                                         |
-| **`verbose`** | **More detailed flow information than `info`, used for tracing specific features.** <br> Enabled when diagnosing issues with a specific feature to help understand the internal execution flow.     | - Loading `Toolbar` module. <br> - IPC message `open-file-dialog` sent from the renderer process. <br> - Applying filter 'Sepia' to the image.                                                                     |
-| **`debug`**   | **Detailed diagnostic information used during development and debugging.** <br> **Must not be enabled by default in production releases**, as it may contain sensitive data and impact performance. | - Parameters for function `renderImage`: `{ width: 800, ... }`. <br> - Specific data content received by IPC message `save-file`. <br> - Details of Redux/Vuex state changes in the renderer process.              |
-| **`silly`**   | **The most detailed, low-level information, used only for extreme debugging.** <br> Rarely used in regular development; only for solving very difficult problems.                                   | - Real-time mouse coordinates `(x: 150, y: 320)`. <br> - Size of each data chunk when reading a file. <br> - Time taken for each rendered frame.                                                                   |
+| Log Level     | Priority | Core Definition & Use Case                                                                                                                                                                          | Example                                                                                                                                                                                                            |
+| :------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`error`**   | 5        | **Critical error causing the program to crash or core functionality to become unusable.** <br> This is the highest-priority log, usually requiring immediate reporting or user notification.        | - Application crash. <br> - Failure to read/write critical user data files (e.g., database, configuration files), preventing the application from running. <br> - All unhandled exceptions.           |
+| **`warn`**    | 4        | **Potential issue or unexpected situation that does not affect the program's core functionality.** <br> The program can recover or use a fallback.                                                  | - Configuration file `settings.json` is missing; started with default settings. <br> - Auto-update check failed, but does not affect the use of the current version. <br> - A non-essential plugin failed to load. |
+| **`info`**    | 3        | **Records application lifecycle events and key user actions.** <br> This is the default level that should be recorded in a production release to trace the user's main operational path.            | - Application start, exit. <br> - User successfully opens/saves a file. <br> - Main screen created/closed. <br> - Starting an important task (e.g., "Start export process").                                         |
+| **`verbose`** | 2        | **More detailed flow information than `info`, used for tracing specific features.** <br> Enabled when diagnosing issues with a specific feature to help understand the internal execution flow.     | - Loading module. <br> - Navigation events. <br> - Applying filters or transformations.                                                                     |
+| **`debug`**   | 1        | **Detailed diagnostic information used during development and debugging.** <br> **Must not be enabled by default in production releases**, as it may contain sensitive data and impact performance. | - Parameters for function calls: `{ width: 800, ... }`. <br> - Specific data content in API responses. <br> - Details of state changes in React components.              |
+| **`silly`**   | 0        | **The most detailed, low-level information, used only for extreme debugging.** <br> Rarely used in regular development; only for solving very difficult problems.                                   | - Real-time touch coordinates. <br> - Size of each data chunk when reading a file. <br> - Time taken for each rendered frame.                                                                   |
