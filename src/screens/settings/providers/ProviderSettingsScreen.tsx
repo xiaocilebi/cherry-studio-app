@@ -3,7 +3,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ChevronRight, HeartPulse, Plus, Settings, Settings2 } from '@tamagui/lucide-icons'
 import { groupBy } from 'lodash'
 import debounce from 'lodash/debounce'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
@@ -40,12 +40,9 @@ export default function ProviderSettingsScreen() {
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
   // 防抖处理
-  const debouncedSetSearchText = useCallback(
-    debounce((text: string) => {
-      setDebouncedSearchText(text)
-    }, 300),
-    []
-  )
+  const debouncedSetSearchText = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
 
   useEffect(() => {
     debouncedSetSearchText(searchText)
