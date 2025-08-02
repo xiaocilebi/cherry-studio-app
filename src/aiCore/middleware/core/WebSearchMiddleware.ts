@@ -4,6 +4,9 @@ import { flushLinkConverterBuffer, smartLinkConverter } from '@/utils/linkConver
 import { CompletionsParams, CompletionsResult, GenericChunk } from '../schemas'
 import { CompletionsContext, CompletionsMiddleware } from '../types'
 
+import { loggerService } from '@/services/LoggerService'
+
+const logger = loggerService.withContext('WebSearchMiddleware')
 export const MIDDLEWARE_NAME = 'WebSearchMiddleware'
 
 /**
@@ -103,7 +106,7 @@ export const WebSearchMiddleware: CompletionsMiddleware =
           stream: enhancedStream
         }
       } else {
-        console.log(`[${MIDDLEWARE_NAME}] No stream to process or not a ReadableStream.`)
+        logger.info('No stream to process or not a ReadableStream.')
       }
     }
 

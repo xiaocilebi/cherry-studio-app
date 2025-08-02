@@ -8,6 +8,8 @@ import { Message, UserMessageStatus } from '@/types/message'
 import { WebSearchProvider } from '@/types/websearch'
 
 import { extractSearchKeywords } from '../transformParameters'
+import { loggerService } from '@/services/LoggerService'
+
 
 const WebSearchProviderResult = z.object({
   query: z.string().optional(),
@@ -22,6 +24,7 @@ const WebSearchProviderResult = z.object({
 
 export const webSearchTool = (webSearchProviderId: WebSearchProvider['id']) => {
   const webSearchService = WebSearchService.getInstance(webSearchProviderId)
+  const logger = loggerService.withContext('WebSearchTool')
   return tool({
     name: 'builtin_web_search',
     description: 'Search the web for information',
@@ -30,9 +33,9 @@ export const webSearchTool = (webSearchProviderId: WebSearchProvider['id']) => {
     }),
     outputSchema: WebSearchProviderResult,
     execute: async ({ query }) => {
-      console.log('webSearchTool', query)
+      logger.debug('query: ', query)
       const response = await webSearchService.search(query)
-      console.log('webSearchTool response', response)
+      logger.debug('response: ', response)
       return response
     }
   })

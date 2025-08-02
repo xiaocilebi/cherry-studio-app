@@ -56,7 +56,6 @@ export function createStreamProcessor(callbacks: StreamProcessorCallbacks = {}) 
     try {
       const data = chunk
 
-      // console.log('data: ', chunk)
       switch (data.type) {
         case ChunkType.BLOCK_COMPLETE: {
           if (callbacks.onComplete) callbacks.onComplete(AssistantMessageStatus.SUCCESS, data?.response)

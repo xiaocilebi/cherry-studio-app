@@ -381,13 +381,13 @@ export class AnthropicAPIClient extends BaseApiClient<
     rawOutput: AnthropicSdkRawOutput,
     listener: RawStreamListener<AnthropicSdkRawChunk>
   ): AnthropicSdkRawOutput {
-    console.log(`[AnthropicApiClient] 附加流监听器到原始输出`)
+    logger.info('附加流监听器到原始输出')
     // 专用的Anthropic事件处理
     const anthropicListener = listener as AnthropicStreamListener
 
     // 检查是否为MessageStream
     if (rawOutput instanceof MessageStream) {
-      console.log(`[AnthropicApiClient] 检测到 Anthropic MessageStream，附加专用监听器`)
+      logger.info('检测到 Anthropic MessageStream，附加专用监听器')
 
       if (listener.onStart) {
         listener.onStart()

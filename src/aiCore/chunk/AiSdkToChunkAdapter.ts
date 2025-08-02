@@ -10,9 +10,10 @@ import { BaseTool } from '@/types/tool'
 import { WebSearchResults, WebSearchSource } from '@/types/websearch'
 
 import { ToolCallChunkHandler } from './handleTooCallChunk'
+import { loggerService } from '@/services/LoggerService'
 
 // import { ToolCallChunkHandler } from './chunk/handleTooCallChunk'
-
+const logger = loggerService.withContext('AiSdkToChunkAdapter')
 export interface CherryStudioChunk {
   type: 'text-delta' | 'text-complete' | 'tool-call' | 'tool-result' | 'finish' | 'error'
   text?: string
@@ -88,7 +89,7 @@ export class AiSdkToChunkAdapter {
     chunk: TextStreamPart<any>,
     final: { text: string; reasoningContent: string; webSearchResults: any[]; reasoningId: string }
   ) {
-    console.log('AI SDK chunk type:', chunk.type, chunk)
+    logger.debug('AI SDK chunk type:', chunk.type, chunk)
 
     switch (chunk.type) {
       // === 文本相关事件 ===
@@ -103,7 +104,7 @@ export class AiSdkToChunkAdapter {
           type: ChunkType.TEXT_DELTA,
           text: final.text || ''
         })
-        console.log('final.text', final.text)
+        logger.debug('final.text', final.text)
         break
       case 'text-end':
         this.onChunk({
@@ -284,7 +285,7 @@ export class AiSdkToChunkAdapter {
 
       default:
       // 其他类型的 chunk 可以忽略或记录日志
-      // console.log('Unhandled AI SDK chunk type:', chunk.type, chunk)
+      // logger.debug('Unhandled AI SDK chunk type:', chunk.type, chunk)
     }
   }
 }
