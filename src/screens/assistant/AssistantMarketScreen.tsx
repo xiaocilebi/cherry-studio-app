@@ -44,23 +44,18 @@ export default function AssistantMarketScreen() {
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
-  const debouncedSetSearchText = debounce(setDebouncedSearchText, 300)
-
-  useEffect(() => {
-    debouncedSetSearchText(searchText)
-
-    return () => {
-      debouncedSetSearchText.cancel()
-    }
-  })
+  // 创建防抖函数，300ms 延迟
+  const debouncedSetSearch = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
 
   // Filter assistants by search text first
-  const getBaseFilteredAssistants = (systemAssistants: Assistant[], debouncedSearchText: string) => {
-    if (!debouncedSearchText) {
+  const getBaseFilteredAssistants = (systemAssistants: Assistant[], searchText: string) => {
+    if (!searchText) {
       return systemAssistants
     }
 
-    const lowerSearchText = debouncedSearchText.toLowerCase().trim()
+    const lowerSearchText = searchText.toLowerCase().trim()
 
     if (!lowerSearchText) {
       return systemAssistants
@@ -78,6 +73,16 @@ export default function AssistantMarketScreen() {
   const assistantGroupsForDisplay = groupByCategories(baseFilteredAssistants)
 
   const assistantGroupsForTabs = groupByCategories(builtInAssistants)
+
+  // 监听 searchText 变化，触发防抖更新
+  useEffect(() => {
+    debouncedSetSearch(searchText)
+    
+    // 清理函数，组件卸载时取消防抖
+    return () => {
+      debouncedSetSearch.cancel()
+    }
+  })
 
   // 过滤助手逻辑 for CategoryAssistantsTab
   const filterAssistants =

@@ -2,7 +2,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ChevronDown, Funnel } from '@tamagui/lucide-icons'
-import React, { useRef, useState } from 'react'
+import { debounce } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button, Text, XStack, YStack } from 'tamagui'
@@ -29,13 +30,39 @@ export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
   const isDark = useIsDark()
+  
+  // 搜索状态
+  const [searchText, setSearchText] = useState('')
+  const [debouncedSearchText, setDebouncedSearchText] = useState('')
+
+  // 创建防抖函数，300ms 延迟
+  const debouncedSetSearch = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
+
   // 筛选状态
   const [showTags, setShowTags] = useState(false)
   const [showSorted, setShowSorted] = useState(false)
   const [showRecents, setShowRecents] = useState(false)
+  
   const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
+
+  // 监听 searchText 变化，触发防抖更新
+  useEffect(() => {
+    debouncedSetSearch(searchText)
+    
+    // 清理函数，组件卸载时取消防抖
+    return () => {
+      debouncedSetSearch.cancel()
+    }
+  })
+
+  const filteredAssistants = assistantWithTopics.filter(assistant =>
+    assistant.name.toLowerCase().includes(debouncedSearchText.toLowerCase()) ||
+    assistant.description?.toLowerCase().includes(debouncedSearchText.toLowerCase())
+  )
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
@@ -87,7 +114,11 @@ export default function AssistantScreen() {
         }}
       />
       <SettingContainer>
-        <SearchInput placeholder={t('common.search_placeholder')} />
+        <SearchInput 
+          placeholder={t('common.search_placeholder')} 
+          value={searchText}
+          onChangeText={setSearchText}
+        />
         <XStack gap={14}>
           {/* 多选框 */}
           <Button
@@ -126,7 +157,7 @@ export default function AssistantScreen() {
 
         <FlashList
           showsVerticalScrollIndicator={false}
-          data={assistantWithTopics}
+          data={filteredAssistants}
           renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
           keyExtractor={item => item.id}
           estimatedItemSize={80}

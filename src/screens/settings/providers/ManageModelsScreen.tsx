@@ -118,20 +118,29 @@ export default function ManageModelsScreen() {
   const [activeFilterType, setActiveFilterType] = useState<string>('all')
   const [isLoading, setIsLoading] = useState(true)
 
+  // 创建防抖函数，300ms 延迟
+  const debouncedSetSearch = debounce((text: string) => {
+    setDebouncedSearchText(text)
+  }, 300)
+
   const { providerId } = route.params
   const { provider, updateProvider } = useProvider(providerId)
 
   const isModelInCurrentProvider = getIsModelInProvider(provider?.models || [])
   const isAllModelsInCurrentProvider = getIsAllInProvider(isModelInCurrentProvider)
 
-  useEffect(() => {
-    const handler = debounce(() => setDebouncedSearchText(searchText), 300)
-    handler()
-    return () => handler.cancel()
-  })
-
   const filteredModels = filterModels(allModels, debouncedSearchText, activeFilterType)
   const sortedModelGroups = groupAndSortModels(filteredModels, provider?.id || '')
+
+  // 监听 searchText 变化，触发防抖更新
+  useEffect(() => {
+    debouncedSetSearch(searchText)
+    
+    // 清理函数，组件卸载时取消防抖
+    return () => {
+      debouncedSetSearch.cancel()
+    }
+  })
 
   const handleUpdateModels = async (newModels: Model[]) => {
     if (!provider) return
