@@ -91,7 +91,7 @@ export class ToolCallChunkHandler {
           status: 'pending',
           toolCallId: toolCall.toolCallId
         }
-        console.log('toolResponse', toolResponse)
+        logger.debug('toolResponse', toolResponse)
         this.onChunk({
           type: ChunkType.MCP_TOOL_PENDING,
           responses: [toolResponse]

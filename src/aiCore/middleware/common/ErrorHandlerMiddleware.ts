@@ -3,6 +3,7 @@ import { Chunk } from '@/types/chunk'
 import { CompletionsResult } from '../schemas'
 import { CompletionsContext } from '../types'
 import { createErrorChunk } from '../utils'
+import { loggerService } from '@/services/LoggerService'
 
 export const MIDDLEWARE_NAME = 'ErrorHandlerMiddleware'
 
@@ -25,7 +26,8 @@ export const ErrorHandlerMiddleware =
       // 尝试执行下一个中间件
       return await next(ctx, params)
     } catch (error: any) {
-      console.log('ErrorHandlerMiddleware_error', error)
+      const logger = loggerService.withContext('ErrorHandlerMiddleware')
+      logger.error('ErrorHandlerMiddleware_error', error)
       // 1. 使用通用的工具函数将错误解析为标准格式
       const errorChunk = createErrorChunk(error)
 

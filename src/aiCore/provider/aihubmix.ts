@@ -2,9 +2,10 @@ import { ProviderId } from '@cherrystudio/ai-core'
 
 import { isOpenAILLMModel } from '@/config/models/webSearch'
 import { Model, Provider } from '@/types/assistant'
+import { loggerService } from '@/services/LoggerService'
 
 export function getAiSdkProviderIdForAihubmix(model: Model): ProviderId | 'openai-compatible' {
-  console.log('getAiSdkProviderIdForAihubmix', model)
+  loggerService.withContext('AihubmixProvider').debug('model: ', model)
   const id = model.id.toLowerCase()
 
   if (id.startsWith('claude')) {

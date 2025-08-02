@@ -7,6 +7,9 @@ import {
 import { Model, Provider } from '@/types/assistant'
 import { Chunk } from '@/types/chunk'
 import { BaseTool } from '@/types/tool'
+import { loggerService } from '@/services/LoggerService'
+
+const logger = loggerService.withContext('AiSdkMiddlewareBuilder')
 
 /**
  * AI SDK 中间件配置项
@@ -131,7 +134,7 @@ export function buildAiSdkMiddlewares(config: AiSdkMiddlewareConfig): LanguageMo
     })
   }
 
-  console.log('builder.build()', builder.buildNamed())
+  logger.info('builder.build()', builder.buildNamed())
   return builder.build()
 }
 

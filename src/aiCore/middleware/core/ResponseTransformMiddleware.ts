@@ -35,7 +35,7 @@ export const ResponseTransformMiddleware: CompletionsMiddleware =
         const apiClient = ctx.apiClientInstance
 
         if (!apiClient) {
-          console.error(`[${MIDDLEWARE_NAME}] ApiClient instance not found in context`)
+          logger.error('ApiClient instance not found in context')
           throw new Error('ApiClient instance not found in context')
         }
 
@@ -65,7 +65,7 @@ export const ResponseTransformMiddleware: CompletionsMiddleware =
           provider: ctx.apiClientInstance?.provider
         }
 
-        console.log(`[${MIDDLEWARE_NAME}] Transforming raw SDK chunks with context:`, transformerContext)
+        logger.info('Transforming raw SDK chunks with context:', transformerContext)
 
         try {
           // 创建转换后的流
@@ -79,7 +79,7 @@ export const ResponseTransformMiddleware: CompletionsMiddleware =
             stream: genericChunkTransformStream
           }
         } catch (error) {
-          logger.error(`[${MIDDLEWARE_NAME}] Error during chunk transformation:`, error)
+          logger.error('Error during chunk transformation:', error)
           throw error
         }
       }
