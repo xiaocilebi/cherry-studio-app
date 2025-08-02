@@ -41,21 +41,27 @@
      yarn install
    ```
 
-4. **运行**
+4. **生成数据库**
+
+```bash
+npx drizzle-kit generate
+```
+
+5. **启动应用**
 
    ```bash
      yarn ios
      yarn android
    ```
 
-在输出中，您将找到以
+在输出中，您将找到在不同目标上运行应用程序的选项：
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), 一个用于尝试使用 Expo 进行应用程序开发的有限沙盒
 
-您可以通过编辑app目录中的文件来开始开发。本项目使用声明式路由。
+您可以通过编辑 src 目录中的文件来开始开发。
 
 ## 了解更多
 
