@@ -1,0 +1,49 @@
+name: Upstream Sync
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # every 6 hours
+  workflow_dispatch:
+
+jobs:
+  sync_latest_from_upstream:
+    name: Sync latest commits from upstream repo
+    runs-on: ubuntu-latest
+    if: ${{ github.event.repository.fork }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clean issue notice
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'close-issues'
+          labels: '🚨 Sync Fail'
+
+      - name: Sync upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          upstream_sync_repo: CherryHQ/cherry-studio-app # 已修改为新的上游项目
+          upstream_sync_branch: main
+          target_sync_branch: main
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }} # automatically generated, no need to set
+          test_mode: false
+
+      - name: Sync check
+        if: failure()
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-issue'
+          title: '🚨 同步失败 | Sync Fail'
+          labels: '🚨 Sync Fail'
+          body: |
+            Due to a change in the workflow file of the upstream repository, GitHub has automatically suspended the scheduled automatic update. You need to manually sync your fork. Please refer to the detailed tutorial for instructions.
+            由于上游仓库的 workflow 文件变更，导致 GitHub 自动暂停了本次自动更新，你需要手动 Sync Fork 一次，请查看详细教程。
+            # 注意：此处已移除原项目特有的链接和图片，请根据实际情况补充或删除。
+            # 如果 CherryHQ/cherry-studio-app 有自己的同步教程，请在此处添加链接。
