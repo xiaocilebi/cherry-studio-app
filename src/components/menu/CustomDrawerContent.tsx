@@ -30,8 +30,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const { topics, isLoading: isLoadingTopics } = useTopics()
   const { isLoading: isLoadingAssistants } = useExternalAssistants()
 
-  const handleTopicSeeAll = () => {
-    props.navigation.navigate('Main', { screen: 'TopicScreen' })
+  const handleRoute = (route: string) => {
+    props.navigation.navigate('Main', { screen: route })
+    props.navigation.closeDrawer()
   }
 
   if (isLoadingTopics || isLoadingAssistants) {
@@ -62,7 +63,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               justifyContent="space-between"
               alignItems="center"
               paddingVertical={10}
-              onPress={() => navigation.navigate('AssistantMarketScreen')}>
+              onPress={() => handleRoute('AssistantMarketScreen')}>
               <XStack gap={10} alignItems="center" justifyContent="center">
                 <MarketIcon size={20} />
                 <Text color={theme.color}>{t('assistants.market.title')}</Text>
@@ -70,10 +71,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               <ArrowUpRight size={20} color={theme.color} />
             </XStack>
 
-            <XStack
-              justifyContent="space-between"
-              paddingVertical={10}
-              onPress={() => navigation.navigate('AssistantScreen')}>
+            <XStack justifyContent="space-between" paddingVertical={10} onPress={() => handleRoute('AssistantScreen')}>
               <XStack gap={10} alignItems="center" justifyContent="center">
                 <UnionIcon size={20} />
                 <Text color={theme.color}>{t('assistants.market.my_assistant')}</Text>
@@ -83,7 +81,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             <Stack paddingVertical={20}>
               <SettingDivider />
             </Stack>
-            <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleTopicSeeAll}>
+            <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={() => handleRoute('TopicScreen')}>
               <View flex={1} minHeight={200}>
                 {/* 只显示7条 */}
                 <GroupedTopicList topics={topics.slice(0, 7)} />
@@ -104,10 +102,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <Button
             icon={<Settings size={24} color={theme.color} />}
             chromeless
-            onPress={() => {
-              props.navigation.navigate('Main', { screen: 'SettingsScreen' })
-              props.navigation.closeDrawer()
-            }}
+            onPress={() => handleRoute('SettingsScreen')}
           />
         </XStack>
       </BlurView>
