@@ -5,19 +5,28 @@ import { View } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { GroupedMessage } from '@/types/message'
+import { Message } from '@/types/message'
 
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
 import MessageHeader from './MessageHeader'
 import MultiModalTab from './MultiModalTab'
+
 interface MessageGroupProps {
   assistant: Assistant
   item: [string, GroupedMessage[]]
-  bottomSheetRef?: React.RefObject<BottomSheet>
-  setIsBottomSheetOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  bottomSheetRef: React.RefObject<BottomSheet | null>
+  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>
+  setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, bottomSheetRef, setIsBottomSheetOpen }) => {
+const MessageGroup: FC<MessageGroupProps> = ({
+  assistant,
+  item,
+  bottomSheetRef,
+  setIsBottomSheetOpen,
+  setSelectedMessage
+}) => {
   const [key, messagesInGroup] = item
 
   const renderUserMessage = () => {
@@ -36,6 +45,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, bottomSheetRef, 
               message={messagesInGroup[0]}
               bottomSheetRef={bottomSheetRef}
               setIsBottomSheetOpen={setIsBottomSheetOpen}
+              setSelectedMessage={setSelectedMessage}
             />
           )}
         </View>

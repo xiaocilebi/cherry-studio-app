@@ -11,11 +11,14 @@ import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useTopic } from '@/hooks/useTopic'
 import { MessageFooterMore } from '@/screens/home/messages/MessageFooterMore'
+import { loggerService } from '@/services/LoggerService'
+import { Message } from '@/types/message'
 import { RootStackParamList } from '@/types/naviagate'
 
 import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
 
+const logger = loggerService.withContext('ChatScreen')
 type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
 
 const ChatScreen = () => {
@@ -23,8 +26,9 @@ const ChatScreen = () => {
   const { topicId } = route.params
   const { topic, isLoading } = useTopic(topicId)
   const [showAssistantCard, setShowAssistantCard] = useState(false)
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
 
-  const bottomSheetRef = useRef<BottomSheet>(null)
+  const bottomSheetRef = useRef<BottomSheet | null>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
 
   const handleBottomSheetClose = () => {
@@ -61,6 +65,7 @@ const ChatScreen = () => {
                 topic={topic}
                 bottomSheetRef={bottomSheetRef}
                 setIsBottomSheetOpen={setIsBottomSheetOpen}
+                setSelectedMessage={setSelectedMessage}
               />
             ) : (
               <WelcomeContent key={topic.id} />
@@ -69,7 +74,15 @@ const ChatScreen = () => {
           </YStack>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-      <MessageFooterMore bottomSheetRef={bottomSheetRef} isOpen={isBottomSheetOpen} onClose={handleBottomSheetClose} />
+      {/*这里暂时使用底部弹窗的方式实现，后续可以考虑换成长按消息显示右键菜单的方式*/}
+      {selectedMessage && (
+        <MessageFooterMore
+          bottomSheetRef={bottomSheetRef}
+          isOpen={isBottomSheetOpen}
+          onClose={handleBottomSheetClose}
+          message={selectedMessage}
+        />
+      )}
     </SafeAreaContainer>
   )
 }
