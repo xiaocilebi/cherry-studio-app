@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
-import { FC, useEffect, useRef, useState } from 'react' // CHANGED: Imported useMemo
+import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
@@ -13,6 +13,7 @@ import { getCurrentTopicId } from '@/hooks/useTopic'
 import i18n from '@/i18n'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
+import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Topic } from '@/types/assistant'
 import { useIsDark } from '@/utils'
@@ -47,6 +48,7 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
       swipeableRef.current?.close()
       const deletedTopicId = topic.id
       await deleteTopicById(deletedTopicId)
+      await deleteMessagesByTopicId(deletedTopicId)
 
       // 只在删除的是当前活动 topic 时才处理导航
       if (deletedTopicId === getCurrentTopicId()) {

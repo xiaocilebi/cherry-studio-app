@@ -7,6 +7,7 @@ import { safeJsonParse } from '@/utils/json'
 
 import { db } from '..'
 import { topics } from '../schema'
+
 const logger = loggerService.withContext('DataBase Topics')
 
 /**
@@ -63,8 +64,7 @@ export async function getTopicById(topicId: string): Promise<Topic | undefined> 
       return undefined
     }
 
-    const topic = transformDbToTopic(result[0])
-    return topic
+    return transformDbToTopic(result[0])
   } catch (error) {
     logger.error(`Error getting topic by ID ${topicId}:`, error)
     throw error
@@ -146,9 +146,8 @@ export async function getTopics(): Promise<Topic[]> {
     // 获取所有主题的消息
     const topicsWithMessages = await Promise.all(
       results.map(async dbRecord => {
-        const topic = transformDbToTopic(dbRecord)
         // topic.messages = await getMessagesByTopicId(topic.id)
-        return topic
+        return transformDbToTopic(dbRecord)
       })
     )
 

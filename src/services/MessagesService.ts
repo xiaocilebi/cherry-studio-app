@@ -16,8 +16,15 @@ import {
 } from '@/utils/messageUtils/create'
 import { getTopicQueue } from '@/utils/queue'
 
-import { getBlockById, removeManyBlocks, updateOneBlock, upsertBlocks } from '../../db/queries/messageBlocks.queries'
 import {
+  deleteBlocksByTopicId,
+  getBlockById,
+  removeManyBlocks,
+  updateOneBlock,
+  upsertBlocks
+} from '../../db/queries/messageBlocks.queries'
+import {
+  deleteMessagesByTopicId as _deleteMessagesByTopicId,
   getMessageById,
   getMessagesByTopicId,
   updateMessageById,
@@ -505,5 +512,15 @@ export async function cleanupMultipleBlocks(blockIds: string[]) {
 
   if (blockIds.length > 0) {
     await removeManyBlocks(blockIds)
+  }
+}
+
+export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
+  try {
+    await _deleteMessagesByTopicId(topicId)
+    await deleteBlocksByTopicId(topicId)
+  } catch (error) {
+    logger.error('Error in deleteMessagesByTopicId:', error)
+    throw error
   }
 }

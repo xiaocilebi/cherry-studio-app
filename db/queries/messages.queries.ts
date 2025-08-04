@@ -173,15 +173,6 @@ export async function upsertMessages(messagesToUpsert: Message | Message[]): Pro
   }
 }
 
-export async function removeAllMessages() {
-  try {
-    await db.delete(messages)
-  } catch (error) {
-    logger.error('Error removing all messages:', error)
-    throw error
-  }
-}
-
 export async function updateMessageById(messageId: string, updates: Partial<Message>): Promise<Message | undefined> {
   try {
     const dbRecord = transformMessageToDb(updates)
@@ -194,6 +185,24 @@ export async function updateMessageById(messageId: string, updates: Partial<Mess
     return transformDbToMessage(result[0])
   } catch (error) {
     logger.error(`Error updating message with ID ${messageId}:`, error)
+    throw error
+  }
+}
+
+export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
+  try {
+    await db.delete(messages).where(eq(messages.topic_id, topicId))
+  } catch (error) {
+    logger.error(`Error deleting messages for topic ID ${topicId}:`, error)
+    throw error
+  }
+}
+
+export async function removeAllMessages() {
+  try {
+    await db.delete(messages)
+  } catch (error) {
+    logger.error('Error removing all messages:', error)
     throw error
   }
 }
