@@ -1,3 +1,4 @@
+
 import BottomSheet from '@gorhom/bottom-sheet'
 import { FlashList } from '@shopify/flash-list'
 import { FC } from 'react'
@@ -14,11 +15,18 @@ import MessageGroup from './MessageGroup'
 interface MessagesProps {
   assistant: Assistant
   topic: Topic
-  bottomSheetRef?: React.RefObject<BottomSheet>
-  setIsBottomSheetOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  bottomSheetRef: React.RefObject<BottomSheet | null>
+  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>
+  setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Messages: FC<MessagesProps> = ({ assistant, topic, bottomSheetRef, setIsBottomSheetOpen }) => {
+const Messages: FC<MessagesProps> = ({
+  assistant,
+  topic,
+  bottomSheetRef,
+  setIsBottomSheetOpen,
+  setSelectedMessage
+}) => {
   const { messages } = useMessages(topic.id)
   const groupedMessages = Object.entries(getGroupedMessages(messages))
 
@@ -29,6 +37,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic, bottomSheetRef, setIsBo
         item={item}
         bottomSheetRef={bottomSheetRef}
         setIsBottomSheetOpen={setIsBottomSheetOpen}
+        setSelectedMessage={setSelectedMessage}
       />
     )
   }

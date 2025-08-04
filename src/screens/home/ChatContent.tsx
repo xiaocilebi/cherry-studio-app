@@ -8,16 +8,18 @@ import { Button } from 'tamagui'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
+import { Message } from '@/types/message'
 
 import Messages from './messages/Messages'
 
 interface ChatContentProps {
   topic: Topic
-  bottomSheetRef: React.RefObject<BottomSheet>
+  bottomSheetRef: React.RefObject<BottomSheet | null>
   setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>
 }
 
-const ChatContent = ({ topic, bottomSheetRef, setIsBottomSheetOpen }: ChatContentProps) => {
+const ChatContent = ({ topic, bottomSheetRef, setIsBottomSheetOpen, setSelectedMessage }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
   const scrollViewRef = useRef<ScrollView>(null)
 
@@ -74,6 +76,7 @@ const ChatContent = ({ topic, bottomSheetRef, setIsBottomSheetOpen }: ChatConten
           topic={topic}
           bottomSheetRef={bottomSheetRef}
           setIsBottomSheetOpen={setIsBottomSheetOpen}
+          setSelectedMessage={setSelectedMessage}
         />
       </MotiScrollView>
 
