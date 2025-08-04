@@ -1,3 +1,4 @@
+import BottomSheet from '@gorhom/bottom-sheet'
 import { FC } from 'react'
 import React from 'react'
 import { View } from 'tamagui'
@@ -12,9 +13,11 @@ import MultiModalTab from './MultiModalTab'
 interface MessageGroupProps {
   assistant: Assistant
   item: [string, GroupedMessage[]]
+  bottomSheetRef?: React.RefObject<BottomSheet>
+  setIsBottomSheetOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
+const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, bottomSheetRef, setIsBottomSheetOpen }) => {
   const [key, messagesInGroup] = item
 
   const renderUserMessage = () => {
@@ -27,7 +30,14 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
         <View gap={10}>
           <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
           <MessageItem message={messagesInGroup[0]} />
-          <MessageFooter assistant={assistant} message={messagesInGroup[0]} />
+          {bottomSheetRef && setIsBottomSheetOpen && (
+            <MessageFooter
+              assistant={assistant}
+              message={messagesInGroup[0]}
+              bottomSheetRef={bottomSheetRef}
+              setIsBottomSheetOpen={setIsBottomSheetOpen}
+            />
+          )}
         </View>
       )
     }

@@ -1,5 +1,6 @@
+import BottomSheet from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { ActivityIndicator, Keyboard, Platform, TouchableWithoutFeedback } from 'react-native'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { YStack } from 'tamagui'
@@ -9,6 +10,7 @@ import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useTopic } from '@/hooks/useTopic'
+import { MessageFooterMore } from '@/screens/home/messages/MessageFooterMore'
 import { RootStackParamList } from '@/types/naviagate'
 
 import ChatContent from './ChatContent'
@@ -21,6 +23,14 @@ const ChatScreen = () => {
   const { topicId } = route.params
   const { topic, isLoading } = useTopic(topicId)
   const [showAssistantCard, setShowAssistantCard] = useState(false)
+
+  const bottomSheetRef = useRef<BottomSheet>(null)
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+
+  const handleBottomSheetClose = () => {
+    bottomSheetRef.current?.close()
+    setIsBottomSheetOpen(false)
+  }
 
   if (!topic || isLoading) {
     return (
@@ -45,11 +55,21 @@ const ChatScreen = () => {
 
             {showAssistantCard && <AssistantCard topic={topic} />}
 
-            {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
+            {hasMessages ? (
+              <ChatContent
+                key={topic.id}
+                topic={topic}
+                bottomSheetRef={bottomSheetRef}
+                setIsBottomSheetOpen={setIsBottomSheetOpen}
+              />
+            ) : (
+              <WelcomeContent key={topic.id} />
+            )}
             <MessageInput topic={topic} />
           </YStack>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
+      <MessageFooterMore bottomSheetRef={bottomSheetRef} isOpen={isBottomSheetOpen} onClose={handleBottomSheetClose} />
     </SafeAreaContainer>
   )
 }
