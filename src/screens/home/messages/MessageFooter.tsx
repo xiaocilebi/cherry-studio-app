@@ -1,4 +1,5 @@
-import { Copy, RefreshCw } from '@tamagui/lucide-icons'
+import { Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
+import BottomSheet from '@gorhom/bottom-sheet'
 import * as Clipboard from 'expo-clipboard'
 import React, { useEffect, useState } from 'react'
 import { Button, View, XStack } from 'tamagui'
@@ -19,9 +20,11 @@ const logger = loggerService.withContext('MessageFooter')
 interface MessageFooterProps {
   assistant: Assistant
   message: Message
+  bottomSheetRef: React.RefObject<BottomSheet>
+  setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
+const MessageFooter = ({ message, assistant, bottomSheetRef, setIsBottomSheetOpen }: MessageFooterProps) => {
   const [isTranslating, setIsTranslating] = useState(false)
 
   const [isTranslated, setIsTranslated] = useState(false)
@@ -39,6 +42,11 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
 
     checkTranslation()
   })
+
+  const handleBottomSheetOpen = () => {
+    bottomSheetRef.current?.expand()
+    setIsBottomSheetOpen(true)
+  }
 
   const onCopy = async () => {
     // todo: 暂时无法复制翻译后的message
@@ -125,6 +133,12 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
           icon={isTranslated ? <TranslatedIcon size={18} /> : <TranslationIcon size={18} />}
           onPress={isTranslated ? onDeleteTranslation : onTranslate}></Button>
         <Button chromeless circular size={24} icon={<RefreshCw size={18} />} onPress={onRegenerate}></Button>
+        <Button
+          chromeless
+          circular
+          size={24}
+          icon={<MoreHorizontal size={18} />}
+          onPress={handleBottomSheetOpen}></Button>
         {/* <Button chromeless circular size={24} icon={<Download size={18} />}></Button> */}
         {/* <Button chromeless circular size={24} icon={<ExternalLink size={18} />}></Button> */}
       </XStack>

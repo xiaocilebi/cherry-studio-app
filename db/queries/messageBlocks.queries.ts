@@ -16,7 +16,7 @@ import {
 } from '@/types/message'
 
 import { db } from '..'
-import { messageBlocks } from '../schema'
+import { messageBlocks, messages } from '../schema'
 const logger = loggerService.withContext('DataBase Message Blocks')
 
 type MessageBlockDbInsert = InferInsertModel<typeof messageBlocks>
@@ -479,6 +479,32 @@ export async function getBlockById(blockId: string): Promise<MessageBlock | null
     return transformDbToMessageBlock(dbRecord[0])
   } catch (error) {
     logger.error(`Error getting block with ID ${blockId}:`, error)
+    throw error
+  }
+}
+
+export async function deleteBlocksByTopicId(topicId: string): Promise<void> {
+  try {
+    const messagesWithTopic = await db.select({ id: messages.id }).from(messages).where(eq(messages.topic_id, topicId))
+    const messageIds = messagesWithTopic.map(message => message.id)
+
+    if (messageIds.length === 0) {
+      logger.info(`No messages found for topic ID ${topicId}. Nothing to delete.`)
+      return
+    }
+
+    const blocks = await db.select().from(messageBlocks).where(inArray(messageBlocks.message_id, messageIds))
+
+    if (blocks.length === 0) {
+      logger.info(`No blocks found for messages in topic ID ${topicId}. Nothing to delete.`)
+      return
+    }
+
+    const blockIds = blocks.map(block => block.id)
+    await removeManyBlocks(blockIds)
+    logger.info(`Successfully deleted ${blockIds.length} blocks for topic ID ${topicId}.`)
+  } catch (error) {
+    logger.error(`Error deleting blocks for topic ID ${topicId}:`, error)
     throw error
   }
 }
