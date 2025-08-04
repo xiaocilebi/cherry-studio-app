@@ -50,7 +50,13 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
       await deleteMessagesByTopicId(deletedTopicId)
       await deleteTopicById(deletedTopicId)
 
-      // 只在删除的是当前活动 topic 时才处理导航
+      async function createAndNavigate() {
+        const defaultAssistant = await getDefaultAssistant()
+        const newTopic = await createNewTopic(defaultAssistant)
+        navigateToChatScreen(newTopic.id)
+        logger.info('navigateToChatScreen with new topic', newTopic)
+      }
+
       if (deletedTopicId === getCurrentTopicId()) {
         const nextTopic = await getNewestTopic()
 
@@ -59,12 +65,10 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
           navigateToChatScreen(nextTopic.id)
           logger.info('navigateToChatScreen after delete', nextTopic)
         } else {
-          logger.info('No topics left, creating a new one.')
-          const defaultAssistant = await getDefaultAssistant()
-          const newTopic = await createNewTopic(defaultAssistant)
-          navigateToChatScreen(newTopic.id)
-          logger.info('navigateToChatScreen with new topic', newTopic)
+          createAndNavigate()
         }
+      } else {
+        createAndNavigate()
       }
     } catch (error) {
       logger.error('Delete Topic error', error)
