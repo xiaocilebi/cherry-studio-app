@@ -1,4 +1,3 @@
-import BottomSheet from '@gorhom/bottom-sheet'
 import { ChevronDown } from '@tamagui/lucide-icons'
 import { AnimatePresence, MotiScrollView, MotiView } from 'moti'
 import React, { useRef, useState } from 'react'
@@ -14,12 +13,10 @@ import Messages from './messages/Messages'
 
 interface ChatContentProps {
   topic: Topic
-  bottomSheetRef: React.RefObject<BottomSheet | null>
-  setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>
+  setSelectedMessage: (message: Message) => void
 }
 
-const ChatContent = ({ topic, bottomSheetRef, setIsBottomSheetOpen, setSelectedMessage }: ChatContentProps) => {
+const ChatContent = ({ topic, setSelectedMessage }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
   const scrollViewRef = useRef<ScrollView>(null)
 
@@ -70,14 +67,7 @@ const ChatContent = ({ topic, bottomSheetRef, setIsBottomSheetOpen, setSelectedM
         }}
         showsVerticalScrollIndicator={false}
         onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}>
-        <Messages
-          key={topic.id}
-          assistant={assistant}
-          topic={topic}
-          bottomSheetRef={bottomSheetRef}
-          setIsBottomSheetOpen={setIsBottomSheetOpen}
-          setSelectedMessage={setSelectedMessage}
-        />
+        <Messages key={topic.id} assistant={assistant} topic={topic} setSelectedMessage={setSelectedMessage} />
       </MotiScrollView>
 
       <AnimatePresence>

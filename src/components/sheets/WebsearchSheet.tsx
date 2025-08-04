@@ -1,6 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { forwardRef } from 'react' // REMOVED: useState
+import { forwardRef } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'

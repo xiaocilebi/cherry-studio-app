@@ -1,4 +1,3 @@
-import BottomSheet from '@gorhom/bottom-sheet'
 import { FC } from 'react'
 import React from 'react'
 import { View } from 'tamagui'
@@ -15,18 +14,10 @@ import MultiModalTab from './MultiModalTab'
 interface MessageGroupProps {
   assistant: Assistant
   item: [string, GroupedMessage[]]
-  bottomSheetRef: React.RefObject<BottomSheet | null>
-  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>
-  setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setSelectedMessage: (message: Message) => void
 }
 
-const MessageGroup: FC<MessageGroupProps> = ({
-  assistant,
-  item,
-  bottomSheetRef,
-  setIsBottomSheetOpen,
-  setSelectedMessage
-}) => {
+const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, setSelectedMessage }) => {
   const [key, messagesInGroup] = item
 
   const renderUserMessage = () => {
@@ -39,15 +30,7 @@ const MessageGroup: FC<MessageGroupProps> = ({
         <View gap={10}>
           <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
           <MessageItem message={messagesInGroup[0]} />
-          {bottomSheetRef && setIsBottomSheetOpen && (
-            <MessageFooter
-              assistant={assistant}
-              message={messagesInGroup[0]}
-              bottomSheetRef={bottomSheetRef}
-              setIsBottomSheetOpen={setIsBottomSheetOpen}
-              setSelectedMessage={setSelectedMessage}
-            />
-          )}
+          <MessageFooter assistant={assistant} message={messagesInGroup[0]} setSelectedMessage={setSelectedMessage} />
         </View>
       )
     }
@@ -55,7 +38,7 @@ const MessageGroup: FC<MessageGroupProps> = ({
     return (
       <View gap={10}>
         <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
-        <MultiModalTab assistant={assistant} messages={messagesInGroup} />
+        <MultiModalTab assistant={assistant} messages={messagesInGroup} setSelectedMessage={setSelectedMessage} />
       </View>
     )
   }

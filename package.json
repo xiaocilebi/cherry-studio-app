@@ -62,7 +62,7 @@
     "@ungap/structured-clone": "^1.3.0",
     "ai": "^5.0.0-beta.9",
     "babel-plugin-inline-import": "^3.0.0",
-    "babel-plugin-react-compiler": "19.0.0-beta-af1b7da-20250417",
+    "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "buffer": "^6.0.3",
     "burnt": "^0.13.0",
     "dayjs": "^1.11.13",
