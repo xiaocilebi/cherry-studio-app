@@ -517,8 +517,8 @@ export async function cleanupMultipleBlocks(blockIds: string[]) {
 
 export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
   try {
-    await _deleteMessagesByTopicId(topicId)
     await deleteBlocksByTopicId(topicId)
+    await _deleteMessagesByTopicId(topicId)
   } catch (error) {
     logger.error('Error in deleteMessagesByTopicId:', error)
     throw error

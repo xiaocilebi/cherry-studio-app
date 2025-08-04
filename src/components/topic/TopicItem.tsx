@@ -47,8 +47,8 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
     try {
       swipeableRef.current?.close()
       const deletedTopicId = topic.id
-      await deleteTopicById(deletedTopicId)
       await deleteMessagesByTopicId(deletedTopicId)
+      await deleteTopicById(deletedTopicId)
 
       // 只在删除的是当前活动 topic 时才处理导航
       if (deletedTopicId === getCurrentTopicId()) {
