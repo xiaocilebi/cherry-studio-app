@@ -1,13 +1,14 @@
-import BottomSheet from '@gorhom/bottom-sheet'
-import React, { useEffect, useState } from 'react'
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { Trash2 } from '@tamagui/lucide-icons'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, YStack } from 'tamagui'
+import { Button, useTheme, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
-import { ISheet } from '@/components/ui/Sheet'
 import { fetchTranslate } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
 import { Message } from '@/types/message'
+import { useIsDark } from '@/utils'
 import { findTranslationBlocks } from '@/utils/messageUtils/find'
 
 import { removeManyBlocks } from '../../../../db/queries/messageBlocks.queries'
@@ -17,19 +18,23 @@ const logger = loggerService.withContext('MessageFooterMore')
 
 interface MessageFooterMoreProps {
   message: Message
-  bottomSheetRef: React.RefObject<BottomSheet | null>
-  isOpen: boolean
-  onClose: () => void
 }
 
-export function MessageFooterMore({ message, bottomSheetRef, isOpen, onClose }: MessageFooterMoreProps) {
+const MessageFooterMore = forwardRef<BottomSheetModal, MessageFooterMoreProps>(({ message }, ref) => {
   const { t } = useTranslation()
-  const sheetSnapPoints = ['30%']
+  const theme = useTheme()
+  const isDark = useIsDark()
   const [isTranslating, setIsTranslating] = useState(false)
   const [isTranslated, setIsTranslated] = useState(false)
 
+  const renderBackdrop = (props: any) => (
+    <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
+  )
+
   useEffect(() => {
     const checkTranslation = async () => {
+      if (!message) return
+
       try {
         const translationBlocks = await findTranslationBlocks(message)
         setIsTranslated(translationBlocks.length > 0)
@@ -39,19 +44,18 @@ export function MessageFooterMore({ message, bottomSheetRef, isOpen, onClose }: 
       }
     }
 
-    if (isOpen) {
-      checkTranslation()
-    }
-  }, [isOpen, message])
+    checkTranslation()
+  }, [message])
 
   const onTranslate = async () => {
+    if (!message) return
+
     try {
       if (isTranslating) return
       setIsTranslating(true)
       const messageId = message.id
       await fetchTranslate({ assistantMessageId: messageId, message: message })
       setIsTranslated(true) // 翻译成功后更新状态
-      onClose()
     } catch (error) {
       logger.error('Error during translation:', error)
       // 可以添加 toast 提示用户翻译失败
@@ -61,6 +65,8 @@ export function MessageFooterMore({ message, bottomSheetRef, isOpen, onClose }: 
   }
 
   const onDeleteTranslation = async () => {
+    if (!message) return
+
     try {
       // 1. 删除 translation block
       const translationBlocks = await findTranslationBlocks(message)
@@ -73,26 +79,56 @@ export function MessageFooterMore({ message, bottomSheetRef, isOpen, onClose }: 
       }
       await upsertMessages(updatedMessage)
       setIsTranslated(false) // 删除成功后更新状态
-      onClose()
     } catch (error) {
       logger.error('Error deleting translation:', error)
-      // 可以添加 toast 提示用户删除失败
+      throw error
+    }
+  }
+
+  const onDelete = async () => {
+    if (!message) return
+
+    try {
+      await removeManyBlocks(message.blocks)
+      await upsertMessages({ ...message, blocks: [] })
+      logger.info('Message deleted successfully:', message.id)
+    } catch (error) {
+      logger.error('Error deleting message:', error)
+      throw error
     }
   }
 
   return (
-    <ISheet bottomSheetRef={bottomSheetRef} isOpen={isOpen} onClose={onClose} snapPoints={sheetSnapPoints}>
-      <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
-        <YStack width="100%" gap={10}>
-          <Button
-            onPress={isTranslated ? onDeleteTranslation : onTranslate}
-            icon={isTranslated ? <TranslatedIcon size={18} /> : <TranslationIcon size={18} />}
-            theme="gray"
-            justifyContent="flex-start">
-            {isTranslated ? t('删除翻译') : t('翻译消息')}
-          </Button>
+    <BottomSheetModal
+      snapPoints={['20%']}
+      ref={ref}
+      enableDynamicSizing={false}
+      backgroundStyle={{
+        borderRadius: 30,
+        backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
+      }}
+      handleIndicatorStyle={{
+        backgroundColor: theme.color.val
+      }}
+      backdropComponent={renderBackdrop}>
+      <BottomSheetView>
+        <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
+          <YStack width="100%" gap={10}>
+            <Button
+              onPress={isTranslated ? onDeleteTranslation : onTranslate}
+              icon={isTranslated ? <TranslatedIcon size={18} /> : <TranslationIcon size={18} />}
+              theme="gray"
+              justifyContent="flex-start">
+              {isTranslated ? t('删除翻译') : t('翻译消息')}
+            </Button>
+            <Button onPress={onDelete} icon={<Trash2 size={18} />} theme="red" justifyContent="flex-start">
+              {t('删除消息')}
+            </Button>
+          </YStack>
         </YStack>
-      </YStack>
-    </ISheet>
+      </BottomSheetView>
+    </BottomSheetModal>
   )
-}
+})
+
+export default MessageFooterMore

@@ -1,7 +1,7 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button, View, XStack } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
@@ -16,25 +16,15 @@ const logger = loggerService.withContext('MessageFooter')
 interface MessageFooterProps {
   assistant: Assistant
   message: Message
-  bottomSheetRef: React.RefObject<BottomSheet | null>
-  setSelectedMessage: React.Dispatch<React.SetStateAction<Message | null>>
-  setIsBottomSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setSelectedMessage: (message: Message) => void
 }
 
-const MessageFooter = ({
-  message,
-  assistant,
-  bottomSheetRef,
-  setIsBottomSheetOpen,
-  setSelectedMessage
-}: MessageFooterProps) => {
-  const handleBottomSheetOpen = () => {
-    if (setSelectedMessage) {
-      setSelectedMessage(message)
-    }
+const MessageFooter = ({ message, assistant, setSelectedMessage }: MessageFooterProps) => {
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
-    bottomSheetRef.current?.expand()
-    setIsBottomSheetOpen(true)
+  const handlePress = () => {
+    setSelectedMessage(message)
+    bottomSheetModalRef.current?.present()
   }
 
   const onCopy = async () => {
@@ -64,12 +54,7 @@ const MessageFooter = ({
       <XStack gap={20}>
         <Button chromeless circular size={24} icon={<Copy size={18} />} onPress={onCopy}></Button>
         <Button chromeless circular size={24} icon={<RefreshCw size={18} />} onPress={onRegenerate}></Button>
-        <Button
-          chromeless
-          circular
-          size={24}
-          icon={<MoreHorizontal size={18} />}
-          onPress={handleBottomSheetOpen}></Button>
+        <Button chromeless circular size={24} icon={<MoreHorizontal size={18} />} onPress={handlePress}></Button>
       </XStack>
     </View>
   )
