@@ -4,7 +4,6 @@ import { View } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { GroupedMessage } from '@/types/message'
-import { Message } from '@/types/message'
 
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
@@ -14,10 +13,10 @@ import MultiModalTab from './MultiModalTab'
 interface MessageGroupProps {
   assistant: Assistant
   item: [string, GroupedMessage[]]
-  setSelectedMessage: (message: Message) => void
+  onMessageAction: (item: GroupedMessage) => void
 }
 
-const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, setSelectedMessage }) => {
+const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, onMessageAction }) => {
   const [key, messagesInGroup] = item
 
   const renderUserMessage = () => {
@@ -30,7 +29,13 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, setSelectedMessa
         <View gap={10}>
           <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
           <MessageItem message={messagesInGroup[0]} />
-          <MessageFooter assistant={assistant} message={messagesInGroup[0]} setSelectedMessage={setSelectedMessage} />
+          <MessageFooter
+            assistant={assistant}
+            message={messagesInGroup[0]}
+            onMessageAction={message => {
+              onMessageAction({ ...message, index: 0 })
+            }}
+          />
         </View>
       )
     }
@@ -38,7 +43,13 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, setSelectedMessa
     return (
       <View gap={10}>
         <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
-        <MultiModalTab assistant={assistant} messages={messagesInGroup} setSelectedMessage={setSelectedMessage} />
+        <MultiModalTab
+          assistant={assistant}
+          messages={messagesInGroup}
+          onMessageAction={message => {
+            onMessageAction({ ...message, index: 0 })
+          }}
+        />
       </View>
     )
   }

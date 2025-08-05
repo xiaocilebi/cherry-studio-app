@@ -13,10 +13,10 @@ import Messages from './messages/Messages'
 
 interface ChatContentProps {
   topic: Topic
-  setSelectedMessage: (message: Message) => void
+  onMessageAction: (message: Message) => void
 }
 
-const ChatContent = ({ topic, setSelectedMessage }: ChatContentProps) => {
+const ChatContent = ({ topic, onMessageAction }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
   const scrollViewRef = useRef<ScrollView>(null)
 
@@ -67,7 +67,7 @@ const ChatContent = ({ topic, setSelectedMessage }: ChatContentProps) => {
         }}
         showsVerticalScrollIndicator={false}
         onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}>
-        <Messages key={topic.id} assistant={assistant} topic={topic} setSelectedMessage={setSelectedMessage} />
+        <Messages key={topic.id} assistant={assistant} topic={topic} onMessageAction={onMessageAction} />
       </MotiScrollView>
 
       <AnimatePresence>

@@ -29,6 +29,11 @@ const ChatScreen = () => {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
+  const handleMessageAction = (message: Message) => {
+    setSelectedMessage(message)
+    bottomSheetModalRef.current?.present()
+  }
+
   if (!topic || isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -53,14 +58,13 @@ const ChatScreen = () => {
             {showAssistantCard && <AssistantCard topic={topic} />}
 
             {hasMessages ? (
-              <ChatContent key={topic.id} topic={topic} setSelectedMessage={message => setSelectedMessage(message)} />
+              <ChatContent key={topic.id} topic={topic} onMessageAction={handleMessageAction} />
             ) : (
               <WelcomeContent key={topic.id} />
             )}
-            <MessageInput topic={topic} />
-
             {/*这里暂时使用底部弹窗的方式实现，后续可以考虑换成长按消息显示右键菜单的方式*/}
             {selectedMessage && <MessageFooterMore ref={bottomSheetModalRef} message={selectedMessage} />}
+            <MessageInput topic={topic} />
           </YStack>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

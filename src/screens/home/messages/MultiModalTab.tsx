@@ -14,10 +14,10 @@ import MessageFooter from './MessageFooter'
 interface MultiModalTabProps {
   assistant: Assistant
   messages: GroupedMessage[]
-  setSelectedMessage: (message: Message) => void
+  onMessageAction: (messages: Message) => void
 }
 
-const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages, setSelectedMessage }) => {
+const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages, onMessageAction }) => {
   const isDark = useIsDark()
   const [currentTab, setCurrentTab] = useState('0')
 
@@ -76,7 +76,7 @@ const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages, setSelecte
                 type: 'timing'
               }}>
               <MessageItem message={message} />
-              <MessageFooter assistant={assistant} message={message} setSelectedMessage={setSelectedMessage} />
+              <MessageFooter assistant={assistant} message={message} onMessageAction={onMessageAction} />
             </MotiView>
           </Tabs.Content>
         ))}

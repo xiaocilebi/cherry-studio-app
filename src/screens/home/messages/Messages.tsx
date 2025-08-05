@@ -14,15 +14,15 @@ import MessageGroup from './MessageGroup'
 interface MessagesProps {
   assistant: Assistant
   topic: Topic
-  setSelectedMessage: (message: Message) => void
+  onMessageAction: (message: Message) => void
 }
 
-const Messages: FC<MessagesProps> = ({ assistant, topic, setSelectedMessage }) => {
+const Messages: FC<MessagesProps> = ({ assistant, topic, onMessageAction }) => {
   const { messages } = useMessages(topic.id)
   const groupedMessages = Object.entries(getGroupedMessages(messages))
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
-    return <MessageGroup assistant={assistant} item={item} setSelectedMessage={setSelectedMessage} />
+    return <MessageGroup assistant={assistant} item={item} onMessageAction={onMessageAction} />
   }
 
   return (
