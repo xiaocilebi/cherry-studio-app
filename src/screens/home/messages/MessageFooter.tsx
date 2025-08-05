@@ -1,7 +1,6 @@
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React, { useRef } from 'react'
+import React from 'react'
 import { Button, View, XStack } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
@@ -16,17 +15,10 @@ const logger = loggerService.withContext('MessageFooter')
 interface MessageFooterProps {
   assistant: Assistant
   message: Message
-  setSelectedMessage: (message: Message) => void
+  onMessageAction: (message: Message) => void
 }
 
-const MessageFooter = ({ message, assistant, setSelectedMessage }: MessageFooterProps) => {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-
-  const handlePress = () => {
-    setSelectedMessage(message)
-    bottomSheetModalRef.current?.present()
-  }
-
+const MessageFooter = ({ message, assistant, onMessageAction }: MessageFooterProps) => {
   const onCopy = async () => {
     // todo: 暂时无法复制翻译后的message
     try {
@@ -54,7 +46,12 @@ const MessageFooter = ({ message, assistant, setSelectedMessage }: MessageFooter
       <XStack gap={20}>
         <Button chromeless circular size={24} icon={<Copy size={18} />} onPress={onCopy}></Button>
         <Button chromeless circular size={24} icon={<RefreshCw size={18} />} onPress={onRegenerate}></Button>
-        <Button chromeless circular size={24} icon={<MoreHorizontal size={18} />} onPress={handlePress}></Button>
+        <Button
+          chromeless
+          circular
+          size={24}
+          icon={<MoreHorizontal size={18} />}
+          onPress={() => onMessageAction(message)}></Button>
       </XStack>
     </View>
   )
