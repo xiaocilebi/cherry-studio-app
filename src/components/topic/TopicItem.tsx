@@ -43,19 +43,19 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
     }
   })
 
+  async function createAndNavigate() {
+    const defaultAssistant = await getDefaultAssistant()
+    const newTopic = await createNewTopic(defaultAssistant)
+    navigateToChatScreen(newTopic.id)
+    logger.info('navigateToChatScreen with new topic', newTopic)
+  }
+
   const handleDelete = async () => {
     try {
       swipeableRef.current?.close()
       const deletedTopicId = topic.id
       await deleteMessagesByTopicId(deletedTopicId)
       await deleteTopicById(deletedTopicId)
-
-      async function createAndNavigate() {
-        const defaultAssistant = await getDefaultAssistant()
-        const newTopic = await createNewTopic(defaultAssistant)
-        navigateToChatScreen(newTopic.id)
-        logger.info('navigateToChatScreen with new topic', newTopic)
-      }
 
       if (deletedTopicId === getCurrentTopicId()) {
         const nextTopic = await getNewestTopic()
@@ -67,8 +67,6 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
         } else {
           createAndNavigate()
         }
-      } else {
-        createAndNavigate()
       }
     } catch (error) {
       logger.error('Delete Topic error', error)
