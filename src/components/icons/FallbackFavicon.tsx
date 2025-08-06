@@ -108,7 +108,7 @@ const FallbackFavicon: React.FC<FallbackFaviconProps> = ({ hostname, alt }) => {
     return () => {
       controller.abort()
     }
-  })
+  }, [hostname])
 
   const handleError = () => {
     if (faviconState.status === 'loaded') {

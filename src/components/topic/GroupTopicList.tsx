@@ -1,5 +1,5 @@
 import { FlashList } from '@shopify/flash-list'
-import React from 'react'
+import React, { useMemo } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 import { Text, YStack } from 'tamagui'
 
@@ -18,7 +18,7 @@ type ListItem = { type: 'header'; title: string } | { type: 'topic'; topic: Topi
 export function GroupedTopicList({ topics }: GroupedTopicListProps) {
   const { t } = useTranslation()
 
-  const listData = (() => {
+  const listData = useMemo(() => {
     const groupedTopics = groupItemsByDate(topics, topic => new Date(topic.updatedAt))
 
     const groupOrder: DateGroupKey[] = ['today', 'yesterday', 'thisWeek', 'lastWeek', 'lastMonth', 'older']
@@ -48,7 +48,7 @@ export function GroupedTopicList({ topics }: GroupedTopicListProps) {
     })
 
     return data
-  })()
+  }, [topics, t])
 
   const renderItem = ({ item, index }: { item: ListItem; index: number }) => {
     switch (item.type) {

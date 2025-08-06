@@ -1,5 +1,5 @@
 import { ChevronRight } from '@tamagui/lucide-icons'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text, XStack } from 'tamagui'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 
@@ -53,7 +53,7 @@ export function ISelect<T = any>({
     itemLabel: string
   } | null>(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (value) {
       for (const group of selectOptions) {
         const item = group.options.find(option => option.value === value)

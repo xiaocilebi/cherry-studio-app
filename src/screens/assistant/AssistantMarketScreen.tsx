@@ -77,7 +77,7 @@ export default function AssistantMarketScreen() {
   // 监听 searchText 变化，触发防抖更新
   useEffect(() => {
     debouncedSetSearch(searchText)
-    
+
     // 清理函数，组件卸载时取消防抖
     return () => {
       debouncedSetSearch.cancel()

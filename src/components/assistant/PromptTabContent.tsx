@@ -24,7 +24,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
       name: assistant?.name || '',
       prompt: assistant?.prompt || ''
     })
-  }, [assistant.name, assistant.prompt])
+  }, [assistant])
 
   const handleBlur = () => {
     if (formData.name !== assistant.name || formData.prompt !== assistant.prompt) {

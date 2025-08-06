@@ -31,7 +31,7 @@ export function useWebSocket() {
       socket.current?.disconnect()
       socket.current = null
     }
-  })
+  }, [])
 
   // 写入文件的函数
   const writeZipFile = async () => {

@@ -1,6 +1,6 @@
 import { ChevronsRight } from '@tamagui/lucide-icons'
 import { AnimatePresence, MotiView } from 'moti'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Spinner, Text, XStack, YStack } from 'tamagui'
 
@@ -20,17 +20,15 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
   const isStreaming = block.status === MessageBlockStatus.STREAMING
 
   const animationFrameIdRef = useRef<number | null>(null)
-
-  const clearAnimationFrame = () => {
+  const clearAnimationFrame = useCallback(() => {
     if (animationFrameIdRef.current) {
       cancelAnimationFrame(animationFrameIdRef.current)
       animationFrameIdRef.current = null
     }
-  }
+  }, [])
 
   const NEXT_CONTENT_COUNT = 50
-
-  const startOutputQueue = () => {
+  const startOutputQueue = useCallback(() => {
     if (processedLengthRef.current === 0) return
 
     const outputNextChar = () => {
@@ -46,7 +44,7 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
     }
 
     animationFrameIdRef.current = requestAnimationFrame(outputNextChar)
-  }
+  }, [clearAnimationFrame])
 
   useEffect(() => {
     const content = block.content || ''
@@ -57,7 +55,7 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
       processedLengthRef.current = content.length
       startOutputQueue()
     }
-  })
+  }, [block.content, isStreaming, startOutputQueue])
 
   useEffect(() => {
     return () => {
@@ -65,14 +63,14 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
       queueRef.current = ''
       processedLengthRef.current = 0
     }
-  })
+  }, [clearAnimationFrame])
 
   const lineHeight = 16
-  const containerHeight = (() => {
+  const containerHeight = useMemo(() => {
     if (!isStreaming && !expanded) return 40
     if (expanded) return lineHeight
     return Math.min(64, Math.max(messages.length + 1, 2) * lineHeight)
-  })()
+  }, [expanded, isStreaming, messages.length])
 
   return (
     <MotiView

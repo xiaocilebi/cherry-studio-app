@@ -91,7 +91,7 @@ export default function WelcomeScreen() {
     }, 4000)
 
     return () => clearInterval(interval)
-  })
+  }, [activeIndex])
 
   return (
     <SafeAreaContainer>
