@@ -16,7 +16,7 @@ interface ChatContentProps {
 
 const ChatContent = ({ topic }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
-  const [showScrollToBottomButton, setShowScrollToBottomButton] = useState(true)
+  const [showScrollToBottomButton, setShowScrollToBottomButton] = useState(false)
 
   if (isLoading || !assistant) {
     return (
@@ -33,15 +33,7 @@ const ChatContent = ({ topic }: ChatContentProps) => {
 
     const isAtBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom
 
-    if (isAtBottom) {
-      if (showScrollToBottomButton) {
-        setShowScrollToBottomButton(false)
-      }
-    } else {
-      if (!showScrollToBottomButton) {
-        setShowScrollToBottomButton(true)
-      }
-    }
+    setShowScrollToBottomButton(!isAtBottom)
   }
 
   return (
@@ -52,6 +44,11 @@ const ChatContent = ({ topic }: ChatContentProps) => {
         topic={topic}
         onScroll={handleScroll}
         onScrollToBottom={scrollToBottom => {
+          const handleScrollToBottom = () => {
+            scrollToBottom()
+            setShowScrollToBottomButton(false)
+          }
+
           return (
             <AnimatePresence>
               {showScrollToBottomButton && (
@@ -67,7 +64,7 @@ const ChatContent = ({ topic }: ChatContentProps) => {
                     borderWidth={2}
                     borderColor="$gray20"
                     icon={<ChevronDown size={24} color="$gray80" />}
-                    onPress={scrollToBottom}
+                    onPress={handleScrollToBottom}
                   />
                 </MotiView>
               )}

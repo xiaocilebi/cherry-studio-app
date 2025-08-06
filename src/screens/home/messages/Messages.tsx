@@ -30,7 +30,11 @@ const Messages: FC<MessagesProps> = ({ assistant, topic, onScroll, onScrollToBot
 
   const scrollToBottom = () => {
     if (flashListRef.current && groupedMessages.length > 0) {
-      flashListRef.current.scrollToEnd({ animated: true })
+      flashListRef.current?.scrollToIndex({
+        index: groupedMessages.length - 1,
+        animated: true,
+        viewPosition: 1
+      })
     }
   }
 
@@ -56,6 +60,11 @@ const Messages: FC<MessagesProps> = ({ assistant, topic, onScroll, onScrollToBot
           estimatedItemSize={100}
           ItemSeparatorComponent={() => <YStack height={20} />}
           onScroll={onScroll ? ({ nativeEvent }) => onScroll(nativeEvent) : undefined}
+          scrollEventThrottle={16}
+          maintainVisibleContentPosition={{
+            minIndexForVisible: 0,
+            autoscrollToTopThreshold: 100
+          }}
         />
       </MotiView>
       {onScrollToBottom?.(scrollToBottom)}
