@@ -198,6 +198,15 @@ export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
   }
 }
 
+export async function deleteMessageById(messageId: string): Promise<void> {
+  try {
+    await db.delete(messages).where(eq(messages.id, messageId))
+  } catch (error) {
+    logger.error(`Error deleting message with ID ${messageId}:`, error)
+    throw error
+  }
+}
+
 export async function removeAllMessages() {
   try {
     await db.delete(messages)

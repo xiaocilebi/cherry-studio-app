@@ -7,117 +7,22 @@
  * 2. 失败时fallback到原有实现
  * 3. 暂时保持接口兼容性
  */
-import {
-  AiCore,
-  AiPlugin,
-  createExecutor,
-  ProviderConfigFactory,
-  type ProviderId,
-  type ProviderSettingsMap,
-  StreamTextParams
-} from '@cherrystudio/ai-core'
-import { createPromptToolUsePlugin, webSearchPlugin } from '@cherrystudio/ai-core/built-in/plugins'
+import { createExecutor, generateImage, StreamTextParams } from '@cherrystudio/ai-core'
 import { fetch as expoFetch } from 'expo/fetch'
-import { cloneDeep } from 'lodash'
 
-import { isDedicatedImageGenerationModel } from '@/config/models/image'
-import { loggerService } from '@/services/LoggerService'
+import { isNotSupportedImageSizeModel } from '@/config/models/image'
 import { Model, Provider } from '@/types/assistant'
+import { ChunkType } from '@/types/chunk'
 import { GenerateImageParams } from '@/types/image'
-import { formatApiHost } from '@/utils/api'
 
-import LegacyAiProvider from '.'
 import AiSdkToChunkAdapter from './chunk/AiSdkToChunkAdapter'
-import { AiSdkMiddlewareConfig, buildAiSdkMiddlewares } from './middleware/aisdk/AiSdkMiddlewareBuilder'
-import { CompletionsResult } from './middleware/schemas'
-import reasoningTimePlugin from './plugins/reasoningTimePlugin'
-import { createAihubmixProvider } from './provider/aihubmix'
-import { getAiSdkProviderId } from './provider/factory'
+import LegacyAiProvider from './legacy/index'
+import { CompletionsResult } from './legacy/middleware/schemas'
+import { AiSdkMiddlewareConfig, buildAiSdkMiddlewares } from './middleware/AiSdkMiddlewareBuilder'
+import { buildPlugins } from './plugins/PluginBuilder'
+import { getActualProvider, isModernSdkSupported, providerToAiSdkConfig } from './provider/ProviderConfigProcessor'
 
-const logger = loggerService.withContext('ToolCallChunkHandler')
-
-function getActualProvider(model: Model, provider: Provider): Provider {
-  // 如果是 vertexai 类型且没有 googleCredentials，转换为 VertexProvider
-  let actualProvider = cloneDeep(provider)
-
-  if (provider.id === 'aihubmix') {
-    actualProvider = createAihubmixProvider(model, actualProvider)
-  }
-
-  if (actualProvider.type === 'gemini') {
-    actualProvider.apiHost = formatApiHost(actualProvider.apiHost, 'v1beta')
-  } else {
-    actualProvider.apiHost = formatApiHost(actualProvider.apiHost)
-  }
-
-  return actualProvider
-}
-
-/**
- * 将 Provider 配置转换为新 AI SDK 格式
- */
-function providerToAiSdkConfig(actualProvider: Provider): {
-  providerId: ProviderId | 'openai-compatible'
-  options: ProviderSettingsMap[keyof ProviderSettingsMap]
-} {
-  const aiSdkProviderId = getAiSdkProviderId(actualProvider)
-
-  // 如果provider是openai，则使用strict模式并且默认responses api
-  const openaiResponseOptions =
-    aiSdkProviderId === 'openai'
-      ? {
-          compatibility: 'strict'
-        }
-      : undefined
-
-  if (AiCore.isSupported(aiSdkProviderId) && aiSdkProviderId !== 'openai-compatible') {
-    const options = ProviderConfigFactory.fromProvider(
-      aiSdkProviderId,
-      {
-        baseURL: actualProvider.apiHost,
-        apiKey: actualProvider.apiKey,
-        headers: actualProvider.extra_headers
-      },
-      openaiResponseOptions
-    )
-
-    return {
-      providerId: aiSdkProviderId as ProviderId,
-      options
-    }
-  } else {
-    logger.info(`Using openai-compatible fallback for provider: ${actualProvider.type}`)
-    const options = ProviderConfigFactory.createOpenAICompatible(actualProvider.apiHost, actualProvider.apiKey)
-
-    return {
-      providerId: 'openai-compatible',
-      options: {
-        ...options,
-        name: actualProvider.id
-      }
-    }
-  }
-}
-
-/**
- * 检查是否支持使用新的AI SDK
- */
-function isModernSdkSupported(provider: Provider, model?: Model): boolean {
-  // 目前支持主要的providers
-  const supportedProviders = ['openai', 'anthropic', 'gemini', 'azure-openai']
-
-  // 检查provider类型
-  if (!supportedProviders.includes(provider.type)) {
-    return false
-  }
-
-  // 检查是否为图像生成模型（暂时不支持）
-  if (model && isDedicatedImageGenerationModel(model)) {
-    return false
-  }
-
-  return true
-}
+// const logger = loggerService.withContext('ToolCallChunkHandler')
 
 export default class ModernAiProvider {
   private legacyProvider: LegacyAiProvider
@@ -127,7 +32,7 @@ export default class ModernAiProvider {
   constructor(model: Model, provider: Provider) {
     this.actualProvider = getActualProvider(model, provider)
 
-    this.legacyProvider = new LegacyAiProvider(provider)
+    this.legacyProvider = new LegacyAiProvider(this.actualProvider)
 
     const customFetch = async (url, options) => {
       const response = await expoFetch(url, {
@@ -149,68 +54,17 @@ export default class ModernAiProvider {
     return this.actualProvider
   }
 
-  /**
-   * 根据条件构建插件数组
-   */
-  private buildPlugins(middlewareConfig: AiSdkMiddlewareConfig) {
-    const plugins: AiPlugin[] = []
-
-    // 1. 总是添加通用插件
-    // plugins.push(textPlugin)
-    if (middlewareConfig.enableWebSearch) {
-      // 内置了默认搜索参数，如果改的话可以传config进去
-      plugins.push(webSearchPlugin())
-    }
-
-    // 2. 推理模型时添加推理插件
-    if (middlewareConfig.enableReasoning) {
-      logger.info('buildPlugins', middlewareConfig.enableReasoning)
-      plugins.push(reasoningTimePlugin)
-    }
-
-    // 3. 启用Prompt工具调用时添加工具插件
-    if (middlewareConfig.enableTool && middlewareConfig.mcpTools && middlewareConfig.mcpTools.length > 0) {
-      plugins.push(
-        createPromptToolUsePlugin({
-          enabled: true,
-          createSystemMessage: (systemPrompt, params, context) => {
-            if (context.modelId.includes('o1-mini') || context.modelId.includes('o1-preview')) {
-              if (context.isRecursiveCall) {
-                return null
-              }
-
-              params.messages = [
-                {
-                  role: 'assistant',
-                  content: systemPrompt
-                },
-                ...params.messages
-              ]
-              return null
-            }
-
-            return systemPrompt
-          }
-        })
-      )
-    }
-
-    // if (!middlewareConfig.enableTool && middlewareConfig.mcpTools && middlewareConfig.mcpTools.length > 0) {
-    //   plugins.push(createNativeToolUsePlugin())
-    // }
-    logger.info(
-      '最终插件列表:',
-      plugins.map(p => p.name)
-    )
-    return plugins
-  }
-
   public async completions(
     modelId: string,
     params: StreamTextParams,
     middlewareConfig: AiSdkMiddlewareConfig
   ): Promise<CompletionsResult> {
-    logger.info('completions', modelId, params, middlewareConfig)
+    console.log('completions', modelId, params, middlewareConfig)
+
+    if (middlewareConfig.isImageGenerationEndpoint) {
+      return await this.modernImageGeneration(modelId, params, middlewareConfig)
+    }
+
     return await this.modernCompletions(modelId, params, middlewareConfig)
   }
 
@@ -224,22 +78,22 @@ export default class ModernAiProvider {
   ): Promise<CompletionsResult> {
     // try {
     // 根据条件构建插件数组
-    const plugins = this.buildPlugins(middlewareConfig)
-    logger.info('this.config.providerId', this.config.providerId)
-    logger.info('this.config.options', this.config.options)
-    logger.info('plugins', plugins)
+    const plugins = buildPlugins(middlewareConfig)
+    console.log('this.config.providerId', this.config.providerId)
+    console.log('this.config.options', this.config.options)
+    console.log('plugins', plugins)
     // 用构建好的插件数组创建executor
     const executor = createExecutor(this.config.providerId, this.config.options, plugins)
 
     // 动态构建中间件数组
     const middlewares = buildAiSdkMiddlewares(middlewareConfig)
-    // logger.info('构建的中间件:', middlewares)
+    // console.log('构建的中间件:', middlewares)
 
     // 创建带有中间件的执行器
     if (middlewareConfig.onChunk) {
       // 流式处理 - 使用适配器
       const adapter = new AiSdkToChunkAdapter(middlewareConfig.onChunk, middlewareConfig.mcpTools)
-      logger.info('最终params', params)
+      console.log('最终params', params)
       const streamResult = await executor.streamText(
         modelId,
         params,
@@ -271,6 +125,124 @@ export default class ModernAiProvider {
     // }
   }
 
+  /**
+   * 使用现代化 AI SDK 的图像生成实现，支持流式输出
+   */
+  private async modernImageGeneration(
+    modelId: string,
+    params: StreamTextParams,
+    middlewareConfig: AiSdkMiddlewareConfig
+  ): Promise<CompletionsResult> {
+    const { onChunk } = middlewareConfig
+
+    try {
+      // 检查 messages 是否存在
+      if (!params.messages || params.messages.length === 0) {
+        throw new Error('No messages provided for image generation.')
+      }
+
+      // 从最后一条用户消息中提取 prompt
+      const lastUserMessage = params.messages.findLast(m => m.role === 'user')
+
+      if (!lastUserMessage) {
+        throw new Error('No user message found for image generation.')
+      }
+
+      // 直接使用消息内容，避免类型转换问题
+      const prompt =
+        typeof lastUserMessage.content === 'string'
+          ? lastUserMessage.content
+          : lastUserMessage.content?.map(part => ('text' in part ? part.text : '')).join('') || ''
+
+      if (!prompt) {
+        throw new Error('No prompt found in user message.')
+      }
+
+      const startTime = Date.now()
+
+      // 发送图像生成开始事件
+      if (onChunk) {
+        onChunk({ type: ChunkType.IMAGE_CREATED })
+      }
+
+      // 构建图像生成参数
+      const imageParams = {
+        prompt,
+        size: isNotSupportedImageSizeModel(middlewareConfig.model) ? undefined : ('1024x1024' as `${number}x${number}`), // 默认尺寸，使用正确的类型
+        n: 1,
+        ...(params.abortSignal && { abortSignal: params.abortSignal })
+      }
+
+      // 调用新 AI SDK 的图像生成功能
+      const result = await generateImage(this.config.providerId, this.config.options, modelId, imageParams)
+
+      // 转换结果格式
+      const images: string[] = []
+      const imageType: 'url' | 'base64' = 'base64'
+
+      if (result.images) {
+        for (const image of result.images) {
+          if ('base64' in image && image.base64) {
+            images.push(`data:${image.mediaType};base64,${image.base64}`)
+          }
+        }
+      }
+
+      // 发送图像生成完成事件
+      if (onChunk && images.length > 0) {
+        onChunk({
+          type: ChunkType.IMAGE_COMPLETE,
+          image: { type: imageType, images }
+        })
+      }
+
+      // 发送块完成事件（类似于 modernCompletions 的处理）
+      if (onChunk) {
+        const usage = {
+          prompt_tokens: prompt.length, // 估算的 token 数量
+          completion_tokens: 0, // 图像生成没有 completion tokens
+          total_tokens: prompt.length
+        }
+
+        onChunk({
+          type: ChunkType.BLOCK_COMPLETE,
+          response: {
+            usage,
+            metrics: {
+              completion_tokens: usage.completion_tokens,
+              time_first_token_millsec: 0,
+              time_completion_millsec: Date.now() - startTime
+            }
+          }
+        })
+
+        // 发送 LLM 响应完成事件
+        onChunk({
+          type: ChunkType.LLM_RESPONSE_COMPLETE,
+          response: {
+            usage,
+            metrics: {
+              completion_tokens: usage.completion_tokens,
+              time_first_token_millsec: 0,
+              time_completion_millsec: Date.now() - startTime
+            }
+          }
+        })
+      }
+
+      return {
+        getText: () => '' // 图像生成不返回文本
+      }
+    } catch (error) {
+      // 发送错误事件
+      if (onChunk) {
+        onChunk({ type: ChunkType.ERROR, error: error as any })
+      }
+
+      throw error
+    }
+  }
+
   // 代理其他方法到原有实现
   public async models() {
     return this.legacyProvider.models()
@@ -281,7 +253,50 @@ export default class ModernAiProvider {
   }
 
   public async generateImage(params: GenerateImageParams): Promise<string[]> {
+    // 如果支持新的 AI SDK，使用现代化实现
+    if (isModernSdkSupported(this.actualProvider)) {
+      try {
+        const result = await this.modernGenerateImage(params)
+        return result
+      } catch (error) {
+        console.warn('Modern AI SDK generateImage failed, falling back to legacy:', error)
+        // fallback 到传统实现
+        return this.legacyProvider.generateImage(params)
+      }
+    }
+
+    // 直接使用传统实现
     return this.legacyProvider.generateImage(params)
+  }
+
+  /**
+   * 使用现代化 AI SDK 的图像生成实现
+   */
+  private async modernGenerateImage(params: GenerateImageParams): Promise<string[]> {
+    const { model, prompt, imageSize, batchSize, signal } = params
+
+    // 转换参数格式
+    const aiSdkParams = {
+      prompt,
+      size: (imageSize || '1024x1024') as `${number}x${number}`,
+      n: batchSize || 1,
+      ...(signal && { abortSignal: signal })
+    }
+
+    const result = await generateImage(this.config.providerId, this.config.options, model, aiSdkParams)
+
+    // 转换结果格式
+    const images: string[] = []
+
+    if (result.images) {
+      for (const image of result.images) {
+        if ('base64' in image && image.base64) {
+          images.push(`data:image/png;base64,${image.base64}`)
+        }
+      }
+    }
+
+    return images
   }
 
   public getBaseURL(): string {

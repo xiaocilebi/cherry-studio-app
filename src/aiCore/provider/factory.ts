@@ -1,7 +1,6 @@
 import { AiCore, ProviderId } from '@cherrystudio/ai-core'
 
 import { Provider } from '@/types/assistant'
-
 const PROVIDER_MAPPING: Record<string, ProviderId> = {
   // anthropic: 'anthropic',
   gemini: 'google',
@@ -26,7 +25,7 @@ export function getAiSdkProviderId(provider: Provider): ProviderId | 'openai-com
   if (AiCore.isSupported(provider.id)) {
     return provider.id as ProviderId
   }
-
+  // 先注释掉，会影响获取providerOptions
   // if (AiCore.isSupported(provider.type)) {
   //   return provider.type as ProviderId
   // }

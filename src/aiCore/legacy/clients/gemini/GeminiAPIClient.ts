@@ -17,7 +17,7 @@ import {
 import { nanoid } from '@reduxjs/toolkit'
 import { File as ExpoFile } from 'expo-file-system/next'
 
-import { GenericChunk } from '@/aiCore/middleware/schemas'
+import { GenericChunk } from '@/aiCore/legacy/middleware/schemas'
 import { findTokenLimit, GEMINI_FLASH_MODEL_REGEX, isGemmaModel } from '@/config/models'
 import { EFFORT_RATIO, isSupportedThinkingTokenGeminiModel } from '@/config/models/reasoning'
 import { isVisionModel } from '@/config/models/vision'
@@ -124,7 +124,7 @@ export class GeminiAPIClient extends BaseApiClient<
           const dataPrefix = `data:${image.image?.mimeType || 'image/png'};base64,`
           return dataPrefix + image.image?.imageBytes
         })
-      //  console.log(response?.generatedImages?.[0]?.image?.imageBytes);
+      // console.log('generateImage', response?.generatedImages?.[0]?.image?.imageBytes)
       return images
     } catch (error) {
       console.error('[generateImage] error:', error)

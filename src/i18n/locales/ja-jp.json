@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "アシスタントを作成する"
-      },
-      "edit": {
-        "title": "エディットアシスタント"
-      },
       "market": {
         "add.success": "{{assistant_name}}の追加に成功しました",
         "button.chat": "今すぐチャット",
@@ -95,6 +89,7 @@
       "enabled": "有効",
       "error_occurred": "エラーが発生しました",
       "file": "ファイル",
+      "generateImage": "画像を作成する",
       "language": "言語",
       "last_month": "先月",
       "last_week": "先週",
@@ -116,6 +111,7 @@
       "today": "今日",
       "tool": "ツール",
       "visit": "訪問",
+      "websearch": "ウェブ検索",
       "yesterday": "昨日"
     },
     "errors": {

@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { ActivityIndicator, Keyboard, Platform, TouchableWithoutFeedback } from 'react-native'
+import { ActivityIndicator, Keyboard, Platform, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { YStack } from 'tamagui'
 
@@ -45,7 +45,26 @@ const ChatScreen = () => {
               setShowAssistantCard={setShowAssistantCard}
             />
 
-            {showAssistantCard && <AssistantCard topic={topic} />}
+            {showAssistantCard && (
+              <>
+                {/*实现失焦回弹*/}
+                <TouchableOpacity
+                  activeOpacity={0}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 1
+                  }}
+                  onPress={() => setShowAssistantCard(false)}
+                />
+                <View style={{ zIndex: 2 }}>
+                  <AssistantCard topic={topic} />
+                </View>
+              </>
+            )}
 
             {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
             <MessageInput topic={topic} />

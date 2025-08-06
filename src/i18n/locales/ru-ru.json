@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "Создать помощника"
-      },
-      "edit": {
-        "title": "Редактировать помощника"
-      },
       "market": {
         "add.success": "{{assistant_name}} успешно добавлен",
         "button.chat": "Чат сейчас",
@@ -95,6 +89,7 @@
       "enabled": "Включено",
       "error_occurred": "Произошла ошибка",
       "file": "Файл",
+      "generateImage": "Создать изображение",
       "language": "Язык",
       "last_month": "Прошлый месяц",
       "last_week": "На прошлой неделе",
@@ -116,6 +111,7 @@
       "today": "Сегодня",
       "tool": "Инструмент",
       "visit": "Посетить",
+      "websearch": "Поиск в интернете",
       "yesterday": "Вчера"
     },
     "errors": {

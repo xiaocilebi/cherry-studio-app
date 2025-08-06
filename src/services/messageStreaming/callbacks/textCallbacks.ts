@@ -55,7 +55,7 @@ export const createTextCallbacks = (deps: TextCallbacksDependencies) => {
           citationReferences: citationBlockId ? [{ citationBlockId, citationBlockSource }] : []
         }
         blockManager.smartBlockUpdate(mainTextBlockId!, blockChanges, MessageBlockType.MAIN_TEXT)
-        logger.debug('onTextChunk', blockChanges)
+        logger.info('onTextChunk', blockChanges)
       }
     },
 

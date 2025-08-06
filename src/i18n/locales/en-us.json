@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "Create Assistant"
-      },
-      "edit": {
-        "title": "Edit Assistant"
-      },
       "market": {
         "add.success": "Add {{assistant_name}} Successful",
         "button.chat": "Chat Now",
@@ -95,6 +89,7 @@
       "enabled": "Enabled",
       "error_occurred": "An error occurred",
       "file": "File",
+      "generateImage": "Create an image",
       "language": "Language",
       "last_month": "Last Month",
       "last_week": "Last Week",
@@ -116,6 +111,7 @@
       "today": "Today",
       "tool": "Tool",
       "visit": "Visit",
+      "websearch": "Web Search",
       "yesterday": "Yesterday"
     },
     "errors": {

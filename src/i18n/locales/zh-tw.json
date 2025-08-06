@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "創建助理"
-      },
-      "edit": {
-        "title": "編輯助理"
-      },
       "market": {
         "add.success": "新增 {{assistant_name}} 成功",
         "button.chat": "立即聊天",
@@ -95,6 +89,7 @@
       "enabled": "已啟用",
       "error_occurred": "發生錯誤",
       "file": "檔案",
+      "generateImage": "建立圖片",
       "language": "語言",
       "last_month": "上個月",
       "last_week": "上週",
@@ -116,6 +111,7 @@
       "today": "今天",
       "tool": "工具",
       "visit": "訪問",
+      "websearch": "網路搜尋",
       "yesterday": "昨天"
     },
     "errors": {

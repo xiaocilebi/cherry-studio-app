@@ -7,6 +7,7 @@ import { Button, useTheme, YStack } from 'tamagui'
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
 import { fetchTranslate } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
+import { deleteMessageById } from '@/services/MessagesService'
 import { Message } from '@/types/message'
 import { useIsDark } from '@/utils'
 import { findTranslationBlocks } from '@/utils/messageUtils/find'
@@ -89,8 +90,7 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
     if (!message) return
 
     try {
-      await removeManyBlocks(message.blocks)
-      await upsertMessages({ ...message, blocks: [] })
+      await deleteMessageById(message.id)
       logger.info('Message deleted successfully:', message.id)
     } catch (error) {
       logger.error('Error deleting message:', error)
