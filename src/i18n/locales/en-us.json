@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "Create Assistant"
-      },
-      "edit": {
-        "title": "Edit Assistant"
-      },
       "market": {
         "add.success": "Add {{assistant_name}} Successful",
         "button.chat": "Chat Now",

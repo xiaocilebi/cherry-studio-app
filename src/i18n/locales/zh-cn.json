@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "创建助手"
-      },
-      "edit": {
-        "title": "编辑助手"
-      },
       "market": {
         "add.success": "添加 {{assistant_name}} 成功",
         "button.chat": "立即聊天",

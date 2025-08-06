@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "Создать помощника"
-      },
-      "edit": {
-        "title": "Редактировать помощника"
-      },
       "market": {
         "add.success": "{{assistant_name}} успешно добавлен",
         "button.chat": "Чат сейчас",

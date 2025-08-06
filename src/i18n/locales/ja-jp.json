@@ -1,12 +1,6 @@
 {
   "translation": {
     "assistants": {
-      "create": {
-        "title": "アシスタントを作成する"
-      },
-      "edit": {
-        "title": "エディットアシスタント"
-      },
       "market": {
         "add.success": "{{assistant_name}}の追加に成功しました",
         "button.chat": "今すぐチャット",
