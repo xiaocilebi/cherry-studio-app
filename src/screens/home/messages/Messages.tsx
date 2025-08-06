@@ -5,7 +5,6 @@ import { View, YStack } from 'tamagui'
 
 import { useMessages } from '@/hooks/useMessages'
 import { Assistant, Topic } from '@/types/assistant'
-import { Message } from '@/types/message'
 import { GroupedMessage } from '@/types/message'
 import { getGroupedMessages } from '@/utils/messageUtils/filters'
 
@@ -14,15 +13,14 @@ import MessageGroup from './MessageGroup'
 interface MessagesProps {
   assistant: Assistant
   topic: Topic
-  onMessageAction: (message: Message) => void
 }
 
-const Messages: FC<MessagesProps> = ({ assistant, topic, onMessageAction }) => {
+const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   const { messages } = useMessages(topic.id)
   const groupedMessages = Object.entries(getGroupedMessages(messages))
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
-    return <MessageGroup assistant={assistant} item={item} onMessageAction={onMessageAction} />
+    return <MessageGroup assistant={assistant} item={item} />
   }
 
   return (

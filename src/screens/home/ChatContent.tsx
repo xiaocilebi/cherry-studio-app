@@ -7,16 +7,14 @@ import { Button } from 'tamagui'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
-import { Message } from '@/types/message'
 
 import Messages from './messages/Messages'
 
 interface ChatContentProps {
   topic: Topic
-  onMessageAction: (message: Message) => void
 }
 
-const ChatContent = ({ topic, onMessageAction }: ChatContentProps) => {
+const ChatContent = ({ topic }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
   const scrollViewRef = useRef<ScrollView>(null)
 
@@ -67,7 +65,7 @@ const ChatContent = ({ topic, onMessageAction }: ChatContentProps) => {
         }}
         showsVerticalScrollIndicator={false}
         onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}>
-        <Messages key={topic.id} assistant={assistant} topic={topic} onMessageAction={onMessageAction} />
+        <Messages key={topic.id} assistant={assistant} topic={topic} />
       </MotiScrollView>
 
       <AnimatePresence>

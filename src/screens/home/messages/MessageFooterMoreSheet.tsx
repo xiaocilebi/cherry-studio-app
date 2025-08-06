@@ -20,7 +20,7 @@ interface MessageFooterMoreProps {
   message: Message
 }
 
-const MessageFooterMore = forwardRef<BottomSheetModal, MessageFooterMoreProps>(({ message }, ref) => {
+const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMoreProps>(({ message }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
   const isDark = useIsDark()
@@ -131,4 +131,6 @@ const MessageFooterMore = forwardRef<BottomSheetModal, MessageFooterMoreProps>((
   )
 })
 
-export default MessageFooterMore
+MessageFooterMoreSheet.displayName = 'MessageFooterMoreSheet'
+
+export default MessageFooterMoreSheet
