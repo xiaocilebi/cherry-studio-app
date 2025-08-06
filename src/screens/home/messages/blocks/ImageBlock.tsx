@@ -34,7 +34,7 @@ const ImageBlock: React.FC<Props> = ({ block }) => {
     }))
 
     return (
-      <View flexDirection="row" flexWrap="wrap" gap={5}>
+      <View flexDirection="row" flexWrap="wrap" gap={5} style={{ paddingHorizontal: 10 }}>
         {imageFiles.map(file => (
           <ImageItem key={file.path} file={file} allImages={imageFiles} />
         ))}
@@ -45,7 +45,7 @@ const ImageBlock: React.FC<Props> = ({ block }) => {
   // Handle single uploaded file
   if (uploadedFile) {
     return (
-      <View>
+      <View style={{ paddingHorizontal: 10 }}>
         <ImageItem file={uploadedFile} />
       </View>
     )
