@@ -508,3 +508,21 @@ export async function deleteBlocksByTopicId(topicId: string): Promise<void> {
     throw error
   }
 }
+
+export async function deleteBlocksByMessageId(messageId: string): Promise<void> {
+  try {
+    const blocks = await getBlocksByMessageId(messageId)
+
+    if (blocks.length === 0) {
+      logger.info(`No blocks found for message ID ${messageId}. Nothing to delete.`)
+      return
+    }
+
+    const blockIds = blocks.map(block => block.id)
+    await removeManyBlocks(blockIds)
+    logger.info(`Successfully deleted ${blockIds.length} blocks for message ID ${messageId}.`)
+  } catch (error) {
+    logger.error(`Error deleting blocks for message ID ${messageId}:`, error)
+    throw error
+  }
+}

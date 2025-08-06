@@ -18,6 +18,7 @@ import {
 import { getTopicQueue } from '@/utils/queue'
 
 import {
+  deleteBlocksByMessageId,
   deleteBlocksByTopicId,
   getBlockById,
   removeManyBlocks,
@@ -25,6 +26,7 @@ import {
   upsertBlocks
 } from '../../db/queries/messageBlocks.queries'
 import {
+  deleteMessageById as _deleteMessageById,
   deleteMessagesByTopicId as _deleteMessagesByTopicId,
   getMessageById,
   getMessagesByTopicId,
@@ -526,6 +528,16 @@ export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
     await _deleteMessagesByTopicId(topicId)
   } catch (error) {
     logger.error('Error in deleteMessagesByTopicId:', error)
+    throw error
+  }
+}
+
+export async function deleteMessageById(messageId: string): Promise<void> {
+  try {
+    await deleteBlocksByMessageId(messageId)
+    await _deleteMessageById(messageId)
+  } catch (error) {
+    logger.error('Error in deleteMessageById:', error)
     throw error
   }
 }
