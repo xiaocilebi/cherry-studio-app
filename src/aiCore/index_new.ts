@@ -11,7 +11,6 @@ import { createExecutor, generateImage, StreamTextParams } from '@cherrystudio/a
 import { fetch as expoFetch } from 'expo/fetch'
 
 import { isNotSupportedImageSizeModel } from '@/config/models/image'
-import { loggerService } from '@/services/LoggerService'
 import { Model, Provider } from '@/types/assistant'
 import { ChunkType } from '@/types/chunk'
 import { GenerateImageParams } from '@/types/image'
@@ -23,7 +22,7 @@ import { AiSdkMiddlewareConfig, buildAiSdkMiddlewares } from './middleware/AiSdk
 import { buildPlugins } from './plugins/PluginBuilder'
 import { getActualProvider, isModernSdkSupported, providerToAiSdkConfig } from './provider/ProviderConfigProcessor'
 
-const logger = loggerService.withContext('ToolCallChunkHandler')
+// const logger = loggerService.withContext('ToolCallChunkHandler')
 
 export default class ModernAiProvider {
   private legacyProvider: LegacyAiProvider

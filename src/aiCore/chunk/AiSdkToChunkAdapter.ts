@@ -5,7 +5,6 @@
 
 import { TextStreamPart, ToolSet } from '@cherrystudio/ai-core'
 
-import { loggerService } from '@/services/LoggerService'
 import { Chunk, ChunkType } from '@/types/chunk'
 import { BaseTool } from '@/types/tool'
 import { WebSearchResults, WebSearchSource } from '@/types/websearch'
@@ -13,7 +12,7 @@ import { WebSearchResults, WebSearchSource } from '@/types/websearch'
 import { ToolCallChunkHandler } from './handleTooCallChunk'
 
 // import { ToolCallChunkHandler } from './chunk/handleTooCallChunk'
-const logger = loggerService.withContext('AiSdkToChunkAdapter')
+// const logger = loggerService.withContext('AiSdkToChunkAdapter')
 
 export interface CherryStudioChunk {
   type: 'text-delta' | 'text-complete' | 'tool-call' | 'tool-result' | 'finish' | 'error'

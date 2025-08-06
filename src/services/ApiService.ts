@@ -89,6 +89,7 @@ export async function fetchModels(provider: Provider): Promise<SdkModel[]> {
   try {
     return await AI.models()
   } catch (error) {
+    logger.error('fetchChatCompletion', error as Error)
     return []
   }
 }
