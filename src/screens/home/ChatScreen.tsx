@@ -48,7 +48,6 @@ const ChatScreen = () => {
             {showAssistantCard && <AssistantCard topic={topic} />}
 
             {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
-            {/*这里暂时使用底部弹窗的方式实现，后续可以考虑换成长按消息显示右键菜单的方式*/}
             <MessageInput topic={topic} />
           </YStack>
         </TouchableWithoutFeedback>
