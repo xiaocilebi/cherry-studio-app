@@ -1,15 +1,15 @@
+import { loggerService } from '@/services/LoggerService'
 import { Provider } from '@/types/assistant'
 
 import { AihubmixAPIClient } from './AihubmixAPIClient'
 import { AnthropicAPIClient } from './anthropic/AnthropicAPIClient'
 import { BaseApiClient } from './BaseApiClient'
 import { GeminiAPIClient } from './gemini/GeminiAPIClient'
+import { NewAPIClient } from './NewAPIClient'
 import { OpenAIAPIClient } from './openai/OpenAIApiClient'
 import { OpenAIResponseAPIClient } from './openai/OpenAIResponseAPIClient'
 
-import { loggerService } from '@/services/LoggerService'
-
-const logger = loggerService.withContext('ApiClientFactory')
+const infoger = loggerService.withContext('ApiClientFactory')
 
 /**
  * Factory for creating ApiClient instances based on provider configuration
@@ -21,7 +21,7 @@ export class ApiClientFactory {
    * 为给定的提供者创建ApiClient实例
    */
   static create(provider: Provider): BaseApiClient {
-    logger.info(`Creating ApiClient for provider:`, {
+    infoger.info(`[ApiClientFactory] Creating ApiClient for provider:`, {
       id: provider.id,
       type: provider.type
     })
@@ -30,18 +30,23 @@ export class ApiClientFactory {
 
     // 首先检查特殊的provider id
     if (provider.id === 'aihubmix') {
-      logger.info(`Creating AihubmixAPIClient for provider: ${provider.id}`)
+      infoger.info(`[ApiClientFactory] Creating AihubmixAPIClient for provider: ${provider.id}`)
       instance = new AihubmixAPIClient(provider) as BaseApiClient
+      return instance
+    }
+
+    if (provider.id === 'new-api') {
+      infoger.info(`[ApiClientFactory] Creating NewAPIClient for provider: ${provider.id}`)
+      instance = new NewAPIClient(provider) as BaseApiClient
       return instance
     }
 
     // 然后检查标准的provider type
     switch (provider.type) {
       case 'openai':
-      case 'azure-openai':
-        logger.info(`Creating OpenAIApiClient for provider: ${provider.id}`)
         instance = new OpenAIAPIClient(provider) as BaseApiClient
         break
+      case 'azure-openai':
       case 'openai-response':
         instance = new OpenAIResponseAPIClient(provider) as BaseApiClient
         break
@@ -52,7 +57,7 @@ export class ApiClientFactory {
         instance = new AnthropicAPIClient(provider) as BaseApiClient
         break
       default:
-        logger.info(`Using default OpenAIApiClient for provider: ${provider.id}`)
+        infoger.info(`[ApiClientFactory] Using default OpenAIApiClient for provider: ${provider.id}`)
         instance = new OpenAIAPIClient(provider) as BaseApiClient
         break
     }

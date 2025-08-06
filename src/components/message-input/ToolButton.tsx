@@ -4,18 +4,21 @@ import React, { useRef } from 'react'
 import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
+import { Assistant } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { haptic } from '@/utils/haptic'
 
 import { AssetsIcon } from '../icons/AssetsIcon'
-import FileSheet from '../sheets/FileSheet'
+import ToolSheet from '../sheets/ToolSheet'
 
 interface AddAssetsButtonProps {
   files: FileType[]
   setFiles: (files: FileType[]) => void
+  assistant: Assistant
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export const AddAssetsButton: React.FC<AddAssetsButtonProps> = ({ files, setFiles }) => {
+export const ToolButton: React.FC<AddAssetsButtonProps> = ({ files, setFiles, assistant, updateAssistant }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePress = () => {
@@ -28,7 +31,13 @@ export const AddAssetsButton: React.FC<AddAssetsButtonProps> = ({ files, setFile
     <>
       <Button circular chromeless size={20} icon={<AssetsIcon size={20} />} onPress={handlePress} />
 
-      <FileSheet ref={bottomSheetModalRef} files={files} setFiles={setFiles} />
+      <ToolSheet
+        ref={bottomSheetModalRef}
+        files={files}
+        setFiles={setFiles}
+        assistant={assistant}
+        updateAssistant={updateAssistant}
+      />
     </>
   )
 }

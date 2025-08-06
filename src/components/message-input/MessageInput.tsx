@@ -16,16 +16,15 @@ import { Model, Topic } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 import { haptic } from '@/utils/haptic'
 
-import { AddAssetsButton } from './AddAssetsButton'
 import FilePreview from './FilePreview'
 import { MentionButton } from './MentionButton'
 import { SendButton } from './SendButton'
 import { ThinkButton } from './ThinkButton'
+import { ToolButton } from './ToolButton'
+import ToolPreview from './ToolPreview'
 import { VoiceButton } from './VoiceButton'
-import { WebsearchButton } from './WebsearchButton'
 const logger = loggerService.withContext('Message Input')
 
 interface MessageInputProps {
@@ -105,20 +104,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
               />
             </XStack>
             {/* button */}
-            <XStack justifyContent="space-between" alignItems="center">
+            <XStack justifyContent="space-between" alignItems="center" minHeight={30}>
               <XStack gap={10} alignItems="center">
-                <AddAssetsButton files={files} setFiles={setFiles} />
-                <XStack
-                  gap={14}
-                  paddingHorizontal={showBackgroundColor ? 12 : 0}
-                  paddingVertical={10}
-                  backgroundColor={showBackgroundColor ? getGreenColor(isDark, 20) : undefined}
-                  borderRadius={48}>
-                  {(assistant.webSearchProviderId || assistant.enableWebSearch) && (
-                    <WebsearchButton assistant={assistant} updateAssistant={updateAssistant} />
-                  )}
-                  {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
-                </XStack>
+                <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
+                {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
+                <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
               </XStack>
               <XStack gap={10} alignItems="center">
                 <MentionButton mentions={mentions} setMentions={setMentions} />

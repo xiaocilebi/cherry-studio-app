@@ -5,10 +5,11 @@
 //  */
 
 import { ToolCallUnion, ToolResultUnion, ToolSet } from '@cherrystudio/ai-core'
+import { ProviderMetadata } from 'ai'
 
 import { loggerService } from '@/services/LoggerService'
 import { Chunk, ChunkType } from '@/types/chunk'
-import { MCPToolResponse } from '@/types/mcp'
+import { MCPToolResponse, ToolCallResponse } from '@/types/mcp'
 import { BaseTool } from '@/types/tool'
 
 // import { Chunk, ChunkType } from '@/types/chunk'
@@ -42,7 +43,27 @@ export class ToolCallChunkHandler {
   //     this.onChunk = callback
   //   }
 
-  handleToolCallCreated(chunk: { type: 'tool-input-start' | 'tool-input-delta' | 'tool-input-end' }): void {
+  handleToolCallCreated(
+    chunk:
+      | {
+          type: 'tool-input-start'
+          id: string
+          toolName: string
+          providerMetadata?: ProviderMetadata
+          providerExecuted?: boolean
+        }
+      | {
+          type: 'tool-input-end'
+          id: string
+          providerMetadata?: ProviderMetadata
+        }
+      | {
+          type: 'tool-input-delta'
+          id: string
+          delta: string
+          providerMetadata?: ProviderMetadata
+        }
+  ): void {
     switch (chunk.type) {
       case 'tool-input-start': {
         // 能拿到说明是mcpTool
@@ -91,7 +112,7 @@ export class ToolCallChunkHandler {
           status: 'pending',
           toolCallId: toolCall.toolCallId
         }
-        logger.debug('toolResponse', toolResponse)
+        console.log('toolResponse', toolResponse)
         this.onChunk({
           type: ChunkType.MCP_TOOL_PENDING,
           responses: [toolResponse]
@@ -219,10 +240,7 @@ export class ToolCallChunkHandler {
       tool: toolCallInfo.tool,
       arguments: input,
       status: 'done',
-      response: {
-        data: output,
-        success: true
-      },
+      response: output,
       toolCallId: toolCallId
     }
     // 从活跃调用中移除（交互结束后整个实例会被丢弃）

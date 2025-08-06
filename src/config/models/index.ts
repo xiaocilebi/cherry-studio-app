@@ -145,3 +145,11 @@ export function isOpenRouterBuiltInWebSearchModel(model: Model): boolean {
 export function isOpenAIWebSearchChatCompletionOnlyModel(model: Model): boolean {
   return model.id.includes('gpt-4o-search-preview') || model.id.includes('gpt-4o-mini-search-preview')
 }
+
+export function isOpenAIModel(model: Model): boolean {
+  if (!model) {
+    return false
+  }
+
+  return model.id.includes('gpt') || isOpenAIReasoningModel(model)
+}

@@ -5,17 +5,17 @@ import { isEmpty, takeRight } from 'lodash'
 import LegacyAiProvider from '@/aiCore'
 import AiProvider from '@/aiCore'
 import ModernAiProvider from '@/aiCore/index_new'
-import { AiSdkMiddlewareConfig } from '@/aiCore/middleware/aisdk/AiSdkMiddlewareBuilder'
-import { CompletionsParams } from '@/aiCore/middleware/schemas'
+import { CompletionsParams } from '@/aiCore/legacy/middleware/schemas'
+import { AiSdkMiddlewareConfig } from '@/aiCore/middleware/AiSdkMiddlewareBuilder'
 import { buildStreamTextParams, convertMessagesToSdkMessages } from '@/aiCore/transformParameters'
 import { isEmbeddingModel } from '@/config/models/embedding'
+import { isDedicatedImageGenerationModel } from '@/config/models/image'
 import i18n from '@/i18n'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant, Model, Provider } from '@/types/assistant'
 import { Chunk } from '@/types/chunk'
 import { Message } from '@/types/message'
 import { SdkModel } from '@/types/sdk'
-import { isEnabledToolUse } from '@/utils/mcpTool'
 import { filterMainTextMessages } from '@/utils/messageUtils/filters'
 
 import { createBlankAssistant, getAssistantById, getAssistantProvider, getDefaultModel } from './AssistantService'
@@ -57,7 +57,6 @@ export async function fetchChatCompletion({
     capabilities
   } = await buildStreamTextParams(messages, assistant, provider, {
     // mcpTools: mcpTools,
-    enableTools: isEnabledToolUse(assistant),
     webSearchProviderId: assistant.webSearchProviderId,
     requestOptions: options
   })
@@ -70,9 +69,13 @@ export async function fetchChatCompletion({
     model: assistant.model,
     provider: provider,
     enableReasoning: capabilities.enableReasoning,
-    // enableTool: assistant.settings?.toolUseMode === 'prompt',
-    enableWebSearch: capabilities.enableWebSearch
-    // mcpTools
+    isPromptToolUse: false,
+    isSupportedToolUse: false,
+    isImageGenerationEndpoint: isDedicatedImageGenerationModel(assistant.model || getDefaultModel()),
+    enableWebSearch: capabilities.enableWebSearch,
+    enableGenerateImage: capabilities.enableGenerateImage,
+    mcpTools: [],
+    assistant
   }
 
   // --- Call AI Completions ---
@@ -133,14 +136,25 @@ export async function fetchTranslate({
   const llmMessages = await convertMessagesToSdkMessages([message], translateAssistant.model)
 
   const AI = new ModernAiProvider(translateAssistant.model || getDefaultModel(), provider)
-  const { params: aiSdkParams, modelId } = await buildStreamTextParams(llmMessages, translateAssistant, provider)
+  const {
+    params: aiSdkParams,
+    modelId,
+    capabilities
+  } = await buildStreamTextParams(llmMessages, translateAssistant, provider)
 
   const middlewareConfig: AiSdkMiddlewareConfig = {
     streamOutput: translateAssistant.settings?.streamOutput ?? true,
     onChunk: streamProcessorCallbacks,
     model: translateAssistant.model,
     provider: provider,
-    enableReasoning: translateAssistant.settings?.reasoning_effort !== undefined
+    enableReasoning: capabilities.enableReasoning,
+    isPromptToolUse: false,
+    isSupportedToolUse: false,
+    isImageGenerationEndpoint: isDedicatedImageGenerationModel(translateAssistant.model || getDefaultModel()),
+    enableWebSearch: capabilities.enableWebSearch,
+    enableGenerateImage: capabilities.enableGenerateImage,
+    mcpTools: [],
+    assistant: translateAssistant
   }
 
   try {
@@ -262,14 +276,25 @@ export async function fetchTopicNaming(topicId: string) {
   const llmMessages = await convertMessagesToSdkMessages(mainTextMessages, topicNamingAssistant.model)
 
   const AI = new ModernAiProvider(topicNamingAssistant.model || getDefaultModel(), provider)
-  const { params: aiSdkParams, modelId } = await buildStreamTextParams(llmMessages, topicNamingAssistant, provider)
+  const {
+    params: aiSdkParams,
+    modelId,
+    capabilities
+  } = await buildStreamTextParams(llmMessages, topicNamingAssistant, provider)
 
   const middlewareConfig: AiSdkMiddlewareConfig = {
     streamOutput: topicNamingAssistant.settings?.streamOutput ?? true,
     onChunk: streamProcessorCallbacks,
     model: topicNamingAssistant.model,
     provider: provider,
-    enableReasoning: topicNamingAssistant.settings?.reasoning_effort !== undefined
+    enableReasoning: capabilities.enableReasoning,
+    isPromptToolUse: false,
+    isSupportedToolUse: false,
+    isImageGenerationEndpoint: isDedicatedImageGenerationModel(topicNamingAssistant.model || getDefaultModel()),
+    enableWebSearch: capabilities.enableWebSearch,
+    enableGenerateImage: capabilities.enableGenerateImage,
+    mcpTools: [],
+    assistant: topicNamingAssistant
   }
 
   try {

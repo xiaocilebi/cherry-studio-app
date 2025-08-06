@@ -80,3 +80,13 @@ export const TEXT_TO_IMAGES_MODELS_SUPPORT_IMAGE_ENHANCEMENT = [
 export const isGenerateImageModels = (models: Model[]) => {
   return models.every(model => isGenerateImageModel(model))
 }
+
+export function isNotSupportedImageSizeModel(model?: Model): boolean {
+  if (!model) {
+    return false
+  }
+
+  const baseName = getLowerBaseModelName(model.id, '/')
+
+  return baseName.includes('grok-2-image')
+}

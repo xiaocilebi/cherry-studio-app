@@ -95,6 +95,7 @@
       "enabled": "已启用",
       "error_occurred": "发生错误",
       "file": "文件",
+      "generateImage": "创建图片",
       "language": "语言",
       "last_month": "上月",
       "last_week": "上周",
@@ -116,6 +117,7 @@
       "today": "今天",
       "tool": "工具",
       "visit": "访问",
+      "websearch": "网络搜索",
       "yesterday": "昨天"
     },
     "errors": {

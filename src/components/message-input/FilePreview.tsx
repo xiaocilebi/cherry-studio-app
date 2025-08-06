@@ -3,7 +3,7 @@ import { ScrollView } from 'tamagui'
 
 import { FileType } from '@/types/file'
 
-import PreviewItem from './PreviewItem'
+import PreviewItem from './preview-items/PreviewItem'
 
 interface FilePreviewProps {
   files: FileType[]

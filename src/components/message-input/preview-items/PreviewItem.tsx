@@ -4,8 +4,8 @@ import { View } from 'tamagui'
 
 import { FileType, FileTypes } from '@/types/file'
 
-import FileItem from './preview-items/FileItem'
-import ImageItem from './preview-items/ImageItem'
+import FileItem from './FileItem'
+import ImageItem from './ImageItem'
 
 interface PreviewItemProps {
   file: FileType

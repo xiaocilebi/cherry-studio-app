@@ -4,10 +4,10 @@ import {
   simulateStreamingMiddleware
 } from '@cherrystudio/ai-core'
 
-import { Model, Provider } from '@/types/assistant'
+import { loggerService } from '@/services/LoggerService'
+import { Assistant, Model, Provider } from '@/types/assistant'
 import { Chunk } from '@/types/chunk'
 import { BaseTool } from '@/types/tool'
-import { loggerService } from '@/services/LoggerService'
 
 const logger = loggerService.withContext('AiSdkMiddlewareBuilder')
 
@@ -15,15 +15,22 @@ const logger = loggerService.withContext('AiSdkMiddlewareBuilder')
  * AI SDK 中间件配置项
  */
 export interface AiSdkMiddlewareConfig {
-  streamOutput?: boolean
+  streamOutput: boolean
   onChunk?: (chunk: Chunk) => void
   model?: Model
   provider?: Provider
-  enableReasoning?: boolean
+  enableReasoning: boolean
   // 是否开启提示词工具调用
-  enableTool?: boolean
-  enableWebSearch?: boolean
+  isPromptToolUse: boolean
+  // 是否支持工具调用
+  isSupportedToolUse: boolean
+  // image generation endpoint
+  isImageGenerationEndpoint: boolean
+  enableWebSearch: boolean
+  enableGenerateImage: boolean
   mcpTools?: BaseTool[]
+  // TODO assistant
+  assistant: Assistant
 }
 
 /**
@@ -134,7 +141,7 @@ export function buildAiSdkMiddlewares(config: AiSdkMiddlewareConfig): LanguageMo
     })
   }
 
-  logger.info('builder.build()', builder.buildNamed())
+  console.log('builder.build()', builder.buildNamed())
   return builder.build()
 }
 

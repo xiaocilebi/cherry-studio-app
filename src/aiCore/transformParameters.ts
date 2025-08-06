@@ -11,12 +11,12 @@ import {
   stepCountIs,
   type StreamTextParams,
   TextPart,
-  Tool,
   UserModelMessage
 } from '@cherrystudio/ai-core'
 import { aiSdk } from '@cherrystudio/ai-core'
 // import { jsonSchemaToZod } from 'json-schema-to-zod'
 import { File } from 'expo-file-system/next'
+import { isEmpty } from 'lodash'
 
 import {
   isNotSupportTemperatureAndTopP,
@@ -32,7 +32,7 @@ import {
 import { isVisionModel } from '@/config/models/vision'
 import { isWebSearchModel } from '@/config/models/webSearch'
 import { DEFAULT_MAX_TOKENS, defaultTimeout } from '@/constants'
-import { getAssistantSettings, getDefaultModel } from '@/services/AssistantService'
+import { getAssistantSettings, getDefaultModel, getProviderByModel } from '@/services/AssistantService'
 import { Assistant, Model, Provider } from '@/types/assistant'
 import { ExtractResults } from '@/types/extract'
 import { FileTypes } from '@/types/file'
@@ -41,7 +41,8 @@ import { MCPTool } from '@/types/tool'
 import { findFileBlocks, findImageBlocks, findThinkingBlocks, getMainTextContent } from '@/utils/messageUtils/find'
 import { buildSystemPrompt } from '@/utils/prompt'
 
-import { webSearchTool } from './tools/WebSearchTool'
+import AiProvider from '.'
+import { CompletionsParams } from './legacy/middleware/schemas'
 import { buildProviderOptions } from './utils/options'
 
 const { tool } = aiSdk
@@ -287,8 +288,6 @@ export async function buildStreamTextParams(
   provider: Provider,
   options: {
     mcpTools?: MCPTool[]
-    enableTools?: boolean
-    enableWebSearch?: boolean
     webSearchProviderId?: string
     requestOptions?: {
       signal?: AbortSignal
@@ -299,9 +298,9 @@ export async function buildStreamTextParams(
 ): Promise<{
   params: StreamTextParams
   modelId: string
-  capabilities: { enableReasoning?: boolean; enableWebSearch?: boolean; enableGenerateImage?: boolean }
+  capabilities: { enableReasoning: boolean; enableWebSearch: boolean; enableGenerateImage: boolean }
 }> {
-  const { mcpTools, enableTools, webSearchProviderId } = options
+  const { mcpTools } = options
 
   const model = assistant.model || getDefaultModel()
 
@@ -323,17 +322,11 @@ export async function buildStreamTextParams(
     isGenerateImageModel(model) &&
     (isSupportedDisableGenerationModel(model) ? assistant.enableGenerateImage || false : true)
 
-  // 构建系统提示
-  // const { tools } = setupToolsConfig({
-  //   mcpTools,
-  //   model,
-  //   enableToolUse: enableTools
-  // })
-  const tools: Record<string, Tool> = {}
+  // const tools = setupToolsConfig(mcpTools)
 
-  if (webSearchProviderId) {
-    tools['builtin_web_search'] = webSearchTool(webSearchProviderId)
-  }
+  // if (webSearchProviderId) {
+  //   tools['builtin_web_search'] = webSearchTool(webSearchProviderId)
+  // }
 
   // 构建真正的 providerOptions
   const providerOptions = buildProviderOptions(assistant, model, provider, {
@@ -351,7 +344,7 @@ export async function buildStreamTextParams(
     abortSignal: options.requestOptions?.signal,
     headers: options.requestOptions?.headers,
     providerOptions,
-    tools,
+    // tools,
     stopWhen: stepCountIs(10)
   }
 
@@ -376,4 +369,33 @@ export async function buildGenerateTextParams(
 ): Promise<any> {
   // 复用流式参数的构建逻辑
   return await buildStreamTextParams(messages, assistant, provider, options)
+}
+
+/**
+ * 获取搜索摘要 - 内部辅助函数
+ */
+async function fetchSearchSummary({ messages, assistant }: { messages: Message[]; assistant: Assistant }) {
+  const model = assistant.model || getDefaultModel()
+  const provider = getProviderByModel(model)
+
+  if (!hasApiKey(provider)) {
+    return null
+  }
+
+  const AI = new AiProvider(provider)
+
+  const params: CompletionsParams = {
+    callType: 'search',
+    messages: messages,
+    assistant,
+    streamOutput: false
+  }
+
+  return await AI.completions(params)
+}
+
+function hasApiKey(provider: Provider) {
+  if (!provider) return false
+  if (provider.id === 'ollama' || provider.id === 'lmstudio' || provider.type === 'vertexai') return true
+  return !isEmpty(provider.apiKey)
 }
