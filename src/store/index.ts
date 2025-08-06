@@ -8,11 +8,20 @@ import websearch from '@/store/websearch'
 
 import app from './app'
 import assistant from './assistant'
+import newMessagesReducer from './newMessage'
 import runtime from './runtime'
 import settings from './settings'
 import topic from './topic'
 
-const rootReducer = combineReducers({ app, runtime, assistant, websearch, settings, topic })
+const rootReducer = combineReducers({
+  app,
+  runtime,
+  assistant,
+  websearch,
+  settings,
+  topic,
+  messages: newMessagesReducer
+})
 
 const persistedReducer = persistReducer(
   {

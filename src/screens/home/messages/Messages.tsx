@@ -30,11 +30,13 @@ const Messages: FC<MessagesProps> = ({ assistant, topic, onScroll, onScrollToBot
 
   const scrollToBottom = () => {
     if (flashListRef.current && groupedMessages.length > 0) {
-      flashListRef.current?.scrollToIndex({
-        index: groupedMessages.length - 1,
-        animated: true,
-        viewPosition: 1
-      })
+      setTimeout(() => {
+        flashListRef.current?.scrollToIndex({
+          index: groupedMessages.length - 1,
+          animated: true,
+          viewPosition: 1
+        })
+      }, 0)
     }
   }
 
