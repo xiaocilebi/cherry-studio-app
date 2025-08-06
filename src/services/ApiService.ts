@@ -111,7 +111,7 @@ export async function fetchTranslate({
     cancelThrottledBlockUpdate
   })
 
-  callbacks = createCallbacks({
+  callbacks = await createCallbacks({
     blockManager,
     topicId: message.topicId,
     assistantMsgId: assistantMessageId,

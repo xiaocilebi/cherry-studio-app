@@ -427,7 +427,7 @@ export async function fetchAndProcessAssistantResponseImpl(
       messagesForContext = contextSlice.filter(m => m && !m.status?.includes('ing'))
     }
 
-    callbacks = createCallbacks({
+    callbacks = await createCallbacks({
       blockManager,
       topicId,
       assistantMsgId,

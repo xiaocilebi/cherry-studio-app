@@ -15,11 +15,11 @@ interface CallbacksDependencies {
   assistant: Assistant
 }
 
-export const createCallbacks = (deps: CallbacksDependencies) => {
+export const createCallbacks = async (deps: CallbacksDependencies) => {
   const { blockManager, topicId, assistantMsgId, saveUpdatesToDB, assistant } = deps
 
   // 创建基础回调
-  const baseCallbacks = createBaseCallbacks({
+  const baseCallbacks = await createBaseCallbacks({
     blockManager,
     topicId,
     assistantMsgId,

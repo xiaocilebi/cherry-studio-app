@@ -4,7 +4,7 @@ import { ScrollView, Tabs, Text, View, XStack } from 'tamagui'
 
 import { MultiModalIcon } from '@/components/icons/MultiModelIcon'
 import { Assistant } from '@/types/assistant'
-import { GroupedMessage } from '@/types/message'
+import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 import { useIsDark } from '@/utils'
 import { getGreenColor, getTextPrimaryColor } from '@/utils/color'
 
@@ -75,7 +75,9 @@ const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages }) => {
                 type: 'timing'
               }}>
               <MessageItem message={message} />
-              <MessageFooter assistant={assistant} message={message} />
+              {message.status === AssistantMessageStatus.SUCCESS && (
+                <MessageFooter assistant={assistant} message={message} />
+              )}
             </MotiView>
           </Tabs.Content>
         ))}
