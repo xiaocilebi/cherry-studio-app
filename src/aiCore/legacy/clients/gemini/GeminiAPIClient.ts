@@ -124,7 +124,7 @@ export class GeminiAPIClient extends BaseApiClient<
           const dataPrefix = `data:${image.image?.mimeType || 'image/png'};base64,`
           return dataPrefix + image.image?.imageBytes
         })
-      //  console.log(response?.generatedImages?.[0]?.image?.imageBytes);
+      // console.log('generateImage', response?.generatedImages?.[0]?.image?.imageBytes)
       return images
     } catch (error) {
       console.error('[generateImage] error:', error)

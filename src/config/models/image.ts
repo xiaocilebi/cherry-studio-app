@@ -31,10 +31,10 @@ export const GENERATE_IMAGE_MODELS = [
 ]
 
 // For middleware to identify models that must use the dedicated Image API
-export const DEDICATED_IMAGE_MODELS = ['grok-2-image', 'dall-e-3', 'dall-e-2', 'gpt-image-1']
+export const DEDICATED_IMAGE_MODELS = ['grok-2-image', 'dall-e-3', 'dall-e-2', 'gpt-image-1', 'imagen(?:-[\\w-]+)?']
+const DEDICATED_IMAGE_MODELS_REGEX = new RegExp(DEDICATED_IMAGE_MODELS.join('|'), 'i')
 
-export const isDedicatedImageGenerationModel = (model: Model): boolean =>
-  DEDICATED_IMAGE_MODELS.filter(m => model.id.includes(m)).length > 0
+export const isDedicatedImageGenerationModel = (model: Model): boolean => DEDICATED_IMAGE_MODELS_REGEX.test(model.id)
 
 export function isGenerateImageModel(model: Model): boolean {
   if (!model) {

@@ -13,7 +13,7 @@ import { isDedicatedImageGenerationModel } from '@/config/models/image'
 import i18n from '@/i18n'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant, Model, Provider } from '@/types/assistant'
-import { Chunk } from '@/types/chunk'
+import { Chunk, ChunkType } from '@/types/chunk'
 import { Message } from '@/types/message'
 import { SdkModel } from '@/types/sdk'
 import { filterMainTextMessages } from '@/utils/messageUtils/filters'
@@ -79,7 +79,7 @@ export async function fetchChatCompletion({
   }
 
   // --- Call AI Completions ---
-  // onChunkReceived({ type: ChunkType.LLM_RESPONSE_CREATED })
+  onChunkReceived({ type: ChunkType.LLM_RESPONSE_CREATED })
   await AI.completions(modelId, aiSdkParams, middlewareConfig)
 }
 
