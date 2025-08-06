@@ -97,75 +97,8 @@ export async function fetchTranslate({
   assistantMessageId: string
   message: Message
 }) {
-  const accumulatedContent = ''
-  const initialPlaceholderBlockId: string | null = null
-  const translationBlockId: string | null = null
   let callbacks: StreamProcessorCallbacks = {}
-  // callbacks = {
-  //   onLLMResponseCreated: async () => {
-  //     logger.info(`[onLLMResponseCreated] Created initial placeholder block with ID`)
 
-  //     const baseBlock = createBaseMessageBlock(assistantMessageId, MessageBlockType.UNKNOWN, {
-  //       status: MessageBlockStatus.PROCESSING
-  //     })
-  //     initialPlaceholderBlockId = baseBlock.id
-  //     await upsertBlocks(baseBlock)
-
-  //     const toBeUpdatedMessage = await getMessageById(baseBlock.messageId)
-
-  //     if (!toBeUpdatedMessage) {
-  //       logger.error(`[onLLMResponseCreated] Message ${baseBlock.messageId} not found.`)
-  //       return
-  //     }
-
-  //     toBeUpdatedMessage.status = AssistantMessageStatus.PROCESSING
-  //     await upsertMessages(toBeUpdatedMessage)
-  //   },
-  //   onTextChunk: async text => {
-  //     accumulatedContent += text
-
-  //     if (translationBlockId) {
-  //       const blockChanges: Partial<MessageBlock> = {
-  //         content: accumulatedContent,
-  //         status: MessageBlockStatus.STREAMING
-  //       }
-  //       await updateOneBlock({ id: translationBlockId, changes: blockChanges })
-  //     } else if (initialPlaceholderBlockId) {
-  //       // 将占位块转换为翻译块
-  //       const initialChanges: Partial<MessageBlock> = {
-  //         type: MessageBlockType.TRANSLATION,
-  //         content: accumulatedContent,
-  //         status: MessageBlockStatus.STREAMING
-  //       }
-  //       translationBlockId = initialPlaceholderBlockId
-  //       initialPlaceholderBlockId = null // 清理占位块ID
-  //       await updateOneBlock({ id: translationBlockId, changes: initialChanges })
-  //     } else {
-  //       // Fallback in case onLLMResponseCreated was not triggered
-  //       const newBlock = createTranslationBlock(assistantMessageId, accumulatedContent, {
-  //         status: MessageBlockStatus.STREAMING
-  //       })
-  //       translationBlockId = newBlock.id
-  //       await upsertBlocks(newBlock)
-  //     }
-  //   },
-  //   onTextComplete: async finalText => {
-  //     if (translationBlockId) {
-  //       const changes = {
-  //         content: finalText,
-  //         status: MessageBlockStatus.SUCCESS
-  //       }
-  //       await updateOneBlock({ id: translationBlockId, changes })
-  //       translationBlockId = null
-  //     } else {
-  //       logger.warn(
-  //         `[onTextComplete] Received text.complete but last block was not TRANSLATION  or lastBlockId  is null.`
-  //       )
-  //     }
-  //   }
-  // }
-  //
-  //
   const translateAssistant = await getAssistantById('translate')
 
   // 创建 BlockManager 实例
@@ -178,7 +111,7 @@ export async function fetchTranslate({
     cancelThrottledBlockUpdate
   })
 
-  callbacks = createCallbacks({
+  callbacks = await createCallbacks({
     blockManager,
     topicId: message.topicId,
     assistantMsgId: assistantMessageId,

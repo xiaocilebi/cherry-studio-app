@@ -1,6 +1,5 @@
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { ActivityIndicator, Keyboard, Platform, TouchableWithoutFeedback } from 'react-native'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { YStack } from 'tamagui'
@@ -10,9 +9,7 @@ import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useTopic } from '@/hooks/useTopic'
-import MessageFooterMore from '@/screens/home/messages/MessageFooterMore'
 import { loggerService } from '@/services/LoggerService'
-import { Message } from '@/types/message'
 import { RootStackParamList } from '@/types/naviagate'
 
 import ChatContent from './ChatContent'
@@ -26,13 +23,6 @@ const ChatScreen = () => {
   const { topicId } = route.params
   const { topic, isLoading } = useTopic(topicId)
   const [showAssistantCard, setShowAssistantCard] = useState(false)
-  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-
-  const handleMessageAction = (message: Message) => {
-    setSelectedMessage(message)
-    bottomSheetModalRef.current?.present()
-  }
 
   if (!topic || isLoading) {
     return (
@@ -57,13 +47,7 @@ const ChatScreen = () => {
 
             {showAssistantCard && <AssistantCard topic={topic} />}
 
-            {hasMessages ? (
-              <ChatContent key={topic.id} topic={topic} onMessageAction={handleMessageAction} />
-            ) : (
-              <WelcomeContent key={topic.id} />
-            )}
-            {/*这里暂时使用底部弹窗的方式实现，后续可以考虑换成长按消息显示右键菜单的方式*/}
-            {selectedMessage && <MessageFooterMore ref={bottomSheetModalRef} message={selectedMessage} />}
+            {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
             <MessageInput topic={topic} />
           </YStack>
         </TouchableWithoutFeedback>

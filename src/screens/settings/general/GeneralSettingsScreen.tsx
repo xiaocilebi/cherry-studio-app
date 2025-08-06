@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ChevronRight } from '@tamagui/lucide-icons'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, useTheme, XStack, YStack } from 'tamagui'
@@ -23,7 +23,7 @@ export default function GeneralSettingsScreen() {
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
 
-  const handleFocus = () => {
+  const handleFocus = useCallback(() => {
     const loadSettings = async () => {
       const storedLanguage = await AsyncStorage.getItem('language')
 
@@ -41,7 +41,7 @@ export default function GeneralSettingsScreen() {
     }
 
     loadSettings()
-  }
+  }, [i18n.language])
 
   useFocusEffect(handleFocus)
 

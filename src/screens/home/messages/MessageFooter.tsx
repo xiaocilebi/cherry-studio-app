@@ -1,6 +1,7 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button, View, XStack } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
@@ -10,15 +11,18 @@ import { Message } from '@/types/message'
 import { filterMessages } from '@/utils/messageUtils/filters'
 import { getMainTextContent } from '@/utils/messageUtils/find'
 
+import MessageFooterMoreSheet from './MessageFooterMoreSheet'
+
 const logger = loggerService.withContext('MessageFooter')
 
 interface MessageFooterProps {
   assistant: Assistant
   message: Message
-  onMessageAction: (message: Message) => void
 }
 
-const MessageFooter = ({ message, assistant, onMessageAction }: MessageFooterProps) => {
+const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+
   const onCopy = async () => {
     // todo: 暂时无法复制翻译后的message
     try {
@@ -51,8 +55,11 @@ const MessageFooter = ({ message, assistant, onMessageAction }: MessageFooterPro
           circular
           size={24}
           icon={<MoreHorizontal size={18} />}
-          onPress={() => onMessageAction(message)}></Button>
+          onPress={() => {
+            bottomSheetModalRef.current?.present()
+          }}></Button>
       </XStack>
+      <MessageFooterMoreSheet ref={bottomSheetModalRef} message={message} />
     </View>
   )
 }

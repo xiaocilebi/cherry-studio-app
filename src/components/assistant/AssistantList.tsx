@@ -1,5 +1,5 @@
 import { FlashList } from '@shopify/flash-list'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
@@ -26,7 +26,7 @@ const getAssistantLastUpdateTime = (assistant: Assistant): Date => {
 }
 
 export function AssistantList({ assistants }: AssistantListProps) {
-  const listData = (() => {
+  const listData = useMemo(() => {
     const activeAssistants = assistants.filter(assistant => assistant.topics && assistant.topics.length > 0)
 
     const groupedAssistants = groupItemsByDate(activeAssistants, getAssistantLastUpdateTime)
@@ -46,7 +46,7 @@ export function AssistantList({ assistants }: AssistantListProps) {
     })
 
     return data
-  })()
+  }, [assistants])
 
   const renderItem = ({ item }: { item: ListItem }) => {
     return <AssistantItem assistant={item.assistant} timeFormat={item.timeFormat} />

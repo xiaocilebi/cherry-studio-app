@@ -3,7 +3,7 @@ import React from 'react'
 import { View } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
-import { GroupedMessage } from '@/types/message'
+import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
@@ -13,10 +13,9 @@ import MultiModalTab from './MultiModalTab'
 interface MessageGroupProps {
   assistant: Assistant
   item: [string, GroupedMessage[]]
-  onMessageAction: (item: GroupedMessage) => void
 }
 
-const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, onMessageAction }) => {
+const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
   const [key, messagesInGroup] = item
 
   const renderUserMessage = () => {
@@ -29,13 +28,9 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, onMessageAction 
         <View gap={10}>
           <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
           <MessageItem message={messagesInGroup[0]} />
-          <MessageFooter
-            assistant={assistant}
-            message={messagesInGroup[0]}
-            onMessageAction={message => {
-              onMessageAction({ ...message, index: 0 })
-            }}
-          />
+          {messagesInGroup[0].status === AssistantMessageStatus.SUCCESS && (
+            <MessageFooter assistant={assistant} message={messagesInGroup[0]} />
+          )}
         </View>
       )
     }
@@ -43,13 +38,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item, onMessageAction 
     return (
       <View gap={10}>
         <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
-        <MultiModalTab
-          assistant={assistant}
-          messages={messagesInGroup}
-          onMessageAction={message => {
-            onMessageAction({ ...message, index: 0 })
-          }}
-        />
+        <MultiModalTab assistant={assistant} messages={messagesInGroup} />
       </View>
     )
   }

@@ -83,11 +83,11 @@ function DatabaseInitializer() {
     }
 
     handleMigrations()
-  })
+  }, [success, error, initialized, dispatch, loaded])
 
   useEffect(() => {
     SplashScreen.hideAsync()
-  })
+  }, [])
 
   return null
 }

@@ -1,6 +1,6 @@
 import { loggerService } from '@/services/LoggerService'
-const logger = loggerService.withContext('Abort Controller')
 
+const logger = loggerService.withContext('Abort Controller')
 export const abortMap = new Map<string, (() => void)[]>()
 
 export const addAbortController = (id: string, abortFn: () => void) => {
@@ -9,9 +9,16 @@ export const addAbortController = (id: string, abortFn: () => void) => {
 
 export const removeAbortController = (id: string, abortFn: () => void) => {
   const callbackArr = abortMap.get(id)
-  if (abortFn) {
-    callbackArr?.splice(callbackArr?.indexOf(abortFn), 1)
-  } else abortMap.delete(id)
+
+  if (abortFn && callbackArr) {
+    const index = callbackArr.indexOf(abortFn)
+
+    if (index !== -1) {
+      callbackArr.splice(index, 1)
+    }
+  } else {
+    abortMap.delete(id)
+  }
 }
 
 export const abortCompletion = (id: string) => {

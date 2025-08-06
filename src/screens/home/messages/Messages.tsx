@@ -1,11 +1,12 @@
 import { FlashList } from '@shopify/flash-list'
-import { FC } from 'react'
+import { MotiView } from 'moti'
+import { FC, useRef } from 'react'
 import React from 'react'
+import { NativeScrollEvent } from 'react-native'
 import { View, YStack } from 'tamagui'
 
 import { useMessages } from '@/hooks/useMessages'
 import { Assistant, Topic } from '@/types/assistant'
-import { Message } from '@/types/message'
 import { GroupedMessage } from '@/types/message'
 import { getGroupedMessages } from '@/utils/messageUtils/filters'
 
@@ -14,27 +15,59 @@ import MessageGroup from './MessageGroup'
 interface MessagesProps {
   assistant: Assistant
   topic: Topic
-  onMessageAction: (message: Message) => void
+  onScroll?: (event: NativeScrollEvent) => void
+  onScrollToBottom?: (scrollToBottom: () => void) => React.ReactNode
 }
 
-const Messages: FC<MessagesProps> = ({ assistant, topic, onMessageAction }) => {
+const Messages: FC<MessagesProps> = ({ assistant, topic, onScroll, onScrollToBottom }) => {
   const { messages } = useMessages(topic.id)
   const groupedMessages = Object.entries(getGroupedMessages(messages))
+  const flashListRef = useRef<FlashList<[string, GroupedMessage[]]>>(null)
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
-    return <MessageGroup assistant={assistant} item={item} onMessageAction={onMessageAction} />
+    return <MessageGroup assistant={assistant} item={item} />
+  }
+
+  const scrollToBottom = () => {
+    if (flashListRef.current && groupedMessages.length > 0) {
+      flashListRef.current?.scrollToIndex({
+        index: groupedMessages.length - 1,
+        animated: true,
+        viewPosition: 1
+      })
+    }
   }
 
   return (
     <View style={{ flex: 1, minHeight: 200 }}>
-      <FlashList
-        showsVerticalScrollIndicator={false}
-        data={groupedMessages}
-        renderItem={renderMessageGroup}
-        keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
-        estimatedItemSize={100} // 估算值可能需要根据内容调整
-        ItemSeparatorComponent={() => <YStack height={20} />}
-      />
+      <MotiView
+        style={{ flex: 1 }}
+        from={{ opacity: 0, translateY: 10 }}
+        animate={{
+          translateY: 0,
+          opacity: 1
+        }}
+        exit={{ opacity: 1, translateY: -10 }}
+        transition={{
+          type: 'timing'
+        }}>
+        <FlashList
+          ref={flashListRef}
+          showsVerticalScrollIndicator={false}
+          data={groupedMessages}
+          renderItem={renderMessageGroup}
+          keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
+          estimatedItemSize={100}
+          ItemSeparatorComponent={() => <YStack height={20} />}
+          onScroll={onScroll ? ({ nativeEvent }) => onScroll(nativeEvent) : undefined}
+          scrollEventThrottle={16}
+          maintainVisibleContentPosition={{
+            minIndexForVisible: 0,
+            autoscrollToTopThreshold: 100
+          }}
+        />
+      </MotiView>
+      {onScrollToBottom?.(scrollToBottom)}
     </View>
   )
 }

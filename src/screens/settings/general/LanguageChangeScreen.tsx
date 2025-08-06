@@ -26,7 +26,7 @@ export default function LanguageChangeScreen() {
     }
 
     fetchCurrentLanguage()
-  })
+  }, [])
 
   const changeLanguage = async (langCode: string) => {
     await AsyncStorage.setItem('language', langCode)

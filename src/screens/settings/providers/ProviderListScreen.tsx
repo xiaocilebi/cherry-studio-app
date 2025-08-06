@@ -40,14 +40,16 @@ export default function ProviderListScreen() {
   // 监听 searchText 变化，触发防抖更新
   useEffect(() => {
     debouncedSetSearch(searchText)
-    
+
     // 清理函数，组件卸载时取消防抖
     return () => {
       debouncedSetSearch.cancel()
     }
   })
 
-  const filteredProviders = providers.filter(p => p.name && p.name.toLowerCase().includes(debouncedSearchText.toLowerCase()))
+  const filteredProviders = providers.filter(
+    p => p.name && p.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
+  )
 
   const handleProviderTypeChange = (value: string) => {
     setSelectedProviderType(value)
@@ -91,11 +93,7 @@ export default function ProviderListScreen() {
         </SafeAreaContainer>
       ) : (
         <SettingContainer>
-          <SearchInput
-            placeholder={t('settings.provider.search')}
-            value={searchText}
-            onChangeText={setSearchText}
-          />
+          <SearchInput placeholder={t('settings.provider.search')} value={searchText} onChangeText={setSearchText} />
 
           <YStack flex={1} gap={8}>
             <Text>{t('settings.provider.title')}</Text>

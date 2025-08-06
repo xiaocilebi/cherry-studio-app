@@ -60,7 +60,7 @@ export const createBaseCallbacks = async (deps: BaseCallbacksDependencies) => {
         status: MessageBlockStatus.PROCESSING
       })
       await blockManager.handleBlockTransition(baseBlock as PlaceholderMessageBlock, MessageBlockType.UNKNOWN)
-      logger.debug('onLLMResponseCreated', baseBlock)
+      logger.info('onLLMResponseCreated', baseBlock)
     },
     // onBlockCreated: async () => {
     //   if (blockManager.hasInitialPlaceholder) {
