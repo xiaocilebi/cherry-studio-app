@@ -6,6 +6,7 @@ import { Assistant, Model, Topic, Usage } from '@/types/assistant'
 import { FileType, FileTypes } from '@/types/file'
 import { AssistantMessageStatus, Message, MessageBlock, MessageBlockStatus } from '@/types/message'
 import { uuid } from '@/utils'
+import { addAbortController } from '@/utils/abortController'
 import {
   createAssistantMessage,
   createFileBlock,
@@ -435,12 +436,16 @@ export async function fetchAndProcessAssistantResponseImpl(
     })
     const streamProcessorCallbacks = createStreamProcessor(callbacks)
 
+    const abortController = new AbortController()
+    addAbortController(userMessageId!, () => abortController.abort())
+
     const orchestrationService = new OrchestrationService()
     await orchestrationService.handleUserMessage(
       {
         messages: messagesForContext,
         assistant,
         options: {
+          signal: abortController.signal,
           timeout: 30000
         }
       },
