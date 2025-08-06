@@ -74,9 +74,9 @@ export default function SettingsScreen() {
   ]
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.title')} onBackPress={() => navigation.goBack()} />
-      <ScrollView flex={1} backgroundColor="$background">
+      <ScrollView flex={1} backgroundColor="$colorTransparent">
         <SettingContainer>
           <YStack gap={24} flex={1}>
             {settingsItems.map(group => (

@@ -30,7 +30,7 @@ export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
   const isDark = useIsDark()
-  
+
   // 搜索状态
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
@@ -44,7 +44,7 @@ export default function AssistantScreen() {
   const [showTags, setShowTags] = useState(false)
   const [showSorted, setShowSorted] = useState(false)
   const [showRecents, setShowRecents] = useState(false)
-  
+
   const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
@@ -52,16 +52,17 @@ export default function AssistantScreen() {
   // 监听 searchText 变化，触发防抖更新
   useEffect(() => {
     debouncedSetSearch(searchText)
-    
+
     // 清理函数，组件卸载时取消防抖
     return () => {
       debouncedSetSearch.cancel()
     }
   })
 
-  const filteredAssistants = assistantWithTopics.filter(assistant =>
-    assistant.name.toLowerCase().includes(debouncedSearchText.toLowerCase()) ||
-    assistant.description?.toLowerCase().includes(debouncedSearchText.toLowerCase())
+  const filteredAssistants = assistantWithTopics.filter(
+    assistant =>
+      assistant.name.toLowerCase().includes(debouncedSearchText.toLowerCase()) ||
+      assistant.description?.toLowerCase().includes(debouncedSearchText.toLowerCase())
   )
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
@@ -114,11 +115,7 @@ export default function AssistantScreen() {
         }}
       />
       <SettingContainer>
-        <SearchInput 
-          placeholder={t('common.search_placeholder')} 
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+        <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
         <XStack gap={14}>
           {/* 多选框 */}
           <Button

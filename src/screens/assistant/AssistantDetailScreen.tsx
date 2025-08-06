@@ -76,8 +76,10 @@ export default function AssistantDetailScreen() {
           {/* todo: change active tabs style */}
           <Tabs value={activeTab} onValueChange={setActiveTab} orientation="horizontal" flexDirection="column" flex={1}>
             <Tabs.List
-              backgroundColor="$background"
-              borderRadius="20"
+              backgroundColor="$colorTransparent"
+              borderWidth={1}
+              borderColor="$gray20"
+              borderRadius={20}
               gap={5}
               paddingVertical={4}
               paddingHorizontal={5}>

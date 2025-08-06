@@ -60,8 +60,7 @@ export default function ProvidersScreen() {
   return (
     <SafeAreaContainer
       style={{
-        flex: 1,
-        backgroundColor: theme.background.val
+        flex: 1
       }}>
       <HeaderBar
         title={t('settings.provider.title')}

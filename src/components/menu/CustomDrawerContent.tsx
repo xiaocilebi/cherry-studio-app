@@ -49,7 +49,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
         style={{
           flex: 1,
           backgroundColor:
-            appTheme === 'dark' ? '#000000bb' : appTheme === 'light' ? '#ffffffbb' : isDark ? '#000000bb' : '#ffffffbb'
+            appTheme === 'dark' ? '#000000' : appTheme === 'light' ? '#ffffff' : isDark ? '#000000' : '#ffffff'
         }}
         intensity={60}
         tint="default">
