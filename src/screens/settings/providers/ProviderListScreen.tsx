@@ -15,9 +15,6 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
 import { loggerService } from '@/services/LoggerService'
-import { saveProvider } from '@/services/ProviderService'
-import { Provider, ProviderType } from '@/types/assistant'
-import { uuid } from '@/utils'
 const logger = loggerService.withContext('ProviderListScreen')
 
 export default function ProviderListScreen() {
@@ -35,9 +32,6 @@ export default function ProviderListScreen() {
     setDebouncedSearchText(text)
   }, 300)
 
-  const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)
-  const [providerName, setProviderName] = useState('')
-
   // 监听 searchText 变化，触发防抖更新
   useEffect(() => {
     debouncedSetSearch(searchText)
@@ -52,35 +46,8 @@ export default function ProviderListScreen() {
     p => p.name && p.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
   )
 
-  const handleProviderTypeChange = (value: ProviderType) => {
-    setSelectedProviderType(value)
-  }
-
-  const handleProviderNameChange = (name: string) => {
-    setProviderName(name)
-  }
-
   const onAddProvider = () => {
     bottomSheetRef.current?.present()
-  }
-
-  const handleAddProvider = async () => {
-    try {
-      const newProvider: Provider = {
-        id: uuid(),
-        type: selectedProviderType ?? 'openai',
-        name: providerName,
-        apiKey: '',
-        apiHost: '',
-        models: []
-      }
-      await saveProvider(newProvider)
-    } catch (error) {
-      logger.error('handleAddProvider', error as Error)
-    } finally {
-      setSelectedProviderType(undefined)
-      setProviderName('')
-    }
   }
 
   return (
@@ -114,14 +81,7 @@ export default function ProviderListScreen() {
         </SettingContainer>
       )}
 
-      <AddProviderSheet
-        ref={bottomSheetRef}
-        providerName={providerName}
-        onProviderNameChange={handleProviderNameChange}
-        selectedProviderType={selectedProviderType}
-        onProviderTypeChange={handleProviderTypeChange}
-        onAddProvider={handleAddProvider}
-      />
+      <AddProviderSheet ref={bottomSheetRef} />
     </SafeAreaContainer>
   )
 }
