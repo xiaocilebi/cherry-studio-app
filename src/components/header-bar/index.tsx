@@ -23,7 +23,7 @@ export const HeaderBar = ({ topic, showAssistantCard, setShowAssistantCard }: He
   const { assistant, isLoading } = useAssistant(topic.assistantId)
 
   const handleMenuPress = () => {
-    haptic(ImpactFeedbackStyle.Soft)
+    haptic(ImpactFeedbackStyle.Medium)
     navigation.dispatch(DrawerActions.openDrawer())
   }
 

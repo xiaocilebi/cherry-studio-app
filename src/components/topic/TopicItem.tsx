@@ -1,22 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Trash2 } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { MotiView } from 'moti'
 import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { Text, useTheme, XStack } from 'tamagui'
+import { Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import i18n from '@/i18n'
-import { getDefaultAssistant } from '@/services/AssistantService'
+import { getAssistantById, getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
-import { Topic } from '@/types/assistant'
+import { Assistant, Topic } from '@/types/assistant'
 import { useIsDark } from '@/utils'
+import { getTextPrimaryColor, getTextSecondaryColor, getUiCardColor } from '@/utils/color'
+import { haptic } from '@/utils/haptic'
 const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
@@ -85,17 +88,18 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
 }
 
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
-  const theme = useTheme()
   const isDark = useIsDark()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const swipeableRef = useRef<SwipeableMethods>(null)
   const { navigateToChatScreen } = useNavigation()
+  const [assistant, setAssistant] = useState<Assistant>()
 
   const renderRightActions = (progress: SharedValue<number>, _: SharedValue<number>) => {
     return <RenderRightActions progress={progress} topic={topic} swipeableRef={swipeableRef} />
   }
 
   const openTopic = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     navigateToChatScreen(topic.id)
   }
 
@@ -121,25 +125,44 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
       }
     }
 
+    const fetchAssistant = async () => {
+      setAssistant(await getAssistantById(topic.assistantId))
+    }
+
     fetchCurrentLanguage()
-  }, [])
+    fetchAssistant()
+  }, [topic.assistantId])
 
   return (
     <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
       <XStack
+        backgroundColor={getUiCardColor(isDark)}
         borderRadius={30}
-        backgroundColor={isDark ? theme.uiCardDark : theme.uiCardLight}
-        justifyContent="space-between"
-        alignItems="center"
-        paddingVertical={15}
+        paddingVertical={5}
         paddingHorizontal={20}
+        gap={14}
+        justifyContent="center"
+        alignItems="center"
         onPress={openTopic}>
-        <Text fontSize={16} numberOfLines={1} ellipsizeMode="tail" fontWeight="500" maxWidth="80%" color={theme.color}>
-          {topic.name}
-        </Text>
-        <Text fontSize={12} color={theme.gray10}>
-          {displayTime}
-        </Text>
+        <Text fontSize={24}>{assistant?.emoji}</Text>
+        <YStack flex={1}>
+          <XStack justifyContent="space-between">
+            <Text fontWeight="bold" color={getTextPrimaryColor(isDark)}>
+              {assistant?.name}
+            </Text>
+            <Text fontSize={12} color={getTextSecondaryColor(isDark)}>
+              {displayTime}
+            </Text>
+          </XStack>
+          <Text
+            fontSize={12}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            fontWeight="400"
+            color={getTextPrimaryColor(isDark)}>
+            {topic.name}
+          </Text>
+        </YStack>
       </XStack>
     </ReanimatedSwipeable>
   )

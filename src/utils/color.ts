@@ -9,3 +9,11 @@ export function getTextPrimaryColor(isDark: boolean) {
 export function getTextSecondaryColor(isDark: boolean) {
   return isDark ? '$textSecondaryDark' : '$textSecondaryLight'
 }
+
+export function getBackgroundColor(isDark: boolean) {
+  return isDark ? '$backgroundPrimaryDark' : '$backgroundPrimaryLight'
+}
+
+export function getUiCardColor(isDark: boolean) {
+  return isDark ? '$uiCardDark' : '$uiCardLight'
+}

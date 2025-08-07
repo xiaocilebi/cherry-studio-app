@@ -86,7 +86,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
       colors={isDark ? ['#acf3a633', '#acf3a6ff', '#acf3a633'] : ['#8de59e4d', '#81df94ff', '#8de59e4d']}
       start={[0, 0]}
       end={[1, 1]}>
-      <InputContent>
+      <InputContent style={{ backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff' }}>
         <View>
           <YStack gap={10}>
             {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
@@ -145,6 +145,5 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
 const InputContent = styled(YStack, {
   paddingHorizontal: 16,
   paddingVertical: 12,
-  borderRadius: 20,
-  backgroundColor: '$background'
+  borderRadius: 20
 })

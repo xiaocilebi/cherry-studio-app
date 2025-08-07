@@ -38,7 +38,12 @@ const ChatScreen = () => {
     <SafeAreaContainer>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <YStack paddingHorizontal={12} backgroundColor="$background" flex={1} onPress={Keyboard.dismiss} gap={20}>
+          <YStack
+            paddingHorizontal={12}
+            backgroundColor="$colorTransparent"
+            flex={1}
+            onPress={Keyboard.dismiss}
+            gap={20}>
             <HeaderBar
               topic={topic}
               showAssistantCard={showAssistantCard}

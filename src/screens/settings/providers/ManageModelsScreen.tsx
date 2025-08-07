@@ -245,8 +245,7 @@ export default function ManageModelsScreen() {
   return (
     <SafeAreaContainer
       style={{
-        flex: 1,
-        backgroundColor: theme.background.val
+        flex: 1
       }}>
       <HeaderBar title={provider?.name || t('settings.models.manage_models')} onBackPress={() => navigation.goBack()} />
       <SettingContainer>

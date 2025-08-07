@@ -70,7 +70,7 @@ export default function LandropSettingsScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.data.landrop.scan_qr_code.title')} onBackPress={() => navigation.goBack()} />
 
       {!isModalOpen && !scannedIP && <QRCodeScanner onQRCodeScanned={handleQRCodeScanned} />}

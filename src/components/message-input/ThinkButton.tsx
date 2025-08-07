@@ -44,7 +44,7 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
 
   const handlePress = () => {
     Keyboard.dismiss()
-    haptic(ImpactFeedbackStyle.Light)
+    haptic(ImpactFeedbackStyle.Medium)
     bottomSheetModalRef.current?.present()
   }
 

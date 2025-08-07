@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, ScrollView, Text, XStack, YStack } from 'tamagui'
+import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 interface MenuTabContentProps {
   title: string
@@ -25,9 +25,9 @@ export function MenuTabContent({ title, onSeeAllPress, children }: MenuTabConten
             <XStack paddingVertical={10} gap={8} alignItems="center">
               <Text>{title}</Text>
             </XStack>
-            <Button chromeless padding={0} onPress={onSeeAllPress}>
-              <Text color="$textLink">{t('menu.see_all')}</Text>
-            </Button>
+            <Text color="$textLink" onPress={onSeeAllPress}>
+              {t('menu.see_all')}
+            </Text>
           </XStack>
         </YStack>
         {children}

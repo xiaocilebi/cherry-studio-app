@@ -9,8 +9,9 @@ import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
 
-import { SettingGroup, SettingRow, SettingRowTitle } from '../settings'
+import { SettingGroup, SettingRowTitle } from '../settings'
 import WebsearchSheet from '../sheets/WebsearchSheet'
+import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface ToolTabContentProps {
   assistant: Assistant
@@ -49,37 +50,41 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
       transition={{
         type: 'timing'
       }}>
-      <SettingGroup>
-        <YStack flex={1}>
-          <SettingRowTitle paddingHorizontal={16}>{t('settings.websearch.provider.title')}</SettingRowTitle>
-
-          <SettingRow>
-            <Button
-              chromeless
-              width="100%"
-              height="100%"
-              paddingHorizontal={16}
-              paddingVertical={15}
-              iconAfter={<ChevronRight size={16} />}
-              backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
-              onPress={handlePress}>
-              <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
-                <XStack maxWidth="45%" gap={5}>
-                  {provider ? (
-                    <Text flexShrink={0} numberOfLines={1} ellipsizeMode="tail">
+      <YStack gap={5}>
+        <SettingRowTitle>{t('settings.websearch.provider.title')}</SettingRowTitle>
+        <SettingGroup>
+          <Button
+            chromeless
+            // width="100%"
+            // height="100%"
+            paddingHorizontal={16}
+            paddingVertical={15}
+            iconAfter={<ChevronRight size={16} />}
+            backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+            onPress={handlePress}>
+            <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
+              <XStack maxWidth="45%" gap={5}>
+                {provider ? (
+                  <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
+                    {/* Provider icon */}
+                    <XStack justifyContent="center" alignItems="center" flexShrink={0}>
+                      <WebsearchProviderIcon provider={provider} />
+                    </XStack>
+                    {/* Provider name */}
+                    <Text numberOfLines={1} ellipsizeMode="tail" flex={1}>
                       {provider.name}
                     </Text>
-                  ) : (
-                    <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
-                      {t('settings.websearch.empty')}
-                    </Text>
-                  )}
-                </XStack>
+                  </XStack>
+                ) : (
+                  <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
+                    {t('settings.websearch.empty')}
+                  </Text>
+                )}
               </XStack>
-            </Button>
-          </SettingRow>
-        </YStack>
-      </SettingGroup>
+            </XStack>
+          </Button>
+        </SettingGroup>
+      </YStack>
       <WebsearchSheet
         ref={bottomSheetModalRef}
         providerId={providerId}

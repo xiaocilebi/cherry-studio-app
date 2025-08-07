@@ -90,7 +90,7 @@ export default function DataSettingsScreen() {
   ]
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.data.title')} onBackPress={() => navigation.goBack()} />
 
       <ScrollView flex={1} backgroundColor="$background">

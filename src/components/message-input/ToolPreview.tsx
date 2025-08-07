@@ -22,7 +22,7 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
 
   const handleDisableWebSearch = async () => {
     try {
-      haptic(ImpactFeedbackStyle.Light)
+      haptic(ImpactFeedbackStyle.Medium)
       updateAssistant({ ...assistant, enableWebSearch: !assistant.enableWebSearch })
     } catch (error) {
       logger.error('handleDisableWebSearch', error as Error)
@@ -31,7 +31,7 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
 
   const handleDisableGenerateImage = async () => {
     try {
-      haptic(ImpactFeedbackStyle.Light)
+      haptic(ImpactFeedbackStyle.Medium)
       updateAssistant({ ...assistant, enableGenerateImage: !assistant.enableGenerateImage })
     } catch (error) {
       logger.error('handleDisableGenerateImage', error as Error)

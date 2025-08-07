@@ -77,34 +77,38 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         type: 'timing'
       }}>
       <SettingGroup>
-        <SettingRow>
-          <Button
-            chromeless
-            width="100%"
-            height="100%"
-            paddingHorizontal={16}
-            paddingVertical={15}
-            iconAfter={<ChevronRight size={16} />}
-            backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
-            onPress={handlePress}>
-            <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
-              {model.length > 0 ? (
-                <>
-                  <Text flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
-                    {t(`provider.${model[0].provider}`)}
-                  </Text>
-                  <Text flexShrink={0} numberOfLines={1} maxWidth="60%" ellipsizeMode="tail">
-                    {model[0].name}
-                  </Text>
-                </>
-              ) : (
-                <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
-                  {t('settings.models.empty')}
+        <Button
+          chromeless
+          paddingHorizontal={16}
+          paddingVertical={15}
+          iconAfter={<ChevronRight size={16} />}
+          backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+          onPress={handlePress}>
+          <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
+            {model.length > 0 ? (
+              <>
+                <Text lineHeight={14} flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
+                  {t(`provider.${model[0].provider}`)}
                 </Text>
-              )}
-            </XStack>
-          </Button>
-        </SettingRow>
+                <Text
+                  lineHeight={12}
+                  fontSize={12}
+                  flexShrink={0}
+                  numberOfLines={1}
+                  maxWidth="60%"
+                  ellipsizeMode="tail">
+                  {model[0].name}
+                </Text>
+              </>
+            ) : (
+              <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
+                {t('settings.models.empty')}
+              </Text>
+            )}
+          </XStack>
+        </Button>
+      </SettingGroup>
+      <SettingGroup>
         <SettingRow>
           <CustomSlider
             label={t('assistants.settings.temperature')}

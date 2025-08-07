@@ -23,7 +23,7 @@ export const ToolButton: React.FC<AddAssetsButtonProps> = ({ files, setFiles, as
 
   const handlePress = () => {
     Keyboard.dismiss()
-    haptic(ImpactFeedbackStyle.Light)
+    haptic(ImpactFeedbackStyle.Medium)
     bottomSheetModalRef.current?.present()
   }
 

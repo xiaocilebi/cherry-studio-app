@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ChevronRight, Cloud, Globe, HardDrive, Info, Package, Settings } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, Text, useTheme, XStack, YStack } from 'tamagui'
+import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -22,7 +22,6 @@ interface SettingGroupConfig {
 
 export default function SettingsScreen() {
   const { t } = useTranslation()
-  const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
 
   const settingsItems: SettingGroupConfig[] = [
@@ -74,9 +73,9 @@ export default function SettingsScreen() {
   ]
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.title')} onBackPress={() => navigation.goBack()} />
-      <ScrollView flex={1} backgroundColor="$background">
+      <ScrollView flex={1} backgroundColor="$colorTransparent">
         <SettingContainer>
           <YStack gap={24} flex={1}>
             {settingsItems.map(group => (

@@ -6,7 +6,7 @@ import { ModelIcon } from '@/components/ui/ModelIcon'
 import { ModelTags } from '@/components/ui/ModelTags'
 import { Model } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
+import { getGreenColor, getUiCardColor } from '@/utils/color'
 
 interface ModelGroupProps {
   groupName: string
@@ -29,6 +29,7 @@ export function ModelGroup({
   return (
     <Accordion.Item key={groupName} value={`item-${index}`} marginBottom={8}>
       <Accordion.Trigger
+        backgroundColor={getUiCardColor(isDark)}
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
@@ -62,7 +63,11 @@ export function ModelGroup({
       </Accordion.Trigger>
 
       <Accordion.HeightAnimator animation="quick">
-        <Accordion.Content exitStyle={{ opacity: 0 }} borderBottomLeftRadius={9} borderBottomRightRadius={9}>
+        <Accordion.Content
+          exitStyle={{ opacity: 0 }}
+          borderBottomLeftRadius={9}
+          borderBottomRightRadius={9}
+          backgroundColor={getUiCardColor(isDark)}>
           <YStack flex={1} width="100%" gap={8}>
             {models.map(model => (
               <XStack

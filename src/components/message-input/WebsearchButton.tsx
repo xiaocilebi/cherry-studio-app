@@ -19,7 +19,7 @@ export const WebsearchButton: React.FC<WebsearchButtonProps> = ({ assistant, upd
 
   const handlePress = () => {
     Keyboard.dismiss()
-    haptic(ImpactFeedbackStyle.Light)
+    haptic(ImpactFeedbackStyle.Medium)
     updateAssistant({
       ...assistant,
       enableWebSearch: !assistant.enableWebSearch

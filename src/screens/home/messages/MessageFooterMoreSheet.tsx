@@ -5,9 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { Button, useTheme, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
-import { fetchTranslate } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
-import { deleteMessageById } from '@/services/MessagesService'
+import { deleteMessageById, fetchTranslateThunk } from '@/services/MessagesService'
 import { Message } from '@/types/message'
 import { useIsDark } from '@/utils'
 import { findTranslationBlocks } from '@/utils/messageUtils/find'
@@ -53,9 +52,10 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
 
     try {
       if (isTranslating) return
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss() // close sheet
       setIsTranslating(true)
       const messageId = message.id
-      await fetchTranslate({ assistantMessageId: messageId, message: message })
+      await fetchTranslateThunk(messageId, message)
       setIsTranslated(true) // 翻译成功后更新状态
     } catch (error) {
       logger.error('Error during translation:', error)
@@ -83,6 +83,8 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
     } catch (error) {
       logger.error('Error deleting translation:', error)
       throw error
+    } finally {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
   }
 
@@ -95,6 +97,8 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
     } catch (error) {
       logger.error('Error deleting message:', error)
       throw error
+    } finally {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
   }
 

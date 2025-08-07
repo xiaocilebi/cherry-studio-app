@@ -14,18 +14,10 @@ import i18n from '@/i18n'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant, Model, Provider } from '@/types/assistant'
 import { Chunk, ChunkType } from '@/types/chunk'
-import { Message } from '@/types/message'
 import { SdkModel } from '@/types/sdk'
 import { filterMainTextMessages } from '@/utils/messageUtils/filters'
 
 import { createBlankAssistant, getAssistantById, getAssistantProvider, getDefaultModel } from './AssistantService'
-import {
-  cancelThrottledBlockUpdate,
-  saveUpdatedBlockToDB,
-  saveUpdatesToDB,
-  throttledBlockUpdate
-} from './MessagesService'
-import { BlockManager, createCallbacks } from './messageStreaming'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 import { getTopicById, upsertTopics } from './TopicService'
 const logger = loggerService.withContext('fetchChatCompletion')
@@ -91,78 +83,6 @@ export async function fetchModels(provider: Provider): Promise<SdkModel[]> {
   } catch (error) {
     logger.error('fetchChatCompletion', error as Error)
     return []
-  }
-}
-
-export async function fetchTranslate({
-  assistantMessageId,
-  message
-}: {
-  assistantMessageId: string
-  message: Message
-}) {
-  let callbacks: StreamProcessorCallbacks = {}
-
-  const translateAssistant = await getAssistantById('translate')
-
-  // 创建 BlockManager 实例
-  const blockManager = new BlockManager({
-    saveUpdatedBlockToDB,
-    saveUpdatesToDB,
-    assistantMsgId: assistantMessageId,
-    topicId: message.topicId,
-    throttledBlockUpdate,
-    cancelThrottledBlockUpdate
-  })
-
-  callbacks = await createCallbacks({
-    blockManager,
-    topicId: message.topicId,
-    assistantMsgId: assistantMessageId,
-    saveUpdatesToDB,
-    assistant: translateAssistant
-  })
-
-  const streamProcessorCallbacks = createStreamProcessor(callbacks)
-
-  if (!translateAssistant.model) {
-    throw new Error('Translate assistant model is not defined')
-  }
-
-  const provider = await getAssistantProvider(translateAssistant)
-  message = {
-    ...message,
-    role: 'user'
-  }
-  const llmMessages = await convertMessagesToSdkMessages([message], translateAssistant.model)
-
-  const AI = new ModernAiProvider(translateAssistant.model || getDefaultModel(), provider)
-  const {
-    params: aiSdkParams,
-    modelId,
-    capabilities
-  } = await buildStreamTextParams(llmMessages, translateAssistant, provider)
-
-  const middlewareConfig: AiSdkMiddlewareConfig = {
-    streamOutput: translateAssistant.settings?.streamOutput ?? true,
-    onChunk: streamProcessorCallbacks,
-    model: translateAssistant.model,
-    provider: provider,
-    enableReasoning: capabilities.enableReasoning,
-    isPromptToolUse: false,
-    isSupportedToolUse: false,
-    isImageGenerationEndpoint: isDedicatedImageGenerationModel(translateAssistant.model || getDefaultModel()),
-    enableWebSearch: capabilities.enableWebSearch,
-    enableGenerateImage: capabilities.enableGenerateImage,
-    mcpTools: [],
-    assistant: translateAssistant
-  }
-
-  try {
-    return (await AI.completions(modelId, aiSdkParams, middlewareConfig)).getText() || ''
-  } catch (error: any) {
-    logger.error('Error during translation:', error)
-    return ''
   }
 }
 

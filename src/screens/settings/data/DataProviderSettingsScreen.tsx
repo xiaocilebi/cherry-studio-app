@@ -118,7 +118,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t(config.titleKey)} onBackPress={handleBackPress} />
       <SettingContainer>
         {config.fields.map((field, index) => (

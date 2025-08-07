@@ -17,12 +17,14 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { loggerService } from '@/services/LoggerService'
 import { RootStackParamList } from '@/types/naviagate'
+import { useIsDark } from '@/utils'
 const logger = loggerService.withContext('AssistantDetailScreen')
 
 type AssistantDetailRouteProp = RouteProp<RootStackParamList, 'AssistantDetailScreen'>
 
 export default function AssistantDetailScreen() {
   const { t } = useTranslation()
+  const isDark = useIsDark()
 
   const navigation = useNavigation()
   const route = useRoute<AssistantDetailRouteProp>()
@@ -76,19 +78,27 @@ export default function AssistantDetailScreen() {
           {/* todo: change active tabs style */}
           <Tabs value={activeTab} onValueChange={setActiveTab} orientation="horizontal" flexDirection="column" flex={1}>
             <Tabs.List
-              backgroundColor="$background"
-              borderRadius="20"
+              backgroundColor="$colorTransparent"
+              borderWidth={1}
+              borderColor="$gray20"
+              borderRadius={20}
               gap={5}
               paddingVertical={4}
               paddingHorizontal={5}>
               <StyledTab value="prompt">
-                <Text fontSize={12}>{t('common.prompt')}</Text>
+                <Text fontSize={12} fontWeight="bold">
+                  {t('common.prompt')}
+                </Text>
               </StyledTab>
               <StyledTab value="model">
-                <Text fontSize={12}>{t('common.model')}</Text>
+                <Text fontSize={12} fontWeight="bold">
+                  {t('common.model')}
+                </Text>
               </StyledTab>
               <StyledTab value="tool">
-                <Text fontSize={12}>{t('common.tool')}</Text>
+                <Text fontSize={12} fontWeight="bold">
+                  {t('common.tool')}
+                </Text>
               </StyledTab>
             </Tabs.List>
             <YStack flex={1} paddingTop={10}>
@@ -113,7 +123,7 @@ export default function AssistantDetailScreen() {
 
 const StyledTab = styled(Tabs.Tab, {
   flex: 1,
-  backgroundColor: '$background',
+  backgroundColor: '$colorTransparent',
   borderRadius: 20,
   paddingVertical: 8,
   paddingHorizontal: 20
