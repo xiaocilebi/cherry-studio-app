@@ -1,6 +1,6 @@
 import { DrawerContentComponentProps, DrawerItemList } from '@react-navigation/drawer'
-import { useNavigation } from '@react-navigation/native'
 import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
@@ -13,8 +13,8 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
-import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
+import { haptic } from '@/utils/haptic'
 
 import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
@@ -25,7 +25,6 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const isDark = useIsDark()
   const theme = useTheme()
   const { theme: appTheme } = useSettings()
-  const navigation = useNavigation<NavigationProps>()
 
   const { topics, isLoading: isLoadingTopics } = useTopics()
   const { isLoading: isLoadingAssistants } = useExternalAssistants()
@@ -33,6 +32,21 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const handleRoute = (route: string) => {
     props.navigation.navigate('Main', { screen: route })
     props.navigation.closeDrawer()
+  }
+
+  const handleNavigateTopicScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    handleRoute('TopicScreen')
+  }
+
+  const handleNavigateAssistantMarketScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    handleRoute('AssistantMarketScreen')
+  }
+
+  const handleNavigateAssistantScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    handleRoute('AssistantScreen')
   }
 
   if (isLoadingTopics || isLoadingAssistants) {
@@ -63,7 +77,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               justifyContent="space-between"
               alignItems="center"
               paddingVertical={10}
-              onPress={() => handleRoute('AssistantMarketScreen')}>
+              onPress={handleNavigateAssistantMarketScreen}>
               <XStack gap={10} alignItems="center" justifyContent="center">
                 <MarketIcon size={20} />
                 <Text color={theme.color}>{t('assistants.market.title')}</Text>
@@ -71,7 +85,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               <ArrowUpRight size={20} color={theme.color} />
             </XStack>
 
-            <XStack justifyContent="space-between" paddingVertical={10} onPress={() => handleRoute('AssistantScreen')}>
+            <XStack justifyContent="space-between" paddingVertical={10} onPress={handleNavigateAssistantScreen}>
               <XStack gap={10} alignItems="center" justifyContent="center">
                 <UnionIcon size={20} />
                 <Text color={theme.color}>{t('assistants.market.my_assistant')}</Text>
@@ -81,7 +95,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             <Stack paddingVertical={20}>
               <SettingDivider />
             </Stack>
-            <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={() => handleRoute('TopicScreen')}>
+            <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
               <View flex={1} minHeight={200}>
                 {/* 只显示7条 */}
                 <GroupedTopicList topics={topics.slice(0, 7)} />

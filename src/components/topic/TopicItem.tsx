@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Trash2 } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { MotiView } from 'moti'
 import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
@@ -18,6 +19,7 @@ import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/Topi
 import { Assistant, Topic } from '@/types/assistant'
 import { useIsDark } from '@/utils'
 import { getTextPrimaryColor, getTextSecondaryColor, getUiCardColor } from '@/utils/color'
+import { haptic } from '@/utils/haptic'
 const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
@@ -86,7 +88,6 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
 }
 
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
-  const theme = useTheme()
   const isDark = useIsDark()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const swipeableRef = useRef<SwipeableMethods>(null)
@@ -98,6 +99,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   }
 
   const openTopic = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     navigateToChatScreen(topic.id)
   }
 
@@ -129,7 +131,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
 
     fetchCurrentLanguage()
     fetchAssistant()
-  }, [])
+  }, [topic.assistantId])
 
   return (
     <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
@@ -140,7 +142,8 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
         paddingHorizontal={20}
         gap={14}
         justifyContent="center"
-        alignItems="center">
+        alignItems="center"
+        onPress={openTopic}>
         <Text fontSize={24}>{assistant?.emoji}</Text>
         <YStack flex={1}>
           <XStack justifyContent="space-between">
