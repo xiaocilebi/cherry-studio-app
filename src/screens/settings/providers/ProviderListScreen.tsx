@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { Plus } from '@tamagui/lucide-icons'
 import debounce from 'lodash/debounce'
@@ -15,14 +15,16 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
 import { loggerService } from '@/services/LoggerService'
+import { saveProvider } from '@/services/ProviderService'
+import { Provider, ProviderType } from '@/types/assistant'
+import { uuid } from '@/utils'
 const logger = loggerService.withContext('ProviderListScreen')
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation()
 
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
   const { providers, isLoading } = useAllProviders()
 
   const [searchText, setSearchText] = useState('')
@@ -33,7 +35,7 @@ export default function ProviderListScreen() {
     setDebouncedSearchText(text)
   }, 300)
 
-  const [selectedProviderType, setSelectedProviderType] = useState<string | undefined>(undefined)
+  const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)
   const [providerName, setProviderName] = useState('')
 
   // 监听 searchText 变化，触发防抖更新
@@ -50,7 +52,7 @@ export default function ProviderListScreen() {
     p => p.name && p.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
   )
 
-  const handleProviderTypeChange = (value: string) => {
+  const handleProviderTypeChange = (value: ProviderType) => {
     setSelectedProviderType(value)
   }
 
@@ -58,22 +60,27 @@ export default function ProviderListScreen() {
     setProviderName(name)
   }
 
-  const handleOpenBottomSheet = () => {
-    bottomSheetRef.current?.expand()
-    setIsBottomSheetOpen(true)
-  }
-
-  const handleBottomSheetClose = () => {
-    setIsBottomSheetOpen(false)
-  }
-
   const onAddProvider = () => {
-    handleOpenBottomSheet()
+    bottomSheetRef.current?.present()
   }
 
-  const handleAddProvider = () => {
-    logger.info('Provider Name:', providerName)
-    logger.info('Provider Type:', selectedProviderType)
+  const handleAddProvider = async () => {
+    try {
+      const newProvider: Provider = {
+        id: uuid(),
+        type: selectedProviderType ?? 'openai',
+        name: providerName,
+        apiKey: '',
+        apiHost: '',
+        models: []
+      }
+      await saveProvider(newProvider)
+    } catch (error) {
+      logger.error('handleAddProvider', error as Error)
+    } finally {
+      setSelectedProviderType(undefined)
+      setProviderName('')
+    }
   }
 
   return (
@@ -108,9 +115,7 @@ export default function ProviderListScreen() {
       )}
 
       <AddProviderSheet
-        bottomSheetRef={bottomSheetRef}
-        isOpen={isBottomSheetOpen}
-        onClose={handleBottomSheetClose}
+        ref={bottomSheetRef}
         providerName={providerName}
         onProviderNameChange={handleProviderNameChange}
         selectedProviderType={selectedProviderType}

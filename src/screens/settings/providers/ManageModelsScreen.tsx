@@ -183,7 +183,7 @@ export default function ManageModelsScreen() {
     }
 
     fetchAndSetModels()
-  }, [provider, provider?.id])
+  }, [])
 
   const renderModelGroupItem = ({ item: [groupName, currentModels], index }: ListRenderItemInfo<[string, Model[]]>) => (
     <ModelGroup
