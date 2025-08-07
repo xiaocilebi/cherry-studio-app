@@ -14,8 +14,6 @@ import { ProviderItem } from '@/components/settings/providers/ProviderItem'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
-import { loggerService } from '@/services/LoggerService'
-const logger = loggerService.withContext('ProviderListScreen')
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
