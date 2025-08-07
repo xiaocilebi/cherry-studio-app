@@ -19,9 +19,9 @@ import { isReasoningModel } from '@/config/models/reasoning'
 import { isRerankModel } from '@/config/models/rerank'
 import { isVisionModel } from '@/config/models/vision'
 import { isWebSearchModel } from '@/config/models/webSearch'
-import { useProvider } from '@/hooks/useProviders'
 import { fetchModels } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
+import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { RootStackParamList } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
@@ -124,7 +124,8 @@ export default function ManageModelsScreen() {
   }, 300)
 
   const { providerId } = route.params
-  const { provider, updateProvider } = useProvider(providerId)
+  const [provider, setProvider] = useState<Provider | undefined>(undefined)
+  // const { provider, updateProvider } = useProvider(providerId)
 
   const isModelInCurrentProvider = getIsModelInProvider(provider?.models || [])
   const isAllModelsInCurrentProvider = getIsAllInProvider(isModelInCurrentProvider)
@@ -145,7 +146,8 @@ export default function ManageModelsScreen() {
   const handleUpdateModels = async (newModels: Model[]) => {
     if (!provider) return
     const updatedProvider = { ...provider, models: newModels }
-    await updateProvider(updatedProvider)
+    setProvider(updatedProvider)
+    await saveProvider(updatedProvider)
   }
 
   const onAddModel = async (model: Model) => {
@@ -167,12 +169,15 @@ export default function ManageModelsScreen() {
 
   useEffect(() => {
     const fetchAndSetModels = async () => {
-      if (!provider) return
+      const fetchedProvider = await getProviderById(providerId)
+      setProvider(fetchedProvider)
+
+      if (!fetchedProvider) return
       setIsLoading(true)
 
       try {
-        const modelsFromApi = await fetchModels(provider)
-        const transformedModels = transformApiModels(modelsFromApi, provider)
+        const modelsFromApi = await fetchModels(fetchedProvider)
+        const transformedModels = transformApiModels(modelsFromApi, fetchedProvider)
         setAllModels(uniqBy(transformedModels, 'id'))
       } catch (error) {
         logger.error('Failed to fetch models', error)
@@ -183,7 +188,7 @@ export default function ManageModelsScreen() {
     }
 
     fetchAndSetModels()
-  }, [])
+  }, [providerId])
 
   const renderModelGroupItem = ({ item: [groupName, currentModels], index }: ListRenderItemInfo<[string, Model[]]>) => (
     <ModelGroup
