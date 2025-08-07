@@ -1,3 +1,4 @@
+import { writeBase64File } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { ImageMessageBlock, MessageBlockStatus, MessageBlockType } from '@/types/message'
 import { createImageBlock } from '@/utils/messageUtils/create'
@@ -68,10 +69,13 @@ export const createImageCallbacks = (deps: ImageCallbacksDependencies) => {
         imageBlockId = null
       } else {
         if (imageData) {
+          console.log('onImageGenerated', imageData)
+          const imageFile = await writeBase64File(imageData.images?.[0])
+          console.log('onImageGenerated', imageFile)
+
           const imageBlock = createImageBlock(assistantMsgId, {
             status: MessageBlockStatus.SUCCESS,
-            url: imageData.images?.[0] || 'placeholder_image_url',
-            metadata: { generateImageResponse: imageData }
+            file: imageFile
           })
           await blockManager.handleBlockTransition(imageBlock, MessageBlockType.IMAGE)
         } else {

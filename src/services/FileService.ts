@@ -1,7 +1,9 @@
+import * as FileSystem from 'expo-file-system'
 import { Directory, File, Paths } from 'expo-file-system/next'
 
 import { loggerService } from '@/services/LoggerService'
-import { FileType } from '@/types/file'
+import { FileType, FileTypes } from '@/types/file'
+import { uuid } from '@/utils'
 
 import { deleteFileById, getAllFiles, getFileById, upsertFiles } from '../../db/queries/files.queries'
 const logger = loggerService.withContext('File Service')
@@ -14,6 +16,35 @@ export function readFile(file: FileType): string {
 
 export function readBase64File(file: FileType): string {
   return new File(file.path).base64()
+}
+
+export async function writeBase64File(data: string): Promise<FileType> {
+  if (!fileStorageDir.exists) {
+    fileStorageDir.create({ intermediates: true, overwrite: true })
+  }
+
+  const cleanedBase64 = data.includes('data:image') ? data.split(',')[1] : data
+
+  const fileName = uuid()
+  const fileUri = fileStorageDir.uri + `${fileName}.png`
+
+  await FileSystem.writeAsStringAsync(fileUri, cleanedBase64, {
+    encoding: FileSystem.EncodingType.Base64
+  })
+
+  return {
+    id: fileName,
+    name: fileName,
+    origin_name: fileName,
+    path: fileUri,
+    size: 0,
+    ext: '.png',
+    type: FileTypes.IMAGE,
+    mime_type: 'image/png',
+    created_at: '',
+    count: 1,
+    md5: ''
+  }
 }
 
 export function readBinaryFile(file: FileType): Blob {
