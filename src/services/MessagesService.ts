@@ -7,6 +7,7 @@ import { buildStreamTextParams, convertMessagesToSdkMessages } from '@/aiCore/tr
 import { isDedicatedImageGenerationModel } from '@/config/models/image'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant, Model, Topic, Usage } from '@/types/assistant'
+import { ChunkType } from '@/types/chunk'
 import { FileType, FileTypes } from '@/types/file'
 import { AssistantMessageStatus, Message, MessageBlock, MessageBlockStatus } from '@/types/message'
 import { uuid } from '@/utils'
@@ -603,6 +604,7 @@ export async function fetchTranslateThunk(assistantMessageId: string, message: M
   }
 
   try {
+    streamProcessorCallbacks({ type: ChunkType.LLM_RESPONSE_CREATED })
     return (await AI.completions(modelId, aiSdkParams, middlewareConfig)).getText() || ''
   } catch (error: any) {
     logger.error('Error during translation:', error)
