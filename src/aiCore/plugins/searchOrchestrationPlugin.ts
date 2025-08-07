@@ -7,7 +7,8 @@ import {
   SEARCH_SUMMARY_PROMPT_KNOWLEDGE_ONLY,
   SEARCH_SUMMARY_PROMPT_WEB_ONLY
 } from '@/config/prompts'
-import { getDefaultModel, getProviderByModel } from '@/services/AssistantService'
+import { getDefaultModel } from '@/services/AssistantService'
+import { getProviderByModel } from '@/services/ProviderService'
 import { Assistant } from '@/types/assistant'
 import { ExtractResults } from '@/types/extract'
 import { extractInfoFromXML } from '@/utils/extract'

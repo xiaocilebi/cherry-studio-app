@@ -1,4 +1,4 @@
-import { getProviderByModel } from '@/services/AssistantService'
+import { getProviderByModel } from '@/services/ProviderService'
 import { Model } from '@/types/assistant'
 import { getLowerBaseModelName } from '@/utils/naming'
 

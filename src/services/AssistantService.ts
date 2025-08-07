@@ -2,7 +2,7 @@ import { getSystemProviders } from '@/config/providers'
 import { DEFAULT_CONTEXTCOUNT, DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE } from '@/constants'
 import i18n from '@/i18n'
 import { loggerService } from '@/services/LoggerService'
-import { Assistant, AssistantSettings, Model, Provider, Topic } from '@/types/assistant'
+import { Assistant, AssistantSettings, Topic } from '@/types/assistant'
 import { uuid } from '@/utils'
 
 import {
@@ -11,7 +11,6 @@ import {
   getExternalAssistants as _getExternalAssistants,
   upsertAssistants
 } from '../../db/queries/assistants.queries'
-import { getProviderById } from '../../db/queries/providers.queries'
 const logger = loggerService.withContext('Assistant Service')
 
 export async function getDefaultAssistant(): Promise<Assistant> {
@@ -29,13 +28,7 @@ export async function getAssistantById(assistantId: string): Promise<Assistant> 
   return assistant
 }
 
-export async function getAssistantProvider(assistant: Assistant): Promise<Provider> {
-  const provider = await getProviderById(assistant.model?.provider || '')
-  return provider || getDefaultProvider()
-}
-
 export function getDefaultTopic(assistantId: string): Topic {
-  // todo
   return {
     id: uuid(),
     assistantId,
@@ -47,20 +40,9 @@ export function getDefaultTopic(assistantId: string): Topic {
   }
 }
 
-export function getDefaultProvider() {
-  return getProviderByModel(getDefaultModel())
-}
-
 export function getDefaultModel() {
   // todo
   return getSystemProviders()[0].models[0]
-}
-
-export function getProviderByModel(model?: Model): Provider {
-  // todo
-  const providers = getSystemProviders()
-  const providerId = model ? model.provider : getDefaultProvider().id
-  return providers.find(p => p.id === providerId) as Provider
 }
 
 export const getAssistantSettings = (assistant: Assistant): AssistantSettings => {

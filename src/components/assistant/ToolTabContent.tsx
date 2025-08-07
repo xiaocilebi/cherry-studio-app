@@ -30,7 +30,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
       ...assistant,
       webSearchProviderId: providerId
     })
-  }, [providerId])
+  }, [assistant, providerId, updateAssistant])
 
   const handlePress = () => {
     bottomSheetModalRef.current?.present()

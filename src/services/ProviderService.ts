@@ -1,11 +1,13 @@
 import { loggerService } from '@/services/LoggerService'
-import { Provider } from '@/types/assistant'
+import { Assistant, Model, Provider } from '@/types/assistant'
 
 import {
   getAllProviders as _getAllProviders,
   getProviderById as _getProviderById,
+  getProviderByIdSync as _getProviderByIdSync,
   upsertProviders
 } from '../../db/queries/providers.queries'
+import { getDefaultModel } from './AssistantService'
 const logger = loggerService.withContext('Provider Service')
 
 export async function saveProvider(provider: Provider) {
@@ -39,4 +41,24 @@ export async function getAllProviders() {
     logger.error('Error getting all providers:', error)
     throw error
   }
+}
+
+export function getProviderByModel(model: Model): Provider {
+  try {
+    const provider = _getProviderByIdSync(model.provider)
+    if (!provider) throw Error('provider not found')
+    return provider
+  } catch (error) {
+    logger.error('getProviderByModel', error as Error)
+    throw error
+  }
+}
+
+export function getDefaultProvider() {
+  return getProviderByModel(getDefaultModel())
+}
+
+export async function getAssistantProvider(assistant: Assistant): Promise<Provider> {
+  const provider = await getProviderById(assistant.model?.provider || '')
+  return provider || getDefaultProvider()
 }

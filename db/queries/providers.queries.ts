@@ -106,3 +106,19 @@ export async function getAllProviders(): Promise<Provider[]> {
     throw error
   }
 }
+
+export function getProviderByIdSync(providerId: string): Provider | undefined {
+  try {
+    // 使用 .get() 方法来同步获取单个结果
+    const result = db.select().from(providers).where(eq(providers.id, providerId)).get()
+
+    if (!result) {
+      return undefined
+    }
+
+    return transformDbToProvider(result)
+  } catch (error) {
+    logger.error('Error in getProviderById:', error)
+    throw error // 重新抛出错误以便上层调用者可以处理
+  }
+}

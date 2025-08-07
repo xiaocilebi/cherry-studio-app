@@ -5,7 +5,7 @@ import { debounce, groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Accordion, Button, ScrollView, Tabs, Text, useTheme, YStack } from 'tamagui'
+import { Accordion, Button, ScrollView, Tabs, Text, YStack } from 'tamagui'
 
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -108,7 +108,6 @@ const TAB_CONFIGS = [
 export default function ManageModelsScreen() {
   const { t } = useTranslation()
   const isDark = useIsDark()
-  const theme = useTheme()
   const navigation = useNavigation()
   const route = useRoute<ProviderSettingsRouteProp>()
 
