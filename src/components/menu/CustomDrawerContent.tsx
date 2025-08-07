@@ -49,9 +49,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
         style={{
           flex: 1,
           backgroundColor:
-            appTheme === 'dark' ? '#000000' : appTheme === 'light' ? '#ffffff' : isDark ? '#000000' : '#ffffff'
+            appTheme === 'dark' ? '#121213ff' : appTheme === 'light' ? '#f7f7f7ff' : isDark ? '#121213ff' : '#f7f7f7ff'
         }}
-        intensity={60}
+        intensity={10}
         tint="default">
         <YStack gap={10} flex={1} padding={20}>
           <YStack>

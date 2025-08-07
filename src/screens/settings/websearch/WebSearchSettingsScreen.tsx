@@ -52,7 +52,7 @@ export default function WebSearchSettingsScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
         <HeaderBar title={t('settings.websearch.title')} onBackPress={() => navigation.goBack()} />
         <ScrollView flex={1}>

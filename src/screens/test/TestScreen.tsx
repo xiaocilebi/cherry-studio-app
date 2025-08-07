@@ -17,7 +17,7 @@ const TestScreen = () => {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <ScrollView>
         <Stack padding="$4" margin="$4">
           {renderReactNativeMarkdownDisplay()}

@@ -36,7 +36,7 @@ export default function LanguageChangeScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.general.language.title')} onBackPress={() => navigation.goBack()} />
       <SettingContainer>
         <YStack flex={1} space={12} paddingHorizontal={16}>

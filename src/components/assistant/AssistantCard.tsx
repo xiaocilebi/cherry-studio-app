@@ -9,7 +9,7 @@ import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getGreenColor, getTextSecondaryColor } from '@/utils/color'
+import { getGreenColor, getTextSecondaryColor, getUiCardColor } from '@/utils/color'
 import { formateEmoji } from '@/utils/formats'
 
 import { ModelChangeIcon } from '../icons/ModelChangeIcon'
@@ -117,7 +117,7 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
           borderRadius={40}
           alignItems="center"
           justifyContent="center"
-          backgroundColor="$background"
+          backgroundColor={getUiCardColor(isDark)}
           paddingTop={60}
           paddingBottom={30}
           paddingHorizontal={21}>

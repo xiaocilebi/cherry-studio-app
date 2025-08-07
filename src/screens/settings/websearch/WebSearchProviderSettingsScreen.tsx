@@ -121,7 +121,7 @@ export default function WebSearchProviderSettingsScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={provider.name} onBackPress={handleBackPress} />
       <SettingContainer>
         {/* API Key 配置 */}

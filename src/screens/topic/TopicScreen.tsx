@@ -59,7 +59,7 @@ export default function TopicScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar
         title={t('topics.title.recent')}
         onBackPress={() => navigation.goBack()}

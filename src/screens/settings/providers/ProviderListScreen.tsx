@@ -11,7 +11,6 @@ import { SettingContainer, SettingGroup } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { AddProviderSheet } from '@/components/settings/providers/AddProviderSheet'
 import { ProviderItem } from '@/components/settings/providers/ProviderItem'
-import CustomRadialGradientBackground from '@/components/ui/CustomRadialGradientBackground'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
@@ -97,15 +96,13 @@ export default function ProviderListScreen() {
 
           <YStack flex={1} gap={8}>
             <Text>{t('settings.provider.title')}</Text>
-            <CustomRadialGradientBackground style={{ radius: 2 }}>
-              <ScrollView backgroundColor="$colorTransparent">
-                <SettingGroup>
-                  {filteredProviders.map(p => (
-                    <ProviderItem key={p.id} provider={p} mode="checked" />
-                  ))}
-                </SettingGroup>
-              </ScrollView>
-            </CustomRadialGradientBackground>
+            <ScrollView backgroundColor="$colorTransparent">
+              <SettingGroup>
+                {filteredProviders.map(p => (
+                  <ProviderItem key={p.id} provider={p} mode="checked" />
+                ))}
+              </SettingGroup>
+            </ScrollView>
           </YStack>
         </SettingContainer>
       )}

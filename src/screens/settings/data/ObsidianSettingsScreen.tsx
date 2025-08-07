@@ -18,7 +18,7 @@ export default function ObsidianSettingsScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.obsidian.title')} onBackPress={handleBackPress} />
       <SettingContainer>
         <YStack gap={8}>

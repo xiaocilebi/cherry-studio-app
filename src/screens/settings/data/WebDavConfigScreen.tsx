@@ -33,7 +33,7 @@ export default function WebDavConfigScreen() {
   } as const
 
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.background.val }}>
+    <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar
         title={t('settings.webdav.config.title')}
         onBackPress={() => navigation.goBack()}
@@ -44,7 +44,7 @@ export default function WebDavConfigScreen() {
           }
         }}
       />
-      <ScrollView flex={1} contentContainerStyle={{ padding: 16, backgroundColor: theme.background.val }}>
+      <ScrollView flex={1} contentContainerStyle={{ padding: 16 }}>
         <YStack gap={24}>
           <Text fontSize="$5" mb={4}>
             {t('settings.webdav.config.host')}
