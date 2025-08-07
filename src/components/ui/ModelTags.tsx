@@ -20,8 +20,6 @@ interface ModelTagsProps {
   showReasoning?: boolean
   showToolsCalling?: boolean
   size?: number
-  showLabel?: boolean
-  style?: any
 }
 
 export const ModelTags: React.FC<ModelTagsProps> = ({
@@ -29,9 +27,7 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
   showFree = true,
   showReasoning = true,
   showToolsCalling = true,
-  size = 12,
-  showLabel = false,
-  style
+  size = 12
 }) => {
   const { t } = useTranslation()
 

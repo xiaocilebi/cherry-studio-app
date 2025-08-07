@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { ISelect } from '@/components/ui/Select'
+import { ProviderType } from '@/types/assistant'
 
 interface SelectOptionItem {
   label: string
@@ -14,8 +15,8 @@ interface SelectOptionGroup {
 }
 
 interface ProviderSelectProps {
-  value: string | undefined
-  onValueChange: (value: string) => void
+  value: ProviderType | undefined
+  onValueChange: (value: ProviderType) => void
   placeholder: string
 }
 
@@ -27,14 +28,15 @@ const providerOptions: SelectOptionGroup[] = [
       { label: 'OpenAI-Response', value: 'openai-response' },
       { label: 'Gemini', value: 'gemini' },
       { label: 'Anthropic', value: 'anthropic' },
-      { label: 'Azure OpenAI', value: 'azure-openai' }
+      { label: 'Azure OpenAI', value: 'azure-openai' },
+      { label: 'Qwen', value: 'qwenlm' }
     ]
   }
 ]
 
 export function ProviderSelect({ value, onValueChange, placeholder }: ProviderSelectProps) {
   const handleValueChange = (newValue: string) => {
-    onValueChange(newValue)
+    onValueChange(newValue as ProviderType)
   }
 
   return (

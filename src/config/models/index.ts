@@ -1,7 +1,7 @@
 // 导出所有模型相关功能
 import OpenAI from 'openai'
 
-import { getProviderByModel } from '@/services/AssistantService'
+import { getProviderByModel } from '@/services/ProviderService'
 import { Model } from '@/types/assistant'
 
 import { isOpenAIReasoningModel } from './reasoning'
@@ -134,6 +134,10 @@ export function isOpenRouterBuiltInWebSearchModel(model: Model): boolean {
   }
 
   const provider = getProviderByModel(model)
+
+  if (!provider) {
+    return false
+  }
 
   if (provider.id !== 'openrouter') {
     return false

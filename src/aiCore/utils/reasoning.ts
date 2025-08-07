@@ -13,7 +13,8 @@ import {
   isSupportedThinkingTokenQwenModel
 } from '@/config/models/reasoning'
 import { DEFAULT_MAX_TOKENS } from '@/constants'
-import { getAssistantSettings, getProviderByModel } from '@/services/AssistantService'
+import { getAssistantSettings } from '@/services/AssistantService'
+import { getProviderByModel } from '@/services/ProviderService'
 import { Assistant, Model } from '@/types/assistant'
 import { ReasoningEffortOptionalParams } from '@/types/sdk'
 
