@@ -17,7 +17,8 @@ import { Chunk, ChunkType } from '@/types/chunk'
 import { SdkModel } from '@/types/sdk'
 import { filterMainTextMessages } from '@/utils/messageUtils/filters'
 
-import { createBlankAssistant, getAssistantById, getAssistantProvider, getDefaultModel } from './AssistantService'
+import { createBlankAssistant, getAssistantById, getDefaultModel } from './AssistantService'
+import { getAssistantProvider } from './ProviderService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 import { getTopicById, upsertTopics } from './TopicService'
 const logger = loggerService.withContext('fetchChatCompletion')
