@@ -21,7 +21,7 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
 
   return (
     <YStack
-      backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+      backgroundColor="$uiCardBackground"
       paddingHorizontal={14}
       paddingTop={30}
       paddingBottom={10}

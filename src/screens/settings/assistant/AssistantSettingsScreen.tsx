@@ -29,7 +29,7 @@ function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: ()
       paddingVertical={15}
       onPress={onPress}
       iconAfter={<ChevronRight size={16} />}
-      backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}>
+      backgroundColor="$uiCardBackground">
       <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
         {model ? (
           <XStack flex={1} justifyContent="space-between">

@@ -85,7 +85,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
     <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
       <XStack
         borderRadius={16}
-        backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+        backgroundColor="$uiCardBackground"
         justifyContent="space-between"
         alignItems="center"
         paddingVertical={12}

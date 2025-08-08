@@ -79,7 +79,7 @@ export function ISelect<T = any>({
           justifyContent="space-between"
           gap={10}
           borderRadius={9}
-          backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}>
+          backgroundColor="$uiCardBackground">
           <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
             {selectedDisplayInfo ? (
               <>

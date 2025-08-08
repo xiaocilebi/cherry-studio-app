@@ -69,7 +69,7 @@ const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url
       <YStack
         gap={5}
         padding={10}
-        backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+        backgroundColor="$uiCardBackground"
         borderRadius={8}
         onPress={() => onPress(citation.url)}>
         <CitationTitle number={citation.number} title={citation.title || ''} />

@@ -1,11 +1,10 @@
 import { ChevronDown } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Accordion, Square, Text, XStack, YStack } from 'tamagui'
+import { Accordion, Square, Stack, Text, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { ModelTags } from '@/components/ui/ModelTags'
 import { Model } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 
 interface ModelGroupProps {
   groupName: string
@@ -24,7 +23,6 @@ export function ModelGroup({
   renderModelButton,
   showModelCount = false
 }: ModelGroupProps) {
-  const isDark = useIsDark()
   return (
     <Accordion.Item key={groupName} value={`item-${index}`} marginBottom={8}>
       <Accordion.Trigger
@@ -46,9 +44,16 @@ export function ModelGroup({
                 {groupName}
               </Text>
               {showModelCount && (
-                <Text paddingHorizontal={8} borderRadius={8} backgroundColor="$green20" color="$green100">
-                  {models.length}
-                </Text>
+                <Stack
+                  justifyContent="center"
+                  alignItems="center"
+                  padding={3}
+                  borderRadius={8}
+                  backgroundColor="$green20">
+                  <Text fontSize={10} lineHeight={14} height={14} width={14} color="$green100" textAlign="center">
+                    {models.length}
+                  </Text>
+                </Stack>
               )}
             </XStack>
 
