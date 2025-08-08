@@ -1,12 +1,11 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import { ChevronDown, Funnel } from '@tamagui/lucide-icons'
 import { debounce } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Text, YStack } from 'tamagui'
 
 import AssistantItem from '@/components/assistant/AssistantItem'
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
@@ -106,7 +105,7 @@ export default function AssistantScreen() {
   return (
     <SafeAreaContainer>
       <HeaderBar
-        title={t('assistants.title.recent')}
+        title={t('assistants.title.mine')}
         onBackPress={() => navigation.goBack()}
         rightButton={{
           icon: <UnionPlusIcon size={24} />,
@@ -115,8 +114,7 @@ export default function AssistantScreen() {
       />
       <SettingContainer>
         <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
-        <XStack gap={14}>
-          {/* 多选框 */}
+        {/*<XStack gap={14}>
           <Button
             fontSize={12}
             paddingHorizontal={10}
@@ -149,7 +147,7 @@ export default function AssistantScreen() {
             onPress={handleRecentFilter}>
             {t('button.recents')}
           </Button>
-        </XStack>
+        </XStack>*/}
 
         <FlashList
           showsVerticalScrollIndicator={false}

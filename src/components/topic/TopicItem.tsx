@@ -7,7 +7,7 @@ import React from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { Text, useTheme, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
@@ -17,7 +17,6 @@ import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Assistant, Topic } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { haptic } from '@/utils/haptic'
 const logger = loggerService.withContext('Topic Item')
 
@@ -35,7 +34,6 @@ interface RenderRightActionsProps {
 }
 
 const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swipeableRef }) => {
-  const theme = useTheme()
   const { navigateToChatScreen } = useNavigation()
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [50, 0])
@@ -80,14 +78,13 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
           justifyContent: 'center'
         }}
         onPress={handleDelete}>
-        <Trash2 color={theme.textDelete} size={20} />
+        <Trash2 color="$textDelete" size={20} />
       </RectButton>
     </MotiView>
   )
 }
 
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
-  const isDark = useIsDark()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const swipeableRef = useRef<SwipeableMethods>(null)
   const { navigateToChatScreen } = useNavigation()
