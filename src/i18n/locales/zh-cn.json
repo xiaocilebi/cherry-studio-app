@@ -214,6 +214,10 @@
       "zhipu": "ZHIPU AI"
     },
     "settings": {
+      "personal": {
+        "title": "个人设置",
+        "name": "用户名"
+      },
       "about": {
         "contact": {
           "button": "邮件",

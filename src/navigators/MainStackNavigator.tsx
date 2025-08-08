@@ -24,6 +24,7 @@ import YuqueSettingsScreen from '@/screens/settings/data/YuqueSettingsScreen'
 import GeneralSettingsScreen from '@/screens/settings/general/GeneralSettingsScreen'
 import LanguageChangeScreen from '@/screens/settings/general/LanguageChangeScreen'
 import ThemeSettingsScreen from '@/screens/settings/general/ThemeSettingsScreen'
+import PersonalScreen from '@/screens/settings/personal/PersonalScreen'
 import ApiServiceScreen from '@/screens/settings/providers/ApiServiceScreen'
 import ManageModelsScreen from '@/screens/settings/providers/ManageModelsScreen'
 import ProviderListScreen from '@/screens/settings/providers/ProviderListScreen'
@@ -56,6 +57,9 @@ export default function MainStackNavigator() {
 
       {/* Settings Screen */}
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+
+      {/*PersonalScreen*/}
+      <Stack.Screen name="PersonalScreen" component={PersonalScreen} />
 
       {/* Provider Screen */}
       <Stack.Screen name="ProvidersScreen" component={ProvidersScreen} />
