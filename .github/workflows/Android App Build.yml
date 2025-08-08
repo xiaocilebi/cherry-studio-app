@@ -1,235 +1,24 @@
-name: Android App Build
+name: Quick Dev Build
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-    inputs:
-      build_profile:
-        description: 'EAS build profile'
-        required: true
-        default: 'development'
-        type: choice
-        options:
-        - development
-        - preview
-        - production
-
-env:
-  NODE_VERSION: '18'
-  JAVA_VERSION: '17'
+    branches: [ develop ]
 
 jobs:
-  build-android:
-    name: Build Android App
+  build:
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-
-      - name: 🐧 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: 🔧 Enable Corepack and Setup Yarn
-        run: |
-          corepack enable
-          yarn set version 4.9.1
-          yarn --version
-          yarn cache clean --all
-
-      - name: 📦 Install dependencies
-        run: |
-          yarn --version
-          yarn install --frozen-lockfile
-
-      - name: 🚀 Install EAS CLI and Expo CLI
-        run: |
-          echo "📦 Installing EAS CLI and Expo CLI..."
-          npm install -g eas-cli
-          npm install -g @expo/cli
-          
-          # 验证安装
-          echo "🔍 Verifying installations..."
-          eas --version
-          npx expo --version
-          
-          # 确保 expo 命令可用
-          echo "📝 Expo CLI info:"
-          npx expo --help | head -5
-
-      - name: 📋 Generate database schema
-        run: |
-          npx drizzle-kit generate
-
-      - name: 🏗️ Prebuild to generate native code
-        run: |
-          yarn run prebuild
-
-      - name: 🐘 Setup Java (after prebuild)
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-
-      - name: 🔧 Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: 🔧 Setup environment for EAS build
-        run: |
-          if [ "${{ github.event.inputs.build_profile || 'development' }}" == "production" ]; then
-            echo "ENVIRONMENT=production" >> .env
-          else
-            echo "ENVIRONMENT=development" >> .env
-          fi
-
-      - name: 🌐 Fix i18n structure issues
-        run: |
-          echo "🔄 Fixing i18n structure issues..."
-          
-          # 首先尝试同步 i18n
-          yarn sync:i18n || echo "⚠️ i18n sync had issues, continuing..."
-          
-          # 强制重新同步确保结构一致
-          yarn sync:i18n || echo "⚠️ Second i18n sync attempt had issues, continuing..."
-          
-          # 检查 i18n，如果失败就继续（不中断构建）
-          yarn check:i18n || echo "⚠️ i18n check failed, but continuing with build"
-          
-          echo "✅ i18n fix attempts completed"
-
-      - name: 🔐 Verify Expo authentication
-        run: |
-          echo "🔐 Verifying Expo authentication..."
-          
-          # 检查是否已经通过 EXPO_TOKEN 认证
-          if npx expo whoami && npx eas whoami; then
-            echo "✅ Already authenticated with Expo"
-          else
-            echo "🔄 Attempting to authenticate with Expo token..."
-            # 使用 EXPO_TOKEN 进行认证
-            npx expo login --token ${{ secrets.EXPO_TOKEN }} || echo "⚠️ Expo login failed, but continuing..."
-          fi
+          node-version: '18'
+          cache: 'yarn'
+      - run: yarn install
+      - run: eas build --platform android --profile development
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: 🏗️ Build Android App with EAS
-        run: |
-          eas build --platform android --profile ${{ github.event.inputs.build_profile || 'development' }} --non-interactive --clear-cache
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: 📤 Upload build artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: android-app-${{ github.event.inputs.build_profile || 'development' }}
-          path: |
-            *.apk
-            *.aab
-          retention-days: 7
-
-  # 代码质量检查（修正测试检测逻辑）
-  code-quality:
-    name: Code Quality Check
-    runs-on: ubuntu-latest
-    continue-on-error: true  # 允许这个 job 失败但不中断整个流程
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🐧 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: 🔧 Enable Corepack and Setup Yarn
-        run: |
-          corepack enable
-          yarn set version 4.9.1
-          yarn --version
-          yarn cache clean --all
-
-      - name: 📦 Install dependencies
-        run: |
-          yarn --version
-          yarn install --frozen-lockfile
-
-      - name: 🌐 Fix i18n structure issues
-        run: |
-          echo "🔄 Fixing i18n structure issues..."
-          yarn sync:i18n || echo "⚠️ i18n sync had issues, continuing..."
-          yarn check:i18n || echo "⚠️ i18n check failed, but continuing"
-
-      - name: 🔍 Run linting with Oxlint
-        run: |
-          echo "🔍 Running linting with Oxlint..."
-          yarn lint || echo "⚠️ Oxlint had warnings, but continuing"
-          yarn check || echo "⚠️ Code check had issues, but continuing"
-
-      - name: 🧪 Check for test files (improved)
-        run: |
-          echo "🧪 Checking for test files..."
-          
-          # 检查常见的测试目录和文件
-          if [ -d "__tests__" ] || [ -d "tests" ] || [ -d "test" ]; then
-            echo "✅ Test directory found"
-            echo "HAS_TESTS=true" >> $GITHUB_ENV
-          else
-            # 使用更安全的 find 命令
-            if find . -maxdepth 3 -type f $ -name "*.test.ts" -o -name "*.test.js" -o -name "*.test.tsx" -o -name "*.test.jsx" -o -name "*.spec.ts" -o -name "*.spec.js" $ | head -1 | grep -q .; then
-              echo "✅ Test files found"
-              echo "HAS_TESTS=true" >> $GITHUB_ENV
-            else
-              echo "ℹ️ No test files found"
-              echo "HAS_TESTS=false" >> $GITHUB_ENV
-            fi
-          fi
-
-      - name: 🧪 Run tests (conditional)
-        run: |
-          echo "🧪 Running tests..."
-          
-          if [ "$HAS_TESTS" = "true" ]; then
-            echo "✅ Running tests..."
-            # 使用 --passWithNoTests 来优雅处理没有测试的情况
-            yarn test --passWithNoTests || echo "⚠️ Tests had issues, but continuing"
-          else
-            echo "ℹ️ No test files found, skipping tests"
-          fi
-
-  # 构建状态汇总
-  build-summary:
-    name: Build Summary
-    runs-on: ubuntu-latest
-    needs: [build-android, code-quality]
-    if: always()
-    
-    steps:
-      - name: 📊 Generate build summary
-        run: |
-          echo "## 📱 Android Build Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
-          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Build Android | ${{ needs.build-android.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Code Quality | ${{ needs.code-quality.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          
-          if [ "${{ needs.build-android.result }}" == "success" ]; then
-            echo "✅ **Build completed successfully!**" >> $GITHUB_STEP_SUMMARY
-            echo "- Check the artifacts section below to download the APK/AAB" >> $GITHUB_STEP_SUMMARY
-            echo "- Build profile: ${{ github.event.inputs.build_profile || 'development' }}" >> $GITHUB_STEP_SUMMARY
-            echo "- ESLint warnings: 79 (non-blocking)" >> $GITHUB_STEP_SUMMARY
-            echo "- i18n structure: Fixed automatically" >> $GITHUB_STEP_SUMMARY
-            echo "- Tests: Skipped (no test files found)" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **Build failed!**" >> $GITHUB_STEP_SUMMARY
-            echo "- Check the build logs for errors" >> $GITHUB_STEP_SUMMARY
-          fi
+          name: dev-build
+          path: *.apk
