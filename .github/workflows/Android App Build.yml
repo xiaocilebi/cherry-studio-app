@@ -1,4 +1,4 @@
-name: Development Build
+name: Android App Build
 
 on:
   push:
