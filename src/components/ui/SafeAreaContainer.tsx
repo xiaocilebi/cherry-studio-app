@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from 'tamagui'
 
 import { useIsDark } from '@/utils'
 
@@ -10,7 +9,6 @@ interface SafeAreaContainerProps extends ViewProps {
 }
 
 const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, ...rest }) => {
-  const theme = useTheme()
   const insets = useSafeAreaInsets()
   const isDark = useIsDark()
 

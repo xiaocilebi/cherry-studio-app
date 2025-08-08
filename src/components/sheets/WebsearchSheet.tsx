@@ -5,6 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
+import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 import { useIsDark } from '@/utils'
@@ -13,13 +14,13 @@ import { SettingHelpText } from '../settings'
 import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface WebsearchSheetProps {
-  providerId?: string
-  setProviderId: (providerId: string | undefined) => void
+  assistant: Assistant
+  updateAssistant: (assistant: Assistant) => void
   providers: WebSearchProvider[]
 }
 
 const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
-  ({ providers, providerId, setProviderId }, ref) => {
+  ({ providers, assistant, updateAssistant }, ref) => {
     const theme = useTheme()
     const isDark = useIsDark()
     const { t } = useTranslation()
@@ -30,11 +31,11 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
     )
 
     const handleProviderToggle = (id: string) => {
-      if (id === providerId) {
-        setProviderId(undefined)
-      } else {
-        setProviderId(id)
-      }
+      const newProviderId = id === assistant.webSearchProviderId ? undefined : id
+      updateAssistant({
+        ...assistant,
+        webSearchProviderId: newProviderId
+      })
     }
 
     const handleNavigateToWebSearhPage = () => {
@@ -68,8 +69,20 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
                     chromeless
                     paddingHorizontal={8}
                     paddingVertical={8}
-                    borderColor={providerId === p.id ? (isDark ? '$green20Dark' : '$green20Light') : 'transparent'}
-                    backgroundColor={providerId === p.id ? (isDark ? '$green10Dark' : '$green10Light') : 'transparent'}>
+                    borderColor={
+                      assistant.webSearchProviderId === p.id
+                        ? isDark
+                          ? '$green20Dark'
+                          : '$green20Light'
+                        : 'transparent'
+                    }
+                    backgroundColor={
+                      assistant.webSearchProviderId === p.id
+                        ? isDark
+                          ? '$green10Dark'
+                          : '$green10Light'
+                        : 'transparent'
+                    }>
                     <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
                       <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
                         {/* Provider icon */}

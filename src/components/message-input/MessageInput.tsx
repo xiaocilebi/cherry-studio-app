@@ -24,7 +24,6 @@ import { SendButton } from './SendButton'
 import { ThinkButton } from './ThinkButton'
 import { ToolButton } from './ToolButton'
 import ToolPreview from './ToolPreview'
-import { VoiceButton } from './VoiceButton'
 const logger = loggerService.withContext('Message Input')
 
 interface MessageInputProps {
@@ -77,8 +76,6 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
     return null
   }
 
-  const showBackgroundColor = (assistant.webSearchProviderId || assistant.enableWebSearch) && isReasoning
-
   return (
     <LinearGradient
       padding={1}
@@ -113,7 +110,17 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
               <XStack gap={10} alignItems="center">
                 <MentionButton mentions={mentions} setMentions={setMentions} />
                 <AnimatePresence exitBeforeEnter>
-                  {text ? (
+                  {text && (
+                    <MotiView
+                      key="send-button"
+                      from={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      transition={{ type: 'timing', duration: 200 }}>
+                      <SendButton onSend={sendMessage} />
+                    </MotiView>
+                  )}
+                  {/*{text ? (
                     <MotiView
                       key="send-button"
                       from={{ opacity: 0, scale: 0.5 }}
@@ -131,7 +138,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
                       transition={{ type: 'timing', duration: 100 }}>
                       <VoiceButton />
                     </MotiView>
-                  )}
+                  )}*/}
                 </AnimatePresence>
               </XStack>
             </XStack>

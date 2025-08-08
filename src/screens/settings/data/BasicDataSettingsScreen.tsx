@@ -3,7 +3,7 @@ import { ChevronRight, FileText, Folder, FolderOpen, RotateCcw, Save, Trash2 } f
 import * as DocumentPicker from 'expo-document-picker'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, Text, useTheme, XStack, YStack } from 'tamagui'
+import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
@@ -29,7 +29,6 @@ interface SettingGroupConfig {
 }
 
 export default function BasicDataSettingsScreen() {
-  const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
   const { t } = useTranslation()
   const { isModalOpen, restoreSteps, overallStatus, startRestore, closeModal } = useRestore({
