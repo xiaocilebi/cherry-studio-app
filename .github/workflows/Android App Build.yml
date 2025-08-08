@@ -1,24 +1,39 @@
-name: Quick Dev Build
+name: Development Build
 
 on:
   push:
     branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'yarn'
-      - run: yarn install
-      - run: eas build --platform android --profile development
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate database
+        run: npx drizzle-kit generate
+
+      - name: Build app
+        run: eas build --platform android --profile development
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: dev-build
-          path: *.apk
+          name: development-build
+          path: |
+            *.apk
+            *.aab
