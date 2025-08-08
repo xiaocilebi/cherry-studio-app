@@ -6,6 +6,7 @@ import { createCitationCallbacks } from './citationCallbacks'
 import { createImageCallbacks } from './imageCallbacks'
 import { createTextCallbacks } from './textCallbacks'
 import { createThinkingCallbacks } from './thinkingCallbacks'
+import { createToolCallbacks } from './toolCallbacks'
 
 interface CallbacksDependencies {
   blockManager: BlockManager
@@ -33,10 +34,10 @@ export const createCallbacks = async (deps: CallbacksDependencies) => {
     assistantMsgId
   })
 
-  // const toolCallbacks = createToolCallbacks({
-  //   blockManager,
-  //   assistantMsgId
-  // })
+  const toolCallbacks = createToolCallbacks({
+    blockManager,
+    assistantMsgId
+  })
 
   const imageCallbacks = createImageCallbacks({
     blockManager,
@@ -60,7 +61,7 @@ export const createCallbacks = async (deps: CallbacksDependencies) => {
     ...baseCallbacks,
     ...textCallbacks,
     ...thinkingCallbacks,
-    // ...toolCallbacks,
+    ...toolCallbacks,
     ...imageCallbacks,
     ...citationCallbacks,
     // 清理资源的方法

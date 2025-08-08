@@ -210,6 +210,15 @@ export const formatCitationsFromBlock = (block: CitationMessageBlock | undefined
             type: 'websearch'
           })) || []
         break
+      case WebSearchSource.AISDK:
+        formattedCitations =
+          (block.response.results as any[])?.map((result, index) => ({
+            number: index + 1,
+            url: result.url,
+            title: result.title,
+            providerMetadata: result?.providerMetadata
+          })) || []
+        break
     }
   }
 
@@ -246,7 +255,7 @@ export const formatCitationsFromBlock = (block: CitationMessageBlock | undefined
   const urlSet = new Set<string>()
   return formattedCitations
     .filter(citation => {
-      if (citation.type === 'knowledge') return true
+      if (citation.type === 'knowledge' || citation.type === 'memory') return true
       if (!citation.url || urlSet.has(citation.url)) return false
       urlSet.add(citation.url)
       return true
