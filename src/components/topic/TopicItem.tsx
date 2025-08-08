@@ -7,7 +7,7 @@ import React from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { Text, useTheme, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
@@ -17,8 +17,6 @@ import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Assistant, Topic } from '@/types/assistant'
-import { useIsDark } from '@/utils'
-import { getTextPrimaryColor, getTextSecondaryColor, getUiCardColor } from '@/utils/color'
 import { haptic } from '@/utils/haptic'
 const logger = loggerService.withContext('Topic Item')
 
@@ -36,7 +34,6 @@ interface RenderRightActionsProps {
 }
 
 const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swipeableRef }) => {
-  const theme = useTheme()
   const { navigateToChatScreen } = useNavigation()
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [50, 0])
@@ -81,14 +78,13 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
           justifyContent: 'center'
         }}
         onPress={handleDelete}>
-        <Trash2 color={theme.textDelete} size={20} />
+        <Trash2 color="$textDelete" size={20} />
       </RectButton>
     </MotiView>
   )
 }
 
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
-  const isDark = useIsDark()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const swipeableRef = useRef<SwipeableMethods>(null)
   const { navigateToChatScreen } = useNavigation()
@@ -136,7 +132,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   return (
     <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
       <XStack
-        backgroundColor={getUiCardColor(isDark)}
+        backgroundColor="$uiCardBackground"
         borderRadius={30}
         paddingVertical={5}
         paddingHorizontal={20}
@@ -147,19 +143,14 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
         <Text fontSize={24}>{assistant?.emoji}</Text>
         <YStack flex={1}>
           <XStack justifyContent="space-between">
-            <Text fontWeight="bold" color={getTextPrimaryColor(isDark)}>
+            <Text fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
-            <Text fontSize={12} color={getTextSecondaryColor(isDark)}>
+            <Text fontSize={12} color="$textSecondary">
               {displayTime}
             </Text>
           </XStack>
-          <Text
-            fontSize={12}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            fontWeight="400"
-            color={getTextPrimaryColor(isDark)}>
+          <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
             {topic.name}
           </Text>
         </YStack>

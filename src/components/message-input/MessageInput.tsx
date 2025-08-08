@@ -97,7 +97,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
                 value={text}
                 onChangeText={setText}
                 lineHeight={22}
-                color={isDark ? '$textSecondaryDark' : '$textSecondaryLight'}
+                color="$textSecondaryLight"
               />
             </XStack>
             {/* button */}

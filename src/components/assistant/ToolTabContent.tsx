@@ -51,7 +51,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
             paddingHorizontal={16}
             paddingVertical={15}
             iconAfter={<ChevronRight size={16} />}
-            backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
+            backgroundColor="$uiCardBackground"
             onPress={handlePress}>
             <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
               <XStack maxWidth="45%" gap={5}>

@@ -13,25 +13,10 @@ import {
 } from '@/types/websearch'
 import { hasObjectKey } from '@/utils'
 
-import { getAllWebSearchProviders, getWebSearchProviderById } from '../../db/queries/websearchProviders.queries'
+import { getAllWebSearchProviders, getWebSearchProviderByIdSync } from '../../db/queries/websearchProviders.queries'
 const logger = loggerService.withContext('WebSearch Service')
 
-export default class WebSearchService {
-  private static instance: WebSearchService
-  private webSearchProviderId: WebSearchProvider['id']
-
-  private constructor(webSearchProviderId: WebSearchProvider['id']) {
-    this.webSearchProviderId = webSearchProviderId
-  }
-
-  public static getInstance(webSearchProviderId: WebSearchProvider['id']): WebSearchService {
-    if (!WebSearchService.instance) {
-      WebSearchService.instance = new WebSearchService(webSearchProviderId)
-    }
-
-    return WebSearchService.instance
-  }
-
+class WebSearchService {
   /**
    * 是否暂停
    */
@@ -44,7 +29,7 @@ export default class WebSearchService {
    * @private
    * @returns 网络搜索状态
    */
-  private static getWebSearchState(): WebSearchState {
+  private getWebSearchState(): WebSearchState {
     return store.getState().websearch
   }
 
@@ -81,8 +66,9 @@ export default class WebSearchService {
    * @public
    * @returns 网络搜索提供商
    */
-  public async getWebSearchProvider(providerId?: string): Promise<WebSearchProvider | undefined> {
-    const provider = await getWebSearchProviderById(providerId || this.webSearchProviderId)
+  public getWebSearchProvider(providerId?: string): WebSearchProvider | undefined {
+    if (!providerId) return
+    const provider = getWebSearchProviderByIdSync(providerId)
 
     return provider
   }
@@ -92,18 +78,15 @@ export default class WebSearchService {
    * @public
    * @param provider 搜索提供商
    * @param query 搜索查询
-   * @param httpOptions
    * @returns 搜索响应
    */
-  public async search(query: string, httpOptions?: RequestInit): Promise<WebSearchProviderResponse> {
-    const websearch = WebSearchService.getWebSearchState()
-    const webSearchProvider = await this.getWebSearchProvider(this.webSearchProviderId)
-
-    if (!webSearchProvider) {
-      throw new Error(`WebSearchProvider ${this.webSearchProviderId} not found`)
-    }
-
-    const webSearchEngine = new WebSearchEngineProvider(webSearchProvider)
+  public async search(
+    provider: WebSearchProvider,
+    query: string,
+    httpOptions?: RequestInit
+  ): Promise<WebSearchProviderResponse> {
+    const websearch = this.getWebSearchState()
+    const webSearchEngine = new WebSearchEngineProvider(provider)
 
     let formattedQuery = query
 
@@ -112,7 +95,12 @@ export default class WebSearchService {
       formattedQuery = `today is ${dayjs().format('YYYY-MM-DD')} \r\n ${query}`
     }
 
+    // try {
     return await webSearchEngine.search(formattedQuery, websearch, httpOptions)
+    // } catch (error) {
+    //   console.error('Search failed:', error)
+    //   throw new Error(`Search failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    // }
   }
 
   /**
@@ -121,10 +109,10 @@ export default class WebSearchService {
    * @param provider 要检查的搜索提供商
    * @returns 如果提供商可用返回true，否则返回false
    */
-  public async checkSearch(): Promise<{ valid: boolean; error?: any }> {
+  public async checkSearch(provider: WebSearchProvider): Promise<{ valid: boolean; error?: any }> {
     try {
-      const response = await this.search('test query')
-      logger.info('[checkSearch] Search response:', response)
+      const response = await this.search(provider, 'test query')
+      logger.debug('Search response:', response)
       // 优化的判断条件：检查结果是否有效且没有错误
       return { valid: response.results !== undefined, error: undefined }
     } catch (error) {
@@ -160,16 +148,20 @@ export default class WebSearchService {
    *
    * @returns 包含搜索结果的响应对象
    */
-  public async processWebsearch(extractResults: ExtractResults, requestId: string): Promise<WebSearchProviderResponse> {
+  public async processWebsearch(
+    webSearchProvider: WebSearchProvider,
+    extractResults: ExtractResults,
+    requestId: string
+  ): Promise<WebSearchProviderResponse> {
     // 检查 websearch 和 question 是否有效
     if (!extractResults.websearch?.question || extractResults.websearch.question.length === 0) {
-      logger.info('[processWebsearch] No valid question found in extractResults.websearch')
+      logger.info('No valid question found in extractResults.websearch')
       return { results: [] }
     }
 
     const questions = extractResults.websearch.question
 
-    const searchPromises = questions.map(q => this.search(q, { signal: this.signal }))
+    const searchPromises = questions.map(q => this.search(webSearchProvider, q))
     const searchResults = await Promise.allSettled(searchPromises)
 
     // 统计成功完成的搜索数量
@@ -201,7 +193,6 @@ export default class WebSearchService {
 
     // 如果没有搜索结果，直接返回空结果
     if (finalResults.length === 0) {
-      await this.setWebSearchStatus(requestId, { phase: 'default' })
       return {
         query: questions.join(' | '),
         results: []
@@ -214,3 +205,4 @@ export default class WebSearchService {
     }
   }
 }
+export default new WebSearchService()

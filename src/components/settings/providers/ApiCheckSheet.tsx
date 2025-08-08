@@ -7,7 +7,6 @@ import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
 import { ISheet } from '@/components/ui/Sheet'
 import { ApiStatus, Model } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 import { getModelUniqId } from '@/utils/model'
 
 import { ModelSelect } from './ModelSelect'
@@ -70,15 +69,15 @@ export function ApiCheckSheet({
             width={224}
             borderRadius={70}
             borderWidth={0.5}
-            backgroundColor={getGreenColor(isDark, 10)}
-            borderColor={getGreenColor(isDark, 20)}
+            backgroundColor="$green10"
+            borderColor="$green20"
             disabled={!selectedModel || !apiKey}
             onPress={onStartModelCheck}>
             {checkApiStatus === 'processing' && (
               <View>
                 <XStack gap={10} width="100%" alignItems="center" justifyContent="center">
-                  <Spinner size="small" color={getGreenColor(isDark, 100)} />
-                  <Text fontSize={18} fontWeight="bold" color={getGreenColor(isDark, 100)}>
+                  <Spinner size="small" color="$green100" />
+                  <Text fontSize={18} fontWeight="bold" color="$green100">
                     {t('button.checking')}
                   </Text>
                 </XStack>
@@ -88,10 +87,10 @@ export function ApiCheckSheet({
             {checkApiStatus === 'idle' && (
               <View>
                 <XStack width="100%" alignItems="center" justifyContent="space-between">
-                  <Text fontSize={18} fontWeight="bold" color={getGreenColor(isDark, 100)}>
+                  <Text fontSize={18} fontWeight="bold" color="$green100">
                     {t('button.start_check_model')}
                   </Text>
-                  <ChevronsRight color={getGreenColor(isDark, 100)} />
+                  <ChevronsRight color="$green100" />
                 </XStack>
               </View>
             )}
@@ -99,7 +98,7 @@ export function ApiCheckSheet({
             {checkApiStatus === 'success' && (
               <View>
                 <XStack width="100%" alignItems="center" justifyContent="space-between">
-                  <Text fontSize={18} fontWeight="bold" color={getGreenColor(isDark, 100)}>
+                  <Text fontSize={18} fontWeight="bold" color="$green100">
                     {t('button.success')}
                   </Text>
                 </XStack>

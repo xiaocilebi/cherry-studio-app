@@ -72,15 +72,15 @@ export async function upsertWebSearchProviders(providersToUpsert: WebSearchProvi
   }
 }
 
-export async function getWebSearchProviderById(providerId: string): Promise<WebSearchProvider | undefined> {
+export function getWebSearchProviderByIdSync(providerId: string): WebSearchProvider | undefined {
   try {
-    const result = await db.select().from(websearch_providers).where(eq(websearch_providers.id, providerId)).limit(1)
+    const result = db.select().from(websearch_providers).where(eq(websearch_providers.id, providerId)).get()
 
-    if (result.length === 0) {
+    if (!result) {
       return undefined
     }
 
-    return transformDbToWebSearchProvider(result[0])
+    return transformDbToWebSearchProvider(result)
   } catch (error) {
     logger.error('Error in getWebSearchProviderById:', error)
     throw error

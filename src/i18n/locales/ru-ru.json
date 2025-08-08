@@ -40,6 +40,7 @@
       "title": "Ассистенты",
       "title.create": "Создать ассистента",
       "title.edit": "Редактор Помощник",
+      "title.mine": "Мой помощник",
       "title.recent": "Последние ассистенты"
     },
     "button": {
@@ -139,6 +140,12 @@
       "topic": {
         "recent": "Недавние темы",
         "title": "Тема"
+      }
+    },
+    "message": {
+      "searching": "Поиск...",
+      "websearch": {
+        "fetch_complete": "Выполнено {{count}} поисков..."
       }
     },
     "models": {

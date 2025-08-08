@@ -8,7 +8,6 @@ import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
 import { NavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 
 import { SettingRow } from '..'
 interface WebsearchProviderRowProps {
@@ -38,9 +37,9 @@ export const WebsearchProviderRow = ({ provider, need_config }: WebsearchProvide
           <Text
             borderRadius={8}
             borderWidth={0.5}
-            backgroundColor={getGreenColor(isDark, 10)}
-            borderColor={getGreenColor(isDark, 20)}
-            color={getGreenColor(isDark, 100)}
+            backgroundColor="$green10"
+            borderColor="$green20"
+            color="$green100"
             paddingVertical={2}
             paddingHorizontal={8}
             justifyContent="center"

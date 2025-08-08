@@ -18,7 +18,7 @@ export const webSearchToolWithPreExtractedKeywords = (
   },
   requestId: string
 ) => {
-  const webSearchService = WebSearchService.getInstance(webSearchProviderId)
+  const webSearchProvider = WebSearchService.getWebSearchProvider(webSearchProviderId)
 
   return tool({
     name: 'builtin_web_search',
@@ -78,7 +78,8 @@ Call this tool to execute the search. You can optionally provide additional cont
           }
         }
         console.log('extractResults', extractResults)
-        const response = await webSearchService.processWebsearch(extractResults, requestId)
+        console.log('webSearchProvider', webSearchProvider)
+        const response = await WebSearchService.processWebsearch(webSearchProvider!, extractResults, requestId)
         searchResults.push(response)
       } catch (error) {
         console.error(`Web search failed for query "${finalQueries}":`, error)

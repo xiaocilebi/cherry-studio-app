@@ -64,7 +64,7 @@ export async function fetchChatCompletion({
     provider: provider,
     enableReasoning: capabilities.enableReasoning,
     isPromptToolUse: false,
-    isSupportedToolUse: false,
+    isSupportedToolUse: true,
     isImageGenerationEndpoint: isDedicatedImageGenerationModel(assistant.model || getDefaultModel()),
     enableWebSearch: capabilities.enableWebSearch,
     enableGenerateImage: capabilities.enableGenerateImage,

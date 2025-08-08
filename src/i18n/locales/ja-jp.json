@@ -40,6 +40,7 @@
       "title": "アシスタント",
       "title.create": "アシスタントを作成",
       "title.edit": "編集アシスタント",
+      "title.mine": "私のアシスタント",
       "title.recent": "最近のアシスタント"
     },
     "button": {
@@ -139,6 +140,12 @@
       "topic": {
         "recent": "最近のトピック",
         "title": "トピック"
+      }
+    },
+    "message": {
+      "searching": "検索中...",
+      "websearch": {
+        "fetch_complete": "検索が {{count}} 回完了しました..."
       }
     },
     "models": {

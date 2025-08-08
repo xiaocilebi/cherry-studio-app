@@ -51,12 +51,7 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size })
             right: -6,
             borderRadius: 99
           }}>
-          <CircleX
-            size={20}
-            color={isDark ? '$backgroundPrimaryDark' : '$backgroundPrimaryLight'}
-            borderRadius={99}
-            backgroundColor="$gray60"
-          />
+          <CircleX size={20} color="$backgroundPrimary" borderRadius={99} backgroundColor="$gray60" />
         </TouchableOpacity>
       )}
     </View>

@@ -40,6 +40,7 @@
       "title": "Assistants",
       "title.create": "Create Assistant",
       "title.edit": "Edit Assistant",
+      "title.mine": "My assistant",
       "title.recent": "Recent Assistants"
     },
     "button": {
@@ -139,6 +140,12 @@
       "topic": {
         "recent": "Recent Topics",
         "title": "Topic"
+      }
+    },
+    "message": {
+      "searching": "Searching...",
+      "websearch": {
+        "fetch_complete": "Completed {{count}} searches..."
       }
     },
     "models": {

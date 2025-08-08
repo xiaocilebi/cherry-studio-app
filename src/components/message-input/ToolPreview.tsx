@@ -7,7 +7,6 @@ import { isGenerateImageModel } from '@/config/models/image'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 import { haptic } from '@/utils/haptic'
 
 const logger = loggerService.withContext('ToolPreview')
@@ -47,11 +46,11 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
             borderRadius={48}
             paddingVertical={5}
             paddingHorizontal={10}
-            backgroundColor={getGreenColor(isDark, 10)}
+            backgroundColor="$green10"
             justifyContent="space-between"
             alignItems="center">
-            <Palette size={20} color={getGreenColor(isDark, 100)} />
-            <X size={20} color={getGreenColor(isDark, 100)} onPress={handleDisableGenerateImage} />
+            <Palette size={20} color="$green100" />
+            <X size={20} color="$green100" onPress={handleDisableGenerateImage} />
           </XStack>
         )}
         {assistant.model && !isGenerateImageModel(assistant.model) && assistant.enableWebSearch && (
@@ -60,11 +59,11 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
             borderRadius={48}
             paddingVertical={5}
             paddingHorizontal={10}
-            backgroundColor={getGreenColor(isDark, 10)}
+            backgroundColor="$green10"
             justifyContent="space-between"
             alignItems="center">
-            <Globe size={20} color={getGreenColor(isDark, 100)} />
-            <X size={20} color={getGreenColor(isDark, 100)} onPress={handleDisableWebSearch} />
+            <Globe size={20} color="$green100" />
+            <X size={20} color="$green100" onPress={handleDisableWebSearch} />
           </XStack>
         )}
       </XStack>

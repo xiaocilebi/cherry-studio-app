@@ -6,7 +6,6 @@ import { Button } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 import { haptic } from '@/utils/haptic'
 
 interface WebsearchButtonProps {
@@ -33,7 +32,7 @@ export const WebsearchButton: React.FC<WebsearchButtonProps> = ({ assistant, upd
       size={20}
       icon={<Globe size={20} />}
       onPress={handlePress}
-      color={assistant.enableWebSearch ? getGreenColor(isDark, 100) : undefined}
+      color={assistant.enableWebSearch ? '$green100' : undefined}
     />
   )
 }

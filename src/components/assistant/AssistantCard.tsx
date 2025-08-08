@@ -9,7 +9,6 @@ import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getGreenColor, getTextSecondaryColor, getUiCardColor } from '@/utils/color'
 import { formateEmoji } from '@/utils/formats'
 
 import { ModelChangeIcon } from '../icons/ModelChangeIcon'
@@ -51,7 +50,7 @@ const ActionTag: FC<ActionTagProps> = ({ icon, label, onPress }) => {
         {icon}
       </LinearGradient>
 
-      <Text color={getTextSecondaryColor(isDark)}>{label}</Text>
+      <Text color="$textSecondary">{label}</Text>
     </XStack>
   )
 }
@@ -117,7 +116,7 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
           borderRadius={40}
           alignItems="center"
           justifyContent="center"
-          backgroundColor={getUiCardColor(isDark)}
+          backgroundColor="$uiCardBackground"
           paddingTop={60}
           paddingBottom={30}
           paddingHorizontal={21}>
@@ -140,10 +139,10 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
                       group={group}
                       paddingHorizontal={12}
                       paddingVertical={5}
-                      backgroundColor={getGreenColor(isDark, 10)}
-                      color={getGreenColor(isDark, 100)}
+                      backgroundColor="$green10"
+                      color="$green100"
                       borderWidth={0.5}
-                      borderColor={getGreenColor(isDark, 20)}
+                      borderColor="$green20"
                     />
                   ))}
               </XStack>

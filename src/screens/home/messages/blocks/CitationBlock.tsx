@@ -8,7 +8,6 @@ import CitationsList from '../CitationLIst'
 
 function CitationBlock({ block }: { block: CitationMessageBlock }) {
   const formattedCitations = formatCitationsFromBlock(block)
-
   return (
     <View>
       <CitationsList citations={formattedCitations} />

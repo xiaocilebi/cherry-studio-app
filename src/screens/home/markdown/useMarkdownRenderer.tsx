@@ -12,7 +12,6 @@ import { Button, Image, Text, View, XStack } from 'tamagui'
 import temml from 'temml'
 
 import { loggerService } from '@/services/LoggerService'
-import { getGreenColor } from '@/utils/color'
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
@@ -74,7 +73,7 @@ export const useMarkdownRenderer = (isDark: boolean) => {
           justifyContent="space-between"
           alignItems="center"
           borderBottomWidth={1}
-          borderColor={getGreenColor(isDark, 10)}>
+          borderColor="$green10">
           <XStack paddingLeft={12} gap={8} flex={1} alignItems="center">
             <Image source={getCodeLanguageIcon(node.sourceInfo)} width={18} height={18} />
             <Text fontSize={13} lineHeight={16}>

@@ -1,12 +1,10 @@
 import { ChevronDown } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Accordion, Square, Text, XStack, YStack } from 'tamagui'
+import { Accordion, Square, Stack, Text, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { ModelTags } from '@/components/ui/ModelTags'
 import { Model } from '@/types/assistant'
-import { useIsDark } from '@/utils'
-import { getGreenColor, getUiCardColor } from '@/utils/color'
 
 interface ModelGroupProps {
   groupName: string
@@ -25,11 +23,10 @@ export function ModelGroup({
   renderModelButton,
   showModelCount = false
 }: ModelGroupProps) {
-  const isDark = useIsDark()
   return (
     <Accordion.Item key={groupName} value={`item-${index}`} marginBottom={8}>
       <Accordion.Trigger
-        backgroundColor={getUiCardColor(isDark)}
+        backgroundColor="$uiCardBackground"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
@@ -47,13 +44,16 @@ export function ModelGroup({
                 {groupName}
               </Text>
               {showModelCount && (
-                <Text
-                  paddingHorizontal={8}
+                <Stack
+                  justifyContent="center"
+                  alignItems="center"
+                  padding={3}
                   borderRadius={8}
-                  backgroundColor={getGreenColor(isDark, 20)}
-                  color={getGreenColor(isDark, 100)}>
-                  {models.length}
-                </Text>
+                  backgroundColor="$green20">
+                  <Text fontSize={10} lineHeight={14} height={14} width={14} color="$green100" textAlign="center">
+                    {models.length}
+                  </Text>
+                </Stack>
               )}
             </XStack>
 
@@ -67,7 +67,7 @@ export function ModelGroup({
           exitStyle={{ opacity: 0 }}
           borderBottomLeftRadius={9}
           borderBottomRightRadius={9}
-          backgroundColor={getUiCardColor(isDark)}>
+          backgroundColor="$uiCardBackground">
           <YStack flex={1} width="100%" gap={8}>
             {models.map(model => (
               <XStack
@@ -86,7 +86,7 @@ export function ModelGroup({
                     <Text numberOfLines={1} ellipsizeMode="tail">
                       {model.name}
                     </Text>
-                    <ModelTags model={model} size={11} style={{ flexShrink: 0 }} />
+                    <ModelTags model={model} size={11} />
                   </YStack>
                 </XStack>
                 <XStack flexShrink={0} marginLeft={8}>

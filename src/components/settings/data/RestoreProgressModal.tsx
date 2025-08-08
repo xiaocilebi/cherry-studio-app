@@ -5,7 +5,6 @@ import { Button, Dialog, Paragraph, Spinner, Text, Unspaced, XStack, YStack } fr
 
 import { RestoreStepId, StepStatus } from '@/services/BackupService'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 
 export interface RestoreStep {
   id: RestoreStepId
@@ -26,7 +25,7 @@ const getIconForStatus = (isDark: boolean, status: StepStatus) => {
     case 'in_progress':
       return <Spinner size="small" color="$textLink" />
     case 'completed':
-      return <CircleCheck size={20} color={getGreenColor(isDark, 100)} />
+      return <CircleCheck size={20} color="$green100" />
     case 'error':
       return <XCircle size={20} color="$red100" />
     case 'pending':
@@ -40,7 +39,7 @@ const getBackgroundColor = (isDark: boolean, status: StepStatus) => {
     case 'in_progress':
       return '$blue100'
     case 'completed':
-      return getGreenColor(isDark, 10)
+      return '$green10'
     case 'error':
       return '$red20'
     case 'pending':
@@ -54,7 +53,7 @@ const getFontColor = (isDark: boolean, status: StepStatus) => {
     case 'in_progress':
       return '$textLink'
     case 'completed':
-      return getGreenColor(isDark, 100)
+      return '$green100'
     case 'error':
       return '$red'
     case 'pending':
@@ -127,8 +126,8 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
               <Button
                 onPress={onClose}
                 disabled={!isDone}
-                backgroundColor={overallStatus === 'error' ? '$red10' : getGreenColor(isDark, 10)}>
-                <Text color={overallStatus === 'error' ? '$red100' : getGreenColor(isDark, 100)}>
+                backgroundColor={overallStatus === 'error' ? '$red10' : '$green10'}>
+                <Text color={overallStatus === 'error' ? '$red100' : '$green100'}>
                   {isDone ? t('common.close') : t('settings.data.restore.progress.pending')}
                 </Text>
               </Button>

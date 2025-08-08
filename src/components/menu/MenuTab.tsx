@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import { Stack, StackProps, Tabs, Text } from 'tamagui'
 
 import { useIsDark } from '@/utils'
-import { getGreenColor, getTextPrimaryColor } from '@/utils/color'
 
 export type TabItem = {
   id: string
@@ -19,7 +18,7 @@ interface MenuTabProps extends StackProps {
 
 export const MenuTab: FC<MenuTabProps> = ({ tabs, activeTab, onTabChange, children, ...stackProps }) => {
   const isDark = useIsDark()
-  const inactiveTextColor = getTextPrimaryColor(isDark)
+  const inactiveTextColor = '$textPrimary'
 
   return (
     <Tabs
@@ -41,12 +40,12 @@ export const MenuTab: FC<MenuTabProps> = ({ tabs, activeTab, onTabChange, childr
               paddingVertical={12}
               backgroundColor="transparent"
               borderBottomWidth={isActive ? 2 : 0}
-              borderColor={isActive ? getGreenColor(isDark, 100) : 'transparent'}
+              borderColor={isActive ? '$green100' : 'transparent'}
               focusStyle={{
                 borderBottomWidth: isActive ? 4 : 0,
-                borderColor: isActive ? getGreenColor(isDark, 100) : 'transparent'
+                borderColor: isActive ? '$green100' : 'transparent'
               }}>
-              <Text lineHeight={17} color={isActive ? getGreenColor(isDark, 100) : inactiveTextColor}>
+              <Text lineHeight={17} color={isActive ? '$green100' : inactiveTextColor}>
                 {tab.label}
               </Text>
             </Tabs.Tab>
