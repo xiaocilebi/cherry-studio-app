@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          # 移除缓存配置，避免问题
 
       - name: Enable Corepack and install Yarn
         run: |
@@ -31,8 +30,17 @@ jobs:
       - name: Generate database schema
         run: npx drizzle-kit generate
 
-      - name: Install EAS CLI
-        run: npm install -g eas-cli
+      - name: Install EAS CLI and Expo CLI
+        run: |
+          npm install -g eas-cli
+          npm install -g @expo/cli
+
+      - name: Login to Expo with token
+        run: |
+          echo "Logging in to Expo..."
+          npx expo login --token ${{ secrets.EXPO_TOKEN }}
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build development app
         run: eas build --platform android --profile development
