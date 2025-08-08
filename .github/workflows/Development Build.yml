@@ -13,19 +13,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js and Yarn
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'yarn'
+          node-version: '18'
+          # 移除缓存配置，避免问题
 
-      - name: Install dependencies
+      - name: Enable Corepack and install Yarn
         run: |
           corepack enable
-          yarn install
+          yarn set version 4.9.1
+          yarn --version
+
+      - name: Install dependencies
+        run: yarn install
 
       - name: Generate database schema
         run: npx drizzle-kit generate
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
 
       - name: Build development app
         run: eas build --platform android --profile development
@@ -38,4 +45,5 @@ jobs:
           name: android-development-build
           path: |
             *.apk
+            *.aab
           retention-days: 7
