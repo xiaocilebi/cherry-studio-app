@@ -45,10 +45,20 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      - name: 🔧 Enable Corepack and Setup Yarn
+        run: |
+          # 启用 Corepack
+          corepack enable
+          # 验证 Corepack 状态
+          corepack --version
+          # 设置 Yarn 版本（根据 package.json 中的 packageManager 字段）
+          yarn set version 4.9.1
+          # 验证 Yarn 版本
+          yarn --version
+
       - name: 📦 Install dependencies
         run: |
-          corepack enable
-          yarn set version 4.9.1
+          # 使用项目指定的 Yarn 版本安装依赖
           yarn install --frozen-lockfile
 
       - name: 🔧 Setup Android SDK
@@ -89,10 +99,14 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
 
-      - name: 📦 Install dependencies
+      - name: 🔧 Enable Corepack and Setup Yarn
         run: |
           corepack enable
           yarn set version 4.9.1
+          yarn --version
+
+      - name: 📦 Install dependencies
+        run: |
           yarn install --frozen-lockfile
 
       - name: 🔍 Run linting
