@@ -49,6 +49,13 @@ jobs:
           yarn --version
           yarn install --frozen-lockfile
 
+      - name: 🚀 Install EAS CLI
+        run: |
+          echo "📦 Installing EAS CLI..."
+          npm install -g @expo/cli eas-cli
+          eas --version
+          expo --version
+
       - name: 📋 Generate database schema
         run: |
           npx drizzle-kit generate
@@ -62,7 +69,6 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
-          # 移除 gradle 缓存，因为现在才有 gradle 文件
 
       - name: 🔧 Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -79,6 +85,13 @@ jobs:
         run: |
           echo "🔄 Fixing i18n synchronization..."
           yarn sync:i18n || echo "⚠️ i18n sync had some issues, continuing..."
+
+      - name: 🔐 Login to Expo
+        run: |
+          echo "🔐 Logging in to Expo..."
+          eas login --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       - name: 🏗️ Build Android App with EAS
         run: |
