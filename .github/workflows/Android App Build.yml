@@ -36,7 +36,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
+          # 不使用 yarn 缓存，让 corepack 管理
+
+      - name: 🔧 Enable Corepack and Setup Yarn
+        run: |
+          # 启用 Corepack
+          corepack enable
+          # 设置正确的 Yarn 版本（与 package.json 一致）
+          yarn set version 4.9.1
+          # 验证版本
+          yarn --version
+          # 清理缓存
+          yarn cache clean --all
 
       - name: 🐘 Setup Java
         uses: actions/setup-java@v4
@@ -45,20 +56,11 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: 🔧 Enable Corepack and Setup Yarn
-        run: |
-          # 启用 Corepack
-          corepack enable
-          # 验证 Corepack 状态
-          corepack --version
-          # 设置 Yarn 版本（根据 package.json 中的 packageManager 字段）
-          yarn set version 4.9.1
-          # 验证 Yarn 版本
-          yarn --version
-
       - name: 📦 Install dependencies
         run: |
-          # 使用项目指定的 Yarn 版本安装依赖
+          # 验证 Yarn 版本
+          yarn --version
+          # 安装依赖
           yarn install --frozen-lockfile
 
       - name: 🔧 Setup Android SDK
@@ -69,9 +71,18 @@ jobs:
           npx drizzle-kit generate
           yarn run prebuild
 
+      - name: 🔧 Setup environment for EAS build
+        run: |
+          # 创建环境变量文件
+          if [ "${{ github.event.inputs.build_profile || 'development' }}" == "production" ]; then
+            echo "ENVIRONMENT=production" >> .env
+          else
+            echo "ENVIRONMENT=development" >> .env
+          fi
+
       - name: 🏗️ Build Android App with EAS
         run: |
-          eas build --platform android --profile ${{ github.event.inputs.build_profile || 'development' }} --non-interactive
+          eas build --platform android --profile ${{ github.event.inputs.build_profile || 'development' }} --non-interactive --clear-cache
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
@@ -97,16 +108,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
 
       - name: 🔧 Enable Corepack and Setup Yarn
         run: |
           corepack enable
           yarn set version 4.9.1
           yarn --version
+          yarn cache clean --all
 
       - name: 📦 Install dependencies
         run: |
+          yarn --version
           yarn install --frozen-lockfile
 
       - name: 🔍 Run linting
