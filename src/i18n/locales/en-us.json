@@ -398,6 +398,10 @@
         "default_vault_placeholder": "Please select the default Obsidian vault",
         "title": "Obsidian Configuration"
       },
+      "personal": {
+        "name": "Username",
+        "title": "Personal Settings"
+      },
       "provider": {
         "add.name": "Provider Name",
         "add.name.placeholder": "Required e.g. OpenAI",

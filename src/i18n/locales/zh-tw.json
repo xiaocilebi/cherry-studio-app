@@ -398,6 +398,10 @@
         "default_vault_placeholder": "請選擇預設的 Obsidian 儲存庫",
         "title": "Obsidian 配置"
       },
+      "personal": {
+        "name": "使用者名稱",
+        "title": "個人設定"
+      },
       "provider": {
         "add.name": "提供者名稱",
         "add.name.placeholder": "示例：OpenAI",

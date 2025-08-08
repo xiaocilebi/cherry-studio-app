@@ -214,10 +214,6 @@
       "zhipu": "ZHIPU AI"
     },
     "settings": {
-      "personal": {
-        "title": "个人设置",
-        "name": "用户名"
-      },
       "about": {
         "contact": {
           "button": "邮件",
@@ -401,6 +397,10 @@
         "default_vault_no_vaults": "未找到 Obsidian 仓库",
         "default_vault_placeholder": "请选择默认的 Obsidian 仓库",
         "title": "Obsidian 配置"
+      },
+      "personal": {
+        "name": "用户名",
+        "title": "个人设置"
       },
       "provider": {
         "add.name": "提供者名称",
