@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -23,20 +23,12 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
   const isDark = useIsDark()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { apiProviders } = useWebsearchProviders()
-  const [providerId, setProviderId] = useState<string | undefined>(assistant.webSearchProviderId)
-
-  useEffect(() => {
-    updateAssistant({
-      ...assistant,
-      webSearchProviderId: providerId
-    })
-  }, [assistant, providerId, updateAssistant])
 
   const handlePress = () => {
     bottomSheetModalRef.current?.present()
   }
 
-  const provider = apiProviders.find(p => p.id === providerId)
+  const provider = apiProviders.find(p => p.id === assistant.webSearchProviderId)
 
   return (
     <MotiView
@@ -55,14 +47,13 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
         <SettingGroup>
           <Button
             chromeless
-            // width="100%"
-            // height="100%"
+            height={30}
             paddingHorizontal={16}
             paddingVertical={15}
             iconAfter={<ChevronRight size={16} />}
             backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
             onPress={handlePress}>
-            <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
+            <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
               <XStack maxWidth="45%" gap={5}>
                 {provider ? (
                   <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
@@ -71,12 +62,12 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
                       <WebsearchProviderIcon provider={provider} />
                     </XStack>
                     {/* Provider name */}
-                    <Text numberOfLines={1} ellipsizeMode="tail" flex={1}>
+                    <Text lineHeight={20} numberOfLines={1} ellipsizeMode="tail" flex={1}>
                       {provider.name}
                     </Text>
                   </XStack>
                 ) : (
-                  <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
+                  <Text lineHeight={20} flex={1} numberOfLines={1} ellipsizeMode="tail">
                     {t('settings.websearch.empty')}
                   </Text>
                 )}
@@ -87,8 +78,8 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
       </YStack>
       <WebsearchSheet
         ref={bottomSheetModalRef}
-        providerId={providerId}
-        setProviderId={setProviderId}
+        assistant={assistant}
+        updateAssistant={updateAssistant}
         providers={apiProviders.filter(p => p.apiKey)}
       />
     </MotiView>

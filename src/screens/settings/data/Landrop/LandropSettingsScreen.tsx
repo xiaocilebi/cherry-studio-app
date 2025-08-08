@@ -3,7 +3,6 @@ import { File, Paths } from 'expo-file-system/next'
 import React, { useEffect, useRef, useState } from 'react' // Import useRef
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { useTheme } from 'tamagui'
 
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -15,7 +14,6 @@ import { NavigationProps } from '@/types/naviagate'
 import { QRCodeScanner } from './QRCodeScanner'
 
 export default function LandropSettingsScreen() {
-  const theme = useTheme()
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
   const { status, filename, connect } = useWebSocket()

@@ -5,6 +5,7 @@ export type RootStackParamList = {
   HomeScreen: undefined
   ChatScreen: { topicId: string }
   SettingsScreen: undefined
+  PersonalScreen: undefined
   DataSettingsScreen: undefined
   BasicDataSettingsScreen: undefined
   LandropSettingsScreen: undefined

@@ -17,7 +17,8 @@ import { Chunk, ChunkType } from '@/types/chunk'
 import { SdkModel } from '@/types/sdk'
 import { filterMainTextMessages } from '@/utils/messageUtils/filters'
 
-import { createBlankAssistant, getAssistantById, getAssistantProvider, getDefaultModel } from './AssistantService'
+import { createBlankAssistant, getAssistantById, getDefaultModel } from './AssistantService'
+import { getAssistantProvider } from './ProviderService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 import { getTopicById, upsertTopics } from './TopicService'
 const logger = loggerService.withContext('fetchChatCompletion')
@@ -42,6 +43,7 @@ export async function fetchChatCompletion({
 
   const AI = new ModernAiProvider(assistant.model || getDefaultModel(), provider)
 
+  console.log('fetchChatCompletion', assistant)
   // 使用 transformParameters 模块构建参数
   const {
     params: aiSdkParams,

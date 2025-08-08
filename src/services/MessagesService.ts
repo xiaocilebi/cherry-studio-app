@@ -39,9 +39,10 @@ import {
   upsertMessages
 } from '../../db/queries/messages.queries'
 import { getTopicById, updateTopicMessages } from '../../db/queries/topics.queries'
-import { getAssistantById, getAssistantProvider, getDefaultModel } from './AssistantService'
+import { getAssistantById, getDefaultModel } from './AssistantService'
 import { BlockManager, createCallbacks } from './messageStreaming'
 import { OrchestrationService } from './OrchestrationService'
+import { getAssistantProvider } from './ProviderService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 
 const logger = loggerService.withContext('Messages Service')

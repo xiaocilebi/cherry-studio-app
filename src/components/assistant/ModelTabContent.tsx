@@ -79,19 +79,20 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
       <SettingGroup>
         <Button
           chromeless
+          height={30}
           paddingHorizontal={16}
           paddingVertical={15}
           iconAfter={<ChevronRight size={16} />}
           backgroundColor={isDark ? '$uiCardDark' : '$uiCardLight'}
           onPress={handlePress}>
-          <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
+          <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
             {model.length > 0 ? (
               <>
-                <Text lineHeight={14} flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
+                <Text lineHeight={17} flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
                   {t(`provider.${model[0].provider}`)}
                 </Text>
                 <Text
-                  lineHeight={12}
+                  lineHeight={20}
                   fontSize={12}
                   flexShrink={0}
                   numberOfLines={1}
@@ -101,7 +102,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
                 </Text>
               </>
             ) : (
-              <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
+              <Text lineHeight={20} flex={1} numberOfLines={1} ellipsizeMode="tail">
                 {t('settings.models.empty')}
               </Text>
             )}

@@ -60,7 +60,7 @@
     "@tamagui/toast": "^1.131.3",
     "@types/lodash": "^4.17.17",
     "@ungap/structured-clone": "^1.3.0",
-    "ai": "^5.0.0-beta.9",
+    "ai": "5.0.0",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "buffer": "^6.0.3",

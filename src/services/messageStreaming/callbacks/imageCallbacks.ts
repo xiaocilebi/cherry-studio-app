@@ -48,7 +48,7 @@ export const createImageCallbacks = (deps: ImageCallbacksDependencies) => {
         blockManager.smartBlockUpdate(imageBlockId, changes, MessageBlockType.IMAGE, true)
       }
     },
-
+    // 将生成的图片处理成file类型，加快读取速度
     onImageGenerated: async (imageData: any) => {
       if (imageBlockId) {
         if (!imageData) {
@@ -57,10 +57,9 @@ export const createImageCallbacks = (deps: ImageCallbacksDependencies) => {
           }
           blockManager.smartBlockUpdate(imageBlockId, changes, MessageBlockType.IMAGE)
         } else {
-          const imageUrl = imageData.images?.[0] || 'placeholder_image_url'
+          const imageFile = await writeBase64File(imageData.images?.[0])
           const changes: Partial<ImageMessageBlock> = {
-            url: imageUrl,
-            metadata: { generateImageResponse: imageData },
+            file: imageFile,
             status: MessageBlockStatus.SUCCESS
           }
           blockManager.smartBlockUpdate(imageBlockId, changes, MessageBlockType.IMAGE, true)
@@ -69,13 +68,10 @@ export const createImageCallbacks = (deps: ImageCallbacksDependencies) => {
         imageBlockId = null
       } else {
         if (imageData) {
-          console.log('onImageGenerated', imageData)
           const imageFile = await writeBase64File(imageData.images?.[0])
-          console.log('onImageGenerated', imageFile)
-
           const imageBlock = createImageBlock(assistantMsgId, {
-            status: MessageBlockStatus.SUCCESS,
-            file: imageFile
+            file: imageFile,
+            status: MessageBlockStatus.SUCCESS
           })
           await blockManager.handleBlockTransition(imageBlock, MessageBlockType.IMAGE)
         } else {
