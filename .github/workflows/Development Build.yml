@@ -30,17 +30,14 @@ jobs:
       - name: Generate database schema
         run: npx drizzle-kit generate
 
-      - name: Install EAS CLI and Expo CLI
-        run: |
-          npm install -g eas-cli
-          npm install -g @expo/cli
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
 
-      - name: Login to Expo with token
+      - name: Set up Expo authentication
         run: |
-          echo "Logging in to Expo..."
-          npx expo login --token ${{ secrets.EXPO_TOKEN }}
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          echo "Setting up Expo authentication..."
+          echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN }}" >> $GITHUB_ENV
+          echo "✅ Expo token set in environment"
 
       - name: Build development app
         run: eas build --platform android --profile development
