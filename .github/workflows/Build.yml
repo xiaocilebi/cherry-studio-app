@@ -1,0 +1,53 @@
+# .github/workflows/build.yml
+
+name: Build, Test, and Export Web
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build, Test & Export Web
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # --- 修改这里 ---
+      - name: Setup Node.js (without Yarn cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          # 关键改动：移除了 cache: 'yarn' 选项
+      # --- 修改结束 ---
+
+      - name: Enable Corepack
+        run: corepack enable # 确保 Corepack 被启用
+
+      - name: Install dependencies
+        run: yarn install # 现在应该能正确使用 Yarn 4.9.1 了
+
+      # --- 后续步骤保持不变 ---
+      - name: Run Lint
+        run: yarn lint
+
+      - name: Run Tests
+        run: yarn test --ci --watchAll=false
+
+      - name: Type Check
+        run: yarn tsc --noEmit
+
+      - name: Build Web App (Expo Export)
+        run: npx expo export
+
+      - name: Upload Web Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build-output
+          path: ./dist
+          if-no-files-found: error
