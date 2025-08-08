@@ -49,6 +49,11 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     handleRoute('AssistantScreen')
   }
 
+  const handleNavigateSettingsScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    handleRoute('SettingsScreen')
+  }
+
   if (isLoadingTopics || isLoadingAssistants) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -116,11 +121,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             </Avatar>
             <Text color={theme.color}>{userName || t('common.cherry_studio')}</Text>
           </XStack>
-          <Button
-            icon={<Settings size={24} color={theme.color} />}
-            chromeless
-            onPress={() => handleRoute('SettingsScreen')}
-          />
+          <Button icon={<Settings size={24} color={theme.color} />} chromeless onPress={handleNavigateSettingsScreen} />
         </XStack>
       </BlurView>
     </YStack>
