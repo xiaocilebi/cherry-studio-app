@@ -16,13 +16,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Enable Corepack and install dependencies
         run: |
           corepack enable
-          yarn set version 4.9.1
+          yarn set version
           yarn install
 
       - name: Generate database schema
