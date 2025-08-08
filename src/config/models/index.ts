@@ -3,6 +3,7 @@ import OpenAI from 'openai'
 
 import { getProviderByModel } from '@/services/ProviderService'
 import { Model } from '@/types/assistant'
+import { getLowerBaseModelName } from '@/utils/naming'
 
 import { isOpenAIReasoningModel } from './reasoning'
 
@@ -156,4 +157,12 @@ export function isOpenAIModel(model: Model): boolean {
   }
 
   return model.id.includes('gpt') || isOpenAIReasoningModel(model)
+}
+
+export const isAnthropicModel = (model?: Model): boolean => {
+  if (!model) {
+    return false
+  }
+
+  return getLowerBaseModelName(model.id).startsWith('claude')
 }

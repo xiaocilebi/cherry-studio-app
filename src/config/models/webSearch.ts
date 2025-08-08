@@ -1,11 +1,14 @@
 import { getProviderByModel } from '@/services/ProviderService'
 import { Model } from '@/types/assistant'
+import { isUserSelectedModelType } from '@/utils/model'
 import { getLowerBaseModelName } from '@/utils/naming'
 
 import { WEB_SEARCH_PROMPT_FOR_OPENROUTER } from '../prompts'
 import { getWebSearchTools } from '../tools'
+import { isAnthropicModel } from '.'
 import { isEmbeddingModel } from './embedding'
 import { isOpenAIReasoningModel } from './reasoning'
+import { isRerankModel } from './rerank'
 
 export const CLAUDE_SUPPORTED_WEBSEARCH_REGEX = new RegExp(
   `\\b(?:claude-3(-|\\.)(7|5)-sonnet(?:-[\\w-]+)|claude-3(-|\\.)5-haiku(?:-[\\w-]+)|claude-sonnet-4(?:-[\\w-]+)?|claude-opus-4(?:-[\\w-]+)?)\\b`,
@@ -51,16 +54,13 @@ export function isOpenAIWebSearchModel(model: Model): boolean {
   )
 }
 
-// Replaced with the complete function from original file
 export function isWebSearchModel(model: Model): boolean {
-  if (!model) {
+  if (!model || isEmbeddingModel(model) || isRerankModel(model)) {
     return false
   }
 
-  if (model.type) {
-    if (model.type.includes('web_search')) {
-      return true
-    }
+  if (isUserSelectedModelType(model, 'web_search') !== undefined) {
+    return isUserSelectedModelType(model, 'web_search')!
   }
 
   const provider = getProviderByModel(model)
@@ -78,7 +78,7 @@ export function isWebSearchModel(model: Model): boolean {
   const baseName = getLowerBaseModelName(model.id, '/')
 
   // 不管哪个供应商都判断了
-  if (model.id.includes('claude')) {
+  if (isAnthropicModel(model)) {
     return CLAUDE_SUPPORTED_WEBSEARCH_REGEX.test(baseName)
   }
 

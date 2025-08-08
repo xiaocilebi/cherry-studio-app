@@ -62,6 +62,7 @@ const Footer = ({ url, title }: { url: string; title: string }) => (
 )
 
 const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url: string) => void }) => {
+  console.log('CitationCard', citation)
   const isDark = useIsDark()
   return (
     <View paddingHorizontal={30} paddingVertical={20}>

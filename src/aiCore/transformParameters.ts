@@ -301,7 +301,7 @@ export async function buildStreamTextParams(
   modelId: string
   capabilities: { enableReasoning: boolean; enableWebSearch: boolean; enableGenerateImage: boolean }
 }> {
-  const { mcpTools } = options
+  const { mcpTools, webSearchProviderId } = options
 
   const model = assistant.model || getDefaultModel()
 
@@ -324,6 +324,7 @@ export async function buildStreamTextParams(
     (isSupportedDisableGenerationModel(model) ? assistant.enableGenerateImage || false : true)
 
   // const tools = setupToolsConfig(mcpTools)
+  // const tools: Record<string, Tool> = {}
 
   // if (webSearchProviderId) {
   //   tools['builtin_web_search'] = webSearchTool(webSearchProviderId)

@@ -21,7 +21,6 @@ import {
 import { MessageStream } from '@anthropic-ai/sdk/resources/messages/messages'
 import { File } from 'expo-file-system/next'
 
-import { GenericChunk } from '@/aiCore/middleware/schemas'
 import { findTokenLimit } from '@/config/models'
 import { EFFORT_RATIO, isClaudeReasoningModel, isReasoningModel } from '@/config/models/reasoning'
 import { isWebSearchModel } from '@/config/models/webSearch'
@@ -57,6 +56,7 @@ import {
 import { findFileBlocks, findImageBlocks } from '@/utils/messageUtils/find'
 import { buildSystemPrompt } from '@/utils/prompt'
 
+import { GenericChunk } from '../../middleware/schemas'
 import { BaseApiClient } from '../BaseApiClient'
 import { AnthropicStreamListener, RawStreamListener, RequestTransformer, ResponseChunkTransformer } from '../types'
 

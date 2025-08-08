@@ -43,6 +43,7 @@ export async function fetchChatCompletion({
 
   const AI = new ModernAiProvider(assistant.model || getDefaultModel(), provider)
 
+  console.log('fetchChatCompletion', assistant)
   // 使用 transformParameters 模块构建参数
   const {
     params: aiSdkParams,
