@@ -141,6 +141,12 @@
         "title": "Topic"
       }
     },
+    "message": {
+      "searching": "Searching...",
+      "websearch": {
+        "fetch_complete": "Completed {{count}} searches..."
+      }
+    },
     "models": {
       "no_models": "No models available",
       "type": {

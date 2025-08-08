@@ -141,6 +141,12 @@
         "title": "トピック"
       }
     },
+    "message": {
+      "searching": "検索中...",
+      "websearch": {
+        "fetch_complete": "検索が {{count}} 回完了しました..."
+      }
+    },
     "models": {
       "no_models": "利用可能なモデルがありません",
       "type": {

@@ -141,6 +141,12 @@
         "title": "Тема"
       }
     },
+    "message": {
+      "searching": "Поиск...",
+      "websearch": {
+        "fetch_complete": "Выполнено {{count}} поисков..."
+      }
+    },
     "models": {
       "no_models": "Нет доступных моделей",
       "type": {

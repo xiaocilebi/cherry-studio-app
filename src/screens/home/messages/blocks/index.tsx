@@ -12,6 +12,7 @@ import ImageBlock from './ImageBlock'
 import MainTextBlock from './MainTextBlock'
 import PlaceholderBlock from './PlaceholderBlock'
 import ThinkingBlock from './ThinkingBlock'
+import ToolBlock from './ToolBlock'
 import TranslationBlock from './TranslationBlock'
 const logger = loggerService.withContext('Message Blocks Index')
 
@@ -45,7 +46,7 @@ const filterMediaBlockGroups = (blocks: MessageBlock[]): (MessageBlock[] | Messa
 const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks }) => {
   const groupedBlocks = filterMediaBlockGroups(blocks)
   return (
-    <View flex={1} width="100%">
+    <View flex={1} width="100%" style={{ gap: 5 }}>
       {groupedBlocks.map(block => {
         if (Array.isArray(block)) {
           const groupKey = blocks.map(block => block.id).join('-')
@@ -105,7 +106,9 @@ const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks }) => {
           case MessageBlockType.CITATION:
             blockComponent = <CitationBlock key={block.id} block={block} />
             break
-          // todo: error无法触发
+          case MessageBlockType.TOOL:
+            blockComponent = <ToolBlock key={block.id} block={block} />
+            break
           case MessageBlockType.ERROR:
             blockComponent = <ErrorBlock key={block.id} block={block} />
             break

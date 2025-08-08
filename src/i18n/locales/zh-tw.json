@@ -141,6 +141,12 @@
         "title": "主題"
       }
     },
+    "message": {
+      "searching": "搜尋中...",
+      "websearch": {
+        "fetch_complete": "已完成 {{count}} 次搜尋..."
+      }
+    },
     "models": {
       "no_models": "暫無可用模型",
       "type": {
