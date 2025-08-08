@@ -104,10 +104,18 @@ jobs:
           
           echo "✅ i18n fix attempts completed"
 
-      - name: 🔐 Login to Expo
+      - name: 🔐 Verify Expo authentication
         run: |
-          echo "🔐 Logging in to Expo..."
-          eas login --non-interactive
+          echo "🔐 Verifying Expo authentication..."
+          
+          # 检查是否已经通过 EXPO_TOKEN 认证
+          if npx expo whoami && npx eas whoami; then
+            echo "✅ Already authenticated with Expo"
+          else
+            echo "🔄 Attempting to authenticate with Expo token..."
+            # 使用 EXPO_TOKEN 进行认证
+            npx expo login --token ${{ secrets.EXPO_TOKEN }} || echo "⚠️ Expo login failed, but continuing..."
+          fi
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
