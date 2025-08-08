@@ -44,25 +44,28 @@ jobs:
           yarn --version
           yarn cache clean --all
 
-      - name: 🐘 Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          cache: 'gradle'
-
       - name: 📦 Install dependencies
         run: |
           yarn --version
           yarn install --frozen-lockfile
 
-      - name: 🔧 Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: 📋 Generate database schema
         run: |
           npx drizzle-kit generate
+
+      - name: 🏗️ Prebuild to generate native code
+        run: |
           yarn run prebuild
+
+      - name: 🐘 Setup Java (after prebuild)
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          # 移除 gradle 缓存，因为现在才有 gradle 文件
+
+      - name: 🔧 Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: 🔧 Setup environment for EAS build
         run: |
