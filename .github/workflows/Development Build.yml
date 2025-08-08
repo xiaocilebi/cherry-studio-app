@@ -33,12 +33,12 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
 
-      - name: Login to EAS
+      - name: Set up EAS authentication
         run: |
-          echo "Logging in to EAS..."
-          echo ${{ secrets.EXPO_TOKEN }} | eas login --stdin
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          echo "Setting up EAS authentication..."
+          mkdir -p ~/.eas
+          echo '{"accessToken": "${{ secrets.EXPO_TOKEN }}"}' > ~/.eas/json
+          echo "✅ EAS authentication configured"
 
       - name: Build development app
         run: eas build --platform android --profile development
