@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/store'
-import { setTheme, setTopicNamingSetting, setTranslateModelSetting } from '@/store/settings'
+import { setAvatar, setTheme } from '@/store/settings'
 import { ThemeMode } from '@/types'
 
 export function useSettings() {
@@ -8,8 +8,9 @@ export function useSettings() {
 
   return {
     ...settings,
-    setTopicNamingSetting: setting => dispatch(setTopicNamingSetting(setting)),
-    setTranslateModelSetting: setting => dispatch(setTranslateModelSetting(setting)),
+    setAvatar(avatar: string) {
+      dispatch(setAvatar(avatar))
+    },
     setTheme(theme: ThemeMode) {
       dispatch(setTheme(theme))
     }

@@ -1,25 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { ThemeMode } from '@/types'
-import { TopicNamingSetting, TranslateModelSetting } from '@/types/setting'
+import { uuid } from '@/utils'
 
 export interface SettingsState {
-  topicNamingSetting: TopicNamingSetting
-  translateModelSetting: TranslateModelSetting
+  avatar: string
+  userName: string
+  userId: string
   theme: ThemeMode
 }
 
 const initialState: SettingsState = {
-  topicNamingSetting: {
-    autoNaming: false,
-    prompt: ''
-  },
-  translateModelSetting: {
-    specifyLanguage: false,
-    sourceLanguage: undefined,
-    targetLanguage: undefined,
-    prompt: ''
-  },
+  avatar: '',
+  userName: '',
+  userId: uuid(),
   theme: ThemeMode.system
 }
 
@@ -27,11 +21,14 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    setTopicNamingSetting: (state, action) => {
-      state.topicNamingSetting = action.payload
+    setAvatar: (state, action: PayloadAction<string>) => {
+      state.avatar = action.payload
     },
-    setTranslateModelSetting: (state, action) => {
-      state.translateModelSetting = action.payload
+    setUserName: (state, action: PayloadAction<string>) => {
+      state.userName = action.payload
+    },
+    setUserId: (state, action: PayloadAction<string>) => {
+      state.userId = action.payload
     },
     setTheme: (state, action: PayloadAction<ThemeMode>) => {
       state.theme = action.payload
@@ -39,6 +36,6 @@ const settingsSlice = createSlice({
   }
 })
 
-export const { setTopicNamingSetting, setTranslateModelSetting, setTheme } = settingsSlice.actions
+export const { setAvatar, setUserName, setUserId, setTheme } = settingsSlice.actions
 
 export default settingsSlice.reducer

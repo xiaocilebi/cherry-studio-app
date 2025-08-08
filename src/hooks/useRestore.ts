@@ -1,6 +1,7 @@
 import { useToastController } from '@tamagui/toast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
 
 import { RestoreStep } from '@/components/settings/data/RestoreProgressModal'
 import { ProgressUpdate, restore, RestoreStepId } from '@/services/BackupService'
@@ -67,6 +68,7 @@ export interface UseRestoreOptions {
 export function useRestore(options: UseRestoreOptions = {}) {
   const { t } = useTranslation()
   const toast = useToastController()
+  const dispatch = useDispatch()
 
   const { stepConfigs = DEFAULT_RESTORE_STEPS, customRestoreFunction = restore } = options
 
@@ -138,7 +140,7 @@ export function useRestore(options: UseRestoreOptions = {}) {
 
     try {
       const fileObject = createFileObject(file)
-      await customRestoreFunction(fileObject, handleProgressUpdate)
+      await customRestoreFunction(fileObject, handleProgressUpdate, dispatch)
       setOverallStatus('success')
     } catch (err) {
       logger.error('Error during restore process:', err)

@@ -24,7 +24,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const { t } = useTranslation()
   const isDark = useIsDark()
   const theme = useTheme()
-  const { theme: appTheme } = useSettings()
+  const { theme: appTheme, avatar, userName } = useSettings()
 
   const { topics, isLoading: isLoadingTopics } = useTopics()
   const { isLoading: isLoadingAssistants } = useExternalAssistants()
@@ -104,14 +104,17 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           </YStack>
         </YStack>
 
+        <Stack padding={20}>
+          <SettingDivider />
+        </Stack>
+
         <XStack paddingHorizontal={20} paddingBottom={40} justifyContent="space-between" alignItems="center">
           <XStack gap={10} alignItems="center">
             <Avatar circular size={48}>
-              {/* todo: set user avatar */}
-              <Avatar.Image accessibilityLabel="Cam" src={require('@/assets/images/favicon.png')} />
+              <Avatar.Image accessibilityLabel="Cam" src={avatar || require('@/assets/images/favicon.png')} />
               <Avatar.Fallback delayMs={600} backgroundColor={theme.blue10} />
             </Avatar>
-            <Text color={theme.color}>{t('common.cherry_studio')}</Text>
+            <Text color={theme.color}>{userName || t('common.cherry_studio')}</Text>
           </XStack>
           <Button
             icon={<Settings size={24} color={theme.color} />}
