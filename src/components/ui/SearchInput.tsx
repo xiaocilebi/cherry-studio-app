@@ -3,7 +3,6 @@ import React from 'react'
 import { Input, Stack, XStack } from 'tamagui'
 
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 
 interface SearchInputProps {
   placeholder: string
@@ -36,7 +35,7 @@ export const SearchInput = ({ placeholder, onChangeText, value }: SearchInputPro
         alignItems="center"
         justifyContent="center"
         zIndex={1}>
-        <Search size={20} color={getGreenColor(isDark, 100)} />
+        <Search size={20} color="$green100" />
       </Stack>
     </XStack>
   )

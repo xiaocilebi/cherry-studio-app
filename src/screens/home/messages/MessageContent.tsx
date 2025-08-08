@@ -4,7 +4,6 @@ import { Stack, View } from 'tamagui'
 
 import { useMessageBlocks } from '@/hooks/useMessageBlocks'
 import { Message, MessageBlockType } from '@/types/message'
-import { getGreenColor } from '@/utils/color'
 
 import MessageBlockRenderer from './blocks'
 
@@ -36,8 +35,8 @@ const MessageContent: React.FC<Props> = ({ message }) => {
             isUser ? styles.userMessageContent : styles.assistantMessageContent,
             mediaBlocks.length > 0 && { marginTop: 8 }
           ]}
-          backgroundColor={isUser ? getGreenColor(isDark, 10) : '$colorTransparent'}
-          borderColor={isUser ? getGreenColor(isDark, 20) : '$colorTransparent'}
+          backgroundColor={isUser ? '$green10' : '$colorTransparent'}
+          borderColor={isUser ? '$green20' : '$colorTransparent'}
           borderWidth={1}>
           <MessageBlockRenderer blocks={contentBlocks} />
         </Stack>

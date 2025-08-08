@@ -3,8 +3,6 @@ import { Appearance, Keyboard } from 'react-native'
 import { Separator, styled, XStack, YStack } from 'tamagui'
 import { Text, View } from 'tamagui'
 
-import { getUiCardColor } from '@/utils/color'
-
 // export const SettingContainer = styled(YStack, {
 //   flex: 1,
 //   padding: '$4',
@@ -107,7 +105,7 @@ export const SettingGroup = styled(YStack, {
   gap: 8,
   paddingVertical: 8,
   borderRadius: 9,
-  backgroundColor: getUiCardColor(isDark)
+  backgroundColor: '$uiCardBackground'
 })
 
 export const SettingGroupTitle = styled(Text, {

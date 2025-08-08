@@ -7,7 +7,6 @@ import { Text, XStack } from 'tamagui'
 import { Provider } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
 import { SettingRow } from '..'
@@ -39,9 +38,9 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
             paddingHorizontal={8}
             borderRadius={8}
             borderWidth={0.5}
-            backgroundColor={getGreenColor(isDark, 10)}
-            borderColor={getGreenColor(isDark, 20)}
-            color={getGreenColor(isDark, 100)}
+            backgroundColor="$green10"
+            borderColor="$green20"
+            color="$green100"
             fontSize={14}>
             {statusText}
           </Text>

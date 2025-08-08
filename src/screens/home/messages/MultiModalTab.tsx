@@ -6,7 +6,6 @@ import { MultiModalIcon } from '@/components/icons/MultiModelIcon'
 import { Assistant } from '@/types/assistant'
 import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 import { useIsDark } from '@/utils'
-import { getGreenColor, getTextPrimaryColor } from '@/utils/color'
 
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
@@ -49,10 +48,7 @@ const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages }) => {
                     justifyContent="center"
                     alignItems="center"
                     height={26}>
-                    <Text
-                      fontSize={12}
-                      lineHeight={17}
-                      color={currentTab === tabValue ? getGreenColor(isDark, 100) : getTextPrimaryColor(isDark)}>
+                    <Text fontSize={12} lineHeight={17} color={currentTab === tabValue ? '$green100' : '$textPrimary'}>
                       @{_message.model?.name}({_message.model?.provider})
                     </Text>
                   </Tabs.Tab>

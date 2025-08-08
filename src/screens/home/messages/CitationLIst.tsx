@@ -9,7 +9,6 @@ import FallbackFavicon from '@/components/icons/FallbackFavicon'
 import CitationSheet from '@/components/sheets/CitationSheet'
 import { Citation } from '@/types/websearch'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 
 interface PreviewIconProps {
   citation: Citation
@@ -52,8 +51,8 @@ const CitationsList: React.FC<CitationsListProps> = ({ citations }) => {
         borderRadius={16}
         padding={5}
         height={26}
-        backgroundColor={getGreenColor(isDark, 10)}
-        borderColor={getGreenColor(isDark, 20)}
+        backgroundColor="$green10"
+        borderColor="$green20"
         flexDirection="row"
         alignItems="center"
         onPress={handlePress}>
@@ -63,7 +62,7 @@ const CitationsList: React.FC<CitationsListProps> = ({ citations }) => {
             <PreviewIcon key={i} citation={c} index={i} total={previewItems.length} />
           ))}
         </View>
-        <Text fontSize={10} color={isDark ? '$green100Dark' : '$green100Light'}>
+        <Text fontSize={10} color="$green100">
           {t('chat.citation', { count })}
         </Text>
       </Button>

@@ -18,7 +18,6 @@ import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Assistant, Topic } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getTextPrimaryColor, getTextSecondaryColor, getUiCardColor } from '@/utils/color'
 import { haptic } from '@/utils/haptic'
 const logger = loggerService.withContext('Topic Item')
 
@@ -136,7 +135,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   return (
     <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
       <XStack
-        backgroundColor={getUiCardColor(isDark)}
+        backgroundColor="$uiCardBackground"
         borderRadius={30}
         paddingVertical={5}
         paddingHorizontal={20}
@@ -147,19 +146,14 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
         <Text fontSize={24}>{assistant?.emoji}</Text>
         <YStack flex={1}>
           <XStack justifyContent="space-between">
-            <Text fontWeight="bold" color={getTextPrimaryColor(isDark)}>
+            <Text fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
-            <Text fontSize={12} color={getTextSecondaryColor(isDark)}>
+            <Text fontSize={12} color="$textSecondary">
               {displayTime}
             </Text>
           </XStack>
-          <Text
-            fontSize={12}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            fontWeight="400"
-            color={getTextPrimaryColor(isDark)}>
+          <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
             {topic.name}
           </Text>
         </YStack>

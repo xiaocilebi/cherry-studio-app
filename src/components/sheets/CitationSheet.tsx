@@ -27,11 +27,11 @@ const CitationTitle = ({ number, title }: { number: number; title: string }) => 
         gap={2}
         justifyContent="center"
         alignItems="center"
-        borderColor={isDark ? '$green20Dark' : '$green20Light'}
-        backgroundColor={isDark ? '$green10Dark' : '$green10Light'}
+        borderColor="$green20"
+        backgroundColor="$green10"
         minWidth={20}
         minHeight={20}>
-        <Text fontSize={10} textAlign="center" color={isDark ? '$green100Light' : '$green100Dark'}>
+        <Text fontSize={10} textAlign="center" color="$green100">
           {number}
         </Text>
       </Stack>

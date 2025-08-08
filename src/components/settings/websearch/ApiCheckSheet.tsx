@@ -7,7 +7,6 @@ import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
 import { ISheet } from '@/components/ui/Sheet'
 import { ApiStatus } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 
 interface ApiCheckSheetProps {
   bottomSheetRef: React.RefObject<BottomSheet | null>
@@ -47,8 +46,8 @@ export function ApiCheckSheet({
             {checkApiStatus === 'processing' && (
               <View>
                 <XStack gap={10} width="100%" alignItems="center" justifyContent="center">
-                  <Spinner size="small" color={getGreenColor(isDark, 100)} />
-                  <Text fontSize={18} fontWeight="bold" color={getGreenColor(isDark, 100)}>
+                  <Spinner size="small" color="$green100" />
+                  <Text fontSize={18} fontWeight="bold" color="$green100">
                     {t('button.checking')}
                   </Text>
                 </XStack>
@@ -58,10 +57,10 @@ export function ApiCheckSheet({
             {checkApiStatus === 'idle' && (
               <View>
                 <XStack width="100%" alignItems="center" justifyContent="space-between">
-                  <Text fontSize={18} fontWeight="bold" color={getGreenColor(isDark, 100)}>
+                  <Text fontSize={18} fontWeight="bold" color="$green100">
                     {t('button.start_check_model')}
                   </Text>
-                  <ChevronsRight color={getGreenColor(isDark, 100)} />
+                  <ChevronsRight color="$green100" />
                 </XStack>
               </View>
             )}
@@ -69,7 +68,7 @@ export function ApiCheckSheet({
             {checkApiStatus === 'success' && (
               <View>
                 <XStack width="100%" alignItems="center" justifyContent="space-between">
-                  <Text fontSize={18} fontWeight="bold" color={getGreenColor(isDark, 100)}>
+                  <Text fontSize={18} fontWeight="bold" color="$green100">
                     {t('button.success')}
                   </Text>
                 </XStack>

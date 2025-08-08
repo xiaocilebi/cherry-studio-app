@@ -10,7 +10,6 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getTextSecondaryColor } from '@/utils/color'
 
 interface SettingItemConfig {
   title: string
@@ -150,7 +149,7 @@ function SettingItem({ title, screen, icon }: SettingItemProps) {
           <Text fontWeight="bold">{title}</Text>
         </YStack>
       </XStack>
-      <ChevronRight size={20} color={getTextSecondaryColor(isDark)} />
+      <ChevronRight size={20} color="$textSecondary" />
     </SettingRow>
   )
 }

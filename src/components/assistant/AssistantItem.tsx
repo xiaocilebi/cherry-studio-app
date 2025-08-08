@@ -14,7 +14,6 @@ import { loggerService } from '@/services/LoggerService'
 import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { useIsDark } from '@/utils'
-import { getTextPrimaryColor, getTextSecondaryColor } from '@/utils/color'
 import { formateEmoji } from '@/utils/formats'
 const logger = loggerService.withContext('Assistant Item')
 
@@ -95,20 +94,10 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
         <XStack gap={14} maxWidth="90%">
           <Text fontSize={35}>{formateEmoji(assistant.emoji)}</Text>
           <YStack gap={8} flex={1} justifyContent="center">
-            <Text
-              fontSize={14}
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              fontWeight="bold"
-              color={getTextPrimaryColor(isDark)}>
+            <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" color="$textPrimary">
               {assistant.name}
             </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={1}
-              fontSize={12}
-              lineHeight={18}
-              color={getTextSecondaryColor(isDark)}>
+            <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
               {assistant.description}
             </Text>
           </YStack>

@@ -71,6 +71,38 @@ const extendedConfig = {
       textDelete: '#dc3e42ff',
       textLink: '#0090ffff'
     }
+  },
+  themes: {
+    light: {
+      ...config.themes.light,
+      uiCardBackground: '#ffffffff',
+      colorBorderLinear: '#000000ff',
+      green100: '#81df94ff',
+      green20: '#8de59e4d',
+      green10: '#8de59e26',
+      yellow100: '#f2e218ff',
+      yellow20: '#f2e21833',
+      backgroundPrimary: '#f7f7f7ff',
+      backgroundSecondary: '#ffffff99',
+      uiCard: '#ffffffff',
+      textPrimary: '#202020ff',
+      textSecondary: '#646464ff'
+    },
+    dark: {
+      ...config.themes.dark,
+      uiCardBackground: '#19191cff',
+      colorBorderLinear: '#ffffffff',
+      green100: '#acf3a6ff',
+      green20: '#acf3a633',
+      green10: '#acf3a61a',
+      yellow100: '#f9ea42ff',
+      yellow20: '#f9ea4233',
+      backgroundPrimary: '#121213ff',
+      backgroundSecondary: '#20202099',
+      uiCard: '#19191cff',
+      textPrimary: '#f9f9f9ff',
+      textSecondary: '#cececeff'
+    }
   }
 }
 

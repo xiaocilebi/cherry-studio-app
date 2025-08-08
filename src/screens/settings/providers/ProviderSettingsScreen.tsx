@@ -21,7 +21,6 @@ import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
 import { NavigationProps, RootStackParamList } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ProviderSettingsScreen'>
@@ -177,9 +176,9 @@ export default function ProviderSettingsScreen() {
                         paddingVertical={2}
                         paddingHorizontal={8}
                         borderRadius={8}
-                        backgroundColor={getGreenColor(isDark, 10)}
-                        borderColor={getGreenColor(isDark, 20)}
-                        color={getGreenColor(isDark, 100)}
+                        backgroundColor="$green10"
+                        borderColor="$green20"
+                        color="$green100"
                         borderWidth={0.5}
                         fontWeight="bold"
                         fontSize={12}>

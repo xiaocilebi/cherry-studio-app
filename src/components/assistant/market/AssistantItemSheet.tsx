@@ -11,7 +11,6 @@ import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { useIsDark, uuid } from '@/utils'
-import { getGreenColor, getTextSecondaryColor } from '@/utils/color'
 import { formateEmoji } from '@/utils/formats'
 
 import GroupTag from './GroupTag'
@@ -120,10 +119,10 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                       group={group}
                       paddingHorizontal={12}
                       paddingVertical={5}
-                      backgroundColor={getGreenColor(isDark, 10)}
-                      color={getGreenColor(isDark, 100)}
+                      backgroundColor="$green10"
+                      color="$green100"
                       borderWidth={0.5}
-                      borderColor={getGreenColor(isDark, 20)}
+                      borderColor="$green20"
                     />
                   ))}
                 </XStack>
@@ -136,7 +135,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
             {/* Description */}
             {assistant.description && (
               <YStack>
-                <Text lineHeight={20} color={getTextSecondaryColor(isDark)} numberOfLines={2} ellipsizeMode="tail">
+                <Text lineHeight={20} color="$textSecondary" numberOfLines={2} ellipsizeMode="tail">
                   {assistant.description}
                 </Text>
               </YStack>

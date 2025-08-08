@@ -15,7 +15,6 @@ import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { FileType, FileTypes } from '@/types/file'
 import { useIsDark, uuid } from '@/utils'
-import { getGreenColor, getTextPrimaryColor } from '@/utils/color'
 import { getFileType } from '@/utils/file'
 
 const logger = loggerService.withContext('File Sheet')
@@ -199,32 +198,20 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
       {
         key: 'webSearch',
         label: t('common.websearch'),
-        icon: (
-          <Globe
-            size={18}
-            color={assistant.enableWebSearch ? getGreenColor(isDark, 100) : getTextPrimaryColor(isDark)}
-          />
-        ),
+        icon: <Globe size={18} color={assistant.enableWebSearch ? '$green100' : '$textPrimary'} />,
         onPress: handleEnableWebSearch,
         shouldShow: () => (assistant.model ? !isGenerateImageModel(assistant.model) : true),
-        getTextColor: () => (assistant.enableWebSearch ? getGreenColor(isDark, 100) : getTextPrimaryColor(isDark)),
-        getTrailingIcon: () =>
-          assistant.enableWebSearch ? <Check size={18} color={getGreenColor(isDark, 100)} /> : null
+        getTextColor: () => (assistant.enableWebSearch ? '$green100' : '$textPrimary'),
+        getTrailingIcon: () => (assistant.enableWebSearch ? <Check size={18} color="$green100" /> : null)
       },
       {
         key: 'generateImage',
         label: t('common.generateImage'),
-        icon: (
-          <Palette
-            size={18}
-            color={assistant.enableGenerateImage ? getGreenColor(isDark, 100) : getTextPrimaryColor(isDark)}
-          />
-        ),
+        icon: <Palette size={18} color={assistant.enableGenerateImage ? '$green100' : '$textPrimary'} />,
         onPress: handleEnableGenerateImage,
         shouldShow: () => (assistant.model ? isGenerateImageModel(assistant.model) : false),
-        getTextColor: () => (assistant.enableGenerateImage ? getGreenColor(isDark, 100) : getTextPrimaryColor(isDark)),
-        getTrailingIcon: () =>
-          assistant.enableGenerateImage ? <Check size={18} color={getGreenColor(isDark, 100)} /> : null
+        getTextColor: () => (assistant.enableGenerateImage ? '$green100' : '$textPrimary'),
+        getTrailingIcon: () => (assistant.enableGenerateImage ? <Check size={18} color="$green100" /> : null)
       }
     ]
 
@@ -262,7 +249,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
                     flex={1}>
                     <YStack gap={8} alignItems="center">
                       {option.icon}
-                      <Text color={getTextPrimaryColor(isDark)} fontSize={14} textAlign="center">
+                      <Text color="$textPrimary" fontSize={14} textAlign="center">
                         {option.label}
                       </Text>
                     </YStack>
@@ -283,7 +270,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
                       <XStack gap={8} alignItems="center">
                         {option.icon}
                         <Text
-                          color={option.getTextColor ? option.getTextColor() : getTextPrimaryColor(isDark)}
+                          color={option.getTextColor ? option.getTextColor() : '$textPrimary'}
                           fontSize={18}
                           textAlign="center">
                           {option.label}

@@ -8,7 +8,6 @@ import Searching from '@/components/ui/Searching'
 import i18n from '@/i18n'
 import { MCPToolResponse } from '@/types/mcp'
 import { useIsDark } from '@/utils'
-import { getTextSecondaryColor } from '@/utils/color'
 
 export const MessageWebSearchToolTitle = ({ toolResponse }: { toolResponse: MCPToolResponse }) => {
   const isDark = useIsDark()
@@ -18,15 +17,10 @@ export const MessageWebSearchToolTitle = ({ toolResponse }: { toolResponse: MCPT
     <Searching
       text={
         <PrepareToolWrapper>
-          <Text fontSize={14} color={getTextSecondaryColor(isDark)}>
+          <Text fontSize={14} color="$textSecondary">
             {i18n.t('message.searching')}
           </Text>
-          <Text
-            fontSize={14}
-            maxWidth="70%"
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            color={getTextSecondaryColor(isDark)}>
+          <Text fontSize={14} maxWidth="70%" numberOfLines={1} ellipsizeMode="tail" color="$textSecondary">
             {toolInput?.additionalContext ?? ''}
           </Text>
         </PrepareToolWrapper>
@@ -34,8 +28,8 @@ export const MessageWebSearchToolTitle = ({ toolResponse }: { toolResponse: MCPT
     />
   ) : (
     <MessageWebSearchToolTitleTextWrapper>
-      <Search size={16} color={getTextSecondaryColor(isDark)} />
-      <Text fontSize={14} color={getTextSecondaryColor(isDark)}>
+      <Search size={16} color="$textSecondary" />
+      <Text fontSize={14} color="$textSecondary">
         {i18n.t('message.websearch.fetch_complete', {
           count: toolOutput?.searchResults?.reduce((acc, result) => acc + result.results.length, 0) ?? 0
         })}

@@ -23,7 +23,6 @@ import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
 import { getAssistantWithTopic } from '@/utils/assistants'
-import { getGreenColor, getTextSecondaryColor } from '@/utils/color'
 const logger = loggerService.withContext('DataBase Assistants')
 
 export default function AssistantScreen() {
@@ -123,8 +122,8 @@ export default function AssistantScreen() {
             paddingHorizontal={10}
             height={30}
             borderRadius={20}
-            backgroundColor={showSorted ? getGreenColor(isDark, 10) : isDark ? '$uiCardDark' : '$uiCardLight'}
-            color={showSorted ? getGreenColor(isDark, 100) : getTextSecondaryColor(isDark)}
+            backgroundColor={showSorted ? '$green10' : isDark ? '$uiCardDark' : '$uiCardLight'}
+            color={showSorted ? '$green100' : '$textSecondary'}
             onPress={handleSavedFilter}
             iconAfter={<Funnel />}>
             {t('button.sort')}
@@ -134,8 +133,8 @@ export default function AssistantScreen() {
             height={30}
             paddingHorizontal={10}
             borderRadius={20}
-            backgroundColor={showTags ? getGreenColor(isDark, 10) : isDark ? '$uiCardDark' : '$uiCardLight'}
-            color={showTags ? getGreenColor(isDark, 100) : getTextSecondaryColor(isDark)}
+            backgroundColor={showTags ? '$green10' : isDark ? '$uiCardDark' : '$uiCardLight'}
+            color={showTags ? '$green100' : '$textSecondary'}
             onPress={handleTagsFilter}
             iconAfter={<ChevronDown />}>
             {t('button.tag')}
@@ -145,8 +144,8 @@ export default function AssistantScreen() {
             paddingHorizontal={10}
             height={30}
             borderRadius={20}
-            backgroundColor={showRecents ? getGreenColor(isDark, 10) : isDark ? '$uiCardDark' : '$uiCardLight'}
-            color={showRecents ? getGreenColor(isDark, 100) : getTextSecondaryColor(isDark)}
+            backgroundColor={showRecents ? '$green10' : isDark ? '$uiCardDark' : '$uiCardLight'}
+            color={showRecents ? '$green100' : '$textSecondary'}
             onPress={handleRecentFilter}>
             {t('button.recents')}
           </Button>

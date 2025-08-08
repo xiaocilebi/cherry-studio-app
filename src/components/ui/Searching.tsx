@@ -3,15 +3,11 @@ import { MotiText, MotiView } from 'moti'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { useIsDark } from '@/utils'
-import { getTextPrimaryColor } from '@/utils/color'
-
 interface Props {
   text: React.ReactNode
 }
 
 export default function Searching({ text }: Props) {
-  const isDark = useIsDark()
   return (
     <MotiView
       style={styles.searchWrapper}
@@ -27,8 +23,8 @@ export default function Searching({ text }: Props) {
         loop: true,
         repeatReverse: true
       }}>
-      <Search size={16} color={getTextPrimaryColor(isDark)} />
-      <MotiText style={{ color: getTextPrimaryColor(isDark) }}>{text}</MotiText>
+      <Search size={16} color="$textPrimary" />
+      <MotiText style={{ color: '$textPrimary' }}>{text}</MotiText>
     </MotiView>
   )
 }

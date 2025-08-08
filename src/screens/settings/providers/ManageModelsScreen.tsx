@@ -25,7 +25,6 @@ import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { RootStackParamList } from '@/types/naviagate'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 import { getDefaultGroupName } from '@/utils/naming'
 const logger = loggerService.withContext('ManageModelsScreen')
 
@@ -203,12 +202,7 @@ export default function ManageModelsScreen() {
             isAllModelsInCurrentProvider(groupButtonModels) ? (
               <Minus size={14} borderRadius={99} backgroundColor="$red20" color="$red100" />
             ) : (
-              <Plus
-                size={14}
-                borderRadius={99}
-                backgroundColor={getGreenColor(isDark, 20)}
-                color={getGreenColor(isDark, 100)}
-              />
+              <Plus size={14} borderRadius={99} backgroundColor="$green20" color="$green100" />
             )
           }
           onPress={
@@ -226,12 +220,7 @@ export default function ManageModelsScreen() {
             isModelInCurrentProvider(model.id) ? (
               <Minus size={14} borderRadius={99} backgroundColor="$red20" color="$red100" />
             ) : (
-              <Plus
-                size={14}
-                borderRadius={99}
-                backgroundColor={getGreenColor(isDark, 20)}
-                color={getGreenColor(isDark, 100)}
-              />
+              <Plus size={14} borderRadius={99} backgroundColor="$green20" color="$green100" />
             )
           }
           onPress={isModelInCurrentProvider(model.id) ? () => onRemoveModel(model) : () => onAddModel(model)}

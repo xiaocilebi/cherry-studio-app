@@ -9,7 +9,6 @@ import { FileIcon } from '@/components/icons/FileIcon'
 import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
 import { useIsDark } from '@/utils'
-import { getGreenColor } from '@/utils/color'
 import { formatFileSize } from '@/utils/file'
 const logger = loggerService.withContext('File Item')
 
@@ -43,7 +42,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
             width="auto"
             // height={height}
             borderRadius={8}
-            backgroundColor={getGreenColor(isDark, 20)}
+            backgroundColor="$green20"
             justifyContent="center"
             alignItems="flex-start"
             paddingVertical={8}
@@ -53,7 +52,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
               height={40}
               gap={10}
               borderRadius={99}
-              backgroundColor={getGreenColor(isDark, 100)}
+              backgroundColor="$green100"
               alignItems="center"
               justifyContent="center">
               <FileIcon size={24} />
@@ -76,12 +75,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
                 right: -6,
                 borderRadius: 99
               }}>
-              <CircleX
-                size={20}
-                color={isDark ? '$backgroundPrimaryDark' : '$backgroundPrimaryLight'}
-                borderRadius={99}
-                backgroundColor="$gray60"
-              />
+              <CircleX size={20} color="$backgroundPrimary" borderRadius={99} backgroundColor="$gray60" />
             </TouchableOpacity>
           )}
         </View>
