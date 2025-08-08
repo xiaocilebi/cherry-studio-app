@@ -1,6 +1,27 @@
 import { config } from '@tamagui/config/v3'
 import { createTamagui } from '@tamagui/core'
 
+const newColorTokens = {
+  colorBrand: '#00b96bff',
+  purple100: '#9c96f9ff',
+  purple20: '#9c96f933',
+  orange100: '#ffb26eff',
+  orange20: '#ffb26e33',
+  blue100: '#6fb1faff',
+  blue20: '#6fb1fa33',
+  pink100: '#e398c9ff',
+  pink20: '#e398c933',
+  red100: '#ff0000ff',
+  red20: '#ff000033',
+  red10: '#ff00001a',
+  gray80: '#a0a1b0cc',
+  gray60: '#a0a1b099',
+  gray40: '#a0a1b066',
+  gray20: '#a0a1b033',
+  gray10: '#a0a1b01a',
+  textDelete: '#dc3e42ff',
+  textLink: '#0090ffff'
+}
 // 扩展配置，添加borderColor
 const extendedConfig = {
   ...config,
@@ -28,48 +49,7 @@ const extendedConfig = {
       foregroundDarkPurple: 'rgba(56, 67, 255, 1)',
       backgroundGray: 'rgba(135, 142, 168, 0.2)',
       foregroundGray: 'rgba(135, 142, 168, 1)',
-      //////// new colors ////////
-      colorBrand: '#00b96bff',
-      colorBorderLinearLight: '#000000ff',
-      colorBorderLinearDark: '#ffffffff',
-      purple100: '#9c96f9ff',
-      purple20: '#9c96f933',
-      green100Light: '#81df94ff',
-      green100Dark: '#acf3a6ff',
-      green20Light: '#8de59e4d',
-      green20Dark: '#acf3a633',
-      green10Light: '#8de59e26',
-      green10Dark: '#acf3a61a',
-      orange100: '#ffb26eff',
-      orange20: '#ffb26e33',
-      blue100: '#6fb1faff',
-      blue20: '#6fb1fa33',
-      yellow100: '#f2e218ff',
-      yellow100Dark: '#f9ea42ff',
-      yellow20Light: '#f2e21833',
-      yellow20Dark: '#f9ea4233',
-      pink100: '#e398c9ff',
-      pink20: '#e398c933',
-      red100: '#ff0000ff',
-      red20: '#ff000033',
-      red10: '#ff00001a',
-      gray80: '#a0a1b0cc',
-      gray60: '#a0a1b099',
-      gray40: '#a0a1b066',
-      gray20: '#a0a1b033',
-      gray10: '#a0a1b01a',
-      backgroundPrimaryLight: '#f7f7f7ff',
-      backgroundPrimaryDark: '#121213ff',
-      backgroundSecondaryLight: '#ffffff99',
-      backgroundSecondaryDark: '#20202099',
-      uiCardLight: '#ffffffff',
-      uiCardDark: '#19191cff',
-      textPrimaryLight: '#202020ff',
-      textPrimaryDark: '#f9f9f9ff',
-      textSecondaryLight: '#646464ff',
-      textSecondaryDark: '#cececeff',
-      textDelete: '#dc3e42ff',
-      textLink: '#0090ffff'
+      ...newColorTokens
     }
   },
   themes: {
