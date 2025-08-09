@@ -271,7 +271,7 @@
         "backup": "資料備份",
         "basic_title": "基礎資料設定",
         "clear_cache": {
-          "button": "清除快取",
+          "button": "清除快取 ({{cacheSize}})",
           "title": "清除快取"
         },
         "cloud_backup": "雲端備份設定",

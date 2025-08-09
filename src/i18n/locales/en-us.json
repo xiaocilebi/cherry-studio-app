@@ -271,7 +271,7 @@
         "backup": "Data Backup",
         "basic_title": "Basic Data Settings",
         "clear_cache": {
-          "button": "Clear Cache",
+          "button": "Clear Cache ({{cacheSize}})",
           "title": "Clear Cache"
         },
         "cloud_backup": "Cloud Backup Settings",

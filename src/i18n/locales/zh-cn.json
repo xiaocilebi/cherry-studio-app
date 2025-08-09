@@ -271,7 +271,7 @@
         "backup": "数据备份",
         "basic_title": "基础数据设置",
         "clear_cache": {
-          "button": "清除缓存",
+          "button": "清除缓存 ({{cacheSize}})",
           "title": "清除缓存"
         },
         "cloud_backup": "云端备份设置",

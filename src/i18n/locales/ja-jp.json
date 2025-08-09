@@ -271,7 +271,7 @@
         "backup": "データバックアップ",
         "basic_title": "基本データ設定",
         "clear_cache": {
-          "button": "キャッシュをクリアする",
+          "button": "キャッシュをクリアする ({{cacheSize}})",
           "title": "キャッシュをクリアする"
         },
         "cloud_backup": "クラウドバックアップ設定",

@@ -125,6 +125,81 @@ export async function deleteFiles(files: FileType[]): Promise<void> {
   await Promise.all(files.map(file => deleteFile(file.id)))
 }
 
+export async function resetCacheDirectory() {
+  try {
+    // Delete Files directory
+    const filesDirectory = new Directory(Paths.cache, 'Files')
+
+    if (filesDirectory.exists) {
+      filesDirectory.delete()
+    }
+
+    // Delete ImagePicker directory
+    const imagePickerDirectory = new Directory(Paths.cache, 'ImagePicker')
+
+    if (imagePickerDirectory.exists) {
+      imagePickerDirectory.delete()
+    }
+
+    // Delete DocumentPicker directory
+    const documentPickerDirectory = new Directory(Paths.cache, 'DocumentPicker')
+
+    if (documentPickerDirectory.exists) {
+      documentPickerDirectory.delete()
+    }
+
+    // Recreate Files directory
+    await FileSystem.makeDirectoryAsync(fileStorageDir.uri, { intermediates: true })
+  } catch (error) {
+    logger.error('resetCacheDirectory', error)
+  }
+}
+
+export async function getDirectorySizeAsync(directoryUri: string): Promise<number> {
+  try {
+    const directory = new Directory(directoryUri)
+
+    if (!directory.exists) {
+      return 0
+    }
+
+    let totalSize = 0
+    const contents = directory.list()
+
+    for (const item of contents) {
+      if (item instanceof Directory) {
+        totalSize += await getDirectorySizeAsync(item.uri)
+      } else {
+        totalSize += item.size || 0
+      }
+    }
+
+    return totalSize
+  } catch (error) {
+    console.error('无法计算目录大小:', error)
+    return 0
+  }
+}
+
+/**
+ * Get Cache Directory Size
+ * @returns Cache Directory Size
+ */
+export async function getCacheDirectorySize() {
+  // imagePicker and documentPicker will copy files to File, so size will double compututaion
+  // this is not equal to ios system cache storage
+  const filesDirectory = new Directory(Paths.cache, 'Files')
+  // const imagePickerDirectory = new Directory(Paths.cache, 'ImagePicker')
+  // const documentPickerDirectory = new Directory(Paths.cache, 'DocumentPicker')
+
+  const filesSize = await getDirectorySizeAsync(filesDirectory.uri)
+  // const imageSize = await getDirectorySizeAsync(imagePickerDirectory.uri)
+  // const documentSize = await getDirectorySizeAsync(documentPickerDirectory.uri)
+
+  // return filesSize + imageSize + documentSize
+  return filesSize
+}
+
 export default {
   readFile,
   readBase64File,
@@ -133,5 +208,8 @@ export default {
   getFile: getFileById,
   getAllFiles,
   uploadFiles,
-  deleteFiles
+  deleteFiles,
+  resetCacheDirectory,
+  getDirectorySizeAsync,
+  getCacheDirectorySize
 }
