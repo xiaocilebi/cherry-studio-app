@@ -241,7 +241,7 @@ export default function ManageModelsScreen() {
         flex: 1
       }}>
       <HeaderBar title={provider?.name || t('settings.models.manage_models')} onBackPress={() => navigation.goBack()} />
-      <SettingContainer>
+      <SettingContainer style={{ flex: 1 }}>
         {/* Filter Tabs */}
         <Tabs
           defaultValue="all"
@@ -261,38 +261,54 @@ export default function ManageModelsScreen() {
           </ScrollView>
         </Tabs>
 
-        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
-          <YStack flex={1} gap={24}>
-            {/* Search Card */}
-            <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
-
-            {/* Model List Card with Accordion */}
-            {isLoading ? (
-              <SafeAreaContainer>
-                <ActivityIndicator />
-              </SafeAreaContainer>
-            ) : (
-              <YStack flex={1}>
-                {sortedModelGroups.length > 0 ? (
-                  <Accordion overflow="hidden" type="multiple">
-                    <FlashList
-                      showsVerticalScrollIndicator={false}
-                      data={sortedModelGroups}
-                      renderItem={renderModelGroupItem}
-                      keyExtractor={([groupName]) => groupName}
-                      estimatedItemSize={60}
-                      extraData={provider}
+        {/* Model List with FlashList as main scrolling container */}
+        <YStack flex={1} height="100%">
+          {isLoading ? (
+            <YStack flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator />
+            </YStack>
+          ) : (
+            <>
+              {sortedModelGroups.length > 0 ? (
+                <Accordion overflow="hidden" type="multiple" flex={1}>
+                  <FlashList
+                    showsVerticalScrollIndicator={false}
+                    data={sortedModelGroups}
+                    renderItem={renderModelGroupItem}
+                    keyExtractor={([groupName]) => groupName}
+                    estimatedItemSize={60}
+                    extraData={provider}
+                    ListHeaderComponent={() => (
+                      <YStack paddingBottom={24}>
+                        <SearchInput
+                          placeholder={t('settings.models.search')}
+                          value={searchText}
+                          onChangeText={setSearchText}
+                        />
+                      </YStack>
+                    )}
+                    contentContainerStyle={{ paddingBottom: 24 }}
+                  />
+                </Accordion>
+              ) : (
+                <YStack flex={1}>
+                  <YStack paddingBottom={24}>
+                    <SearchInput
+                      placeholder={t('settings.models.search')}
+                      value={searchText}
+                      onChangeText={setSearchText}
                     />
-                  </Accordion>
-                ) : (
-                  <Text textAlign="center" color="$gray10" paddingVertical={24}>
-                    {t('models.no_models')}
-                  </Text>
-                )}
-              </YStack>
-            )}
-          </YStack>
-        </ScrollView>
+                  </YStack>
+                  <YStack flex={1} justifyContent="center" alignItems="center">
+                    <Text textAlign="center" color="$gray10">
+                      {t('models.no_models')}
+                    </Text>
+                  </YStack>
+                </YStack>
+              )}
+            </>
+          )}
+        </YStack>
       </SettingContainer>
     </SafeAreaContainer>
   )
