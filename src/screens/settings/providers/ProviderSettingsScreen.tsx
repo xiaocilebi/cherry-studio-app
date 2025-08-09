@@ -19,14 +19,12 @@ import { useProvider } from '@/hooks/useProviders'
 import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
 import { NavigationProps, RootStackParamList } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ProviderSettingsScreen'>
 
 export default function ProviderSettingsScreen() {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const navigation = useNavigation<NavigationProps>()
   const route = useRoute<ProviderSettingsRouteProp>()
 

@@ -9,13 +9,11 @@ import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useTopic } from '@/hooks/useTopic'
-import { loggerService } from '@/services/LoggerService'
 import { RootStackParamList } from '@/types/naviagate'
 
 import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
 
-const logger = loggerService.withContext('ChatScreen')
 type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
 
 const ChatScreen = () => {

@@ -3,10 +3,8 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { View, XStack } from 'tamagui'
 
-import { isGenerateImageModel } from '@/config/models/image'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 const logger = loggerService.withContext('ToolPreview')
@@ -17,8 +15,6 @@ interface ToolPreviewProps {
 }
 
 const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant }) => {
-  const isDark = useIsDark()
-
   const handleDisableWebSearch = async () => {
     try {
       haptic(ImpactFeedbackStyle.Medium)
@@ -40,7 +36,7 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
   return (
     <View>
       <XStack>
-        {assistant.model && isGenerateImageModel(assistant.model) && assistant.enableGenerateImage && (
+        {assistant.model && assistant.enableGenerateImage && (
           <XStack
             gap={5}
             borderRadius={48}
@@ -53,7 +49,7 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
             <X size={20} color="$green100" onPress={handleDisableGenerateImage} />
           </XStack>
         )}
-        {assistant.model && !isGenerateImageModel(assistant.model) && assistant.enableWebSearch && (
+        {assistant.model && assistant.enableWebSearch && (
           <XStack
             gap={5}
             borderRadius={48}

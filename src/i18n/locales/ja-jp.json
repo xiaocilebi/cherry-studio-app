@@ -86,6 +86,7 @@
       "cherry_studio_description": "パワフルなAIプロダクション・アシスタント",
       "clear_all": "すべてクリア",
       "close": "閉じる",
+      "confirm": "[to be translated]:确认",
       "description": "説明",
       "enabled": "有効",
       "error_occurred": "エラーが発生しました",
@@ -270,7 +271,7 @@
         "backup": "データバックアップ",
         "basic_title": "基本データ設定",
         "clear_cache": {
-          "button": "キャッシュをクリアする",
+          "button": "キャッシュをクリアする ({{cacheSize}})",
           "title": "キャッシュをクリアする"
         },
         "cloud_backup": "クラウドバックアップ設定",
@@ -297,6 +298,8 @@
         },
         "recovery": "データ復元",
         "reset": "データリセット",
+        "reset_success": "[to be translated]:数据重置成功！应用已恢复到初始状态。",
+        "reset_warning": "[to be translated]:您确定要重置所有数据吗？这将删除所有对话、消息和用户创建的内容。此操作无法撤销。",
         "restore": {
           "error": "エラーを復元",
           "error_message": "復元処理中にエラーが発生しました。ファイルを確認して、もう一度やり直してください。",

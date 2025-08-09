@@ -17,17 +17,13 @@ import { SearchInput } from '@/components/ui/SearchInput'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
-import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 import { getAssistantWithTopic } from '@/utils/assistants'
-const logger = loggerService.withContext('DataBase Assistants')
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
-  const isDark = useIsDark()
 
   // 搜索状态
   const [searchText, setSearchText] = useState('')
@@ -37,11 +33,6 @@ export default function AssistantScreen() {
   const debouncedSetSearch = debounce((text: string) => {
     setDebouncedSearchText(text)
   }, 300)
-
-  // 筛选状态
-  const [showTags, setShowTags] = useState(false)
-  const [showSorted, setShowSorted] = useState(false)
-  const [showRecents, setShowRecents] = useState(false)
 
   const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
@@ -76,24 +67,6 @@ export default function AssistantScreen() {
     navigation.navigate('AssistantDetailScreen', { assistantId: newAssistant.id })
   }
 
-  const handleRecentFilter = () => {
-    setShowRecents(!showRecents)
-    // 在这里处理筛选逻辑
-    logger.info('Filter by recents:', !showRecents)
-  }
-
-  const handleSavedFilter = () => {
-    setShowSorted(!showSorted)
-    // 在这里处理筛选逻辑
-    logger.info('Filter by saved:', !showSorted)
-  }
-
-  const handleTagsFilter = () => {
-    setShowTags(!showTags)
-    // 在这里处理筛选逻辑
-    logger.info('Filter by tags:', !showTags)
-  }
-
   if (isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -114,40 +87,6 @@ export default function AssistantScreen() {
       />
       <SettingContainer>
         <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
-        {/*<XStack gap={14}>
-          <Button
-            fontSize={12}
-            paddingHorizontal={10}
-            height={30}
-            borderRadius={20}
-            backgroundColor={showSorted ? '$green10' : isDark ? '$uiCardDark' : '$uiCardLight'}
-            color={showSorted ? '$green100' : '$textSecondary'}
-            onPress={handleSavedFilter}
-            iconAfter={<Funnel />}>
-            {t('button.sort')}
-          </Button>
-          <Button
-            fontSize={12}
-            height={30}
-            paddingHorizontal={10}
-            borderRadius={20}
-            backgroundColor={showTags ? '$green10' : isDark ? '$uiCardDark' : '$uiCardLight'}
-            color={showTags ? '$green100' : '$textSecondary'}
-            onPress={handleTagsFilter}
-            iconAfter={<ChevronDown />}>
-            {t('button.tag')}
-          </Button>
-          <Button
-            fontSize={12}
-            paddingHorizontal={10}
-            height={30}
-            borderRadius={20}
-            backgroundColor={showRecents ? '$green10' : isDark ? '$uiCardDark' : '$uiCardLight'}
-            color={showRecents ? '$green100' : '$textSecondary'}
-            onPress={handleRecentFilter}>
-            {t('button.recents')}
-          </Button>
-        </XStack>*/}
 
         <FlashList
           showsVerticalScrollIndicator={false}
