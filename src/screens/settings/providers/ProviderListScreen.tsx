@@ -1,11 +1,12 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
+import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { Plus } from '@tamagui/lucide-icons'
 import debounce from 'lodash/debounce'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { ScrollView, Text, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -14,6 +15,7 @@ import { ProviderItem } from '@/components/settings/providers/ProviderItem'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
+import { Provider } from '@/types/assistant'
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
@@ -48,6 +50,10 @@ export default function ProviderListScreen() {
     bottomSheetRef.current?.present()
   }
 
+  const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (
+    <ProviderItem key={item.id} provider={item} mode="checked" />
+  )
+
   return (
     <SafeAreaContainer>
       <HeaderBar
@@ -66,15 +72,17 @@ export default function ProviderListScreen() {
         <SettingContainer>
           <SearchInput placeholder={t('settings.provider.search')} value={searchText} onChangeText={setSearchText} />
 
-          <YStack flex={1} gap={8}>
-            <Text>{t('settings.provider.title')}</Text>
-            <ScrollView backgroundColor="$colorTransparent">
-              <SettingGroup>
-                {filteredProviders.map(p => (
-                  <ProviderItem key={p.id} provider={p} mode="checked" />
-                ))}
-              </SettingGroup>
-            </ScrollView>
+          <YStack flex={1} height="100%">
+            <SettingGroup flex={1}>
+              <FlashList
+                data={filteredProviders}
+                renderItem={renderProviderItem}
+                keyExtractor={item => item.id}
+                estimatedItemSize={60}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 24 }}
+              />
+            </SettingGroup>
           </YStack>
         </SettingContainer>
       )}

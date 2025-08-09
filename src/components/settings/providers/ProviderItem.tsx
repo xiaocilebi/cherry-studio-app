@@ -6,7 +6,6 @@ import { Text, XStack } from 'tamagui'
 
 import { Provider } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
 import { SettingRow } from '..'
@@ -18,7 +17,6 @@ interface ProviderItemProps {
 
 export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'enabled' }) => {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const navigation = useNavigation<NavigationProps>()
 
   // 根据模式决定显示条件和文本
