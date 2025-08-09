@@ -16,7 +16,7 @@ interface ChatContentProps {
 
 const ChatContent = ({ topic }: ChatContentProps) => {
   const { assistant, isLoading } = useAssistant(topic.assistantId)
-  const [showScrollToBottomButton, setShowScrollToBottomButton] = useState(false)
+  const [showScrollToBottomButton, setShowScrollToBottomButton] = useState(true)
 
   if (isLoading || !assistant) {
     return (
