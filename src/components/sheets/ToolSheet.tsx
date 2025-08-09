@@ -10,6 +10,7 @@ import { Modal, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { isGenerateImageModel } from '@/config/models/image'
+import { isWebSearchModel } from '@/config/models/webSearch'
 import { uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
@@ -153,24 +154,30 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
       }
     }
 
-    const handleEnableGenerateImage = async () => {
+    const handleAiFeatureChange = async (value: string) => {
       try {
-        await updateAssistant({ ...assistant, enableGenerateImage: !assistant.enableGenerateImage })
+        const updatedAssistant = {
+          ...assistant,
+          enableGenerateImage: value === 'generateImage',
+          enableWebSearch: value === 'webSearch'
+        }
+
+        await updateAssistant(updatedAssistant)
       } catch (error) {
-        logger.error('Error enable generate image:', error)
+        logger.error('Error updating AI feature:', error)
       } finally {
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
       }
     }
 
+    const handleEnableGenerateImage = async () => {
+      const newValue = assistant.enableGenerateImage ? 'none' : 'generateImage'
+      await handleAiFeatureChange(newValue)
+    }
+
     const handleEnableWebSearch = async () => {
-      try {
-        await updateAssistant({ ...assistant, enableWebSearch: !assistant.enableWebSearch })
-      } catch (error) {
-        logger.error('Error enable generate image:', error)
-      } finally {
-        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-      }
+      const newValue = assistant.enableWebSearch ? 'none' : 'webSearch'
+      await handleAiFeatureChange(newValue)
     }
 
     const options = [
@@ -194,13 +201,16 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
         icon: <FolderClosed size={24} />,
         onPress: handleAddFile,
         shouldShow: () => true
-      },
+      }
+    ]
+
+    const aiFeatureOptions = [
       {
         key: 'webSearch',
         label: t('common.websearch'),
         icon: <Globe size={18} color={assistant.enableWebSearch ? '$green100' : '$textPrimary'} />,
         onPress: handleEnableWebSearch,
-        shouldShow: () => (assistant.model ? !isGenerateImageModel(assistant.model) : true),
+        shouldShow: () => (assistant.model ? isWebSearchModel(assistant.model) || assistant.webSearchProviderId : true),
         getTextColor: () => (assistant.enableWebSearch ? '$green100' : '$textPrimary'),
         getTrailingIcon: () => (assistant.enableWebSearch ? <Check size={18} color="$green100" /> : null)
       },
@@ -215,8 +225,8 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
       }
     ]
 
-    // Filter options based on their shouldShow condition
     const filteredOptions = options.filter(option => option.shouldShow())
+    const filteredAiFeatureOptions = aiFeatureOptions.filter(option => option.shouldShow())
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
@@ -238,7 +248,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
           <BottomSheetView style={{ paddingTop: 10, paddingBottom: 50 }}>
             <YStack gap={12}>
               <XStack gap={12} paddingHorizontal={20} justifyContent="space-between">
-                {filteredOptions.slice(0, 3).map(option => (
+                {filteredOptions.map(option => (
                   <Button
                     key={option.key}
                     backgroundColor="$gray20"
@@ -257,29 +267,30 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
                 ))}
               </XStack>
               <YStack paddingHorizontal={20}>
-                {filteredOptions.slice(3).map(option => (
-                  <Button
-                    padding={0}
-                    key={option.key}
-                    chromeless
-                    onPress={option.onPress}
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    flex={1}>
-                    <XStack gap={8} alignItems="center" flex={1} justifyContent="space-between">
-                      <XStack gap={8} alignItems="center">
-                        {option.icon}
-                        <Text
-                          color={option.getTextColor ? option.getTextColor() : '$textPrimary'}
-                          fontSize={18}
-                          textAlign="center">
-                          {option.label}
-                        </Text>
+                {filteredAiFeatureOptions.length > 0 &&
+                  filteredAiFeatureOptions.map(option => (
+                    <Button
+                      padding={0}
+                      key={option.key}
+                      chromeless
+                      onPress={option.onPress}
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      flex={1}>
+                      <XStack gap={8} alignItems="center" flex={1} justifyContent="space-between">
+                        <XStack gap={8} alignItems="center">
+                          {option.icon}
+                          <Text
+                            color={option.getTextColor ? option.getTextColor() : '$textPrimary'}
+                            fontSize={18}
+                            textAlign="center">
+                            {option.label}
+                          </Text>
+                        </XStack>
+                        {option.getTrailingIcon && option.getTrailingIcon()}
                       </XStack>
-                      {option.getTrailingIcon && option.getTrailingIcon()}
-                    </XStack>
-                  </Button>
-                ))}
+                    </Button>
+                  ))}
               </YStack>
             </YStack>
           </BottomSheetView>
