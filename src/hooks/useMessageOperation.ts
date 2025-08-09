@@ -1,10 +1,22 @@
+import { createSelector } from '@reduxjs/toolkit'
 import { useCallback } from 'react'
 
-import { useAppDispatch } from '@/store'
+import { loggerService } from '@/services/LoggerService'
+import { RootState, useAppDispatch, useAppSelector } from '@/store'
+import { newMessagesActions } from '@/store/newMessage'
 import { Topic } from '@/types/assistant'
 import { abortCompletion } from '@/utils/abortController'
 
 import { getMessagesByTopicId } from '../../db/queries/messages.queries'
+
+const logger = loggerService.withContext('UseMessageOperations')
+
+const selectMessagesState = (state: RootState) => state.messages
+
+export const selectNewTopicLoading = createSelector(
+  [selectMessagesState, (_, topicId: string) => topicId],
+  (messagesState, topicId) => messagesState.loadingByTopic[topicId] || false
+)
 
 /**
  * Hook 提供针对特定主题的消息操作方法。 / Hook providing various operations for messages within a specific topic.
@@ -18,7 +30,6 @@ export function useMessageOperations(topic: Topic) {
    * todo: 暂停当前主题正在进行的消息生成。 / Pauses ongoing message generation for the current topic.
    */
   const pauseMessages = useCallback(async () => {
-    const state = store.getState()
     const topicMessages = await getMessagesByTopicId(topic.id)
     if (!topicMessages) return
 
@@ -29,6 +40,14 @@ export function useMessageOperations(topic: Topic) {
       abortCompletion(askId)
     }
 
-    // dispatch(newMessagesActions.setTopicLoading({ topicId: topic.id, loading: false }))
+    dispatch(newMessagesActions.setTopicLoading({ topicId: topic.id, loading: false }))
   }, [topic.id, dispatch])
+
+  return {
+    pauseMessages
+  }
+}
+
+export const useTopicLoading = (topic: Topic) => {
+  return useAppSelector(state => selectNewTopicLoading(state, topic.id))
 }

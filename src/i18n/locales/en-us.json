@@ -116,6 +116,38 @@
       "websearch": "Web Search",
       "yesterday": "Yesterday"
     },
+    "error": {
+      "backup": {
+        "file_format": "Backup file format error"
+      },
+      "chat": {
+        "response": "An error occurred. If no API key is configured, please go to Settings > Model Provider to set up the key."
+      },
+      "http": {
+        "400": "Request error, please check if the request parameters are correct. If you have modified the model settings, please reset them to the default settings.",
+        "401": "Authentication failed, please check if the API key is correct.",
+        "403": "Access denied. Please translate the specific error message for details or contact the service provider to inquire about the reason for the restriction.",
+        "404": "Model does not exist or the request path is incorrect",
+        "429": "The request rate has exceeded the limit. Please try again later.",
+        "500": "Server error, please try again later",
+        "502": "Gateway error, please try again later",
+        "503": "Service unavailable, please try again later",
+        "504": "Gateway timeout, please try again later."
+      },
+      "missing_user_message": "Unable to switch model response: The original user message has been deleted. Please send a new message to get a response from this model.",
+      "model": {
+        "exists": "Model already exists"
+      },
+      "no_api_key": "API key is not configured",
+      "pause_placeholder": "Interrupted",
+      "provider_disabled": "Model provider not enabled",
+      "render": {
+        "description": "Failed to render message content. Please check if the message format is correct.",
+        "title": "Rendering error"
+      },
+      "unknown": "Unknown error",
+      "user_message_not_found": "Unable to locate the original user message"
+    },
     "errors": {
       "cannotOpenLink": "Cannot open link: {{error}}",
       "cannotOpenLinkTitle": "Cannot Open Link",
@@ -276,6 +308,9 @@
         },
         "cloud_backup": "Cloud Backup Settings",
         "data.title": "Data Directory",
+        "data_reset": {
+          "error": "Data reset failed. Please try again or contact support if the problem persists."
+        },
         "landrop": {
           "filename": "File Name",
           "scan_qr_code": {
@@ -300,9 +335,6 @@
         "reset": "Data Reset",
         "reset_success": "Data reset successful! The app has been restored to its initial state.",
         "reset_warning": "Are you sure you want to reset all data? This will delete all conversations, messages, and user-created content. This action cannot be undone.",
-        "data_reset": {
-          "error": "Data reset failed. Please try again or contact support if the problem persists."
-        },
         "restore": {
           "error": "Restore Error",
           "error_message": "An error occurred during the restore process. Please check the file and try again.",

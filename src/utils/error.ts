@@ -84,6 +84,10 @@ export const isAbortError = (error: any): boolean => {
     return true
   }
 
+  if (error.message.includes('FetchRequestCanceledException')) {
+    return true
+  }
+
   // 检查是否为 DOMException 类型的中止错误
   if (error instanceof DOMException && error.name === 'AbortError') {
     return true

@@ -6,6 +6,8 @@ import { AiSdkMiddlewareConfig } from '@/aiCore/middleware/AiSdkMiddlewareBuilde
 import { buildStreamTextParams, convertMessagesToSdkMessages } from '@/aiCore/transformParameters'
 import { isDedicatedImageGenerationModel } from '@/config/models/image'
 import { loggerService } from '@/services/LoggerService'
+import { AppDispatch } from '@/store'
+import { newMessagesActions } from '@/store/newMessage'
 import { Assistant, Model, Topic, Usage } from '@/types/assistant'
 import { ChunkType } from '@/types/chunk'
 import { FileType, FileTypes } from '@/types/file'
@@ -133,7 +135,8 @@ export async function sendMessage(
   userMessage: Message,
   userMessageBlocks: MessageBlock[],
   assistant: Assistant,
-  topicId: Topic['id']
+  topicId: Topic['id'],
+  dispatch: AppDispatch
 ) {
   try {
     // mock mentions model
@@ -154,7 +157,7 @@ export async function sendMessage(
     const mentionedModels = userMessage.mentions
 
     if (mentionedModels && mentionedModels.length > 0) {
-      await multiModelResponses(topicId, assistant, userMessage, mentionedModels)
+      await multiModelResponses(topicId, assistant, userMessage, mentionedModels, dispatch)
     } else {
       const assistantMessage = createAssistantMessage(assistant.id, topicId, {
         askId: userMessage.id,
@@ -162,14 +165,18 @@ export async function sendMessage(
       })
       await saveMessageAndBlocksToDB(assistantMessage, [])
       await upsertMessages(assistantMessage)
-      await fetchAndProcessAssistantResponseImpl(topicId, assistant, assistantMessage)
+      await fetchAndProcessAssistantResponseImpl(topicId, assistant, assistantMessage, dispatch)
     }
   } catch (error) {
     logger.error('Error in sendMessage:', error)
   }
 }
 
-export async function regenerateAssistantMessage(assistantMessage: Message, assistant: Assistant) {
+export async function regenerateAssistantMessage(
+  assistantMessage: Message,
+  assistant: Assistant,
+  dispatch: AppDispatch
+) {
   const topicId = assistantMessage.topicId
 
   try {
@@ -234,7 +241,8 @@ export async function regenerateAssistantMessage(assistantMessage: Message, assi
 
     // Add the fetch/process call to the queue
     queue.add(
-      async () => await fetchAndProcessAssistantResponseImpl(topicId, assistantConfigForRegen, resetAssistantMsg)
+      async () =>
+        await fetchAndProcessAssistantResponseImpl(topicId, assistantConfigForRegen, resetAssistantMsg, dispatch)
     )
   } catch (error) {
     logger.error('Error in regenerateAssistantMessage:', error)
@@ -399,12 +407,15 @@ export async function saveMessageAndBlocksToDB(message: Message, blocks: Message
 export async function fetchAndProcessAssistantResponseImpl(
   topicId: string,
   assistant: Assistant,
-  assistantMessage: Message
+  assistantMessage: Message,
+  dispatch: AppDispatch
 ) {
   const assistantMsgId = assistantMessage.id
   let callbacks: StreamProcessorCallbacks = {}
 
   try {
+    dispatch(newMessagesActions.setTopicLoading({ topicId, loading: true }))
+
     // 创建 BlockManager 实例
     const blockManager = new BlockManager({
       saveUpdatedBlockToDB,
@@ -461,6 +472,16 @@ export async function fetchAndProcessAssistantResponseImpl(
     )
   } catch (error) {
     logger.error('Error in fetchAndProcessAssistantResponseImpl:', error)
+
+    // 统一错误处理：确保 loading 状态被正确设置，避免队列任务卡住
+    try {
+      await callbacks.onError?.(error)
+    } catch (callbackError) {
+      logger.error('Error in onError callback:', callbackError as Error)
+    } finally {
+      // 确保无论如何都设置 loading 为 false（onError 回调中已设置，这里是保险）
+      dispatch(newMessagesActions.setTopicLoading({ topicId, loading: false }))
+    }
   }
 }
 
@@ -470,7 +491,8 @@ export async function multiModelResponses(
   topicId: string,
   assistant: Assistant,
   triggeringMessage: Message, // userMessage or messageToResend
-  mentionedModels: Model[]
+  mentionedModels: Model[],
+  dispatch: AppDispatch
 ) {
   logger.info('multiModelResponses')
   const assistantMessageStubs: Message[] = []
@@ -492,7 +514,7 @@ export async function multiModelResponses(
 
   for (const task of tasksToQueue) {
     queue.add(async () => {
-      await fetchAndProcessAssistantResponseImpl(topicId, task.assistantConfig, task.messageStub)
+      await fetchAndProcessAssistantResponseImpl(topicId, task.assistantConfig, task.messageStub, dispatch)
     })
   }
 }
