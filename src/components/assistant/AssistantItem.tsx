@@ -13,7 +13,6 @@ import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 const logger = loggerService.withContext('Assistant Item')
 
@@ -70,7 +69,6 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, assistant, 
 }
 
 const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) => {
-  const isDark = useIsDark()
   const swipeableRef = useRef<SwipeableMethods>(null)
 
   const renderRightActions = (progress: SharedValue<number>, _: SharedValue<number>) => {

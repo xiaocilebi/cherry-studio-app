@@ -24,7 +24,6 @@ import { loggerService } from '@/services/LoggerService'
 import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { RootStackParamList } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 import { getDefaultGroupName } from '@/utils/naming'
 const logger = loggerService.withContext('ManageModelsScreen')
 
@@ -106,7 +105,6 @@ const TAB_CONFIGS = [
 
 export default function ManageModelsScreen() {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const navigation = useNavigation()
   const route = useRoute<ProviderSettingsRouteProp>()
 
