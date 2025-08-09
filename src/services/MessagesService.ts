@@ -49,6 +49,10 @@ import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcess
 
 const logger = loggerService.withContext('Messages Service')
 
+const finishTopicLoading = async (topicId: string) => {
+  store.dispatch(newMessagesActions.setTopicLoading({ topicId, loading: false }))
+}
+
 /**
  * Creates a user message object and associated blocks based on input.
  * This is a pure function and does not dispatch to the store.
@@ -169,6 +173,8 @@ export async function sendMessage(
     }
   } catch (error) {
     logger.error('Error in sendMessage:', error)
+  } finally {
+    finishTopicLoading(topicId)
   }
 }
 
@@ -246,6 +252,8 @@ export async function regenerateAssistantMessage(
     )
   } catch (error) {
     logger.error('Error in regenerateAssistantMessage:', error)
+  } finally {
+    finishTopicLoading(topicId)
   }
 }
 
