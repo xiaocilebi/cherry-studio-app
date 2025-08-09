@@ -86,6 +86,7 @@
       "cherry_studio_description": "A Powerful AI assistant for producer",
       "clear_all": "Clear All",
       "close": "Close",
+      "confirm": "Confirm",
       "description": "Description",
       "enabled": "Enabled",
       "error_occurred": "An error occurred",
@@ -297,6 +298,11 @@
         },
         "recovery": "Data Recovery",
         "reset": "Data Reset",
+        "reset_success": "Data reset successful! The app has been restored to its initial state.",
+        "reset_warning": "Are you sure you want to reset all data? This will delete all conversations, messages, and user-created content. This action cannot be undone.",
+        "data_reset": {
+          "error": "Data reset failed. Please try again or contact support if the problem persists."
+        },
         "restore": {
           "error": "Restore Error",
           "error_message": "An error occurred during the restore process. Please check the file and try again.",

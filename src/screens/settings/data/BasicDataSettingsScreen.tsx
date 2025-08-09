@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import { ChevronRight, FileText, Folder, FolderOpen, RotateCcw, Save, Trash2 } from '@tamagui/lucide-icons'
+import { reloadAppAsync } from 'expo'
 import * as DocumentPicker from 'expo-document-picker'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
@@ -11,7 +13,10 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { LOCAL_RESTORE_STEPS, useRestore } from '@/hooks/useRestore'
 import { loggerService } from '@/services/LoggerService'
+import { persistor } from '@/store'
 import { NavigationProps } from '@/types/naviagate'
+
+import { resetDatabase } from '../../../../db/queries/reset.queries'
 const logger = loggerService.withContext('BasicDataSettingsScreen')
 
 interface SettingItemConfig {
@@ -21,6 +26,7 @@ interface SettingItemConfig {
   subtitle?: string
   danger?: boolean
   onPress?: () => void
+  disabled?: boolean
 }
 
 interface SettingGroupConfig {
@@ -31,6 +37,7 @@ interface SettingGroupConfig {
 export default function BasicDataSettingsScreen() {
   const navigation = useNavigation<NavigationProps>()
   const { t } = useTranslation()
+  const [isResetting, setIsResetting] = useState(false)
   const { isModalOpen, restoreSteps, overallStatus, startRestore, closeModal } = useRestore({
     stepConfigs: LOCAL_RESTORE_STEPS
   })
@@ -48,6 +55,37 @@ export default function BasicDataSettingsScreen() {
     })
   }
 
+  const handleDataReset = async () => {
+    if (isResetting) return
+
+    Alert.alert(t('settings.data.reset'), t('settings.data.reset_warning'), [
+      {
+        text: t('common.cancel'),
+        style: 'cancel'
+      },
+      {
+        text: t('common.confirm'),
+        style: 'destructive',
+        onPress: async () => {
+          setIsResetting(true)
+
+          try {
+            await resetDatabase()
+            await persistor.purge()
+          } catch (error) {
+            Alert.alert(t('settings.data.data_reset.error'))
+            logger.error('handleDataReset', error as Error)
+          } finally {
+            setIsResetting(false)
+            await reloadAppAsync()
+          }
+        }
+      }
+    ])
+  }
+
+  const handleClearCache = async () => {}
+
   const settingsItems: SettingGroupConfig[] = [
     {
       title: t('settings.data.title'),
@@ -63,10 +101,11 @@ export default function BasicDataSettingsScreen() {
           onPress: handleRestore
         },
         {
-          title: t('settings.data.reset'),
+          title: isResetting ? t('common.loading') : t('settings.data.reset'),
           icon: <RotateCcw size={24} color="red" />,
           danger: true,
-          onPress: () => logger.info('Data reset pressed')
+          onPress: handleDataReset,
+          disabled: isResetting
         }
       ]
     },
@@ -87,7 +126,7 @@ export default function BasicDataSettingsScreen() {
           title: t('settings.data.clear_cache.button'),
           icon: <Trash2 size={24} color="red" />,
           danger: true,
-          onPress: () => logger.info('Clear cache pressed')
+          onPress: handleClearCache
         }
       ]
     }
@@ -130,10 +169,12 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
   )
 }
 
-function SettingItem({ title, screen, icon, subtitle, danger, onPress }: SettingItemConfig) {
+function SettingItem({ title, screen, icon, subtitle, danger, onPress, disabled }: SettingItemConfig) {
   const navigation = useNavigation<NavigationProps>()
 
   const handlePress = () => {
+    if (disabled) return
+
     if (onPress) {
       onPress()
     } else if (screen) {
@@ -142,18 +183,14 @@ function SettingItem({ title, screen, icon, subtitle, danger, onPress }: Setting
   }
 
   return (
-    <SettingRow onPress={handlePress}>
+    <SettingRow onPress={handlePress} opacity={disabled ? 0.5 : 1}>
       <XStack alignItems="center" gap={12}>
         {icon}
         <YStack>
           <Text fontSize="$5" color={danger ? 'red' : undefined}>
             {title}
           </Text>
-          {subtitle && (
-            <Text theme="alt2" fontSize="$2">
-              {subtitle}
-            </Text>
-          )}
+          {subtitle && <Text fontSize="$2">{subtitle}</Text>}
         </YStack>
       </XStack>
       {screen && <ChevronRight size={24} color="$colorFocus" />}

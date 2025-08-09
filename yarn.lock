@@ -17,61 +17,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agentic/core@npm:7.6.9":
-  version: 7.6.9
-  resolution: "@agentic/core@npm:7.6.9"
-  dependencies:
-    dedent: "npm:^1.6.0"
-    delay: "npm:^6.0.0"
-    jsonrepair: "npm:^3.12.0"
-    ky: "npm:^1.8.1"
-    openai-zod-to-json-schema: "npm:^1.0.3"
-    p-throttle: "npm:6.2.0"
-    type-fest: "npm:^4.41.0"
-    zod-validation-error: "npm:^3.5.2"
-  peerDependencies:
-    zod: ^3.25.67
-  checksum: 10c0/697509cc905dfcfe1f3850e1f4c664e8af6bd0aaf36d34bb26bf9888cd0a2a51a642fa486e6a2117dd4862138a0f90dd4be095ea21759138105b6b3a343b7930
-  languageName: node
-  linkType: hard
-
-"@agentic/exa@npm:^7.6.9":
-  version: 7.6.9
-  resolution: "@agentic/exa@npm:7.6.9"
-  dependencies:
-    "@agentic/core": "npm:7.6.9"
-    ky: "npm:^1.8.1"
-  peerDependencies:
-    zod: ^3.25.67
-  checksum: 10c0/359b9ff93f4340ab89c52598e0b8979a0fa7490fd1b5568a80eff3f85320c3d1afc1dc2e16d1ad38a74a69db7d306cf9435446253e4809a9c1943db85eed253f
-  languageName: node
-  linkType: hard
-
-"@agentic/searxng@npm:^7.6.9":
-  version: 7.6.9
-  resolution: "@agentic/searxng@npm:7.6.9"
-  dependencies:
-    "@agentic/core": "npm:7.6.9"
-    ky: "npm:^1.8.1"
-  peerDependencies:
-    zod: ^3.25.67
-  checksum: 10c0/32e62ef44f82f237909b6f2a0fbcad33da3b2648ce74726c0e5bbe93d32f986a2f6e41a92b4434d9b5ca9b38e9b0e4fb646d3fc6d540ebb71dd21ceec20527f8
-  languageName: node
-  linkType: hard
-
-"@agentic/tavily@npm:^7.6.9":
-  version: 7.6.9
-  resolution: "@agentic/tavily@npm:7.6.9"
-  dependencies:
-    "@agentic/core": "npm:7.6.9"
-    ky: "npm:^1.8.1"
-    p-throttle: "npm:6.2.0"
-  peerDependencies:
-    zod: ^3.25.67
-  checksum: 10c0/e01ae02bf770d1f4a8c9fc7b381914b19722ddf7d997d991d43745bcf94322a1932082b464251c0c1b10df0f51ede8ce4916eca19c7d387d1f527def2e439fed
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/anthropic@npm:2.0.0":
   version: 2.0.0
   resolution: "@ai-sdk/anthropic@npm:2.0.0"
@@ -6203,9 +6148,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "Cherry Studio@workspace:."
   dependencies:
-    "@agentic/exa": "npm:^7.6.9"
-    "@agentic/searxng": "npm:^7.6.9"
-    "@agentic/tavily": "npm:^7.6.9"
     "@ai-sdk/anthropic": "npm:^1.2.12"
     "@ai-sdk/google": "npm:^1.2.22"
     "@ai-sdk/openai": "npm:^1.3.23"
@@ -7972,7 +7914,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dedent@npm:^1.0.0, dedent@npm:^1.6.0":
+"dedent@npm:^1.0.0":
   version: 1.6.0
   resolution: "dedent@npm:1.6.0"
   peerDependencies:
@@ -8040,13 +7982,6 @@ __metadata:
     has-property-descriptors: "npm:^1.0.0"
     object-keys: "npm:^1.1.1"
   checksum: 10c0/88a152319ffe1396ccc6ded510a3896e77efac7a1bfbaa174a7b00414a1747377e0bb525d303794a47cf30e805c2ec84e575758512c6e44a993076d29fd4e6c3
-  languageName: node
-  linkType: hard
-
-"delay@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "delay@npm:6.0.0"
-  checksum: 10c0/5175e887512d65b2bfe9e1168b5ce7a488de99c1d0af52cb4f799bb13dd7cb0bbbba8a4f5c500a5b03fb42bec8621d6ab59244bd8dfbe9a2bf7b173f25621a10
   languageName: node
   linkType: hard
 
@@ -12098,15 +12033,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonrepair@npm:^3.12.0":
-  version: 3.13.0
-  resolution: "jsonrepair@npm:3.13.0"
-  bin:
-    jsonrepair: bin/cli.js
-  checksum: 10c0/054206c07492fe3c90d85131859c5336128880915d0a8dca444ce10055613f041eee8a56af62bfc156d96d6e7e46bdee7caf72b28aafeb5e56543e9bde2cbce3
-  languageName: node
-  linkType: hard
-
 "jsx-ast-utils@npm:^2.4.1 || ^3.0.0":
   version: 3.3.5
   resolution: "jsx-ast-utils@npm:3.3.5"
@@ -12164,13 +12090,6 @@ __metadata:
   version: 3.0.3
   resolution: "kleur@npm:3.0.3"
   checksum: 10c0/cd3a0b8878e7d6d3799e54340efe3591ca787d9f95f109f28129bdd2915e37807bf8918bb295ab86afb8c82196beec5a1adcaf29042ce3f2bd932b038fe3aa4b
-  languageName: node
-  linkType: hard
-
-"ky@npm:^1.8.1":
-  version: 1.8.2
-  resolution: "ky@npm:1.8.2"
-  checksum: 10c0/81edb33f4397b4a23a085ab0c54c0efd7baad0c8eeaabbbec4e7147202627a20d80114595d03647fc1ae465d682de30e2e04805e6888e5650e5a93684cf86e93
   languageName: node
   linkType: hard
 
@@ -13681,15 +13600,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai-zod-to-json-schema@npm:^1.0.3":
-  version: 1.1.2
-  resolution: "openai-zod-to-json-schema@npm:1.1.2"
-  peerDependencies:
-    zod: ^3.23.8
-  checksum: 10c0/4848f48bb892a1bfcc8a1067863be34664d4ddbba7a4933a88e37be9b026f0cf06478af4d428428151ee7c194fb3b4d8d9e2a8a8b24d2fa923e3e80faf38885a
-  languageName: node
-  linkType: hard
-
 "openai@npm:^5.8.2":
   version: 5.10.1
   resolution: "openai@npm:5.10.1"
@@ -13832,13 +13742,6 @@ __metadata:
     eventemitter3: "npm:^5.0.1"
     p-timeout: "npm:^6.1.2"
   checksum: 10c0/6bdea170840546769c29682fed212745c951933476761ed3a981967fab624c7c0120dff79bd99a1ac8b650b420719a245813e944af4b8ee77d4dd78adbf5fe75
-  languageName: node
-  linkType: hard
-
-"p-throttle@npm:6.2.0":
-  version: 6.2.0
-  resolution: "p-throttle@npm:6.2.0"
-  checksum: 10c0/3be65f66eb21137be78b8d18a5240117312b942e3aa788f838ac4be785ab3c40b64ee34b2c393cd948ec7845c0a00241f446395b98ff4754e718fe54fdee0b00
   languageName: node
   linkType: hard
 
@@ -16644,7 +16547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.30.0, type-fest@npm:^4.41.0":
+"type-fest@npm:^4.30.0":
   version: 4.41.0
   resolution: "type-fest@npm:4.41.0"
   checksum: 10c0/f5ca697797ed5e88d33ac8f1fec21921839871f808dc59345c9cf67345bfb958ce41bd821165dbf3ae591cedec2bf6fe8882098dfdd8dc54320b859711a2c1e4
@@ -17722,7 +17625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod-validation-error@npm:^3.0.3, zod-validation-error@npm:^3.5.2":
+"zod-validation-error@npm:^3.0.3":
   version: 3.5.3
   resolution: "zod-validation-error@npm:3.5.3"
   peerDependencies:

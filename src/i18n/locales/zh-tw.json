@@ -86,6 +86,7 @@
       "cherry_studio_description": "強大的 AI 生產力助手",
       "clear_all": "清除全部",
       "close": "關閉",
+      "confirm": "[to be translated]:确认",
       "description": "描述",
       "enabled": "已啟用",
       "error_occurred": "發生錯誤",
@@ -297,6 +298,8 @@
         },
         "recovery": "資料恢復",
         "reset": "資料重置",
+        "reset_success": "[to be translated]:数据重置成功！应用已恢复到初始状态。",
+        "reset_warning": "[to be translated]:您确定要重置所有数据吗？这将删除所有对话、消息和用户创建的内容。此操作无法撤销。",
         "restore": {
           "error": "恢復錯誤",
           "error_message": "還原過程中發生錯誤。請檢查檔案並再次嘗試。",
