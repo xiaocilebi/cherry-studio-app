@@ -1,4 +1,5 @@
 import * as DocumentPicker from 'expo-document-picker'
+import * as FileSystem from 'expo-file-system'
 import * as ImagePicker from 'expo-image-picker'
 
 import { uploadFiles } from '@/services/FileService'
@@ -84,6 +85,13 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
 
   const handleAddPhotoFromCamera = async (photoUri: string) => {
     try {
+      const fileInfo = await FileSystem.getInfoAsync(photoUri)
+
+      if (!fileInfo.exists) {
+        logger.error('Photo from camera not found at uri:', photoUri)
+        return
+      }
+
       const id = uuid()
       const fileName = photoUri.split('/').pop() || `${id}.jpg`
       const _file: Omit<FileType, 'md5'> = {
@@ -91,7 +99,7 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
         name: fileName,
         origin_name: fileName,
         path: photoUri,
-        size: 0,
+        size: fileInfo.size,
         ext: 'jpg',
         type: FileTypes.IMAGE,
         mime_type: 'image/jpeg',

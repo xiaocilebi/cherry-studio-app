@@ -36,7 +36,7 @@ export const useCameraHandler = ({ onPhotoTaken, onSuccess }: UseCameraHandlerPr
     }
 
     try {
-      const photo = await cameraRef.current.takePictureAsync()
+      const photo = await cameraRef.current.takePictureAsync({ quality: 0.2 })
 
       if (photo) {
         onPhotoTaken(photo.uri)

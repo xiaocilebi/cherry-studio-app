@@ -8,7 +8,6 @@ import { Stack, Text, View, XStack, YStack } from 'tamagui'
 import { FileIcon } from '@/components/icons/FileIcon'
 import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
-import { useIsDark } from '@/utils'
 import { formatFileSize } from '@/utils/file'
 const logger = loggerService.withContext('File Item')
 
@@ -20,8 +19,6 @@ interface FileItemProps {
 }
 
 const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
-  const isDark = useIsDark()
-
   const handlePreview = () => {
     FileViewer.open(file.path, { displayName: file.name }).catch(error => {
       logger.error('Handle Preview Error', error)

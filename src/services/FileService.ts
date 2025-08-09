@@ -10,6 +10,15 @@ const logger = loggerService.withContext('File Service')
 
 const fileStorageDir = new Directory(Paths.cache, 'Files')
 
+// 辅助函数，确保目录存在
+async function ensureDirExists() {
+  const dirInfo = await FileSystem.getInfoAsync(fileStorageDir.uri)
+
+  if (!dirInfo.exists) {
+    await FileSystem.makeDirectoryAsync(fileStorageDir.uri, { intermediates: true })
+  }
+}
+
 export function readFile(file: FileType): string {
   return new File(file.path).text()
 }
@@ -56,30 +65,39 @@ export function readStreamFile(file: FileType): ReadableStream {
 }
 
 export async function uploadFiles(files: Omit<FileType, 'md5'>[]): Promise<FileType[]> {
-  if (!fileStorageDir.exists) {
-    fileStorageDir.create({ intermediates: true, overwrite: true })
-  }
-
+  await ensureDirExists()
   const filePromises = files.map(async file => {
     try {
-      const sourceFile = new File(file.path)
-      const destinationFile = new File(fileStorageDir, `${file.id}.${file.ext}`)
-      upsertFiles([
-        { ...file, path: destinationFile.uri, mime_type: destinationFile.type || '', md5: destinationFile.md5 || '' }
-      ])
-      sourceFile.copy(destinationFile)
-      return {
-        ...file,
-        mime_type: destinationFile.type || '',
-        md5: destinationFile.md5 || '',
-        path: destinationFile.uri
+      const sourceUri = file.path
+      const destinationUri = `${fileStorageDir.uri}${file.id}.${file.ext}`
+
+      await FileSystem.copyAsync({
+        from: sourceUri,
+        to: destinationUri
+      })
+
+      const fileInfo = await FileSystem.getInfoAsync(destinationUri, {
+        size: true,
+        md5: true
+      })
+
+      if (!fileInfo.exists) {
+        throw new Error('Failed to copy file or get info.')
       }
+
+      const finalFile: FileType = {
+        ...file,
+        path: destinationUri,
+        size: fileInfo.size,
+        md5: fileInfo.md5 || ''
+      }
+      upsertFiles([finalFile])
+      return finalFile
     } catch (error) {
       logger.error('Error uploading file:', error)
       throw new Error(`Failed to upload file: ${file.name}`)
     }
   })
-
   return await Promise.all(filePromises)
 }
 

@@ -6,7 +6,6 @@ import ImageView from 'react-native-image-viewing'
 import { Image, useWindowDimensions, View } from 'tamagui'
 
 import { FileType } from '@/types/file'
-import { useIsDark } from '@/utils'
 
 interface ImageItemProps {
   file: FileType
@@ -16,7 +15,6 @@ interface ImageItemProps {
 }
 
 const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size }) => {
-  const isDark = useIsDark()
   const [visible, setIsVisible] = useState(false)
   const imagesForViewer = allImages.length > 0 ? allImages : [file]
   const imageIndex = imagesForViewer.findIndex(img => img.path === file.path)
