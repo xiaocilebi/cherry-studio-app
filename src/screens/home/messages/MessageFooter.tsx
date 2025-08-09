@@ -6,6 +6,7 @@ import { Button, View, XStack } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
 import { regenerateAssistantMessage } from '@/services/MessagesService'
+import { useAppDispatch } from '@/store'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
 import { filterMessages } from '@/utils/messageUtils/filters'
@@ -21,6 +22,7 @@ interface MessageFooterProps {
 }
 
 const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
+  const dispatch = useAppDispatch()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const onCopy = async () => {
@@ -38,7 +40,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
 
   const onRegenerate = async () => {
     try {
-      await regenerateAssistantMessage(message, assistant)
+      await regenerateAssistantMessage(message, assistant, dispatch)
     } catch (error) {
       logger.error('Error regenerating message:', error)
       // 可以添加 toast 提示用户重新生成失败

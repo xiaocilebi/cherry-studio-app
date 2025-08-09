@@ -9,9 +9,11 @@ import { styled, TextArea, View, XStack, YStack } from 'tamagui'
 
 import { isReasoningModel } from '@/config/models/reasoning'
 import { useAssistant } from '@/hooks/useAssistant'
+import { useMessageOperations, useTopicLoading } from '@/hooks/useMessageOperation'
 import { loggerService } from '@/services/LoggerService'
 import { sendMessage as _sendMessage } from '@/services/MessagesService'
 import { getUserMessage } from '@/services/MessagesService'
+import { useAppDispatch } from '@/store'
 import { Model, Topic } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
@@ -20,6 +22,7 @@ import { haptic } from '@/utils/haptic'
 
 import FilePreview from './FilePreview'
 import { MentionButton } from './MentionButton'
+import { PauseButton } from './PauseButton'
 import { SendButton } from './SendButton'
 import { ThinkButton } from './ThinkButton'
 import { ToolButton } from './ToolButton'
@@ -33,11 +36,14 @@ interface MessageInputProps {
 export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const { t } = useTranslation()
   const isDark = useIsDark()
+  const dispatch = useAppDispatch()
   const { assistant, isLoading, updateAssistant } = useAssistant(topic.assistantId)
 
   const [text, setText] = useState('')
   const [files, setFiles] = useState<FileType[]>([])
   const [mentions, setMentions] = useState<Model[]>([])
+  const isTopicLoading = useTopicLoading(topic)
+  const { pauseMessages } = useMessageOperations(topic)
 
   const isReasoning = isReasoningModel(assistant?.model)
 
@@ -66,9 +72,19 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
         message.mentions = mentions
       }
 
-      await _sendMessage(message, blocks, assistant, topic.id)
+      await _sendMessage(message, blocks, assistant, topic.id, dispatch)
     } catch (error) {
       logger.error('Error sending message:', error)
+    }
+  }
+
+  const onPause = async () => {
+    haptic(ImpactFeedbackStyle.Medium)
+
+    try {
+      await pauseMessages()
+    } catch (error) {
+      logger.error('Error pause message:', error)
     }
   }
 
@@ -118,7 +134,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
               </XStack>
               <XStack gap={10} alignItems="center">
                 <AnimatePresence exitBeforeEnter>
-                  {text && (
+                  {text && !isTopicLoading && (
                     <MotiView
                       key="send-button"
                       from={{ opacity: 0, scale: 0.5 }}
@@ -126,6 +142,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
                       exit={{ opacity: 0, scale: 0.5 }}
                       transition={{ type: 'timing', duration: 200 }}>
                       <SendButton onSend={sendMessage} />
+                    </MotiView>
+                  )}
+                  {isTopicLoading && (
+                    <MotiView
+                      key="pause-button"
+                      from={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      transition={{ type: 'timing', duration: 200 }}>
+                      <PauseButton onPause={onPause} />
                     </MotiView>
                   )}
                   {/*{text ? (

@@ -21,7 +21,8 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
-        allowsMultipleSelection: true
+        allowsMultipleSelection: true,
+        quality: 0.2
       })
 
       if (result.canceled) {
