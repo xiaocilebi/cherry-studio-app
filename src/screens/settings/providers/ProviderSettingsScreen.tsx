@@ -5,9 +5,8 @@ import { groupBy } from 'lodash'
 import debounce from 'lodash/debounce'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
-import { Accordion, Button, Separator, Text, XStack, YStack } from 'tamagui'
+import { Accordion, Button, Separator, Stack, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -115,8 +114,8 @@ export default function ProviderSettingsScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator />
+      <SafeAreaContainer>
+        <Stack />
       </SafeAreaContainer>
     )
   }

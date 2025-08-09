@@ -1,24 +1,24 @@
 import { useNavigation } from '@react-navigation/native'
+import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { Plus } from '@tamagui/lucide-icons'
 import debounce from 'lodash/debounce'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { ScrollView, useTheme, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
+import { SettingContainer, SettingGroup } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { EmptyModelView } from '@/components/settings/providers/EmptyModelView'
 import { ProviderItem } from '@/components/settings/providers/ProviderItem'
-import CustomRadialGradientBackground from '@/components/ui/CustomRadialGradientBackground'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
+import { Provider } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 
 export default function ProvidersScreen() {
   const { t } = useTranslation()
-  const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
 
   const [searchText, setSearchText] = useState('')
@@ -49,6 +49,10 @@ export default function ProvidersScreen() {
     navigation.navigate('ProviderListScreen')
   }
 
+  const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (
+    <ProviderItem key={item.id} provider={item} mode="enabled" />
+  )
+
   if (isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -77,17 +81,17 @@ export default function ProvidersScreen() {
         {providers.length === 0 ? (
           <EmptyModelView onAddModel={onAddProvider} />
         ) : (
-          <YStack flex={1} gap={8} paddingVertical={8}>
-            <SettingGroupTitle>{t('settings.provider.title')}</SettingGroupTitle>
-            <CustomRadialGradientBackground style={{ radius: 2 }}>
-              <ScrollView backgroundColor="$colorTransparent" showsVerticalScrollIndicator={false}>
-                <SettingGroup>
-                  {displayedProviders.map(p => (
-                    <ProviderItem key={p.id} provider={p} mode="enabled" />
-                  ))}
-                </SettingGroup>
-              </ScrollView>
-            </CustomRadialGradientBackground>
+          <YStack flex={1} height="100%">
+            <SettingGroup flex={1}>
+              <FlashList
+                data={displayedProviders}
+                renderItem={renderProviderItem}
+                keyExtractor={item => item.id}
+                estimatedItemSize={60}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 24 }}
+              />
+            </SettingGroup>
           </YStack>
         )}
       </SettingContainer>
