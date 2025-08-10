@@ -16,14 +16,9 @@ export default {
     android: {
       adaptiveIcon: {
         foregroundImage: './src/assets/images/adaptive-icon.png',
-        backgroundColor: '#ffffff'
+        backgroundColor: '#F65D5D'
       },
       package: 'com.anonymous.cherrystudio'
-    },
-    web: {
-      bundler: 'metro',
-      // output: 'static',
-      favicon: './src/assets/images/favicon.png'
     },
     plugins: [
       ['expo-build-properties', { ios: { deploymentTarget: '15.5' } }],
