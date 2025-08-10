@@ -92,8 +92,8 @@ export default function SettingsScreen() {
         <YStack gap={24} flex={1}>
           {settingsItems.map((group, index) => (
             <Group key={index} title={group.title ?? ''}>
-              {group.items.map(item => (
-                <SettingItem key={item.title} title={item.title} screen={item.screen} icon={item.icon} />
+              {group.items.map((item, index) => (
+                <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
               ))}
             </Group>
           ))}
