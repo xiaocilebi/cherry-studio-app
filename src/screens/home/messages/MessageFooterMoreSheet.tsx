@@ -123,10 +123,10 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
               icon={isTranslated ? <TranslatedIcon size={18} /> : <TranslationIcon size={18} />}
               theme="gray"
               justifyContent="flex-start">
-              {isTranslated ? t('删除翻译') : t('翻译消息')}
+              {isTranslated ? t('message.delete_translation') : t('message.translate_message')}
             </Button>
             <Button onPress={onDelete} icon={<Trash2 size={18} />} theme="red" justifyContent="flex-start">
-              {t('删除消息')}
+              {t('message.delete_message')}
             </Button>
           </YStack>
         </YStack>
