@@ -23,7 +23,7 @@ interface MessagesProps {
 
 const Messages: FC<MessagesProps> = ({ assistant, topic, autoScroll, setAutoScroll, onScroll, onScrollToBottom }) => {
   const { messages } = useMessages(topic.id)
-  const groupedMessages = Object.entries(getGroupedMessages(messages))
+  const groupedMessages = Object.entries(getGroupedMessages(messages)).reverse()
   const flashListRef = useRef<FlashList<[string, GroupedMessage[]]>>(null)
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
@@ -65,6 +65,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic, autoScroll, setAutoScro
           ItemSeparatorComponent={() => <YStack height={20} />}
           onScroll={onScroll ? ({ nativeEvent }) => onScroll(nativeEvent) : undefined}
           scrollEventThrottle={16}
+          inverted
           onContentSizeChange={() => {
             if (autoScroll) {
               scrollToBottom()
