@@ -179,7 +179,10 @@
       "searching": "Поиск...",
       "websearch": {
         "fetch_complete": "Выполнено {{count}} поисков..."
-      }
+      },
+      "delete_translation": "Удалить перевод",
+      "translate_message": "Перевести сообщение",
+      "delete_message": "Удалить сообщение"
     },
     "models": {
       "no_models": "Нет доступных моделей",
@@ -582,6 +585,12 @@
         "title": "Конфигурация Yuque",
         "token": "Токен Yuque",
         "token_placeholder": "Пожалуйста, введите токен Yuque"
+      },
+      "mcp": {
+        "errors": {
+          "toolNotFound": "Инструмент '{{name}}' не найден",
+          "32000": "Ошибка сервера MCP"
+        }
       }
     },
     "topics": {

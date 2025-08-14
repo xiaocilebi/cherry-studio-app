@@ -179,7 +179,10 @@
       "searching": "Searching...",
       "websearch": {
         "fetch_complete": "Completed {{count}} searches..."
-      }
+      },
+      "delete_translation": "Remove Translation",
+      "translate_message": "Translate Message",
+      "delete_message": "Delete Message"
     },
     "models": {
       "no_models": "No models available",
@@ -582,6 +585,12 @@
         "title": "Yuque Configuration",
         "token": "Yuque Token",
         "token_placeholder": "Please enter the Yuque Token"
+      },
+      "mcp": {
+        "errors": {
+          "toolNotFound": "Tool '{{name}}' not found",
+          "32000": "MCP server error"
+        }
       }
     },
     "topics": {

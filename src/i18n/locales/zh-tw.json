@@ -179,7 +179,10 @@
       "searching": "搜尋中...",
       "websearch": {
         "fetch_complete": "已完成 {{count}} 次搜尋..."
-      }
+      },
+      "delete_translation": "刪除翻譯",
+      "translate_message": "翻譯訊息",
+      "delete_message": "刪除訊息"
     },
     "models": {
       "no_models": "暫無可用模型",
@@ -582,6 +585,12 @@
         "title": "語雀配置",
         "token": "語雀 Token",
         "token_placeholder": "請輸入語雀 Token"
+      },
+      "mcp": {
+        "errors": {
+          "toolNotFound": "工具 '{{name}}' 未找到",
+          "32000": "MCP 伺服器錯誤"
+        }
       }
     },
     "topics": {

@@ -179,7 +179,10 @@
       "searching": "検索中...",
       "websearch": {
         "fetch_complete": "検索が {{count}} 回完了しました..."
-      }
+      },
+      "delete_translation": "翻訳を削除",
+      "translate_message": "メッセージを翻訳",
+      "delete_message": "メッセージを削除"
     },
     "models": {
       "no_models": "利用可能なモデルがありません",
@@ -582,6 +585,12 @@
         "title": "Yuque設定",
         "token": "Yuqueトークン",
         "token_placeholder": "Yuqueトークンを入力してください"
+      },
+      "mcp": {
+        "errors": {
+          "toolNotFound": "ツール '{{name}}' が見つかりません",
+          "32000": "MCPサーバーエラー"
+        }
       }
     },
     "topics": {
