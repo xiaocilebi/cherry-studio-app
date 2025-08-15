@@ -12,7 +12,7 @@ export interface SettingsState {
 
 const initialState: SettingsState = {
   avatar: '',
-  userName: '',
+  userName: 'Cherry Studio',
   userId: uuid(),
   theme: ThemeMode.system
 }

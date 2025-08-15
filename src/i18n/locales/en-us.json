@@ -448,6 +448,7 @@
       },
       "personal": {
         "name": "Username",
+        "namePlaceholder": "Please enter your username",
         "title": "Personal Settings"
       },
       "provider": {
