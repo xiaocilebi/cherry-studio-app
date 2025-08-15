@@ -1,5 +1,29 @@
 import { Model } from '@/types/assistant'
 
+export const DEFAULT_MODELS: Model[] = [
+  {
+    // 默认助手模型
+    id: 'deepseek-ai/DeepSeek-V3',
+    name: 'deepseek-ai/DeepSeek-V3',
+    provider: 'silicon',
+    group: 'deepseek-ai'
+  },
+  {
+    // 默认话题命名模型
+    id: 'deepseek-ai/DeepSeek-V3',
+    name: 'deepseek-ai/DeepSeek-V3',
+    provider: 'silicon',
+    group: 'deepseek-ai'
+  },
+  {
+    // 默认翻译模型
+    id: 'deepseek-ai/DeepSeek-V3',
+    name: 'deepseek-ai/DeepSeek-V3',
+    provider: 'silicon',
+    group: 'deepseek-ai'
+  }
+]
+
 export const SILICON_MODELS: Model[] = [
   {
     id: 'deepseek-ai/DeepSeek-R1',

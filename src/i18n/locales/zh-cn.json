@@ -448,6 +448,7 @@
       },
       "personal": {
         "name": "用户名",
+        "namePlaceholder": "请输入用户名",
         "title": "个人设置"
       },
       "provider": {
