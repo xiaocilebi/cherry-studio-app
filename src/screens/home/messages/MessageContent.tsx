@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, useColorScheme } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Stack, View } from 'tamagui'
 
 import { useMessageBlocks } from '@/hooks/useMessageBlocks'
@@ -12,9 +12,6 @@ interface Props {
 }
 
 const MessageContent: React.FC<Props> = ({ message }) => {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
-
   const isUser = message.role === 'user'
   const { processedBlocks } = useMessageBlocks(message.id)
 
