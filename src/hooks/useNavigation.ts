@@ -10,11 +10,11 @@ export function useNavigation() {
 
   const navigateToChatScreen = (topicId: string) => {
     dispatch(setCurrentTopicId(topicId))
-    navigation.navigate('ChatScreen', { topicId })
+    navigation.navigate('HomeScreen', { screen: 'ChatScreen', params: { topicId } })
   }
 
   const navigateToHomeScreen = () => {
-    navigation.navigate('HomeScreen')
+    navigation.navigate('HomeScreen', { screen: 'ChatScreen', params: { topicId: 'new' } })
   }
 
   return {

@@ -30,7 +30,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const { isLoading: isLoadingAssistants } = useExternalAssistants()
 
   const handleRoute = (route: string) => {
-    props.navigation.navigate('Main', { screen: route })
+    props.navigation.navigate(route)
     props.navigation.closeDrawer()
   }
 
