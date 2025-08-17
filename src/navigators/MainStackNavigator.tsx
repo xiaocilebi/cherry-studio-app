@@ -6,7 +6,6 @@ import React from 'react'
 import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
 import AssistantMarketScreen from '@/screens/assistant/AssistantMarketScreen'
 import AssistantScreen from '@/screens/assistant/AssistantScreen'
-import ChatScreen from '@/screens/home/ChatScreen'
 import HomeScreen from '@/screens/home/HomeScreen'
 import AboutScreen from '@/screens/settings/about/AboutScreen'
 import AssistantSettingsScreen from '@/screens/settings/assistant/AssistantSettingsScreen'
@@ -45,11 +44,11 @@ export default function MainStackNavigator() {
   const welcomeShown = useAppSelector(state => state.app.welcomeShown)
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
       {/* index */}
       {!welcomeShown && <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />}
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ gestureEnabled: false }} />
+
       {/* assistant screen */}
       <Stack.Screen name="AssistantScreen" component={AssistantScreen} />
       <Stack.Screen name="AssistantDetailScreen" component={AssistantDetailScreen} />

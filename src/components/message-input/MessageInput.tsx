@@ -5,7 +5,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
-import { styled, TextArea, View, XStack, YStack } from 'tamagui'
+import { styled, TextArea, XStack, YStack } from 'tamagui'
 
 import { isReasoningModel } from '@/config/models/reasoning'
 import { useAssistant } from '@/hooks/useAssistant'
@@ -108,53 +108,53 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
       start={[0, 0]}
       end={[1, 1]}>
       <InputContent>
-        <View>
-          <YStack gap={10}>
-            {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
-            {/* message */}
-            <XStack>
-              <TextArea
-                placeholder={t('inputs.placeholder')}
-                borderWidth={0}
-                backgroundColor="$colorTransparent"
-                flex={1}
-                value={text}
-                onChangeText={setText}
-                lineHeight={22}
-                color="$textSecondaryLight"
-              />
+        <YStack gap={10}>
+          {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
+          {/* message */}
+          <XStack>
+            <TextArea
+              placeholder={t('inputs.placeholder')}
+              borderWidth={0}
+              backgroundColor="$colorTransparent"
+              p={0}
+              flex={1}
+              value={text}
+              onChangeText={setText}
+              lineHeight={22}
+              color="$textSecondaryLight"
+            />
+          </XStack>
+          {/* button */}
+          <XStack justifyContent="space-between" alignItems="center" minHeight={30}>
+            <XStack gap={10} alignItems="center">
+              <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
+              {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
+              <MentionButton mentions={mentions} setMentions={setMentions} />
+              <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
             </XStack>
-            {/* button */}
-            <XStack justifyContent="space-between" alignItems="center" minHeight={30}>
-              <XStack gap={10} alignItems="center">
-                <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
-                {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
-                <MentionButton mentions={mentions} setMentions={setMentions} />
-                <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
-              </XStack>
-              <XStack gap={10} alignItems="center">
-                <AnimatePresence exitBeforeEnter>
-                  {text && !isTopicLoading && (
-                    <MotiView
-                      key="send-button"
-                      from={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{ type: 'timing', duration: 200 }}>
-                      <SendButton onSend={sendMessage} />
-                    </MotiView>
-                  )}
-                  {isTopicLoading && (
-                    <MotiView
-                      key="pause-button"
-                      from={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{ type: 'timing', duration: 200 }}>
-                      <PauseButton onPause={onPause} />
-                    </MotiView>
-                  )}
-                  {/*{text ? (
+            <XStack gap={10} alignItems="center">
+              <AnimatePresence exitBeforeEnter>
+                {text && !isTopicLoading && (
+                  <MotiView
+                    key="send-button"
+                    from={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    transition={{ type: 'timing', duration: 200 }}>
+                    <SendButton onSend={sendMessage} />
+                  </MotiView>
+                )}
+                {isTopicLoading && (
+                  <MotiView
+                    key="pause-button"
+                    from={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    transition={{ type: 'timing', duration: 200 }}>
+                    <PauseButton onPause={onPause} />
+                  </MotiView>
+                )}
+                {/*{text ? (
                     <MotiView
                       key="send-button"
                       from={{ opacity: 0, scale: 0.5 }}
@@ -173,11 +173,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
                       <VoiceButton />
                     </MotiView>
                   )}*/}
-                </AnimatePresence>
-              </XStack>
+              </AnimatePresence>
             </XStack>
-          </YStack>
-        </View>
+          </XStack>
+        </YStack>
       </InputContent>
     </LinearGradient>
   )

@@ -34,7 +34,7 @@ import migrations from '../drizzle/migrations'
 import tamaguiConfig from '../tamagui.config'
 import { getBuiltInAssistants, getSystemAssistants } from './config/assistants'
 import { getSystemProviders } from './config/providers'
-import AppNavigator from './navigators/AppNavigator'
+import MainStackNavigator from './navigators/MainStackNavigator'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -104,7 +104,7 @@ function ThemedApp() {
             <ThemeProvider value={reactNavigationTheme}>
               <BottomSheetModalProvider>
                 <DatabaseInitializer />
-                <AppNavigator />
+                <MainStackNavigator />
                 <StatusBar style="auto" />
               </BottomSheetModalProvider>
             </ThemeProvider>
