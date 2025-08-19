@@ -57,7 +57,7 @@ export default function GeneralSettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.general.title')}  />
+      <HeaderBar title={t('settings.general.title')} />
       <SettingContainer>
         <YStack gap={24} flex={1}>
           {/* Display settings */}

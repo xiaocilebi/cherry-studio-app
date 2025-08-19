@@ -1,7 +1,8 @@
-import { useNavigation } from '@/hooks/useNavigation'
 import { ArrowLeft } from '@tamagui/lucide-icons'
 import React from 'react'
 import { Button, Text, XStack } from 'tamagui'
+
+import { useNavigation } from '@/hooks/useNavigation'
 
 interface HeaderBarProps {
   title: string
@@ -19,7 +20,7 @@ interface HeaderBarProps {
 
 export function HeaderBar({ title, rightButton, rightButtons, showBackButton = true }: HeaderBarProps) {
   const buttonsToRender = rightButtons || (rightButton ? [rightButton] : [])
-  const {navigateBack } =useNavigation()
+  const { navigateBack } = useNavigation()
 
   return (
     <XStack paddingHorizontal="$4" alignItems="center" height={44} justifyContent="space-between">

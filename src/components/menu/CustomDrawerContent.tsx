@@ -51,7 +51,8 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   const handleNavigateSettingsScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    handleRoute('SettingsScreen')
+    props.navigation.navigate('Settings', { screen: 'SettingsScreen' })
+    props.navigation.closeDrawer()
   }
 
   if (isLoadingTopics || isLoadingAssistants) {
