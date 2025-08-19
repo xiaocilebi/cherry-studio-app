@@ -109,9 +109,7 @@ export default function ApiServiceScreen() {
     await updateProvider(updatedProvider)
   }
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   // 模型检测处理
   const handleStartModelCheck = async () => {

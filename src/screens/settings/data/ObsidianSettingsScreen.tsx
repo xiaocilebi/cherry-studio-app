@@ -13,9 +13,7 @@ export default function ObsidianSettingsScreen() {
   const theme = useTheme()
   const navigation = useNavigation()
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>

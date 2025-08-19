@@ -120,9 +120,7 @@ export default function AssistantMarketScreen() {
     }
   }
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   const handleNavigateToMyAssistants = () => {
     navigation.navigate('AssistantScreen')

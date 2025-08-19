@@ -56,9 +56,7 @@ export default function WebSearchProviderSettingsScreen() {
     )
   }
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   const handleOpenBottomSheet = () => {
     bottomSheetRef.current?.expand()

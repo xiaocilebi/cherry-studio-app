@@ -66,9 +66,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
     )
   }
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   const handleOpenBottomSheet = () => {
     bottomSheetRef.current?.expand()

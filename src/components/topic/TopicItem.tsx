@@ -16,6 +16,7 @@ import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/Topi
 import { Assistant, Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { useTranslation } from 'react-i18next'
+import { Pressable } from 'react-native-gesture-handler'
 const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
@@ -94,6 +95,11 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
+        <Pressable
+          delayLongPress={100}
+                  onPress={openTopic}
+                  onLongPress={() => {}}
+        >
         <XStack
           backgroundColor="$uiCardBackground"
           borderRadius={30}
@@ -102,7 +108,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
           gap={14}
           justifyContent="center"
           alignItems="center"
-          onPress={openTopic}>
+        >
           <Text fontSize={24}>{assistant?.emoji}</Text>
           <YStack flex={1}>
             <XStack justifyContent="space-between">
@@ -118,6 +124,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
             </Text>
           </YStack>
         </XStack>
+        </Pressable>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item key='delete' onSelect={handleDelete}>
