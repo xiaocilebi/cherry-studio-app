@@ -4,7 +4,7 @@ import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
-import { Button, Input, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
+import { Button, Input, Stack, Text, XStack, YStack } from 'tamagui'
 
 import ExternalLink from '@/components/ExternalLink'
 import { SettingContainer, SettingGroupTitle, SettingHelpText } from '@/components/settings'
@@ -21,7 +21,6 @@ type WebsearchProviderSettingsRouteProp = RouteProp<RootStackParamList, 'WebSear
 
 export default function WebSearchProviderSettingsScreen() {
   const { t } = useTranslation()
-  const theme = useTheme()
   const navigation = useNavigation()
   const route = useRoute<WebsearchProviderSettingsRouteProp>()
 

@@ -19,7 +19,6 @@ const logger = loggerService.withContext('useMarkedRenderer')
 class CustomTokenizer extends MarkedTokenizer {
   codespan(src: string): Tokens.Codespan | undefined {
     const match = src.match(/^\$+([^\$\n]+?)\$+/)
-    console.log('match latex', match)
 
     if (match?.[1]) {
       return {
