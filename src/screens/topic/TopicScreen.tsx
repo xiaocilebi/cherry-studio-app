@@ -58,7 +58,7 @@ export default function TopicScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar
         title={t('topics.title.recent')}
-        onBackPress={() => navigation.goBack()}
+        
         rightButton={{
           icon: <PenSquare size={24} />,
           onPress: handleAddNewTopic

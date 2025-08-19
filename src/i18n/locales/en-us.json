@@ -87,6 +87,7 @@
       "clear_all": "Clear All",
       "close": "Close",
       "confirm": "Confirm",
+      "delete": "delete",
       "description": "Description",
       "enabled": "Enabled",
       "error_occurred": "An error occurred",
@@ -176,13 +177,13 @@
       }
     },
     "message": {
+      "delete_message": "Delete Message",
+      "delete_translation": "Remove Translation",
       "searching": "Searching...",
+      "translate_message": "Translate Message",
       "websearch": {
         "fetch_complete": "Completed {{count}} searches..."
-      },
-      "delete_translation": "Remove Translation",
-      "translate_message": "Translate Message",
-      "delete_message": "Delete Message"
+      }
     },
     "models": {
       "no_models": "No models available",
@@ -389,6 +390,12 @@
         "url": "Joplin Web Clipper Service URL",
         "url_placeholder": "http://127.0.0.1:41184/"
       },
+      "mcp": {
+        "errors": {
+          "32000": "MCP server error",
+          "toolNotFound": "Tool '{{name}}' not found"
+        }
+      },
       "modelAndService": "AI Models & Services",
       "models": {
         "add.model": "Add Model",
@@ -586,12 +593,6 @@
         "title": "Yuque Configuration",
         "token": "Yuque Token",
         "token_placeholder": "Please enter the Yuque Token"
-      },
-      "mcp": {
-        "errors": {
-          "toolNotFound": "Tool '{{name}}' not found",
-          "32000": "MCP server error"
-        }
       }
     },
     "topics": {

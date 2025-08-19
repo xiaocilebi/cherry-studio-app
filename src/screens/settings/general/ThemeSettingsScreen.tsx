@@ -26,7 +26,7 @@ export default function ThemeSettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.general.theme.title')} onBackPress={() => navigation.goBack()} />
+      <HeaderBar title={t('settings.general.theme.title')}  />
       <SettingContainer>
         <YStack flex={1} space={12} paddingHorizontal={16}>
           {themeOptions.map(opt => (

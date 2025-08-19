@@ -13,13 +13,11 @@ export default function ObsidianSettingsScreen() {
   const theme = useTheme()
   const navigation = useNavigation()
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.obsidian.title')} onBackPress={handleBackPress} />
+      <HeaderBar title={t('settings.obsidian.title')}  />
       <SettingContainer>
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} alignItems="center">

@@ -1,3 +1,4 @@
+import { useNavigation } from '@/hooks/useNavigation'
 import { ArrowLeft } from '@tamagui/lucide-icons'
 import React from 'react'
 import { Button, Text, XStack } from 'tamagui'
@@ -16,15 +17,16 @@ interface HeaderBarProps {
   showBackButton?: boolean
 }
 
-export function HeaderBar({ title, onBackPress, rightButton, rightButtons, showBackButton = true }: HeaderBarProps) {
+export function HeaderBar({ title, rightButton, rightButtons, showBackButton = true }: HeaderBarProps) {
   const buttonsToRender = rightButtons || (rightButton ? [rightButton] : [])
+  const {navigateBack } =useNavigation()
 
   return (
     <XStack paddingHorizontal="$4" alignItems="center" height={44} justifyContent="space-between">
       {/* 左侧按钮 */}
       <XStack alignItems="center" minWidth={40}>
         {showBackButton ? (
-          <Button size="$2" chromeless circular icon={<ArrowLeft size={24} />} onPress={onBackPress} />
+          <Button size="$2" chromeless circular icon={<ArrowLeft size={24} />} onPress={navigateBack} />
         ) : (
           <XStack width={40} /> // 占位，确保标题能正确居中
         )}

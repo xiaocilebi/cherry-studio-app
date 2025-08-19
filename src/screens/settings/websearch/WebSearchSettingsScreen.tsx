@@ -54,7 +54,7 @@ export default function WebSearchSettingsScreen() {
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
-        <HeaderBar title={t('settings.websearch.title')} onBackPress={() => navigation.goBack()} />
+        <HeaderBar title={t('settings.websearch.title')}  />
         <ScrollView flex={1}>
           <SettingContainer>
             <YStack gap={24} flex={1}>

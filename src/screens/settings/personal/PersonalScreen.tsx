@@ -46,7 +46,7 @@ export default function PersonalScreen() {
 
   return (
     <SafeAreaContainer>
-      <HeaderBar title={t('settings.personal.title')} onBackPress={() => navigation.goBack()} />
+      <HeaderBar title={t('settings.personal.title')}  />
       <SettingContainer>
         <SettingGroup>
           <TouchableOpacity

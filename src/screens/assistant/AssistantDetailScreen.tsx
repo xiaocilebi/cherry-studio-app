@@ -53,7 +53,7 @@ export default function AssistantDetailScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')}
-        onBackPress={() => navigation.goBack()}
+        
       />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}

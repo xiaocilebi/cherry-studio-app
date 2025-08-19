@@ -68,7 +68,7 @@ export default function ProvidersScreen() {
       }}>
       <HeaderBar
         title={t('settings.provider.title')}
-        onBackPress={() => navigation.goBack()}
+        
         rightButton={{
           icon: <Plus size={24} />,
           onPress: onAddProvider

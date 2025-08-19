@@ -1,13 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
-import { MotiView } from 'moti'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import React from 'react'
-import { RectButton } from 'react-native-gesture-handler'
-import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
-import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { Text, XStack, YStack } from 'tamagui'
+import * as ContextMenu from 'zeego/context-menu'
 
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
@@ -18,6 +15,8 @@ import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Assistant, Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
+import { useTranslation } from 'react-i18next'
+import { Pressable } from 'react-native-gesture-handler'
 const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
@@ -27,25 +26,19 @@ interface TopicItemProps {
   timeFormat?: TimeFormat
 }
 
-interface RenderRightActionsProps {
-  progress: SharedValue<number>
-  topic: Topic
-  swipeableRef: React.RefObject<SwipeableMethods | null>
-}
-
-const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swipeableRef }) => {
+const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
+  const {t} = useTranslation()
+  const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const { navigateToChatScreen } = useNavigation()
-  const animatedStyle = useAnimatedStyle(() => {
-    const translateX = interpolate(progress.value, [0, 1], [50, 0])
+  const [assistant, setAssistant] = useState<Assistant>()
 
-    return {
-      transform: [{ translateX }]
-    }
-  })
+  const openTopic = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    navigateToChatScreen(topic.id)
+  }
 
   const handleDelete = async () => {
     try {
-      swipeableRef.current?.close()
       const deletedTopicId = topic.id
       await deleteMessagesByTopicId(deletedTopicId)
       await deleteTopicById(deletedTopicId)
@@ -67,36 +60,6 @@ const RenderRightActions: FC<RenderRightActionsProps> = ({ progress, topic, swip
     } catch (error) {
       logger.error('Delete Topic error', error)
     }
-  }
-
-  return (
-    <MotiView style={[{ width: 80 }, animatedStyle]}>
-      <RectButton
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-        onPress={handleDelete}>
-        <Trash2 color="$textDelete" size={20} />
-      </RectButton>
-    </MotiView>
-  )
-}
-
-const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
-  const swipeableRef = useRef<SwipeableMethods>(null)
-  const { navigateToChatScreen } = useNavigation()
-  const [assistant, setAssistant] = useState<Assistant>()
-
-  const renderRightActions = (progress: SharedValue<number>, _: SharedValue<number>) => {
-    return <RenderRightActions progress={progress} topic={topic} swipeableRef={swipeableRef} />
-  }
-
-  const openTopic = () => {
-    haptic(ImpactFeedbackStyle.Medium)
-    navigateToChatScreen(topic.id)
   }
 
   const date = new Date(topic.updatedAt)
@@ -130,32 +93,48 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   }, [topic.assistantId])
 
   return (
-    <ReanimatedSwipeable ref={swipeableRef} renderRightActions={renderRightActions} friction={1} rightThreshold={40}>
-      <XStack
-        backgroundColor="$uiCardBackground"
-        borderRadius={30}
-        paddingVertical={5}
-        paddingHorizontal={20}
-        gap={14}
-        justifyContent="center"
-        alignItems="center"
-        onPress={openTopic}>
-        <Text fontSize={24}>{assistant?.emoji}</Text>
-        <YStack flex={1}>
-          <XStack justifyContent="space-between">
-            <Text fontWeight="bold" color="$textPrimary">
-              {assistant?.name}
+    <ContextMenu.Root>
+      <ContextMenu.Trigger>
+        <Pressable
+          delayLongPress={100}
+                  onPress={openTopic}
+                  onLongPress={() => {}}
+        >
+        <XStack
+          backgroundColor="$uiCardBackground"
+          borderRadius={30}
+          paddingVertical={5}
+          paddingHorizontal={20}
+          gap={14}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Text fontSize={24}>{assistant?.emoji}</Text>
+          <YStack flex={1}>
+            <XStack justifyContent="space-between">
+              <Text fontWeight="bold" color="$textPrimary">
+                {assistant?.name}
+              </Text>
+              <Text fontSize={12} color="$textSecondary">
+                {displayTime}
+              </Text>
+            </XStack>
+            <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+              {topic.name}
             </Text>
-            <Text fontSize={12} color="$textSecondary">
-              {displayTime}
-            </Text>
-          </XStack>
-          <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
-            {topic.name}
-          </Text>
-        </YStack>
-      </XStack>
-    </ReanimatedSwipeable>
+          </YStack>
+        </XStack>
+        </Pressable>
+      </ContextMenu.Trigger>
+      <ContextMenu.Content>
+        <ContextMenu.Item key='delete' onSelect={handleDelete}>
+          <ContextMenu.ItemTitle>{ t('common.delete')}</ContextMenu.ItemTitle>
+          <ContextMenu.ItemIcon ios={{name:'trash'}}>
+            <Trash2 size={16} color="red" />
+          </ContextMenu.ItemIcon>
+        </ContextMenu.Item>
+      </ContextMenu.Content>
+    </ContextMenu.Root>
   )
 }
 

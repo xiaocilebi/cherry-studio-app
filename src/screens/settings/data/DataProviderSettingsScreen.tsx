@@ -56,7 +56,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
   if (!provider) {
     return (
       <SafeAreaContainer>
-        <HeaderBar title={t('settings.provider.not_found')} onBackPress={() => navigation.goBack()} />
+        <HeaderBar title={t('settings.provider.not_found')}  />
         <SettingContainer>
           <Text textAlign="center" color="$gray10" paddingVertical={24}>
             {t('settings.provider.not_found_message')}
@@ -66,9 +66,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
     )
   }
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   const handleOpenBottomSheet = () => {
     bottomSheetRef.current?.expand()
@@ -119,7 +117,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t(config.titleKey)} onBackPress={handleBackPress} />
+      <HeaderBar title={t(config.titleKey)}  />
       <SettingContainer>
         {config.fields.map((field, index) => (
           <YStack key={index} gap={8}>

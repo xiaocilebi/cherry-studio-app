@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 
 import { setCurrentTopicId } from '@/store/topic'
 import { NavigationProps } from '@/types/naviagate'
+import { haptic } from '@/utils/haptic'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 
 export function useNavigation() {
   const navigation = _useNavigation<NavigationProps>()
@@ -17,7 +19,13 @@ export function useNavigation() {
     navigation.navigate('HomeScreen', { screen: 'ChatScreen', params: { topicId: 'new' } })
   }
 
+  const navigateBack = () =>{
+    haptic(ImpactFeedbackStyle.Medium)
+    navigation.goBack()
+  }
+
   return {
+    navigateBack,
     navigateToChatScreen,
     navigateToHomeScreen
   }

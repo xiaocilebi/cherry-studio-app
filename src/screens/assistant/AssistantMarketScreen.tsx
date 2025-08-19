@@ -120,9 +120,7 @@ export default function AssistantMarketScreen() {
     }
   }
 
-  const handleBackPress = () => {
-    navigation.goBack()
-  }
+
 
   const handleNavigateToMyAssistants = () => {
     navigation.navigate('AssistantScreen')
@@ -163,7 +161,7 @@ export default function AssistantMarketScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={t('assistants.market.title')}
-        onBackPress={handleBackPress}
+        
         rightButton={{
           icon: <UnionIcon size={24} />,
           onPress: handleNavigateToMyAssistants
