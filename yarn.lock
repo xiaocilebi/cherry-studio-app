@@ -2574,6 +2574,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jsamr/counter-style@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@jsamr/counter-style@npm:2.0.2"
+  checksum: 10c0/5d52e2d312dd753e2d54cd648e4dca7a7b3bdb4ca711db4301fe238e45d06a4bbde2cd60bbcc658684d1ed9dca44ab538629435816ee974d417b88f4f0fb32c3
+  languageName: node
+  linkType: hard
+
+"@jsamr/react-native-li@npm:2.3.1":
+  version: 2.3.1
+  resolution: "@jsamr/react-native-li@npm:2.3.1"
+  peerDependencies:
+    "@jsamr/counter-style": ^1.0.0 || ^2.0.0
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/540ce7c50456e7d11062484343f193e18b1c7391510af65be511e7523ee9f39b6b2eca78ef2c0675e7227280e34dffa30d6fb679210a28d0abd386abf6933430
+  languageName: node
+  linkType: hard
+
 "@mistralai/mistralai@npm:^1.7.4":
   version: 1.7.4
   resolution: "@mistralai/mistralai@npm:1.7.4"
@@ -6268,6 +6286,7 @@ __metadata:
     react-native-ios-utilities: "npm:5.1.2"
     react-native-keyboard-controller: "npm:^1.17.5"
     react-native-markdown-display: "npm:^7.0.2"
+    react-native-marked: "npm:^7.0.2"
     react-native-mathjax-svg: "npm:^0.9.9"
     react-native-pager-view: "npm:6.7.1"
     react-native-qrcode-styled: "npm:^0.3.3"
@@ -10221,6 +10240,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"github-slugger@npm:2.0.0":
+  version: 2.0.0
+  resolution: "github-slugger@npm:2.0.0"
+  checksum: 10c0/21b912b6b1e48f1e5a50b2292b48df0ff6abeeb0691b161b3d93d84f4ae6b1acd6ae23702e914af7ea5d441c096453cf0f621b72d57893946618d21dd1a1c486
+  languageName: node
+  linkType: hard
+
 "glob-parent@npm:^5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
@@ -10528,6 +10554,13 @@ __metadata:
   dependencies:
     whatwg-encoding: "npm:^2.0.0"
   checksum: 10c0/b17b3b0fb5d061d8eb15121c3b0b536376c3e295ecaf09ba48dd69c6b6c957839db124fe1e2b3f11329753a4ee01aa7dedf63b7677999e86da17fbbdd82c5386
+  languageName: node
+  linkType: hard
+
+"html-entities@npm:2.6.0":
+  version: 2.6.0
+  resolution: "html-entities@npm:2.6.0"
+  checksum: 10c0/7c8b15d9ea0cd00dc9279f61bab002ba6ca8a7a0f3c36ed2db3530a67a9621c017830d1d2c1c65beb9b8e3436ea663e9cf8b230472e0e413359399413b27c8b7
   languageName: node
   linkType: hard
 
@@ -12457,6 +12490,15 @@ __metadata:
   dependencies:
     repeat-string: "npm:^1.0.0"
   checksum: 10c0/f257e0781ea50eb946919df84bdee4ba61f983971b277a369ca7276f89740fd0e2749b9b187163a42df4c48682b71962d4007215ce3523480028f06c11ddc2e6
+  languageName: node
+  linkType: hard
+
+"marked@npm:15.0.12":
+  version: 15.0.12
+  resolution: "marked@npm:15.0.12"
+  bin:
+    marked: bin/marked.js
+  checksum: 10c0/e09da211544b787ecfb25fed07af206060bf7cd6d9de6cb123f15c496a57f83b7aabea93340aaa94dae9c94e097ae129377cad6310abc16009590972e85f4212
   languageName: node
   linkType: hard
 
@@ -14489,6 +14531,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-marked@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "react-native-marked@npm:7.0.2"
+  dependencies:
+    "@jsamr/counter-style": "npm:2.0.2"
+    "@jsamr/react-native-li": "npm:2.3.1"
+    github-slugger: "npm:2.0.0"
+    html-entities: "npm:2.6.0"
+    marked: "npm:15.0.12"
+    react-native-reanimated-table: "npm:0.0.2"
+    svg-parser: "npm:2.0.4"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-native: ">=0.76.0"
+    react-native-svg: ">=12.3.0"
+  checksum: 10c0/ce525e4a4ece5f39bb830a83b48becf975b676cb1c3cf76c676edc8d5016322d3c3a5a1363cb940250e24a54b6f49612836096f6fb8f83d15af9b97f51b5359c
+  languageName: node
+  linkType: hard
+
 "react-native-mathjax-svg@npm:^0.9.9":
   version: 0.9.9
   resolution: "react-native-mathjax-svg@npm:0.9.9"
@@ -14517,6 +14578,16 @@ __metadata:
     react-native: "*"
     react-native-svg: "*"
   checksum: 10c0/d1342af51bb5ae8dd9402c78718088800fbeeab57d7ed3499242ae0db594319c9f967db0a00b33d3c6cebc71b7cfd6ad55da01c54f935a3014815f0f5d0b0d8c
+  languageName: node
+  linkType: hard
+
+"react-native-reanimated-table@npm:0.0.2":
+  version: 0.0.2
+  resolution: "react-native-reanimated-table@npm:0.0.2"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-native: ">=0.6.0"
+  checksum: 10c0/3af6117d07b78d44ac91d9fc777862171e682a62d4f3a03b4fb88f1766face5080416a05680fb6bfe057ae1d2ecb40aa165cdecc6ca9147002a3b0701dadaa90
   languageName: node
   linkType: hard
 
@@ -16156,6 +16227,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 10c0/6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
+  languageName: node
+  linkType: hard
+
+"svg-parser@npm:2.0.4":
+  version: 2.0.4
+  resolution: "svg-parser@npm:2.0.4"
+  checksum: 10c0/02f6cb155dd7b63ebc2f44f36365bc294543bebb81b614b7628f1af3c54ab64f7e1cec20f06e252bf95bdde78441ae295a412c68ad1678f16a6907d924512b7a
   languageName: node
   linkType: hard
 
