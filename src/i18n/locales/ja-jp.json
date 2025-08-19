@@ -87,6 +87,7 @@
       "clear_all": "すべてクリア",
       "close": "閉じる",
       "confirm": "確認",
+      "delete": "削除",
       "description": "説明",
       "enabled": "有効",
       "error_occurred": "エラーが発生しました",
@@ -176,13 +177,13 @@
       }
     },
     "message": {
+      "delete_message": "メッセージを削除",
+      "delete_translation": "翻訳を削除",
       "searching": "検索中...",
+      "translate_message": "メッセージを翻訳",
       "websearch": {
         "fetch_complete": "検索が {{count}} 回完了しました..."
-      },
-      "delete_translation": "翻訳を削除",
-      "translate_message": "メッセージを翻訳",
-      "delete_message": "メッセージを削除"
+      }
     },
     "models": {
       "no_models": "利用可能なモデルがありません",
@@ -389,6 +390,12 @@
         "url": "JoplinウェブクリッパーサービスURL",
         "url_placeholder": "http://127.0.0.1:41184/"
       },
+      "mcp": {
+        "errors": {
+          "32000": "MCPサーバーエラー",
+          "toolNotFound": "ツール '{{name}}' が見つかりません"
+        }
+      },
       "modelAndService": "AIモデル＆サービス",
       "models": {
         "add.model": "モデルを追加",
@@ -586,12 +593,6 @@
         "title": "Yuque設定",
         "token": "Yuqueトークン",
         "token_placeholder": "Yuqueトークンを入力してください"
-      },
-      "mcp": {
-        "errors": {
-          "toolNotFound": "ツール '{{name}}' が見つかりません",
-          "32000": "MCPサーバーエラー"
-        }
       }
     },
     "topics": {

@@ -87,6 +87,7 @@
       "clear_all": "清除全部",
       "close": "關閉",
       "confirm": "確認",
+      "delete": "刪除",
       "description": "描述",
       "enabled": "已啟用",
       "error_occurred": "發生錯誤",
@@ -176,13 +177,13 @@
       }
     },
     "message": {
+      "delete_message": "刪除訊息",
+      "delete_translation": "刪除翻譯",
       "searching": "搜尋中...",
+      "translate_message": "翻譯訊息",
       "websearch": {
         "fetch_complete": "已完成 {{count}} 次搜尋..."
-      },
-      "delete_translation": "刪除翻譯",
-      "translate_message": "翻譯訊息",
-      "delete_message": "刪除訊息"
+      }
     },
     "models": {
       "no_models": "暫無可用模型",
@@ -389,6 +390,12 @@
         "url": "Joplin Web 剪藏服務 URL",
         "url_placeholder": "http://127.0.0.1:41184/"
       },
+      "mcp": {
+        "errors": {
+          "32000": "MCP 伺服器錯誤",
+          "toolNotFound": "工具 '{{name}}' 未找到"
+        }
+      },
       "modelAndService": "AI 模型與服務",
       "models": {
         "add.model": "添加模型",
@@ -586,12 +593,6 @@
         "title": "語雀配置",
         "token": "語雀 Token",
         "token_placeholder": "請輸入語雀 Token"
-      },
-      "mcp": {
-        "errors": {
-          "toolNotFound": "工具 '{{name}}' 未找到",
-          "32000": "MCP 伺服器錯誤"
-        }
       }
     },
     "topics": {

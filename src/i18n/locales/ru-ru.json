@@ -87,6 +87,7 @@
       "clear_all": "Очистить всё",
       "close": "Закрыть",
       "confirm": "подтверждение",
+      "delete": "Удалить",
       "description": "Описание",
       "enabled": "Включено",
       "error_occurred": "Произошла ошибка",
@@ -176,13 +177,13 @@
       }
     },
     "message": {
+      "delete_message": "Удалить сообщение",
+      "delete_translation": "Удалить перевод",
       "searching": "Поиск...",
+      "translate_message": "Перевести сообщение",
       "websearch": {
         "fetch_complete": "Выполнено {{count}} поисков..."
-      },
-      "delete_translation": "Удалить перевод",
-      "translate_message": "Перевести сообщение",
-      "delete_message": "Удалить сообщение"
+      }
     },
     "models": {
       "no_models": "Нет доступных моделей",
@@ -389,6 +390,12 @@
         "url": "URL сервиса Joplin Web Clipper",
         "url_placeholder": "http://127.0.0.1:41184/"
       },
+      "mcp": {
+        "errors": {
+          "32000": "Ошибка сервера MCP",
+          "toolNotFound": "Инструмент '{{name}}' не найден"
+        }
+      },
       "modelAndService": "Модели и сервисы ИИ",
       "models": {
         "add.model": "Добавить модель",
@@ -586,12 +593,6 @@
         "title": "Конфигурация Yuque",
         "token": "Токен Yuque",
         "token_placeholder": "Пожалуйста, введите токен Yuque"
-      },
-      "mcp": {
-        "errors": {
-          "toolNotFound": "Инструмент '{{name}}' не найден",
-          "32000": "Ошибка сервера MCP"
-        }
       }
     },
     "topics": {
