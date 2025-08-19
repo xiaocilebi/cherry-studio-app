@@ -28,7 +28,7 @@ export default function AboutScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar
         title={t('settings.about.header')}
-        onBackPress={() => navigation.goBack()}
+        
         rightButton={{
           icon: <Github size={24} />,
           onPress: async () => await openLink('https://github.com/CherryHQ/cherry-studio-app')

@@ -17,7 +17,7 @@ export default function WebDavScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.webdav.title')} onBackPress={() => navigation.goBack()} />
+      <HeaderBar title={t('settings.webdav.title')}  />
       <ScrollView flex={1} backgroundColor="$background">
         <SettingContainer>
           <YStack gap={24} flex={1} paddingHorizontal="$4" />

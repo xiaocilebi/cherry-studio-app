@@ -53,7 +53,7 @@ export default function ApiServiceScreen() {
   if (!provider) {
     return (
       <SafeAreaContainer>
-        <HeaderBar title={t('settings.provider.not_found')} onBackPress={() => navigation.goBack()} />
+        <HeaderBar title={t('settings.provider.not_found')}  />
         <SettingContainer>
           <Text textAlign="center" color="$gray10" paddingVertical={24}>
             {t('settings.provider.not_found_message')}
@@ -150,7 +150,7 @@ export default function ApiServiceScreen() {
       style={{
         flex: 1
       }}>
-      <HeaderBar title={t('settings.provider.api_service')} onBackPress={handleBackPress} />
+      <HeaderBar title={t('settings.provider.api_service')}  />
 
       <SettingContainer>
         {/* API Key 配置 */}

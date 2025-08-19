@@ -17,7 +17,7 @@ export default function NutstoreLoginScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.nutstore.nutstore')} onBackPress={() => navigation.goBack()} />
+      <HeaderBar title={t('settings.nutstore.nutstore')}  />
       <ScrollView flex={1} backgroundColor="$background">
         <SettingContainer>
           {isLoggedIn ? (

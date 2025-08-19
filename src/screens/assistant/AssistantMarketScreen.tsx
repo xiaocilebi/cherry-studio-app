@@ -163,7 +163,7 @@ export default function AssistantMarketScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={t('assistants.market.title')}
-        onBackPress={handleBackPress}
+        
         rightButton={{
           icon: <UnionIcon size={24} />,
           onPress: handleNavigateToMyAssistants

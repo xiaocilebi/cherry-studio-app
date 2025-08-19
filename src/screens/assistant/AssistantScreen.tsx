@@ -79,7 +79,7 @@ export default function AssistantScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={t('assistants.title.mine')}
-        onBackPress={() => navigation.goBack()}
+        
         rightButton={{
           icon: <UnionPlusIcon size={24} />,
           onPress: onAddAssistant

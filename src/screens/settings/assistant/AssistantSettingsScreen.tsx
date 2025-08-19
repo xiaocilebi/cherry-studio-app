@@ -146,7 +146,7 @@ export default function AssistantSettingsScreen() {
 
   return (
     <SafeAreaContainer>
-      <HeaderBar title={t('settings.assistant.title')} onBackPress={() => navigation.goBack()} />
+      <HeaderBar title={t('settings.assistant.title')}  />
       <SettingContainer>
         {assistantItems.map(item => (
           <AssistantSettingItem

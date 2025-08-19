@@ -79,6 +79,7 @@
       "welcome": "我是您的生产力 AI 助手。您可以创建助手、管理模型等。"
     },
     "common": {
+      "delete": "删除",
       "added": "已添加",
       "camera": "相机",
       "cancel": "取消",

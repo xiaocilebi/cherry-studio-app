@@ -36,7 +36,7 @@ export default function WebDavConfigScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar
         title={t('settings.webdav.config.title')}
-        onBackPress={() => navigation.goBack()}
+        
         rightButton={{
           icon: <ScanQrCode size={24} />,
           onPress: () => {
