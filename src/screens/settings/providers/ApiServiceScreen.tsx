@@ -53,7 +53,7 @@ export default function ApiServiceScreen() {
   if (!provider) {
     return (
       <SafeAreaContainer>
-        <HeaderBar title={t('settings.provider.not_found')}  />
+        <HeaderBar title={t('settings.provider.not_found')} />
         <SettingContainer>
           <Text textAlign="center" color="$gray10" paddingVertical={24}>
             {t('settings.provider.not_found_message')}
@@ -109,8 +109,6 @@ export default function ApiServiceScreen() {
     await updateProvider(updatedProvider)
   }
 
-
-
   // 模型检测处理
   const handleStartModelCheck = async () => {
     if (!selectedModel) return
@@ -148,7 +146,7 @@ export default function ApiServiceScreen() {
       style={{
         flex: 1
       }}>
-      <HeaderBar title={t('settings.provider.api_service')}  />
+      <HeaderBar title={t('settings.provider.api_service')} />
 
       <SettingContainer>
         {/* API Key 配置 */}

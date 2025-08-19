@@ -121,7 +121,7 @@ export default function ProviderSettingsScreen() {
   if (!provider) {
     return (
       <SafeAreaContainer>
-        <HeaderBar title={t('settings.provider.not_found')}  />
+        <HeaderBar title={t('settings.provider.not_found')} />
         <SettingContainer>
           <Text textAlign="center" color="$gray10" paddingVertical={24}>
             {t('settings.provider.not_found_message')}
@@ -135,7 +135,6 @@ export default function ProviderSettingsScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={provider.name}
-        
         rightButtons={[
           {
             icon: <Settings2 size={24} />,

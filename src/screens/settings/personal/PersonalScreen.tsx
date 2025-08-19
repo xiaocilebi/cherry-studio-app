@@ -46,7 +46,7 @@ export default function PersonalScreen() {
 
   return (
     <SafeAreaContainer>
-      <HeaderBar title={t('settings.personal.title')}  />
+      <HeaderBar title={t('settings.personal.title')} />
       <SettingContainer>
         <SettingGroup>
           <TouchableOpacity

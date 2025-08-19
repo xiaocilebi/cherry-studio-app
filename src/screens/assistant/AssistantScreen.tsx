@@ -79,7 +79,6 @@ export default function AssistantScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={t('assistants.title.mine')}
-        
         rightButton={{
           icon: <UnionPlusIcon size={24} />,
           onPress: onAddAssistant

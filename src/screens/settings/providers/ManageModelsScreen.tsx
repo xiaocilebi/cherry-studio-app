@@ -238,7 +238,7 @@ export default function ManageModelsScreen() {
       style={{
         flex: 1
       }}>
-      <HeaderBar title={provider?.name || t('settings.models.manage_models')}  />
+      <HeaderBar title={provider?.name || t('settings.models.manage_models')} />
       <SettingContainer style={{ flex: 1 }}>
         {/* Filter Tabs */}
         <Tabs

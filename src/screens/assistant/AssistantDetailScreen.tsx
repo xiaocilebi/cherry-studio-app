@@ -51,10 +51,7 @@ export default function AssistantDetailScreen() {
 
   return (
     <SafeAreaContainer>
-      <HeaderBar
-        title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')}
-        
-      />
+      <HeaderBar title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')} />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}

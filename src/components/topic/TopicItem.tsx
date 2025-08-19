@@ -27,7 +27,7 @@ interface TopicItemProps {
 }
 
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const { navigateToChatScreen } = useNavigation()
   const [assistant, setAssistant] = useState<Assistant>()
@@ -95,41 +95,36 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <Pressable
-          delayLongPress={100}
-                  onPress={openTopic}
-                  onLongPress={() => {}}
-        >
-        <XStack
-          backgroundColor="$uiCardBackground"
-          borderRadius={30}
-          paddingVertical={5}
-          paddingHorizontal={20}
-          gap={14}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text fontSize={24}>{assistant?.emoji}</Text>
-          <YStack flex={1}>
-            <XStack justifyContent="space-between">
-              <Text fontWeight="bold" color="$textPrimary">
-                {assistant?.name}
+        <Pressable delayLongPress={100} onPress={openTopic} onLongPress={() => {}}>
+          <XStack
+            backgroundColor="$uiCardBackground"
+            borderRadius={30}
+            paddingVertical={5}
+            paddingHorizontal={20}
+            gap={14}
+            justifyContent="center"
+            alignItems="center">
+            <Text fontSize={24}>{assistant?.emoji}</Text>
+            <YStack flex={1}>
+              <XStack justifyContent="space-between">
+                <Text fontWeight="bold" color="$textPrimary">
+                  {assistant?.name}
+                </Text>
+                <Text fontSize={12} color="$textSecondary">
+                  {displayTime}
+                </Text>
+              </XStack>
+              <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+                {topic.name}
               </Text>
-              <Text fontSize={12} color="$textSecondary">
-                {displayTime}
-              </Text>
-            </XStack>
-            <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
-              {topic.name}
-            </Text>
-          </YStack>
-        </XStack>
+            </YStack>
+          </XStack>
         </Pressable>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
-        <ContextMenu.Item key='delete' onSelect={handleDelete}>
-          <ContextMenu.ItemTitle>{ t('common.delete')}</ContextMenu.ItemTitle>
-          <ContextMenu.ItemIcon ios={{name:'trash'}}>
+        <ContextMenu.Item key="delete" onSelect={handleDelete}>
+          <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
+          <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
             <Trash2 size={16} color="red" />
           </ContextMenu.ItemIcon>
         </ContextMenu.Item>

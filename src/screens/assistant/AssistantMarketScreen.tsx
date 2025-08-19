@@ -120,8 +120,6 @@ export default function AssistantMarketScreen() {
     }
   }
 
-
-
   const handleNavigateToMyAssistants = () => {
     navigation.navigate('AssistantScreen')
   }
@@ -161,7 +159,6 @@ export default function AssistantMarketScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={t('assistants.market.title')}
-        
         rightButton={{
           icon: <UnionIcon size={24} />,
           onPress: handleNavigateToMyAssistants

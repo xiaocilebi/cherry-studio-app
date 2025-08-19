@@ -19,7 +19,7 @@ export function useNavigation() {
     navigation.navigate('HomeScreen', { screen: 'ChatScreen', params: { topicId: 'new' } })
   }
 
-  const navigateBack = () =>{
+  const navigateBack = () => {
     haptic(ImpactFeedbackStyle.Medium)
     navigation.goBack()
   }
