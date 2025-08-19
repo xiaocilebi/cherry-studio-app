@@ -34,7 +34,7 @@ export class OrchestrationService {
    * and orchestrates the call to the LLM.
    * The logic is moved from `messageThunk.ts`.
    * @param request The orchestration request containing messages and assistant info.
-   * @param events A set of callbacks to report progress and results to the UI layer.
+   * @param onChunkReceived
    */
   async handleUserMessage(request: OrchestrationRequest, onChunkReceived: (chunk: Chunk) => void) {
     const { messages, assistant } = request

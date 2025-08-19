@@ -132,6 +132,7 @@
     "temml": "^0.11.9",
     "tokenx": "^1.0.1",
     "turndown": "7.2.0",
+    "webdav": "^5.8.0",
     "zeego": "^3.0.6"
   },
   "devDependencies": {
