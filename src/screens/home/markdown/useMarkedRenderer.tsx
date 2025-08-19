@@ -56,7 +56,6 @@ class CustomRenderer extends Renderer implements RendererInterface {
 
   // Override code block rendering
   code(text: string, language?: string, containerStyle?: ViewStyle, textStyle?: TextStyle): ReactNode {
-    logger.info('render code')
     const lang = language || 'text'
 
     return (
@@ -111,7 +110,6 @@ class CustomRenderer extends Renderer implements RendererInterface {
 
   // Override inline code rendering
   codespan(text: string): ReactNode {
-    logger.info('render codespan', text)
     const match = text.match(/^\$+([^\$\n]+?)\$+/)
 
     if (match?.[1]) {
@@ -158,7 +156,6 @@ class CustomRenderer extends Renderer implements RendererInterface {
 
   // Override paragraph rendering
   paragraph(children: ReactNode[], styles?: ViewStyle): ReactNode {
-    logger.info('render paragraph')
     const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
 
     return (

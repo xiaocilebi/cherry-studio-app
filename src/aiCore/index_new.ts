@@ -33,6 +33,7 @@ export default class ModernAiProvider {
     this.actualProvider = getActualProvider(model, provider)
 
     this.legacyProvider = new LegacyAiProvider(this.actualProvider)
+    this.actualProvider.apiKey = this.getApiKey()
 
     const customFetch = async (url, options) => {
       const response = await expoFetch(url, {

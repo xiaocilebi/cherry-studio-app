@@ -21,6 +21,7 @@ import {
   SdkToolCall
 } from '@/types/sdk'
 import { MCPTool } from '@/types/tool'
+import { storage } from '@/utils'
 import { addAbortController, removeAbortController } from '@/utils/abortController'
 import { isJSON, parseJSON } from '@/utils/json'
 import { findFileBlocks, getMainTextContent } from '@/utils/messageUtils/find'
@@ -123,27 +124,25 @@ export abstract class BaseApiClient<
 
   public getApiKey() {
     const keys = this.provider.apiKey.split(',').map(key => key.trim())
-    // const keyName = `provider:${this.provider.id}:last_used_key`
+    const keyName = `provider:${this.provider.id}:last_used_key`
 
-    // if (keys.length === 1) {
-    //   return keys[0]
-    // }
+    if (keys.length === 1) {
+      return keys[0]
+    }
 
-    // const lastUsedKey = window.keyv.get(keyName)
+    const lastUsedKey = storage.getString(keyName)
 
-    // if (!lastUsedKey) {
-    //   window.keyv.set(keyName, keys[0])
-    //   return keys[0]
-    // }
+    if (!lastUsedKey) {
+      storage.set(keyName, keys[0])
+      return keys[0]
+    }
 
-    // const currentIndex = keys.indexOf(lastUsedKey)
-    // const nextIndex = (currentIndex + 1) % keys.length
-    // const nextKey = keys[nextIndex]
-    // window.keyv.set(keyName, nextKey)
+    const currentIndex = keys.indexOf(lastUsedKey)
+    const nextIndex = (currentIndex + 1) % keys.length
+    const nextKey = keys[nextIndex]
+    storage.set(keyName, nextKey)
 
-    // return nextKey
-
-    return keys[0] // to remove
+    return nextKey
   }
 
   public defaultHeaders() {
