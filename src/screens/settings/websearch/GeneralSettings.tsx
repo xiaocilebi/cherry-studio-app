@@ -4,7 +4,6 @@ import { Input, Slider, XStack, YStack } from 'tamagui'
 
 import { SettingGroup, SettingGroupTitle, SettingRow, SettingRowTitle } from '@/components/settings'
 import { CustomSwitch } from '@/components/ui/Switch'
-import { useIsDark } from '@/utils'
 
 interface GeneralSettingsProps {
   searchWithDates: boolean
@@ -28,7 +27,6 @@ export default function GeneralSettings({
   onContentLimitChange
 }: GeneralSettingsProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
 
   return (
     <YStack gap={8} paddingVertical={8}>

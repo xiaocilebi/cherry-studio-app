@@ -3,6 +3,8 @@ import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { Pressable } from 'react-native-gesture-handler'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
@@ -15,8 +17,6 @@ import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
 import { Assistant, Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
-import { useTranslation } from 'react-i18next'
-import { Pressable } from 'react-native-gesture-handler'
 const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
@@ -97,7 +97,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
       <ContextMenu.Trigger>
         <Pressable delayLongPress={100} onPress={openTopic} onLongPress={() => {}}>
           <XStack
-            backgroundColor="$uiCardBackground"
+            backgroundColor="$gray20"
             borderRadius={30}
             paddingVertical={5}
             paddingHorizontal={20}

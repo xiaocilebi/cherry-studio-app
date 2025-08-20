@@ -8,7 +8,6 @@ import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
 import AssistantMarketScreen from '@/screens/assistant/AssistantMarketScreen'
 import AssistantScreen from '@/screens/assistant/AssistantScreen'
 import HomeScreen from '@/screens/home/HomeScreen'
-import TestScreen from '@/screens/test/TestScreen'
 import TopicScreen from '@/screens/topic/TopicScreen'
 import WelcomeScreen from '@/screens/WelcomeScreen'
 import { useAppSelector } from '@/store'
@@ -35,8 +34,6 @@ export default function MainStackNavigator() {
 
       {/* topic screen */}
       <Stack.Screen name="TopicScreen" component={TopicScreen} />
-
-      <Stack.Screen name="TestScreen" component={TestScreen} />
     </Stack.Navigator>
   )
 }

@@ -46,7 +46,7 @@ export default function ProvidersScreen() {
     .filter(p => p.name.toLowerCase().includes(debouncedSearchText.toLowerCase()))
 
   const onAddProvider = () => {
-    navigation.navigate('ProviderListScreen')
+    navigation.navigate('Settings', { screen: 'ProviderListScreen' })
   }
 
   const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (

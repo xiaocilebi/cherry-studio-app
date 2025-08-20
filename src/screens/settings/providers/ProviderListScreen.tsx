@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { useNavigation } from '@react-navigation/native'
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { Plus } from '@tamagui/lucide-icons'
 import debounce from 'lodash/debounce'
@@ -19,7 +18,6 @@ import { Provider } from '@/types/assistant'
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const { providers, isLoading } = useAllProviders()

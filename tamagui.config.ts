@@ -19,6 +19,8 @@ const newColorTokens = {
   gray40: '#a0a1b066',
   gray20: '#a0a1b033',
   gray10: '#a0a1b01a',
+  yellow100: '#F9EA42FF',
+  yellow20: '#F9EA4233',
   textDelete: '#dc3e42ff',
   textLink: '#0090ffff'
 }

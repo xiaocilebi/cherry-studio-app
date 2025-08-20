@@ -89,7 +89,7 @@ export type Model = {
   supported_text_delta?: boolean
 }
 
-export type ModelType = 'text' | 'vision' | 'embedding' | 'reasoning' | 'function_calling' | 'web_search'
+export type ModelType = 'text' | 'vision' | 'embedding' | 'reasoning' | 'function_calling' | 'web_search' | 'rerank'
 
 export type Usage = OpenAI.Completions.CompletionUsage & {
   thoughts_tokens?: number

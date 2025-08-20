@@ -1,4 +1,4 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { Minus, Plus } from '@tamagui/lucide-icons'
 import { debounce, groupBy, isEmpty, uniqBy } from 'lodash'
@@ -19,15 +19,15 @@ import { isReasoningModel } from '@/config/models/reasoning'
 import { isRerankModel } from '@/config/models/rerank'
 import { isVisionModel } from '@/config/models/vision'
 import { isWebSearchModel } from '@/config/models/webSearch'
+import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import { fetchModels } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
 import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
-import { RootStackParamList } from '@/types/naviagate'
 import { getDefaultGroupName } from '@/utils/naming'
 const logger = loggerService.withContext('ManageModelsScreen')
 
-type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ManageModelsScreen'>
+type ProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'ManageModelsScreen'>
 
 const getIsModelInProvider = (providerModels: Model[]) => {
   const providerModelIds = new Set(providerModels.map(m => m.id))
@@ -105,7 +105,6 @@ const TAB_CONFIGS = [
 
 export default function ManageModelsScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation()
   const route = useRoute<ProviderSettingsRouteProp>()
 
   const [searchText, setSearchText] = useState('')

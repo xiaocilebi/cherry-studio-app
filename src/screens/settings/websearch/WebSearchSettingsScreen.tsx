@@ -1,15 +1,13 @@
-import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
-import { ScrollView, useTheme, YStack } from 'tamagui'
+import { ScrollView, YStack } from 'tamagui'
 
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { loggerService } from '@/services/LoggerService'
-import { NavigationProps } from '@/types/naviagate'
 import { SubscribeSource } from '@/types/websearch'
 
 import BlacklistSettings from './BlacklistSettings'
@@ -21,8 +19,6 @@ const blacklistSubscription: SubscribeSource[] = [{ key: 1, url: 'https://git.io
 
 export default function WebSearchSettingsScreen() {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const navigation = useNavigation<NavigationProps>()
 
   // General settings state
   const [searchWithDates, setSearchWithDates] = useState<boolean>(true)

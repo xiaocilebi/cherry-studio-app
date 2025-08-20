@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { ChevronRight, HeartPulse, Plus, Settings, Settings2 } from '@tamagui/lucide-icons'
+import { ChevronRight, HeartPulse, Plus, Settings2 } from '@tamagui/lucide-icons'
 import { groupBy } from 'lodash'
 import debounce from 'lodash/debounce'
 import React, { useEffect, useRef, useState } from 'react'
@@ -16,12 +16,13 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { CustomSwitch } from '@/components/ui/Switch'
 import { useProvider } from '@/hooks/useProviders'
+import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
-import { NavigationProps, RootStackParamList } from '@/types/naviagate'
+import { NavigationProps } from '@/types/naviagate'
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
-type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ProviderSettingsScreen'>
+type ProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'ProviderSettingsScreen'>
 
 export default function ProviderSettingsScreen() {
   const { t } = useTranslation()
@@ -87,11 +88,11 @@ export default function ProviderSettingsScreen() {
   }
 
   const onManageModel = () => {
-    navigation.navigate('ManageModelsScreen', { providerId })
+    navigation.navigate('Settings', { screen: 'ManageModelsScreen', params: { providerId } })
   }
 
   const onApiService = () => {
-    navigation.navigate('ApiServiceScreen', { providerId })
+    navigation.navigate('Settings', { screen: 'ApiServiceScreen', params: { providerId } })
   }
 
   const onSettingModel = (model: Model) => {
@@ -207,14 +208,15 @@ export default function ProviderSettingsScreen() {
                       groupName={groupName}
                       models={modelsInGroup as Model[]}
                       index={index}
-                      renderModelButton={(model: Model) => (
-                        <Button
-                          size={14}
-                          chromeless
-                          icon={<Settings size={14} />}
-                          onPress={() => onSettingModel(model)}
-                        />
-                      )}
+                      // todo
+                      // renderModelButton={(model: Model) => (
+                      //   <Button
+                      //     size={14}
+                      //     chromeless
+                      //     icon={<Settings size={14} />}
+                      //     onPress={() => onSettingModel(model)}
+                      //   />
+                      // )}
                     />
                   ))}
                 </Accordion>
