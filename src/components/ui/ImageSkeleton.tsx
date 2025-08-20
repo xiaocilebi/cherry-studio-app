@@ -1,6 +1,6 @@
 import React from 'react'
 import ContentLoader, { Path, Rect } from 'react-content-loader/native'
-import { View } from 'react-native' // 引入 View 用于布局
+import { View } from 'react-native'
 import { useWindowDimensions } from 'tamagui'
 
 const ImageSkeleton = props => {

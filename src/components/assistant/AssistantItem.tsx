@@ -8,7 +8,6 @@ import * as ContextMenu from 'zeego/context-menu'
 
 import { useNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
-import i18n from '@/i18n'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
