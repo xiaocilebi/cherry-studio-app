@@ -17,7 +17,7 @@ interface MessagesProps {
 
 const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   const { messages } = useMessages(topic.id)
-  const groupedMessages = Object.entries(getGroupedMessages(messages))
+  const groupedMessages = Object.entries(getGroupedMessages(messages)).reverse()
   const flashListRef = useRef<FlatList<[string, GroupedMessage[]]>>(null)
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
@@ -33,8 +33,12 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         renderItem={renderMessageGroup}
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         ItemSeparatorComponent={() => <YStack height={20} />}
-        // inverted
-        scrollsToTop={true}
+        inverted
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'flex-end'
+        }}
+        scrollsToTop={false}
         initialNumToRender={2}
         maxToRenderPerBatch={10}
         keyboardShouldPersistTaps="never"
