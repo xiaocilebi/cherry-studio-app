@@ -6,7 +6,7 @@ import { NavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 
-export function useNavigation() {
+export function useCustomNavigation() {
   const navigation = _useNavigation<NavigationProps>()
   const dispatch = useDispatch()
 

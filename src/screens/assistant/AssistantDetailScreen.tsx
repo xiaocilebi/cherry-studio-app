@@ -62,14 +62,7 @@ export default function AssistantDetailScreen() {
             <AvatarEditButton
               content={assistant?.emoji || <DefaultProviderIcon />}
               editIcon={assistant?.emoji ? <ArrowLeftRight size={24} /> : <PenLine size={24} />}
-              onEditPress={() => {
-                // 处理编辑逻辑
-                logger.info('Edit avatar')
-              }}
-              onAvatarPress={() => {
-                // 处理头像点击逻辑（可选）
-                logger.info('Avatar pressed')
-              }}
+              onEditPress={() => {}}
             />
           </XStack>
           {/* todo: change active tabs style */}

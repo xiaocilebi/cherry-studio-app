@@ -4,7 +4,6 @@ import { FlashList } from '@shopify/flash-list'
 import { debounce } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
 import { Text, YStack } from 'tamagui'
 
 import AssistantItem from '@/components/assistant/AssistantItem'
@@ -104,7 +103,7 @@ export default function AssistantScreen() {
                  />
                )}
       </SettingContainer>
-      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} />
+      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source='external'/>
     </SafeAreaContainer>
   )
 }

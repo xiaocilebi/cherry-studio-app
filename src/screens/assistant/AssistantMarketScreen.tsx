@@ -183,7 +183,7 @@ export default function AssistantMarketScreen() {
           {renderTabContents}
         </Tabs>
       </SettingContainer>
-      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} />
+      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source='builtIn' />
     </SafeAreaContainer>
   )
 }

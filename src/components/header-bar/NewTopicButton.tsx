@@ -2,7 +2,7 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { Button, XStack } from 'tamagui'
 
-import { useNavigation } from '@/hooks/useNavigation'
+import { useCustomNavigation } from '@/hooks/useNavigation'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
@@ -14,7 +14,7 @@ interface NewTopicButtonProps {
 }
 
 export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
-  const { navigateToChatScreen } = useNavigation()
+  const { navigateToChatScreen } = useCustomNavigation()
 
   const handleAddNewTopic = async () => {
     haptic(ImpactFeedbackStyle.Medium)

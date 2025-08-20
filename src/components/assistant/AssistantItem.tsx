@@ -6,7 +6,7 @@ import { Pressable } from 'react-native-gesture-handler'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
-import { useNavigation } from '@/hooks/useNavigation'
+import { useCustomNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -25,7 +25,7 @@ interface AssistantItemProps {
 
 const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) => {
   const { t } = useTranslation()
-  const { navigateToHomeScreen } = useNavigation()
+  const { navigateToHomeScreen } = useCustomNavigation()
 
   const handlePress = () => {
     haptic(ImpactFeedbackStyle.Medium)
@@ -49,7 +49,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <Pressable delayLongPress={100} onPress={handlePress} onLongPress={() => {}}>
+        <Pressable delayLongPress={200} onPress={handlePress} onLongPress={() => {}}>
           <XStack
             borderRadius={16}
             backgroundColor="$uiCardBackground"
@@ -64,7 +64,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
                   {assistant.name}
                 </Text>
                 <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
-                  {assistant.description}
+                  {assistant.prompt}
                 </Text>
               </YStack>
             </XStack>

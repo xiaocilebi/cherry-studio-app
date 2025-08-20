@@ -6,7 +6,7 @@ import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
-import { useNavigation } from '@/hooks/useNavigation'
+import { useCustomNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import i18n from '@/i18n'
 import { getAssistantById, getDefaultAssistant } from '@/services/AssistantService'
@@ -29,7 +29,7 @@ interface TopicItemProps {
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
-  const { navigateToChatScreen } = useNavigation()
+  const { navigateToChatScreen } = useCustomNavigation()
   const [assistant, setAssistant] = useState<Assistant>()
 
   const openTopic = () => {

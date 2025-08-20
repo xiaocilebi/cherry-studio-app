@@ -13,8 +13,6 @@ interface AssistantItemCardProps {
 }
 
 const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
-  const isDark = useIsDark()
-
   const handlePress = () => {
     onAssistantPress(assistant)
   }
