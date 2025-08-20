@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { Animated, Dimensions, Image, TouchableOpacity } from 'react-native'
 import PagerView from 'react-native-pager-view'
-import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { Button, Text, View, XStack, YStack } from 'tamagui'
 
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAppDispatch } from '@/store'
@@ -48,7 +48,6 @@ const carouselItems = [
 export default function WelcomeScreen() {
   const navigation = useNavigation()
   const dispatch = useAppDispatch()
-  const theme = useTheme()
 
   const [activeIndex, setActiveIndex] = useState(0)
   const pagerRef = useRef<PagerView>(null)

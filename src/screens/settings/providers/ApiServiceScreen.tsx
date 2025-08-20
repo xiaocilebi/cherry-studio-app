@@ -1,5 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
 import { sortBy } from 'lodash'
 import React, { useRef, useState } from 'react'
@@ -15,18 +15,17 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { isEmbeddingModel } from '@/config/models/embedding'
 import { PROVIDER_CONFIG } from '@/config/providers'
 import { useProvider } from '@/hooks/useProviders'
+import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import { checkApi } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
-import { NavigationProps, RootStackParamList } from '@/types/naviagate'
 import { getModelUniqId } from '@/utils/model'
 const logger = loggerService.withContext('ApiServiceScreen')
 
-type ProviderSettingsRouteProp = RouteProp<RootStackParamList, 'ApiServiceScreen'>
+type ProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'ApiServiceScreen'>
 
 export default function ApiServiceScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
   const route = useRoute<ProviderSettingsRouteProp>()
 
   const { providerId } = route.params

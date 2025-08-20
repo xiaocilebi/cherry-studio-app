@@ -9,7 +9,6 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
 import { NavigationProps } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 
 interface SettingItemConfig {
   title: string
@@ -24,7 +23,6 @@ interface SettingGroupConfig {
 
 export default function SettingsScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
   const { avatar, userName } = useSettings()
 
   const settingsItems: SettingGroupConfig[] = [
@@ -124,7 +122,6 @@ interface SettingItemProps {
 }
 
 function SettingItem({ title, screen, icon }: SettingItemProps) {
-  const isDark = useIsDark()
   const navigation = useNavigation<NavigationProps>()
   const theme = useTheme()
 

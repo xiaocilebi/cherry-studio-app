@@ -1,5 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,15 +13,14 @@ import { ApiCheckSheet } from '@/components/settings/websearch/ApiCheckSheet'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { WEB_SEARCH_PROVIDER_CONFIG } from '@/config/websearchProviders'
 import { useWebSearchProvider } from '@/hooks/useWebsearchProviders'
+import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import WebSearchService from '@/services/WebSearchService'
 import { ApiStatus } from '@/types/assistant'
-import { RootStackParamList } from '@/types/naviagate'
 
-type WebsearchProviderSettingsRouteProp = RouteProp<RootStackParamList, 'WebSearchProviderSettingsScreen'>
+type WebsearchProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'WebSearchProviderSettingsScreen'>
 
 export default function WebSearchProviderSettingsScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation()
   const route = useRoute<WebsearchProviderSettingsRouteProp>()
 
   const [showApiKey, setShowApiKey] = useState(false)

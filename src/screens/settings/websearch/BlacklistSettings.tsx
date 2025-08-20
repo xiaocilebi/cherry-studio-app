@@ -5,7 +5,6 @@ import { Accordion, Button, Square, Text, TextArea, XStack, YStack } from 'tamag
 
 import { SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { SubscribeSource } from '@/types/websearch'
-import { useIsDark } from '@/utils'
 
 interface BlacklistSettingsProps {
   blacklistText: string
@@ -25,7 +24,6 @@ export default function BlacklistSettings({
   onAddSubscription
 }: BlacklistSettingsProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
 
   const renderAccordionTriggerContent = ({ open }: { open: boolean }) => (
     <XStack justifyContent="space-between" width="100%">
