@@ -1,4 +1,4 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { ArrowLeftRight, PenLine } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,21 +17,28 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { loggerService } from '@/services/LoggerService'
 import { RootStackParamList } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 const logger = loggerService.withContext('AssistantDetailScreen')
 
 type AssistantDetailRouteProp = RouteProp<RootStackParamList, 'AssistantDetailScreen'>
 
 export default function AssistantDetailScreen() {
   const { t } = useTranslation()
-  const isDark = useIsDark()
 
-  const navigation = useNavigation()
   const route = useRoute<AssistantDetailRouteProp>()
 
   const { assistantId, tab } = route.params
   const [activeTab, setActiveTab] = useState(tab || 'prompt')
   const { assistant, isLoading, updateAssistant } = useAssistant(assistantId)
+
+  const updateAvatar = async (avatar: string) => {
+    if (!assistant) return
+
+    try {
+      await updateAssistant({ ...assistant, emoji: avatar })
+    } catch (error) {
+      logger.error('Failed to update avatar', error)
+    }
+  }
 
   if (isLoading) {
     return (
@@ -63,6 +70,7 @@ export default function AssistantDetailScreen() {
               content={assistant?.emoji || <DefaultProviderIcon />}
               editIcon={assistant?.emoji ? <ArrowLeftRight size={24} /> : <PenLine size={24} />}
               onEditPress={() => {}}
+              updateAvatar={updateAvatar}
             />
           </XStack>
           {/* todo: change active tabs style */}

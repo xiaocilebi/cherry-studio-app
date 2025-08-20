@@ -77,7 +77,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
               <AvatarEditButton
                 content={<DefaultProviderIcon />}
                 editIcon={<PenLine size={24} />}
-                onEditPress={() => {}}
+                updateAvatar={async () => {}}
               />
               <YStack width="100%" gap={8}>
                 <XStack gap={8}>
@@ -104,6 +104,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
                 placeholder={t('settings.provider.add.type')}
               />
               <Button
+                backgroundColor="$colorBrand"
                 height={44}
                 width={216}
                 borderRadius={15}

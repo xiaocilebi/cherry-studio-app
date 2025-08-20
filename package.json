@@ -129,6 +129,7 @@
     "redux-devtools-expo-dev-plugin": "^2.0.0",
     "redux-persist": "^6.0.0",
     "remark-stringify": "^11.0.0",
+    "rn-emoji-keyboard": "^1.7.0",
     "socket.io-client": "^4.8.1",
     "tamagui": "^1.129.11",
     "temml": "^0.11.9",
