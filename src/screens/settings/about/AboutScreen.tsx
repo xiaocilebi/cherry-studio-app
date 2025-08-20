@@ -1,9 +1,8 @@
-import { useNavigation } from '@react-navigation/native'
 import { ArrowUpRight, Copyright, Github, Globe, Mail, Rss } from '@tamagui/lucide-icons'
 import * as ExpoLinking from 'expo-linking'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Image, Text, useTheme, XStack, YStack } from 'tamagui'
+import { Image, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -13,8 +12,6 @@ const logger = loggerService.withContext('AboutScreen')
 
 export default function AboutScreen() {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const navigation = useNavigation()
 
   const openLink = async (url: string) => {
     try {
@@ -47,9 +44,11 @@ export default function AboutScreen() {
                   {t('common.cherry_studio_description')}
                 </Text>
                 <Text
-                  borderWidth={0.42}
+                  borderColor="$green20"
+                  borderWidth={1}
                   borderRadius={25.37}
-                  backgroundColor="$gray9"
+                  backgroundColor="$green10"
+                  color="$green100"
                   alignSelf="flex-start"
                   paddingHorizontal={8}
                   paddingVertical={2}>
