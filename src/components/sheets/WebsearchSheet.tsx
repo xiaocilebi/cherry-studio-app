@@ -40,7 +40,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
 
     const handleNavigateToWebSearhPage = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-      navigation.navigate('WebSearchSettingsScreen')
+      navigation.navigate('Settings', { screen: 'WebSearchSettingsScreen' })
     }
 
     return (

@@ -46,7 +46,7 @@ export default function WebSearchProviderSettingsScreen() {
   if (!provider) {
     return (
       <SafeAreaContainer>
-        <HeaderBar title={t('settings.provider.not_found')}  />
+        <HeaderBar title={t('settings.provider.not_found')} />
         <SettingContainer>
           <Text textAlign="center" color="$gray10" paddingVertical={24}>
             {t('settings.provider.not_found_message')}
@@ -55,8 +55,6 @@ export default function WebSearchProviderSettingsScreen() {
       </SafeAreaContainer>
     )
   }
-
-
 
   const handleOpenBottomSheet = () => {
     bottomSheetRef.current?.expand()
@@ -119,7 +117,7 @@ export default function WebSearchProviderSettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={provider.name}  />
+      <HeaderBar title={provider.name} />
       <SettingContainer>
         {/* API Key 配置 */}
         {provider.type === 'api' && (

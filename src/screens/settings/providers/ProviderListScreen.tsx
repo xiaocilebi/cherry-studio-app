@@ -58,7 +58,6 @@ export default function ProviderListScreen() {
     <SafeAreaContainer>
       <HeaderBar
         title={t('settings.provider.list.title')}
-        
         rightButton={{
           icon: <Plus size={24} />,
           onPress: onAddProvider

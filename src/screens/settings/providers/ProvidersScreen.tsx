@@ -68,7 +68,6 @@ export default function ProvidersScreen() {
       }}>
       <HeaderBar
         title={t('settings.provider.title')}
-        
         rightButton={{
           icon: <Plus size={24} />,
           onPress: onAddProvider

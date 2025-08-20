@@ -57,14 +57,14 @@ export default function GeneralSettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.general.title')}  />
+      <HeaderBar title={t('settings.general.title')} />
       <SettingContainer>
         <YStack gap={24} flex={1}>
           {/* Display settings */}
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
-              <SettingRow onPress={() => navigation.navigate('ThemeSettingsScreen')}>
+              <SettingRow onPress={() => navigation.navigate('Settings',{screen:'ThemeSettingsScreen'})}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.theme.title')}</Text>
                 </XStack>
@@ -80,7 +80,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.title')}</SettingGroupTitle>
             <SettingGroup>
-              <SettingRow onPress={() => navigation.navigate('LanguageChangeScreen')}>
+              <SettingRow onPress={() => navigation.navigate('Settings',{screen:'LanguageChangeScreen'})}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.language.title')}</Text>
                 </XStack>

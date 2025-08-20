@@ -42,7 +42,7 @@ interface FallbackFaviconProps {
   alt: string
 }
 
-const FallbackFavicon: React.FC<FallbackFaviconProps> = ({ hostname  }) => {
+const FallbackFavicon: React.FC<FallbackFaviconProps> = ({ hostname }) => {
   type FaviconState =
     | { status: 'idle' }
     | { status: 'loading' }

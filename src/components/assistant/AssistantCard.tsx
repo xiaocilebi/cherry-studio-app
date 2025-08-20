@@ -27,7 +27,6 @@ interface ActionTagProps {
 }
 
 const ActionTag: FC<ActionTagProps> = ({ icon, label, onPress }) => {
-  const isDark = useIsDark()
   return (
     <XStack
       gap={5}

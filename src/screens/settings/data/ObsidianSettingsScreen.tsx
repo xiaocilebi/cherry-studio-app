@@ -13,11 +13,9 @@ export default function ObsidianSettingsScreen() {
   const theme = useTheme()
   const navigation = useNavigation()
 
-
-
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.obsidian.title')}  />
+      <HeaderBar title={t('settings.obsidian.title')} />
       <SettingContainer>
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} alignItems="center">

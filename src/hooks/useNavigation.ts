@@ -6,7 +6,7 @@ import { NavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 
-export function useNavigation() {
+export function useCustomNavigation() {
   const navigation = _useNavigation<NavigationProps>()
   const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ export function useNavigation() {
     navigation.navigate('HomeScreen', { screen: 'ChatScreen', params: { topicId: 'new' } })
   }
 
-  const navigateBack = () =>{
+  const navigateBack = () => {
     haptic(ImpactFeedbackStyle.Medium)
     navigation.goBack()
   }
