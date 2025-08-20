@@ -34,10 +34,14 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         ItemSeparatorComponent={() => <YStack height={20} />}
         inverted
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'flex-end'
+        }}
         scrollsToTop={false}
-        keyboardShouldPersistTaps={false}
         initialNumToRender={2}
         maxToRenderPerBatch={10}
+        keyboardShouldPersistTaps="never"
       />
     </View>
   )

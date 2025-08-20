@@ -6265,6 +6265,7 @@ __metadata:
     expo-linking: "npm:~7.1.5"
     expo-localization: "npm:~16.1.5"
     expo-network: "npm:~7.1.5"
+    expo-speech: "npm:~13.1.7"
     expo-splash-screen: "npm:~0.30.8"
     expo-sqlite: "npm:~15.2.10"
     expo-status-bar: "npm:~2.2.3"
@@ -9604,6 +9605,15 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10c0/c2e02c337e0d0e3e7bf01334e4730bd2e5a5cb822c0b33146a64a1ac3b7e95384c6558359260a5b1aa6e504a874a9f7feefc99aee7a7a0590a5d8fad8b1b4106
+  languageName: node
+  linkType: hard
+
+"expo-speech@npm:~13.1.7":
+  version: 13.1.7
+  resolution: "expo-speech@npm:13.1.7"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/adbdb86eef03a99113540ee20873f7b8a98360093142de1d4774963dd430666414252eef4e6286ff20acdf31d631768f18b4b5a0e3ccd3fda33c2468064a7e06
   languageName: node
   linkType: hard
 
