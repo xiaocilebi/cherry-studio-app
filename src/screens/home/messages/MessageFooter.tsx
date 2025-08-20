@@ -1,7 +1,8 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
+import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React, { useRef } from 'react'
+import * as Speech from 'expo-speech'
+import React, { useRef, useState } from 'react'
 import { Button, View, XStack } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
@@ -21,9 +22,12 @@ interface MessageFooterProps {
   message: Message
 }
 
+type PlayState = 'idle' | 'playing'
+
 const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
   const dispatch = useAppDispatch()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const [playState, setPlayState] = useState<PlayState>('idle')
 
   const onCopy = async () => {
     // todo: 暂时无法复制翻译后的message
@@ -47,11 +51,39 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
     }
   }
 
+  const onPlay = async () => {
+    try {
+      if (playState === 'idle') {
+        const filteredMessages = await filterMessages([message])
+        const mainContent = await getMainTextContent(filteredMessages[0])
+        Speech.speak(mainContent, { onDone: () => setPlayState('idle') })
+        setPlayState('playing')
+      } else if (playState === 'playing') {
+        Speech.stop()
+        setPlayState('idle')
+      }
+    } catch (error) {
+      logger.error('Error controlling audio:', error)
+      setPlayState('idle')
+      // 可以添加 toast 提示用户操作失败
+    }
+  }
+
+  const getAudioIcon = () => {
+    switch (playState) {
+      case 'playing':
+        return <CirclePause size={18} />
+      default:
+        return <AudioLines size={18} />
+    }
+  }
+
   return (
     <View>
       <XStack gap={20}>
         <Button chromeless circular size={24} icon={<Copy size={18} />} onPress={onCopy}></Button>
         <Button chromeless circular size={24} icon={<RefreshCw size={18} />} onPress={onRegenerate}></Button>
+        <Button chromeless circular size={24} icon={getAudioIcon()} onPress={onPlay}></Button>
         <Button
           chromeless
           circular

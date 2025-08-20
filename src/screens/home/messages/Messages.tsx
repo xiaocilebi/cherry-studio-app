@@ -35,9 +35,9 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         ItemSeparatorComponent={() => <YStack height={20} />}
         // inverted
         scrollsToTop={true}
-        keyboardShouldPersistTaps={false}
         initialNumToRender={2}
         maxToRenderPerBatch={10}
+        keyboardShouldPersistTaps="never"
       />
     </View>
   )
