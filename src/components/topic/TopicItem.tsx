@@ -68,7 +68,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete })
       <ContextMenu.Trigger>
         <Pressable delayLongPress={100} onPress={openTopic} onLongPress={() => {}}>
           <XStack
-            backgroundColor="$gray20"
+            // backgroundColor="$gray20"
             borderRadius={30}
             paddingVertical={5}
             paddingHorizontal={20}
