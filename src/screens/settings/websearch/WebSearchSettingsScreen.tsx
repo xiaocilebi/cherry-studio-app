@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
-import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { View, YStack } from 'tamagui'
 
 import { SettingContainer } from '@/components/settings'
@@ -16,7 +15,7 @@ export default function WebSearchSettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <KeyboardAwareScrollView bottomOffset={40} style={{ flex: 1 }}>
         <HeaderBar title={t('settings.websearch.title')} />
         <View flex={1}>
           <SettingContainer>
@@ -36,7 +35,7 @@ export default function WebSearchSettingsScreen() {
             </YStack>
           </SettingContainer>
         </View>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </SafeAreaContainer>
   )
 }
