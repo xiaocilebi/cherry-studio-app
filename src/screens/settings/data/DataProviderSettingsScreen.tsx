@@ -125,6 +125,8 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
                   <SettingGroupTitle>{t(field.titleKey)}</SettingGroupTitle>
                 </XStack>
                 <Input
+                  fontSize={14}
+                  lineHeight={14 * 1.2}
                   placeholder={field.placeholderKey ? t(field.placeholderKey) : ''}
                   value={provider[field.key] || ''}
                   onChangeText={text => handleProviderConfigChange(field.key, text)}

@@ -2,20 +2,14 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
-import { ScrollView, YStack } from 'tamagui'
+import { View, YStack } from 'tamagui'
 
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
-import { loggerService } from '@/services/LoggerService'
-import { SubscribeSource } from '@/types/websearch'
 
-import BlacklistSettings from './BlacklistSettings'
 import GeneralSettings from './GeneralSettings'
 import ProviderSettings from './ProviderSettings'
-const logger = loggerService.withContext('WebSearchSettingsScreen')
-
-const blacklistSubscription: SubscribeSource[] = [{ key: 1, url: 'https://git.io/ublacklist', name: 'git.io' }]
 
 export default function WebSearchSettingsScreen() {
   const { t } = useTranslation()
@@ -26,32 +20,16 @@ export default function WebSearchSettingsScreen() {
   const [searchCount, setSearchCount] = useState<number>(6)
   const [contentLimit, setContentLimit] = useState<string>('2000')
 
-  // Blacklist state
-  const [blacklistText, setBlacklistText] = useState<string>('')
-
   // General settings handlers
   const handleSearchCountChange = (value: number[]) => {
     setSearchCount(value[0])
-  }
-
-  // Blacklist handlers
-  const handleRefreshSubscription = (subscribe: SubscribeSource) => {
-    logger.info('Refreshing subscription for:', subscribe)
-  }
-
-  const handleRefreshAllSubscriptions = () => {
-    logger.info('Refreshing all subscriptions')
-  }
-
-  const handleAddSubscription = () => {
-    logger.info('Adding new subscription')
   }
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
         <HeaderBar title={t('settings.websearch.title')} />
-        <ScrollView flex={1}>
+        <View flex={1}>
           <SettingContainer>
             <YStack gap={24} flex={1}>
               <ProviderSettings />
@@ -67,17 +45,17 @@ export default function WebSearchSettingsScreen() {
                 onContentLimitChange={setContentLimit}
               />
 
-              <BlacklistSettings
+              {/*<BlacklistSettings
                 blacklistText={blacklistText}
                 onBlacklistTextChange={setBlacklistText}
                 subscriptions={blacklistSubscription}
                 onRefreshSubscription={handleRefreshSubscription}
                 onRefreshAllSubscriptions={handleRefreshAllSubscriptions}
                 onAddSubscription={handleAddSubscription}
-              />
+              />*/}
             </YStack>
           </SettingContainer>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaContainer>
   )

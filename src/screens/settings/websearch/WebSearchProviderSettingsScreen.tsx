@@ -134,6 +134,8 @@ export default function WebSearchProviderSettingsScreen() {
 
             <XStack paddingVertical={8} gap={8} position="relative">
               <Input
+                fontSize={14}
+                lineHeight={14 * 1.2}
                 flex={1}
                 placeholder={t('settings.websearch.api_key.placeholder')}
                 secureTextEntry={!showApiKey}
@@ -171,6 +173,8 @@ export default function WebSearchProviderSettingsScreen() {
             <SettingGroupTitle>{t('settings.websearch.api_host')}</SettingGroupTitle>
           </XStack>
           <Input
+            fontSize={14}
+            lineHeight={14 * 1.2}
             placeholder={t('settings.websearch.api_host.placeholder')}
             value={provider?.apiHost || ''}
             onChangeText={text => handleProviderConfigChange('apiHost', text)}

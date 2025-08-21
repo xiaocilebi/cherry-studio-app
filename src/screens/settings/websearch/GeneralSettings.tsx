@@ -62,6 +62,8 @@ export default function GeneralSettings({
             paddingVertical={2}
             value={contentLimit}
             onChangeText={onContentLimitChange}
+            fontSize={14}
+            lineHeight={14 * 1.2}
           />
         </SettingRow>
       </SettingGroup>

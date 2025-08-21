@@ -169,6 +169,8 @@ export default function ApiServiceScreen() {
               paddingRight={48}
               value={provider?.apiKey || ''}
               onChangeText={text => handleProviderConfigChange('apiKey', text)}
+              fontSize={14}
+              lineHeight={14 * 1.2}
             />
             <Stack
               position="absolute"

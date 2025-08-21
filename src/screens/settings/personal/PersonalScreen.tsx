@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { CircleUserRound } from '@tamagui/lucide-icons'
 import * as ImagePicker from 'expo-image-picker'
 import React from 'react'
@@ -11,13 +10,11 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
 import { loggerService } from '@/services/LoggerService'
-import { NavigationProps } from '@/types/naviagate'
 
 const logger = loggerService.withContext('PersonalScreen')
 
 export default function PersonalScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
   const theme = useTheme()
   const { avatar, userName, setAvatar, setUserName } = useSettings()
 
@@ -66,6 +63,8 @@ export default function PersonalScreen() {
             </XStack>
             <Input
               height={30}
+              fontSize={14}
+              lineHeight={14 * 1.2}
               minWidth={200}
               value={userName}
               onChangeText={setUserName}
