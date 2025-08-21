@@ -164,8 +164,8 @@ class CustomRenderer extends Renderer implements RendererInterface {
         style={{
           marginTop: 6,
           marginBottom: 6,
-          backgroundColor: 'transparent',
-          ...styles
+          backgroundColor: 'transparent'
+          // ...styles
         }}>
         <Text style={{ backgroundColor: 'transparent', color: currentColors.text, fontSize: 16 }}>{children}</Text>
       </View>

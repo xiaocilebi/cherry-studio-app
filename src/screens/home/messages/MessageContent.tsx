@@ -23,7 +23,7 @@ const MessageContent: React.FC<Props> = ({ message }) => {
   )
 
   return (
-    <View style={isUser ? styles.userContainer : styles.assistantContainer}>
+    <View style={isUser ? styles.userContainer : undefined}>
       {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} />}
       {contentBlocks.length > 0 && (
         <Stack
@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     alignItems: 'flex-end'
   },
-  assistantContainer: {
-    alignSelf: 'flex-start',
-    alignItems: 'flex-start'
-  },
   contentWrapper: {
     borderTopRightRadius: 8,
     borderTopLeftRadius: 24,
@@ -63,7 +59,7 @@ const styles = StyleSheet.create({
   },
   assistantMessageContent: {
     backgroundColor: 'transparent',
-    paddingHorizontal: 10
+    paddingHorizontal: 0
   }
 })
 
