@@ -8,7 +8,6 @@ import { Button, Input, Text, XStack } from 'tamagui'
 import { SettingGroup, SettingRow } from '@/components/settings'
 import { isReasoningModel } from '@/config/models/reasoning'
 import { Assistant, AssistantSettings, Model } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 
 import ModelSheet from '../sheets/ModelSheet'
 import { CustomSlider } from '../ui/CustomSlider'
@@ -22,10 +21,12 @@ interface ModelTabContentProps {
 
 export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
+  const [maxTokensInput, setMaxTokensInput] = useState<string>(
+    assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : ''
+  )
   const isReasoning = isReasoningModel(assistant?.model)
 
   useEffect(() => {
@@ -34,6 +35,10 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
       model: model[0]
     })
   }, [model])
+
+  useEffect(() => {
+    setMaxTokensInput(assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : '')
+  }, [assistant.settings?.maxTokens])
 
   const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
     updateAssistant({
@@ -45,16 +50,23 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
     })
   }
 
-  const handleMaxTokensChange = (value: string) => {
-    if (value.trim() === '') {
+  const handleMaxTokensInputChange = (value: string) => {
+    setMaxTokensInput(value)
+  }
+
+  const handleMaxTokensBlur = () => {
+    if (maxTokensInput.trim() === '') {
       handleSettingsChange('maxTokens', undefined)
       return
     }
 
-    const numValue = parseInt(value, 10)
+    const numValue = parseInt(maxTokensInput, 10)
 
     if (!isNaN(numValue) && numValue > 0) {
       handleSettingsChange('maxTokens', numValue)
+    } else {
+      // Reset to previous valid value if invalid
+      setMaxTokensInput(settings.maxTokens ? settings.maxTokens.toString() : '')
     }
   }
 
@@ -160,8 +172,10 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               minWidth={80}
               height={25}
               fontSize={12}
-              value={settings.maxTokens ? settings.maxTokens.toString() : ''}
-              onChangeText={handleMaxTokensChange}
+              lineHeight={12 * 1.2}
+              value={maxTokensInput}
+              onChangeText={handleMaxTokensInputChange}
+              onBlur={handleMaxTokensBlur}
               keyboardType="numeric"
             />
           </SettingRow>

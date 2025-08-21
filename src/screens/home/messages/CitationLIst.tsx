@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { FileSearch } from '@tamagui/lucide-icons'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
@@ -8,7 +7,6 @@ import { Button, Text } from 'tamagui'
 import FallbackFavicon from '@/components/icons/FallbackFavicon'
 import CitationSheet from '@/components/sheets/CitationSheet'
 import { Citation } from '@/types/websearch'
-import { useIsDark } from '@/utils'
 
 interface PreviewIconProps {
   citation: Citation
@@ -18,11 +16,7 @@ interface PreviewIconProps {
 
 const PreviewIcon: React.FC<PreviewIconProps> = ({ citation, index, total }) => (
   <View style={[styles.previewIcon, index === 0 && styles.firstPreviewIcon, { zIndex: total - index }]}>
-    {citation.type === 'websearch' && citation.url ? (
-      <FallbackFavicon hostname={new URL(citation.url).hostname} alt={citation.title || ''} />
-    ) : (
-      <FileSearch width={16} color="#6B7280" />
-    )}
+    <FallbackFavicon hostname={new URL(citation.url).hostname} alt={citation.title || ''} />
   </View>
 )
 
@@ -32,7 +26,6 @@ interface CitationsListProps {
 
 const CitationsList: React.FC<CitationsListProps> = ({ citations }) => {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const previewItems = citations.slice(0, 3)

@@ -53,6 +53,8 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
         <Input
           height={49}
           padding={16}
+          fontSize={14}
+          lineHeight={14 * 1.2}
           placeholder={t('assistants.name')}
           value={formData.name}
           onChangeText={name => setFormData(prev => ({ ...prev, name }))}
