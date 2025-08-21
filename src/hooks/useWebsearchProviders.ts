@@ -1,6 +1,9 @@
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { RootState } from '@/store'
+import { setContentLimit, setMaxResult, setOverrideSearchService, setSearchWithTime } from '@/store/websearch'
 import { WebSearchProvider } from '@/types/websearch'
 
 import { db } from '../../db'
@@ -78,5 +81,52 @@ export function useWebSearchProvider(providerId: string) {
     provider,
     isLoading: false,
     updateProvider
+  }
+}
+
+/**
+ * Hook for managing websearch settings with Redux
+ */
+export function useWebsearchSettings() {
+  const dispatch = useDispatch()
+
+  // Get state from Redux store
+  const searchWithDates = useSelector((state: RootState) => state.websearch.searchWithTime)
+  const overrideSearchService = useSelector((state: RootState) => state.websearch.overrideSearchService)
+  const searchCount = useSelector((state: RootState) => state.websearch.maxResults)
+  const contentLimit = useSelector((state: RootState) => state.websearch.contentLimit)
+
+  // Action dispatchers
+  const setSearchWithDates = (value: boolean) => {
+    dispatch(setSearchWithTime(value))
+  }
+
+  const setOverrideSearchServiceSetting = (value: boolean) => {
+    dispatch(setOverrideSearchService(value))
+  }
+
+  const setSearchCountSetting = (value: number) => {
+    if (typeof value === 'number' && !isNaN(value) && value >= 1 && value <= 20) {
+      dispatch(setMaxResult(Math.round(value)))
+    }
+  }
+
+  const setContentLimitSetting = (value: number | undefined) => {
+    if (value === undefined || (typeof value === 'number' && !isNaN(value) && value > 0)) {
+      dispatch(setContentLimit(value))
+    }
+  }
+
+  return {
+    // State
+    searchWithDates,
+    overrideSearchService,
+    searchCount,
+    contentLimit,
+    // Actions
+    setSearchWithDates,
+    setOverrideSearchService: setOverrideSearchServiceSetting,
+    setSearchCount: setSearchCountSetting,
+    setContentLimit: setContentLimitSetting
   }
 }

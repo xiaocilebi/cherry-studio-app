@@ -8,11 +8,6 @@ export interface SubscribeSource {
 }
 
 export interface WebSearchState {
-  // 默认搜索提供商的ID
-  /** @deprecated 支持在快捷菜单中自选搜索供应商，所以这个不再适用 */
-  defaultProvider: string
-  // providers: WebSearchProvider[]; // <-- 此属性已移除，数据移至 SQLite 数据库 websearch_provider 表
-
   // 是否在搜索查询中添加当前日期
   searchWithTime: boolean
   // 搜索结果的最大数量
@@ -21,9 +16,9 @@ export interface WebSearchState {
   excludeDomains: string[]
   // 订阅源列表
   subscribeSources: SubscribeSource[]
-  // 是否覆盖服务商搜索
-  /** @deprecated 支持在快捷菜单中自选搜索供应商，所以这个不再适用 */
-  overwrite: boolean
+  // 是否覆盖搜索服务
+  overrideSearchService: boolean
+
   // 内容限制
   contentLimit?: number
   // 具体供应商的配置
@@ -31,15 +26,11 @@ export interface WebSearchState {
 }
 
 const initialState: WebSearchState = {
-  defaultProvider: 'local-bing',
-  // providers 数组已移除，初始数据将从数据库加载或在数据库中初始化
-  // providers: [ ... ], // <-- 已移除
-
   searchWithTime: true,
   maxResults: 5,
   excludeDomains: [],
   subscribeSources: [],
-  overwrite: false,
+  overrideSearchService: true,
   contentLimit: undefined,
   providerConfig: {}
 }
@@ -48,17 +39,11 @@ const websearchSlice = createSlice({
   name: 'websearch',
   initialState,
   reducers: {
-    // 移除与 providers 数组直接相关的 reducers
-    // setWebSearchProviders: (state, action: PayloadAction<WebSearchProvider[]>) => { ... }, // <-- 已移除
-    // updateWebSearchProviders: (state, action: PayloadAction<WebSearchProvider[]>) => { ... }, // <-- 已移除
-    // updateWebSearchProvider: (state, action: PayloadAction<WebSearchProvider>) => { ... }, // <-- 已移除
-    // addWebSearchProvider: (state, action: PayloadAction<WebSearchProvider>) => { ... }, // <-- 已移除
-
-    setDefaultProvider: (state, action: PayloadAction<string>) => {
-      state.defaultProvider = action.payload
-    },
     setSearchWithTime: (state, action: PayloadAction<boolean>) => {
       state.searchWithTime = action.payload
+    },
+    setOverrideSearchService: (state, action: PayloadAction<boolean>) => {
+      state.overrideSearchService = action.payload
     },
     setMaxResult: (state, action: PayloadAction<number>) => {
       state.maxResults = action.payload
@@ -94,9 +79,6 @@ const websearchSlice = createSlice({
     setSubscribeSources: (state, action: PayloadAction<SubscribeSource[]>) => {
       state.subscribeSources = action.payload
     },
-    setOverwrite: (state, action: PayloadAction<boolean>) => {
-      state.overwrite = action.payload
-    },
     setContentLimit: (state, action: PayloadAction<number | undefined>) => {
       state.contentLimit = action.payload
     },
@@ -110,15 +92,14 @@ const websearchSlice = createSlice({
 })
 
 export const {
-  setDefaultProvider,
   setSearchWithTime,
+  setOverrideSearchService,
   setExcludeDomains,
   setMaxResult,
   addSubscribeSource,
   removeSubscribeSource,
   updateSubscribeBlacklist,
   setSubscribeSources,
-  setOverwrite,
   setContentLimit,
   setProviderConfig,
   updateProviderConfig
