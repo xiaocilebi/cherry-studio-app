@@ -239,17 +239,13 @@ export async function regenerateAssistantMessage(
     // const finalMessagesToSave = await getMessagesByTopicId(topicId)
 
     // 7. Add fetch/process call to the queue
-    const queue = getTopicQueue(topicId)
     const assistantConfigForRegen = {
       ...assistant,
       ...(resetAssistantMsg.model ? { model: resetAssistantMsg.model } : {})
     }
 
     // Add the fetch/process call to the queue
-    queue.add(
-      async () =>
-        await fetchAndProcessAssistantResponseImpl(topicId, assistantConfigForRegen, resetAssistantMsg, dispatch)
-    )
+    await fetchAndProcessAssistantResponseImpl(topicId, assistantConfigForRegen, resetAssistantMsg, dispatch)
   } catch (error) {
     logger.error('Error in regenerateAssistantMessage:', error)
   } finally {

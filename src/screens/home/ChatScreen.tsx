@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Dimensions, Platform, TouchableOpacity, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
+import { useDispatch } from 'react-redux'
 import { YStack } from 'tamagui'
 
 import { AssistantCard } from '@/components/assistant/AssistantCard'
@@ -14,6 +15,7 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useTopic } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { createNewTopic, getNewestTopic } from '@/services/TopicService'
+import { setCurrentTopicId } from '@/store/topic'
 import { RootStackParamList } from '@/types/naviagate'
 import { runAsyncFunction } from '@/utils'
 import { haptic } from '@/utils/haptic'
@@ -29,6 +31,7 @@ const ChatScreen = () => {
   const { topicId } = route.params || {}
   const { topic, isLoading } = useTopic(topicId)
   const [showAssistantCard, setShowAssistantCard] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     runAsyncFunction(async () => {
@@ -40,9 +43,10 @@ const ChatScreen = () => {
         const defaultAssistant = await getDefaultAssistant()
         const newTopic = await createNewTopic(defaultAssistant)
         navigation.setParams({ topicId: newTopic.id })
+        dispatch(setCurrentTopicId(newTopic.id))
       }
     })
-  }, [navigation])
+  }, [dispatch, navigation])
 
   // 处理侧滑手势
   const handleSwipeGesture = (event: any) => {

@@ -44,11 +44,11 @@ const MessageContent: React.FC<Props> = ({ message }) => {
 
 const styles = StyleSheet.create({
   userContainer: {
-    alignSelf: 'flex-end',
+    // alignSelf: 'flex-end',
     alignItems: 'flex-end'
   },
   assistantContainer: {
-    alignSelf: 'flex-start',
+    // alignSelf: 'flex-start',
     alignItems: 'flex-start'
   },
   contentWrapper: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   assistantMessageContent: {
     backgroundColor: 'transparent',
-    paddingHorizontal: 10
+    paddingHorizontal: 0
   }
 })
 

@@ -38,6 +38,11 @@ interface SetTopicLoadingPayload {
   loading: boolean
 }
 
+// Payload for deleting topic loading state
+interface DeleteTopicLoadingPayload {
+  topicId: string
+}
+
 // Payload for upserting a block reference
 interface UpsertBlockReferencePayload {
   messageId: string
@@ -86,6 +91,10 @@ export const messagesSlice = createSlice({
     setTopicLoading(state, action: PayloadAction<SetTopicLoadingPayload>) {
       const { topicId, loading } = action.payload
       state.loadingByTopic[topicId] = loading
+    },
+    deleteTopicLoading(state, action: PayloadAction<DeleteTopicLoadingPayload>) {
+      const { topicId } = action.payload
+      delete state.loadingByTopic[topicId]
     },
     setDisplayCount(state, action: PayloadAction<number>) {
       state.displayCount = action.payload

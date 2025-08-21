@@ -9,24 +9,20 @@ import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
 import { useCustomNavigation } from '@/hooks/useNavigation'
-import { getCurrentTopicId } from '@/hooks/useTopic'
 import i18n from '@/i18n'
-import { getAssistantById, getDefaultAssistant } from '@/services/AssistantService'
-import { loggerService } from '@/services/LoggerService'
-import { deleteMessagesByTopicId } from '@/services/MessagesService'
-import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
+import { getAssistantById } from '@/services/AssistantService'
 import { Assistant, Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
-const logger = loggerService.withContext('Topic Item')
 
 type TimeFormat = 'time' | 'date'
 
 interface TopicItemProps {
   topic: Topic
   timeFormat?: TimeFormat
+  onDelete?: (topicId: string) => Promise<void>
 }
 
-const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
+const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete }) => {
   const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const { navigateToChatScreen } = useCustomNavigation()
@@ -35,31 +31,6 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
   const openTopic = () => {
     haptic(ImpactFeedbackStyle.Medium)
     navigateToChatScreen(topic.id)
-  }
-
-  const handleDelete = async () => {
-    try {
-      const deletedTopicId = topic.id
-      await deleteMessagesByTopicId(deletedTopicId)
-      await deleteTopicById(deletedTopicId)
-
-      if (deletedTopicId === getCurrentTopicId()) {
-        const nextTopic = await getNewestTopic()
-
-        if (nextTopic) {
-          // 如果还有其他 topic，直接跳转到最新的那一个
-          navigateToChatScreen(nextTopic.id)
-          logger.info('navigateToChatScreen after delete', nextTopic)
-        } else {
-          const defaultAssistant = await getDefaultAssistant()
-          const newTopic = await createNewTopic(defaultAssistant)
-          navigateToChatScreen(newTopic.id)
-          logger.info('navigateToChatScreen with new topic', newTopic)
-        }
-      }
-    } catch (error) {
-      logger.error('Delete Topic error', error)
-    }
   }
 
   const date = new Date(topic.updatedAt)
@@ -97,7 +68,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
       <ContextMenu.Trigger>
         <Pressable delayLongPress={100} onPress={openTopic} onLongPress={() => {}}>
           <XStack
-            backgroundColor="$gray20"
+            // backgroundColor="$gray20"
             borderRadius={30}
             paddingVertical={5}
             paddingHorizontal={20}
@@ -122,7 +93,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time' }) => {
         </Pressable>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
-        <ContextMenu.Item key="delete" onSelect={handleDelete}>
+        <ContextMenu.Item key="delete" onSelect={async () => await onDelete?.(topic.id)}>
           <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
           <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
             <Trash2 size={16} color="red" />

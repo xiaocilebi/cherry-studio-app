@@ -13,17 +13,15 @@ import { getBlockById } from '../../../db/queries/messageBlocks.queries'
  * Filters out messages of type '@' or 'clear' and messages without main text content.
  */
 export const filterMessages = async (messages: Message[]) => {
-  const filteredByType = messages.filter(message => !['@', 'clear'].includes(message.type!))
-
   const filteredMessages: Message[] = []
 
-  for (const message of filteredByType) {
+  for (const message of messages) {
     if (!message.blocks) {
       continue
     }
 
     const blocks = await Promise.all(message.blocks.map(blockId => getBlockById(blockId)))
-    const mainTextBlock = blocks.find(block => block?.type === MessageBlockType.MAIN_TEXT)
+    const mainTextBlock = blocks.find(block => block?.type === MessageBlockType.MAIN_TEXT && !isEmpty(block.content))
 
     if (!isEmpty((mainTextBlock as any)?.content?.trim())) {
       filteredMessages.push(message)

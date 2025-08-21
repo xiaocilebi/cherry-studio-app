@@ -24,7 +24,7 @@ const ChatContent = ({ topic }: ChatContentProps) => {
 
   return (
     <View style={styles.container}>
-      <Messages key={topic.id} assistant={assistant} topic={topic} />
+      <Messages assistant={assistant} topic={topic} />
     </View>
   )
 }
