@@ -9,6 +9,8 @@ import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
+import { useAppDispatch } from '@/store'
+import { newMessagesActions } from '@/store/newMessage'
 import { Topic } from '@/types/assistant'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
 
@@ -27,6 +29,7 @@ export function GroupedTopicList({ topics }: GroupedTopicListProps) {
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
   const { navigateToChatScreen } = useCustomNavigation()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setLocalTopics(topics)
@@ -71,9 +74,13 @@ export function GroupedTopicList({ topics }: GroupedTopicListProps) {
 
       await deleteMessagesByTopicId(topicId)
       await deleteTopicById(topicId)
+      dispatch(newMessagesActions.deleteTopicLoading({ topicId }))
+
+      console.log('handleDelete', topicId === getCurrentTopicId())
 
       if (topicId === getCurrentTopicId()) {
         const nextTopic = await getNewestTopic()
+        console.log('handleDelete', nextTopic)
 
         if (nextTopic) {
           // 如果还有其他 topic，直接跳转到最新的那一个

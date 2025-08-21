@@ -1,10 +1,10 @@
 import { useNavigation as _useNavigation } from '@react-navigation/native'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { useDispatch } from 'react-redux'
 
 import { setCurrentTopicId } from '@/store/topic'
 import { NavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 
 export function useCustomNavigation() {
   const navigation = _useNavigation<NavigationProps>()

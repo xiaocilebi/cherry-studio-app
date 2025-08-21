@@ -2,6 +2,7 @@ import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC } from 'react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Pressable } from 'react-native-gesture-handler'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
@@ -14,7 +15,6 @@ import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/T
 import { Assistant } from '@/types/assistant'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
-import { useTranslation } from 'react-i18next'
 
 const logger = loggerService.withContext('Assistant Item')
 
