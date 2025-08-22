@@ -134,6 +134,7 @@ export default function WebSearchProviderSettingsScreen() {
 
             <XStack paddingVertical={8} gap={8} position="relative">
               <Input
+                paddingVertical={0}
                 fontSize={14}
                 lineHeight={14 * 1.2}
                 flex={1}
@@ -173,6 +174,7 @@ export default function WebSearchProviderSettingsScreen() {
             <SettingGroupTitle>{t('settings.websearch.api_host')}</SettingGroupTitle>
           </XStack>
           <Input
+            paddingVertical={0}
             fontSize={14}
             lineHeight={14 * 1.2}
             placeholder={t('settings.websearch.api_host.placeholder')}
