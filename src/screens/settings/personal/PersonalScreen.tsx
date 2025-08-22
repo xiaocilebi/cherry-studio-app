@@ -62,6 +62,7 @@ export default function PersonalScreen() {
               <Text>{t('settings.personal.name')}</Text>
             </XStack>
             <Input
+              paddingVertical={0}
               height={30}
               fontSize={14}
               lineHeight={14 * 1.2}

@@ -65,9 +65,9 @@ export default function GeneralSettings() {
         <SettingRow>
           <SettingRowTitle>{t('settings.websearch.contentLengthLimit')}</SettingRowTitle>
           <Input
-            height={21}
+            height={24}
             minWidth={52}
-            paddingVertical={2}
+            paddingVertical={0}
             value={contentLimit?.toString() || ''}
             onChangeText={handleContentLimitChange}
             fontSize={14}
