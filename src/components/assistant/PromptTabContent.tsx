@@ -52,7 +52,8 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
         <SettingRowTitle paddingHorizontal={10}>{t('common.name')}</SettingRowTitle>
         <Input
           height={49}
-          padding={16}
+          paddingVertical={0}
+          paddingHorizontal={16}
           fontSize={14}
           lineHeight={14 * 1.2}
           placeholder={t('assistants.name')}

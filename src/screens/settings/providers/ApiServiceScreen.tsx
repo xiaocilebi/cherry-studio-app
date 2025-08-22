@@ -163,6 +163,7 @@ export default function ApiServiceScreen() {
 
           <XStack paddingVertical={8} gap={8} position="relative">
             <Input
+              paddingVertical={0}
               flex={1}
               placeholder={t('settings.provider.api_key.placeholder')}
               secureTextEntry={!showApiKey}
@@ -201,6 +202,7 @@ export default function ApiServiceScreen() {
             <SettingGroupTitle>{t('settings.provider.api_host')}</SettingGroupTitle>
           </XStack>
           <Input
+            paddingVertical={0}
             placeholder={t('settings.provider.api_host.placeholder')}
             value={provider?.apiHost || ''}
             onChangeText={text => handleProviderConfigChange('apiHost', text)}

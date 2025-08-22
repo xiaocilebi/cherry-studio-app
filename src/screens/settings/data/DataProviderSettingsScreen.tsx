@@ -125,6 +125,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
                   <SettingGroupTitle>{t(field.titleKey)}</SettingGroupTitle>
                 </XStack>
                 <Input
+                  paddingVertical={0}
                   fontSize={14}
                   lineHeight={14 * 1.2}
                   placeholder={field.placeholderKey ? t(field.placeholderKey) : ''}
@@ -156,6 +157,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
 
                 <XStack paddingVertical={8} gap={8} position="relative">
                   <Input
+                    paddingVertical={0}
                     flex={1}
                     placeholder={field.placeholderKey ? t(field.placeholderKey) : ''}
                     secureTextEntry={!showApiKey[field.key]}
