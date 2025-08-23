@@ -21,7 +21,6 @@ import { runAsyncFunction } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import ChatContent from './ChatContent'
-import WelcomeContent from './WelcomeContent'
 
 type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
 
@@ -119,7 +118,7 @@ const ChatScreen = () => {
             )}
 
             <View style={{ flex: 1, marginVertical: 20 }}>
-              {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
+              <ChatContent key={topic.id} topic={topic} />
             </View>
             <MessageInput topic={topic} />
           </YStack>
