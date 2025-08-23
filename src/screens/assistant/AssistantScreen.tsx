@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Text, YStack } from 'tamagui'
 
 import AssistantItem from '@/components/assistant/AssistantItem'
+import AssistantItemSkeleton from '@/components/assistant/AssistantItemSkeleton'
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingContainer } from '@/components/settings'
@@ -19,7 +20,6 @@ import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
-import AssistantItemSkeleton from '@/components/assistant/AssistantItemSkeleton'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
@@ -66,7 +66,6 @@ export default function AssistantScreen() {
     navigation.navigate('AssistantDetailScreen', { assistantId: newAssistant.id })
   }
 
-
   return (
     <SafeAreaContainer>
       <HeaderBar
@@ -80,30 +79,30 @@ export default function AssistantScreen() {
         <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
 
         {isLoading ? (
-                 <FlashList
-                   data={Array.from({ length: 5 })}
-                   renderItem={() => <AssistantItemSkeleton />}
-                   keyExtractor={(_, index) => `skeleton-${index}`}
-                   estimatedItemSize={80}
-                   ItemSeparatorComponent={() => <YStack height={16} />}
-                 />
-               ) : (
-                 <FlashList
-                   showsVerticalScrollIndicator={false}
-                   data={filteredAssistants}
-                   renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
-                   keyExtractor={item => item.id}
-                   estimatedItemSize={80}
-                   ItemSeparatorComponent={() => <YStack height={16} />}
-                   ListEmptyComponent={
-                     <YStack flex={1} justifyContent="center" alignItems="center" paddingTop="$8">
-                       <Text>{t('settings.assistant.empty')}</Text>
-                     </YStack>
-                   }
-                 />
-               )}
+          <FlashList
+            data={Array.from({ length: 5 })}
+            renderItem={() => <AssistantItemSkeleton />}
+            keyExtractor={(_, index) => `skeleton-${index}`}
+            estimatedItemSize={80}
+            ItemSeparatorComponent={() => <YStack height={16} />}
+          />
+        ) : (
+          <FlashList
+            showsVerticalScrollIndicator={false}
+            data={filteredAssistants}
+            renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
+            keyExtractor={item => item.id}
+            estimatedItemSize={80}
+            ItemSeparatorComponent={() => <YStack height={16} />}
+            ListEmptyComponent={
+              <YStack flex={1} justifyContent="center" alignItems="center" paddingTop="$8">
+                <Text>{t('settings.assistant.empty')}</Text>
+              </YStack>
+            }
+          />
+        )}
       </SettingContainer>
-      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source='external'/>
+      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="external" />
     </SafeAreaContainer>
   )
 }

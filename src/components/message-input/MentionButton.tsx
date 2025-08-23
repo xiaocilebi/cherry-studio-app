@@ -6,7 +6,6 @@ import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
 import { Model } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import ModelSheet from '../sheets/ModelSheet'
@@ -17,7 +16,6 @@ interface MentionButtonProps {
 }
 
 export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMentions }) => {
-  const isDark = useIsDark()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePress = () => {

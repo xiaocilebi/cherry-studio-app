@@ -1,9 +1,9 @@
+import { loggerService } from '@/services/LoggerService'
 import { Chunk } from '@/types/chunk'
 
 import { CompletionsResult } from '../schemas'
 import { CompletionsContext } from '../types'
 import { createErrorChunk } from '../utils'
-import { loggerService } from '@/services/LoggerService'
 
 export const MIDDLEWARE_NAME = 'ErrorHandlerMiddleware'
 

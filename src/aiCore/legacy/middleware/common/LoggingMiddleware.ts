@@ -1,6 +1,6 @@
-import { BaseContext, MethodMiddleware, MiddlewareAPI } from '../types'
-
 import { loggerService } from '@/services/LoggerService'
+
+import { BaseContext, MethodMiddleware, MiddlewareAPI } from '../types'
 
 export const MIDDLEWARE_NAME = 'GenericLoggingMiddlewares'
 

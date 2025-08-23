@@ -7,7 +7,6 @@ import { Text, XStack } from 'tamagui'
 import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
 import { NavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
-import { useIsDark } from '@/utils'
 
 import { SettingRow } from '..'
 interface WebsearchProviderRowProps {
@@ -18,12 +17,11 @@ interface WebsearchProviderRowProps {
 
 export const WebsearchProviderRow = ({ provider, need_config }: WebsearchProviderRowProps) => {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const navigation = useNavigation<NavigationProps>()
 
   const onPress = () => {
     if (!need_config) return
-    navigation.navigate('WebSearchProviderSettingsScreen', { providerId: provider.id })
+    navigation.navigate('Settings', { screen: 'WebSearchProviderSettingsScreen', params: { providerId: provider.id } })
   }
 
   return (

@@ -5,7 +5,6 @@ import { ScrollView, Tabs, Text, View, XStack } from 'tamagui'
 import { MultiModalIcon } from '@/components/icons/MultiModelIcon'
 import { Assistant } from '@/types/assistant'
 import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
-import { useIsDark } from '@/utils'
 
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
@@ -16,7 +15,6 @@ interface MultiModalTabProps {
 }
 
 const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages }) => {
-  const isDark = useIsDark()
   const [currentTab, setCurrentTab] = useState('0')
 
   if (!messages || messages.length === 0) {

@@ -13,11 +13,9 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { Assistant, Model } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 
 function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: () => void }) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const model = assistant?.model
 
   return (
@@ -104,7 +102,6 @@ function AssistantSettingItem({
 
 export default function AssistantSettingsScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
 
   const { assistant: defaultAssistant, updateAssistant: updateDefaultAssistant } = useAssistant('default')
   const { assistant: topicNamingAssistant, updateAssistant: updateTopicNamingAssistant } = useAssistant('topic_naming')

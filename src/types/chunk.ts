@@ -1,6 +1,6 @@
 import { ExternalToolResult } from '.'
 import { KnowledgeReference } from './knowledge'
-import { MCPToolResponse, ToolUseResponse } from './mcp'
+import { MCPToolResponse, NormalToolResponse, ToolUseResponse } from './mcp'
 import { Response, ResponseError } from './message'
 import { SdkToolCall } from './sdk'
 import { WebSearchResponse } from './websearch'
@@ -295,7 +295,7 @@ export interface MCPToolCreatedChunk {
 
 export interface MCPToolPendingChunk {
   type: ChunkType.MCP_TOOL_PENDING
-  responses: MCPToolResponse[]
+  responses: MCPToolResponse[] | NormalToolResponse[]
 }
 
 export interface MCPToolInProgressChunk {
@@ -306,14 +306,14 @@ export interface MCPToolInProgressChunk {
   /**
    * The tool responses of the chunk
    */
-  responses: MCPToolResponse[]
+  responses: MCPToolResponse[] | NormalToolResponse[]
 }
 
 export interface MCPToolCompleteChunk {
   /**
    * The tool response of the chunk
    */
-  responses: MCPToolResponse[]
+  responses: MCPToolResponse[] | NormalToolResponse[]
 
   /**
    * The type of the chunk

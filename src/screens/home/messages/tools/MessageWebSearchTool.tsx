@@ -7,10 +7,8 @@ import { WebSearchToolInput, WebSearchToolOutput } from '@/aiCore/tools/WebSearc
 import Searching from '@/components/ui/Searching'
 import i18n from '@/i18n'
 import { MCPToolResponse } from '@/types/mcp'
-import { useIsDark } from '@/utils'
 
 export const MessageWebSearchToolTitle = ({ toolResponse }: { toolResponse: MCPToolResponse }) => {
-  const isDark = useIsDark()
   const toolInput = toolResponse.arguments as WebSearchToolInput
   const toolOutput = toolResponse.response as WebSearchToolOutput
   return toolResponse.status !== 'done' ? (
