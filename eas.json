@@ -9,7 +9,13 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "BUNDLE_ID": "com.cherry_studio.app"
+      }
     },
     "production": {
       "autoIncrement": true
