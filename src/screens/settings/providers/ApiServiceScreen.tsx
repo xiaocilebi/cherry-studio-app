@@ -34,9 +34,19 @@ export default function ApiServiceScreen() {
   const [showApiKey, setShowApiKey] = useState(false)
   const [selectedModel, setSelectedModel] = useState<Model | undefined>()
   const [checkApiStatus, setCheckApiStatus] = useState<ApiStatus>('idle')
+  const [apiKey, setApiKey] = useState(provider?.apiKey || '')
+  const [apiHost, setApiHost] = useState(provider?.apiHost || '')
 
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+
+  // 当 provider 改变时更新本地状态
+  React.useEffect(() => {
+    if (provider) {
+      setApiKey(provider.apiKey || '')
+      setApiHost(provider.apiHost || '')
+    }
+  }, [provider])
 
   const webSearchProviderConfig = provider?.id ? PROVIDER_CONFIG[provider.id] : undefined
   const apiKeyWebsite = webSearchProviderConfig?.websites?.apiKey
@@ -104,6 +114,12 @@ export default function ApiServiceScreen() {
   }
 
   const handleProviderConfigChange = async (key: 'apiKey' | 'apiHost', value: string) => {
+    if (key === 'apiKey') {
+      setApiKey(value)
+    } else if (key === 'apiHost') {
+      setApiHost(value)
+    }
+
     const updatedProvider = { ...provider, [key]: value }
     await updateProvider(updatedProvider)
   }
@@ -168,7 +184,7 @@ export default function ApiServiceScreen() {
               placeholder={t('settings.provider.api_key.placeholder')}
               secureTextEntry={!showApiKey}
               paddingRight={48}
-              value={provider?.apiKey || ''}
+              value={apiKey}
               onChangeText={text => handleProviderConfigChange('apiKey', text)}
               fontSize={14}
               lineHeight={14 * 1.2}
@@ -204,7 +220,7 @@ export default function ApiServiceScreen() {
           <Input
             paddingVertical={0}
             placeholder={t('settings.provider.api_host.placeholder')}
-            value={provider?.apiHost || ''}
+            value={apiHost}
             onChangeText={text => handleProviderConfigChange('apiHost', text)}
           />
         </YStack>
@@ -217,7 +233,7 @@ export default function ApiServiceScreen() {
         selectedModel={selectedModel}
         onModelChange={handleModelChange}
         selectOptions={selectOptions}
-        apiKey={provider?.apiKey || ''}
+        apiKey={apiKey}
         onStartModelCheck={handleStartModelCheck}
         checkApiStatus={checkApiStatus}
       />
