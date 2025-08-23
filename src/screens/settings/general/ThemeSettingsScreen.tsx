@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, useTheme, XStack, YStack } from 'tamagui'
@@ -10,25 +8,24 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { themeOptions } from '@/config/theme'
 import { useSettings } from '@/hooks/useSettings'
 import { ThemeMode } from '@/types'
-import { NavigationProps } from '@/types/naviagate'
+import { storage } from '@/utils'
 
 export default function ThemeSettingsScreen() {
   const { t } = useTranslation()
   const { theme: currentTheme, setTheme: setCurrentTheme } = useSettings()
 
   const theme = useTheme()
-  const navigation = useNavigation<NavigationProps>()
 
   const changeTheme = async (themeValue: ThemeMode) => {
     setCurrentTheme(themeValue)
-    await AsyncStorage.setItem('theme', themeValue)
+    storage.set('theme', themeValue)
   }
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.general.theme.title')} />
       <SettingContainer>
-        <YStack flex={1} space={12} paddingHorizontal={16}>
+        <YStack flex={1} gap={12} paddingHorizontal={16}>
           {themeOptions.map(opt => (
             <XStack
               key={opt.value}
@@ -40,7 +37,7 @@ export default function ThemeSettingsScreen() {
               backgroundColor={theme['$color3']}
               hoverStyle={{ backgroundColor: theme['$color4'] }}
               pressStyle={{ opacity: 0.7 }}>
-              <XStack alignItems="center" space>
+              <XStack alignItems="center">
                 <Text fontSize={16}>{t(opt.label)}</Text>
               </XStack>
 

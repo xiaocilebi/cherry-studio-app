@@ -31,7 +31,7 @@ const initialState: WebSearchState = {
   excludeDomains: [],
   subscribeSources: [],
   overrideSearchService: true,
-  contentLimit: undefined,
+  contentLimit: 2000,
   providerConfig: {}
 }
 

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
@@ -12,6 +11,7 @@ import { useCustomNavigation } from '@/hooks/useNavigation'
 import i18n from '@/i18n'
 import { getAssistantById } from '@/services/AssistantService'
 import { Assistant, Topic } from '@/types/assistant'
+import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 type TimeFormat = 'time' | 'date'
@@ -47,8 +47,8 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete })
         })
 
   useEffect(() => {
-    const fetchCurrentLanguage = async () => {
-      const storedLanguage = await AsyncStorage.getItem('language')
+    const fetchCurrentLanguage = () => {
+      const storedLanguage = storage.getString('language')
 
       if (storedLanguage) {
         setCurrentLanguage(storedLanguage)

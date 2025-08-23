@@ -33,7 +33,7 @@ export default function AssistantMarketScreen() {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
 
-  const { assistants: builtInAssistants } = useBuiltInAssistants()
+  const { builtInAssistants } = useBuiltInAssistants()
 
   const handleAssistantItemPress = (assistant: Assistant) => {
     setSelectedAssistant(assistant)
@@ -183,7 +183,7 @@ export default function AssistantMarketScreen() {
           {renderTabContents}
         </Tabs>
       </SettingContainer>
-      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source='builtIn' />
+      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="builtIn" />
     </SafeAreaContainer>
   )
 }

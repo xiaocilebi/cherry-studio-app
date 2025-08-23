@@ -6,12 +6,15 @@ import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 import AssistantItemCard from '@/components/assistant/AssistantItemCard'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
+import { loggerService } from '@/services/LoggerService'
 import { NavigationProps } from '@/types/naviagate'
+
+const logger = loggerService.withContext('WelcomeContent')
 
 const WelcomeContent = () => {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
-  const { assistants: builtInAssistants } = useBuiltInAssistants()
+  const { builtInAssistants } = useBuiltInAssistants()
 
   const handleSeeAllPress = () => {
     navigation.navigate('AssistantMarketScreen')
@@ -39,12 +42,7 @@ const WelcomeContent = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap={20}>
             {builtInAssistants.slice(0, 7).map(assistant => (
-              <AssistantItemCard
-                key={assistant.id}
-                assistant={assistant}
-                setIsBottomSheetOpen={() => {}}
-                onAssistantPress={() => {}}
-              />
+              <AssistantItemCard key={assistant.id} assistant={assistant} onAssistantPress={() => {}} />
             ))}
           </XStack>
         </ScrollView>

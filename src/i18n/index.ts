@@ -1,8 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Localization from 'expo-localization'
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import { Platform } from 'react-native'
+
+import { storage } from '@/utils'
 
 import enUS from './locales/en-us.json'
 import jaJP from './locales/ja-jp.json'
@@ -19,10 +20,10 @@ const resources = {
 }
 
 export const getLanguage = async () => {
-  let savedLanguage
+  let savedLanguage: string | undefined
 
   if (Platform.OS !== 'web' || (Platform.OS === 'web' && typeof window !== 'undefined')) {
-    savedLanguage = await AsyncStorage.getItem('language')
+    savedLanguage = storage.getString('language')
   }
 
   if (!savedLanguage) {

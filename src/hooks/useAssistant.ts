@@ -1,6 +1,9 @@
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { RootState } from '@/store'
+import { resetBuiltInAssistants as _resetBuiltInAssistants } from '@/store/assistant'
 import { Assistant } from '@/types/assistant'
 
 import { db } from '../../db'
@@ -93,26 +96,38 @@ export function useExternalAssistants() {
 }
 
 export function useBuiltInAssistants() {
-  const query = db.select().from(assistantsSchema).where(eq(assistantsSchema.type, 'built_in'))
-  const { data: rawAssistants, updatedAt } = useLiveQuery(query)
+  const dispatch = useDispatch()
 
-  const updateAssistants = async (assistants: Assistant[]) => {
-    await upsertAssistants(assistants)
+  const builtInAssistants = useSelector((state: RootState) => state.assistant.builtInAssistants)
+
+  const resetBuiltInAssistants = () => {
+    dispatch(_resetBuiltInAssistants())
   }
-
-  if (!updatedAt) {
-    return {
-      assistants: [],
-      isLoading: true,
-      updateAssistants
-    }
-  }
-
-  const processedAssistants = rawAssistants.map(provider => transformDbToAssistant(provider))
 
   return {
-    assistants: processedAssistants,
-    isLoading: false,
-    updateAssistants
+    builtInAssistants,
+    resetBuiltInAssistants
   }
+  // const query = db.select().from(assistantsSchema).where(eq(assistantsSchema.type, 'built_in'))
+  // const { data: rawAssistants, updatedAt } = useLiveQuery(query)
+
+  // const updateAssistants = async (assistants: Assistant[]) => {
+  //   await upsertAssistants(assistants)
+  // }
+
+  // if (!updatedAt) {
+  //   return {
+  //     assistants: [],
+  //     isLoading: true,
+  //     updateAssistants
+  //   }
+  // }
+
+  // const processedAssistants = rawAssistants.map(provider => transformDbToAssistant(provider))
+
+  // return {
+  //   assistants: processedAssistants,
+  //   isLoading: false,
+  //   updateAssistants
+  // }
 }

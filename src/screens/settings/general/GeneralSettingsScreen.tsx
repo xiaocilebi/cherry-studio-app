@@ -1,10 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { useCallback, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, useTheme, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -13,6 +12,7 @@ import { CustomSwitch } from '@/components/ui/Switch'
 import { languagesOptions } from '@/config/languages'
 import { themeOptions } from '@/config/theme'
 import { NavigationProps } from '@/types/naviagate'
+import { storage } from '@/utils'
 
 export default function GeneralSettingsScreen() {
   const { t, i18n } = useTranslation()
@@ -20,12 +20,11 @@ export default function GeneralSettingsScreen() {
   const [language, setLanguage] = useState('zh-CN')
   const [currentTheme, setCurrentTheme] = useState('system')
 
-  const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
 
   const handleFocus = useCallback(() => {
     const loadSettings = async () => {
-      const storedLanguage = await AsyncStorage.getItem('language')
+      const storedLanguage = storage.getString('language')
 
       if (storedLanguage) {
         setLanguage(storedLanguage)
@@ -33,7 +32,7 @@ export default function GeneralSettingsScreen() {
         setLanguage(i18n.language)
       }
 
-      const storedTheme = await AsyncStorage.getItem('theme')
+      const storedTheme = storage.getString('theme')
 
       if (storedTheme) {
         setCurrentTheme(storedTheme)
@@ -64,7 +63,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
-              <SettingRow onPress={() => navigation.navigate('Settings',{screen:'ThemeSettingsScreen'})}>
+              <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.theme.title')}</Text>
                 </XStack>
@@ -80,7 +79,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.title')}</SettingGroupTitle>
             <SettingGroup>
-              <SettingRow onPress={() => navigation.navigate('Settings',{screen:'LanguageChangeScreen'})}>
+              <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'LanguageChangeScreen' })}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.language.title')}</Text>
                 </XStack>

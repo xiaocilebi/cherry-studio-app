@@ -86,8 +86,11 @@ const ChatScreen = () => {
         onHandlerStateChange={handleSwipeGesture}
         activeOffsetX={[-10, 10]}
         failOffsetY={[-20, 20]}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
-          <YStack paddingHorizontal={12} backgroundColor="$colorTransparent" flex={1} gap={20}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}>
+          <YStack paddingHorizontal={12} backgroundColor="$colorTransparent" flex={1}>
             <HeaderBar
               topic={topic}
               showAssistantCard={showAssistantCard}
@@ -115,7 +118,9 @@ const ChatScreen = () => {
               </>
             )}
 
-            {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
+            <View style={{ flex: 1, marginVertical: 20 }}>
+              {hasMessages ? <ChatContent key={topic.id} topic={topic} /> : <WelcomeContent key={topic.id} />}
+            </View>
             <MessageInput topic={topic} />
           </YStack>
         </KeyboardAvoidingView>

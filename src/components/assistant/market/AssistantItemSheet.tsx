@@ -1,4 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { useNavigation } from '@react-navigation/native'
+import { Settings2 } from '@tamagui/lucide-icons'
 import React, { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
@@ -6,24 +8,22 @@ import { Button, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
-import { useCustomNavigation} from '@/hooks/useNavigation'
-import { useNavigation  } from '@react-navigation/native'
+import { useCustomNavigation } from '@/hooks/useNavigation'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
+import { NavigationProps } from '@/types/naviagate'
 import { useIsDark, uuid } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 
 import GroupTag from './GroupTag'
-import { Settings2 } from '@tamagui/lucide-icons'
-import { NavigationProps } from '@/types/naviagate'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
-  source: 'builtIn'|'external'
+  source: 'builtIn' | 'external'
 }
 
-const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>(({ assistant,source }, ref) => {
+const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>(({ assistant, source }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
   const isDark = useIsDark()
@@ -37,8 +37,12 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
   const renderFooter = () => (
     <XStack bottom={25} justifyContent="space-between" alignItems="center" gap={10}>
-      {source === 'builtIn' && <Button chromeless circular icon={<UnionPlusIcon size={34} />} onPress={handleAddAssistant} />}
-      {source === 'external' && <Button chromeless circular icon={<Settings2 size={34} />} onPress={handleEditAssistant} />}
+      {source === 'builtIn' && (
+        <Button chromeless circular icon={<UnionPlusIcon size={34} />} onPress={handleAddAssistant} />
+      )}
+      {source === 'external' && (
+        <Button chromeless circular icon={<Settings2 size={34} />} onPress={handleEditAssistant} />
+      )}
       <Button
         backgroundColor="$foregroundGreen"
         borderRadius={40}
@@ -86,10 +90,10 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     }
   }
 
-  const handleEditAssistant = async () =>{
-    if(!assistant) return
+  const handleEditAssistant = async () => {
+    if (!assistant) return
     navigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'prompt' })
-     ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+    ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
   }
 
   if (!assistant) return null

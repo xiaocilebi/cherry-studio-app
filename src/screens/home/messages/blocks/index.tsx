@@ -66,7 +66,7 @@ const prepareBlocksForRender = (blocks: MessageBlock[]) => {
 const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks }) => {
   const { contentBlocks, citationBlocks } = useMemo(() => prepareBlocksForRender(blocks), [blocks])
   return (
-    <View flex={1} width="100%" style={{ gap: 5 }}>
+    <View flex={1} width="100%" maxWidth="100%" style={{ gap: 5 }}>
       {contentBlocks.map(blockOrGroup => {
         if (Array.isArray(blockOrGroup)) {
           const groupKey = blockOrGroup[0]?.id || 'media-group'
