@@ -6,7 +6,6 @@ import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
 
 import { ISheet } from '@/components/ui/Sheet'
 import { ApiStatus } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 
 interface ApiCheckSheetProps {
   bottomSheetRef: React.RefObject<BottomSheet | null>
@@ -26,7 +25,6 @@ export function ApiCheckSheet({
   checkApiStatus
 }: ApiCheckSheetProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const sheetSnapPoints = ['40%']
 
   return (

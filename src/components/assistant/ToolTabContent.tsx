@@ -7,7 +7,6 @@ import { Button, Text, XStack, YStack } from 'tamagui'
 
 import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 import { Assistant } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 
 import { SettingGroup, SettingRowTitle } from '../settings'
 import WebsearchSheet from '../sheets/WebsearchSheet'
@@ -20,7 +19,6 @@ interface ToolTabContentProps {
 
 export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { apiProviders } = useWebsearchProviders()
 

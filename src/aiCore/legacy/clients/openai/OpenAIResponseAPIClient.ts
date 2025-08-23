@@ -3,8 +3,6 @@ import { isEmpty } from 'lodash'
 import OpenAI, { AzureOpenAI } from 'openai'
 import { ResponseInput } from 'openai/resources/responses/responses.mjs'
 
-import { GenericChunk } from '@/aiCore/middleware/schemas'
-import { CompletionsContext } from '@/aiCore/middleware/types'
 import { isOpenAIChatCompletionOnlyModel } from '@/config/models'
 import { isSupportedReasoningEffortOpenAIModel } from '@/config/models/reasoning'
 import { isVisionModel } from '@/config/models/vision'
@@ -36,6 +34,8 @@ import {
 import { findFileBlocks, findImageBlocks } from '@/utils/messageUtils/find'
 import { buildSystemPrompt } from '@/utils/prompt'
 
+import { GenericChunk } from '../../middleware/schemas'
+import { CompletionsContext } from '../../middleware/types'
 import { RequestTransformer, ResponseChunkTransformer } from '../types'
 import { OpenAIAPIClient } from './OpenAIApiClient'
 import { OpenAIBaseClient } from './OpenAIBaseClient'

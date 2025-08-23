@@ -2,7 +2,6 @@ import React from 'react'
 import { Slider, XStack, YStack } from 'tamagui'
 
 import { SettingRowTitle } from '@/components/settings'
-import { useIsDark } from '@/utils'
 
 interface CustomSliderProps {
   label: string
@@ -25,7 +24,6 @@ export function CustomSlider({
   displayValue,
   multiplier = 1
 }: CustomSliderProps) {
-  const isDark = useIsDark()
   const sliderValue = value * multiplier
   const displayText = displayValue !== undefined ? displayValue : value
 

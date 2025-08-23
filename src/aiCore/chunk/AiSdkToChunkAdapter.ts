@@ -5,6 +5,7 @@
 
 import { TextStreamPart, ToolSet } from '@cherrystudio/ai-core'
 
+import { loggerService } from '@/services/LoggerService'
 import { Chunk, ChunkType } from '@/types/chunk'
 import { BaseTool } from '@/types/tool'
 import { WebSearchResults, WebSearchSource } from '@/types/websearch'
@@ -12,7 +13,7 @@ import { WebSearchResults, WebSearchSource } from '@/types/websearch'
 import { ToolCallChunkHandler } from './handleTooCallChunk'
 
 // import { ToolCallChunkHandler } from './chunk/handleTooCallChunk'
-// const logger = loggerService.withContext('AiSdkToChunkAdapter')
+const logger = loggerService.withContext('AiSdkToChunkAdapter')
 
 export interface CherryStudioChunk {
   type: 'text-delta' | 'text-complete' | 'tool-call' | 'tool-result' | 'finish' | 'error'
@@ -89,7 +90,7 @@ export class AiSdkToChunkAdapter {
     chunk: TextStreamPart<any>,
     final: { text: string; reasoningContent: string; webSearchResults: any[]; reasoningId: string }
   ) {
-    console.log('AI SDK chunk type:', chunk.type, chunk)
+    logger.info(`AI SDK chunk type: ${chunk.type}`, chunk)
 
     switch (chunk.type) {
       // === 文本相关事件 ===
@@ -108,26 +109,25 @@ export class AiSdkToChunkAdapter {
       case 'text-end':
         this.onChunk({
           type: ChunkType.TEXT_COMPLETE,
-          text: final.text || ''
+          text: (chunk.providerMetadata?.text?.value as string) ?? final.text ?? ''
         })
         final.text = ''
         break
       case 'reasoning-start':
-        if (final.reasoningId !== chunk.id) {
-          final.reasoningId = chunk.id
-          this.onChunk({
-            type: ChunkType.THINKING_START
-          })
-        }
-
+        // if (final.reasoningId !== chunk.id) {
+        final.reasoningId = chunk.id
+        this.onChunk({
+          type: ChunkType.THINKING_START
+        })
+        // }
         break
       case 'reasoning-delta':
+        final.reasoningContent += chunk.text || ''
         this.onChunk({
           type: ChunkType.THINKING_DELTA,
           text: final.reasoningContent || '',
           thinking_millsec: (chunk.providerMetadata?.metadata?.thinking_millsec as number) || 0
         })
-        final.reasoningContent += chunk.text || ''
         break
       case 'reasoning-end':
         this.onChunk({
@@ -180,7 +180,7 @@ export class AiSdkToChunkAdapter {
       //   break
 
       case 'finish-step': {
-        const { providerMetadata } = chunk
+        const { providerMetadata, finishReason } = chunk
 
         // googel web search
         if (providerMetadata?.google?.groundingMetadata) {
@@ -191,6 +191,10 @@ export class AiSdkToChunkAdapter {
               source: WebSearchSource.GEMINI
             }
           })
+        }
+
+        if (finishReason === 'tool-calls') {
+          this.onChunk({ type: ChunkType.LLM_RESPONSE_CREATED })
         }
 
         // else {

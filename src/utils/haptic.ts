@@ -1,4 +1,4 @@
-import { impactAsync, AndroidHaptics, performAndroidHapticsAsync, ImpactFeedbackStyle } from 'expo-haptics'
+import { AndroidHaptics, impactAsync, ImpactFeedbackStyle, performAndroidHapticsAsync } from 'expo-haptics'
 import { Platform } from 'react-native'
 
 export function haptic(type: ImpactFeedbackStyle = ImpactFeedbackStyle.Medium): void {

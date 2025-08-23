@@ -5,7 +5,6 @@ import { Keyboard } from 'react-native'
 import { Button } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 interface WebsearchButtonProps {
@@ -14,8 +13,6 @@ interface WebsearchButtonProps {
 }
 
 export const WebsearchButton: React.FC<WebsearchButtonProps> = ({ assistant, updateAssistant }) => {
-  const isDark = useIsDark()
-
   const handlePress = () => {
     Keyboard.dismiss()
     haptic(ImpactFeedbackStyle.Medium)

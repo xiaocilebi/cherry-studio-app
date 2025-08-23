@@ -6,7 +6,6 @@ import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
 
 import { ISheet } from '@/components/ui/Sheet'
 import { ApiStatus, Model } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { getModelUniqId } from '@/utils/model'
 
 import { ModelSelect } from './ModelSelect'
@@ -43,7 +42,6 @@ export function ApiCheckSheet({
   checkApiStatus
 }: ApiCheckSheetProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const sheetSnapPoints = ['40%']
 
   return (

@@ -93,6 +93,11 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
 
     try {
       await deleteMessageById(message.id)
+
+      if (message.askId) {
+        await deleteMessageById(message.askId)
+      }
+
       logger.info('Message deleted successfully:', message.id)
     } catch (error) {
       logger.error('Error deleting message:', error)
@@ -121,11 +126,10 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
             <Button
               onPress={isTranslated ? onDeleteTranslation : onTranslate}
               icon={isTranslated ? <TranslatedIcon size={18} /> : <TranslationIcon size={18} />}
-              theme="gray"
               justifyContent="flex-start">
               {isTranslated ? t('message.delete_translation') : t('message.translate_message')}
             </Button>
-            <Button onPress={onDelete} icon={<Trash2 size={18} />} theme="red" justifyContent="flex-start">
+            <Button onPress={onDelete} icon={<Trash2 size={18} />} color="red" justifyContent="flex-start">
               {t('message.delete_message')}
             </Button>
           </YStack>

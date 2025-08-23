@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { CitationMessageBlock } from '@/types/message'
 import { formatCitationsFromBlock } from '@/utils/formats'
 
-import CitationsList from '../CitationLIst'
+import CitationsList from '../CitationList'
 
 function CitationBlock({ block }: { block: CitationMessageBlock }) {
   const formattedCitations = formatCitationsFromBlock(block)

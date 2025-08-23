@@ -3,7 +3,6 @@ import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 
 interface AssistantItemRowProps {
   assistant: Assistant
@@ -11,8 +10,6 @@ interface AssistantItemRowProps {
 }
 
 const AssistantItemRow: FC<AssistantItemRowProps> = ({ assistant, onAssistantPress }) => {
-  const isDark = useIsDark()
-
   const handlePress = () => {
     onAssistantPress(assistant)
   }

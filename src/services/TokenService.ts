@@ -5,6 +5,9 @@ import { FileType, FileTypes } from '@/types/file'
 import type { Message } from '@/types/message'
 import { findFileBlocks, getMainTextContent, getThinkingContent } from '@/utils/messageUtils/find'
 
+import { loggerService } from './LoggerService'
+
+const logger = loggerService.withContext('TokenService')
 interface MessageItem {
   name?: string
   role: 'system' | 'user' | 'assistant'
@@ -23,6 +26,7 @@ async function getFileContent(file: FileType) {
   return ''
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function getMessageParam(message: Message): Promise<MessageItem[]> {
   const param: MessageItem[] = []
 
@@ -165,6 +169,7 @@ export async function estimateMessagesUsage({
 }
 
 export async function estimateHistoryTokens(assistant: Assistant, msgs: Message[]) {
+  logger.info('assistant', assistant.id, msgs.length)
   // const { contextCount } = getAssistantSettings(assistant)
   // const maxContextCount = contextCount
   // const messages = filterMessages(filterContextMessages(takeRight(msgs, maxContextCount)))

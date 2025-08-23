@@ -2,8 +2,6 @@
 import React, { FC } from 'react'
 import { Stack, StackProps, Tabs, Text } from 'tamagui'
 
-import { useIsDark } from '@/utils'
-
 export type TabItem = {
   id: string
   label: string
@@ -17,7 +15,6 @@ interface MenuTabProps extends StackProps {
 }
 
 export const MenuTab: FC<MenuTabProps> = ({ tabs, activeTab, onTabChange, children, ...stackProps }) => {
-  const isDark = useIsDark()
   const inactiveTextColor = '$textPrimary'
 
   return (
