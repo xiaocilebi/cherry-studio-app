@@ -8,7 +8,7 @@ import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
-import { createNewTopic, deleteTopicById, getNewestTopic } from '@/services/TopicService'
+import { createNewTopic, deleteTopicById } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
 import { newMessagesActions } from '@/store/newMessage'
 import { Topic } from '@/types/assistant'
@@ -76,14 +76,13 @@ export function GroupedTopicList({ topics }: GroupedTopicListProps) {
       await deleteTopicById(topicId)
       dispatch(newMessagesActions.deleteTopicLoading({ topicId }))
 
-      console.log('handleDelete', topicId === getCurrentTopicId())
-
       if (topicId === getCurrentTopicId()) {
-        const nextTopic = await getNewestTopic()
-        console.log('handleDelete', nextTopic)
+        const nextTopic =
+          updatedTopics.length > 0
+            ? updatedTopics.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())[0]
+            : null
 
         if (nextTopic) {
-          // 如果还有其他 topic，直接跳转到最新的那一个
           navigateToChatScreen(nextTopic.id)
           logger.info('navigateToChatScreen after delete', nextTopic)
         } else {
