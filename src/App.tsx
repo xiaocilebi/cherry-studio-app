@@ -32,7 +32,7 @@ import { upsertProviders } from '../db/queries/providers.queries'
 import { upsertWebSearchProviders } from '../db/queries/websearchProviders.queries'
 import migrations from '../drizzle/migrations'
 import tamaguiConfig from '../tamagui.config'
-import { getBuiltInAssistants, getSystemAssistants } from './config/assistants'
+import { getSystemAssistants } from './config/assistants'
 import { getSystemProviders } from './config/providers'
 import MainStackNavigator from './navigators/MainStackNavigator'
 
@@ -58,8 +58,8 @@ function DatabaseInitializer() {
       try {
         logger.info('First launch, initializing app data...')
         const systemAssistants = getSystemAssistants()
-        const builtInAssistants = getBuiltInAssistants()
-        await upsertAssistants([...systemAssistants, ...builtInAssistants])
+        // const builtInAssistants = getBuiltInAssistants()
+        await upsertAssistants([...systemAssistants])
         const providers = getSystemProviders()
         await upsertProviders(providers)
         const websearchProviders = getWebSearchProviders()

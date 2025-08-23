@@ -2,7 +2,6 @@ import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 
 import GroupTag from './market/GroupTag'

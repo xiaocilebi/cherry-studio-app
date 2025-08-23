@@ -1,26 +1,26 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
+import { getBuiltInAssistants } from '@/config/assistants'
 import { Assistant } from '@/types/assistant'
 
 export interface AssistantsState {
-  tagsOrder: string[]
+  builtInAssistants: Assistant[]
 }
 
 const initialState: AssistantsState = {
-  tagsOrder: []
+  builtInAssistants: getBuiltInAssistants()
 }
 
 const assistantsSlice = createSlice({
   name: 'assistants',
   initialState,
   reducers: {
-    setTagsOrder: (state, action: PayloadAction<string[]>) => {
-      state.tagsOrder = action.payload
-    },
-    updateAssistants: (state, action: PayloadAction<Assistant[]>) => {}
+    resetBuiltInAssistants: state => {
+      state.builtInAssistants = getBuiltInAssistants()
+    }
   }
 })
 
-export const { setTagsOrder } = assistantsSlice.actions
+export const { resetBuiltInAssistants } = assistantsSlice.actions
 
 export default assistantsSlice.reducer

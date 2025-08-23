@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,17 +7,20 @@ import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'
+import { useBuiltInAssistants } from '@/hooks/useAssistant'
 import { NavigationProps } from '@/types/naviagate'
+import { storage } from '@/utils'
 
 export default function LanguageChangeScreen() {
   const { t, i18n } = useTranslation()
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
+  const { resetBuiltInAssistants } = useBuiltInAssistants()
 
   useEffect(() => {
     const fetchCurrentLanguage = async () => {
-      const storedLanguage = await AsyncStorage.getItem('language')
+      const storedLanguage = storage.getString('language')
 
       if (storedLanguage) {
         setCurrentLanguage(storedLanguage)
@@ -29,21 +31,26 @@ export default function LanguageChangeScreen() {
   }, [])
 
   const changeLanguage = async (langCode: string) => {
-    await AsyncStorage.setItem('language', langCode)
+    storage.set('language', langCode)
     await i18n.changeLanguage(langCode)
     setCurrentLanguage(langCode)
     navigation.goBack()
+  }
+
+  const handleLanguageChange = async (langCode: string) => {
+    await changeLanguage(langCode)
+    resetBuiltInAssistants()
   }
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.general.language.title')} />
       <SettingContainer>
-        <YStack flex={1} space={12} paddingHorizontal={16}>
+        <YStack flex={1} gap={12} paddingHorizontal={16}>
           {languagesOptions.map(opt => (
             <XStack
               key={opt.value}
-              onPress={() => changeLanguage(opt.value)}
+              onPress={() => handleLanguageChange(opt.value)}
               alignItems="center"
               justifyContent="space-between"
               padding={16}

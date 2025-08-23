@@ -1,10 +1,9 @@
-import { getLocales } from 'expo-localization'
-
 import { DEFAULT_MODELS } from '@/config/models/systemModels'
 import assistantsEnJsonData from '@/resources/data/assistants-en.json'
 import assistantsZhJsonData from '@/resources/data/assistants-zh.json'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
+import { storage } from '@/utils'
 const logger = loggerService.withContext('Assistant')
 
 export function getSystemAssistants(): Assistant[] {
@@ -44,16 +43,15 @@ export function getSystemAssistants(): Assistant[] {
 }
 
 export function getBuiltInAssistants(): Assistant[] {
-  let language = getLocales()[0].languageCode
-  language = 'en'
+  const language = storage.getString('language')
 
   try {
-    if (assistantsEnJsonData && language === 'en') {
+    if (assistantsEnJsonData && language?.includes('en')) {
       return JSON.parse(JSON.stringify(assistantsEnJsonData)) || []
-    } else if (assistantsZhJsonData && language === 'zh') {
+    } else if (assistantsZhJsonData && language?.includes('zh')) {
       return JSON.parse(JSON.stringify(assistantsZhJsonData)) || []
     } else {
-      return []
+      return JSON.parse(JSON.stringify(assistantsEnJsonData)) || []
     }
   } catch (error) {
     logger.error('Error reading assistants data:', error)
