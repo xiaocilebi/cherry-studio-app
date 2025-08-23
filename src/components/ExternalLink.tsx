@@ -59,7 +59,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({ href, children, color = '$t
 
   return (
     <Button
-      size={size ? size + 5 : undefined}
+      size={size ? size + 8 : undefined}
       alignItems="center"
       justifyContent="center"
       backgroundColor="$colorTransparent"
