@@ -31,16 +31,8 @@ const ChatContent = ({ topic }: ChatContentProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  fab: {
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1,
+    height: '100%'
   }
 })
 
