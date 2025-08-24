@@ -6235,6 +6235,7 @@ __metadata:
     expo-linear-gradient: "npm:~14.1.4"
     expo-linking: "npm:~7.1.5"
     expo-localization: "npm:~16.1.5"
+    expo-navigation-bar: "npm:4.2.7"
     expo-network: "npm:~7.1.5"
     expo-sharing: "npm:~13.1.5"
     expo-speech: "npm:~13.1.7"
@@ -9589,6 +9590,22 @@ __metadata:
   dependencies:
     invariant: "npm:^2.2.4"
   checksum: 10c0/9586d80644278fa4c15cc1e85f403934a07936574c050623b26a0dec8d8cbc8776ed68e988510621495d1227f52a127938a2aad2c997d05a449d0f1fd009da86
+  languageName: node
+  linkType: hard
+
+"expo-navigation-bar@npm:4.2.7":
+  version: 4.2.7
+  resolution: "expo-navigation-bar@npm:4.2.7"
+  dependencies:
+    "@react-native/normalize-colors": "npm:0.79.5"
+    debug: "npm:^4.3.2"
+    react-native-edge-to-edge: "npm:1.6.0"
+    react-native-is-edge-to-edge: "npm:^1.1.6"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/7b92ad31ea90fbfffdd38042864e1e1bc4dccea62b82b8c5b806b7899c1ae3ce06c3bc9e234fd3624cdce4d5f9244bb504b95df8cc53e4e3a40514d4a634850b
   languageName: node
   linkType: hard
 
