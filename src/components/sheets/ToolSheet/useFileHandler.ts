@@ -55,7 +55,7 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
 
   const handleAddFile = async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({ multiple: true })
+      const result = await DocumentPicker.getDocumentAsync({ multiple: true, type: ['text/plain'] })
 
       if (result.canceled) {
         return

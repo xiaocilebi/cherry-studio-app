@@ -76,8 +76,6 @@ const ChatScreen = () => {
     )
   }
 
-  const hasMessages = topic.messages.length > 0
-
   return (
     <SafeAreaContainer>
       <PanGestureHandler
