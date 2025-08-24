@@ -24,10 +24,13 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
   const statusText = mode === 'enabled' ? t('settings.provider.enabled') : t('settings.provider.added')
 
   return (
-    <SettingRow onPress={() => navigation.navigate('ProviderSettingsScreen', { providerId: provider.id })}>
+    <SettingRow
+      onPress={() =>
+        navigation.navigate('Settings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
+      }>
       <XStack gap={5} alignItems="center">
         <ProviderIcon provider={provider} />
-        <Text>{provider.name}</Text>
+        <Text>{t(`provider.${provider.id}`, { defaultValue: provider.id })}</Text>
       </XStack>
       <XStack gap={10} alignItems="center">
         {shouldShowStatus && (

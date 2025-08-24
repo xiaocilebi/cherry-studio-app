@@ -150,6 +150,10 @@ const PROVIDER_ICONS_DARK = {
   yi: require('@/assets/images/llmIcons/dark/yi.png'),
   zhinao: require('@/assets/images/llmIcons/dark/zhinao.png'),
   zhipu: require('@/assets/images/llmIcons/dark/zhipu.png'),
+  vertexai: require('@/assets/images/llmIcons/dark/vertexai.png'),
+  lmstudio: require('@/assets/images/llmIcons/dark/lmstudio.png'),
+  'aws-bedrock': require('@/assets/images/llmIcons/dark/bedrock.png'),
+  poe: require('@/assets/images/llmIcons/dark/poe.png'),
   default: require('@/assets/images/llmIcons/dark/openai.png')
 }
 
@@ -198,6 +202,10 @@ const PROVIDER_ICONS_LIGHT = {
   yi: require('@/assets/images/llmIcons/light/yi.png'),
   zhinao: require('@/assets/images/llmIcons/light/zhinao.png'),
   zhipu: require('@/assets/images/llmIcons/light/zhipu.png'),
+  vertexai: require('@/assets/images/llmIcons/light/vertexai.png'),
+  lmstudio: require('@/assets/images/llmIcons/light/lmstudio.png'),
+  'aws-bedrock': require('@/assets/images/llmIcons/light/bedrock.png'),
+  poe: require('@/assets/images/llmIcons/light/poe.png'),
   default: require('@/assets/images/llmIcons/light/openai.png')
 }
 

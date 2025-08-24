@@ -13,7 +13,7 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import { ApiCheckSheet } from '@/components/settings/providers/ApiCheckSheet'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { isEmbeddingModel } from '@/config/models/embedding'
-import { PROVIDER_CONFIG } from '@/config/providers'
+import { PROVIDER_URLS } from '@/config/providers'
 import { useProvider } from '@/hooks/useProviders'
 import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import { checkApi } from '@/services/ApiService'
@@ -48,7 +48,7 @@ export default function ApiServiceScreen() {
     }
   }, [provider])
 
-  const webSearchProviderConfig = provider?.id ? PROVIDER_CONFIG[provider.id] : undefined
+  const webSearchProviderConfig = provider?.id ? PROVIDER_URLS[provider.id] : undefined
   const apiKeyWebsite = webSearchProviderConfig?.websites?.apiKey
 
   if (isLoading) {
