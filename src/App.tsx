@@ -33,7 +33,7 @@ import { upsertWebSearchProviders } from '../db/queries/websearchProviders.queri
 import migrations from '../drizzle/migrations'
 import tamaguiConfig from '../tamagui.config'
 import { getSystemAssistants } from './config/assistants'
-import { getSystemProviders } from './config/providers'
+import { SYSTEM_PROVIDERS } from './config/providers'
 import MainStackNavigator from './navigators/MainStackNavigator'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -60,7 +60,7 @@ function DatabaseInitializer() {
         const systemAssistants = getSystemAssistants()
         // const builtInAssistants = getBuiltInAssistants()
         await upsertAssistants([...systemAssistants])
-        const providers = getSystemProviders()
+        const providers = SYSTEM_PROVIDERS
         await upsertProviders(providers)
         const websearchProviders = getWebSearchProviders()
         await upsertWebSearchProviders(websearchProviders)

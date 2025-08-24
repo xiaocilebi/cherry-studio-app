@@ -8,7 +8,6 @@ import { Text, XStack, YStack } from 'tamagui'
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
-import { CustomSwitch } from '@/components/ui/Switch'
 import { languagesOptions } from '@/config/languages'
 import { themeOptions } from '@/config/theme'
 import { NavigationProps } from '@/types/naviagate'
@@ -92,7 +91,7 @@ export default function GeneralSettingsScreen() {
           </YStack>
 
           {/* Privacy settings */}
-          <YStack gap={8}>
+          {/*<YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
               <SettingRow>
@@ -102,7 +101,7 @@ export default function GeneralSettingsScreen() {
                 <CustomSwitch />
               </SettingRow>
             </SettingGroup>
-          </YStack>
+          </YStack>*/}
         </YStack>
       </SettingContainer>
     </SafeAreaContainer>
