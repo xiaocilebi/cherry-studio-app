@@ -59,7 +59,7 @@ export default function GeneralSettingsScreen() {
       <SettingContainer>
         <YStack gap={24} flex={1}>
           {/* Display settings */}
-          <YStack gap={8}>
+          {/*<YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
               <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
@@ -72,7 +72,7 @@ export default function GeneralSettingsScreen() {
                 </XStack>
               </SettingRow>
             </SettingGroup>
-          </YStack>
+          </YStack>*/}
 
           {/* General settings */}
           <YStack gap={8}>
