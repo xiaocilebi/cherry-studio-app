@@ -21,6 +21,7 @@ import { runAsyncFunction } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import ChatContent from './ChatContent'
+import WelcomeContent from './WelcomeContent'
 
 type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
 
@@ -76,6 +77,8 @@ const ChatScreen = () => {
     )
   }
 
+  const hasMessage = topic.messages.length > 0
+
   return (
     <SafeAreaContainer>
       <PanGestureHandler
@@ -116,7 +119,7 @@ const ChatScreen = () => {
             )}
 
             <View style={{ flex: 1, marginVertical: 20 }}>
-              <ChatContent key={topic.id} topic={topic} />
+              {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}
             </View>
             <MessageInput topic={topic} />
           </YStack>
