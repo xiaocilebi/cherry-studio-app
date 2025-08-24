@@ -12,7 +12,6 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
-import { useIsDark } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import { MarketIcon } from '../icons/MarketIcon'
@@ -21,9 +20,8 @@ import { SettingDivider } from '../settings'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
   const theme = useTheme()
-  const { theme: appTheme, avatar, userName } = useSettings()
+  const { avatar, userName } = useSettings()
 
   const { topics, isLoading: isLoadingTopics } = useTopics()
   const { isLoading: isLoadingAssistants } = useExternalAssistants()
