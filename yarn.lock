@@ -6231,10 +6231,12 @@ __metadata:
     expo-font: "npm:^13.3.2"
     expo-haptics: "npm:~14.1.4"
     expo-image-picker: "npm:~16.1.4"
+    expo-intent-launcher: "npm:~12.1.5"
     expo-linear-gradient: "npm:~14.1.4"
     expo-linking: "npm:~7.1.5"
     expo-localization: "npm:~16.1.5"
     expo-network: "npm:~7.1.5"
+    expo-sharing: "npm:~13.1.5"
     expo-speech: "npm:~13.1.7"
     expo-splash-screen: "npm:~0.30.8"
     expo-sqlite: "npm:~15.2.10"
@@ -9490,6 +9492,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-intent-launcher@npm:~12.1.5":
+  version: 12.1.5
+  resolution: "expo-intent-launcher@npm:12.1.5"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/51c22561f0a8b0459d121c5a90085490ebda6b58bbbb7abd41444e870790a334d2c5859564207658775e25b0f5a988b96722c1eaae0c862395df2c92c328128c
+  languageName: node
+  linkType: hard
+
 "expo-json-utils@npm:~0.15.0":
   version: 0.15.0
   resolution: "expo-json-utils@npm:0.15.0"
@@ -9588,6 +9599,15 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10c0/c2e02c337e0d0e3e7bf01334e4730bd2e5a5cb822c0b33146a64a1ac3b7e95384c6558359260a5b1aa6e504a874a9f7feefc99aee7a7a0590a5d8fad8b1b4106
+  languageName: node
+  linkType: hard
+
+"expo-sharing@npm:~13.1.5":
+  version: 13.1.5
+  resolution: "expo-sharing@npm:13.1.5"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/abd35fd0be993a5cf4fcd3010b3e3ab8dca35284c0d4a0a1184721b614673715c65a11d3104b779bb42633b66129c19bd049f5de387ba0c6bcf5efd14653af11
   languageName: node
   linkType: hard
 

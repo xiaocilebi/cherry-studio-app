@@ -1,10 +1,13 @@
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight, FileText, Folder, FolderOpen, RotateCcw, Save, Trash2 } from '@tamagui/lucide-icons'
+import { ChevronRight, FileText, Folder, FolderOpen, RotateCcw, Trash2 } from '@tamagui/lucide-icons'
 import { reloadAppAsync } from 'expo'
 import * as DocumentPicker from 'expo-document-picker'
+import { Paths } from 'expo-file-system/next'
+import * as IntentLauncher from 'expo-intent-launcher'
+import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
+import { Alert, Platform } from 'react-native'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
@@ -37,7 +40,6 @@ interface SettingGroupConfig {
 }
 
 export default function BasicDataSettingsScreen() {
-  const navigation = useNavigation<NavigationProps>()
   const { t } = useTranslation()
   const [isResetting, setIsResetting] = useState(false)
   const [cacheSize, setCacheSize] = useState<string>('--')
@@ -130,15 +132,54 @@ export default function BasicDataSettingsScreen() {
     ])
   }
 
+  const handleOpenAppData = async () => {
+    try {
+      if (Platform.OS === 'android') {
+        // Open file manager on Android
+        await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+          data: Paths.document.uri,
+          type: 'resource/folder'
+        })
+      } else {
+        // On iOS, we can only share the directory info
+        Alert.alert(t('settings.data.app_data'), `${t('settings.data.app_data_location')}: ${Paths.document.uri}`, [
+          { text: t('common.ok') }
+        ])
+      }
+    } catch (error) {
+      logger.error('handleOpenAppData', error as Error)
+      Alert.alert(t('settings.data.app_data'), `${t('settings.data.app_data_location')}: ${Paths.document.uri}`)
+    }
+  }
+
+  const handleOpenAppLogs = async () => {
+    try {
+      const logPath = Paths.join(Paths.document.uri, 'app.log')
+
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(logPath)
+      } else {
+        Alert.alert(t('settings.data.app_logs'), `${t('settings.data.log_location')}: ${logPath}`, [
+          { text: t('common.ok') }
+        ])
+      }
+    } catch (error) {
+      logger.error('handleOpenAppLogs', error as Error)
+      const logPath = Paths.join(Paths.document.uri, 'app.log')
+      Alert.alert(t('settings.data.app_logs'), `${t('settings.data.log_location')}: ${logPath}`)
+    }
+  }
+
   const settingsItems: SettingGroupConfig[] = [
     {
       title: t('settings.data.title'),
       items: [
-        {
-          title: t('settings.data.backup'),
-          icon: <Save size={24} />,
-          onPress: () => {}
-        },
+        // todo
+        // {
+        //   title: t('settings.data.backup'),
+        //   icon: <Save size={24} />,
+        //   onPress: () => {}
+        // },
         {
           title: t('settings.data.recovery'),
           icon: <Folder size={24} />,
@@ -159,12 +200,12 @@ export default function BasicDataSettingsScreen() {
         {
           title: t('settings.data.app_data'),
           icon: <FolderOpen size={24} />,
-          subtitle: 'My phone/Cherry'
+          onPress: handleOpenAppData
         },
         {
           title: t('settings.data.app_logs'),
           icon: <FileText size={24} />,
-          subtitle: 'My phone/Cherry/Logs'
+          onPress: handleOpenAppLogs
         },
         {
           title: t('settings.data.clear_cache.button', { cacheSize }),

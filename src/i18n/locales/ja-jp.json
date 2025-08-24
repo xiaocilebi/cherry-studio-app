@@ -301,6 +301,7 @@
       "assistant.show.icon": "モデルのアイコンを表示する",
       "data": {
         "app_data": "アプリデータ",
+        "app_data_location": "アプリケーションデータの場所",
         "app_knowledge": "ナレッジベースファイル",
         "app_knowledge.remove_all": "ファイルの削除",
         "app_logs": "アプリログ",
@@ -335,6 +336,7 @@
           },
           "title": "ランドロップ"
         },
+        "log_location": "ログファイルの場所",
         "recovery": "データ復元",
         "reset": "データリセット",
         "reset_success": "データリセットが成功しました！アプリケーションは初期状態に復元されました。",

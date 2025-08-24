@@ -301,6 +301,7 @@
       "assistant.show.icon": "Show model icon",
       "data": {
         "app_data": "App Data",
+        "app_data_location": "App data location",
         "app_knowledge": "Knowledge Base Files",
         "app_knowledge.remove_all": "Remove Files",
         "app_logs": "App Logs",
@@ -335,6 +336,7 @@
           },
           "title": "Landrop"
         },
+        "log_location": "Log file location",
         "recovery": "Data Recovery",
         "reset": "Data Reset",
         "reset_success": "Data reset successful! The app has been restored to its initial state.",
