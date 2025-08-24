@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Accordion, Button, ScrollView, Tabs, Text, YStack } from 'tamagui'
 
-import { SettingContainer } from '@/components/settings'
+import { SettingContainer, SettingGroup } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { ModelGroup } from '@/components/settings/providers/ModelGroup'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
@@ -238,75 +238,58 @@ export default function ManageModelsScreen() {
         flex: 1
       }}>
       <HeaderBar title={provider?.name || t('settings.models.manage_models')} />
-      <SettingContainer style={{ flex: 1 }}>
-        {/* Filter Tabs */}
-        <Tabs
-          defaultValue="all"
-          value={activeFilterType}
-          onValueChange={setActiveFilterType}
-          orientation="horizontal"
-          flexDirection="column"
-          height={34}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <Tabs.List aria-label="Model filter tabs" gap="10" flexDirection="row">
-              {TAB_CONFIGS.map(({ value, i18nKey }) => (
-                <Tabs.Tab key={value} value={value} {...getTabStyle(activeFilterType === value)}>
-                  <Text>{t(i18nKey)}</Text>
-                </Tabs.Tab>
-              ))}
-            </Tabs.List>
-          </ScrollView>
-        </Tabs>
+      {isLoading ? (
+        <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator />
+        </SafeAreaContainer>
+      ) : (
+        <SettingContainer>
+          {/* Filter Tabs */}
+          <Tabs
+            defaultValue="all"
+            value={activeFilterType}
+            onValueChange={setActiveFilterType}
+            orientation="horizontal"
+            flexDirection="column"
+            height={34}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <Tabs.List aria-label="Model filter tabs" gap="10" flexDirection="row">
+                {TAB_CONFIGS.map(({ value, i18nKey }) => (
+                  <Tabs.Tab key={value} value={value} {...getTabStyle(activeFilterType === value)}>
+                    <Text>{t(i18nKey)}</Text>
+                  </Tabs.Tab>
+                ))}
+              </Tabs.List>
+            </ScrollView>
+          </Tabs>
 
-        {/* Model List with FlashList as main scrolling container */}
-        <YStack flex={1} height="100%">
-          {isLoading ? (
-            <YStack flex={1} justifyContent="center" alignItems="center">
-              <ActivityIndicator />
-            </YStack>
-          ) : (
-            <>
+          <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
+
+          <YStack flex={1} height="100%">
+            <SettingGroup flex={1}>
               {sortedModelGroups.length > 0 ? (
                 <Accordion overflow="hidden" type="multiple" flex={1}>
                   <FlashList
-                    showsVerticalScrollIndicator={false}
                     data={sortedModelGroups}
                     renderItem={renderModelGroupItem}
                     keyExtractor={([groupName]) => groupName}
                     estimatedItemSize={60}
+                    showsVerticalScrollIndicator={false}
                     extraData={provider}
-                    ListHeaderComponent={() => (
-                      <YStack paddingBottom={24}>
-                        <SearchInput
-                          placeholder={t('settings.models.search')}
-                          value={searchText}
-                          onChangeText={setSearchText}
-                        />
-                      </YStack>
-                    )}
                     contentContainerStyle={{ paddingBottom: 24 }}
                   />
                 </Accordion>
               ) : (
-                <YStack flex={1}>
-                  <YStack paddingBottom={24}>
-                    <SearchInput
-                      placeholder={t('settings.models.search')}
-                      value={searchText}
-                      onChangeText={setSearchText}
-                    />
-                  </YStack>
-                  <YStack flex={1} justifyContent="center" alignItems="center">
-                    <Text textAlign="center" color="$gray10">
-                      {t('models.no_models')}
-                    </Text>
-                  </YStack>
+                <YStack flex={1} justifyContent="center" alignItems="center">
+                  <Text textAlign="center" color="$gray10">
+                    {t('models.no_models')}
+                  </Text>
                 </YStack>
               )}
-            </>
-          )}
-        </YStack>
-      </SettingContainer>
+            </SettingGroup>
+          </YStack>
+        </SettingContainer>
+      )}
     </SafeAreaContainer>
   )
 }

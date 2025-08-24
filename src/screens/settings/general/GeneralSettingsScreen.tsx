@@ -9,7 +9,6 @@ import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'
-import { themeOptions } from '@/config/theme'
 import { NavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 
@@ -17,7 +16,7 @@ export default function GeneralSettingsScreen() {
   const { t, i18n } = useTranslation()
 
   const [language, setLanguage] = useState('zh-CN')
-  const [currentTheme, setCurrentTheme] = useState('system')
+  // const [currentTheme, setCurrentTheme] = useState('system')
 
   const navigation = useNavigation<NavigationProps>()
 
@@ -31,11 +30,11 @@ export default function GeneralSettingsScreen() {
         setLanguage(i18n.language)
       }
 
-      const storedTheme = storage.getString('theme')
+      // const storedTheme = storage.getString('theme')
 
-      if (storedTheme) {
-        setCurrentTheme(storedTheme)
-      }
+      // if (storedTheme) {
+      //   setCurrentTheme(storedTheme)
+      // }
     }
 
     loadSettings()
@@ -48,10 +47,10 @@ export default function GeneralSettingsScreen() {
     return currentLang ? `${currentLang.flag} ${currentLang.label}` : 'English'
   }
 
-  const getCurrentTheme = () => {
-    const currentThemeOption = themeOptions.find(item => item.value === currentTheme)
-    return currentThemeOption ? t(currentThemeOption.label) : t('settings.general.theme.auto')
-  }
+  // const getCurrentTheme = () => {
+  //   const currentThemeOption = themeOptions.find(item => item.value === currentTheme)
+  //   return currentThemeOption ? t(currentThemeOption.label) : t('settings.general.theme.auto')
+  // }
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
@@ -59,7 +58,7 @@ export default function GeneralSettingsScreen() {
       <SettingContainer>
         <YStack gap={24} flex={1}>
           {/* Display settings */}
-          <YStack gap={8}>
+          {/*<YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
               <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
@@ -72,7 +71,7 @@ export default function GeneralSettingsScreen() {
                 </XStack>
               </SettingRow>
             </SettingGroup>
-          </YStack>
+          </YStack>*/}
 
           {/* General settings */}
           <YStack gap={8}>

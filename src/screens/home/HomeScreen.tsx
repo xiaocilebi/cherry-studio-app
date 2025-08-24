@@ -20,8 +20,7 @@ export default function HomeScreen() {
 
 const screenOptions: DrawerNavigationOptions = {
   drawerStyle: {
-    width: Width * 0.8,
-    backgroundColor: 'transparent'
+    width: Width * 0.8
   },
   swipeEnabled: true,
   drawerType: 'front',

@@ -187,7 +187,8 @@ export default function ApiServiceScreen() {
               value={apiKey}
               onChangeText={text => handleProviderConfigChange('apiKey', text)}
               fontSize={14}
-              lineHeight={14 * 1.2}
+              multiline={false}
+              numberOfLines={1}
             />
             <Stack
               position="absolute"
@@ -222,6 +223,8 @@ export default function ApiServiceScreen() {
             placeholder={t('settings.provider.api_host.placeholder')}
             value={apiHost}
             onChangeText={text => handleProviderConfigChange('apiHost', text)}
+            multiline={false}
+            numberOfLines={1}
           />
         </YStack>
       </SettingContainer>
