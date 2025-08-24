@@ -3,13 +3,10 @@ import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
 import { Avatar, Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
-import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
@@ -23,8 +20,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const theme = useTheme()
   const { avatar, userName } = useSettings()
 
-  const { topics, isLoading: isLoadingTopics } = useTopics()
-  const { isLoading: isLoadingAssistants } = useExternalAssistants()
+  const { topics } = useTopics()
 
   const handleRoute = (route: string) => {
     props.navigation.navigate(route)
@@ -50,14 +46,6 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     haptic(ImpactFeedbackStyle.Medium)
     props.navigation.navigate('Settings', { screen: 'SettingsScreen' })
     props.navigation.closeDrawer()
-  }
-
-  if (isLoadingTopics || isLoadingAssistants) {
-    return (
-      <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator />
-      </SafeAreaContainer>
-    )
   }
 
   return (
@@ -93,7 +81,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
             <View flex={1} minHeight={200}>
               {/* 只显示7条 */}
-              <GroupedTopicList topics={topics.slice(0, 7)} />
+              {topics.length > 0 && <GroupedTopicList topics={topics.slice(0, 7)} />}
             </View>
           </MenuTabContent>
         </YStack>
