@@ -28,7 +28,7 @@ const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, 
       style={[
         {
           paddingTop: insets.top,
-          paddingBottom: insets.bottom,
+          paddingBottom: Platform.OS === 'android' ? insets.bottom + 10 : insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
           flex: 1,
