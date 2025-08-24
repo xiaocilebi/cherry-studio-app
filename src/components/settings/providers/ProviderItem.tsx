@@ -30,7 +30,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
       }>
       <XStack gap={5} alignItems="center">
         <ProviderIcon provider={provider} />
-        <Text>{t(`provider.${provider.id}`, { defaultValue: provider.id })}</Text>
+        <Text>{t(`provider.${provider.id}`, { defaultValue: provider.name })}</Text>
       </XStack>
       <XStack gap={10} alignItems="center">
         {shouldShowStatus && (
