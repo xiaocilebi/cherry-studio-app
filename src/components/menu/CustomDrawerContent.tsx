@@ -1,4 +1,4 @@
-import { DrawerContentComponentProps, DrawerItemList } from '@react-navigation/drawer'
+import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
@@ -45,11 +45,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   return (
     <YStack flex={1}>
       <YStack gap={10} flex={1} padding={20}>
-        <YStack>
-          <DrawerItemList {...props} />
-        </YStack>
-
-        <YStack backgroundColor="transparent" paddingTop={40} flex={1} gap={10}>
+        <YStack backgroundColor="transparent" flex={1} gap={10}>
           <XStack
             justifyContent="space-between"
             alignItems="center"

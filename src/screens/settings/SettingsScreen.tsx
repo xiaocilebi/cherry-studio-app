@@ -89,7 +89,7 @@ export default function SettingsScreen() {
       <SettingContainer>
         <YStack gap={24} flex={1}>
           {settingsItems.map((group, index) => (
-            <Group key={index} title={group.title ?? ''}>
+            <Group key={index} title={group.title}>
               {group.items.map((item, index) => (
                 <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
               ))}
@@ -102,14 +102,14 @@ export default function SettingsScreen() {
 }
 
 interface SettingGroupProps {
-  title: string
+  title?: string
   children: React.ReactNode
 }
 
 function Group({ title, children }: SettingGroupProps) {
   return (
     <YStack gap={8}>
-      <SettingGroupTitle>{title}</SettingGroupTitle>
+      {title && <SettingGroupTitle>{title}</SettingGroupTitle>}
       <SettingGroup>{children}</SettingGroup>
     </YStack>
   )

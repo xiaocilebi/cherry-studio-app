@@ -10,8 +10,7 @@ import * as NavigationBar from 'expo-navigation-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
 import * as StatusBar from 'expo-status-bar'
-import { Suspense, useEffect } from 'react'
-import React from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { ActivityIndicator, Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
@@ -61,8 +60,7 @@ function DatabaseInitializer() {
         const systemAssistants = getSystemAssistants()
         // const builtInAssistants = getBuiltInAssistants()
         await upsertAssistants([...systemAssistants])
-        const providers = SYSTEM_PROVIDERS
-        await upsertProviders(providers)
+        await upsertProviders(SYSTEM_PROVIDERS)
         const websearchProviders = getWebSearchProviders()
         await upsertWebSearchProviders(websearchProviders)
         const dataBackupProviders = getDataBackupProviders()
