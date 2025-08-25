@@ -7,6 +7,7 @@ import { uuid } from '@/utils'
 import {
   deleteTopicById as _deleteTopicById,
   deleteTopicsByAssistantId as _deleteTopicsByAssistantId,
+  getNewestTopic as _getNewestTopic,
   getTopicById as _getTopicById,
   getTopics as _getTopics,
   getTopicsByAssistantId as _getTopicsByAssistantId,
@@ -40,14 +41,18 @@ export async function upsertTopics(topics: Topic[]): Promise<void> {
   await _upsertTopics(updatedTopics)
 }
 
+/**
+ * rank topic by createdAt time
+ * @returns Topic
+ */
 export async function getNewestTopic(): Promise<Topic | null> {
-  const topics = await getTopics()
+  const newestTopic = await _getNewestTopic()
 
-  if (topics.length === 0) {
+  if (!newestTopic) {
     return null
   }
 
-  return topics[0]
+  return newestTopic
 }
 
 export async function deleteTopicById(topicId: string): Promise<void> {
