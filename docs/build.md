@@ -20,3 +20,11 @@ npm install -g expo-cli eas-cli
 | 使用 EAS 线上编译 iOS            | `eas build --platform ios`                                            |
 | 调试运行安卓 App                 | `yarn android`                                                        |
 | 调试运行 iOS App                 | `yarn ios`                                                            |
+
+## gradle 镜像
+
+```
+    maven { url 'https://maven.aliyun.com/repository/google' }
+    maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    maven { url 'https://maven.aliyun.com/repository/public' }
+```

@@ -38,8 +38,5 @@ const screenOptions: DrawerNavigationOptions = {
 }
 
 const options: DrawerNavigationOptions = {
-  headerShown: false,
-  drawerItemStyle: {
-    display: 'none'
-  }
+  headerShown: false
 }

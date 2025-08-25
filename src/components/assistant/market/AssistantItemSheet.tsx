@@ -35,28 +35,6 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
-  const renderFooter = () => (
-    <XStack bottom={25} justifyContent="space-between" alignItems="center" gap={10}>
-      {source === 'builtIn' && (
-        <Button chromeless circular icon={<UnionPlusIcon size={34} />} onPress={handleAddAssistant} />
-      )}
-      {source === 'external' && (
-        <Button chromeless circular icon={<Settings2 size={34} />} onPress={handleEditAssistant} />
-      )}
-      <Button
-        backgroundColor="$foregroundGreen"
-        borderRadius={40}
-        paddingVertical={5}
-        paddingHorizontal={10}
-        flex={1}
-        onPress={handleChatPress}>
-        <Text color="white" fontSize={16} fontWeight="600">
-          {t('assistants.market.button.chat')}
-        </Text>
-      </Button>
-    </XStack>
-  )
-
   const handleChatPress = async () => {
     if (assistant) {
       let newAssistant: Assistant
@@ -113,59 +91,113 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
       handleIndicatorStyle={{
         backgroundColor: theme.color.val
       }}
-      backdropComponent={renderBackdrop}
-      footerComponent={renderFooter}>
-      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-        <YStack flex={1} gap={17}>
-          {/* Main Content */}
-          <YStack flex={1} gap={25}>
-            {/* Header with emoji and groups */}
-            <YStack justifyContent="center" alignItems="center" gap={20} paddingVertical={20}>
-              <Text fontSize={128} marginBottom={16}>
-                {formateEmoji(assistant.emoji)}
-              </Text>
-              <Text fontSize={22} fontWeight="bold" textAlign="center">
-                {assistant.name}
-              </Text>
-              {assistant.group && assistant.group.length > 0 && (
-                <XStack gap={10} flexWrap="wrap" justifyContent="center">
-                  {assistant.group.map((group, index) => (
-                    <GroupTag
-                      key={index}
-                      group={group}
-                      paddingHorizontal={12}
-                      paddingVertical={5}
-                      backgroundColor="$green10"
-                      color="$green100"
-                      borderWidth={0.5}
-                      borderColor="$green20"
-                    />
-                  ))}
-                </XStack>
+      backdropComponent={renderBackdrop}>
+      <YStack flex={1}>
+        <BottomSheetScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }} // Add padding at the bottom to ensure content isn't hidden behind footer
+        >
+          <YStack flex={1} gap={17}>
+            {/* Main Content */}
+            <YStack flex={1} gap={25}>
+              {/* Header with emoji and groups */}
+              <YStack justifyContent="center" alignItems="center" gap={20} paddingVertical={20}>
+                <Text fontSize={128} marginBottom={16}>
+                  {formateEmoji(assistant.emoji)}
+                </Text>
+                <Text fontSize={22} fontWeight="bold" textAlign="center">
+                  {assistant.name}
+                </Text>
+                {assistant.group && assistant.group.length > 0 && (
+                  <XStack gap={10} flexWrap="wrap" justifyContent="center">
+                    {assistant.group.map((group, index) => (
+                      <GroupTag
+                        key={index}
+                        group={group}
+                        paddingHorizontal={12}
+                        paddingVertical={5}
+                        backgroundColor="$green10"
+                        color="$green100"
+                        borderWidth={0.5}
+                        borderColor="$green20"
+                      />
+                    ))}
+                  </XStack>
+                )}
+              </YStack>
+              <Stack>
+                <SettingDivider />
+              </Stack>
+
+              {/* Description */}
+              {assistant.description && (
+                <YStack>
+                  <Text lineHeight={20} color="$textSecondary" numberOfLines={2} ellipsizeMode="tail">
+                    {assistant.description}
+                  </Text>
+                </YStack>
+              )}
+
+              {/* Additional details could go here */}
+              {assistant.prompt && (
+                <Text fontSize={16} lineHeight={20} numberOfLines={8} ellipsizeMode="tail">
+                  {assistant.prompt}
+                </Text>
               )}
             </YStack>
-            <Stack>
-              <SettingDivider />
-            </Stack>
-
-            {/* Description */}
-            {assistant.description && (
-              <YStack>
-                <Text lineHeight={20} color="$textSecondary" numberOfLines={2} ellipsizeMode="tail">
-                  {assistant.description}
-                </Text>
-              </YStack>
-            )}
-
-            {/* Additional details could go here */}
-            {assistant.prompt && (
-              <Text fontSize={16} lineHeight={20} numberOfLines={8} ellipsizeMode="tail">
-                {assistant.prompt}
-              </Text>
-            )}
           </YStack>
-        </YStack>
-      </BottomSheetScrollView>
+        </BottomSheetScrollView>
+
+        {/* Footer positioned absolutely at the bottom */}
+        <XStack
+          position="absolute"
+          bottom={0}
+          left={0}
+          right={0}
+          padding={0}
+          justifyContent="space-between"
+          alignItems="center"
+          gap={15}
+          backgroundColor={isDark ? '#121213ff' : '#f7f7f7ff'}
+          borderTopWidth={1}
+          borderTopColor={isDark ? '$borderDark' : '$borderLight'}>
+          {source === 'builtIn' && (
+            <Button
+              chromeless
+              circular
+              size="$5"
+              backgroundColor={isDark ? '$backgroundHover' : '$background'}
+              hoverStyle={{ backgroundColor: isDark ? '$backgroundPress' : '$backgroundHover' }}
+              icon={<UnionPlusIcon size={30} color={isDark ? '$colorFocus' : '$color'} />}
+              onPress={handleAddAssistant}
+            />
+          )}
+          {source === 'external' && (
+            <Button
+              chromeless
+              circular
+              size="$5"
+              backgroundColor={isDark ? '$backgroundHover' : '$background'}
+              hoverStyle={{ backgroundColor: isDark ? '$backgroundPress' : '$backgroundHover' }}
+              icon={<Settings2 size={30} color={isDark ? '$colorFocus' : '$color'} />}
+              onPress={handleEditAssistant}
+            />
+          )}
+          <Button
+            backgroundColor="$foregroundGreen"
+            borderRadius={30}
+            paddingVertical={10}
+            paddingHorizontal={20}
+            flex={1}
+            pressStyle={{ opacity: 0.85 }}
+            hoverStyle={{ opacity: 0.9 }}
+            onPress={handleChatPress}>
+            <Text color="white" fontSize={17} fontWeight="700">
+              {t('assistants.market.button.chat')}
+            </Text>
+          </Button>
+        </XStack>
+      </YStack>
     </BottomSheetModal>
   )
 })

@@ -1,9 +1,11 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
-import { View } from 'tamagui'
-import { Image } from 'tamagui'
+import { Image, Text, View } from 'tamagui'
 
 const WelcomeContent = () => {
+  const { t } = useTranslation()
+
   return (
     <View
       style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}
@@ -16,6 +18,9 @@ const WelcomeContent = () => {
         borderRadius={20}
         overflow="hidden"
       />
+      <Text fontSize={18} fontWeight="bold" color="$primary" marginTop={20}>
+        {t('chat.title')}
+      </Text>
     </View>
   )
 }

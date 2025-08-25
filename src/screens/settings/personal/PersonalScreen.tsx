@@ -1,11 +1,11 @@
-import { CircleUserRound } from '@tamagui/lucide-icons'
+import { Camera, CircleUserRound } from '@tamagui/lucide-icons'
 import * as ImagePicker from 'expo-image-picker'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
-import { Avatar, Input, Text, useTheme, XStack } from 'tamagui'
+import { Avatar, Card, Input, Separator, Text, useTheme, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingRow } from '@/components/settings'
+import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
@@ -45,34 +45,53 @@ export default function PersonalScreen() {
     <SafeAreaContainer>
       <HeaderBar title={t('settings.personal.title')} />
       <SettingContainer>
-        <SettingGroup>
-          <TouchableOpacity
-            onPress={handleAvatarPress}
-            style={{
-              alignItems: 'center'
-            }}>
-            <Avatar circular size={80}>
-              <Avatar.Image accessibilityLabel="Avatar" src={avatar || require('@/assets/images/favicon.png')} />
-              <Avatar.Fallback delayMs={600} backgroundColor={theme.blue10} />
-            </Avatar>
-          </TouchableOpacity>
-          <SettingRow justifyContent="space-between">
-            <XStack gap={5} justifyContent="center" alignItems="center">
-              <CircleUserRound />
-              <Text>{t('settings.personal.name')}</Text>
+        <Card elevate bordered padding={16} borderRadius={14}>
+          <YStack gap={16}>
+            <XStack alignItems="center" justifyContent="center" marginTop={8}>
+              <TouchableOpacity onPress={handleAvatarPress} activeOpacity={0.8}>
+                <XStack position="relative">
+                  <Avatar circular size={96}>
+                    <Avatar.Image accessibilityLabel="Avatar" src={avatar || require('@/assets/images/favicon.png')} />
+                    <Avatar.Fallback delayMs={400} backgroundColor={theme.blue10} />
+                  </Avatar>
+                  <XStack
+                    position="absolute"
+                    bottom={0}
+                    right={0}
+                    backgroundColor={theme.blue10}
+                    padding={6}
+                    borderRadius={999}
+                    borderWidth={2}
+                    borderColor="#FFFFFF">
+                    <Camera size={14} color="#FFFFFF" />
+                  </XStack>
+                </XStack>
+              </TouchableOpacity>
             </XStack>
-            <Input
-              paddingVertical={0}
-              height={30}
-              fontSize={14}
-              lineHeight={14 * 1.2}
-              minWidth={200}
-              value={userName}
-              onChangeText={setUserName}
-              placeholder={t('settings.personal.namePlaceholder')}
-            />
-          </SettingRow>
-        </SettingGroup>
+
+            <Separator />
+
+            <XStack justifyContent="space-between" alignItems="center">
+              <XStack gap={6} alignItems="center">
+                <CircleUserRound />
+                <Text fontWeight="600">{t('settings.personal.name')}</Text>
+              </XStack>
+
+              <Input
+                value={userName}
+                onChangeText={setUserName}
+                placeholder={t('settings.personal.namePlaceholder')}
+                flex={1}
+                marginLeft={12}
+                borderRadius={8}
+                borderColor={theme.gray4}
+                backgroundColor={theme.background}
+                height={40}
+                fontSize={14}
+              />
+            </XStack>
+          </YStack>
+        </Card>
       </SettingContainer>
     </SafeAreaContainer>
   )
