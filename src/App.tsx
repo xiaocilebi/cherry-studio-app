@@ -102,7 +102,7 @@ function ThemedApp() {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setBackgroundColorAsync(backgroundColor)
-      StatusBar.setStatusBarBackgroundColor(backgroundColor)
+      StatusBar.setStatusBarStyle('auto')
     }
   }, [backgroundColor])
 

@@ -22,30 +22,24 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   const { topics } = useTopics()
 
-  const handleRoute = (route: string) => {
-    props.navigation.navigate(route)
-    props.navigation.closeDrawer()
-  }
-
   const handleNavigateTopicScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    handleRoute('TopicScreen')
+    props.navigation.navigate('TopicScreen')
   }
 
   const handleNavigateAssistantMarketScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    handleRoute('AssistantMarketScreen')
+    props.navigation.navigate('AssistantMarketScreen')
   }
 
   const handleNavigateAssistantScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    handleRoute('AssistantScreen')
+    props.navigation.navigate('AssistantScreen')
   }
 
   const handleNavigateSettingsScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
     props.navigation.navigate('Settings', { screen: 'SettingsScreen' })
-    props.navigation.closeDrawer()
   }
 
   return (

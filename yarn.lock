@@ -6243,7 +6243,7 @@ __metadata:
     expo-sqlite: "npm:~15.2.10"
     expo-status-bar: "npm:~2.2.3"
     expo-symbols: "npm:~0.4.4"
-    expo-system-ui: "npm:~5.0.7"
+    expo-system-ui: "npm:5.0.10"
     expo-web-browser: "npm:~14.2.0"
     fast-xml-parser: "npm:^5.2.5"
     i18next: "npm:^24.2.2"
@@ -9686,7 +9686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-system-ui@npm:~5.0.7":
+"expo-system-ui@npm:5.0.10":
   version: 5.0.10
   resolution: "expo-system-ui@npm:5.0.10"
   dependencies:
