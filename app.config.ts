@@ -11,14 +11,16 @@ export default {
     entryPoint: './src/app.js',
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'com.anonymous.cherrystudio'
+      bundleIdentifier: 'com.anonymous.cherrystudio',
+      userInterfaceStyle: 'automatic'
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './src/assets/images/adaptive-icon.png',
         backgroundColor: '#F65D5D'
       },
-      package: 'com.anonymous.cherrystudio'
+      package: 'com.anonymous.cherrystudio',
+      userInterfaceStyle: 'automatic'
     },
     plugins: [
       ['expo-build-properties', { ios: { deploymentTarget: '15.5' } }],
