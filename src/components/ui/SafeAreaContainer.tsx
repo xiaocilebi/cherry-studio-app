@@ -1,7 +1,8 @@
+import { Theme, View, ViewProps } from '@tamagui/core'
 import * as NavigationBar from 'expo-navigation-bar'
 import * as StatusBar from 'expo-status-bar'
 import React, { useEffect } from 'react'
-import { Platform, View, ViewProps } from 'react-native'
+import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useIsDark } from '@/utils'
@@ -24,21 +25,23 @@ const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, 
   }, [backgroundColor])
 
   return (
-    <View
-      style={[
-        {
-          paddingTop: insets.top,
-          paddingBottom: Platform.OS === 'android' ? insets.bottom + 10 : insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-          flex: 1,
-          backgroundColor
-        },
-        style
-      ]}
-      {...rest}>
-      {children}
-    </View>
+    <Theme name={isDark ? 'dark' : 'light'}>
+      <View
+        style={[
+          {
+            paddingTop: insets.top,
+            paddingBottom: Platform.OS === 'android' ? insets.bottom + 10 : insets.bottom,
+            paddingLeft: insets.left,
+            paddingRight: insets.right,
+            flex: 1,
+            backgroundColor
+          },
+          style
+        ]}
+        {...rest}>
+        {children}
+      </View>
+    </Theme>
   )
 }
 
