@@ -78,20 +78,16 @@ export default function PersonalScreen() {
               </XStack>
 
               <Input
-                paddingVertical={6}
-                paddingHorizontal={10}
-                height={40}
-                fontSize={14}
-                minWidth={220}
                 value={userName}
                 onChangeText={setUserName}
                 placeholder={t('settings.personal.namePlaceholder')}
-                borderWidth={1}
-                borderRadius={10}
-                borderColor="#E5E7EB"
-                backgroundColor="#FFFFFF10"
-                placeholderTextColor="#9CA3AF"
-                returnKeyType="done"
+                flex={1}
+                marginLeft={12}
+                borderRadius={8}
+                borderColor={theme.gray4}
+                backgroundColor={theme.background}
+                height={40}
+                fontSize={14}
               />
             </XStack>
           </YStack>
