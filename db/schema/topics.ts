@@ -17,5 +17,9 @@ export const topics = sqliteTable(
     prompt: text('prompt'),
     is_name_manually_edited: integer('is_name_manually_edited', { mode: 'boolean' })
   },
-  table => [index('idx_topics_assistant_id').on(table.assistant_id)]
+  table => [
+    index('idx_topics_assistant_id').on(table.assistant_id),
+    index('idx_topics_created_at').on(table.created_at),
+    index('idx_topics_assistant_id_created_at').on(table.assistant_id, table.created_at)
+  ]
 )

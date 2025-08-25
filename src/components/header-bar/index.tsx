@@ -45,7 +45,7 @@ export const HeaderBar = ({ topic, showAssistantCard, setShowAssistantCard }: He
           />
         </XStack>
         <XStack alignItems="center" minWidth={40} justifyContent="flex-end">
-          <NewTopicButton assistant={assistant} />
+          {topic.messages.length > 0 && <NewTopicButton assistant={assistant} />}
         </XStack>
       </XStack>
     </>

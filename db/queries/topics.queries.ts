@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 
 import { loggerService } from '@/services/LoggerService'
 import { Topic } from '@/types/assistant'
@@ -216,6 +216,50 @@ export async function isTopicOwnedByAssistant(assistantId: string, topicId: stri
     return result[0].assistant_id === assistantId
   } catch (error) {
     logger.error(`Error checking if topic ${topicId} belongs to assistant ${assistantId}:`, error)
+    throw error
+  }
+}
+
+/**
+ * 获取全局最新的主题（根据 created_at）。
+ * @returns 最新的 Topic 对象，如果没有主题则返回 undefined。
+ */
+export async function getNewestTopic(): Promise<Topic | undefined> {
+  try {
+    const result = await db.select().from(topics).orderBy(desc(topics.created_at)).limit(1)
+
+    if (result.length === 0) {
+      return undefined
+    }
+
+    return transformDbToTopic(result[0])
+  } catch (error) {
+    logger.error('Error getting newest topic:', error)
+    throw error
+  }
+}
+
+/**
+ * 根据助手 ID 获取最新的主题（根据 created_at）。
+ * @param assistantId - 助手的 ID。
+ * @returns 最新的 Topic 对象，如果没有主题则返回 undefined。
+ */
+export async function getNewestTopicByAssistantId(assistantId: string): Promise<Topic | undefined> {
+  try {
+    const result = await db
+      .select()
+      .from(topics)
+      .where(eq(topics.assistant_id, assistantId))
+      .orderBy(desc(topics.created_at))
+      .limit(1)
+
+    if (result.length === 0) {
+      return undefined
+    }
+
+    return transformDbToTopic(result[0])
+  } catch (error) {
+    logger.error(`Error getting newest topic by assistant ID ${assistantId}:`, error)
     throw error
   }
 }
