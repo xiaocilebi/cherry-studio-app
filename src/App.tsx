@@ -6,12 +6,13 @@ import { NavigationContainer, ThemeProvider } from '@react-navigation/native'
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin'
 import { useFonts } from 'expo-font'
+import * as NavigationBar from 'expo-navigation-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
-import { StatusBar } from 'expo-status-bar'
+import * as StatusBar from 'expo-status-bar'
 import { Suspense, useEffect } from 'react'
 import React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Provider, useSelector } from 'react-redux'
@@ -96,6 +97,15 @@ function DatabaseInitializer() {
 function ThemedApp() {
   const { activeTheme, reactNavigationTheme } = useTheme()
 
+  const backgroundColor = activeTheme === 'dark' ? '#121213ff' : '#f7f7f7ff'
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(backgroundColor)
+      StatusBar.setStatusBarBackgroundColor(backgroundColor)
+    }
+  }, [backgroundColor])
+
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
       <PortalProvider>
@@ -105,7 +115,6 @@ function ThemedApp() {
               <BottomSheetModalProvider>
                 <DatabaseInitializer />
                 <MainStackNavigator />
-                <StatusBar style="auto" />
               </BottomSheetModalProvider>
             </ThemeProvider>
           </NavigationContainer>
