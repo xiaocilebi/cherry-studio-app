@@ -91,6 +91,12 @@ When adding new LLM providers, extend the `Provider` base class and implement re
 ### State Updates
 Use Redux Toolkit patterns. Most slices persist automatically except `runtime`. Handle async operations with createAsyncThunk.
 
+**IMPORTANT**: When working with Redux state or SQLite database operations, always consult `docs/data.md` (or `docs/data-zh.md` for Chinese) for comprehensive data structure documentation including:
+- Complete Redux store slice interfaces and relationships
+- Full SQLite database schema with all tables and indexes
+- Data flow patterns and entity relationships
+- Storage considerations and persistence rules
+
 ### Testing
 Jest with Expo preset configured. Place tests adjacent to source files with `.test.ts` suffix.
 
