@@ -110,9 +110,14 @@ export function useRestore(options: UseRestoreOptions = {}) {
   })
 
   const handleProgressUpdate = (update: ProgressUpdate) => {
-    setRestoreSteps(prevSteps =>
-      prevSteps.map(step => (step.id === update.step ? { ...step, status: update.status, error: update.error } : step))
-    )
+    // Ensure UI updates happen on the next tick
+    setTimeout(() => {
+      setRestoreSteps(prevSteps =>
+        prevSteps.map(step =>
+          step.id === update.step ? { ...step, status: update.status, error: update.error } : step
+        )
+      )
+    }, 0)
   }
 
   const handleError = () => {
@@ -138,14 +143,17 @@ export function useRestore(options: UseRestoreOptions = {}) {
     setOverallStatus('running')
     setModalOpen(true)
 
-    try {
-      const fileObject = createFileObject(file)
-      await customRestoreFunction(fileObject, handleProgressUpdate, dispatch)
-      setOverallStatus('success')
-    } catch (err) {
-      logger.error('Error during restore process:', err)
-      handleError()
-    }
+    // Use setTimeout to ensure the modal renders before starting the restore process
+    setTimeout(async () => {
+      try {
+        const fileObject = createFileObject(file)
+        await customRestoreFunction(fileObject, handleProgressUpdate, dispatch)
+        setOverallStatus('success')
+      } catch (err) {
+        logger.error('Error during restore process:', err)
+        handleError()
+      }
+    }, 400)
   }
 
   return {
