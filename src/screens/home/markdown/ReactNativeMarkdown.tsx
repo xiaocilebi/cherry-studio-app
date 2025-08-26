@@ -41,7 +41,9 @@ const ReactNativeMarkdown: FC<Props> = ({ block }) => {
           showsVerticalScrollIndicator: false,
           style: {
             backgroundColor: 'transparent'
-          }
+          },
+          scrollEnabled: false,
+          nestedScrollEnabled: false
         }}
       />
     </View>
