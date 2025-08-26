@@ -365,7 +365,7 @@
           "steps": {
             "restore_assistants": "恢复助手",
             "restore_llm_providers": "恢复LLM提供商",
-            "restore_messages_blocks": "恢复消息和屏蔽",
+            "restore_messages_blocks": "恢复消息",
             "restore_topics": "恢复话题",
             "restore_websearch": "恢复网络搜索"
           }

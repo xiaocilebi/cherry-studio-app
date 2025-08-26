@@ -365,7 +365,7 @@
           "steps": {
             "restore_assistants": "還原助理",
             "restore_llm_providers": "恢復LLM供應商",
-            "restore_messages_blocks": "恢復訊息與封鎖",
+            "restore_messages_blocks": "恢復訊息",
             "restore_topics": "恢復主題",
             "restore_websearch": "恢復網路搜尋"
           }
