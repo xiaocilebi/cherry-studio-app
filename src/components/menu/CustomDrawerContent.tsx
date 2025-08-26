@@ -72,7 +72,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
             <View flex={1} minHeight={200}>
               {/* 只显示7条 */}
-              {topics.length > 0 && <GroupedTopicList topics={topics.slice(0, 7)} />}
+              {topics.length > 0 && <GroupedTopicList topics={topics.slice(0, 7)} enableScroll={false} />}
             </View>
           </MenuTabContent>
         </YStack>
