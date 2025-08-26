@@ -3,6 +3,7 @@ import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Platform } from 'react-native'
 import { Avatar, Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
@@ -45,7 +46,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   return (
     <YStack flex={1}>
       <YStack gap={10} flex={1} padding={20}>
-        <YStack backgroundColor="transparent" flex={1} gap={10}>
+        <YStack backgroundColor="transparent" flex={1} gap={10} paddingTop={Platform.OS === 'ios' ? 30 : 0}>
           <XStack
             justifyContent="space-between"
             alignItems="center"

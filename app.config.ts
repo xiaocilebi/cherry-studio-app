@@ -30,7 +30,11 @@ export default {
           image: './src/assets/images/splash-icon.png',
           imageWidth: 200,
           resizeMode: 'contain',
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          dark: {
+            image: './src/assets/images/splash-icon.png',
+            backgroundColor: '#000000'
+          }
         }
       ],
       'expo-localization',
