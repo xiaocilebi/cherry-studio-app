@@ -58,8 +58,8 @@ const ChatScreen = () => {
       // 进一步放宽触发条件：从屏幕左边缘40%区域开始滑动
       // 滑动距离大于40且速度大于200，或者滑动距离大于80
       const isFromLeftEdge = absoluteX < screenWidth * 0.4
-      const hasGoodDistance = translationX > 40
-      const hasGoodVelocity = velocityX > 200
+      const hasGoodDistance = translationX > 20
+      const hasGoodVelocity = velocityX > 100
       const hasExcellentDistance = translationX > 80
 
       if (isFromLeftEdge && ((hasGoodDistance && hasGoodVelocity) || hasExcellentDistance)) {

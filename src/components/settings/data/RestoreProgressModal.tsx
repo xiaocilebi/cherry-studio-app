@@ -37,7 +37,7 @@ const getIconForStatus = (isDark: boolean, status: StepStatus) => {
 const getBackgroundColor = (isDark: boolean, status: StepStatus) => {
   switch (status) {
     case 'in_progress':
-      return '$blue100'
+      return '$yellow20'
     case 'completed':
       return '$green10'
     case 'error':
@@ -51,7 +51,7 @@ const getBackgroundColor = (isDark: boolean, status: StepStatus) => {
 const getFontColor = (isDark: boolean, status: StepStatus) => {
   switch (status) {
     case 'in_progress':
-      return '$textLink'
+      return '$yellow100'
     case 'completed':
       return '$green100'
     case 'error':

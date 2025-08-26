@@ -4,8 +4,8 @@ import { debounce } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
+import { YStack } from 'tamagui'
 
-import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
@@ -63,10 +63,10 @@ export default function TopicScreen() {
           onPress: handleAddNewTopic
         }}
       />
-      <SettingContainer>
+      <YStack flex={1} padding={20} gap={20}>
         <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
-        <GroupedTopicList topics={filteredTopics} />
-      </SettingContainer>
+        <GroupedTopicList topics={filteredTopics} enableScroll={true} />
+      </YStack>
     </SafeAreaContainer>
   )
 }

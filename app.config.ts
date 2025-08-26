@@ -30,7 +30,7 @@ export default {
           image: './src/assets/images/splash-icon.png',
           imageWidth: 200,
           resizeMode: 'contain',
-          backgroundColor: '#000000',
+          backgroundColor: '#ffffff',
           dark: {
             image: './src/assets/images/splash-icon.png',
             backgroundColor: '#000000'

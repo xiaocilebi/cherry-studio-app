@@ -119,7 +119,9 @@
     },
     "error": {
       "backup": {
-        "file_format": "备份文件格式错误"
+        "file_format": "备份文件格式错误",
+        "file_invalid": "备份文件无效，需要在Cherry Studio中通过导出到移动端获取",
+        "title": "备份失败"
       },
       "chat": {
         "response": "出错了，如果没有配置 API 密钥，请前往设置 > 模型提供商中配置密钥"

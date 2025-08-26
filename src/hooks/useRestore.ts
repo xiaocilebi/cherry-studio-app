@@ -1,6 +1,6 @@
-import { useToastController } from '@tamagui/toast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import { RestoreStep } from '@/components/settings/data/RestoreProgressModal'
@@ -67,7 +67,6 @@ export interface UseRestoreOptions {
 
 export function useRestore(options: UseRestoreOptions = {}) {
   const { t } = useTranslation()
-  const toast = useToastController()
   const dispatch = useDispatch()
 
   const { stepConfigs = DEFAULT_RESTORE_STEPS, customRestoreFunction = restore } = options
@@ -77,13 +76,10 @@ export function useRestore(options: UseRestoreOptions = {}) {
   const [overallStatus, setOverallStatus] = useState<'running' | 'success' | 'error'>('running')
 
   const validateFile = (file: { mimeType?: string; name: string; type?: string }) => {
-    const isZip = file.mimeType === 'application/zip' || file.name.endsWith('.zip') || file.type === 'application/zip'
+    const isValid = file.name.includes('cherry-studio-app')
 
-    if (!isZip) {
-      toast.show(t('settings.data.restore.error'), {
-        message: t('settings.data.restore.error_message'),
-        native: true
-      })
+    if (!isValid) {
+      Alert.alert(t('error.backup.title'), t('error.backup.file_invalid'))
       return false
     }
 
@@ -110,9 +106,14 @@ export function useRestore(options: UseRestoreOptions = {}) {
   })
 
   const handleProgressUpdate = (update: ProgressUpdate) => {
-    setRestoreSteps(prevSteps =>
-      prevSteps.map(step => (step.id === update.step ? { ...step, status: update.status, error: update.error } : step))
-    )
+    logger.info('handleProgressUpdate called:', update.step, update.status)
+    setRestoreSteps(prevSteps => {
+      const newSteps = prevSteps.map(step =>
+        step.id === update.step ? { ...step, status: update.status, error: update.error } : step
+      )
+      logger.info('State updated for step:', update.step, 'new status:', update.status)
+      return newSteps
+    })
   }
 
   const handleError = () => {
@@ -138,14 +139,17 @@ export function useRestore(options: UseRestoreOptions = {}) {
     setOverallStatus('running')
     setModalOpen(true)
 
-    try {
-      const fileObject = createFileObject(file)
-      await customRestoreFunction(fileObject, handleProgressUpdate, dispatch)
-      setOverallStatus('success')
-    } catch (err) {
-      logger.error('Error during restore process:', err)
-      handleError()
-    }
+    // Use setTimeout to ensure the modal renders before starting the restore process
+    setTimeout(async () => {
+      try {
+        const fileObject = createFileObject(file)
+        await customRestoreFunction(fileObject, handleProgressUpdate, dispatch)
+        setOverallStatus('success')
+      } catch (err) {
+        logger.error('Error during restore process:', err)
+        handleError()
+      }
+    }, 400)
   }
 
   return {
