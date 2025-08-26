@@ -1,6 +1,7 @@
 import { ChevronDown } from '@tamagui/lucide-icons'
+import { debounce } from 'lodash'
 import { MotiView } from 'moti'
-import { FC, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import React from 'react'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleSheet } from 'react-native'
 import { AnimatePresence, Button, View, YStack } from 'tamagui'
@@ -19,26 +20,51 @@ interface MessagesProps {
 
 const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   const { messages } = useMessages(topic.id)
-  const groupedMessages = Object.entries(getGroupedMessages(messages)).reverse()
+  const groupedMessages = Object.entries(getGroupedMessages(messages))
   const flastListRef = useRef<FlatList<[string, GroupedMessage[]]>>(null)
   const [showScrollButton, setShowScrollButton] = useState(false)
+  const [isNearBottom, setIsNearBottom] = useState(true)
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
     return <MessageGroup assistant={assistant} item={item} />
   }
 
-  const handleScrollToEnd = () => {
-    if (flastListRef.current) {
-      flastListRef.current.scrollToIndex({ index: 0, animated: true })
+  const scrollToBottom = useCallback(() => {
+    if (flastListRef.current && groupedMessages.length > 0) {
+      flastListRef.current.scrollToEnd({ animated: true })
     }
+  }, [groupedMessages.length])
+
+  const handleScrollToEnd = () => {
+    scrollToBottom()
   }
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const { contentOffset } = event.nativeEvent
-    const threshold = 100
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent
+    const threshold = 200
+    const distanceFromBottom = contentSize.height - layoutMeasurement.height - contentOffset.y
 
-    setShowScrollButton(contentOffset.y > threshold)
+    setShowScrollButton(distanceFromBottom > threshold)
+    setIsNearBottom(distanceFromBottom < threshold)
   }
+
+  const debouncedScrollToBottom = useMemo(
+    () =>
+      debounce(() => {
+        if (isNearBottom && groupedMessages.length > 0) {
+          scrollToBottom()
+        }
+      }, 100),
+    [isNearBottom, groupedMessages.length, scrollToBottom]
+  )
+
+  useEffect(() => {
+    debouncedScrollToBottom()
+
+    return () => {
+      debouncedScrollToBottom.cancel()
+    }
+  }, [debouncedScrollToBottom])
 
   return (
     <View style={{ flex: 1 }}>
@@ -49,17 +75,19 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         renderItem={renderMessageGroup}
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         ItemSeparatorComponent={() => <YStack height={20} />}
-        inverted
         contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'flex-end'
+          flexGrow: 1
         }}
-        scrollsToTop={false}
-        initialNumToRender={2}
+        initialNumToRender={10}
         maxToRenderPerBatch={10}
         keyboardShouldPersistTaps="never"
         onScroll={handleScroll}
         scrollEventThrottle={16}
+        onContentSizeChange={() => {
+          if (isNearBottom) {
+            scrollToBottom()
+          }
+        }}
       />
 
       <AnimatePresence>

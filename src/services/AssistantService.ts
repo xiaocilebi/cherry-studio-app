@@ -1,4 +1,4 @@
-import { getSystemProviders } from '@/config/providers'
+import { SYSTEM_PROVIDERS } from '@/config/providers'
 import { DEFAULT_CONTEXTCOUNT, DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE } from '@/constants'
 import i18n from '@/i18n'
 import { loggerService } from '@/services/LoggerService'
@@ -42,7 +42,7 @@ export function getDefaultTopic(assistantId: string): Topic {
 
 export function getDefaultModel() {
   // todo
-  return getSystemProviders()[0].models[0]
+  return SYSTEM_PROVIDERS[0].models[0]
 }
 
 export const getAssistantSettings = (assistant: Assistant): AssistantSettings => {

@@ -25,7 +25,6 @@ interface ApiCheckSheetProps {
       model: Model
     }[]
   }[]
-  apiKey: string
   onStartModelCheck: () => void
   checkApiStatus: ApiStatus
 }
@@ -37,7 +36,6 @@ export function ApiCheckSheet({
   selectedModel,
   onModelChange,
   selectOptions,
-  apiKey,
   onStartModelCheck,
   checkApiStatus
 }: ApiCheckSheetProps) {
@@ -69,7 +67,7 @@ export function ApiCheckSheet({
             borderWidth={0.5}
             backgroundColor="$green10"
             borderColor="$green20"
-            disabled={!selectedModel || !apiKey}
+            disabled={checkApiStatus === 'processing'}
             onPress={onStartModelCheck}>
             {checkApiStatus === 'processing' && (
               <View>
