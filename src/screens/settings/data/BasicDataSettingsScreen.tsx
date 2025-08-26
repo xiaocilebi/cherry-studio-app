@@ -221,7 +221,7 @@ export default function BasicDataSettingsScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.data.basic_title')} />
 
-      <ScrollView flex={1} backgroundColor="$background">
+      <ScrollView flex={1}>
         <SettingContainer>
           <YStack gap={24} flex={1}>
             {settingsItems.map(group => (

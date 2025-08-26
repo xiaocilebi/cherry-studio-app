@@ -110,14 +110,14 @@ export function useRestore(options: UseRestoreOptions = {}) {
   })
 
   const handleProgressUpdate = (update: ProgressUpdate) => {
-    // Ensure UI updates happen on the next tick
-    setTimeout(() => {
-      setRestoreSteps(prevSteps =>
-        prevSteps.map(step =>
-          step.id === update.step ? { ...step, status: update.status, error: update.error } : step
-        )
+    logger.info('handleProgressUpdate called:', update.step, update.status)
+    setRestoreSteps(prevSteps => {
+      const newSteps = prevSteps.map(step =>
+        step.id === update.step ? { ...step, status: update.status, error: update.error } : step
       )
-    }, 0)
+      logger.info('State updated for step:', update.step, 'new status:', update.status)
+      return newSteps
+    })
   }
 
   const handleError = () => {
