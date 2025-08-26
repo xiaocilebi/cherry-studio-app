@@ -1,12 +1,12 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
+
+import { useTheme } from '@/hooks/useTheme'
 
 import { IconProps } from '.'
 
 export function TranslationIcon(props: IconProps) {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
+  const { isDark } = useTheme()
   const fillColor = isDark ? 'white' : 'black'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 20 20" fill="none" {...props}>
@@ -50,8 +50,7 @@ export function TranslationIcon(props: IconProps) {
 }
 
 export function TranslatedIcon(props: IconProps) {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
+  const { isDark } = useTheme()
   const fillColor = isDark ? 'white' : 'black'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 20 20" fill="none" {...props}>

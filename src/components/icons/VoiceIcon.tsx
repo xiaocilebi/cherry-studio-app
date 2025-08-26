@@ -1,12 +1,12 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
+
+import { useTheme } from '@/hooks/useTheme'
 
 import { IconProps } from '.'
 
 export function VoiceIcon(props: IconProps) {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
+  const { isDark } = useTheme()
   const fillColor = isDark ? '#f9f9f9ff' : '#202020ff'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 24 24" fill="none" {...props}>

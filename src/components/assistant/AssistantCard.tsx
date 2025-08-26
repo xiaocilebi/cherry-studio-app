@@ -6,9 +6,9 @@ import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
 
 import { useAssistant } from '@/hooks/useAssistant'
+import { useTheme } from '@/hooks/useTheme'
 import { Topic } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
-import { useIsDark } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 
 import { ModelChangeIcon } from '../icons/ModelChangeIcon'
@@ -55,7 +55,7 @@ const ActionTag: FC<ActionTagProps> = ({ icon, label, onPress }) => {
 }
 
 export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const navigation = useNavigation<NavigationProps>()
   const { assistant } = useAssistant(topic.assistantId)
 

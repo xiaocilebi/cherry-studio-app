@@ -3,7 +3,7 @@ import EmojiPicker, { EmojiType } from 'rn-emoji-keyboard'
 import { Button, Stack, Text, YStack } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { useIsDark } from '@/utils'
+import { useTheme } from '@/hooks/useTheme'
 
 interface AvatarEditButtonProps {
   /** 头像内容 - 可以是 emoji 字符串或 React 节点（如图标） */
@@ -26,7 +26,7 @@ export function AvatarEditButton({
   editButtonSize = 40,
   updateAvatar
 }: AvatarEditButtonProps) {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const isEmoji = typeof content === 'string'
   const [isOpen, setIsOpen] = React.useState<boolean>(false)
 

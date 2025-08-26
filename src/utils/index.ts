@@ -1,5 +1,4 @@
 import * as Crypto from 'expo-crypto'
-import { useColorScheme } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 /**
@@ -26,5 +25,4 @@ export function hasObjectKey(obj: any, key: string): boolean {
 }
 
 export const uuid = () => Crypto.randomUUID()
-export const useIsDark = () => useColorScheme() === 'dark'
 export const storage = new MMKV()

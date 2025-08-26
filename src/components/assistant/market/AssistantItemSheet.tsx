@@ -9,11 +9,12 @@ import { Button, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
 import { useCustomNavigation } from '@/hooks/useNavigation'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
-import { useIsDark, uuid } from '@/utils'
+import { uuid } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 
 import GroupTag from './GroupTag'
@@ -26,7 +27,7 @@ interface AssistantItemSheetProps {
 const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>(({ assistant, source }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
   const { navigateToChatScreen } = useCustomNavigation()
   const navigation = useNavigation<NavigationProps>()
 
@@ -151,22 +152,19 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         {/* Footer positioned absolutely at the bottom */}
         <XStack
           position="absolute"
-          bottom={0}
+          bottom={20}
           left={0}
           right={0}
           padding={0}
           justifyContent="space-between"
           alignItems="center"
           gap={15}
-          backgroundColor={isDark ? '#121213ff' : '#f7f7f7ff'}
-          borderTopWidth={1}
-          borderTopColor={isDark ? '$borderDark' : '$borderLight'}>
+          backgroundColor="$backgroundPrimary">
           {source === 'builtIn' && (
             <Button
               chromeless
               circular
               size="$5"
-              backgroundColor={isDark ? '$backgroundHover' : '$background'}
               hoverStyle={{ backgroundColor: isDark ? '$backgroundPress' : '$backgroundHover' }}
               icon={<UnionPlusIcon size={30} color={isDark ? '$colorFocus' : '$color'} />}
               onPress={handleAddAssistant}
@@ -177,7 +175,6 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               chromeless
               circular
               size="$5"
-              backgroundColor={isDark ? '$backgroundHover' : '$background'}
               hoverStyle={{ backgroundColor: isDark ? '$backgroundPress' : '$backgroundHover' }}
               icon={<Settings2 size={30} color={isDark ? '$colorFocus' : '$color'} />}
               onPress={handleEditAssistant}

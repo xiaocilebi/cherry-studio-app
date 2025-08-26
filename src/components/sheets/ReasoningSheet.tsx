@@ -19,8 +19,8 @@ import {
   isSupportedThinkingTokenGeminiModel,
   isSupportedThinkingTokenQwenModel
 } from '@/config/models/reasoning'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { Assistant, ReasoningEffortOptions } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 
 export type ThinkingOption = ReasoningEffortOptions | 'off'
 
@@ -73,7 +73,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
   ({ assistant, updateAssistant }, ref) => {
     const { t } = useTranslation()
     const theme = useTheme()
-    const isDark = useIsDark()
+    const { isDark } = useCustomTheme()
     const model = assistant.model!
 
     const isGrokModel = isSupportedReasoningEffortGrokModel(model)

@@ -4,9 +4,9 @@ import React, { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { Citation } from '@/types/websearch'
-import { useIsDark } from '@/utils'
 import { getWebsiteBrand } from '@/utils/websearch'
 
 import FallbackFavicon from '../icons/FallbackFavicon'
@@ -80,7 +80,7 @@ const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url
 const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citations }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
 
   // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (

@@ -1,13 +1,12 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
+
+import { useTheme } from '@/hooks/useTheme'
 
 import { IconProps } from '.'
 
 export function EditIcon(props: IconProps) {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
-
+  const { isDark } = useTheme()
   const strokeColor = isDark ? '#f9f9f9ff' : '#202020ff'
 
   return (

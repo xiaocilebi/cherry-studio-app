@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { useIsDark } from '@/utils'
+import { useTheme } from '@/hooks/useTheme'
 
 interface SafeAreaContainerProps extends ViewProps {
   children: React.ReactNode
@@ -13,7 +13,7 @@ interface SafeAreaContainerProps extends ViewProps {
 
 const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, ...rest }) => {
   const insets = useSafeAreaInsets()
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const backgroundColor = isDark ? '#121213ff' : '#f7f7f7ff'
 
   useEffect(() => {

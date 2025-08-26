@@ -9,6 +9,7 @@ import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'
+import { useTheme } from '@/hooks/useTheme'
 import { NavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 
@@ -16,7 +17,7 @@ export default function GeneralSettingsScreen() {
   const { t, i18n } = useTranslation()
 
   const [language, setLanguage] = useState('zh-CN')
-  // const [currentTheme, setCurrentTheme] = useState('system')
+  const { activeTheme } = useTheme()
 
   const navigation = useNavigation<NavigationProps>()
 
@@ -29,12 +30,6 @@ export default function GeneralSettingsScreen() {
       } else {
         setLanguage(i18n.language)
       }
-
-      // const storedTheme = storage.getString('theme')
-
-      // if (storedTheme) {
-      //   setCurrentTheme(storedTheme)
-      // }
     }
 
     loadSettings()
@@ -47,18 +42,13 @@ export default function GeneralSettingsScreen() {
     return currentLang ? `${currentLang.flag} ${currentLang.label}` : 'English'
   }
 
-  // const getCurrentTheme = () => {
-  //   const currentThemeOption = themeOptions.find(item => item.value === currentTheme)
-  //   return currentThemeOption ? t(currentThemeOption.label) : t('settings.general.theme.auto')
-  // }
-
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.general.title')} />
       <SettingContainer>
         <YStack gap={24} flex={1}>
           {/* Display settings */}
-          {/*<YStack gap={8}>
+          <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
               <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
@@ -66,12 +56,12 @@ export default function GeneralSettingsScreen() {
                   <Text fontSize="$5">{t('settings.general.theme.title')}</Text>
                 </XStack>
                 <XStack alignItems="center" space="$2">
-                  <Text color="$colorFocus">{getCurrentTheme()}</Text>
+                  <Text color="$colorFocus">{t(`settings.general.theme.${activeTheme}`)}</Text>
                   <ChevronRight size={24} color="$colorFocus" />
                 </XStack>
               </SettingRow>
             </SettingGroup>
-          </YStack>*/}
+          </YStack>
 
           {/* General settings */}
           <YStack gap={8}>

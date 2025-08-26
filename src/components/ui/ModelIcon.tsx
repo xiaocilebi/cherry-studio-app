@@ -1,7 +1,7 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
+import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelOrProviderIcon } from '@/utils/icons'
 
@@ -11,8 +11,7 @@ interface ModelIconProps {
 }
 
 export const ModelIcon: React.FC<ModelIconProps> = ({ model, size }) => {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
+  const { isDark } = useTheme()
 
   const iconSource = getModelOrProviderIcon(model.id, model.provider, isDark)
 

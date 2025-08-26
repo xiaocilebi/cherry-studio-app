@@ -1,12 +1,12 @@
 import React from 'react'
 import Svg, { Path } from 'react-native-svg'
 
-import { useIsDark } from '@/utils'
+import { useTheme } from '@/hooks/useTheme'
 
 import { IconProps } from '.'
 
 export function MdiLightbulbOffOutline(props: IconProps) {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const fillColor = isDark ? '#f9f9f9ff' : '#202020ff'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 24 24" {...props}>
@@ -19,7 +19,7 @@ export function MdiLightbulbOffOutline(props: IconProps) {
 }
 
 export function MdiLightbulbAutoOutline(props: IconProps) {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const fillColor = isDark ? '#acf3a6ff' : '#81df94ff'
 
   return (
@@ -33,7 +33,7 @@ export function MdiLightbulbAutoOutline(props: IconProps) {
 }
 
 export function MdiLightbulbOn10(props: IconProps) {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const fillColor = isDark ? '#acf3a6ff' : '#81df94ff'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 24 24" {...props}>
@@ -46,7 +46,7 @@ export function MdiLightbulbOn10(props: IconProps) {
 }
 
 export function MdiLightbulbOn50(props: IconProps) {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const fillColor = isDark ? '#acf3a6ff' : '#81df94ff'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 24 24" {...props}>
@@ -59,7 +59,7 @@ export function MdiLightbulbOn50(props: IconProps) {
 }
 
 export function MdiLightbulbOn90(props: IconProps) {
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const fillColor = isDark ? '#acf3a6ff' : '#81df94ff'
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 24 24" {...props}>
