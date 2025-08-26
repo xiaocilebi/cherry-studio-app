@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { Model, Provider } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { getDefaultGroupName } from '@/utils/naming'
 
 const logger = loggerService.withContext('AddModelSheet')
@@ -19,7 +19,7 @@ interface AddModelSheetProps {
 const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provider, updateProvider }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
 
   const [modelId, setModelId] = useState('')
   const [modelName, setModelName] = useState('')

@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next'
 import { Button, useTheme, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessageById, fetchTranslateThunk } from '@/services/MessagesService'
 import { Message } from '@/types/message'
-import { useIsDark } from '@/utils'
 import { findTranslationBlocks } from '@/utils/messageUtils/find'
 
 import { removeManyBlocks } from '../../../../db/queries/messageBlocks.queries'
@@ -23,7 +23,7 @@ interface MessageFooterMoreProps {
 const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMoreProps>(({ message }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
   const [isTranslating, setIsTranslating] = useState(false)
   const [isTranslated, setIsTranslated] = useState(false)
 

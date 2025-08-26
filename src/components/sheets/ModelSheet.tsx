@@ -12,8 +12,8 @@ import { ModelTags } from '@/components/ui/ModelTags'
 import { isEmbeddingModel } from '@/config/models/embedding'
 import { isRerankModel } from '@/config/models/rerank'
 import { useAllProviders } from '@/hooks/useProviders'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
-import { useIsDark } from '@/utils'
 import { getModelUniqId } from '@/utils/model'
 
 import { ProviderIcon } from '../ui/ProviderIcon'
@@ -28,7 +28,7 @@ interface ModelSheetProps {
 const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, setMentions, multiple }, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
   const [selectedModels, setSelectedModels] = useState<string[]>(() => mentions.map(m => getModelUniqId(m)))
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')

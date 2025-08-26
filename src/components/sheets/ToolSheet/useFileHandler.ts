@@ -17,7 +17,18 @@ interface UseFileHandlerProps {
 }
 
 export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerProps) => {
+  const [permission, requestPermission] = ImagePicker.useMediaLibraryPermissions()
+
   const handleAddImage = async () => {
+    if (!permission?.granted) {
+      const cameraPermission = await requestPermission()
+
+      if (!cameraPermission.granted) {
+        logger.info('Camera permission denied')
+        return
+      }
+    }
+
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],

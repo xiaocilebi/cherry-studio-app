@@ -2,9 +2,9 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/
 import React, { forwardRef } from 'react'
 import { useTheme, YStack } from 'tamagui'
 
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 import { FileType } from '@/types/file'
-import { useIsDark } from '@/utils'
 
 import { AIFeatureOptions } from './AIFeatureOptions'
 import { useCameraModal } from './CameraModal'
@@ -22,7 +22,7 @@ interface ToolSheetProps {
 const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ files, setFiles, assistant, updateAssistant }, ref) => {
     const theme = useTheme()
-    const isDark = useIsDark()
+    const { isDark } = useCustomTheme()
 
     const dismissSheet = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()

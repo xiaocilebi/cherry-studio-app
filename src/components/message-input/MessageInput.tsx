@@ -10,6 +10,7 @@ import { styled, TextArea, XStack, YStack } from 'tamagui'
 import { isReasoningModel } from '@/config/models/reasoning'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useMessageOperations, useTopicLoading } from '@/hooks/useMessageOperation'
+import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { sendMessage as _sendMessage } from '@/services/MessagesService'
 import { getUserMessage } from '@/services/MessagesService'
@@ -17,7 +18,6 @@ import { useAppDispatch } from '@/store'
 import { Model, Topic } from '@/types/assistant'
 import { FileType } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
-import { useIsDark } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import FilePreview from './FilePreview'
@@ -35,7 +35,7 @@ interface MessageInputProps {
 
 export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const { t } = useTranslation()
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const dispatch = useAppDispatch()
   const { assistant, isLoading, updateAssistant } = useAssistant(topic.assistantId)
 

@@ -5,7 +5,7 @@ import { MCPToolResponse } from './mcp'
 import { MCPTool } from './tool'
 
 export type LanguageVarious =
-  | 'zh-CN'
+  | 'zh-Hans-CN'
   | 'zh-TW'
   | 'en-US'
   | 'ru-RU'

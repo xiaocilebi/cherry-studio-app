@@ -8,10 +8,11 @@ import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
 import { AvatarEditButton } from '@/components/ui/AvatarEditButton'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { saveProvider } from '@/services/ProviderService'
 import { Provider, ProviderType } from '@/types/assistant'
-import { useIsDark, uuid } from '@/utils'
+import { uuid } from '@/utils'
 
 import { ProviderSelect } from './ProviderSelect'
 
@@ -22,7 +23,7 @@ type AddProviderSheetProps = object
 const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((props, ref) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
 
   const [providerName, setProviderName] = useState('')
   const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)

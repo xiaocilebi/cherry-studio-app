@@ -1,7 +1,7 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
+import { useTheme } from '@/hooks/useTheme'
 import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
 
@@ -10,8 +10,7 @@ interface ProviderIconProps {
 }
 
 export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider }) => {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
+  const { isDark } = useTheme()
 
   const iconSource = getProviderIcon(provider.id, isDark)
 

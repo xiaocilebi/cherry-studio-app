@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import Markdown from 'react-native-marked'
 import { View } from 'tamagui'
 
+import { useTheme } from '@/hooks/useTheme'
 import { MainTextMessageBlock, ThinkingMessageBlock, TranslationMessageBlock } from '@/types/message'
-import { useIsDark } from '@/utils'
 import { escapeBrackets, removeSvgEmptyLines } from '@/utils/formats'
 
 import { useMarkedRenderer } from './useMarkedRenderer'
@@ -17,7 +17,7 @@ interface Props {
 
 const ReactNativeMarkdown: FC<Props> = ({ block }) => {
   const { t } = useTranslation()
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
 
   const getMessageContent = (block: MainTextMessageBlock | TranslationMessageBlock | ThinkingMessageBlock) => {
     const empty = isEmpty(block.content)

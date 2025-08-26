@@ -30,7 +30,33 @@ export default {
           image: './src/assets/images/splash-icon.png',
           imageWidth: 200,
           resizeMode: 'contain',
-          backgroundColor: '#ffffff'
+          backgroundColor: '#000000',
+          dark: {
+            image: './src/assets/images/splash-icon.png',
+            backgroundColor: '#000000'
+          },
+          ios: {
+            splash: {
+              image: './src/assets/images/splash-icon.png',
+              backgroundColor: '#ffffff',
+              resizeMode: 'contain',
+              dark: {
+                image: './src/assets/images/splash-icon.png',
+                backgroundColor: '#000000'
+              }
+            }
+          },
+          android: {
+            splash: {
+              image: './src/assets/images/splash-icon.png',
+              backgroundColor: '#ffffff',
+              resizeMode: 'contain',
+              dark: {
+                image: './src/assets/images/splash-icon.png',
+                backgroundColor: '#000000'
+              }
+            }
+          }
         }
       ],
       'expo-localization',

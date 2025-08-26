@@ -1,7 +1,7 @@
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import { Image } from 'tamagui'
 
+import { useTheme } from '@/hooks/useTheme'
 import { getDataBackupIcon } from '@/utils/icons/dataBackup'
 
 interface DataBackupIconProps {
@@ -9,8 +9,7 @@ interface DataBackupIconProps {
 }
 
 export const DataBackupIcon: React.FC<DataBackupIconProps> = ({ provider }) => {
-  const theme = useColorScheme()
-  const isDark = theme === 'dark'
+  const { isDark } = useTheme()
 
   const iconSource = getDataBackupIcon(provider, isDark)
 

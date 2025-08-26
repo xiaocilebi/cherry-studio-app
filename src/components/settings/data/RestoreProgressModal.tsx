@@ -3,8 +3,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Dialog, Paragraph, Spinner, Text, Unspaced, XStack, YStack } from 'tamagui'
 
+import { useTheme } from '@/hooks/useTheme'
 import { RestoreStepId, StepStatus } from '@/services/BackupService'
-import { useIsDark } from '@/utils'
 
 export interface RestoreStep {
   id: RestoreStepId
@@ -64,7 +64,7 @@ const getFontColor = (isDark: boolean, status: StepStatus) => {
 
 export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: RestoreProgressModalProps) {
   const { t } = useTranslation()
-  const isDark = useIsDark()
+  const { isDark } = useTheme()
   const isDone = overallStatus === 'success' || overallStatus === 'error'
   const title =
     overallStatus === 'success'

@@ -5,10 +5,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
-import { useIsDark } from '@/utils'
 
 import { SettingHelpText } from '../settings'
 import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
@@ -22,7 +22,7 @@ interface WebsearchSheetProps {
 const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
   ({ providers, assistant, updateAssistant }, ref) => {
     const theme = useTheme()
-    const isDark = useIsDark()
+    const { isDark } = useCustomTheme()
     const { t } = useTranslation()
     const navigation = useNavigation<NavigationProps>()
 

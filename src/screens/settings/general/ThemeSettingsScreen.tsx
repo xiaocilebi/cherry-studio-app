@@ -7,19 +7,12 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { themeOptions } from '@/config/theme'
 import { useSettings } from '@/hooks/useSettings'
-import { ThemeMode } from '@/types'
-import { storage } from '@/utils'
 
 export default function ThemeSettingsScreen() {
   const { t } = useTranslation()
   const { theme: currentTheme, setTheme: setCurrentTheme } = useSettings()
 
   const theme = useTheme()
-
-  const changeTheme = async (themeValue: ThemeMode) => {
-    setCurrentTheme(themeValue)
-    storage.set('theme', themeValue)
-  }
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
@@ -29,7 +22,7 @@ export default function ThemeSettingsScreen() {
           {themeOptions.map(opt => (
             <XStack
               key={opt.value}
-              onPress={() => changeTheme(opt.value)}
+              onPress={() => setCurrentTheme(opt.value)}
               alignItems="center"
               justifyContent="space-between"
               padding={16}

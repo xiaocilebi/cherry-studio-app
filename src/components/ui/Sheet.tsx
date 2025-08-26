@@ -3,7 +3,7 @@ import { usePreventRemove } from '@react-navigation/native'
 import React, { useImperativeHandle, useRef } from 'react'
 import { useTheme } from 'tamagui'
 
-import { useIsDark } from '@/utils'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 
 interface ISheetProps {
   bottomSheetRef?: React.RefObject<BottomSheet | null>
@@ -31,7 +31,7 @@ export function ISheet({
   enableDynamicSizing = true
 }: ISheetProps) {
   const theme = useTheme()
-  const isDark = useIsDark()
+  const { isDark } = useCustomTheme()
   const memoizedSnapPoints = snapPoints
   const ref = useRef<BottomSheet | null>(null)
 

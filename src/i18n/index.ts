@@ -13,7 +13,7 @@ import zhTW from './locales/zh-tw.json'
 
 const resources = {
   'en-US': enUS,
-  'zh-CN': zhCN,
+  'zh-Hans-CN': zhCN,
   'zh-TW': zhTW,
   'ja-JP': jaJP,
   'ru-RU': ruRU
