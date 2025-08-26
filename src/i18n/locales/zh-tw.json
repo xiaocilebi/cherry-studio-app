@@ -119,7 +119,9 @@
     },
     "error": {
       "backup": {
-        "file_format": "備份檔案格式錯誤"
+        "file_format": "備份檔案格式錯誤",
+        "file_invalid": "備份檔案無效，需在Cherry Studio中透過匯出至行動裝置取得",
+        "title": "備份失敗"
       },
       "chat": {
         "response": "出錯了，如果沒有設定 API 金鑰，請前往 設定 > 模型供應商 中設定金鑰"

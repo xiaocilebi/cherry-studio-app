@@ -119,7 +119,9 @@
     },
     "error": {
       "backup": {
-        "file_format": "Backup file format error"
+        "file_format": "Backup file format error",
+        "file_invalid": "The backup file is invalid. You need to export it to a mobile device through Cherry Studio.",
+        "title": "Backup failed"
       },
       "chat": {
         "response": "An error occurred. If no API key is configured, please go to Settings > Model Provider to set up the key."

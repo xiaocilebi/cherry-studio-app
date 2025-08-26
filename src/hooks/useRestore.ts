@@ -1,6 +1,6 @@
-import { useToastController } from '@tamagui/toast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import { RestoreStep } from '@/components/settings/data/RestoreProgressModal'
@@ -67,7 +67,6 @@ export interface UseRestoreOptions {
 
 export function useRestore(options: UseRestoreOptions = {}) {
   const { t } = useTranslation()
-  const toast = useToastController()
   const dispatch = useDispatch()
 
   const { stepConfigs = DEFAULT_RESTORE_STEPS, customRestoreFunction = restore } = options
@@ -77,13 +76,10 @@ export function useRestore(options: UseRestoreOptions = {}) {
   const [overallStatus, setOverallStatus] = useState<'running' | 'success' | 'error'>('running')
 
   const validateFile = (file: { mimeType?: string; name: string; type?: string }) => {
-    const isZip = file.mimeType === 'application/zip' || file.name.endsWith('.zip') || file.type === 'application/zip'
+    const isValid = file.name.includes('cherry-studio-app')
 
-    if (!isZip) {
-      toast.show(t('settings.data.restore.error'), {
-        message: t('settings.data.restore.error_message'),
-        native: true
-      })
+    if (!isValid) {
+      Alert.alert(t('error.backup.title'), t('error.backup.file_invalid'))
       return false
     }
 
