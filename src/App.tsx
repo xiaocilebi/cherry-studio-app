@@ -6,6 +6,7 @@ import { NavigationContainer, ThemeProvider } from '@react-navigation/native'
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin'
 import { useFonts } from 'expo-font'
+import * as Localization from 'expo-localization'
 import * as NavigationBar from 'expo-navigation-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
@@ -35,6 +36,7 @@ import tamaguiConfig from '../tamagui.config'
 import { getSystemAssistants } from './config/assistants'
 import { SYSTEM_PROVIDERS } from './config/providers'
 import MainStackNavigator from './navigators/MainStackNavigator'
+import { storage } from './utils'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -65,6 +67,7 @@ function DatabaseInitializer() {
         await upsertWebSearchProviders(websearchProviders)
         const dataBackupProviders = getDataBackupProviders()
         await upsertDataBackupProviders(dataBackupProviders)
+        storage.set('language', Localization.getLocales()[0]?.languageTag)
         dispatch(setInitialized(true))
         logger.info('App data initialized successfully.')
       } catch (e) {

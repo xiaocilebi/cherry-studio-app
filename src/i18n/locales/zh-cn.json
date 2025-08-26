@@ -74,7 +74,7 @@
         "search": {
           "results": "结果"
         },
-        "title": "主题"
+        "title": "话题"
       },
       "welcome": "我是您的生产力 AI 助手。您可以创建助手、管理模型等。"
     },
@@ -157,9 +157,9 @@
       "linkErrorTitle": "打开链接出错"
     },
     "history": {
-      "search.placeholder": "搜索主题或消息...",
-      "search.topics.empty": "未找到主题，按 Enter 搜索所有消息",
-      "topics.empty": "未找到主题"
+      "search.placeholder": "搜索话题或消息...",
+      "search.topics.empty": "未找到话题，按 Enter 搜索所有消息",
+      "topics.empty": "未找到话题"
     },
     "inputs": {
       "placeholder": "发送消息..."
@@ -172,8 +172,8 @@
       "search_placeholder": "搜索...",
       "see_all": "查看全部",
       "topic": {
-        "recent": "最近的主题",
-        "title": "主题"
+        "recent": "最近的话题",
+        "title": "话题"
       }
     },
     "message": {
@@ -240,8 +240,8 @@
         "empty": "还没有助手...",
         "title": "默认助手",
         "topic_naming_assistant": {
-          "description": "自动命名新主题时使用的助手",
-          "name": "主题命名助手"
+          "description": "自动命名新话题时使用的助手",
+          "name": "话题命名助手"
         },
         "translate_assistant": {
           "description": "用于翻译服务的助手",
@@ -306,7 +306,7 @@
             "restore_assistants": "恢复助手",
             "restore_llm_providers": "恢复LLM提供商",
             "restore_messages_blocks": "恢复消息和屏蔽",
-            "restore_topics": "恢复主题",
+            "restore_topics": "恢复话题",
             "restore_websearch": "恢复网络搜索"
           }
         },
@@ -468,10 +468,10 @@
       "theme.window.style.title": "窗口样式",
       "theme.window.style.transparent": "透明窗口",
       "title": "设置",
-      "topic.position": "主题位置",
+      "topic.position": "话题位置",
       "topic.position.left": "左侧",
       "topic.position.right": "正确",
-      "topic.show.time": "显示主题时间",
+      "topic.show.time": "显示话题时间",
       "tray.title": "启用系统托盘图标",
       "webdav": {
         "backup": {
@@ -549,8 +549,8 @@
     },
     "topics": {
       "new_topic": "新话题",
-      "title": "主题",
-      "title.recent": "最近的主题"
+      "title": "话题",
+      "title.recent": "最近的话题"
     },
     "provider": {
       "302ai": "302.AI",
