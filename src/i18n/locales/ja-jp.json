@@ -265,7 +265,6 @@
       "zhinao": "360智脳",
       "zhipu": "智譜AI"
     },
-
     "settings": {
       "about": {
         "contact": {
@@ -492,6 +491,12 @@
           "free_bills": "無料請求",
           "login": "ログイン",
           "title": "{{provider}} サービス"
+        },
+        "check_failed": {
+          "api_key_empty": "APIキーは空にできません",
+          "model_api_key_empty": "モデルとAPIキーは空にできません",
+          "model_empty": "モデルを空にすることはできません",
+          "title": "モデルチェック失敗"
         },
         "delete.content": "このプロバイダーを削除してもよろしいですか？",
         "delete.title": "プロバイダーの削除",

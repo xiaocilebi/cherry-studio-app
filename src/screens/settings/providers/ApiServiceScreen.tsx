@@ -126,7 +126,26 @@ export default function ApiServiceScreen() {
 
   // 模型检测处理
   const handleStartModelCheck = async () => {
-    if (!selectedModel) return
+    if (!selectedModel || !apiKey) {
+      let errorKey = ''
+
+      if (!selectedModel && !apiKey) {
+        errorKey = 'model_api_key_empty'
+      } else if (!selectedModel) {
+        errorKey = 'model_empty'
+      } else if (!apiKey) {
+        errorKey = 'api_key_empty'
+      }
+
+      Alert.alert(t('settings.provider.check_failed.title'), t(`settings.provider.check_failed.${errorKey}`), [
+        {
+          text: t('common.ok'),
+          style: 'cancel',
+          onPress: () => handleBottomSheetClose()
+        }
+      ])
+      return
+    }
 
     try {
       setCheckApiStatus('processing')
@@ -141,7 +160,7 @@ export default function ApiServiceScreen() {
 
       setCheckApiStatus('error')
 
-      Alert.alert(t('settings.websearch.check_fail'), errorMessage, [
+      Alert.alert(t('settings.provider.check_failed.title'), errorMessage, [
         {
           text: t('common.ok'),
           style: 'cancel',
@@ -236,7 +255,6 @@ export default function ApiServiceScreen() {
         selectedModel={selectedModel}
         onModelChange={handleModelChange}
         selectOptions={selectOptions}
-        apiKey={apiKey}
         onStartModelCheck={handleStartModelCheck}
         checkApiStatus={checkApiStatus}
       />

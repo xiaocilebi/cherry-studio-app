@@ -187,7 +187,6 @@ export default function WebSearchProviderSettingsScreen() {
         bottomSheetRef={bottomSheetRef}
         isOpen={isBottomSheetOpen}
         onClose={handleBottomSheetClose}
-        apiKey={provider?.apiKey || ''}
         onStartModelCheck={checkSearch}
         checkApiStatus={checkApiStatus}
       />

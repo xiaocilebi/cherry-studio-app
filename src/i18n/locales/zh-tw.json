@@ -492,6 +492,12 @@
           "login": "登入",
           "title": "{{provider}} 服務"
         },
+        "check_failed": {
+          "api_key_empty": "API金鑰不能為空",
+          "model_api_key_empty": "模型和API金鑰不能為空",
+          "model_empty": "模型不能為空",
+          "title": "模型檢查失敗"
+        },
         "delete.content": "您確定要刪除這個提供者嗎？",
         "delete.title": "刪除提供者",
         "enabled": "開啟",

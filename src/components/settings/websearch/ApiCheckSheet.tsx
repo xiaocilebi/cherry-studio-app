@@ -11,7 +11,6 @@ interface ApiCheckSheetProps {
   bottomSheetRef: React.RefObject<BottomSheet | null>
   isOpen: boolean
   onClose: () => void
-  apiKey: string
   onStartModelCheck: () => void
   checkApiStatus: ApiStatus
 }
@@ -20,7 +19,6 @@ export function ApiCheckSheet({
   bottomSheetRef,
   isOpen,
   onClose,
-  apiKey,
   onStartModelCheck,
   checkApiStatus
 }: ApiCheckSheetProps) {
@@ -39,7 +37,7 @@ export function ApiCheckSheet({
             width={224}
             borderRadius={70}
             backgroundColor="$color1"
-            disabled={!apiKey || checkApiStatus !== 'idle'}
+            disabled={checkApiStatus === 'processing'}
             onPress={onStartModelCheck}>
             {checkApiStatus === 'processing' && (
               <View>

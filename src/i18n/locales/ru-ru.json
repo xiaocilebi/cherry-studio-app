@@ -265,7 +265,6 @@
       "zhinao": "360AI",
       "zhipu": "ZHIPU AI"
     },
-
     "settings": {
       "about": {
         "contact": {
@@ -492,6 +491,12 @@
           "free_bills": "Бесплатные счета",
           "login": "Войти",
           "title": "Сервис {{provider}}"
+        },
+        "check_failed": {
+          "api_key_empty": "API-ключ не может быть пустым",
+          "model_api_key_empty": "Модель и API-ключ не могут быть пустыми",
+          "model_empty": "Модель не может быть пустой",
+          "title": "Проверка модели не удалась"
         },
         "delete.content": "Вы уверены, что хотите удалить этого поставщика?",
         "delete.title": "Удалить поставщика",
