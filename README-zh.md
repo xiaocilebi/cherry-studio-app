@@ -22,6 +22,7 @@
 - **状态管理**: Redux Toolkit
 
 ## 🚀 开发
+> 相关开发文档在docs中
 
 1. **克隆仓库**
 
@@ -49,23 +50,22 @@ npx drizzle-kit generate
 
 5. **启动应用**
 
-   ```bash
-     yarn ios
-     yarn android
-   ```
+> 如果使用真机调试需要 `yarn remove expo-dev-client`
+> ⚠️提交pr前，不要将此包push到远程仓库
 
-在输出中，您将找到在不同目标上运行应用程序的选项：
+ios:
+```bash
+npx expo prebuild -p ios
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), 一个用于尝试使用 Expo 进行应用程序开发的有限沙盒
+cd ios 添加自签证书
 
-您可以通过编辑 src 目录中的文件来开始开发。
+npx expo run:ios -d
+```
 
-## 了解更多
+android:
+```bash
+npx expo prebuild -p android
+npx expo run:android -d
+```
 
-要了解更多关于使用 Expo 开发项目的信息，请查看以下资源：
-
-- [Expo 文档](https://docs.expo.dev/): 学习基础知识，或通过我们的[指南](https://docs.expo.dev/guides)深入了解高级主题。
-- [学习 Expo 教程](https://docs.expo.dev/tutorial/introduction/): 按照循序渐进的教程，您将创建一个可以在 Android、iOS 和 Web 上运行的项目。
+> 请使用真机或者模拟器开发，不要使用Expo Go

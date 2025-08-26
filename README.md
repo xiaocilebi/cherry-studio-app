@@ -2,15 +2,15 @@
 
 English | [中文](./README-zh.md)
 
-🍒 Cherry Studio App —— The official mobile version of Cherry Studio, bringing powerful LLMs (AI Large Language Models) interaction to your iOS and Android devices.
+🍒 Cherry Studio App —— The official mobile version of Cherry Studio, bringing powerful LLMs (Large Language Models) interaction to your iOS and Android devices.
 
-🌟 **Support Project:** [Sponsor](https://github.com/CherryHQ/cherry-studio/blob/main/docs/sponsor.md) | Give the repository a Star!
+🌟 **Support the Project:** [Sponsor](https://github.com/CherryHQ/cherry-studio/blob/main/docs/sponsor.md) | Give the repo a Star!
 
 ## ✨ Key Features
 
-- **Multi-LLM Provider Support**: (Gradually integrating) OpenAI, Gemini, Anthropic, etc.
-- **AI Assistants & Conversations**: Access preset assistants for smooth multi-model conversations.
-- **Mobile Optimized**: Designed for iOS/Android, supports light/dark themes.
+- **Multi-LLM Provider Support**: (Gradually integrating) OpenAI, Gemini, Anthropic, and more.
+- **AI Assistants & Conversations**: Access preset assistants and engage in smooth multi-model conversations.
+- **Mobile Optimized**: Designed specifically for iOS/Android with light/dark theme support.
 - **Core Tools**: Conversation management, history search, data migration.
 
 ## 🛠️ Tech Stack
@@ -22,50 +22,50 @@ English | [中文](./README-zh.md)
 - **State Management**: Redux Toolkit
 
 ## 🚀 Development
+> Related development documentation is in the docs folder
 
-1. **Clone Repository**
+1. **Clone the repository**
 
    ```bash
     git clone https://github.com/CherryHQ/cherry-studio-app.git
    ```
 
-2. **Enter Directory**
+2. **Enter the directory**
 
    ```bash
     cd cherry-studio-app
    ```
 
-3. **Install Dependencies**
+3. **Install dependencies**
 
    ```bash
      yarn install
    ```
 
-4. **Generate Database**
+4. **Generate database**
 
 ```bash
 npx drizzle-kit generate
 ```
 
-5. **Start the app**
+5. **Start the application**
 
-   ```bash
-     yarn ios
-     yarn android
-   ```
+> If using physical device debugging, you need to `yarn remove expo-dev-client`
+> ⚠️Before submitting PR, don't push this package to the remote repository
 
-In the output, you'll find options to open the app in a
+iOS:
+```bash
+npx expo prebuild -p ios
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+cd ios # Add self-signed certificate
 
-You can start development by editing files in the `src` directory.
+npx expo run:ios -d
+```
 
-## Learn More
+Android:
+```bash
+npx expo prebuild -p android
+npx expo run:android -d
+```
 
-To learn more about developing projects with Expo, check out the following resources:
-
-- [Expo Documentation](https://docs.expo.dev/): Learn the basics, or dive deeper into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learning Expo Tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial and you'll create a project that can run on Android, iOS, and the web.
+> Please use physical devices or simulators for development, do not use Expo Go
