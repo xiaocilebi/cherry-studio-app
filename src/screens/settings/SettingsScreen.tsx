@@ -1,7 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import { ChevronRight, Cloud, Globe, HardDrive, Info, Package, Settings2 } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Dimensions, View } from 'react-native'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
+import { runOnJS } from 'react-native-reanimated'
 import { Avatar, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
@@ -9,6 +13,7 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
 import { NavigationProps } from '@/types/naviagate'
+import { haptic } from '@/utils/haptic'
 
 interface SettingItemConfig {
   title: string
@@ -24,6 +29,36 @@ interface SettingGroupConfig {
 export default function SettingsScreen() {
   const { t } = useTranslation()
   const { avatar, userName } = useSettings()
+  const navigation = useNavigation<NavigationProps>()
+
+  // 处理侧滑手势
+  const screenWidth = Dimensions.get('window').width
+  const panGesture = Gesture.Pan()
+    .activeOffsetX([-10, 10])
+    .failOffsetY([-20, 20])
+    .onBegin(event => {
+      // 只在屏幕左半部分触发手势
+      if (event.x > screenWidth / 2) {
+        runOnJS(() => {})() // 取消手势
+      }
+    })
+    .onEnd(event => {
+      const { translationX, velocityX, x } = event
+
+      // 确保手势开始位置在屏幕左半部分
+      if (x > screenWidth / 2) return
+
+      // 检测向右滑动
+      // 滑动距离大于20且速度大于100，或者滑动距离大于80
+      const hasGoodDistance = translationX > 20
+      const hasGoodVelocity = velocityX > 100
+      const hasExcellentDistance = translationX > 80
+
+      if ((hasGoodDistance && hasGoodVelocity) || hasExcellentDistance) {
+        runOnJS(haptic)(ImpactFeedbackStyle.Medium)
+        runOnJS(navigation.goBack)()
+      }
+    })
 
   const settingsItems: SettingGroupConfig[] = [
     {
@@ -84,19 +119,23 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.title')} />
+      <GestureDetector gesture={panGesture}>
+        <View collapsable={false} style={{ flex: 1 }}>
+          <HeaderBar title={t('settings.title')} />
 
-      <SettingContainer>
-        <YStack gap={24} flex={1}>
-          {settingsItems.map((group, index) => (
-            <Group key={index} title={group.title}>
-              {group.items.map((item, index) => (
-                <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
+          <SettingContainer>
+            <YStack gap={24} flex={1}>
+              {settingsItems.map((group, index) => (
+                <Group key={index} title={group.title}>
+                  {group.items.map((item, index) => (
+                    <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
+                  ))}
+                </Group>
               ))}
-            </Group>
-          ))}
-        </YStack>
-      </SettingContainer>
+            </YStack>
+          </SettingContainer>
+        </View>
+      </GestureDetector>
     </SafeAreaContainer>
   )
 }
