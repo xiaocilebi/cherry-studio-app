@@ -298,11 +298,11 @@
           "name": "預設助理"
         },
         "empty": "還沒有助理...",
-        "title": "預設助理",
-        "topic_naming_assistant": {
-          "description": "自動命名新主題時使用的助理",
-          "name": "主題命名助理"
+        "quick_assistant": {
+          "description": "用於簡單任務的助手，例如主題命名和關鍵字提取",
+          "name": "快速幫手"
         },
+        "title": "預設助理",
         "translate_assistant": {
           "description": "用於翻譯服務的助理",
           "name": "翻譯助理"

@@ -135,14 +135,15 @@ export default function WebSearchProviderSettingsScreen() {
             <XStack paddingVertical={8} gap={8} position="relative">
               <Input
                 paddingVertical={0}
-                fontSize={14}
-                lineHeight={14 * 1.2}
                 flex={1}
                 placeholder={t('settings.websearch.api_key.placeholder')}
                 secureTextEntry={!showApiKey}
                 paddingRight={48}
                 value={provider?.apiKey || ''}
                 onChangeText={text => handleProviderConfigChange('apiKey', text)}
+                fontSize={14}
+                multiline={false}
+                numberOfLines={1}
               />
               <Stack
                 position="absolute"
@@ -175,11 +176,11 @@ export default function WebSearchProviderSettingsScreen() {
           </XStack>
           <Input
             paddingVertical={0}
-            fontSize={14}
-            lineHeight={14 * 1.2}
             placeholder={t('settings.websearch.api_host.placeholder')}
             value={provider?.apiHost || ''}
             onChangeText={text => handleProviderConfigChange('apiHost', text)}
+            multiline={false}
+            numberOfLines={1}
           />
         </YStack>
       </SettingContainer>

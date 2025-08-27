@@ -182,13 +182,13 @@ export async function fetchTopicNaming(topicId: string) {
     }
   }
   const streamProcessorCallbacks = createStreamProcessor(callbacks)
-  const topicNamingAssistant = await getAssistantById('topic_naming')
+  const quickAssistant = await getAssistantById('quick')
 
-  if (!topicNamingAssistant.model) {
+  if (!quickAssistant.model) {
     throw new Error('Translate assistant model is not defined')
   }
 
-  const provider = await getAssistantProvider(topicNamingAssistant)
+  const provider = await getAssistantProvider(quickAssistant)
 
   // 总结上下文总是取最后5条消息
   const contextMessages = takeRight(topic.messages, 5)
@@ -196,28 +196,28 @@ export async function fetchTopicNaming(topicId: string) {
   // LLM对多条消息的总结有问题，用单条结构化的消息表示会话内容会更好
   const mainTextMessages = await filterMainTextMessages(contextMessages)
 
-  const llmMessages = await convertMessagesToSdkMessages(mainTextMessages, topicNamingAssistant.model)
+  const llmMessages = await convertMessagesToSdkMessages(mainTextMessages, quickAssistant.model)
 
-  const AI = new ModernAiProvider(topicNamingAssistant.model || getDefaultModel(), provider)
+  const AI = new ModernAiProvider(quickAssistant.model || getDefaultModel(), provider)
   const {
     params: aiSdkParams,
     modelId,
     capabilities
-  } = await buildStreamTextParams(llmMessages, topicNamingAssistant, provider)
+  } = await buildStreamTextParams(llmMessages, quickAssistant, provider)
 
   const middlewareConfig: AiSdkMiddlewareConfig = {
-    streamOutput: topicNamingAssistant.settings?.streamOutput ?? true,
+    streamOutput: quickAssistant.settings?.streamOutput ?? true,
     onChunk: streamProcessorCallbacks,
-    model: topicNamingAssistant.model,
+    model: quickAssistant.model,
     provider: provider,
     enableReasoning: capabilities.enableReasoning,
     isPromptToolUse: false,
     isSupportedToolUse: false,
-    isImageGenerationEndpoint: isDedicatedImageGenerationModel(topicNamingAssistant.model || getDefaultModel()),
+    isImageGenerationEndpoint: isDedicatedImageGenerationModel(quickAssistant.model || getDefaultModel()),
     enableWebSearch: capabilities.enableWebSearch,
     enableGenerateImage: capabilities.enableGenerateImage,
     mcpTools: [],
-    assistant: topicNamingAssistant
+    assistant: quickAssistant
   }
 
   try {

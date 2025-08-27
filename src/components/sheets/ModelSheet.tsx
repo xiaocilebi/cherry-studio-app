@@ -122,7 +122,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       handleIndicatorStyle={{
         backgroundColor: theme.color.val
       }}
-      backdropComponent={renderBackdrop}>
+      backdropComponent={renderBackdrop}
+      enablePanDownToClose={true}
+      android_keyboardInputMode="adjustResize">
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
         <YStack gap={5} padding="20">
           <XStack gap={5}>

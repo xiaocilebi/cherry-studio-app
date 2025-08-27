@@ -2,7 +2,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Dimensions, Platform, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Platform, TouchableOpacity, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
@@ -50,19 +50,16 @@ const ChatScreen = () => {
 
   // 处理侧滑手势
   const handleSwipeGesture = (event: any) => {
-    const { translationX, velocityX, state, absoluteX } = event.nativeEvent
-    const screenWidth = Dimensions.get('window').width
+    const { translationX, velocityX, state } = event.nativeEvent
 
-    // 检测从左边缘向右滑动
+    // 检测向右滑动
     if (state === State.END) {
-      // 进一步放宽触发条件：从屏幕左边缘40%区域开始滑动
-      // 滑动距离大于40且速度大于200，或者滑动距离大于80
-      const isFromLeftEdge = absoluteX < screenWidth * 0.4
+      // 全屏可侧滑触发：滑动距离大于20且速度大于100，或者滑动距离大于80
       const hasGoodDistance = translationX > 20
       const hasGoodVelocity = velocityX > 100
       const hasExcellentDistance = translationX > 80
 
-      if (isFromLeftEdge && ((hasGoodDistance && hasGoodVelocity) || hasExcellentDistance)) {
+      if ((hasGoodDistance && hasGoodVelocity) || hasExcellentDistance) {
         haptic(ImpactFeedbackStyle.Medium)
         navigation.dispatch(DrawerActions.openDrawer())
       }

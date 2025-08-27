@@ -39,7 +39,7 @@ export const BottomSheetSearchInput = ({ placeholder, onChangeText, value }: Bot
 const styles = StyleSheet.create({
   input: {
     flex: 1,
-    height: 48,
+    height: 36,
     borderRadius: 24,
     paddingLeft: 42,
     paddingRight: 16,

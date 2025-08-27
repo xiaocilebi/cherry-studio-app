@@ -38,10 +38,10 @@ export function getSystemAssistants(): Assistant[] {
     topics: [],
     type: 'system'
   }
-  const topicNamingAssistant: Assistant = {
-    id: 'topic_naming',
-    name: isEnglish ? 'Topic Naming Assistant' : '话题命名助手',
-    description: isEnglish ? 'This is Topic Naming Assistant' : '这是话题命名助手',
+  const quickAssistant: Assistant = {
+    id: 'quick',
+    name: isEnglish ? 'Quick Assistant' : '快速助手',
+    description: isEnglish ? 'This is Quick Assistant' : '这是快速助手',
     model: undefined,
     emoji: '🏷️',
     prompt: isEnglish
@@ -51,7 +51,7 @@ export function getSystemAssistants(): Assistant[] {
     type: 'system'
   }
 
-  return [defaultAssistant, translateAssistant, topicNamingAssistant]
+  return [defaultAssistant, translateAssistant, quickAssistant]
 }
 
 export function getBuiltInAssistants(): Assistant[] {
