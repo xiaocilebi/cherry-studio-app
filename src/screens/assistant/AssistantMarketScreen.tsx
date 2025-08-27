@@ -4,6 +4,7 @@ import { debounce } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
+import { GestureDetector } from 'react-native-gesture-handler'
 import { ScrollView, Tabs, Text, View } from 'tamagui'
 
 import AllAssistantsTab from '@/components/assistant/market/AllAssistantsTab'
@@ -14,6 +15,7 @@ import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
+import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { groupByCategories } from '@/utils/assistants'
@@ -30,6 +32,7 @@ type FilterType = 'all' | string
 export default function AssistantMarketScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
+  const panGesture = useSwipeGesture()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
@@ -187,49 +190,57 @@ export default function AssistantMarketScreen() {
   if (isInitializing) {
     return (
       <SafeAreaContainer>
-        <HeaderBar
-          title={t('assistants.market.title')}
-          rightButton={{
-            icon: <UnionIcon size={24} />,
-            onPress: handleNavigateToMyAssistants
-          }}
-        />
-        <View flex={1} justifyContent="center" alignItems="center">
-          <ActivityIndicator size="large" />
-        </View>
+        <GestureDetector gesture={panGesture}>
+          <View collapsable={false} style={{ flex: 1 }}>
+            <HeaderBar
+              title={t('assistants.market.title')}
+              rightButton={{
+                icon: <UnionIcon size={24} />,
+                onPress: handleNavigateToMyAssistants
+              }}
+            />
+            <View flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator size="large" />
+            </View>
+          </View>
+        </GestureDetector>
       </SafeAreaContainer>
     )
   }
 
   return (
     <SafeAreaContainer>
-      <HeaderBar
-        title={t('assistants.market.title')}
-        rightButton={{
-          icon: <UnionIcon size={24} />,
-          onPress: handleNavigateToMyAssistants
-        }}
-      />
-      <SettingContainer>
-        <SearchInput
-          placeholder={t('assistants.market.search_placeholder')}
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+      <GestureDetector gesture={panGesture}>
+        <View collapsable={false} style={{ flex: 1 }}>
+          <HeaderBar
+            title={t('assistants.market.title')}
+            rightButton={{
+              icon: <UnionIcon size={24} />,
+              onPress: handleNavigateToMyAssistants
+            }}
+          />
+          <SettingContainer>
+            <SearchInput
+              placeholder={t('assistants.market.search_placeholder')}
+              value={searchText}
+              onChangeText={setSearchText}
+            />
 
-        <Tabs
-          gap={10}
-          defaultValue={'all'}
-          value={actualFilterType}
-          onValueChange={setActualFilterType}
-          orientation="horizontal"
-          flexDirection="column"
-          flex={1}>
-          {renderTabList}
-          {renderTabContents}
-        </Tabs>
-      </SettingContainer>
-      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="builtIn" />
+            <Tabs
+              gap={10}
+              defaultValue={'all'}
+              value={actualFilterType}
+              onValueChange={setActualFilterType}
+              orientation="horizontal"
+              flexDirection="column"
+              flex={1}>
+              {renderTabList}
+              {renderTabContents}
+            </Tabs>
+          </SettingContainer>
+          <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="builtIn" />
+        </View>
+      </GestureDetector>
     </SafeAreaContainer>
   )
 }
