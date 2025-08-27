@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
 import React, { useRef, useState } from 'react'
@@ -26,8 +26,7 @@ export default function WebSearchProviderSettingsScreen() {
   const [showApiKey, setShowApiKey] = useState(false)
   const [checkApiStatus, setCheckApiStatus] = useState<ApiStatus>('idle')
 
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
 
   const { providerId } = route.params
   const { provider, isLoading, updateProvider } = useWebSearchProvider(providerId)
@@ -56,13 +55,11 @@ export default function WebSearchProviderSettingsScreen() {
   }
 
   const handleOpenBottomSheet = () => {
-    bottomSheetRef.current?.expand()
-    setIsBottomSheetOpen(true)
+    bottomSheetRef.current?.present()
   }
 
   const handleBottomSheetClose = () => {
-    bottomSheetRef.current?.close()
-    setIsBottomSheetOpen(false)
+    bottomSheetRef.current?.dismiss()
   }
 
   const toggleApiKeyVisibility = () => {
@@ -93,7 +90,7 @@ export default function WebSearchProviderSettingsScreen() {
           {
             text: t('common.ok'),
             style: 'cancel',
-            onPress: () => setIsBottomSheetOpen(false)
+            onPress: () => handleBottomSheetClose()
           }
         ])
       }
@@ -102,7 +99,7 @@ export default function WebSearchProviderSettingsScreen() {
         {
           text: t('common.ok'),
           style: 'cancel',
-          onPress: () => setIsBottomSheetOpen(false)
+          onPress: () => handleBottomSheetClose()
         }
       ])
       throw error
@@ -184,13 +181,7 @@ export default function WebSearchProviderSettingsScreen() {
           />
         </YStack>
       </SettingContainer>
-      <ApiCheckSheet
-        bottomSheetRef={bottomSheetRef}
-        isOpen={isBottomSheetOpen}
-        onClose={handleBottomSheetClose}
-        onStartModelCheck={checkSearch}
-        checkApiStatus={checkApiStatus}
-      />
+      <ApiCheckSheet ref={bottomSheetRef} onStartModelCheck={checkSearch} checkApiStatus={checkApiStatus} />
     </SafeAreaContainer>
   )
 }

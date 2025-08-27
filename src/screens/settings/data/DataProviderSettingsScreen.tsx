@@ -1,10 +1,9 @@
-import BottomSheet from '@gorhom/bottom-sheet'
-import { useNavigation } from '@react-navigation/native'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
-import { Button, Input, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
+import { Button, Input, Stack, Text, XStack, YStack } from 'tamagui'
 
 import ExternalLink from '@/components/ExternalLink'
 import { SettingContainer, SettingGroupTitle } from '@/components/settings'
@@ -36,13 +35,10 @@ export type ProviderConfig = {
 
 export default function ProviderSettingsScreen({ config }: { config: ProviderConfig }) {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const navigation = useNavigation()
 
   const [showApiKey, setShowApiKey] = useState<Record<string, boolean>>({})
   const [checkApiStatus, setCheckApiStatus] = useState<ApiStatus>('idle')
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
   const { provider, isLoading, updateProvider } = useDataBackupProvider(config.providerType)
 
   if (isLoading) {
@@ -67,12 +63,11 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
   }
 
   const handleOpenBottomSheet = () => {
-    bottomSheetRef.current?.expand()
-    setIsBottomSheetOpen(true)
+    bottomSheetRef.current?.present()
   }
 
   const handleBottomSheetClose = () => {
-    setIsBottomSheetOpen(false)
+    bottomSheetRef.current?.dismiss()
   }
 
   const toggleApiKeyVisibility = (key: string) => {
@@ -209,14 +204,7 @@ export default function ProviderSettingsScreen({ config }: { config: ProviderCon
           </YStack>
         ))}
       </SettingContainer>
-      <ApiCheckSheet
-        bottomSheetRef={bottomSheetRef}
-        isOpen={isBottomSheetOpen}
-        apiKey={provider[config.fields.find(f => f.type === 'password')?.key || ''] || ''}
-        onClose={handleBottomSheetClose}
-        onStartModelCheck={checkConnection}
-        checkApiStatus={checkApiStatus}
-      />
+      <ApiCheckSheet ref={bottomSheetRef} onStartModelCheck={checkConnection} checkApiStatus={checkApiStatus} />
     </SafeAreaContainer>
   )
 }
