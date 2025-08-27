@@ -475,7 +475,7 @@
         "add.name.placeholder": "示例：OpenAI",
         "add.title": "添加供应商",
         "add.type": "提供者类型",
-        "added": "添加",
+        "added": "已添加",
         "api.url.preview": "预览: {{url}}",
         "api.url.reset": "重置",
         "api.url.tip": "以 / 结尾忽略 v1，以 # 结尾强制使用输入地址",

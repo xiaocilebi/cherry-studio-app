@@ -95,9 +95,9 @@ export default function ProviderSettingsScreen() {
     navigation.navigate('Settings', { screen: 'ApiServiceScreen', params: { providerId } })
   }
 
-  const onSettingModel = (model: Model) => {
-    logger.info('[ProviderSettingsPage] onSettingModel', model)
-  }
+  // const onSettingModel = (model: Model) => {
+  //   logger.info('[ProviderSettingsPage] onSettingModel', model)
+  // }
 
   const handleEnabledChange = async (checked: boolean) => {
     if (provider) {
@@ -148,7 +148,7 @@ export default function ProviderSettingsScreen() {
         ]}
       />
 
-      <SettingContainer>
+      <SettingContainer onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           style={{ flex: 1 }}

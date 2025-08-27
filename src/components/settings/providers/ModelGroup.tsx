@@ -96,6 +96,7 @@ export function ModelGroup({
             keyExtractor={model => model.id}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingVertical: 8 }}
+            ItemSeparatorComponent={() => <YStack height={10} />}
             scrollEnabled={false}
             getItemLayout={(data, index) => ({
               length: 48,
