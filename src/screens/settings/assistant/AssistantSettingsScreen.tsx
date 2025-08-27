@@ -1,21 +1,25 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight, Languages, MessageSquareMore, Rocket, Settings2 } from '@tamagui/lucide-icons'
+import { ChevronDown, Languages, MessageSquareMore, Rocket, Settings2 } from '@tamagui/lucide-icons'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button, Text, XStack, YStack } from 'tamagui'
+import { Image } from 'tamagui'
 
 import { SettingContainer, SettingHelpText } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import ModelSheet from '@/components/sheets/ModelSheet'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
+import { useTheme } from '@/hooks/useTheme'
 import { Assistant, Model } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
+import { getModelOrProviderIcon } from '@/utils/icons'
 
 function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: () => void }) {
   const { t } = useTranslation()
+  const { isDark } = useTheme()
   const model = assistant?.model
 
   return (
@@ -26,16 +30,25 @@ function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: ()
       paddingHorizontal={16}
       paddingVertical={15}
       onPress={onPress}
-      iconAfter={<ChevronRight size={16} />}
+      iconAfter={<ChevronDown size={16} />}
       backgroundColor="$uiCardBackground">
       <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
         {model ? (
-          <XStack flex={1} justifyContent="space-between">
-            <Text flexShrink={1} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold">
-              {t(`provider.${model.provider}`)}
-            </Text>
-            <Text flexShrink={0} numberOfLines={1} maxWidth="60%" ellipsizeMode="tail" fontSize={12}>
+          <XStack flex={1} alignItems="center" gap={8}>
+            <Image
+              borderRadius={99}
+              width={18}
+              height={18}
+              source={getModelOrProviderIcon(model.id, model.provider, isDark)}
+            />
+            <Text flexShrink={0} numberOfLines={1} maxWidth="60%" ellipsizeMode="tail" fontSize={14}>
               {model.name}
+            </Text>
+            <Text opacity={0.45} fontWeight="bold" fontSize={14}>
+              |
+            </Text>
+            <Text opacity={0.45} flexShrink={1} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" fontSize={14}>
+              {t(`provider.${model.provider}`)}
             </Text>
           </XStack>
         ) : (
