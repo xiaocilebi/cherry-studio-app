@@ -298,11 +298,11 @@
           "name": "默认助手"
         },
         "empty": "还没有助手...",
-        "title": "默认助手",
-        "topic_naming_assistant": {
-          "description": "自动命名新话题时使用的助手",
-          "name": "话题命名助手"
+        "quick_assistant": {
+          "description": "用于简单任务的助手，例如话题命名和关键字提取",
+          "name": "快速助手"
         },
+        "title": "默认助手",
         "translate_assistant": {
           "description": "用于翻译服务的助手",
           "name": "翻译助手"

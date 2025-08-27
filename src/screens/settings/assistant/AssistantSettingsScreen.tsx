@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight, Settings2 } from '@tamagui/lucide-icons'
+import { ChevronRight, Languages, MessageSquareMore, Rocket, Settings2 } from '@tamagui/lucide-icons'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
@@ -54,6 +54,7 @@ interface AssistantSettingItemProps {
   descriptionKey: string
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>
+  icon?: React.ReactElement
 }
 
 function AssistantSettingItem({
@@ -61,7 +62,8 @@ function AssistantSettingItem({
   titleKey,
   descriptionKey,
   assistant,
-  updateAssistant
+  updateAssistant,
+  icon
 }: AssistantSettingItemProps) {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
@@ -76,7 +78,10 @@ function AssistantSettingItem({
     <>
       <YStack gap={8}>
         <XStack justifyContent="space-between" height={20}>
-          <Text>{t(titleKey)}</Text>
+          <XStack alignItems="center" gap={8}>
+            {icon}
+            <Text>{t(titleKey)}</Text>
+          </XStack>
           <Button
             size={14}
             icon={<Settings2 size={14} color="$textLink" />}
@@ -104,10 +109,10 @@ export default function AssistantSettingsScreen() {
   const { t } = useTranslation()
 
   const { assistant: defaultAssistant, updateAssistant: updateDefaultAssistant } = useAssistant('default')
-  const { assistant: topicNamingAssistant, updateAssistant: updateTopicNamingAssistant } = useAssistant('topic_naming')
+  const { assistant: quickAssistant, updateAssistant: updateQuickAssistant } = useAssistant('quick')
   const { assistant: translateAssistant, updateAssistant: updateTranslateAssistant } = useAssistant('translate')
 
-  const isLoading = !defaultAssistant || !topicNamingAssistant || !translateAssistant
+  const isLoading = !defaultAssistant || !quickAssistant || !translateAssistant
 
   if (isLoading) {
     return (
@@ -123,21 +128,24 @@ export default function AssistantSettingsScreen() {
       titleKey: 'settings.assistant.default_assistant.name',
       descriptionKey: 'settings.assistant.default_assistant.description',
       assistant: defaultAssistant,
-      updateAssistant: updateDefaultAssistant
+      updateAssistant: updateDefaultAssistant,
+      icon: <MessageSquareMore size={16} color="$textSecondary" />
     },
     {
-      id: 'topic_naming',
-      titleKey: 'settings.assistant.topic_naming_assistant.name',
-      descriptionKey: 'settings.assistant.topic_naming_assistant.description',
-      assistant: topicNamingAssistant,
-      updateAssistant: updateTopicNamingAssistant
+      id: 'quick',
+      titleKey: 'settings.assistant.quick_assistant.name',
+      descriptionKey: 'settings.assistant.quick_assistant.description',
+      assistant: quickAssistant,
+      updateAssistant: updateQuickAssistant,
+      icon: <Rocket size={16} color="$textSecondary" />
     },
     {
       id: 'translate',
       titleKey: 'settings.assistant.translate_assistant.name',
       descriptionKey: 'settings.assistant.translate_assistant.description',
       assistant: translateAssistant,
-      updateAssistant: updateTranslateAssistant
+      updateAssistant: updateTranslateAssistant,
+      icon: <Languages size={16} color="$textSecondary" />
     }
   ]
 
@@ -153,6 +161,7 @@ export default function AssistantSettingsScreen() {
             descriptionKey={item.descriptionKey}
             assistant={item.assistant}
             updateAssistant={item.updateAssistant}
+            icon={item.icon}
           />
         ))}
       </SettingContainer>

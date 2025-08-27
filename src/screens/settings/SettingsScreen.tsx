@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight, Cloud, Globe, HardDrive, Info, Package, Settings } from '@tamagui/lucide-icons'
+import { ChevronRight, Cloud, Globe, HardDrive, Info, Package, Settings2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Avatar, Text, useTheme, XStack, YStack } from 'tamagui'
@@ -61,7 +61,7 @@ export default function SettingsScreen() {
         {
           title: t('settings.general.title'),
           screen: 'GeneralSettingsScreen',
-          icon: <Settings size={24} />
+          icon: <Settings2 size={24} />
         },
         {
           title: t('settings.data.title'),

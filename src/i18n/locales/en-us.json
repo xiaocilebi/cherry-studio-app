@@ -298,11 +298,11 @@
           "name": "Default Assistant"
         },
         "empty": "No Assistant yet...",
-        "title": "Default Assistant",
-        "topic_naming_assistant": {
-          "description": "Assistant used when automatically naming a new topic",
-          "name": "Topic Naming Assistant"
+        "quick_assistant": {
+          "description": "Assistant used for simple tasks such as topic naming and keyword extraction",
+          "name": "Quick Assistant"
         },
+        "title": "Default Assistant",
         "translate_assistant": {
           "description": "Assistant used for translation service",
           "name": "Translation Assistant"
