@@ -7,7 +7,7 @@ import { IconProps } from '.'
 
 export function ModelChangeIcon(props: IconProps) {
   const { isDark } = useTheme()
-  const strokeColor = props.color || (isDark ? '#f9f9f9ff' : '#202020ff')
+  const strokeColor = props.color || (isDark ? '#acf3a6ff' : '#81df94ff')
 
   return (
     <Svg width={props.size || 13} height={props.size || 13} viewBox="0 0 13 13" fill="none" {...props}>
