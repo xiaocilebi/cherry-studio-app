@@ -126,8 +126,8 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
               <Button
                 onPress={onClose}
                 disabled={!isDone}
-                backgroundColor={overallStatus === 'error' ? '$red10' : '$green10'}>
-                <Text color={overallStatus === 'error' ? '$red100' : '$green100'}>
+                backgroundColor={overallStatus === 'error' ? '$red20' : '$yellow20'}>
+                <Text color={overallStatus === 'error' ? '$red100' : '$yellow100'}>
                   {isDone ? t('common.close') : t('settings.data.restore.progress.pending')}
                 </Text>
               </Button>

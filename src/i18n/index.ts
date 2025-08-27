@@ -42,7 +42,7 @@ const initI18n = async () => {
   i18n.use(initReactI18next).init({
     resources,
     lng: await getLanguage(),
-    fallbackLng: 'en-US',
+    fallbackLng: 'zh-Hans-CN',
     interpolation: {
       escapeValue: false
     }

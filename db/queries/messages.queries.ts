@@ -151,22 +151,48 @@ export async function upsertMessages(messagesToUpsert: Message | Message[]): Pro
   try {
     const dbRecords = messagesArray.map(transformMessageToDb)
 
-    // 为每个记录创建一个 upsert promise
-    const upsertPromises = dbRecords.map(record =>
-      db
+    // 对于单条消息，使用原有逻辑
+    if (dbRecords.length === 1) {
+      const result = await db
         .insert(messages)
-        .values(record)
+        .values(dbRecords[0])
         .onConflictDoUpdate({
           target: messages.id,
-          set: record // 更新除主键外的所有字段
+          set: dbRecords[0]
         })
         .returning()
-    )
 
-    const results = await Promise.all(upsertPromises)
-    const flattenedResults = results.flat() // .returning() 为每个 promise 返回一个数组，因此需要展平
+      return result.map(transformDbToMessage)
+    }
 
-    return flattenedResults.map(transformDbToMessage)
+    // 对于多条消息，使用批量操作优化
+    const result = await db
+      .insert(messages)
+      .values(dbRecords)
+      .onConflictDoUpdate({
+        target: messages.id,
+        set: {
+          role: messages.role,
+          assistant_id: messages.assistant_id,
+          topic_id: messages.topic_id,
+          created_at: messages.created_at,
+          updated_at: messages.updated_at,
+          status: messages.status,
+          model_id: messages.model_id,
+          model: messages.model,
+          type: messages.type,
+          useful: messages.useful,
+          ask_id: messages.ask_id,
+          mentions: messages.mentions,
+          usage: messages.usage,
+          metrics: messages.metrics,
+          multi_model_message_style: messages.multi_model_message_style,
+          fold_selected: messages.fold_selected
+        }
+      })
+      .returning()
+
+    return result.map(transformDbToMessage)
   } catch (error) {
     logger.error('Error upserting message(s):', error)
     throw error

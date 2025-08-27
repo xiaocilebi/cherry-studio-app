@@ -117,8 +117,8 @@ export async function restore(backupFile: Omit<FileType, 'md5'>, onProgress: OnP
 
     const { reduxData, indexedData } = transformBackupData(data)
 
-    await restoreIndexedDbData(indexedData, onProgress, dispatch)
     await restoreReduxData(reduxData, onProgress, dispatch)
+    await restoreIndexedDbData(indexedData, onProgress, dispatch)
   } catch (error) {
     logger.error('restore error: ', error)
     throw error
