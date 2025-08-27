@@ -243,7 +243,7 @@ export default function ManageModelsScreen() {
           <ActivityIndicator />
         </SafeAreaContainer>
       ) : (
-        <SettingContainer>
+        <SettingContainer onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
           {/* Filter Tabs */}
           <Tabs
             defaultValue="all"

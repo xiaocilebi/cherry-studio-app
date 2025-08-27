@@ -240,7 +240,6 @@ export function transformDbToMessageBlock(dbRecord: any): MessageBlock {
 
 // MessageBlock 转换为数据库记录
 function transformMessageBlockToDb(messageBlock: MessageBlock): any {
-  logger.info('Transforming message block to DB record:', messageBlock)
   const base = {
     id: messageBlock.id,
     message_id: messageBlock.messageId,

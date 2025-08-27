@@ -16,7 +16,6 @@ const logger = loggerService.withContext('DataBase Topics')
  * @returns 一个 Topic 对象。
  */
 export function transformDbToTopic(dbRecord: any): Topic {
-  logger.info('transformDbToTopic', dbRecord)
   return {
     id: dbRecord.id,
     assistantId: dbRecord.assistant_id,

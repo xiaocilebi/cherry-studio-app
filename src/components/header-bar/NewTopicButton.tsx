@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, XStack } from 'tamagui'
 
 import { useCustomNavigation } from '@/hooks/useNavigation'
-import { createNewTopic, getNewestTopic, upsertTopics } from '@/services/TopicService'
+import { createNewTopic, getNewestTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 
@@ -22,7 +22,6 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
 
     if (newestTopic && newestTopic.messages.length === 0) {
       newestTopic.assistantId = assistant.id
-      await upsertTopics([newestTopic])
       navigateToChatScreen(newestTopic.id)
     } else {
       const newTopic = await createNewTopic(assistant)

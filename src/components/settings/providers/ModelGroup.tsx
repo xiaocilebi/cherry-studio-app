@@ -1,5 +1,6 @@
 import { ChevronDown } from '@tamagui/lucide-icons'
 import React from 'react'
+import { FlatList, ListRenderItem } from 'react-native'
 import { Accordion, Square, Stack, Text, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
@@ -23,6 +24,27 @@ export function ModelGroup({
   renderModelButton,
   showModelCount = false
 }: ModelGroupProps) {
+  const renderModelItem: ListRenderItem<Model> = ({ item: model }) => (
+    <XStack alignItems="center" justifyContent="space-between" paddingHorizontal={8} width="100%">
+      <XStack gap={8} flex={1} maxWidth="80%">
+        {/* icon */}
+        <XStack justifyContent="center" alignItems="center" flexShrink={0}>
+          <ModelIcon model={model} />
+        </XStack>
+        {/* name and tool */}
+        <YStack gap={5} flex={1} minWidth={0}>
+          <Text numberOfLines={1} ellipsizeMode="tail">
+            {model.name}
+          </Text>
+          <ModelTags model={model} size={11} />
+        </YStack>
+      </XStack>
+      <XStack flexShrink={0} marginLeft={8}>
+        {renderModelButton?.(model)}
+      </XStack>
+    </XStack>
+  )
+
   return (
     <Accordion.Item key={groupName} value={`item-${index}`} marginBottom={8}>
       <Accordion.Trigger
@@ -68,33 +90,21 @@ export function ModelGroup({
           borderBottomLeftRadius={9}
           borderBottomRightRadius={9}
           backgroundColor="$uiCardBackground">
-          <YStack flex={1} width="100%" gap={8}>
-            {models.map(model => (
-              <XStack
-                key={model.id}
-                alignItems="center"
-                justifyContent="space-between"
-                paddingHorizontal={8}
-                width="100%">
-                <XStack gap={8} flex={1} maxWidth="80%">
-                  {/* icon */}
-                  <XStack justifyContent="center" alignItems="center" flexShrink={0}>
-                    <ModelIcon model={model} />
-                  </XStack>
-                  {/* name and tool */}
-                  <YStack gap={5} flex={1} minWidth={0}>
-                    <Text numberOfLines={1} ellipsizeMode="tail">
-                      {model.name}
-                    </Text>
-                    <ModelTags model={model} size={11} />
-                  </YStack>
-                </XStack>
-                <XStack flexShrink={0} marginLeft={8}>
-                  {renderModelButton?.(model)}
-                </XStack>
-              </XStack>
-            ))}
-          </YStack>
+          <FlatList
+            data={models}
+            renderItem={renderModelItem}
+            keyExtractor={model => model.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingVertical: 8 }}
+            scrollEnabled={false}
+            getItemLayout={(data, index) => ({
+              length: 48,
+              offset: 48 * index,
+              index
+            })}
+            initialNumToRender={20}
+            maxToRenderPerBatch={20}
+          />
         </Accordion.Content>
       </Accordion.HeightAnimator>
     </Accordion.Item>
