@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native'
-import * as Localization from 'expo-localization'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, useTheme, XStack, YStack } from 'tamagui'
@@ -7,7 +6,7 @@ import { Text, useTheme, XStack, YStack } from 'tamagui'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
-import { languagesOptions } from '@/config/languages'
+import { defaultLanguage, languagesOptions } from '@/config/languages'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
 import { NavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
@@ -16,9 +15,7 @@ export default function LanguageChangeScreen() {
   const { t, i18n } = useTranslation()
   const theme = useTheme()
   const navigation = useNavigation<NavigationProps>()
-  const [currentLanguage, setCurrentLanguage] = useState<string>(
-    storage.getString('language') || Localization.getLocales()[0]?.languageTag
-  )
+  const [currentLanguage, setCurrentLanguage] = useState<string>(storage.getString('language') || defaultLanguage)
   const { resetBuiltInAssistants } = useBuiltInAssistants()
 
   const changeLanguage = async (langCode: string) => {

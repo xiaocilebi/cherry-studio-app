@@ -41,12 +41,16 @@ export default function GeneralSettings() {
       <SettingGroupTitle>{t('settings.general.title')}</SettingGroupTitle>
       <SettingGroup>
         <SettingRow>
-          <SettingRowTitle>{t('settings.websearch.searchWithDates')}</SettingRowTitle>
-          <CustomSwitch checked={searchWithDates} onCheckedChange={setSearchWithDates} />
-        </SettingRow>
-        <SettingRow>
-          <SettingRowTitle>{t('settings.websearch.overrideSearchService')}</SettingRowTitle>
-          <CustomSwitch checked={overrideSearchService} onCheckedChange={setOverrideSearchService} />
+          <SettingRowTitle>{t('settings.websearch.contentLengthLimit')}</SettingRowTitle>
+          <Input
+            height={24}
+            minWidth={52}
+            paddingVertical={0}
+            value={contentLimit?.toString() || ''}
+            onChangeText={handleContentLimitChange}
+            fontSize={14}
+            lineHeight={14 * 1.2}
+          />
         </SettingRow>
         <SettingRow>
           <YStack gap={10} flex={1}>
@@ -62,17 +66,14 @@ export default function GeneralSettings() {
             </Slider>
           </YStack>
         </SettingRow>
+
         <SettingRow>
-          <SettingRowTitle>{t('settings.websearch.contentLengthLimit')}</SettingRowTitle>
-          <Input
-            height={24}
-            minWidth={52}
-            paddingVertical={0}
-            value={contentLimit?.toString() || ''}
-            onChangeText={handleContentLimitChange}
-            fontSize={14}
-            lineHeight={14 * 1.2}
-          />
+          <SettingRowTitle>{t('settings.websearch.searchWithDates')}</SettingRowTitle>
+          <CustomSwitch checked={searchWithDates} onCheckedChange={setSearchWithDates} />
+        </SettingRow>
+        <SettingRow>
+          <SettingRowTitle>{t('settings.websearch.overrideSearchService')}</SettingRowTitle>
+          <CustomSwitch checked={overrideSearchService} onCheckedChange={setOverrideSearchService} />
         </SettingRow>
       </SettingGroup>
     </YStack>

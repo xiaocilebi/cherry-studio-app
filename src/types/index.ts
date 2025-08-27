@@ -4,17 +4,12 @@ import { KnowledgeReference } from './knowledge'
 import { MCPToolResponse } from './mcp'
 import { MCPTool } from './tool'
 
-export type LanguageVarious =
-  | 'zh-Hans-CN'
-  | 'zh-TW'
-  | 'en-US'
-  | 'ru-RU'
-  | 'ja-JP'
-  | 'ko-KR'
-  | 'es-ES'
-  | 'de-DE'
-  | 'fr-FR'
-  | 'id-ID'
+export type LanguageVarious = 'zh-Hans-CN' | 'zh-Hans-TW' | 'en-US' | 'ru-RU' | 'ja-JP'
+// | 'ko-KR'
+// | 'es-ES'
+// | 'de-DE'
+// | 'fr-FR'
+// | 'id-ID'
 export enum ThemeMode {
   light = 'light',
   dark = 'dark',

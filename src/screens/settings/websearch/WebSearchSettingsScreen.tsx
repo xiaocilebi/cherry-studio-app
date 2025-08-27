@@ -15,7 +15,7 @@ export default function WebSearchSettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <KeyboardAwareScrollView bottomOffset={40} style={{ flex: 1 }}>
+      <KeyboardAwareScrollView scrollEnabled={false} bottomOffset={40} style={{ flex: 1 }}>
         <HeaderBar title={t('settings.websearch.title')} />
         <View flex={1}>
           <SettingContainer>

@@ -3,6 +3,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import { Platform } from 'react-native'
 
+import { defaultLanguage } from '@/config/languages'
 import { storage } from '@/utils'
 
 import enUS from './locales/en-us.json'
@@ -14,7 +15,7 @@ import zhTW from './locales/zh-tw.json'
 const resources = {
   'en-US': enUS,
   'zh-Hans-CN': zhCN,
-  'zh-TW': zhTW,
+  'zh-Hans-TW': zhTW,
   'ja-JP': jaJP,
   'ru-RU': ruRU
 }
@@ -42,7 +43,7 @@ const initI18n = async () => {
   i18n.use(initReactI18next).init({
     resources,
     lng: await getLanguage(),
-    fallbackLng: 'zh-Hans-CN',
+    fallbackLng: defaultLanguage,
     interpolation: {
       escapeValue: false
     }
