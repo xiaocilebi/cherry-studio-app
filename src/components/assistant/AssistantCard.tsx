@@ -32,24 +32,16 @@ const ActionTag: FC<ActionTagProps> = ({ icon, label, onPress }) => {
       gap={5}
       paddingHorizontal={12}
       paddingVertical={5}
-      backgroundColor="$gray20"
+      backgroundColor="$green10"
       borderWidth={0.5}
       borderRadius={99}
-      borderColor="$gray60"
+      borderColor="$green20"
       onPress={onPress}>
-      <LinearGradient
-        height={18}
-        width={18}
-        borderRadius={99}
-        justifyContent="center"
-        alignItems="center"
-        colors={['#C0E58D', '#3BB554']}
-        start={[0, 0]}
-        end={[1, 1]}>
+      <XStack height={18} width={18} borderRadius={99} justifyContent="center" alignItems="center">
         {icon}
-      </LinearGradient>
+      </XStack>
 
-      <Text color="$textSecondary">{label}</Text>
+      <Text color="$green100">{label}</Text>
     </XStack>
   )
 }
@@ -65,7 +57,7 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
 
   const actionMenu = [
     {
-      icon: <UserRoundPen size={13} />,
+      icon: <UserRoundPen size={13} color="$green100" />,
       label: 'edit',
       onPress: () => navigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'prompt' })
     },

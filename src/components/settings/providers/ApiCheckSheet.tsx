@@ -1,19 +1,16 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { ChevronsRight } from '@tamagui/lucide-icons'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
+import { Button, Spinner, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
-import { ISheet } from '@/components/ui/Sheet'
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { ApiStatus, Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 
 import { ModelSelect } from './ModelSelect'
 
 interface ApiCheckSheetProps {
-  bottomSheetRef: React.RefObject<BottomSheet | null>
-  isOpen: boolean
-  onClose: () => void
   selectedModel: Model | undefined
   onModelChange: (value: string) => void
   selectOptions: {
@@ -29,80 +26,92 @@ interface ApiCheckSheetProps {
   checkApiStatus: ApiStatus
 }
 
-export function ApiCheckSheet({
-  bottomSheetRef,
-  isOpen,
-  onClose,
-  selectedModel,
-  onModelChange,
-  selectOptions,
-  onStartModelCheck,
-  checkApiStatus
-}: ApiCheckSheetProps) {
-  const { t } = useTranslation()
-  const sheetSnapPoints = ['40%']
+const renderBackdrop = (props: any) => (
+  <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
+)
 
-  return (
-    <ISheet bottomSheetRef={bottomSheetRef} isOpen={isOpen} onClose={onClose} snapPoints={sheetSnapPoints}>
-      <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
-        <XStack width="100%" alignItems="center" justifyContent="center">
-          <Text fontSize={24}>{t('settings.provider.api_check.title')}</Text>
-        </XStack>
+export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
+  ({ selectedModel, onModelChange, selectOptions, onStartModelCheck, checkApiStatus }, ref) => {
+    const { t } = useTranslation()
+    const theme = useTheme()
+    const { isDark } = useCustomTheme()
 
-        <YStack width="100%" gap={5}>
-          <Text>{t('settings.provider.api_check.tooltip')}</Text>
-          <ModelSelect
-            value={selectedModel ? getModelUniqId(selectedModel) : undefined}
-            onValueChange={onModelChange}
-            selectOptions={selectOptions}
-            placeholder={t('settings.models.empty')}
-          />
-        </YStack>
+    return (
+      <BottomSheetModal
+        backdropComponent={renderBackdrop}
+        enableDynamicSizing={true}
+        ref={ref}
+        backgroundStyle={{
+          borderRadius: 30,
+          backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
+        }}
+        handleIndicatorStyle={{
+          backgroundColor: theme.color.val
+        }}>
+        <BottomSheetView>
+          <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
+            <XStack width="100%" alignItems="center" justifyContent="center">
+              <Text fontSize={24}>{t('settings.provider.api_check.title')}</Text>
+            </XStack>
 
-        <XStack width="100%" alignItems="center" justifyContent="center">
-          <Button
-            height={60}
-            width={224}
-            borderRadius={70}
-            borderWidth={0.5}
-            backgroundColor="$green10"
-            borderColor="$green20"
-            disabled={checkApiStatus === 'processing'}
-            onPress={onStartModelCheck}>
-            {checkApiStatus === 'processing' && (
-              <View>
-                <XStack gap={10} width="100%" alignItems="center" justifyContent="center">
-                  <Spinner size="small" color="$green100" />
-                  <Text fontSize={18} fontWeight="bold" color="$green100">
-                    {t('button.checking')}
-                  </Text>
-                </XStack>
-              </View>
-            )}
+            <YStack width="100%" gap={5}>
+              <Text>{t('settings.provider.api_check.tooltip')}</Text>
+              <ModelSelect
+                value={selectedModel ? getModelUniqId(selectedModel) : undefined}
+                onValueChange={onModelChange}
+                selectOptions={selectOptions}
+                placeholder={t('settings.models.empty')}
+              />
+            </YStack>
 
-            {checkApiStatus === 'idle' && (
-              <View>
-                <XStack width="100%" alignItems="center" justifyContent="space-between">
-                  <Text fontSize={18} fontWeight="bold" color="$green100">
-                    {t('button.start_check_model')}
-                  </Text>
-                  <ChevronsRight color="$green100" />
-                </XStack>
-              </View>
-            )}
+            <XStack width="100%" alignItems="center" justifyContent="center">
+              <Button
+                height={60}
+                width={224}
+                borderRadius={70}
+                borderWidth={0.5}
+                backgroundColor="$green10"
+                borderColor="$green20"
+                disabled={checkApiStatus === 'processing'}
+                onPress={onStartModelCheck}>
+                {checkApiStatus === 'processing' && (
+                  <View>
+                    <XStack gap={10} width="100%" alignItems="center" justifyContent="center">
+                      <Spinner size="small" color="$green100" />
+                      <Text fontSize={18} fontWeight="bold" color="$green100">
+                        {t('button.checking')}
+                      </Text>
+                    </XStack>
+                  </View>
+                )}
 
-            {checkApiStatus === 'success' && (
-              <View>
-                <XStack width="100%" alignItems="center" justifyContent="space-between">
-                  <Text fontSize={18} fontWeight="bold" color="$green100">
-                    {t('button.success')}
-                  </Text>
-                </XStack>
-              </View>
-            )}
-          </Button>
-        </XStack>
-      </YStack>
-    </ISheet>
-  )
-}
+                {checkApiStatus === 'idle' && (
+                  <View>
+                    <XStack width="100%" alignItems="center" justifyContent="space-between">
+                      <Text fontSize={18} fontWeight="bold" color="$green100">
+                        {t('button.start_check_model')}
+                      </Text>
+                      <ChevronsRight color="$green100" />
+                    </XStack>
+                  </View>
+                )}
+
+                {checkApiStatus === 'success' && (
+                  <View>
+                    <XStack width="100%" alignItems="center" justifyContent="space-between">
+                      <Text fontSize={18} fontWeight="bold" color="$green100">
+                        {t('button.success')}
+                      </Text>
+                    </XStack>
+                  </View>
+                )}
+              </Button>
+            </XStack>
+          </YStack>
+        </BottomSheetView>
+      </BottomSheetModal>
+    )
+  }
+)
+
+ApiCheckSheet.displayName = 'ApiCheckSheet'

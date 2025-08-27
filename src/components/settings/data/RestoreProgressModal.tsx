@@ -3,7 +3,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Dialog, Paragraph, Spinner, Text, Unspaced, XStack, YStack } from 'tamagui'
 
-import { useTheme } from '@/hooks/useTheme'
 import { RestoreStepId, StepStatus } from '@/services/BackupService'
 
 export interface RestoreStep {
@@ -20,7 +19,7 @@ interface RestoreProgressModalProps {
   onClose: () => void
 }
 
-const getIconForStatus = (isDark: boolean, status: StepStatus) => {
+const getIconForStatus = (status: StepStatus) => {
   switch (status) {
     case 'in_progress':
       return <Spinner size="small" color="$textLink" />
@@ -34,7 +33,7 @@ const getIconForStatus = (isDark: boolean, status: StepStatus) => {
   }
 }
 
-const getBackgroundColor = (isDark: boolean, status: StepStatus) => {
+const getBackgroundColor = (status: StepStatus) => {
   switch (status) {
     case 'in_progress':
       return '$yellow20'
@@ -48,7 +47,7 @@ const getBackgroundColor = (isDark: boolean, status: StepStatus) => {
   }
 }
 
-const getFontColor = (isDark: boolean, status: StepStatus) => {
+const getFontColor = (status: StepStatus) => {
   switch (status) {
     case 'in_progress':
       return '$yellow100'
@@ -64,7 +63,6 @@ const getFontColor = (isDark: boolean, status: StepStatus) => {
 
 export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: RestoreProgressModalProps) {
   const { t } = useTranslation()
-  const { isDark } = useTheme()
   const isDone = overallStatus === 'success' || overallStatus === 'error'
   const title =
     overallStatus === 'success'
@@ -112,9 +110,9 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
                 paddingLeft={12}
                 paddingRight={15}
                 borderRadius={17}
-                backgroundColor={getBackgroundColor(isDark, step.status)}>
-                {getIconForStatus(isDark, step.status)}
-                <Paragraph flex={1} color={getFontColor(isDark, step.status)}>
+                backgroundColor={getBackgroundColor(step.status)}>
+                {getIconForStatus(step.status)}
+                <Paragraph flex={1} color={getFontColor(step.status)}>
                   {step.title}
                 </Paragraph>
               </XStack>
@@ -126,8 +124,13 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
               <Button
                 onPress={onClose}
                 disabled={!isDone}
-                backgroundColor={overallStatus === 'error' ? '$red20' : '$yellow20'}>
-                <Text color={overallStatus === 'error' ? '$red100' : '$yellow100'}>
+                backgroundColor={
+                  overallStatus === 'error' ? '$red20' : overallStatus === 'success' ? '$green20' : '$yellow20'
+                }>
+                <Text
+                  color={
+                    overallStatus === 'error' ? '$red100' : overallStatus === 'success' ? '$green100' : '$yellow100'
+                  }>
                   {isDone ? t('common.close') : t('settings.data.restore.progress.pending')}
                 </Text>
               </Button>

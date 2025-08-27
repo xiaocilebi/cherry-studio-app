@@ -486,7 +486,7 @@
         "api_key": "API 密钥",
         "api_key.get": "获取 API 密钥",
         "api_key.placeholder": "请输入 API 密钥",
-        "api_key.tip": "多个键用逗号分隔",
+        "api_key.tip": "多个密钥用逗号分隔",
         "api_service": "API 服务",
         "auth": {
           "balance_recharge": "余额充值",

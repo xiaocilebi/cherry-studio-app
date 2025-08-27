@@ -4,6 +4,8 @@ import { FlashList } from '@shopify/flash-list'
 import { debounce } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
+import { GestureDetector } from 'react-native-gesture-handler'
 import { Text, YStack } from 'tamagui'
 
 import AssistantItem from '@/components/assistant/AssistantItem'
@@ -15,6 +17,7 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useExternalAssistants } from '@/hooks/useAssistant'
+import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
@@ -24,6 +27,7 @@ import { getAssistantWithTopic } from '@/utils/assistants'
 export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
+  const panGesture = useSwipeGesture()
 
   // 搜索状态
   const [searchText, setSearchText] = useState('')
@@ -68,41 +72,45 @@ export default function AssistantScreen() {
 
   return (
     <SafeAreaContainer>
-      <HeaderBar
-        title={t('assistants.title.mine')}
-        rightButton={{
-          icon: <UnionPlusIcon size={24} />,
-          onPress: onAddAssistant
-        }}
-      />
-      <SettingContainer>
-        <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
+      <GestureDetector gesture={panGesture}>
+        <View collapsable={false} style={{ flex: 1 }}>
+          <HeaderBar
+            title={t('assistants.title.mine')}
+            rightButton={{
+              icon: <UnionPlusIcon size={24} />,
+              onPress: onAddAssistant
+            }}
+          />
+          <SettingContainer>
+            <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
 
-        {isLoading ? (
-          <FlashList
-            data={Array.from({ length: 5 })}
-            renderItem={() => <AssistantItemSkeleton />}
-            keyExtractor={(_, index) => `skeleton-${index}`}
-            estimatedItemSize={80}
-            ItemSeparatorComponent={() => <YStack height={16} />}
-          />
-        ) : (
-          <FlashList
-            showsVerticalScrollIndicator={false}
-            data={filteredAssistants}
-            renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
-            keyExtractor={item => item.id}
-            estimatedItemSize={80}
-            ItemSeparatorComponent={() => <YStack height={16} />}
-            ListEmptyComponent={
-              <YStack flex={1} justifyContent="center" alignItems="center" paddingTop="$8">
-                <Text>{t('settings.assistant.empty')}</Text>
-              </YStack>
-            }
-          />
-        )}
-      </SettingContainer>
-      <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="external" />
+            {isLoading ? (
+              <FlashList
+                data={Array.from({ length: 5 })}
+                renderItem={() => <AssistantItemSkeleton />}
+                keyExtractor={(_, index) => `skeleton-${index}`}
+                estimatedItemSize={80}
+                ItemSeparatorComponent={() => <YStack height={16} />}
+              />
+            ) : (
+              <FlashList
+                showsVerticalScrollIndicator={false}
+                data={filteredAssistants}
+                renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
+                keyExtractor={item => item.id}
+                estimatedItemSize={80}
+                ItemSeparatorComponent={() => <YStack height={16} />}
+                ListEmptyComponent={
+                  <YStack flex={1} justifyContent="center" alignItems="center" paddingTop="$8">
+                    <Text>{t('settings.assistant.empty')}</Text>
+                  </YStack>
+                }
+              />
+            )}
+          </SettingContainer>
+          <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="external" />
+        </View>
+      </GestureDetector>
     </SafeAreaContainer>
   )
 }

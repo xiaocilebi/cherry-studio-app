@@ -90,7 +90,7 @@ export default function DataSettingsScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.data.title')} />
 
-      <ScrollView flex={1}>
+      <ScrollView flex={1} scrollEnabled={false}>
         <SettingContainer>
           <YStack gap={24} flex={1}>
             {settingsItems.map(group => (

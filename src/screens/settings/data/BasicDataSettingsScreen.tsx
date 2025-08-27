@@ -8,7 +8,7 @@ import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Platform } from 'react-native'
-import { ScrollView, Text, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
@@ -221,19 +221,17 @@ export default function BasicDataSettingsScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.data.basic_title')} />
 
-      <ScrollView flex={1}>
-        <SettingContainer>
-          <YStack gap={24} flex={1}>
-            {settingsItems.map(group => (
-              <Group key={group.title} title={group.title}>
-                {group.items.map(item => (
-                  <SettingItem key={item.title} {...item} />
-                ))}
-              </Group>
-            ))}
-          </YStack>
-        </SettingContainer>
-      </ScrollView>
+      <SettingContainer>
+        <YStack gap={24} flex={1}>
+          {settingsItems.map(group => (
+            <Group key={group.title} title={group.title}>
+              {group.items.map(item => (
+                <SettingItem key={item.title} {...item} />
+              ))}
+            </Group>
+          ))}
+        </YStack>
+      </SettingContainer>
 
       <RestoreProgressModal
         isOpen={isModalOpen}

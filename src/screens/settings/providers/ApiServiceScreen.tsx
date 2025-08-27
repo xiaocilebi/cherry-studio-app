@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
 import { sortBy } from 'lodash'
@@ -37,8 +37,7 @@ export default function ApiServiceScreen() {
   const [apiKey, setApiKey] = useState(provider?.apiKey || '')
   const [apiHost, setApiHost] = useState(provider?.apiHost || '')
 
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
 
   // 当 provider 改变时更新本地状态
   React.useEffect(() => {
@@ -89,13 +88,11 @@ export default function ApiServiceScreen() {
       ]
 
   const handleOpenBottomSheet = () => {
-    bottomSheetRef.current?.expand()
-    setIsBottomSheetOpen(true)
+    bottomSheetRef.current?.present()
   }
 
   const handleBottomSheetClose = () => {
-    bottomSheetRef.current?.close()
-    setIsBottomSheetOpen(false)
+    bottomSheetRef.current?.dismiss()
   }
 
   const handleModelChange = (value: string) => {
@@ -249,9 +246,7 @@ export default function ApiServiceScreen() {
       </SettingContainer>
 
       <ApiCheckSheet
-        bottomSheetRef={bottomSheetRef}
-        isOpen={isBottomSheetOpen}
-        onClose={handleBottomSheetClose}
+        ref={bottomSheetRef}
         selectedModel={selectedModel}
         onModelChange={handleModelChange}
         selectOptions={selectOptions}

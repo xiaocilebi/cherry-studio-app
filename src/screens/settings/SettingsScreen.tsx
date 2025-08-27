@@ -2,12 +2,15 @@ import { useNavigation } from '@react-navigation/native'
 import { ChevronRight, Cloud, Globe, HardDrive, Info, Package, Settings2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
+import { GestureDetector } from 'react-native-gesture-handler'
 import { Avatar, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
+import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { NavigationProps } from '@/types/naviagate'
 
 interface SettingItemConfig {
@@ -24,6 +27,7 @@ interface SettingGroupConfig {
 export default function SettingsScreen() {
   const { t } = useTranslation()
   const { avatar, userName } = useSettings()
+  const panGesture = useSwipeGesture()
 
   const settingsItems: SettingGroupConfig[] = [
     {
@@ -84,19 +88,23 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <HeaderBar title={t('settings.title')} />
+      <GestureDetector gesture={panGesture}>
+        <View collapsable={false} style={{ flex: 1 }}>
+          <HeaderBar title={t('settings.title')} />
 
-      <SettingContainer>
-        <YStack gap={24} flex={1}>
-          {settingsItems.map((group, index) => (
-            <Group key={index} title={group.title}>
-              {group.items.map((item, index) => (
-                <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
+          <SettingContainer>
+            <YStack gap={24} flex={1}>
+              {settingsItems.map((group, index) => (
+                <Group key={index} title={group.title}>
+                  {group.items.map((item, index) => (
+                    <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
+                  ))}
+                </Group>
               ))}
-            </Group>
-          ))}
-        </YStack>
-      </SettingContainer>
+            </YStack>
+          </SettingContainer>
+        </View>
+      </GestureDetector>
     </SafeAreaContainer>
   )
 }
