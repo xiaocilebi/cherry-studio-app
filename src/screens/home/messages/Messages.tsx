@@ -4,6 +4,7 @@ import { MotiView } from 'moti'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import React from 'react'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleSheet } from 'react-native'
+import { Easing } from 'react-native-reanimated'
 import { AnimatePresence, Button, View, YStack } from 'tamagui'
 
 import { useMessages } from '@/hooks/useMessages'
@@ -23,10 +24,28 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   const groupedMessages = Object.entries(getGroupedMessages(messages))
   const flastListRef = useRef<FlatList<[string, GroupedMessage[]]>>(null)
   const [showScrollButton, setShowScrollButton] = useState(false)
-  const [isNearBottom, setIsNearBottom] = useState(true)
+  const [isNearBottom, setIsNearBottom] = useState(false)
 
   const renderMessageGroup = ({ item }: { item: [string, GroupedMessage[]] }) => {
-    return <MessageGroup assistant={assistant} item={item} />
+    return (
+      <MotiView
+        from={{
+          opacity: 0,
+          translateY: 10
+        }}
+        animate={{
+          opacity: 1,
+          translateY: 0
+        }}
+        transition={{
+          type: 'timing',
+          duration: 300,
+          delay: 250,
+          easing: Easing.out(Easing.ease)
+        }}>
+        <MessageGroup assistant={assistant} item={item} />
+      </MotiView>
+    )
   }
 
   const scrollToBottom = useCallback(() => {
@@ -78,7 +97,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         contentContainerStyle={{
           flexGrow: 1
         }}
-        initialNumToRender={10}
+        initialNumToRender={2}
         maxToRenderPerBatch={10}
         keyboardShouldPersistTaps="never"
         onScroll={handleScroll}
