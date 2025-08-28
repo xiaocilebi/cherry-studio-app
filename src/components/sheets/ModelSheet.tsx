@@ -126,8 +126,8 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       enablePanDownToClose={true}
       android_keyboardInputMode="adjustResize">
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-        <YStack gap={5} padding="20">
-          <XStack gap={5}>
+        <YStack gap={16} paddingHorizontal={20} paddingTop={12} paddingBottom={20}>
+          <XStack gap={12}>
             <Stack flex={1}>
               <BottomSheetSearchInput
                 value={inputValue}
@@ -138,12 +138,16 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
             {multiple && <Button circular chromeless onPress={handleClearAll} icon={<BrushCleaning size={18} />} />}
           </XStack>
           {selectOptions.map((group, groupIndex) => (
-            <View key={group.title || group.label || groupIndex} gap={5}>
-              <XStack gap={8} alignItems="center" justifyContent="flex-start">
-                <ProviderIcon provider={group.provider} />
-                <Text fontSize={12}>{group.label}</Text>
+            <View key={group.title || group.label || groupIndex} gap={12}>
+              <XStack gap={12} alignItems="center" justifyContent="flex-start" paddingHorizontal={4}>
+                <XStack width={32} height={32} borderRadius={8} alignItems="center" justifyContent="center">
+                  <ProviderIcon provider={group.provider} />
+                </XStack>
+                <Text fontSize={15} fontWeight="600" color="$gray12">
+                  {group.label}
+                </Text>
               </XStack>
-              <YStack gap={2}>
+              <YStack gap={6}>
                 {group.options.map(item => (
                   <Button
                     key={item.value}
