@@ -1,6 +1,6 @@
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React, { ReactNode } from 'react'
+import React, { memo, ReactNode, useMemo } from 'react'
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
 import type { RendererInterface, Tokens } from 'react-native-marked'
@@ -15,6 +15,15 @@ import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 import { markdownColors } from './MarkdownStyles'
 
 const logger = loggerService.withContext('useMarkedRenderer')
+
+// Memoized MathJax component to prevent unnecessary re-renders
+const MemoizedMathJax = memo(({ content, fontSize, color }: { content: string; fontSize: number; color: string }) => {
+  return (
+    <MathJax fontSize={fontSize} color={color}>
+      {content}
+    </MathJax>
+  )
+})
 
 class CustomTokenizer extends MarkedTokenizer {
   codespan(src: string): Tokens.Codespan | undefined {
@@ -47,11 +56,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
   }
 
   private renderInlineMath(content: string) {
-    return (
-      <MathJax key={this.getKey()} fontSize={16} color={this.equationColor}>
-        {content}
-      </MathJax>
-    )
+    return <MemoizedMathJax key={this.getKey()} content={content} fontSize={16} color={this.equationColor} />
   }
 
   // Override code block rendering
@@ -179,8 +184,8 @@ class CustomRenderer extends Renderer implements RendererInterface {
  * @param isDark - Whether the theme is dark, used for styling.
  */
 export const useMarkedRenderer = (isDark: boolean) => {
-  const renderer = new CustomRenderer(isDark)
-  const tokenizer = new CustomTokenizer()
+  const renderer = useMemo(() => new CustomRenderer(isDark), [isDark])
+  const tokenizer = useMemo(() => new CustomTokenizer(), [])
 
   return { renderer, tokenizer }
 }
