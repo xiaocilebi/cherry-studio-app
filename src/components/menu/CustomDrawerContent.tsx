@@ -30,12 +30,12 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   const handleNavigateAssistantMarketScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('AssistantMarketScreen')
+    props.navigation.navigate('Assistant', { screen: 'AssistantMarketScreen' })
   }
 
   const handleNavigateAssistantScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('AssistantScreen')
+    props.navigation.navigate('Assistant', { screen: 'AssistantScreen' })
   }
 
   const handleNavigateSettingsScreen = () => {

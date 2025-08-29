@@ -52,7 +52,7 @@ export default function SettingsScreen() {
         },
         {
           title: t('settings.assistant.title'),
-          screen: 'AboutSettings',
+          screen: 'AssistantSettings',
           specificScreen: 'AssistantSettingsScreen',
           icon: <Package size={24} />
         },

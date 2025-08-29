@@ -8,9 +8,6 @@ import CustomDrawerContent from '@/components/menu/CustomDrawerContent'
 import AssistantStackNavigator from '@/navigators/AssistantStackNavigator'
 import HomeStackNavigator from '@/navigators/HomeStackNavigator'
 import SettingsStackNavigator from '@/navigators/SettingsStackNavigator'
-import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
-import AssistantMarketScreen from '@/screens/assistant/AssistantMarketScreen'
-import AssistantScreen from '@/screens/assistant/AssistantScreen'
 import ChatScreen from '@/screens/home/ChatScreen'
 import TopicScreen from '@/screens/topic/TopicScreen'
 import { Width } from '@/utils/device'
@@ -28,9 +25,6 @@ export default function AppDrawerNavigator() {
       {/* Individual screens for backward compatibility */}
       <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
       <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />
-      <Drawer.Screen name="AssistantScreen" options={options} component={AssistantScreen} />
-      <Drawer.Screen name="AssistantMarketScreen" options={options} component={AssistantMarketScreen} />
-      <Drawer.Screen name="AssistantDetailScreen" options={options} component={AssistantDetailScreen} />
     </Drawer.Navigator>
   )
 }

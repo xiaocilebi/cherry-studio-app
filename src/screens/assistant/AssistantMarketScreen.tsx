@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { Menu } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
@@ -18,6 +17,7 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
+import { AssistantStackNavigationProp } from '@/navigators/AssistantStackNavigator'
 import { Assistant } from '@/types/assistant'
 import { groupByCategories } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
@@ -33,7 +33,7 @@ type FilterType = 'all' | string
 
 export default function AssistantMarketScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<DrawerNavigationProp<any>>()
+  const navigation = useNavigation<AssistantStackNavigationProp>()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)

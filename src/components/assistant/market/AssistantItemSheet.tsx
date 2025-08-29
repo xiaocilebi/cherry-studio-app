@@ -10,10 +10,10 @@ import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
 import { useCustomNavigation } from '@/hooks/useNavigation'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { AssistantStackNavigationProp } from '@/navigators/AssistantStackNavigator'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 import { uuid } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 
@@ -29,7 +29,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
   const theme = useTheme()
   const { isDark } = useCustomTheme()
   const { navigateToChatScreen } = useCustomNavigation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<AssistantStackNavigationProp>()
 
   // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (
@@ -71,7 +71,10 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
   const handleEditAssistant = async () => {
     if (!assistant) return
-    navigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'prompt' })
+    navigation.navigate('AssistantDetailScreen', {
+      assistantId: assistant.id,
+      tab: 'prompt'
+    })
     ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
   }
 
