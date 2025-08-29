@@ -20,15 +20,15 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
+import { AssistantStackNavigationProp } from '@/navigators/AssistantStackNavigator'
 import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<AssistantStackNavigationProp>()
 
   // 搜索状态
   const [searchText, setSearchText] = useState('')
@@ -91,7 +91,7 @@ export default function AssistantScreen() {
               onPress: onAddAssistant
             }}
           />
-          <SettingContainer>
+          <SettingContainer paddingVertical={0}>
             <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
 
             {isLoading ? (

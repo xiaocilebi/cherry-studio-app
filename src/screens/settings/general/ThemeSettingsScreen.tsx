@@ -27,8 +27,7 @@ export default function ThemeSettingsScreen() {
               justifyContent="space-between"
               padding={16}
               borderRadius={8}
-              backgroundColor={theme['$color3']}
-              hoverStyle={{ backgroundColor: theme['$color4'] }}
+              backgroundColor="$uiCardBackground"
               pressStyle={{ opacity: 0.7 }}>
               <XStack alignItems="center">
                 <Text fontSize={16}>{t(opt.label)}</Text>

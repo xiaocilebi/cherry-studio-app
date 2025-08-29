@@ -1,3 +1,4 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from '@tamagui/linear-gradient'
 import { UserRoundPen } from '@tamagui/lucide-icons'
@@ -7,8 +8,8 @@ import { Text, XStack, YStack } from 'tamagui'
 
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
+import { HomeStackNavigationProp } from '@/navigators/HomeStackNavigator'
 import { Topic } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 import { formateEmoji } from '@/utils/formats'
 
 import { ModelChangeIcon } from '../icons/ModelChangeIcon'
@@ -48,7 +49,8 @@ const ActionTag: FC<ActionTagProps> = ({ icon, label, onPress }) => {
 
 export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
   const { isDark } = useTheme()
-  const navigation = useNavigation<NavigationProps>()
+  const homeNavigation = useNavigation<HomeStackNavigationProp>()
+  const drawerNavigation = useNavigation<DrawerNavigationProp<any>>()
   const { assistant } = useAssistant(topic.assistantId)
 
   if (!assistant) {
@@ -59,17 +61,17 @@ export const AssistantCard: FC<AssistantCardProps> = ({ topic }) => {
     {
       icon: <UserRoundPen size={13} color="$green100" />,
       label: 'edit',
-      onPress: () => navigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'prompt' })
+      onPress: () => homeNavigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'prompt' })
     },
     {
       icon: <UserChangeIcon />,
       label: 'change',
-      onPress: () => navigation.navigate('AssistantScreen')
+      onPress: () => drawerNavigation.navigate('Assistant', { screen: 'AssistantScreen' })
     },
     {
       icon: <ModelChangeIcon />,
       label: 'model',
-      onPress: () => navigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'model' })
+      onPress: () => homeNavigation.navigate('AssistantDetailScreen', { assistantId: assistant.id, tab: 'model' })
     }
   ]
 

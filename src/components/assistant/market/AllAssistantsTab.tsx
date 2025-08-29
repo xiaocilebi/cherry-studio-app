@@ -1,9 +1,7 @@
-import MaskedView from '@react-native-masked-view/masked-view'
 import { FlashList } from '@shopify/flash-list'
-import { ArrowUpRight } from '@tamagui/lucide-icons'
+import { ChevronRight } from '@tamagui/lucide-icons'
 import React from 'react'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
 
 import AssistantItemCard from '@/components/assistant/AssistantItemCard'
 import { Assistant } from '@/types/assistant'
@@ -32,12 +30,15 @@ const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistantGroups, on
 
   const renderGroupItem = ({ item }: { item: GroupItem }) => (
     <YStack gap={16}>
-      <XStack justifyContent="space-between" alignItems="center" paddingHorizontal={20}>
+      <XStack justifyContent="space-between" alignItems="center">
         <Text>{item.groupKey.charAt(0).toUpperCase() + item.groupKey.slice(1)}</Text>
-        <XStack onPress={() => onArrowClick(item.groupKey)}>
-          <MaskedView style={{ width: 18, height: 18 }} maskElement={<ArrowUpRight size={18} color="black" />}>
+        <XStack pressStyle={{ backgroundColor: 'black' }} onPress={() => onArrowClick(item.groupKey)}>
+          <ChevronRight size={20} color="white" />
+          {/*<MaskedView
+            style={{ width: 18, height: 18 }}
+            maskElement={<ChevronRight size={20} color="$uiCardBackground" />}>
             <LinearGradient colors={['#BAF4A5', '#315923']} start={[1, 0]} end={[0, 1]} style={{ flex: 1 }} />
-          </MaskedView>
+          </MaskedView>*/}
         </XStack>
       </XStack>
       <XStack flex={1}>

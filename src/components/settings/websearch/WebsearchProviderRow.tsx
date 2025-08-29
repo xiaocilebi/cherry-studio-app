@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
+import type { StackNavigationProp } from '@react-navigation/stack'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack } from 'tamagui'
 
 import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
-import { NavigationProps } from '@/types/naviagate'
+import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
 import { WebSearchProvider } from '@/types/websearch'
 
 import { PressableSettingRow } from '..'
@@ -17,11 +18,11 @@ interface WebsearchProviderRowProps {
 
 export const WebsearchProviderRow = ({ provider, need_config }: WebsearchProviderRowProps) => {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<StackNavigationProp<WebSearchStackParamList>>()
 
   const onPress = () => {
     if (!need_config) return
-    navigation.navigate('Settings', { screen: 'WebSearchProviderSettingsScreen', params: { providerId: provider.id } })
+    navigation.navigate('WebSearchProviderSettingsScreen', { providerId: provider.id })
   }
 
   return (

@@ -68,76 +68,76 @@ export default function AssistantDetailScreen() {
 
   return (
     <SafeAreaContainer>
-      <DrawerGestureWrapper>
-        <View collapsable={false} style={{ flex: 1 }}>
-          <HeaderBar
-            title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')}
-            onBackPress={() => navigation.goBack()}
-          />
-          <KeyboardAwareScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flexGrow: 1 }}
-            style={{ flex: 1 }}
-            keyboardShouldPersistTaps="handled"
-            bottomOffset={10}>
-            <SettingContainer>
-              <XStack justifyContent="center" alignItems="center">
-                <AvatarEditButton
-                  content={assistant?.emoji || <DefaultProviderIcon />}
-                  editIcon={assistant?.emoji ? <ArrowLeftRight size={24} /> : <PenLine size={24} />}
-                  onEditPress={() => {}}
-                  updateAvatar={updateAvatar}
-                />
-              </XStack>
-              {/* todo: change active tabs style */}
-              <Tabs
-                value={activeTab}
-                onValueChange={setActiveTab}
-                orientation="horizontal"
-                flexDirection="column"
-                flex={1}>
-                <Tabs.List
-                  backgroundColor="$colorTransparent"
-                  borderWidth={1}
-                  borderColor="$gray20"
-                  borderRadius={25}
-                  gap={5}
-                  paddingVertical={4}
-                  paddingHorizontal={5}>
-                  <StyledTab value="prompt">
-                    <Text fontSize={12} fontWeight="bold">
-                      {t('common.prompt')}
-                    </Text>
-                  </StyledTab>
-                  <StyledTab value="model">
-                    <Text fontSize={12} fontWeight="bold">
-                      {t('common.model')}
-                    </Text>
-                  </StyledTab>
-                  <StyledTab value="tool">
-                    <Text fontSize={12} fontWeight="bold">
-                      {t('common.tool')}
-                    </Text>
-                  </StyledTab>
-                </Tabs.List>
-                <YStack flex={1} paddingTop={10}>
-                  <Tabs.Content value="prompt" flex={1} gap={30}>
-                    <PromptTabContent assistant={assistant} updateAssistant={updateAssistant} />
-                  </Tabs.Content>
+      {/*<DrawerGestureWrapper>*/}
+      <View collapsable={false} style={{ flex: 1 }}>
+        <HeaderBar
+          title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')}
+          onBackPress={() => navigation.goBack()}
+        />
+        <KeyboardAwareScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="handled"
+          bottomOffset={10}>
+          <SettingContainer>
+            <XStack justifyContent="center" alignItems="center">
+              <AvatarEditButton
+                content={assistant?.emoji || <DefaultProviderIcon />}
+                editIcon={assistant?.emoji ? <ArrowLeftRight size={24} /> : <PenLine size={24} />}
+                onEditPress={() => {}}
+                updateAvatar={updateAvatar}
+              />
+            </XStack>
+            {/* todo: change active tabs style */}
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              orientation="horizontal"
+              flexDirection="column"
+              flex={1}>
+              <Tabs.List
+                backgroundColor="$colorTransparent"
+                borderWidth={1}
+                borderColor="$gray20"
+                borderRadius={25}
+                gap={5}
+                paddingVertical={4}
+                paddingHorizontal={5}>
+                <StyledTab value="prompt">
+                  <Text fontSize={12} fontWeight="bold">
+                    {t('common.prompt')}
+                  </Text>
+                </StyledTab>
+                <StyledTab value="model">
+                  <Text fontSize={12} fontWeight="bold">
+                    {t('common.model')}
+                  </Text>
+                </StyledTab>
+                <StyledTab value="tool">
+                  <Text fontSize={12} fontWeight="bold">
+                    {t('common.tool')}
+                  </Text>
+                </StyledTab>
+              </Tabs.List>
+              <YStack flex={1} paddingTop={10}>
+                <Tabs.Content value="prompt" flex={1} gap={30}>
+                  <PromptTabContent assistant={assistant} updateAssistant={updateAssistant} />
+                </Tabs.Content>
 
-                  <Tabs.Content value="model" flex={1} gap={30}>
-                    <ModelTabContent assistant={assistant} updateAssistant={updateAssistant} />
-                  </Tabs.Content>
+                <Tabs.Content value="model" flex={1} gap={30}>
+                  <ModelTabContent assistant={assistant} updateAssistant={updateAssistant} />
+                </Tabs.Content>
 
-                  <Tabs.Content value="tool" flex={1} gap={30}>
-                    <ToolTabContent assistant={assistant} updateAssistant={updateAssistant} />
-                  </Tabs.Content>
-                </YStack>
-              </Tabs>
-            </SettingContainer>
-          </KeyboardAwareScrollView>
-        </View>
-      </DrawerGestureWrapper>
+                <Tabs.Content value="tool" flex={1} gap={30}>
+                  <ToolTabContent assistant={assistant} updateAssistant={updateAssistant} />
+                </Tabs.Content>
+              </YStack>
+            </Tabs>
+          </SettingContainer>
+        </KeyboardAwareScrollView>
+      </View>
+      {/*</DrawerGestureWrapper>*/}
     </SafeAreaContainer>
   )
 }

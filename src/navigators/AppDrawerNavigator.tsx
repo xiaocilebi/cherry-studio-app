@@ -8,9 +8,6 @@ import CustomDrawerContent from '@/components/menu/CustomDrawerContent'
 import AssistantStackNavigator from '@/navigators/AssistantStackNavigator'
 import HomeStackNavigator from '@/navigators/HomeStackNavigator'
 import SettingsStackNavigator from '@/navigators/SettingsStackNavigator'
-import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
-import AssistantMarketScreen from '@/screens/assistant/AssistantMarketScreen'
-import AssistantScreen from '@/screens/assistant/AssistantScreen'
 import ChatScreen from '@/screens/home/ChatScreen'
 import TopicScreen from '@/screens/topic/TopicScreen'
 import { Width } from '@/utils/device'
@@ -23,14 +20,11 @@ export default function AppDrawerNavigator() {
       {/* Main grouped navigators */}
       <Drawer.Screen name="Home" options={options} component={HomeStackNavigator} />
       <Drawer.Screen name="Assistant" options={options} component={AssistantStackNavigator} />
-      <Drawer.Screen name="Settings" options={options} component={SettingsStackNavigator} />
+      <Drawer.Screen name="Settings" options={{ swipeEnabled: false, ...options }} component={SettingsStackNavigator} />
 
       {/* Individual screens for backward compatibility */}
       <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
       <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />
-      <Drawer.Screen name="AssistantScreen" options={options} component={AssistantScreen} />
-      <Drawer.Screen name="AssistantMarketScreen" options={options} component={AssistantMarketScreen} />
-      <Drawer.Screen name="AssistantDetailScreen" options={options} component={AssistantDetailScreen} />
     </Drawer.Navigator>
   )
 }

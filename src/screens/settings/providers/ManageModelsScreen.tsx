@@ -19,7 +19,7 @@ import { isReasoningModel } from '@/config/models/reasoning'
 import { isRerankModel } from '@/config/models/rerank'
 import { isVisionModel } from '@/config/models/vision'
 import { isWebSearchModel } from '@/config/models/webSearch'
-import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
+import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { fetchModels } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
 import { getProviderById, saveProvider } from '@/services/ProviderService'
@@ -27,7 +27,7 @@ import { Model, Provider } from '@/types/assistant'
 import { getDefaultGroupName } from '@/utils/naming'
 const logger = loggerService.withContext('ManageModelsScreen')
 
-type ProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'ManageModelsScreen'>
+type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ManageModelsScreen'>
 
 const getIsModelInProvider = (providerModels: Model[]) => {
   const providerModelIds = new Set(providerModels.map(m => m.id))

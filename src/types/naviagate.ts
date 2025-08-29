@@ -14,7 +14,7 @@ import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 export type RootStackParamList = {
   WelcomeScreen: undefined
   HomeScreen: { screen: string; params: { topicId: string } } | undefined // This is actually the AppDrawerNavigator
-  ChatScreen: { topicId: string } | undefined
+  ChatScreen: { topicId: string }
   TopicScreen: undefined
   AssistantScreen: undefined
   AssistantMarketScreen: undefined

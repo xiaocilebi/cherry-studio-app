@@ -1,5 +1,5 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import { ArrowUpRight, Settings } from '@tamagui/lucide-icons'
+import { ChevronRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -30,12 +30,12 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   const handleNavigateAssistantMarketScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('AssistantMarketScreen')
+    props.navigation.navigate('Assistant', { screen: 'AssistantMarketScreen' })
   }
 
   const handleNavigateAssistantScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('AssistantScreen')
+    props.navigation.navigate('Assistant', { screen: 'AssistantScreen' })
   }
 
   const handleNavigateSettingsScreen = () => {
@@ -56,7 +56,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               <MarketIcon size={20} />
               <Text color={theme.color}>{t('assistants.market.title')}</Text>
             </XStack>
-            <ArrowUpRight size={20} color={theme.color} />
+            <ChevronRight size={20} color={theme.color} />
           </XStack>
 
           <XStack justifyContent="space-between" paddingVertical={10} onPress={handleNavigateAssistantScreen}>
@@ -64,7 +64,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
               <UnionIcon size={20} />
               <Text color={theme.color}>{t('assistants.market.my_assistant')}</Text>
             </XStack>
-            <ArrowUpRight size={20} color={theme.color} />
+            <ChevronRight size={20} color={theme.color} />
           </XStack>
           <Stack paddingVertical={20}>
             <SettingDivider />

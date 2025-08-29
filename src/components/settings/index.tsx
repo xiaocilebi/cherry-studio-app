@@ -65,7 +65,7 @@ export const PressableSettingRow = styled(XStack, {
   paddingLeft: 16,
   paddingRight: 20,
   backgroundColor: '$colorTransparent',
-  pressStyle: { backgroundColor: 'black' }
+  pressStyle: { backgroundColor: '$gray20' }
 })
 
 export const SettingRowTitle = styled(Text, {

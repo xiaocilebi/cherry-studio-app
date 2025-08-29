@@ -13,11 +13,11 @@ import { ApiCheckSheet } from '@/components/settings/websearch/ApiCheckSheet'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { WEB_SEARCH_PROVIDER_CONFIG } from '@/config/websearchProviders'
 import { useWebSearchProvider } from '@/hooks/useWebsearchProviders'
-import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
+import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
 import WebSearchService from '@/services/WebSearchService'
 import { ApiStatus } from '@/types/assistant'
 
-type WebsearchProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'WebSearchProviderSettingsScreen'>
+type WebsearchProviderSettingsRouteProp = RouteProp<WebSearchStackParamList, 'WebSearchProviderSettingsScreen'>
 
 export default function WebSearchProviderSettingsScreen() {
   const { t } = useTranslation()

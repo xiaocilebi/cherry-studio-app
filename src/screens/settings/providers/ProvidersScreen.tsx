@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import type { StackNavigationProp } from '@react-navigation/stack'
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { Plus } from '@tamagui/lucide-icons'
 import debounce from 'lodash/debounce'
@@ -14,12 +15,12 @@ import { ProviderItem } from '@/components/settings/providers/ProviderItem'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
+import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { Provider } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 
 export default function ProvidersScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<StackNavigationProp<ProvidersStackParamList>>()
 
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
@@ -46,7 +47,7 @@ export default function ProvidersScreen() {
     .filter(p => p.name.toLowerCase().includes(debouncedSearchText.toLowerCase()))
 
   const onAddProvider = () => {
-    navigation.navigate('Settings', { screen: 'ProviderListScreen' })
+    navigation.navigate('ProviderListScreen')
   }
 
   const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (

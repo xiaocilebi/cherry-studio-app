@@ -9,12 +9,12 @@ import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
 
-interface MultiModalTabProps {
+interface MultiModelTabProps {
   assistant: Assistant
   messages: GroupedMessage[]
 }
 
-const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages }) => {
+const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
   const [currentTab, setCurrentTab] = useState('0')
 
   if (!messages || messages.length === 0) {
@@ -31,27 +31,32 @@ const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages }) => {
         flex={1}
         gap={10}>
         <Tabs.List>
-          <XStack flex={1} gap={8}>
+          <XStack flex={1} gap={8} justifyContent="center" alignItems="center">
             <MultiModalIcon size={18} />
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {messages.map((_message, index) => {
-                const tabValue = index.toString()
-                return (
-                  <Tabs.Tab
-                    key={tabValue}
-                    value={tabValue}
-                    paddingHorizontal={10}
-                    paddingVertical={3}
-                    borderRadius={48}
-                    justifyContent="center"
-                    alignItems="center"
-                    height={26}>
-                    <Text fontSize={12} lineHeight={17} color={currentTab === tabValue ? '$green100' : '$textPrimary'}>
-                      @{_message.model?.name}({_message.model?.provider})
-                    </Text>
-                  </Tabs.Tab>
-                )
-              })}
+              <XStack gap={5}>
+                {messages.map((_message, index) => {
+                  const tabValue = index.toString()
+                  return (
+                    <Tabs.Tab
+                      key={tabValue}
+                      value={tabValue}
+                      paddingHorizontal={10}
+                      paddingVertical={3}
+                      borderRadius={48}
+                      justifyContent="center"
+                      alignItems="center"
+                      height={26}>
+                      <Text
+                        fontSize={12}
+                        lineHeight={17}
+                        color={currentTab === tabValue ? '$green100' : '$textPrimary'}>
+                        @{_message.model?.name}({_message.model?.provider})
+                      </Text>
+                    </Tabs.Tab>
+                  )
+                })}
+              </XStack>
             </ScrollView>
           </XStack>
         </Tabs.List>
@@ -81,4 +86,4 @@ const MultiModalTab: FC<MultiModalTabProps> = ({ assistant, messages }) => {
   )
 }
 
-export default MultiModalTab
+export default MultiModelTab
