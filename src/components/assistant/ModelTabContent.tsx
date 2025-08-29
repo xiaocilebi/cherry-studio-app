@@ -21,7 +21,8 @@ interface ModelTabContentProps {
 
 export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentProps) {
   const { t } = useTranslation()
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const modelSheetRef = useRef<BottomSheetModal>(null)
+  const reasoningSheetRef = useRef<BottomSheetModal>(null)
   const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
   const [maxTokensInput, setMaxTokensInput] = useState<string>(
     assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : ''
@@ -69,8 +70,12 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
     }
   }
 
-  const handlePress = () => {
-    bottomSheetModalRef.current?.present()
+  const handleModelPress = () => {
+    modelSheetRef.current?.present()
+  }
+
+  const handleReasoningPress = () => {
+    reasoningSheetRef.current?.present()
   }
 
   const settings = assistant.settings || {}
@@ -94,7 +99,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         paddingVertical={23}
         iconAfter={<ChevronRight size={16} />}
         backgroundColor="$uiCardBackground"
-        onPress={handlePress}>
+        onPress={handleModelPress}>
         <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
           {model.length > 0 ? (
             <>
@@ -180,7 +185,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
             backgroundColor="$colorTransparent"
             borderWidth={0}
             iconAfter={ChevronRight}
-            onPress={handlePress}
+            onPress={handleReasoningPress}
             justifyContent="space-between"
             paddingVertical={12}
             paddingLeft={16}
@@ -203,9 +208,9 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
           </Button>
         )}
       </SettingGroup>
-      <ModelSheet ref={bottomSheetModalRef} mentions={model} setMentions={setModel} multiple={false} />
+      <ModelSheet ref={modelSheetRef} mentions={model} setMentions={setModel} multiple={false} />
       {assistant.model && (
-        <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
+        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
       )}
     </MotiView>
   )
