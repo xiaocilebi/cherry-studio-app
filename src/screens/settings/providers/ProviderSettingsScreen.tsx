@@ -8,7 +8,13 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { Accordion, Button, Separator, Stack, Text, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import {
+  PressableSettingRow,
+  SettingContainer,
+  SettingGroup,
+  SettingGroupTitle,
+  SettingRow
+} from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
 import { ModelGroup } from '@/components/settings/providers/ModelGroup'
@@ -148,7 +154,10 @@ export default function ProviderSettingsScreen() {
         ]}
       />
 
-      <SettingContainer onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
+      <SettingContainer
+        paddingBottom={0}
+        onStartShouldSetResponder={() => false}
+        onMoveShouldSetResponder={() => false}>
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           style={{ flex: 1 }}
@@ -165,7 +174,7 @@ export default function ProviderSettingsScreen() {
                   <Text>{t('common.enabled')}</Text>
                   <CustomSwitch checked={provider.enabled} onCheckedChange={handleEnabledChange} />
                 </SettingRow>
-                <SettingRow onPress={onApiService}>
+                <PressableSettingRow onPress={onApiService}>
                   <Text>{t('settings.provider.api_service')}</Text>
                   <XStack justifyContent="center" alignItems="center">
                     {provider.apiKey && provider.apiHost && (
@@ -184,7 +193,7 @@ export default function ProviderSettingsScreen() {
                     )}
                     <ChevronRight color="$white9" width={6} height={12} />
                   </XStack>
-                </SettingRow>
+                </PressableSettingRow>
               </SettingGroup>
             </YStack>
 
@@ -199,32 +208,33 @@ export default function ProviderSettingsScreen() {
                 <SettingGroupTitle>{t('settings.models.title')}</SettingGroupTitle>
                 <Button size={14} chromeless icon={<HeartPulse size={14} />} />
               </XStack>
-
-              {sortedModelGroups.length > 0 ? (
-                <Accordion overflow="hidden" type="multiple" defaultValue={defaultOpenGroups}>
-                  {sortedModelGroups.map(([groupName, modelsInGroup], index) => (
-                    <ModelGroup
-                      key={groupName}
-                      groupName={groupName}
-                      models={modelsInGroup as Model[]}
-                      index={index}
-                      // todo
-                      // renderModelButton={(model: Model) => (
-                      //   <Button
-                      //     size={14}
-                      //     chromeless
-                      //     icon={<Settings size={14} />}
-                      //     onPress={() => onSettingModel(model)}
-                      //   />
-                      // )}
-                    />
-                  ))}
-                </Accordion>
-              ) : (
-                <Text textAlign="center" color="$gray10" paddingVertical={24}>
-                  {t('models.no_models')}
-                </Text>
-              )}
+              <SettingGroup>
+                {sortedModelGroups.length > 0 ? (
+                  <Accordion overflow="hidden" type="multiple" defaultValue={defaultOpenGroups}>
+                    {sortedModelGroups.map(([groupName, modelsInGroup], index) => (
+                      <ModelGroup
+                        key={groupName}
+                        groupName={groupName}
+                        models={modelsInGroup as Model[]}
+                        index={index}
+                        // todo
+                        // renderModelButton={(model: Model) => (
+                        //   <Button
+                        //     size={14}
+                        //     chromeless
+                        //     icon={<Settings size={14} />}
+                        //     onPress={() => onSettingModel(model)}
+                        //   />
+                        // )}
+                      />
+                    ))}
+                  </Accordion>
+                ) : (
+                  <Text textAlign="center" color="$gray10" paddingVertical={24}>
+                    {t('models.no_models')}
+                  </Text>
+                )}
+              </SettingGroup>
             </YStack>
           </YStack>
         </KeyboardAwareScrollView>

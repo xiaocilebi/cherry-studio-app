@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { Alert, Platform } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
@@ -266,7 +266,7 @@ function SettingItem({ title, screen, icon, subtitle, danger, onPress, disabled 
   }
 
   return (
-    <SettingRow onPress={handlePress} opacity={disabled ? 0.5 : 1}>
+    <PressableSettingRow onPress={handlePress} opacity={disabled ? 0.5 : 1}>
       <XStack alignItems="center" gap={12}>
         {icon}
         <YStack>
@@ -277,6 +277,6 @@ function SettingItem({ title, screen, icon, subtitle, danger, onPress, disabled 
         </YStack>
       </XStack>
       {screen && <ChevronRight size={24} color="$colorFocus" />}
-    </SettingRow>
+    </PressableSettingRow>
   )
 }

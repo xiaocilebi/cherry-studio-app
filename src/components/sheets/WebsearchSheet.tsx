@@ -57,7 +57,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
         }}
         backdropComponent={renderBackdrop}>
         <BottomSheetView>
-          <YStack gap={5} padding="20">
+          <YStack gap={5} paddingHorizontal={20} paddingBottom={20}>
             {providers.length > 0 ? (
               // 如果有提供商，则显示列表
               <YStack gap={5} padding="20">

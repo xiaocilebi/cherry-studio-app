@@ -5,7 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'
@@ -51,7 +51,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
-              <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
+              <PressableSettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.theme.title')}</Text>
                 </XStack>
@@ -59,7 +59,7 @@ export default function GeneralSettingsScreen() {
                   <Text color="$colorFocus">{t(`settings.general.theme.${activeTheme}`)}</Text>
                   <ChevronRight size={24} color="$colorFocus" />
                 </XStack>
-              </SettingRow>
+              </PressableSettingRow>
             </SettingGroup>
           </YStack>
 
@@ -67,7 +67,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.title')}</SettingGroupTitle>
             <SettingGroup>
-              <SettingRow onPress={() => navigation.navigate('Settings', { screen: 'LanguageChangeScreen' })}>
+              <PressableSettingRow onPress={() => navigation.navigate('Settings', { screen: 'LanguageChangeScreen' })}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.language.title')}</Text>
                 </XStack>
@@ -75,7 +75,7 @@ export default function GeneralSettingsScreen() {
                   <Text color="$colorFocus">{getCurrentLanguage()}</Text>
                   <ChevronRight size={24} color="$colorFocus" />
                 </XStack>
-              </SettingRow>
+              </PressableSettingRow>
             </SettingGroup>
           </YStack>
 

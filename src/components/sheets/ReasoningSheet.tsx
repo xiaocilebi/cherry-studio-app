@@ -169,7 +169,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
           backgroundColor: theme.color.val
         }}>
         <BottomSheetView>
-          <YStack gap={10} padding="20">
+          <YStack gap={10} paddingHorizontal={20} paddingBottom={20}>
             {sheetOptions.map(option => (
               <Button
                 key={option.value}

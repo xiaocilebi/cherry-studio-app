@@ -4,7 +4,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { NavigationProps } from '@/types/naviagate'
@@ -119,13 +119,13 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 function SettingItem({ title, screen, icon }: SettingItemProps) {
   const navigation = useNavigation<NavigationProps>()
   return (
-    <SettingRow onPress={() => navigation.navigate(screen as any)}>
+    <PressableSettingRow onPress={() => navigation.navigate(screen as any)}>
       <XStack alignItems="center" gap={12}>
         {icon}
         <Text fontSize="$5">{title}</Text>
       </XStack>
       <ChevronRight size={24} color="$colorFocus" />
-    </SettingRow>
+    </PressableSettingRow>
   )
 }
 

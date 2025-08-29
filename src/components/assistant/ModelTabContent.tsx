@@ -3,16 +3,16 @@ import { ChevronRight } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Input, Text, XStack } from 'tamagui'
+import { Button, Input, Stack, Text, XStack } from 'tamagui'
 
 import { SettingGroup, SettingRow } from '@/components/settings'
 import { isReasoningModel } from '@/config/models/reasoning'
 import { Assistant, AssistantSettings, Model } from '@/types/assistant'
 
 import ModelSheet from '../sheets/ModelSheet'
+import { ReasoningSheet } from '../sheets/ReasoningSheet'
 import { CustomSlider } from '../ui/CustomSlider'
 import { CustomSwitch } from '../ui/Switch'
-import { ReasoningSelect } from './ReasoningSelect'
 
 interface ModelTabContentProps {
   assistant: Assistant
@@ -88,39 +88,31 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
       transition={{
         type: 'timing'
       }}>
-      <SettingGroup>
-        <Button
-          chromeless
-          height={30}
-          paddingHorizontal={16}
-          paddingVertical={15}
-          iconAfter={<ChevronRight size={16} />}
-          backgroundColor="$uiCardBackground"
-          onPress={handlePress}>
-          <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
-            {model.length > 0 ? (
-              <>
-                <Text lineHeight={17} flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
-                  {t(`provider.${model[0].provider}`)}
-                </Text>
-                <Text
-                  lineHeight={20}
-                  fontSize={12}
-                  flexShrink={0}
-                  numberOfLines={1}
-                  maxWidth="60%"
-                  ellipsizeMode="tail">
-                  {model[0].name}
-                </Text>
-              </>
-            ) : (
-              <Text lineHeight={20} flex={1} numberOfLines={1} ellipsizeMode="tail">
-                {t('settings.models.empty')}
+      <Button
+        chromeless
+        height={30}
+        paddingHorizontal={16}
+        paddingVertical={23}
+        iconAfter={<ChevronRight size={16} />}
+        backgroundColor="$uiCardBackground"
+        onPress={handlePress}>
+        <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
+          {model.length > 0 ? (
+            <>
+              <Text lineHeight={17} flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
+                {t(`provider.${model[0].provider}`)}
               </Text>
-            )}
-          </XStack>
-        </Button>
-      </SettingGroup>
+              <Text lineHeight={20} fontSize={12} flexShrink={0} numberOfLines={1} maxWidth="60%" ellipsizeMode="tail">
+                {model[0].name}
+              </Text>
+            </>
+          ) : (
+            <Text lineHeight={20} flex={1} numberOfLines={1} ellipsizeMode="tail">
+              {t('settings.models.empty')}
+            </Text>
+          )}
+        </XStack>
+      </Button>
       <SettingGroup>
         <SettingRow>
           <CustomSlider
@@ -181,13 +173,39 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
           </SettingRow>
         )}
         {isReasoning && (
-          <SettingRow>
-            <Text>{t('assistants.settings.reasoning')}</Text>
-            <ReasoningSelect assistant={assistant} updateAssistant={updateAssistant} />
-          </SettingRow>
+          // <SettingRow>
+          //   <Text>{t('assistants.settings.reasoning')}</Text>
+          //   <ReasoningSelect assistant={assistant} updateAssistant={updateAssistant} />
+          // </SettingRow>
+          <Button
+            backgroundColor="$colorTransparent"
+            borderWidth={0}
+            iconAfter={ChevronRight}
+            onPress={handlePress}
+            justifyContent="space-between"
+            paddingVertical={12}
+            paddingLeft={16}
+            paddingRight={20}>
+            <Text flex={1}>{t('assistants.settings.reasoning')}</Text>
+
+            <Stack justifyContent="flex-end">
+              <Text
+                fontSize={12}
+                backgroundColor="$green10"
+                borderColor="$green20"
+                color="$green100"
+                borderWidth={0.5}
+                paddingVertical={2}
+                paddingHorizontal={8}
+                borderRadius={8}>
+                {t(`assistants.settings.reasoning.${assistant?.settings?.reasoning_effort || 'off'}`)}
+              </Text>
+            </Stack>
+          </Button>
         )}
       </SettingGroup>
       <ModelSheet ref={bottomSheetModalRef} mentions={model} setMentions={setModel} multiple={false} />
+      <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
     </MotiView>
   )
 }

@@ -57,6 +57,17 @@ export const SettingRow = styled(XStack, {
   backgroundColor: '$colorTransparent'
 })
 
+export const PressableSettingRow = styled(XStack, {
+  borderRadius: 9,
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingVertical: 12,
+  paddingLeft: 16,
+  paddingRight: 20,
+  backgroundColor: '$colorTransparent',
+  pressStyle: { backgroundColor: 'black' }
+})
+
 export const SettingRowTitle = styled(Text, {
   fontSize: 14
 })
@@ -76,7 +87,7 @@ export const SettingHelpText = styled(Text, {
 export const SettingGroup = styled(YStack, {
   // flex: 1,
   gap: 8,
-  paddingVertical: 8,
+  // paddingVertical: 8,
   borderRadius: 9,
   backgroundColor: '$uiCardBackground'
 })

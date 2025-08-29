@@ -119,7 +119,7 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
       }}
       backdropComponent={renderBackdrop}>
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-        <Stack justifyContent="center" alignItems="center" paddingTop="$4">
+        <Stack justifyContent="center" alignItems="center" paddingHorizontal={20} paddingBottom={20}>
           <Text fontSize={20} lineHeight={22} fontWeight={600}>
             {t('common.source')}
           </Text>

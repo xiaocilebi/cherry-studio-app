@@ -76,7 +76,8 @@ export default function AssistantDetailScreen() {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ flexGrow: 1 }}
             style={{ flex: 1 }}
-            keyboardShouldPersistTaps="handled">
+            keyboardShouldPersistTaps="handled"
+            bottomOffset={10}>
             <SettingContainer>
               <XStack justifyContent="center" alignItems="center">
                 <AvatarEditButton
@@ -87,12 +88,17 @@ export default function AssistantDetailScreen() {
                 />
               </XStack>
               {/* todo: change active tabs style */}
-              <Tabs value={activeTab} onValueChange={setActiveTab} orientation="horizontal" flexDirection="column" flex={1}>
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                orientation="horizontal"
+                flexDirection="column"
+                flex={1}>
                 <Tabs.List
                   backgroundColor="$colorTransparent"
                   borderWidth={1}
                   borderColor="$gray20"
-                  borderRadius={20}
+                  borderRadius={25}
                   gap={5}
                   paddingVertical={4}
                   paddingHorizontal={5}>

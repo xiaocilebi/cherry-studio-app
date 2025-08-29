@@ -126,7 +126,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       enablePanDownToClose={true}
       android_keyboardInputMode="adjustResize">
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-        <YStack gap={16} paddingHorizontal={20} paddingTop={12} paddingBottom={20}>
+        <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
           <XStack gap={12}>
             <Stack flex={1}>
               <BottomSheetSearchInput
