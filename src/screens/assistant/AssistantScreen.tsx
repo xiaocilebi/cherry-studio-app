@@ -1,11 +1,12 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
+import { Menu } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { debounce } from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import { GestureDetector } from 'react-native-gesture-handler'
 import { Text, YStack } from 'tamagui'
 
 import AssistantItem from '@/components/assistant/AssistantItem'
@@ -14,20 +15,20 @@ import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
+import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useExternalAssistants } from '@/hooks/useAssistant'
-import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
+import { haptic } from '@/utils/haptic'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
-  const panGesture = useSwipeGesture()
 
   // 搜索状态
   const [searchText, setSearchText] = useState('')
@@ -60,22 +61,31 @@ export default function AssistantScreen() {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
 
-  const handleAssistantItemPress = (assistant: Assistant) => {
+  const handleAssistantItemPress = useCallback((assistant: Assistant) => {
     setSelectedAssistant(assistant)
     bottomSheetRef.current?.present()
-  }
+  }, [])
 
-  const onAddAssistant = async () => {
+  const onAddAssistant = useCallback(async () => {
     const newAssistant = await createAssistant()
     navigation.navigate('AssistantDetailScreen', { assistantId: newAssistant.id })
-  }
+  }, [navigation])
+
+  const handleMenuPress = useCallback(() => {
+    haptic(ImpactFeedbackStyle.Medium)
+    navigation.dispatch(DrawerActions.openDrawer())
+  }, [navigation])
 
   return (
     <SafeAreaContainer>
-      <GestureDetector gesture={panGesture}>
+      <DrawerGestureWrapper>
         <View collapsable={false} style={{ flex: 1 }}>
           <HeaderBar
             title={t('assistants.title.mine')}
+            leftButton={{
+              icon: <Menu size={24} />,
+              onPress: handleMenuPress
+            }}
             rightButton={{
               icon: <UnionPlusIcon size={24} />,
               onPress: onAddAssistant
@@ -96,7 +106,9 @@ export default function AssistantScreen() {
               <FlashList
                 showsVerticalScrollIndicator={false}
                 data={filteredAssistants}
-                renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
+                renderItem={({ item }) => (
+                  <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />
+                )}
                 keyExtractor={item => item.id}
                 estimatedItemSize={80}
                 ItemSeparatorComponent={() => <YStack height={16} />}
@@ -110,7 +122,7 @@ export default function AssistantScreen() {
           </SettingContainer>
           <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="external" />
         </View>
-      </GestureDetector>
+      </DrawerGestureWrapper>
     </SafeAreaContainer>
   )
 }

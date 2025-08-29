@@ -4,14 +4,13 @@ import { debounce } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
-import { GestureDetector } from 'react-native-gesture-handler'
 import { YStack } from 'tamagui'
 
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
+import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
-import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { useTopics } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
@@ -20,7 +19,6 @@ import { NavigationProps } from '@/types/naviagate'
 export default function TopicScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<NavigationProps>()
-  const panGesture = useSwipeGesture()
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
@@ -52,18 +50,18 @@ export default function TopicScreen() {
   if (isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <GestureDetector gesture={panGesture}>
+        <DrawerGestureWrapper>
           <View collapsable={false} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <ActivityIndicator />
           </View>
-        </GestureDetector>
+        </DrawerGestureWrapper>
       </SafeAreaContainer>
     )
   }
 
   return (
     <SafeAreaContainer style={{ flex: 1 }}>
-      <GestureDetector gesture={panGesture}>
+      <DrawerGestureWrapper>
         <View collapsable={false} style={{ flex: 1 }}>
           <HeaderBar
             title={t('topics.title.recent')}
@@ -77,7 +75,7 @@ export default function TopicScreen() {
             <GroupedTopicList topics={filteredTopics} enableScroll={true} />
           </YStack>
         </View>
-      </GestureDetector>
+      </DrawerGestureWrapper>
     </SafeAreaContainer>
   )
 }
