@@ -91,7 +91,7 @@ export default function AssistantScreen() {
               onPress: onAddAssistant
             }}
           />
-          <SettingContainer>
+          <SettingContainer paddingVertical={0}>
             <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
 
             {isLoading ? (

@@ -233,7 +233,7 @@ export default function AssistantMarketScreen() {
               onPress: handleNavigateToMyAssistants
             }}
           />
-          <SettingContainer>
+          <SettingContainer paddingVertical={0}>
             <SearchInput
               placeholder={t('assistants.market.search_placeholder')}
               value={searchText}
