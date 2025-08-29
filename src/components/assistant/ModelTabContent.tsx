@@ -21,7 +21,6 @@ interface ModelTabContentProps {
 
 export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentProps) {
   const { t } = useTranslation()
-
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
   const [maxTokensInput, setMaxTokensInput] = useState<string>(
@@ -146,7 +145,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         <SettingRow>
           <Text>{t('assistants.settings.stream_output')}</Text>
           <CustomSwitch
-            checked={settings.streamOutput ?? false}
+            checked={settings.streamOutput ?? true}
             onCheckedChange={checked => handleSettingsChange('streamOutput', checked)}
           />
         </SettingRow>
@@ -205,7 +204,9 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         )}
       </SettingGroup>
       <ModelSheet ref={bottomSheetModalRef} mentions={model} setMentions={setModel} multiple={false} />
-      <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
+      {assistant.model && (
+        <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
+      )}
     </MotiView>
   )
 }
