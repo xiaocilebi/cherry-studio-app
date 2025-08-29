@@ -11,7 +11,6 @@ import { ScrollView, Tabs, Text, View } from 'tamagui'
 import AllAssistantsTab from '@/components/assistant/market/AllAssistantsTab'
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import CategoryAssistantsTab from '@/components/assistant/market/CategoryAssistantsTab'
-import { UnionIcon } from '@/components/icons/UnionIcon'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
@@ -146,10 +145,6 @@ export default function AssistantMarketScreen() {
     }
   }, [])
 
-  const handleNavigateToMyAssistants = useCallback(() => {
-    navigation.navigate('AssistantScreen')
-  }, [navigation])
-
   const handleMenuPress = () => {
     haptic(ImpactFeedbackStyle.Medium)
     navigation.dispatch(DrawerActions.openDrawer())
@@ -204,10 +199,6 @@ export default function AssistantMarketScreen() {
                 icon: <Menu size={24} />,
                 onPress: handleMenuPress
               }}
-              rightButton={{
-                icon: <UnionIcon size={24} />,
-                onPress: handleNavigateToMyAssistants
-              }}
             />
             <View flex={1} justifyContent="center" alignItems="center">
               <ActivityIndicator size="large" />
@@ -227,10 +218,6 @@ export default function AssistantMarketScreen() {
             leftButton={{
               icon: <Menu size={24} />,
               onPress: handleMenuPress
-            }}
-            rightButton={{
-              icon: <UnionIcon size={24} />,
-              onPress: handleNavigateToMyAssistants
             }}
           />
           <SettingContainer paddingVertical={0}>

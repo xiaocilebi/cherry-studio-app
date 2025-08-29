@@ -1,5 +1,6 @@
-import { useNavigation } from '@react-navigation/native'
-import { PenSquare } from '@tamagui/lucide-icons'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { Menu, PenSquare } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { debounce } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +16,7 @@ import { useTopics } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { NavigationProps } from '@/types/naviagate'
+import { haptic } from '@/utils/haptic'
 
 export default function TopicScreen() {
   const { t } = useTranslation()
@@ -47,6 +49,11 @@ export default function TopicScreen() {
     navigation.navigate('ChatScreen', { topicId: newTopic.id })
   }
 
+  const handleMenuPress = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    navigation.dispatch(DrawerActions.openDrawer())
+  }
+
   if (isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -65,6 +72,10 @@ export default function TopicScreen() {
         <View collapsable={false} style={{ flex: 1 }}>
           <HeaderBar
             title={t('topics.title.recent')}
+            leftButton={{
+              icon: <Menu size={24} />,
+              onPress: handleMenuPress
+            }}
             rightButton={{
               icon: <PenSquare size={24} />,
               onPress: handleAddNewTopic
