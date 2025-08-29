@@ -8,7 +8,7 @@ import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
 import MessageHeader from './MessageHeader'
-import MultiModalTab from './MultiModalTab'
+import MultiModelTab from './MultiModelTab'
 
 interface MessageGroupProps {
   assistant: Assistant
@@ -39,7 +39,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
     return (
       <View gap={10}>
         <MessageHeader assistant={assistant} message={messagesInGroup[0]} />
-        <MultiModalTab assistant={assistant} messages={messagesInGroup} />
+        <MultiModelTab assistant={assistant} messages={messagesInGroup} />
       </View>
     )
   }
