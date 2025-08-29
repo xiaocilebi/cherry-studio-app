@@ -11,12 +11,13 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
 import { useSwipeGesture } from '@/hooks/useSwipeGesture'
-import { NavigationProps } from '@/types/naviagate'
+import { SettingsNavigationProps } from '@/types/naviagate'
 
 interface SettingItemConfig {
   title: string
   screen: string
   icon: React.ReactElement | string
+  specificScreen?: string // For nested navigation to specific screen
 }
 
 interface SettingGroupConfig {
@@ -34,7 +35,8 @@ export default function SettingsScreen() {
       items: [
         {
           title: userName,
-          screen: 'PersonalScreen',
+          screen: 'AboutSettings',
+          specificScreen: 'PersonalScreen',
           icon: avatar
         }
       ]
@@ -44,17 +46,20 @@ export default function SettingsScreen() {
       items: [
         {
           title: t('settings.provider.title'),
-          screen: 'ProvidersScreen',
+          screen: 'ProvidersSettings',
+          specificScreen: 'ProvidersScreen',
           icon: <Cloud size={24} />
         },
         {
           title: t('settings.assistant.title'),
-          screen: 'AssistantSettingsScreen',
+          screen: 'AboutSettings',
+          specificScreen: 'AssistantSettingsScreen',
           icon: <Package size={24} />
         },
         {
           title: t('settings.websearch.title'),
-          screen: 'WebSearchSettingsScreen',
+          screen: 'WebSearchSettings',
+          specificScreen: 'WebSearchSettingsScreen',
           icon: <Globe size={24} />
         }
       ]
@@ -64,12 +69,14 @@ export default function SettingsScreen() {
       items: [
         {
           title: t('settings.general.title'),
-          screen: 'GeneralSettingsScreen',
+          screen: 'GeneralSettings',
+          specificScreen: 'GeneralSettingsScreen',
           icon: <Settings2 size={24} />
         },
         {
           title: t('settings.data.title'),
-          screen: 'DataSettingsScreen',
+          screen: 'DataSourcesSettings',
+          specificScreen: 'DataSettingsScreen',
           icon: <HardDrive size={24} />
         }
       ]
@@ -79,7 +86,8 @@ export default function SettingsScreen() {
       items: [
         {
           title: t('settings.about.title'),
-          screen: 'AboutScreen',
+          screen: 'AboutSettings',
+          specificScreen: 'AboutScreen',
           icon: <Info size={24} />
         }
       ]
@@ -97,7 +105,13 @@ export default function SettingsScreen() {
               {settingsItems.map((group, index) => (
                 <Group key={index} title={group.title}>
                   {group.items.map((item, index) => (
-                    <SettingItem key={index} title={item.title} screen={item.screen} icon={item.icon} />
+                    <SettingItem
+                      key={index}
+                      title={item.title}
+                      screen={item.screen}
+                      icon={item.icon}
+                      specificScreen={item.specificScreen}
+                    />
                   ))}
                 </Group>
               ))}
@@ -127,10 +141,11 @@ interface SettingItemProps {
   title: string
   screen: string
   icon: React.ReactElement | string
+  specificScreen?: string
 }
 
-function SettingItem({ title, screen, icon }: SettingItemProps) {
-  const navigation = useNavigation<NavigationProps>()
+function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) {
+  const navigation = useNavigation<SettingsNavigationProps>()
   const theme = useTheme()
 
   const renderIcon = () => {
@@ -146,8 +161,18 @@ function SettingItem({ title, screen, icon }: SettingItemProps) {
     return icon
   }
 
+  const handlePress = () => {
+    if (specificScreen) {
+      // Navigate to nested screen with initial route
+      navigation.navigate(screen as any, { screen: specificScreen })
+    } else {
+      // Navigate directly to the stack navigator
+      navigation.navigate(screen as any)
+    }
+  }
+
   return (
-    <PressableSettingRow onPress={() => navigation.navigate(screen as any)}>
+    <PressableSettingRow onPress={handlePress}>
       <XStack alignItems="center" gap={12}>
         {renderIcon()}
         <YStack>

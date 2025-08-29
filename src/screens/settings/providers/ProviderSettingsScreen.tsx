@@ -1,5 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import type { StackNavigationProp } from '@react-navigation/stack'
 import { ChevronRight, HeartPulse, Plus, Settings2 } from '@tamagui/lucide-icons'
 import { groupBy } from 'lodash'
 import debounce from 'lodash/debounce'
@@ -22,17 +23,16 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { CustomSwitch } from '@/components/ui/Switch'
 import { useProvider } from '@/hooks/useProviders'
-import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
+import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
-type ProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'ProviderSettingsScreen'>
+type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ProviderSettingsScreen'>
 
 export default function ProviderSettingsScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<StackNavigationProp<ProvidersStackParamList>>()
   const route = useRoute<ProviderSettingsRouteProp>()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
@@ -94,11 +94,11 @@ export default function ProviderSettingsScreen() {
   }
 
   const onManageModel = () => {
-    navigation.navigate('Settings', { screen: 'ManageModelsScreen', params: { providerId } })
+    navigation.navigate('ManageModelsScreen', { providerId })
   }
 
   const onApiService = () => {
-    navigation.navigate('Settings', { screen: 'ApiServiceScreen', params: { providerId } })
+    navigation.navigate('ApiServiceScreen', { providerId })
   }
 
   // const onSettingModel = (model: Model) => {

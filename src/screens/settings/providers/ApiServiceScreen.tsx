@@ -15,14 +15,14 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { isEmbeddingModel } from '@/config/models/embedding'
 import { PROVIDER_URLS } from '@/config/providers'
 import { useProvider } from '@/hooks/useProviders'
-import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
+import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { checkApi } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 const logger = loggerService.withContext('ApiServiceScreen')
 
-type ProviderSettingsRouteProp = RouteProp<SettingsStackParamList, 'ApiServiceScreen'>
+type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ApiServiceScreen'>
 
 export default function ApiServiceScreen() {
   const { t } = useTranslation()

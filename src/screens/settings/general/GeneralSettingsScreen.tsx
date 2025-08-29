@@ -1,4 +1,5 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import type { StackNavigationProp } from '@react-navigation/stack'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { useCallback, useState } from 'react'
 import React from 'react'
@@ -10,7 +11,7 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'
 import { useTheme } from '@/hooks/useTheme'
-import { NavigationProps } from '@/types/naviagate'
+import { GeneralSettingsStackParamList } from '@/navigators/settings/GeneralSettingsStackNavigator'
 import { storage } from '@/utils'
 
 export default function GeneralSettingsScreen() {
@@ -19,7 +20,7 @@ export default function GeneralSettingsScreen() {
   const [language, setLanguage] = useState('zh-CN')
   const { activeTheme } = useTheme()
 
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<StackNavigationProp<GeneralSettingsStackParamList>>()
 
   const handleFocus = useCallback(() => {
     const loadSettings = async () => {
@@ -51,7 +52,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.display.title')}</SettingGroupTitle>
             <SettingGroup>
-              <PressableSettingRow onPress={() => navigation.navigate('Settings', { screen: 'ThemeSettingsScreen' })}>
+              <PressableSettingRow onPress={() => navigation.navigate('ThemeSettingsScreen')}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.theme.title')}</Text>
                 </XStack>
@@ -67,7 +68,7 @@ export default function GeneralSettingsScreen() {
           <YStack gap={8}>
             <SettingGroupTitle>{t('settings.general.title')}</SettingGroupTitle>
             <SettingGroup>
-              <PressableSettingRow onPress={() => navigation.navigate('Settings', { screen: 'LanguageChangeScreen' })}>
+              <PressableSettingRow onPress={() => navigation.navigate('LanguageChangeScreen')}>
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.language.title')}</Text>
                 </XStack>

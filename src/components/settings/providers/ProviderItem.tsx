@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
+import type { StackNavigationProp } from '@react-navigation/stack'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack } from 'tamagui'
 
+import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { Provider } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
 import { PressableSettingRow } from '..'
@@ -17,17 +18,14 @@ interface ProviderItemProps {
 
 export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'enabled' }) => {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<StackNavigationProp<ProvidersStackParamList>>()
 
   // 根据模式决定显示条件和文本
   const shouldShowStatus = mode === 'enabled' ? provider.enabled : provider.apiKey
   const statusText = mode === 'enabled' ? t('settings.provider.enabled') : t('settings.provider.added')
 
   return (
-    <PressableSettingRow
-      onPress={() =>
-        navigation.navigate('Settings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
-      }>
+    <PressableSettingRow onPress={() => navigation.navigate('ProviderSettingsScreen', { providerId: provider.id })}>
       <XStack gap={5} alignItems="center">
         <ProviderIcon provider={provider} />
         <Text>{t(`provider.${provider.id}`, { defaultValue: provider.name })}</Text>

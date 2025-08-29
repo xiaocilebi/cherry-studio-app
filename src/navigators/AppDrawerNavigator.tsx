@@ -23,7 +23,7 @@ export default function AppDrawerNavigator() {
       {/* Main grouped navigators */}
       <Drawer.Screen name="Home" options={options} component={HomeStackNavigator} />
       <Drawer.Screen name="Assistant" options={options} component={AssistantStackNavigator} />
-      <Drawer.Screen name="Settings" options={options} component={SettingsStackNavigator} />
+      <Drawer.Screen name="Settings" options={{ swipeEnabled: false, ...options }} component={SettingsStackNavigator} />
 
       {/* Individual screens for backward compatibility */}
       <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
