@@ -1,10 +1,49 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { StackNavigationProp } from '@react-navigation/stack'
 
+import { AssistantStackParamList } from '@/navigators/AssistantStackNavigator'
+import { HomeStackParamList } from '@/navigators/HomeStackNavigator'
+import { AboutStackParamList } from '@/navigators/settings/AboutStackNavigator'
+import { DataSourcesStackParamList } from '@/navigators/settings/DataSourcesStackNavigator'
+import { GeneralSettingsStackParamList } from '@/navigators/settings/GeneralSettingsStackNavigator'
+import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
+import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
+import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
+
+// Root Stack Navigator (MainStackNavigator)
 export type RootStackParamList = {
   WelcomeScreen: undefined
-  HomeScreen: { screen: string; params: { topicId: string } }
-  ChatScreen: { topicId: string }
+  HomeScreen: { screen: string; params: { topicId: string } } | undefined // This is actually the AppDrawerNavigator
+  ChatScreen: { topicId: string } | undefined
+  TopicScreen: undefined
+  AssistantScreen: undefined
+  AssistantMarketScreen: undefined
   AssistantDetailScreen: { assistantId: string; tab?: string }
+  Settings: { screen: string; params?: any } | undefined
 }
 
-export type NavigationProps = StackNavigationProp<RootStackParamList>
+// App Drawer Navigator
+export type AppDrawerParamList = {
+  Home: undefined
+  Assistant: undefined
+  Settings: undefined
+}
+
+// Navigation Props
+export type RootNavigationProps = StackNavigationProp<RootStackParamList>
+export type DrawerNavigationProps = DrawerNavigationProp<AppDrawerParamList>
+
+// Nested Navigator Props
+export type HomeNavigationProps = StackNavigationProp<HomeStackParamList>
+export type AssistantNavigationProps = StackNavigationProp<AssistantStackParamList>
+export type SettingsNavigationProps = StackNavigationProp<SettingsStackParamList>
+
+// Settings Sub-Navigator Props
+export type GeneralSettingsNavigationProps = StackNavigationProp<GeneralSettingsStackParamList>
+export type ProvidersNavigationProps = StackNavigationProp<ProvidersStackParamList>
+export type DataSourcesNavigationProps = StackNavigationProp<DataSourcesStackParamList>
+export type WebSearchNavigationProps = StackNavigationProp<WebSearchStackParamList>
+export type AboutNavigationProps = StackNavigationProp<AboutStackParamList>
+
+// Legacy compatibility
+export type NavigationProps = RootNavigationProps

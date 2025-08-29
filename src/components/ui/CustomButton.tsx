@@ -15,14 +15,13 @@ export const CustomButton: React.FC<CustomButtonProps> = ({ children, ...props }
       pressStyle={{
         backgroundColor: '$colorBrand',
         borderColor: '$colorBrand',
-        scale: 0.98,
+        scale: 0.98
       }}
       hoverStyle={{
         backgroundColor: '$backgroundSecondary',
-        borderColor: '$colorBrand',
+        borderColor: '$colorBrand'
       }}
-      {...props}
-    >
+      {...props}>
       {children}
     </Button>
   )

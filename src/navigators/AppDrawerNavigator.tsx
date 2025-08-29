@@ -5,6 +5,8 @@ import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigatio
 import React from 'react'
 
 import CustomDrawerContent from '@/components/menu/CustomDrawerContent'
+import AssistantStackNavigator from '@/navigators/AssistantStackNavigator'
+import HomeStackNavigator from '@/navigators/HomeStackNavigator'
 import SettingsStackNavigator from '@/navigators/SettingsStackNavigator'
 import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
 import AssistantMarketScreen from '@/screens/assistant/AssistantMarketScreen'
@@ -15,15 +17,20 @@ import { Width } from '@/utils/device'
 
 const Drawer = createDrawerNavigator()
 
-export default function HomeScreen() {
+export default function AppDrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} screenOptions={screenOptions}>
-      <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
-      <Drawer.Screen name="AssistantMarketScreen" options={options} component={AssistantMarketScreen} />
-      <Drawer.Screen name="AssistantScreen" options={options} component={AssistantScreen} />
-      <Drawer.Screen name="AssistantDetailScreen" options={options} component={AssistantDetailScreen} />
-      <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />
+      {/* Main grouped navigators */}
+      <Drawer.Screen name="Home" options={options} component={HomeStackNavigator} />
+      <Drawer.Screen name="Assistant" options={options} component={AssistantStackNavigator} />
       <Drawer.Screen name="Settings" options={options} component={SettingsStackNavigator} />
+
+      {/* Individual screens for backward compatibility */}
+      <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
+      <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />
+      <Drawer.Screen name="AssistantScreen" options={options} component={AssistantScreen} />
+      <Drawer.Screen name="AssistantMarketScreen" options={options} component={AssistantMarketScreen} />
+      <Drawer.Screen name="AssistantDetailScreen" options={options} component={AssistantDetailScreen} />
     </Drawer.Navigator>
   )
 }
