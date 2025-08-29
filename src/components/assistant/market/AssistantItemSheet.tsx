@@ -168,8 +168,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               chromeless
               circular
               size="$5"
-              hoverStyle={{ backgroundColor: isDark ? '$backgroundPress' : '$backgroundHover' }}
-              icon={<UnionPlusIcon size={30} color={isDark ? '$colorFocus' : '$color'} />}
+              icon={<UnionPlusIcon size={30} color="$textPrimary" />}
               onPress={handleAddAssistant}
             />
           )}
@@ -178,21 +177,20 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               chromeless
               circular
               size="$5"
-              hoverStyle={{ backgroundColor: isDark ? '$backgroundPress' : '$backgroundHover' }}
-              icon={<Settings2 size={30} color={isDark ? '$colorFocus' : '$color'} />}
+              icon={<Settings2 size={30} color="$textPrimary" />}
               onPress={handleEditAssistant}
             />
           )}
           <Button
-            backgroundColor="$foregroundGreen"
+            backgroundColor="$green10"
+            borderColor="$green20"
             borderRadius={30}
             paddingVertical={10}
             paddingHorizontal={20}
             flex={1}
             pressStyle={{ opacity: 0.85 }}
-            hoverStyle={{ opacity: 0.9 }}
             onPress={handleChatPress}>
-            <Text color="white" fontSize={17} fontWeight="700">
+            <Text color="$green100" fontSize={17} fontWeight="700">
               {t('assistants.market.button.chat')}
             </Text>
           </Button>
