@@ -8,7 +8,7 @@ import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
 import { NavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
-import { SettingRow } from '..'
+import { PressableSettingRow } from '..'
 interface WebsearchProviderRowProps {
   provider: WebSearchProvider
   // google, bing or baidu not need expended
@@ -25,7 +25,7 @@ export const WebsearchProviderRow = ({ provider, need_config }: WebsearchProvide
   }
 
   return (
-    <SettingRow onPress={onPress}>
+    <PressableSettingRow onPress={onPress}>
       <XStack gap={5}>
         <WebsearchProviderIcon provider={provider} />
         <Text>{provider.name}</Text>
@@ -48,6 +48,6 @@ export const WebsearchProviderRow = ({ provider, need_config }: WebsearchProvide
         )}
         {need_config && <ChevronRight />}
       </XStack>
-    </SettingRow>
+    </PressableSettingRow>
   )
 }

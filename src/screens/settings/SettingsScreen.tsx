@@ -6,7 +6,7 @@ import { View } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 import { Avatar, Text, useTheme, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
@@ -147,7 +147,7 @@ function SettingItem({ title, screen, icon }: SettingItemProps) {
   }
 
   return (
-    <SettingRow onPress={() => navigation.navigate(screen as any)}>
+    <PressableSettingRow onPress={() => navigation.navigate(screen as any)}>
       <XStack alignItems="center" gap={12}>
         {renderIcon()}
         <YStack>
@@ -155,6 +155,6 @@ function SettingItem({ title, screen, icon }: SettingItemProps) {
         </YStack>
       </XStack>
       <ChevronRight size={20} color="$textSecondary" />
-    </SettingRow>
+    </PressableSettingRow>
   )
 }

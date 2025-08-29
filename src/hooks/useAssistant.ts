@@ -27,6 +27,15 @@ export function useAssistant(assistantId: string) {
     }
   }
 
+  // Handle case where assistant was deleted
+  if (!rawAssistant || rawAssistant.length === 0) {
+    return {
+      assistant: null,
+      isLoading: false,
+      updateAssistant
+    }
+  }
+
   const processedAssistant = transformDbToAssistant(rawAssistant[0])
 
   return {

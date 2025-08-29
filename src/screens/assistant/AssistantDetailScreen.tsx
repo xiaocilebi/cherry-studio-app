@@ -1,9 +1,9 @@
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeftRight, PenLine } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
-import { GestureDetector } from 'react-native-gesture-handler'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { styled, Tabs, Text, XStack, YStack } from 'tamagui'
 
@@ -14,9 +14,9 @@ import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { AvatarEditButton } from '@/components/ui/AvatarEditButton'
+import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
-import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { loggerService } from '@/services/LoggerService'
 import { RootStackParamList } from '@/types/naviagate'
 const logger = loggerService.withContext('AssistantDetailScreen')
@@ -25,10 +25,9 @@ type AssistantDetailRouteProp = RouteProp<RootStackParamList, 'AssistantDetailSc
 
 export default function AssistantDetailScreen() {
   const { t } = useTranslation()
-  const panGesture = useSwipeGesture()
 
   const route = useRoute<AssistantDetailRouteProp>()
-
+  const navigation = useNavigation<DrawerNavigationProp<any>>()
   const { assistantId, tab } = route.params
   const [activeTab, setActiveTab] = useState(tab || 'prompt')
   const { assistant, isLoading, updateAssistant } = useAssistant(assistantId)
@@ -46,11 +45,11 @@ export default function AssistantDetailScreen() {
   if (isLoading) {
     return (
       <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <GestureDetector gesture={panGesture}>
+        <DrawerGestureWrapper>
           <View collapsable={false} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <ActivityIndicator />
           </View>
-        </GestureDetector>
+        </DrawerGestureWrapper>
       </SafeAreaContainer>
     )
   }
@@ -58,25 +57,29 @@ export default function AssistantDetailScreen() {
   if (!assistant) {
     return (
       <SafeAreaContainer style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <GestureDetector gesture={panGesture}>
+        <DrawerGestureWrapper>
           <View collapsable={false} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>{t('assistants.error.notFound')}</Text>
           </View>
-        </GestureDetector>
+        </DrawerGestureWrapper>
       </SafeAreaContainer>
     )
   }
 
   return (
     <SafeAreaContainer>
-      <GestureDetector gesture={panGesture}>
+      <DrawerGestureWrapper>
         <View collapsable={false} style={{ flex: 1 }}>
-          <HeaderBar title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')} />
+          <HeaderBar
+            title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')}
+            onBackPress={() => navigation.goBack()}
+          />
           <KeyboardAwareScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ flexGrow: 1 }}
             style={{ flex: 1 }}
-            keyboardShouldPersistTaps="handled">
+            keyboardShouldPersistTaps="handled"
+            bottomOffset={10}>
             <SettingContainer>
               <XStack justifyContent="center" alignItems="center">
                 <AvatarEditButton
@@ -87,12 +90,17 @@ export default function AssistantDetailScreen() {
                 />
               </XStack>
               {/* todo: change active tabs style */}
-              <Tabs value={activeTab} onValueChange={setActiveTab} orientation="horizontal" flexDirection="column" flex={1}>
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                orientation="horizontal"
+                flexDirection="column"
+                flex={1}>
                 <Tabs.List
                   backgroundColor="$colorTransparent"
                   borderWidth={1}
                   borderColor="$gray20"
-                  borderRadius={20}
+                  borderRadius={25}
                   gap={5}
                   paddingVertical={4}
                   paddingHorizontal={5}>
@@ -129,7 +137,7 @@ export default function AssistantDetailScreen() {
             </SettingContainer>
           </KeyboardAwareScrollView>
         </View>
-      </GestureDetector>
+      </DrawerGestureWrapper>
     </SafeAreaContainer>
   )
 }

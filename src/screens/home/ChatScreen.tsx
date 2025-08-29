@@ -86,8 +86,8 @@ const ChatScreen = () => {
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}>
-          <YStack paddingHorizontal={12} backgroundColor="$colorTransparent" flex={1}>
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 10}>
+          <YStack paddingHorizontal={14} backgroundColor="$colorTransparent" flex={1}>
             <HeaderBar
               topic={topic}
               showAssistantCard={showAssistantCard}
@@ -115,7 +115,7 @@ const ChatScreen = () => {
               </>
             )}
 
-            <View style={{ flex: 1, marginVertical: 20 }}>
+            <View style={{ flex: 1, marginVertical: 10, paddingHorizontal: 4 }}>
               {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}
             </View>
             <MessageInput topic={topic} />

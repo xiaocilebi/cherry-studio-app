@@ -74,7 +74,7 @@ export default function ProvidersScreen() {
         }}
       />
 
-      <SettingContainer>
+      <SettingContainer paddingBottom={0}>
         <SearchInput placeholder={t('settings.provider.search')} value={searchText} onChangeText={setSearchText} />
 
         {providers.length === 0 ? (

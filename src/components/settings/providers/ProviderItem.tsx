@@ -8,7 +8,7 @@ import { Provider } from '@/types/assistant'
 import { NavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
-import { SettingRow } from '..'
+import { PressableSettingRow } from '..'
 
 interface ProviderItemProps {
   provider: Provider
@@ -24,7 +24,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
   const statusText = mode === 'enabled' ? t('settings.provider.enabled') : t('settings.provider.added')
 
   return (
-    <SettingRow
+    <PressableSettingRow
       onPress={() =>
         navigation.navigate('Settings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
       }>
@@ -48,6 +48,6 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
         )}
         <ChevronRight color="$white9" width={6} height={12} />
       </XStack>
-    </SettingRow>
+    </PressableSettingRow>
   )
 }

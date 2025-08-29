@@ -195,11 +195,12 @@ export default function ManageModelsScreen() {
         <Button
           size={20}
           chromeless
+          circular
           icon={
             isAllModelsInCurrentProvider(groupButtonModels) ? (
-              <Minus size={14} borderRadius={99} backgroundColor="$red20" color="$red100" />
+              <Minus size={20} borderRadius={99} backgroundColor="$red20" color="$red100" />
             ) : (
-              <Plus size={14} borderRadius={99} backgroundColor="$green20" color="$green100" />
+              <Plus size={20} borderRadius={99} backgroundColor="$green20" color="$green100" />
             )
           }
           onPress={
@@ -211,13 +212,14 @@ export default function ManageModelsScreen() {
       )}
       renderModelButton={model => (
         <Button
-          size={14}
+          size={16}
           chromeless
+          circular
           icon={
             isModelInCurrentProvider(model.id) ? (
-              <Minus size={14} borderRadius={99} backgroundColor="$red20" color="$red100" />
+              <Minus size={16} borderRadius={99} backgroundColor="$red20" color="$red100" />
             ) : (
-              <Plus size={14} borderRadius={99} backgroundColor="$green20" color="$green100" />
+              <Plus size={16} borderRadius={99} backgroundColor="$green20" color="$green100" />
             )
           }
           onPress={isModelInCurrentProvider(model.id) ? () => onRemoveModel(model) : () => onAddModel(model)}
@@ -229,7 +231,7 @@ export default function ManageModelsScreen() {
   const getTabStyle = (isActive: boolean) => ({
     height: '100%',
     backgroundColor: isActive ? '$background' : 'transparent',
-    borderRadius: 15
+    borderRadius: 20
   })
 
   return (
@@ -243,7 +245,10 @@ export default function ManageModelsScreen() {
           <ActivityIndicator />
         </SafeAreaContainer>
       ) : (
-        <SettingContainer onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
+        <SettingContainer
+          paddingBottom={0}
+          onStartShouldSetResponder={() => false}
+          onMoveShouldSetResponder={() => false}>
           {/* Filter Tabs */}
           <Tabs
             defaultValue="all"

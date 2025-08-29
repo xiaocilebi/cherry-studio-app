@@ -5,6 +5,8 @@ import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigatio
 import React from 'react'
 
 import CustomDrawerContent from '@/components/menu/CustomDrawerContent'
+import AssistantStackNavigator from '@/navigators/AssistantStackNavigator'
+import HomeStackNavigator from '@/navigators/HomeStackNavigator'
 import SettingsStackNavigator from '@/navigators/SettingsStackNavigator'
 import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
 import AssistantMarketScreen from '@/screens/assistant/AssistantMarketScreen'
@@ -15,15 +17,20 @@ import { Width } from '@/utils/device'
 
 const Drawer = createDrawerNavigator()
 
-export default function HomeScreen() {
+export default function AppDrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} screenOptions={screenOptions}>
+      {/* Main grouped navigators */}
+      <Drawer.Screen name="Home" options={options} component={HomeStackNavigator} />
+      <Drawer.Screen name="Assistant" options={options} component={AssistantStackNavigator} />
+      <Drawer.Screen name="Settings" options={options} component={SettingsStackNavigator} />
+
+      {/* Individual screens for backward compatibility */}
       <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
-      <Drawer.Screen name="AssistantMarketScreen" options={disableSwipeOptions} component={AssistantMarketScreen} />
-      <Drawer.Screen name="AssistantScreen" options={disableSwipeOptions} component={AssistantScreen} />
-      <Drawer.Screen name="AssistantDetailScreen" options={disableSwipeOptions} component={AssistantDetailScreen} />
-      <Drawer.Screen name="TopicScreen" options={disableSwipeOptions} component={TopicScreen} />
-      <Drawer.Screen name="Settings" options={disableSwipeOptions} component={SettingsStackNavigator} />
+      <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />
+      <Drawer.Screen name="AssistantScreen" options={options} component={AssistantScreen} />
+      <Drawer.Screen name="AssistantMarketScreen" options={options} component={AssistantMarketScreen} />
+      <Drawer.Screen name="AssistantDetailScreen" options={options} component={AssistantDetailScreen} />
     </Drawer.Navigator>
   )
 }
@@ -33,16 +40,10 @@ const screenOptions: DrawerNavigationOptions = {
     width: Width * 0.8
   },
   swipeEnabled: true,
-  drawerType: 'front',
+  drawerType: 'slide',
   keyboardDismissMode: 'none'
 }
 
 const options: DrawerNavigationOptions = {
   headerShown: false
-}
-
-// 其他界面侧滑有概率打开drawer
-const disableSwipeOptions: DrawerNavigationOptions = {
-  headerShown: false,
-  swipeEnabled: false
 }

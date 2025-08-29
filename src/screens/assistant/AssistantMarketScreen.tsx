@@ -1,10 +1,12 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { Menu } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { debounce } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { GestureDetector } from 'react-native-gesture-handler'
 import { ScrollView, Tabs, Text, View } from 'tamagui'
 
 import AllAssistantsTab from '@/components/assistant/market/AllAssistantsTab'
@@ -13,12 +15,12 @@ import CategoryAssistantsTab from '@/components/assistant/market/CategoryAssista
 import { UnionIcon } from '@/components/icons/UnionIcon'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
+import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
-import { useSwipeGesture } from '@/hooks/useSwipeGesture'
 import { Assistant } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
 import { groupByCategories } from '@/utils/assistants'
+import { haptic } from '@/utils/haptic'
 
 import SafeAreaContainer from '../../components/ui/SafeAreaContainer'
 
@@ -31,8 +33,7 @@ type FilterType = 'all' | string
 
 export default function AssistantMarketScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
-  const panGesture = useSwipeGesture()
+  const navigation = useNavigation<DrawerNavigationProp<any>>()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
@@ -149,6 +150,11 @@ export default function AssistantMarketScreen() {
     navigation.navigate('AssistantScreen')
   }, [navigation])
 
+  const handleMenuPress = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    navigation.dispatch(DrawerActions.openDrawer())
+  }
+
   const renderTabList = useMemo(
     () => (
       <Tabs.List gap={10} flexDirection="row" height={34}>
@@ -190,10 +196,14 @@ export default function AssistantMarketScreen() {
   if (isInitializing) {
     return (
       <SafeAreaContainer>
-        <GestureDetector gesture={panGesture}>
+        <DrawerGestureWrapper>
           <View collapsable={false} style={{ flex: 1 }}>
             <HeaderBar
               title={t('assistants.market.title')}
+              leftButton={{
+                icon: <Menu size={24} />,
+                onPress: handleMenuPress
+              }}
               rightButton={{
                 icon: <UnionIcon size={24} />,
                 onPress: handleNavigateToMyAssistants
@@ -203,17 +213,21 @@ export default function AssistantMarketScreen() {
               <ActivityIndicator size="large" />
             </View>
           </View>
-        </GestureDetector>
+        </DrawerGestureWrapper>
       </SafeAreaContainer>
     )
   }
 
   return (
     <SafeAreaContainer>
-      <GestureDetector gesture={panGesture}>
+      <DrawerGestureWrapper>
         <View collapsable={false} style={{ flex: 1 }}>
           <HeaderBar
             title={t('assistants.market.title')}
+            leftButton={{
+              icon: <Menu size={24} />,
+              onPress: handleMenuPress
+            }}
             rightButton={{
               icon: <UnionIcon size={24} />,
               onPress: handleNavigateToMyAssistants
@@ -240,7 +254,7 @@ export default function AssistantMarketScreen() {
           </SettingContainer>
           <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="builtIn" />
         </View>
-      </GestureDetector>
+      </DrawerGestureWrapper>
     </SafeAreaContainer>
   )
 }

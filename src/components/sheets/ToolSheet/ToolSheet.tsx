@@ -67,7 +67,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
             backgroundColor: theme.color.val
           }}
           backdropComponent={renderBackdrop}>
-          <BottomSheetView style={{ paddingTop: 10, paddingBottom: 50 }}>
+          <BottomSheetView style={{ paddingBottom: 20 }}>
             <YStack gap={12}>
               <ToolOptions
                 onCameraPress={handleCameraPress}
