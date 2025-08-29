@@ -6,7 +6,7 @@ import ChatScreen from '@/screens/home/ChatScreen'
 import TopicScreen from '@/screens/topic/TopicScreen'
 
 export type HomeStackParamList = {
-  ChatScreen: { topicId?: string }
+  ChatScreen: { topicId: string }
   TopicScreen: undefined
   AssistantDetailScreen: { assistantId: string; tab?: string }
 }
