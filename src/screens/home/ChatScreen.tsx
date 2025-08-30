@@ -32,8 +32,8 @@ const ChatScreen = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     runAsyncFunction(async () => {
-      // 如果topic id是new才执行
-      if (topicId !== 'new') return
+      // 如果topic id是new或者undefined才执行
+      if (topicId !== 'new' && topicId !== undefined) return
       const newestTopic = await getNewestTopic()
 
       if (newestTopic) {

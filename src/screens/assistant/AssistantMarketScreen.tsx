@@ -16,8 +16,6 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
-import { saveAssistant } from '@/services/AssistantService'
-import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { groupByCategories } from '@/utils/assistants'
@@ -152,11 +150,8 @@ export default function AssistantMarketScreen() {
     navigation.dispatch(DrawerActions.openDrawer())
   }
 
-  const onChatNavigation = async () => {
-    if (!selectedAssistant) return
-    await saveAssistant(selectedAssistant)
-    const newTopic = await createNewTopic(selectedAssistant)
-    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newTopic.id } })
+  const onChatNavigation = async (topicId: string) => {
+    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
   }
 
   const renderTabList = useMemo(
