@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import React, { useRef } from 'react'
@@ -7,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
+import { DrawerNavigationProps } from '@/types/naviagate'
 
 import AssistantItemSheet from '../assistant/market/AssistantItemSheet'
 import { ModelIcon } from '../ui/ModelIcon'
@@ -17,7 +17,7 @@ interface AssistantSelectionProps {
 
 export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistant }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
-  const navigation = useNavigation<DrawerNavigationProp<any>>()
+  const navigation = useNavigation<DrawerNavigationProps>()
   const { t } = useTranslation()
 
   const handlePress = () => {

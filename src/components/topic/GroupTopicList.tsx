@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
@@ -13,7 +12,6 @@ import { useAppDispatch } from '@/store'
 import { newMessagesActions } from '@/store/newMessage'
 import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
-import { DrawerNavigationProps } from '@/types/naviagate'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
 
 import TopicItem from './TopicItem'
@@ -33,7 +31,6 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
   const dispatch = useAppDispatch()
-  const navigation = useNavigation<DrawerNavigationProps>()
 
   useEffect(() => {
     setLocalTopics(topics)
