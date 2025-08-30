@@ -8,8 +8,6 @@ import CustomDrawerContent from '@/components/menu/CustomDrawerContent'
 import AssistantStackNavigator from '@/navigators/AssistantStackNavigator'
 import HomeStackNavigator from '@/navigators/HomeStackNavigator'
 import SettingsStackNavigator from '@/navigators/SettingsStackNavigator'
-import ChatScreen from '@/screens/home/ChatScreen'
-import TopicScreen from '@/screens/topic/TopicScreen'
 import { Width } from '@/utils/device'
 
 const Drawer = createDrawerNavigator()
@@ -23,8 +21,8 @@ export default function AppDrawerNavigator() {
       <Drawer.Screen name="Settings" options={{ swipeEnabled: false, ...options }} component={SettingsStackNavigator} />
 
       {/* Individual screens for backward compatibility */}
-      <Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
-      <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />
+      {/*<Drawer.Screen name="ChatScreen" options={options} component={ChatScreen} />
+      <Drawer.Screen name="TopicScreen" options={options} component={TopicScreen} />*/}
     </Drawer.Navigator>
   )
 }

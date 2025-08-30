@@ -7,7 +7,6 @@ import { Button, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
-import { useCustomNavigation } from '@/hooks/useNavigation'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
@@ -21,6 +20,7 @@ interface AssistantItemSheetProps {
   assistant: Assistant | null
   source: 'builtIn' | 'external'
   onEdit?: (assistantId: string) => void
+  onChatNavigation?: (topicId: string) => Promise<void>
   actionButton?: {
     text: string
     onPress: () => void
@@ -28,11 +28,10 @@ interface AssistantItemSheetProps {
 }
 
 const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>(
-  ({ assistant, source, onEdit, actionButton }, ref) => {
+  ({ assistant, source, onEdit, onChatNavigation, actionButton }, ref) => {
     const { t } = useTranslation()
     const theme = useTheme()
     const { isDark } = useCustomTheme()
-    const { navigateToChatScreen } = useCustomNavigation()
 
     // 添加背景组件渲染函数
     const renderBackdrop = (props: any) => (
@@ -40,24 +39,24 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     )
 
     const handleChatPress = async () => {
-      if (assistant) {
-        let newAssistant: Assistant
+      if (!assistant || !onChatNavigation) return
 
-        if (assistant.type === 'external') {
-          newAssistant = assistant
-        } else {
-          newAssistant = {
-            ...assistant,
-            id: uuid(),
-            type: 'external'
-          }
-          await saveAssistant(newAssistant)
+      let newAssistant: Assistant
+
+      if (assistant.type === 'external') {
+        newAssistant = assistant
+      } else {
+        newAssistant = {
+          ...assistant,
+          id: uuid(),
+          type: 'external'
         }
-
-        const topic = await createNewTopic(newAssistant)
-        navigateToChatScreen(topic.id)
-        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        await saveAssistant(newAssistant)
       }
+
+      const topic = await createNewTopic(newAssistant)
+      await onChatNavigation(topic.id)
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
 
     const handleAddAssistant = async () => {

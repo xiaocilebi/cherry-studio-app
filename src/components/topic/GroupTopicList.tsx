@@ -1,9 +1,9 @@
+import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 import { Text, YStack } from 'tamagui'
 
-import { useCustomNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -11,7 +11,9 @@ import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
 import { newMessagesActions } from '@/store/newMessage'
+import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
+import { DrawerNavigationProps } from '@/types/naviagate'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
 
 import TopicItem from './TopicItem'
@@ -29,8 +31,8 @@ type ListItem = { type: 'header'; title: string } | { type: 'topic'; topic: Topi
 export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps) {
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
-  const { navigateToChatScreen } = useCustomNavigation()
   const dispatch = useAppDispatch()
+  const navigation = useNavigation<DrawerNavigationProps>()
 
   useEffect(() => {
     setLocalTopics(topics)
@@ -84,12 +86,14 @@ export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps
             : null
 
         if (nextTopic) {
-          navigateToChatScreen(nextTopic.id)
+          dispatch(setCurrentTopicId(nextTopic.id))
+          navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: nextTopic.id } })
           logger.info('navigateToChatScreen after delete', nextTopic)
         } else {
           const defaultAssistant = await getDefaultAssistant()
           const newTopic = await createNewTopic(defaultAssistant)
-          navigateToChatScreen(newTopic.id)
+          dispatch(setCurrentTopicId(newTopic.id))
+          navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newTopic.id } })
           logger.info('navigateToChatScreen with new topic', newTopic)
         }
       }

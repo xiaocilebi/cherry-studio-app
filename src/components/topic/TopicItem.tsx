@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
@@ -7,10 +8,12 @@ import { Pressable } from 'react-native-gesture-handler'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
-import { useCustomNavigation } from '@/hooks/useNavigation'
 import i18n from '@/i18n'
 import { getAssistantById } from '@/services/AssistantService'
+import { useAppDispatch } from '@/store'
+import { setCurrentTopicId } from '@/store/topic'
 import { Assistant, Topic } from '@/types/assistant'
+import { DrawerNavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
@@ -25,12 +28,14 @@ interface TopicItemProps {
 const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete }) => {
   const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
-  const { navigateToChatScreen } = useCustomNavigation()
+  const dispatch = useAppDispatch()
+  const navigation = useNavigation<DrawerNavigationProps>()
   const [assistant, setAssistant] = useState<Assistant>()
 
   const openTopic = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    navigateToChatScreen(topic.id)
+    dispatch(setCurrentTopicId(topic.id))
+    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topic.id } })
   }
 
   const date = new Date(topic.updatedAt)

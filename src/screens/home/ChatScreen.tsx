@@ -12,17 +12,17 @@ import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useTopic } from '@/hooks/useTopic'
+import { HomeStackParamList } from '@/navigators/HomeStackNavigator'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { createNewTopic, getNewestTopic } from '@/services/TopicService'
 import { setCurrentTopicId } from '@/store/topic'
-import { RootStackParamList } from '@/types/naviagate'
 import { runAsyncFunction } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
 
-type ChatScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>
+type ChatScreenRouteProp = RouteProp<HomeStackParamList, 'ChatScreen'>
 
 const ChatScreen = () => {
   const route = useRoute<ChatScreenRouteProp>()

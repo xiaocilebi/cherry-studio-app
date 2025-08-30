@@ -1,4 +1,4 @@
-import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack'
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import React from 'react'
 
 import AssistantDetailScreen from '@/screens/assistant/AssistantDetailScreen'
@@ -12,7 +12,6 @@ export type HomeStackParamList = {
 }
 
 const Stack = createStackNavigator<HomeStackParamList>()
-export type HomeStackNavigationProp = StackNavigationProp<HomeStackParamList>
 
 export default function HomeStackNavigator() {
   return (

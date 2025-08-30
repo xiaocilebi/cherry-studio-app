@@ -25,7 +25,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   const handleNavigateTopicScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('TopicScreen')
+    props.navigation.navigate('Home', { screen: 'TopicScreen' })
   }
 
   const handleNavigateAssistantMarketScreen = () => {

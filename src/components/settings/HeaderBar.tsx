@@ -1,8 +1,9 @@
+import { useNavigation } from '@react-navigation/native'
 import { ArrowLeft } from '@tamagui/lucide-icons'
 import React from 'react'
 import { Button, Text, XStack } from 'tamagui'
 
-import { useCustomNavigation } from '@/hooks/useNavigation'
+import { DrawerNavigationProps } from '@/types/naviagate'
 
 interface HeaderBarProps {
   title: string
@@ -24,7 +25,11 @@ interface HeaderBarProps {
 
 export function HeaderBar({ title, leftButton, rightButton, rightButtons, showBackButton = true }: HeaderBarProps) {
   const buttonsToRender = rightButtons || (rightButton ? [rightButton] : [])
-  const { navigateBack } = useCustomNavigation()
+  const navigation = useNavigation<DrawerNavigationProps>()
+
+  const navigateBack = () => {
+    navigation.goBack()
+  }
 
   return (
     <XStack paddingHorizontal="$4" alignItems="center" height={44} justifyContent="space-between">
