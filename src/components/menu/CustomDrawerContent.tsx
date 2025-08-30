@@ -4,7 +4,7 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { Avatar, Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { Avatar, Button, Stack, styled, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
@@ -50,28 +50,29 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   return (
     <YStack flex={1}>
-      <YStack gap={10} flex={1} padding={20}>
-        <YStack backgroundColor="transparent" flex={1} gap={10} paddingTop={Platform.OS === 'ios' ? 30 : 0}>
-          <XStack
-            justifyContent="space-between"
-            alignItems="center"
-            paddingVertical={10}
-            onPress={handleNavigateAssistantMarketScreen}>
+      <YStack gap={10} flex={1} paddingVertical={20}>
+        <YStack
+          backgroundColor="transparent"
+          flex={1}
+          gap={10}
+          paddingHorizontal={10}
+          paddingTop={Platform.OS === 'ios' ? 40 : 0}>
+          <ListItem onPress={handleNavigateAssistantMarketScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
               <MarketIcon size={20} />
               <Text color={theme.color}>{t('assistants.market.title')}</Text>
             </XStack>
             <ChevronRight size={20} color={theme.color} />
-          </XStack>
+          </ListItem>
 
-          <XStack justifyContent="space-between" paddingVertical={10} onPress={handleNavigateAssistantScreen}>
+          <ListItem onPress={handleNavigateAssistantScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
               <UnionIcon size={20} />
               <Text color={theme.color}>{t('assistants.market.my_assistant')}</Text>
             </XStack>
             <ChevronRight size={20} color={theme.color} />
-          </XStack>
-          <Stack paddingVertical={20}>
+          </ListItem>
+          <Stack paddingVertical={30} paddingHorizontal={10}>
             <SettingDivider />
           </Stack>
           <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
@@ -106,3 +107,12 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     </YStack>
   )
 }
+
+const ListItem = styled(XStack, {
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingVertical: 10,
+  paddingHorizontal: 10,
+  borderRadius: 9,
+  pressStyle: { backgroundColor: '$gray20' }
+})

@@ -58,7 +58,6 @@ export const SettingRow = styled(XStack, {
 })
 
 export const PressableSettingRow = styled(XStack, {
-  borderRadius: 9,
   justifyContent: 'space-between',
   alignItems: 'center',
   paddingVertical: 12,
@@ -89,7 +88,8 @@ export const SettingGroup = styled(YStack, {
   gap: 8,
   // paddingVertical: 8,
   borderRadius: 9,
-  backgroundColor: '$uiCardBackground'
+  backgroundColor: '$uiCardBackground',
+  overflow: 'hidden'
 })
 
 export const SettingGroupTitle = styled(Text, {

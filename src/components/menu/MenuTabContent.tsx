@@ -12,7 +12,7 @@ export function MenuTabContent({ title, onSeeAllPress, children }: MenuTabConten
   const { t } = useTranslation()
 
   return (
-    <YStack flex={1} gap={10}>
+    <YStack flex={1} gap={10} paddingHorizontal={10}>
       <YStack>
         <XStack justifyContent="space-between" alignItems="center">
           <XStack paddingVertical={10} gap={8} alignItems="center">

@@ -10,7 +10,7 @@ import * as Localization from 'expo-localization'
 import * as NavigationBar from 'expo-navigation-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
-import * as StatusBar from 'expo-status-bar'
+import { StatusBar } from 'expo-status-bar'
 import React, { Suspense, useEffect } from 'react'
 import { ActivityIndicator, Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -103,7 +103,6 @@ function ThemedApp() {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setBackgroundColorAsync(backgroundColor)
-      StatusBar.setStatusBarStyle('auto')
     }
   }, [backgroundColor])
 
@@ -114,6 +113,7 @@ function ThemedApp() {
           <NavigationContainer theme={reactNavigationTheme}>
             <ThemeProvider value={reactNavigationTheme}>
               <BottomSheetModalProvider>
+                <StatusBar style="auto" />
                 <DatabaseInitializer />
                 <MainStackNavigator />
               </BottomSheetModalProvider>

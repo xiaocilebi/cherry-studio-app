@@ -1,9 +1,9 @@
 import React from 'react'
-import { Text, XStack, YStack } from 'tamagui'
+import { Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
-import { formateEmoji } from '@/utils/formats'
 
+import EmojiAvatar from './EmojiAvator'
 import GroupTag from './market/GroupTag'
 
 interface AssistantItemCardProps {
@@ -17,23 +17,17 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   }
 
   return (
-    <YStack
-      backgroundColor="$uiCardBackground"
-      paddingHorizontal={14}
-      paddingTop={30}
-      paddingBottom={10}
-      height={216}
-      width={148}
-      borderRadius={16}
-      onPress={handlePress}>
-      <YStack gap={7} alignItems="center" justifyContent="center" height="100%">
-        <Text fontSize={30}>{formateEmoji(assistant.emoji)}</Text>
-        <Text textAlign="center" numberOfLines={2} ellipsizeMode="tail">
+    <View backgroundColor="$uiCardBackground" padding={14} width={148} borderRadius={16} onPress={handlePress}>
+      <YStack gap={8} alignItems="center" height="100%">
+        <EmojiAvatar emoji={assistant.emoji} size={70} borderWidth={5}  />
+        <Text textAlign="center" numberOfLines={1} ellipsizeMode="tail">
           {assistant.name}
         </Text>
-        <Text color="$gray9" fontSize={10} numberOfLines={4} ellipsizeMode="tail">
-          {assistant.description}
-        </Text>
+        <View height={40}>
+          <Text color="$gray9" fontSize={10} lineHeight={12} numberOfLines={3} ellipsizeMode="tail">
+            {assistant.description}
+          </Text>
+        </View>
         <XStack gap={10}>
           {assistant.group &&
             assistant.group.map((group, index) => (
@@ -49,7 +43,7 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
             ))}
         </XStack>
       </YStack>
-    </YStack>
+    </View>
   )
 }
 

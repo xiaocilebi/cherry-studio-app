@@ -17,6 +17,7 @@ import { Assistant } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
+import EmojiAvatar from './EmojiAvator'
 
 const logger = loggerService.withContext('Assistant Item')
 
@@ -51,17 +52,17 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <Pressable delayLongPress={200} onPress={handlePress} onLongPress={() => {}}>
+        <Pressable delayLongPress={100} onPress={handlePress} onLongPress={() => {}}>
           <XStack
-            borderRadius={16}
-            backgroundColor="$uiCardBackground"
+            paddingVertical={10}
+            paddingHorizontal={10}
             justifyContent="space-between"
             alignItems="center"
-            paddingVertical={12}
-            paddingHorizontal={20}>
-            <XStack gap={14} maxWidth="90%">
-              <Text fontSize={35}>{formateEmoji(assistant.emoji)}</Text>
-              <YStack gap={8} flex={1} justifyContent="center">
+            borderRadius={16}
+            backgroundColor="$uiCardBackground">
+            <XStack gap={14} flex={1}>
+              <EmojiAvatar emoji={assistant.emoji} size={46} borderRadius={18} borderWidth={2} />
+              <YStack gap={4} flex={1} justifyContent="center">
                 <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" color="$textPrimary">
                   {assistant.name}
                 </Text>

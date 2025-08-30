@@ -3,7 +3,7 @@ import { Settings2 } from '@tamagui/lucide-icons'
 import React, { forwardRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Button, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
+import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
@@ -16,6 +16,7 @@ import { uuid } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 
 import GroupTag from './GroupTag'
+import EmojiAvatar from '../EmojiAvator'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -106,9 +107,9 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               <YStack flex={1} gap={25}>
                 {/* Header with emoji and groups */}
                 <YStack justifyContent="center" alignItems="center" gap={20}>
-                  <Text fontSize={128} marginBottom={16}>
-                    {formateEmoji(assistant.emoji)}
-                  </Text>
+                  <View marginTop={20}>
+                    <EmojiAvatar emoji={assistant.emoji} size={120} borderWidth={5} borderColor="$uiCardBackground" />
+                  </View>
                   <Text fontSize={22} fontWeight="bold" textAlign="center">
                     {assistant.name}
                   </Text>
