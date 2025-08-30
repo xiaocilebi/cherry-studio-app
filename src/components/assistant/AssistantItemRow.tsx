@@ -3,6 +3,7 @@ import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
+import EmojiAvatar from './EmojiAvator'
 
 interface AssistantItemRowProps {
   assistant: Assistant
@@ -17,15 +18,15 @@ const AssistantItemRow: FC<AssistantItemRowProps> = ({ assistant, onAssistantPre
   return (
     <XStack
       paddingVertical={10}
-      paddingHorizontal={20}
+      paddingHorizontal={10}
       justifyContent="space-between"
       alignItems="center"
       borderRadius={16}
       backgroundColor="$uiCardBackground"
       onPress={handlePress}>
-      <XStack gap={14} flex={1} marginRight={10} maxWidth="75%">
-        <Text fontSize={35}>{assistant.emoji?.replace(/\r\n/g, '')}</Text>
-        <YStack gap={4} flex={1} maxWidth="100%">
+      <XStack gap={14} flex={1}>
+        <EmojiAvatar emoji={assistant.emoji} size={45} borderRadius={18} borderWidth={2} />
+        <YStack gap={4} flex={1} justifyContent="center">
           <Text numberOfLines={1} ellipsizeMode="tail">
             {assistant.name}
           </Text>
