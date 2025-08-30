@@ -7,6 +7,7 @@ import { Button, Stack, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
+import { ModelIcon } from '@/components/ui/ModelIcon'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
@@ -78,7 +79,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     }
 
     if (!assistant) return null
-
+    console.log('assistant', assistant)
     return (
       <BottomSheetModal
         snapPoints={['85%']}
@@ -104,7 +105,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               {/* Main Content */}
               <YStack flex={1} gap={25}>
                 {/* Header with emoji and groups */}
-                <YStack justifyContent="center" alignItems="center" gap={20} paddingVertical={20}>
+                <YStack justifyContent="center" alignItems="center" gap={20}>
                   <Text fontSize={128} marginBottom={16}>
                     {formateEmoji(assistant.emoji)}
                   </Text>
@@ -127,14 +128,32 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                       ))}
                     </XStack>
                   )}
+                  {assistant.model && (
+                    <XStack gap={2} alignItems="center" justifyContent="center">
+                      <ModelIcon model={assistant.model} size={14} />
+                      <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail">
+                        {assistant.model.name}
+                      </Text>
+                    </XStack>
+                  )}
                 </YStack>
+
                 <Stack>
                   <SettingDivider />
                 </Stack>
 
                 {/* Description */}
                 {assistant.description && (
-                  <YStack>
+                  <YStack gap={5}>
+                    <Text
+                      lineHeight={20}
+                      fontSize={16}
+                      fontWeight="bold"
+                      color="$textPrimary"
+                      numberOfLines={2}
+                      ellipsizeMode="tail">
+                      {t('common.description')}
+                    </Text>
                     <Text lineHeight={20} color="$textSecondary" numberOfLines={2} ellipsizeMode="tail">
                       {assistant.description}
                     </Text>
@@ -143,9 +162,20 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
                 {/* Additional details could go here */}
                 {assistant.prompt && (
-                  <Text fontSize={16} lineHeight={20} numberOfLines={8} ellipsizeMode="tail">
-                    {assistant.prompt}
-                  </Text>
+                  <YStack gap={5}>
+                    <Text
+                      lineHeight={20}
+                      fontSize={16}
+                      fontWeight="bold"
+                      color="$textPrimary"
+                      numberOfLines={2}
+                      ellipsizeMode="tail">
+                      {t('common.prompt')}
+                    </Text>
+                    <Text fontSize={16} lineHeight={20} numberOfLines={10} ellipsizeMode="tail">
+                      {assistant.prompt}
+                    </Text>
+                  </YStack>
                 )}
               </YStack>
             </YStack>

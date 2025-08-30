@@ -9,7 +9,6 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 
 import AssistantItemSheet from '../assistant/market/AssistantItemSheet'
-import { ModelIcon } from '../ui/ModelIcon'
 
 interface AssistantSelectionProps {
   assistant: Assistant
@@ -48,14 +47,14 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
             <Text fontSize={20} ellipsizeMode="tail" numberOfLines={1}>
               {assistant.name}
             </Text>
-            {assistant.model && (
+            {/*{assistant.model && (
               <XStack gap={2} alignItems="center" justifyContent="center">
                 <ModelIcon model={assistant.model} size={14} />
                 <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail">
                   {assistant.model.name}
                 </Text>
               </XStack>
-            )}
+            )}*/}
           </YStack>
           <ChevronRight color="$textPrimary" size={18} />
         </XStack>
