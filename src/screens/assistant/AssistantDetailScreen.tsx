@@ -1,4 +1,3 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeftRight, PenLine } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
@@ -17,17 +16,18 @@ import { AvatarEditButton } from '@/components/ui/AvatarEditButton'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
+import { AssistantStackParamList } from '@/navigators/AssistantStackNavigator'
 import { loggerService } from '@/services/LoggerService'
-import { RootStackParamList } from '@/types/naviagate'
+import { DrawerNavigationProps } from '@/types/naviagate'
 const logger = loggerService.withContext('AssistantDetailScreen')
 
-type AssistantDetailRouteProp = RouteProp<RootStackParamList, 'AssistantDetailScreen'>
+type AssistantDetailRouteProp = RouteProp<AssistantStackParamList, 'AssistantDetailScreen'>
 
 export default function AssistantDetailScreen() {
   const { t } = useTranslation()
 
   const route = useRoute<AssistantDetailRouteProp>()
-  const navigation = useNavigation<DrawerNavigationProp<any>>()
+  const navigation = useNavigation<DrawerNavigationProps>()
   const { assistantId, tab } = route.params
   const [activeTab, setActiveTab] = useState(tab || 'prompt')
   const { assistant, isLoading, updateAssistant } = useAssistant(assistantId)

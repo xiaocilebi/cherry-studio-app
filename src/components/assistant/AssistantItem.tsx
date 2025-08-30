@@ -1,5 +1,7 @@
+import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
+import { isEmpty } from 'lodash'
 import { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,12 +9,12 @@ import { Pressable } from 'react-native-gesture-handler'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
-import { useCustomNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
+import { HomeNavigationProps } from '@/types/naviagate'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
@@ -25,7 +27,7 @@ interface AssistantItemProps {
 
 const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) => {
   const { t } = useTranslation()
-  const { navigateToHomeScreen } = useCustomNavigation()
+  const navigation = useNavigation<HomeNavigationProps>()
 
   const handlePress = () => {
     haptic(ImpactFeedbackStyle.Medium)
@@ -36,7 +38,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
     try {
       // 如果当前删除的assistant包含current topic 就navigate到home screen获取default topic
       if (await isTopicOwnedByAssistant(assistant.id, getCurrentTopicId())) {
-        navigateToHomeScreen()
+        navigation.navigate('ChatScreen', { topicId: 'new' })
       }
 
       await deleteAssistantById(assistant.id)
@@ -63,9 +65,11 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
                 <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" color="$textPrimary">
                   {assistant.name}
                 </Text>
-                <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
-                  {assistant.prompt}
-                </Text>
+                {!isEmpty(assistant.prompt) && (
+                  <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
+                    {assistant.prompt}
+                  </Text>
+                )}
               </YStack>
             </XStack>
           </XStack>

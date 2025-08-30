@@ -50,7 +50,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
 
   const scrollToBottom = useCallback(() => {
     if (flastListRef.current && groupedMessages.length > 0) {
-      flastListRef.current.scrollToEnd({ animated: true })
+      flastListRef.current.scrollToOffset({ offset: 9999999, animated: true })
     }
   }, [groupedMessages.length])
 

@@ -4,7 +4,7 @@ import { FlashList } from '@shopify/flash-list'
 import { Menu } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { debounce } from 'lodash'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { Text, YStack } from 'tamagui'
@@ -20,15 +20,15 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
-import { AssistantStackNavigationProp } from '@/navigators/AssistantStackNavigator'
 import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
+import { DrawerNavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<AssistantStackNavigationProp>()
+  const navigation = useNavigation<DrawerNavigationProps>()
 
   // 搜索状态
   const [searchText, setSearchText] = useState('')
@@ -61,20 +61,28 @@ export default function AssistantScreen() {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
 
-  const handleAssistantItemPress = useCallback((assistant: Assistant) => {
+  const handleAssistantItemPress = (assistant: Assistant) => {
     setSelectedAssistant(assistant)
     bottomSheetRef.current?.present()
-  }, [])
+  }
 
-  const onAddAssistant = useCallback(async () => {
+  const onAddAssistant = async () => {
     const newAssistant = await createAssistant()
-    navigation.navigate('AssistantDetailScreen', { assistantId: newAssistant.id })
-  }, [navigation])
+    navigation.navigate('Assistant', { screen: 'AssistantDetailScreen', params: { assistantId: newAssistant.id } })
+  }
 
-  const handleMenuPress = useCallback(() => {
+  const handleMenuPress = () => {
     haptic(ImpactFeedbackStyle.Medium)
     navigation.dispatch(DrawerActions.openDrawer())
-  }, [navigation])
+  }
+
+  const handleEditAssistant = (assistantId: string) => {
+    navigation.navigate('Assistant', { screen: 'AssistantDetailScreen', params: { assistantId } })
+  }
+
+  const onChatNavigation = async (topicId: string) => {
+    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
+  }
 
   return (
     <SafeAreaContainer>
@@ -120,7 +128,13 @@ export default function AssistantScreen() {
               />
             )}
           </SettingContainer>
-          <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="external" />
+          <AssistantItemSheet
+            ref={bottomSheetRef}
+            assistant={selectedAssistant}
+            source="external"
+            onEdit={handleEditAssistant}
+            onChatNavigation={onChatNavigation}
+          />
         </View>
       </DrawerGestureWrapper>
     </SafeAreaContainer>

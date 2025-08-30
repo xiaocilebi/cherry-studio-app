@@ -16,8 +16,8 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
-import { AssistantStackNavigationProp } from '@/navigators/AssistantStackNavigator'
 import { Assistant } from '@/types/assistant'
+import { DrawerNavigationProps } from '@/types/naviagate'
 import { groupByCategories } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
 
@@ -32,7 +32,7 @@ type FilterType = 'all' | string
 
 export default function AssistantMarketScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<AssistantStackNavigationProp>()
+  const navigation = useNavigation<DrawerNavigationProps>()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
@@ -150,6 +150,10 @@ export default function AssistantMarketScreen() {
     navigation.dispatch(DrawerActions.openDrawer())
   }
 
+  const onChatNavigation = async (topicId: string) => {
+    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
+  }
+
   const renderTabList = useMemo(
     () => (
       <Tabs.List gap={10} flexDirection="row" height={34}>
@@ -239,7 +243,12 @@ export default function AssistantMarketScreen() {
               {renderTabContents}
             </Tabs>
           </SettingContainer>
-          <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="builtIn" />
+          <AssistantItemSheet
+            ref={bottomSheetRef}
+            assistant={selectedAssistant}
+            source="builtIn"
+            onChatNavigation={onChatNavigation}
+          />
         </View>
       </DrawerGestureWrapper>
     </SafeAreaContainer>

@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 import { Text, YStack } from 'tamagui'
 
-import { useCustomNavigation } from '@/hooks/useNavigation'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -11,6 +10,7 @@ import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
 import { newMessagesActions } from '@/store/newMessage'
+import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
 
@@ -21,15 +21,15 @@ const logger = loggerService.withContext('GroupTopicList')
 interface GroupedTopicListProps {
   topics: Topic[]
   enableScroll: boolean
+  handleNavigateChatScreen?: (topicId: string) => void
 }
 
 // ListItem 类型定义现在使用导入的 TimeFormat
 type ListItem = { type: 'header'; title: string } | { type: 'topic'; topic: Topic; timeFormat: TimeFormat }
 
-export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps) {
+export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScreen }: GroupedTopicListProps) {
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
-  const { navigateToChatScreen } = useCustomNavigation()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -69,6 +69,8 @@ export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps
   }, [topics, t])
 
   const handleDelete = async (topicId: string) => {
+    if (!handleNavigateChatScreen) return
+
     try {
       const updatedTopics = localTopics.filter(topic => topic.id !== topicId)
       setLocalTopics(updatedTopics)
@@ -84,12 +86,14 @@ export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps
             : null
 
         if (nextTopic) {
-          navigateToChatScreen(nextTopic.id)
+          dispatch(setCurrentTopicId(nextTopic.id))
+          handleNavigateChatScreen(nextTopic.id)
           logger.info('navigateToChatScreen after delete', nextTopic)
         } else {
           const defaultAssistant = await getDefaultAssistant()
           const newTopic = await createNewTopic(defaultAssistant)
-          navigateToChatScreen(newTopic.id)
+          dispatch(setCurrentTopicId(newTopic.id))
+          handleNavigateChatScreen(newTopic.id)
           logger.info('navigateToChatScreen with new topic', newTopic)
         }
       }
@@ -107,7 +111,14 @@ export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps
           </Text>
         )
       case 'topic':
-        return <TopicItem topic={item.topic} timeFormat={item.timeFormat} onDelete={handleDelete} />
+        return (
+          <TopicItem
+            topic={item.topic}
+            timeFormat={item.timeFormat}
+            onDelete={handleDelete}
+            handleNavigateChatScreen={handleNavigateChatScreen}
+          />
+        )
       default:
         return null
     }
