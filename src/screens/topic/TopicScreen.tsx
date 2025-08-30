@@ -15,12 +15,12 @@ import { SearchInput } from '@/components/ui/SearchInput'
 import { useTopics } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
-import { NavigationProps } from '@/types/naviagate'
+import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 
 export default function TopicScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<DrawerNavigationProps>()
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
@@ -46,7 +46,7 @@ export default function TopicScreen() {
   const handleAddNewTopic = async () => {
     const defaultAssistant = await getDefaultAssistant()
     const newTopic = await createNewTopic(defaultAssistant)
-    navigation.navigate('ChatScreen', { topicId: newTopic.id })
+    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newTopic.id } })
   }
 
   const handleMenuPress = () => {

@@ -43,6 +43,11 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     props.navigation.navigate('Settings', { screen: 'SettingsScreen' })
   }
 
+  const handleNavigateChatScreen = (topicId: string) => {
+    haptic(ImpactFeedbackStyle.Medium)
+    props.navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topicId } })
+  }
+
   return (
     <YStack flex={1}>
       <YStack gap={10} flex={1} padding={20}>
@@ -72,7 +77,13 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
             <View flex={1} minHeight={200}>
               {/* 只显示7条 */}
-              {topics.length > 0 && <GroupedTopicList topics={topics.slice(0, 7)} enableScroll={false} />}
+              {topics.length > 0 && (
+                <GroupedTopicList
+                  topics={topics.slice(0, 7)}
+                  enableScroll={false}
+                  handleNavigateChatScreen={handleNavigateChatScreen}
+                />
+              )}
             </View>
           </MenuTabContent>
         </YStack>

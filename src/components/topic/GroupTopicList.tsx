@@ -23,12 +23,13 @@ const logger = loggerService.withContext('GroupTopicList')
 interface GroupedTopicListProps {
   topics: Topic[]
   enableScroll: boolean
+  handleNavigateChatScreen?: (topicId: string) => void
 }
 
 // ListItem 类型定义现在使用导入的 TimeFormat
 type ListItem = { type: 'header'; title: string } | { type: 'topic'; topic: Topic; timeFormat: TimeFormat }
 
-export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps) {
+export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScreen }: GroupedTopicListProps) {
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
   const dispatch = useAppDispatch()
@@ -111,7 +112,14 @@ export function GroupedTopicList({ topics, enableScroll }: GroupedTopicListProps
           </Text>
         )
       case 'topic':
-        return <TopicItem topic={item.topic} timeFormat={item.timeFormat} onDelete={handleDelete} />
+        return (
+          <TopicItem
+            topic={item.topic}
+            timeFormat={item.timeFormat}
+            onDelete={handleDelete}
+            handleNavigateChatScreen={handleNavigateChatScreen}
+          />
+        )
       default:
         return null
     }

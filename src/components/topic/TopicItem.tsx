@@ -23,9 +23,10 @@ interface TopicItemProps {
   topic: Topic
   timeFormat?: TimeFormat
   onDelete?: (topicId: string) => Promise<void>
+  handleNavigateChatScreen?: (topicId: string) => void
 }
 
-const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete }) => {
+const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, handleNavigateChatScreen }) => {
   const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const dispatch = useAppDispatch()
@@ -33,9 +34,14 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete })
   const [assistant, setAssistant] = useState<Assistant>()
 
   const openTopic = () => {
-    haptic(ImpactFeedbackStyle.Medium)
-    dispatch(setCurrentTopicId(topic.id))
-    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topic.id } })
+    if (handleNavigateChatScreen) {
+      handleNavigateChatScreen(topic.id)
+    } else {
+      haptic(ImpactFeedbackStyle.Medium)
+      dispatch(setCurrentTopicId(topic.id))
+      console.log('openTopic', topic.id)
+      navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topic.id } })
+    }
   }
 
   const date = new Date(topic.updatedAt)

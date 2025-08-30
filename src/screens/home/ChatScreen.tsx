@@ -30,9 +30,10 @@ const ChatScreen = () => {
   const { topicId } = route.params || {}
   const { topic, isLoading } = useTopic(topicId)
   const dispatch = useDispatch()
-
   useEffect(() => {
     runAsyncFunction(async () => {
+      // 如果topic id是new才执行
+      if (topicId !== 'new') return
       const newestTopic = await getNewestTopic()
 
       if (newestTopic) {
@@ -44,7 +45,7 @@ const ChatScreen = () => {
         dispatch(setCurrentTopicId(newTopic.id))
       }
     })
-  }, [dispatch, navigation])
+  }, [dispatch, navigation, topicId])
 
   // 处理侧滑手势
   const handleSwipeGesture = (event: any) => {
