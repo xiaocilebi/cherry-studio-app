@@ -12,7 +12,7 @@ import * as ContextMenu from 'zeego/context-menu'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
-import { isTopicOwnedByAssistant } from '@/services/TopicService'
+import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 import { formateEmoji } from '@/utils/formats'
@@ -42,8 +42,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
       }
 
       await deleteAssistantById(assistant.id)
-      // 删除Assistant不需要删除对应的topic
-      // await deleteTopicsByAssistantId(assistant.id)
+      await deleteTopicsByAssistantId(assistant.id)
     } catch (error) {
       logger.error('Delete Assistant error', error)
     }

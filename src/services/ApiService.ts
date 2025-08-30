@@ -185,7 +185,7 @@ export async function fetchTopicNaming(topicId: string) {
   const quickAssistant = await getAssistantById('quick')
 
   if (!quickAssistant.model) {
-    throw new Error('Translate assistant model is not defined')
+    return
   }
 
   const provider = await getAssistantProvider(quickAssistant)
