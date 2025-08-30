@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
+import { isEmpty } from 'lodash'
 import { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -65,9 +66,11 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
                 <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" color="$textPrimary">
                   {assistant.name}
                 </Text>
-                <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
-                  {assistant.prompt}
-                </Text>
+                {!isEmpty(assistant.prompt) && (
+                  <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
+                    {assistant.prompt}
+                  </Text>
+                )}
               </YStack>
             </XStack>
           </XStack>

@@ -25,7 +25,7 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
   }
 
   const handleEditAssistant = (assistantId: string) => {
-    navigation.navigate('Home', { screen: 'AssistantDetailScreen', params: { assistantId } })
+    navigation.navigate('Assistant', { screen: 'AssistantDetailScreen', params: { assistantId } })
   }
 
   const handlePressActionButton = () => {
