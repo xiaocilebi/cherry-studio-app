@@ -23,6 +23,9 @@ export const SearchInput = ({ placeholder, onChangeText, value }: SearchInputPro
         value={value}
         fontSize={16}
         lineHeight={16 * 1.2}
+        borderColor="$green20"
+        color="$green100"
+        placeholderTextColor="$green100"
       />
       <Stack
         position="absolute"

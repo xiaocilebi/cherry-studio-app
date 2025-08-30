@@ -2,7 +2,7 @@ import { LinearGradient } from '@tamagui/linear-gradient'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { isEmpty } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
 import { styled, TextArea, XStack, YStack } from 'tamagui'
@@ -46,6 +46,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const { pauseMessages } = useMessageOperations(topic)
 
   const isReasoning = isReasoningModel(assistant?.model)
+
+  useEffect(() => {
+    if (!assistant || !assistant?.model) return
+    setMentions([assistant?.model])
+  }, [assistant])
 
   const sendMessage = async () => {
     if (isEmpty(text.trim()) || !assistant) {

@@ -2,7 +2,9 @@ import { BottomSheetTextInput } from '@gorhom/bottom-sheet'
 import { Search } from '@tamagui/lucide-icons'
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Stack, useTheme, XStack } from 'tamagui'
+import { Stack, XStack } from 'tamagui'
+
+import { useTheme } from '@/hooks/useTheme'
 
 interface BottomSheetSearchInputProps {
   placeholder?: string
@@ -11,27 +13,30 @@ interface BottomSheetSearchInputProps {
 }
 
 export const BottomSheetSearchInput = ({ placeholder, onChangeText, value }: BottomSheetSearchInputProps) => {
-  const theme = useTheme()
-
+  const { isDark } = useTheme()
   return (
-    <XStack alignItems="center" width="100%" position="relative">
-      <Stack position="absolute" left={16} zIndex={1}>
-        <Search size={20} color="$gray10" />
-      </Stack>
+    <XStack height={48} gap={8} alignItems="center" width="100%" position="relative">
       <BottomSheetTextInput
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor={theme.gray10.val}
         style={[
           styles.input,
-          {
-            backgroundColor: theme.gray5.val,
-            color: theme.color.val
-          }
+          { borderColor: isDark ? '#acf3a633' : '#8de59e4d', color: isDark ? '#acf3a6ff' : '#81df94ff' }
         ]}
-        clearButtonMode="always"
+        placeholderTextColor={isDark ? '#acf3a6ff' : '#81df94ff'}
       />
+      <Stack
+        position="absolute"
+        left={16}
+        top={13}
+        height={20}
+        width={20}
+        alignItems="center"
+        justifyContent="center"
+        zIndex={1}>
+        <Search size={20} color="$green100" />
+      </Stack>
     </XStack>
   )
 }
@@ -43,6 +48,11 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     paddingLeft: 42,
     paddingRight: 16,
-    fontSize: 16
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    fontSize: 16,
+    lineHeight: 16 * 1.2,
+    width: '100%',
+    borderWidth: 1
   }
 })

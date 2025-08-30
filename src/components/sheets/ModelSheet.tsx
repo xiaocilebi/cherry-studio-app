@@ -127,7 +127,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       android_keyboardInputMode="adjustResize">
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
         <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
-          <XStack gap={12}>
+          <XStack gap={5}>
             <Stack flex={1}>
               <BottomSheetSearchInput
                 value={inputValue}
@@ -135,7 +135,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                 placeholder={t('common.search_placeholder')}
               />
             </Stack>
-            {multiple && <Button circular chromeless onPress={handleClearAll} icon={<BrushCleaning size={18} />} />}
+            {multiple && (
+              <Button circular backgroundColor="$uiCard" onPress={handleClearAll} icon={<BrushCleaning size={18} />} />
+            )}
           </XStack>
           {selectOptions.map((group, groupIndex) => (
             <View key={group.title || group.label || groupIndex} gap={12}>
@@ -143,7 +145,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                 <XStack width={32} height={32} borderRadius={8} alignItems="center" justifyContent="center">
                   <ProviderIcon provider={group.provider} />
                 </XStack>
-                <Text fontSize={15} fontWeight="600" color="$gray12">
+                <Text fontSize={15} fontWeight="bold" color="$gray12">
                   {group.label}
                 </Text>
               </XStack>
@@ -166,7 +168,11 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                           <ModelIcon model={item.model} />
                         </XStack>
                         {/* Model name */}
-                        <Text numberOfLines={1} ellipsizeMode="tail" flex={1}>
+                        <Text
+                          color={selectedModels.includes(item.value) ? '$green100' : undefined}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                          flex={1}>
                           {item.label}
                         </Text>
                       </XStack>
