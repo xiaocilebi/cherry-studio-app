@@ -16,6 +16,7 @@ import { Assistant, Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
+import EmojiAvatar from '../assistant/EmojiAvator'
 
 type TimeFormat = 'time' | 'date'
 
@@ -75,33 +76,32 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
   }, [topic.assistantId])
 
   return (
-    <ContextMenu.Root>
+    <ContextMenu.Root >
       <ContextMenu.Trigger>
-        <Pressable delayLongPress={100} onPress={openTopic} onLongPress={() => {}}>
-          <XStack
-            // backgroundColor="$gray20"
-            borderRadius={30}
-            paddingVertical={5}
-            paddingHorizontal={20}
-            gap={14}
-            justifyContent="center"
-            alignItems="center">
-            <Text fontSize={24}>{assistant?.emoji}</Text>
-            <YStack flex={1}>
-              <XStack justifyContent="space-between">
-                <Text fontWeight="bold" color="$textPrimary">
-                  {assistant?.name}
-                </Text>
-                <Text fontSize={12} color="$textSecondary">
-                  {displayTime}
-                </Text>
-              </XStack>
-              <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
-                {topic.name}
+        <XStack
+          onPress={openTopic}
+          borderRadius={16}
+          paddingVertical={5}
+          paddingHorizontal={5}
+          gap={14}
+          justifyContent="center"
+          alignItems="center"
+          pressStyle={{ backgroundColor: '$gray20' }}>
+          <EmojiAvatar emoji={assistant?.emoji} size={40} borderRadius={16} />
+          <YStack flex={1}>
+            <XStack justifyContent="space-between">
+              <Text fontWeight="bold" color="$textPrimary">
+                {assistant?.name}
               </Text>
-            </YStack>
-          </XStack>
-        </Pressable>
+              <Text fontSize={12} color="$textSecondary">
+                {displayTime}
+              </Text>
+            </XStack>
+            <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+              {topic.name}
+            </Text>
+          </YStack>
+        </XStack>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item key="delete" onSelect={async () => await onDelete?.(topic.id)}>
