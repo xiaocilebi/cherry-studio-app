@@ -38,17 +38,18 @@
         "title": "排序助手"
       },
       "title": "助手",
+      "title.change": "切换助手",
       "title.create": "创建助手",
       "title.edit": "编辑助手",
       "title.mine": "我的助手",
-      "title.recent": "最近使用的助手",
-      "title.change": "切换助手"
+      "title.recent": "最近使用的助手"
     },
     "button": {
       "add": "添加",
       "checking": "检查中...",
       "image_generate": "图像生成",
       "manage": "管理",
+      "multiple": "多选",
       "placeholder": "随便问点什么",
       "recents": "最近",
       "save": "保存",

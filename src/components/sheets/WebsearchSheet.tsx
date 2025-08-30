@@ -7,7 +7,7 @@ import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
-import { NavigationProps } from '@/types/naviagate'
+import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
 import { SettingHelpText } from '../settings'
@@ -24,7 +24,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
     const theme = useTheme()
     const { isDark } = useCustomTheme()
     const { t } = useTranslation()
-    const navigation = useNavigation<NavigationProps>()
+    const navigation = useNavigation<DrawerNavigationProps>()
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />

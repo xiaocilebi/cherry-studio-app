@@ -32,6 +32,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [selectedModels, setSelectedModels] = useState<string[]>(() => mentions.map(m => getModelUniqId(m)))
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
+  const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
 
   const debouncedSetQuery = debounce((query: string) => {
     setSearchQuery(query)
@@ -76,7 +77,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     const isSelected = selectedModels.includes(modelValue)
     let newSelection: string[]
 
-    if (multiple) {
+    if (isMultiSelectActive) {
       // 多选模式
       if (!isSelected) {
         newSelection = [...selectedModels, modelValue]
@@ -90,6 +91,8 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       } else {
         newSelection = [] // 取消选中
       }
+
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
 
     setSelectedModels(newSelection)
@@ -103,6 +106,19 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const handleClearAll = () => {
     setSelectedModels([])
     setMentions([])
+  }
+
+  const toggleMultiSelectMode = () => {
+    const newMultiSelectActive = !isMultiSelectActive
+    setIsMultiSelectActive(newMultiSelectActive)
+
+    // 如果切换到单选模式且当前有多个选择，只保留第一个
+    if (!newMultiSelectActive && selectedModels.length > 1) {
+      const firstSelected = selectedModels[0]
+      setSelectedModels([firstSelected])
+      const newMentions = allModelOptions.filter(option => option.value === firstSelected).map(option => option.model)
+      setMentions(newMentions)
+    }
   }
 
   // 添加背景组件渲染函数
@@ -127,7 +143,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       android_keyboardInputMode="adjustResize">
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
         <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
-          <XStack gap={5}>
+          <XStack gap={5} flex={1} alignItems="center" justifyContent="center">
             <Stack flex={1}>
               <BottomSheetSearchInput
                 value={inputValue}
@@ -136,6 +152,16 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
               />
             </Stack>
             {multiple && (
+              <Button
+                circular
+                backgroundColor={isMultiSelectActive ? '$green10' : '$uiCard'}
+                borderColor={isMultiSelectActive ? '$green20' : 'transparent'}
+                borderWidth={1}
+                onPress={toggleMultiSelectMode}>
+                <Text color={isMultiSelectActive ? '$green100' : undefined}>{t('button.multiple')}</Text>
+              </Button>
+            )}
+            {multiple && isMultiSelectActive && (
               <Button circular backgroundColor="$uiCard" onPress={handleClearAll} icon={<BrushCleaning size={18} />} />
             )}
           </XStack>

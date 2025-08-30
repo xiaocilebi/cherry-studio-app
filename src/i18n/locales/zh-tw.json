@@ -38,6 +38,7 @@
         "title": "排序助理"
       },
       "title": "助手",
+      "title.change": "切換助手",
       "title.create": "建立助理",
       "title.edit": "編輯助理",
       "title.mine": "我的助手",
@@ -48,6 +49,7 @@
       "checking": "檢查中...",
       "image_generate": "圖像生成",
       "manage": "管理",
+      "multiple": "複選",
       "placeholder": "隨便問些什麼",
       "recents": "最近",
       "save": "保存",

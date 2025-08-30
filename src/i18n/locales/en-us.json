@@ -38,6 +38,7 @@
         "title": "Sort Assistants"
       },
       "title": "Assistants",
+      "title.change": "Switch Assistant",
       "title.create": "Create Assistant",
       "title.edit": "Edit Assistant",
       "title.mine": "My assistant",
@@ -48,6 +49,7 @@
       "checking": "Checking...",
       "image_generate": "Image generation",
       "manage": "Manage",
+      "multiple": "Multi",
       "placeholder": "Ask something casually",
       "recents": "Recents",
       "save": "Save",

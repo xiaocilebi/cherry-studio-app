@@ -38,6 +38,7 @@
         "title": "アシスタントのソート"
       },
       "title": "アシスタント",
+      "title.change": "アシスタントを切り替える",
       "title.create": "アシスタントを作成",
       "title.edit": "編集アシスタント",
       "title.mine": "私のアシスタント",
@@ -48,6 +49,7 @@
       "checking": "確認中...",
       "image_generate": "画像生成",
       "manage": "マネージ",
+      "multiple": "複数選択",
       "placeholder": "何かをカジュアルに尋ねる",
       "recents": "最近",
       "save": "保存",
