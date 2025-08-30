@@ -1,3 +1,5 @@
+import { eq } from 'drizzle-orm'
+
 import { loggerService } from '@/services/LoggerService'
 
 import { db } from '../index'
@@ -72,6 +74,22 @@ export function transformDbToDataBackupProvider(dbRecord: any) {
       siyuanBoxId: config.siyuanBoxId,
       siyuanRootPath: config.siyuanRootPath
     }
+  }
+}
+
+export async function getDataBackupProvider(providerId: string) {
+  try {
+    const rawProviders = await db.select().from(backup_providers).where(eq(backup_providers.id, providerId))
+    
+    if (!rawProviders || rawProviders.length === 0) {
+      return null
+    }
+
+    const rawProvider = rawProviders[0]
+    return transformDbToDataBackupProvider(rawProvider)
+  } catch (error) {
+    logger.error('Error getting backup provider:', error)
+    throw error
   }
 }
 
