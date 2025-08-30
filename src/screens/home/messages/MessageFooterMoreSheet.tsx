@@ -129,6 +129,9 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
               justifyContent="flex-start">
               {isTranslated ? t('message.delete_translation') : t('message.translate_message')}
             </Button>
+            {/*<Button icon={<FolderDown size={18} />} justifyContent="flex-start">*/}
+            {/*  {t('export.title')}*/}
+            {/*</Button>*/}
             <Button onPress={onDelete} icon={<Trash2 size={18} />} color="red" justifyContent="flex-start">
               {t('message.delete_message')}
             </Button>

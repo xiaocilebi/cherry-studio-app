@@ -52,7 +52,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <Pressable delayLongPress={200} onPress={handlePress} onLongPress={() => {}}>
+        <Pressable delayLongPress={100} onPress={handlePress} onLongPress={() => {}}>
           <XStack
             paddingVertical={10}
             paddingHorizontal={10}
