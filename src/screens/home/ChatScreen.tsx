@@ -1,14 +1,13 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
-import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Platform, TouchableOpacity, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
 import { YStack } from 'tamagui'
 
-import { AssistantCard } from '@/components/assistant/AssistantCard'
 import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
@@ -30,7 +29,6 @@ const ChatScreen = () => {
   const navigation = useNavigation<DrawerNavigationProp<any>>()
   const { topicId } = route.params || {}
   const { topic, isLoading } = useTopic(topicId)
-  const [showAssistantCard, setShowAssistantCard] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -88,32 +86,7 @@ const ChatScreen = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 10}>
           <YStack paddingHorizontal={14} backgroundColor="$colorTransparent" flex={1}>
-            <HeaderBar
-              topic={topic}
-              showAssistantCard={showAssistantCard}
-              setShowAssistantCard={setShowAssistantCard}
-            />
-
-            {showAssistantCard && (
-              <>
-                {/*实现失焦回弹*/}
-                <TouchableOpacity
-                  activeOpacity={0}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    zIndex: 1
-                  }}
-                  onPress={() => setShowAssistantCard(false)}
-                />
-                <View style={{ zIndex: 2 }}>
-                  <AssistantCard topic={topic} />
-                </View>
-              </>
-            )}
+            <HeaderBar topic={topic} />
 
             <View style={{ flex: 1, marginVertical: 10, paddingHorizontal: 4 }}>
               {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}

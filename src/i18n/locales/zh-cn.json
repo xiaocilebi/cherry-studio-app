@@ -41,7 +41,8 @@
       "title.create": "创建助手",
       "title.edit": "编辑助手",
       "title.mine": "我的助手",
-      "title.recent": "最近使用的助手"
+      "title.recent": "最近使用的助手",
+      "title.change": "切换助手"
     },
     "button": {
       "add": "添加",

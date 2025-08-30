@@ -76,6 +76,13 @@ export default function AssistantScreen() {
     navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
 
+  const handleEditAssistant = useCallback(
+    (assistantId: string) => {
+      navigation.navigate('AssistantDetailScreen', { assistantId })
+    },
+    [navigation]
+  )
+
   return (
     <SafeAreaContainer>
       <DrawerGestureWrapper>
@@ -120,7 +127,12 @@ export default function AssistantScreen() {
               />
             )}
           </SettingContainer>
-          <AssistantItemSheet ref={bottomSheetRef} assistant={selectedAssistant} source="external" />
+          <AssistantItemSheet
+            ref={bottomSheetRef}
+            assistant={selectedAssistant}
+            source="external"
+            onEdit={handleEditAssistant}
+          />
         </View>
       </DrawerGestureWrapper>
     </SafeAreaContainer>
