@@ -20,8 +20,7 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTopics } from '@/hooks/useTopic'
-import { createAssistant, saveAssistant } from '@/services/AssistantService'
-import { createNewTopic } from '@/services/TopicService'
+import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
@@ -81,11 +80,8 @@ export default function AssistantScreen() {
     navigation.navigate('Assistant', { screen: 'AssistantDetailScreen', params: { assistantId } })
   }
 
-  const onChatNavigation = async () => {
-    if (!selectedAssistant) return
-    await saveAssistant(selectedAssistant)
-    const newTopic = await createNewTopic(selectedAssistant)
-    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newTopic.id } })
+  const onChatNavigation = async (topicId: string) => {
+    navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
   }
 
   return (

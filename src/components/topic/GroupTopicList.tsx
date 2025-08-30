@@ -72,6 +72,8 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
   }, [topics, t])
 
   const handleDelete = async (topicId: string) => {
+    if (!handleNavigateChatScreen) return
+
     try {
       const updatedTopics = localTopics.filter(topic => topic.id !== topicId)
       setLocalTopics(updatedTopics)
@@ -88,13 +90,13 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
 
         if (nextTopic) {
           dispatch(setCurrentTopicId(nextTopic.id))
-          navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: nextTopic.id } })
+          handleNavigateChatScreen(nextTopic.id)
           logger.info('navigateToChatScreen after delete', nextTopic)
         } else {
           const defaultAssistant = await getDefaultAssistant()
           const newTopic = await createNewTopic(defaultAssistant)
           dispatch(setCurrentTopicId(newTopic.id))
-          navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newTopic.id } })
+          handleNavigateChatScreen(newTopic.id)
           logger.info('navigateToChatScreen with new topic', newTopic)
         }
       }
