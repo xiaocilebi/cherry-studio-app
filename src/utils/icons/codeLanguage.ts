@@ -11,8 +11,7 @@ const CODE_LANGUAGE_ICONS = {
   go: require('@/assets/images/codeLanguageIcons/Go.png'),
   java: require('@/assets/images/codeLanguageIcons/Java.png'),
   rust: require('@/assets/images/codeLanguageIcons/Rust.png'),
-  python: require('@/assets/images/codeLanguageIcons/Python.png'),
-  default: require('@/assets/images/codeLanguageIcons/Default.png')
+  python: require('@/assets/images/codeLanguageIcons/Python.png')
 }
 
 export function getCodeLanguageIcon(language: string): any {
@@ -24,7 +23,7 @@ export function getCodeLanguageIcon(language: string): any {
   }
 
   // 使用类型断言来确保 language 可以作为 CODE_LANGUAGE_ICONS 的键
-  const result = CODE_LANGUAGE_ICONS[language as keyof typeof CODE_LANGUAGE_ICONS] || CODE_LANGUAGE_ICONS.default
+  const result = CODE_LANGUAGE_ICONS[language as keyof typeof CODE_LANGUAGE_ICONS] || null
 
   // 缓存结果
   iconCache.set(cacheKey, result)
