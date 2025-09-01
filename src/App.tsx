@@ -96,9 +96,9 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const { activeTheme, reactNavigationTheme } = useTheme()
+  const { activeTheme, reactNavigationTheme, isDark } = useTheme()
 
-  const backgroundColor = activeTheme === 'dark' ? '#121213ff' : '#f7f7f7ff'
+  const backgroundColor = isDark ? '#121213ff' : '#f7f7f7ff'
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -113,7 +113,7 @@ function ThemedApp() {
           <NavigationContainer theme={reactNavigationTheme}>
             <ThemeProvider value={reactNavigationTheme}>
               <BottomSheetModalProvider>
-                <StatusBar style="auto" />
+                <StatusBar style={isDark ? 'light' : 'dark'} />
                 <DatabaseInitializer />
                 <MainStackNavigator />
               </BottomSheetModalProvider>
