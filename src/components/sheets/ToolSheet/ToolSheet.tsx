@@ -1,6 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useEffect } from 'react'
 import { BackHandler } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -24,6 +25,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ files, setFiles, assistant, updateAssistant }, ref) => {
     const theme = useTheme()
     const { isDark } = useCustomTheme()
+    const insets = useSafeAreaInsets()
 
     // 处理Android返回按钮事件
     useEffect(() => {
@@ -84,7 +86,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
             backgroundColor: theme.color.val
           }}
           backdropComponent={renderBackdrop}>
-          <BottomSheetView style={{ paddingBottom: 40 }}>
+          <BottomSheetView style={{ paddingBottom: insets.bottom }}>
             <YStack gap={12}>
               <ToolOptions
                 onCameraPress={handleCameraPress}

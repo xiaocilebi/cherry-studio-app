@@ -3,6 +3,7 @@ import * as ExpoLinking from 'expo-linking'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -82,6 +83,7 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
   const { t } = useTranslation()
   const theme = useTheme()
   const { isDark } = useCustomTheme()
+  const insets = useSafeAreaInsets()
 
   // 处理Android返回按钮事件
   useEffect(() => {
@@ -125,7 +127,7 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
   return (
     <BottomSheetModal
       snapPoints={['60%']}
-      enableDynamicSizing={false}
+      enableDynamicSizing={true}
       ref={ref}
       backgroundStyle={{
         borderRadius: 30,
@@ -135,7 +137,7 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
         backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
-      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+      <BottomSheetScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: insets.bottom }}>
         <Stack justifyContent="center" alignItems="center" paddingHorizontal={20} paddingBottom={20}>
           <Text fontSize={20} lineHeight={22} fontWeight={600}>
             {t('common.source')}

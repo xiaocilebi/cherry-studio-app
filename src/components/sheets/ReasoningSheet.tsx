@@ -3,6 +3,7 @@ import { Check } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import {
@@ -82,6 +83,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
     const isGeminiFlashModel = GEMINI_FLASH_MODEL_REGEX.test(model?.id || '')
     const isQwenModel = isSupportedThinkingTokenQwenModel(model)
     const isDoubaoModel = isSupportedThinkingTokenDoubaoModel(model)
+    const insets = useSafeAreaInsets()
 
     // Converted from useMemo to a simple const
     const currentReasoningEffort = assistant.settings?.reasoning_effort || 'off'
@@ -185,7 +187,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
         handleIndicatorStyle={{
           backgroundColor: theme.color.val
         }}>
-        <BottomSheetView>
+        <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack gap={10} paddingHorizontal={20} paddingBottom={20}>
             {sheetOptions.map(option => (
               <Button

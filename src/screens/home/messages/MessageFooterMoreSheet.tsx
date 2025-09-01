@@ -128,7 +128,7 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
     <BottomSheetModal
       snapPoints={['20%']}
       ref={ref}
-      enableDynamicSizing={false}
+      enableDynamicSizing={true}
       backgroundStyle={{
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'

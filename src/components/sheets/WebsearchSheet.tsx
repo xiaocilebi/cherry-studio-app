@@ -4,6 +4,7 @@ import { forwardRef, useEffect } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -26,6 +27,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
     const { isDark } = useCustomTheme()
     const { t } = useTranslation()
     const navigation = useNavigation<DrawerNavigationProps>()
+    const insets = useSafeAreaInsets()
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
@@ -63,7 +65,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
     return (
       <BottomSheetModal
         snapPoints={['30%']}
-        enableDynamicSizing={false}
+        enableDynamicSizing={true}
         ref={ref}
         backgroundStyle={{
           borderRadius: 30,
@@ -73,7 +75,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
           backgroundColor: theme.color.val
         }}
         backdropComponent={renderBackdrop}>
-        <BottomSheetView>
+        <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack gap={5} paddingHorizontal={20} paddingBottom={20}>
             {providers.length > 0 ? (
               // 如果有提供商，则显示列表
