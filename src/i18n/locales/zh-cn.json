@@ -150,6 +150,7 @@
         "description": "消息内容渲染失败，请检查消息内容格式是否正确",
         "title": "渲染错误"
       },
+      "translate_assistant_model_not_defined": "翻译助手模型未配置，请前往设置 > 默认助手中配置翻译助手的模型",
       "unknown": "未知错误",
       "user_message_not_found": "无法找到原始用户消息"
     },

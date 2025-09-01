@@ -2,7 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/
 import { Trash2 } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler } from 'react-native'
+import { Alert, BackHandler } from 'react-native'
 import { Button, useTheme, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
@@ -76,7 +76,13 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
       setIsTranslated(true) // 翻译成功后更新状态
     } catch (error) {
       logger.error('Error during translation:', error)
-      // 可以添加 toast 提示用户翻译失败
+      const errorMessage = error instanceof Error ? error.message : String(error)
+
+      if (errorMessage.includes('Translate assistant model is not defined')) {
+        Alert.alert(t('common.error_occurred'), t('error.translate_assistant_model_not_defined'))
+      } else {
+        Alert.alert(t('common.error_occurred'), errorMessage)
+      }
     } finally {
       setIsTranslating(false)
     }

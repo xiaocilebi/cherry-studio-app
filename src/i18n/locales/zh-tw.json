@@ -150,6 +150,7 @@
         "description": "訊息內容渲染失敗，請檢查訊息內容格式是否正確",
         "title": "渲染錯誤"
       },
+      "translate_assistant_model_not_defined": "翻譯助手模型未配置，請前往設定 > 預設助手中配置翻譯助手的模型",
       "unknown": "未知錯誤",
       "user_message_not_found": "無法找到原始使用者訊息"
     },
