@@ -35,7 +35,7 @@ const ThinkingBlock: React.FC<Props> = ({ block }) => {
 const styles = StyleSheet.create({
   container: {
     // TODO: 里面的文本不会自动撑开，当有文字时才会撑开，不知道为什么，这里目前先写死
-    width: 340,
+    width: '100%',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 16,
