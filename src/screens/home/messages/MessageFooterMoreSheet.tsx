@@ -2,6 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/
 import { Trash2 } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { Button, useTheme, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
@@ -46,6 +47,22 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
 
     checkTranslation()
   }, [message])
+
+  // 处理Android返回按钮事件
+  useEffect(() => {
+    const backAction = () => {
+      if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      return false
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [ref])
 
   const onTranslate = async () => {
     if (!message) return

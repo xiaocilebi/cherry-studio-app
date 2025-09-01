@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -29,6 +29,22 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
     setModelName(modelId)
     setModelGroup(getDefaultGroupName(modelId, provider?.id))
   }, [modelId, provider?.id])
+
+  // 处理Android返回按钮事件
+  useEffect(() => {
+    const backAction = () => {
+      if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      return false
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [ref])
 
   const handleAddModel = async () => {
     if (!provider || !modelId.trim()) {

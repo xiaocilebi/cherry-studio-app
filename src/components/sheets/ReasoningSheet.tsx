@@ -1,8 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { usePreventRemove } from '@react-navigation/native'
 import { Check } from '@tamagui/lucide-icons'
-import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import {
@@ -109,12 +109,21 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
       return MODEL_SUPPORTED_OPTIONS[modelType]
     })()
 
-    useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
 
-    // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
-    usePreventRemove(true, () => {
-      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-    })
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     useEffect(() => {
       if (currentReasoningEffort && !supportedOptions.includes(currentReasoningEffort)) {

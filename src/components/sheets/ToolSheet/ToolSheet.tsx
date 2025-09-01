@@ -1,6 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { usePreventRemove } from '@react-navigation/native'
-import React, { forwardRef, useImperativeHandle } from 'react'
+import React, { forwardRef, useEffect } from 'react'
+import { BackHandler } from 'react-native'
 import { useTheme, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -25,12 +25,21 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
     const theme = useTheme()
     const { isDark } = useCustomTheme()
 
-    useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
 
-    // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
-    usePreventRemove(true, () => {
-      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-    })
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     const dismissSheet = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()

@@ -1,9 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import { usePreventRemove } from '@react-navigation/native'
 import { Settings2 } from '@tamagui/lucide-icons'
-import React, { forwardRef, useImperativeHandle } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
+import { Alert, BackHandler } from 'react-native'
 import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
@@ -35,12 +34,21 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const theme = useTheme()
     const { isDark } = useCustomTheme()
 
-    useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
 
-    // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
-    usePreventRemove(true, () => {
-      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-    })
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     // 添加背景组件渲染函数
     const renderBackdrop = (props: any) => (

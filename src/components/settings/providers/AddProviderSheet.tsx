@@ -1,9 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet'
 import { PenLine } from '@tamagui/lucide-icons'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
@@ -27,6 +27,22 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
 
   const [providerName, setProviderName] = useState('')
   const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)
+
+  // 处理Android返回按钮事件
+  useEffect(() => {
+    const backAction = () => {
+      if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      return false
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [ref])
 
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
