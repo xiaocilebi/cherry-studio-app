@@ -28,7 +28,13 @@ interface TopicItemProps {
   handleNavigateChatScreen?: (topicId: string) => void
 }
 
-const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, onRename, handleNavigateChatScreen }) => {
+const TopicItem: FC<TopicItemProps> = ({
+  topic,
+  timeFormat = 'time',
+  onDelete,
+  onRename,
+  handleNavigateChatScreen
+}) => {
   const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const dispatch = useAppDispatch()
@@ -88,7 +94,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, o
         },
         {
           text: t('common.save'),
-          onPress: async (newName) => {
+          onPress: async newName => {
             if (newName && newName.trim() && newName.trim() !== topic.name) {
               try {
                 await onRename?.(topic.id, newName.trim())
@@ -105,7 +111,6 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, o
   }
 
   return (
-    <>
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <XStack
@@ -118,7 +123,13 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, o
           alignItems="center"
           backgroundColor={isActive ? '$green10' : 'none'}
           pressStyle={{ backgroundColor: '$green20' }}>
-          <EmojiAvatar emoji={assistant?.emoji} size={40} borderRadius={12} borderWidth={3} borderColor='$uiCardBackground' />
+          <EmojiAvatar
+            emoji={assistant?.emoji}
+            size={40}
+            borderRadius={12}
+            borderWidth={3}
+            borderColor="$uiCardBackground"
+          />
           <YStack flex={1}>
             <XStack justifyContent="space-between">
               <Text fontWeight="bold" color="$textPrimary">
@@ -149,7 +160,6 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, o
         </ContextMenu.Item>
       </ContextMenu.Content>
     </ContextMenu.Root>
-    </>
   )
 }
 
