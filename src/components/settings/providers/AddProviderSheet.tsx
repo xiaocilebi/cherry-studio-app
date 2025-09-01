@@ -72,7 +72,6 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
 
   return (
     <BottomSheetModal
-      snapPoints={['55%']}
       enableDynamicSizing={true}
       ref={ref}
       keyboardBehavior="interactive"
@@ -123,7 +122,9 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
                 placeholder={t('settings.provider.add.type')}
               />
               <Button
-                backgroundColor="$colorBrand"
+                backgroundColor="$green10"
+                borderColor="$green20"
+                color="$green100"
                 height={44}
                 width={216}
                 borderRadius={15}

@@ -90,7 +90,6 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
 
   return (
     <BottomSheetModal
-      snapPoints={['55%']}
       enableDynamicSizing={true}
       ref={ref}
       keyboardBehavior="interactive"
@@ -165,7 +164,15 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
                   onChangeText={setModelGroup}
                 />
               </YStack>
-              <Button height={44} width={216} borderRadius={15} onPress={handleAddModel} disabled={!modelId.trim()}>
+              <Button
+                backgroundColor="$green10"
+                borderColor="$green20"
+                color="$green100"
+                height={44}
+                width={216}
+                borderRadius={15}
+                onPress={handleAddModel}
+                disabled={!modelId.trim()}>
                 {t('settings.models.add.model')}
               </Button>
             </YStack>

@@ -85,10 +85,9 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
 
             <XStack width="100%" alignItems="center" justifyContent="center">
               <Button
-                height={60}
+                height={44}
                 width={224}
-                borderRadius={70}
-                borderWidth={0.5}
+                borderRadius={15}
                 backgroundColor="$green10"
                 borderColor="$green20"
                 disabled={checkApiStatus === 'processing'}
