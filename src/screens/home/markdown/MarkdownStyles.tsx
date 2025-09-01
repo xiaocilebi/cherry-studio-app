@@ -4,9 +4,9 @@ export const markdownColors = {
   light: {
     accent: '#c1cacc',
     accentedBackground: '#F7F6F3',
-    background: '#ffffff',
+    background: '#f7f7f7ff',
     border: '#e1e7e8',
-    text: 'rgba(32, 32, 32, 1)',
+    text: '#202020ff',
     link: '#00b96b',
     codeBg: 'transparent',
     code: '#00b96b',
@@ -15,9 +15,9 @@ export const markdownColors = {
   dark: {
     accent: '#9ca6a8',
     accentedBackground: '#2c2d30',
-    background: '#191919',
+    background: '#121213ff',
     border: '#3d3d3d',
-    text: 'rgba(249, 249, 249, 1)',
+    text: '#f9f9f9ff',
     link: '#00b96b',
     codeBg: 'transparent',
     code: '#00b96b',

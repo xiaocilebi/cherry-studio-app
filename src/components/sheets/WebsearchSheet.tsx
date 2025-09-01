@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -40,8 +41,24 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
 
     const handleNavigateToWebSearhPage = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-      navigation.navigate('Settings', { screen: 'WebSearchSettingsScreen' })
+      navigation.navigate('Settings', { screen: 'WebSearchSettings' })
     }
+
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
+
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     return (
       <BottomSheetModal

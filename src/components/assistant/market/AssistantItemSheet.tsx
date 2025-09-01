@@ -1,8 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { Settings2 } from '@tamagui/lucide-icons'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
+import { Alert, BackHandler } from 'react-native'
 import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
@@ -13,10 +13,9 @@ import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
-import { formateEmoji } from '@/utils/formats'
 
-import GroupTag from './GroupTag'
 import EmojiAvatar from '../EmojiAvator'
+import GroupTag from './GroupTag'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -34,6 +33,22 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const { t } = useTranslation()
     const theme = useTheme()
     const { isDark } = useCustomTheme()
+
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
+
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     // 添加背景组件渲染函数
     const renderBackdrop = (props: any) => (
@@ -80,7 +95,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     }
 
     if (!assistant) return null
-    console.log('assistant', assistant)
+
     return (
       <BottomSheetModal
         snapPoints={['85%']}

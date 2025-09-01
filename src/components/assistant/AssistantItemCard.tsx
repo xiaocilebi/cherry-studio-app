@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Text, View, XStack, YStack } from 'tamagui'
+import { Text, View, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 
@@ -19,7 +19,7 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   return (
     <View backgroundColor="$uiCardBackground" padding={14} width={148} borderRadius={16} onPress={handlePress}>
       <YStack gap={8} alignItems="center" height="100%">
-        <EmojiAvatar emoji={assistant.emoji} size={70} borderWidth={5}  />
+        <EmojiAvatar emoji={assistant.emoji} size={70} borderWidth={5} />
         <Text textAlign="center" numberOfLines={1} ellipsizeMode="tail">
           {assistant.name}
         </Text>

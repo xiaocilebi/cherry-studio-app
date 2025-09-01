@@ -1,5 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect } from 'react'
+import { BackHandler } from 'react-native'
 import { useTheme, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -23,6 +24,22 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ files, setFiles, assistant, updateAssistant }, ref) => {
     const theme = useTheme()
     const { isDark } = useCustomTheme()
+
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
+
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     const dismissSheet = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()

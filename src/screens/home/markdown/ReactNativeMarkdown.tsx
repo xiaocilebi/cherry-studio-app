@@ -9,6 +9,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { MainTextMessageBlock, ThinkingMessageBlock, TranslationMessageBlock } from '@/types/message'
 import { escapeBrackets, removeSvgEmptyLines } from '@/utils/formats'
 
+import { markdownColors } from './MarkdownStyles'
 import { useMarkedRenderer } from './useMarkedRenderer'
 
 interface Props {
@@ -27,12 +28,21 @@ const ReactNativeMarkdown: FC<Props> = ({ block }) => {
   }
 
   const messageContent = getMessageContent(block)
+  const colors = isDark ? markdownColors.dark : markdownColors.light
 
   const { renderer, tokenizer } = useMarkedRenderer(isDark)
 
   return (
     <View>
       <Markdown
+        theme={{
+          colors: {
+            code: colors.background,
+            link: colors.link,
+            text: colors.text,
+            border: colors.border
+          }
+        }}
         value={messageContent}
         renderer={renderer}
         tokenizer={tokenizer}

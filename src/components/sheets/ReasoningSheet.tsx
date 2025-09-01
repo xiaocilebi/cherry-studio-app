@@ -2,6 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/
 import { Check } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import {
@@ -107,6 +108,22 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
 
       return MODEL_SUPPORTED_OPTIONS[modelType]
     })()
+
+    // 处理Android返回按钮事件
+    useEffect(() => {
+      const backAction = () => {
+        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+          return true
+        }
+
+        return false
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+      return () => backHandler.remove()
+    }, [ref])
 
     useEffect(() => {
       if (currentReasoningEffort && !supportedOptions.includes(currentReasoningEffort)) {

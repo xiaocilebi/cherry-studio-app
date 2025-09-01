@@ -62,7 +62,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
   // Override code block rendering
   code(text: string, language?: string, containerStyle?: ViewStyle, textStyle?: TextStyle): ReactNode {
     const lang = language || 'text'
-
+    const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
     return (
       <View
         key={this.getKey()}
@@ -72,7 +72,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
           borderRadius: 6,
           borderWidth: 2,
           borderColor: this.isDark ? '#8de59e26' : '#8de59e26',
-          backgroundColor: this.isDark ? '#121213ff' : '#f7f7f7ff',
+          backgroundColor: currentColors.background,
           ...containerStyle
         }}>
         <XStack
@@ -83,8 +83,8 @@ class CustomRenderer extends Renderer implements RendererInterface {
           borderBottomWidth={1}
           borderColor="$green10">
           <XStack gap={8} flex={1} alignItems="center">
-            <Image source={getCodeLanguageIcon(lang)} width={18} height={18} />
-            <Text fontSize={13} lineHeight={16}>
+            {getCodeLanguageIcon(lang) && <Image source={getCodeLanguageIcon(lang)} width={18} height={18} />}
+            <Text fontSize={13} lineHeight={16} color={currentColors.text}>
               {lang.toUpperCase()}
             </Text>
           </XStack>
@@ -94,7 +94,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
           customStyle={{ backgroundColor: 'transparent' }}
           scrollViewProps={{
             contentContainerStyle: {
-              backgroundColor: this.isDark ? '#161b22' : '#f6f8fa'
+              backgroundColor: currentColors.background
             },
             showsHorizontalScrollIndicator: false
           }}
@@ -129,34 +129,10 @@ class CustomRenderer extends Renderer implements RendererInterface {
   }
 
   // Override heading rendering
-  // heading(text: string | ReactNode[], styles?: TextStyle, depth?: number): ReactNode {
-  //   logger.info('render heading')
+  // heading(text: string | ReactNode[], styles?: TextStyle): ReactNode {
   //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
 
-  //   const headingStyles = {
-  //     1: { fontSize: 30, marginTop: 48, marginBottom: 24 },
-  //     2: { fontSize: 24, marginTop: 24, marginBottom: 24 },
-  //     3: { fontSize: 20, marginTop: 24, marginBottom: 16 },
-  //     4: { fontSize: 16, marginTop: 16, marginBottom: 8 },
-  //     5: { fontSize: 16, marginTop: 16, marginBottom: 8 },
-  //     6: { fontSize: 16, marginTop: 16, marginBottom: 8 }
-  //   }
-
-  //   const level = depth || 1
-  //   const levelStyle = headingStyles[level as keyof typeof headingStyles] || headingStyles[6]
-
-  //   return (
-  //     <Text
-  //       key={this.getKey()}
-  //       style={{
-  //         fontWeight: 'bold',
-  //         color: currentColors.text,
-  //         ...levelStyle,
-  //         ...styles
-  //       }}>
-  //       {text}
-  //     </Text>
-  //   )
+  //   return super.heading(text, { ...styles, color: currentColors.text })
   // }
 
   // Override paragraph rendering
@@ -169,13 +145,64 @@ class CustomRenderer extends Renderer implements RendererInterface {
         style={{
           marginTop: 6,
           marginBottom: 6,
-          backgroundColor: 'transparent'
-          // ...styles
+          backgroundColor: 'transparent',
+          ...styles
         }}>
         <Text style={{ backgroundColor: 'transparent', color: currentColors.text, fontSize: 16 }}>{children}</Text>
       </View>
     )
   }
+
+  // text(text: string | ReactNode[], styles?: TextStyle): ReactNode {
+  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+
+  //   return (
+  //     <Text selectable key={this.getKey()} style={[styles, { color: currentColors.text }]}>
+  //       {text}
+  //     </Text>
+  //   )
+  // }
+
+  // em(children: string | ReactNode[], styles?: TextStyle): ReactNode {
+  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+
+  //   return (
+  //     <Text selectable key={this.getKey()} style={[styles, { color: currentColors.text }]}>
+  //       {children}
+  //     </Text>
+  //   )
+  // }
+
+  // strong(children: string | ReactNode[], styles?: TextStyle): ReactNode {
+  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+
+  //   return (
+  //     <Text selectable key={this.getKey()} style={[styles, { color: currentColors.text }]}>
+  //       {children}
+  //     </Text>
+  //   )
+  // }
+
+  // del(children: string | ReactNode[], styles?: TextStyle): ReactNode {
+  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+
+  //   return (
+  //     <Text selectable key={this.getKey()} style={[styles, { color: currentColors.text }]}>
+  //       {children}
+  //     </Text>
+  //   )
+  // }
+
+  // list(
+  //   ordered: boolean,
+  //   li: ReactNode[],
+  //   listStyle?: ViewStyle,
+  //   textStyle?: TextStyle,
+  //   startIndex?: number
+  // ): ReactNode {
+  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+  //   return super.list(ordered, li, { ...listStyle, ...currentColors }, textStyle, startIndex)
+  // }
 }
 
 /**

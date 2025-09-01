@@ -3,6 +3,7 @@ import React from 'react'
 import { Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
+
 import EmojiAvatar from './EmojiAvator'
 
 interface AssistantItemRowProps {

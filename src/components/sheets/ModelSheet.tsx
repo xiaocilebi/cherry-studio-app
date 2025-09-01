@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
@@ -33,6 +34,22 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
+
+  // 处理Android返回按钮事件
+  useEffect(() => {
+    const backAction = () => {
+      if ((ref as React.RefObject<BottomSheetModal>)?.current) {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      return false
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [ref])
 
   const debouncedSetQuery = debounce((query: string) => {
     setSearchQuery(query)
