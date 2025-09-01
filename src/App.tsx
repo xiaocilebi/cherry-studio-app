@@ -105,9 +105,7 @@ function ThemedApp() {
       NavigationBar.setBackgroundColorAsync(backgroundColor)
     }
   }, [backgroundColor])
-  useEffect(() => {
-    console.log('activeTheme', activeTheme)
-  }, [activeTheme])
+
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
       <PortalProvider>

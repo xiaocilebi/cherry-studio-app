@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { usePreventRemove } from '@react-navigation/native'
 import { BrushCleaning } from '@tamagui/lucide-icons'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
@@ -33,6 +34,13 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
+
+  useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+
+  // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
+  usePreventRemove(true, () => {
+    ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+  })
 
   const debouncedSetQuery = debounce((query: string) => {
     setSearchQuery(query)

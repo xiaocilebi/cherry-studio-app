@@ -15,8 +15,8 @@ import { loggerService } from '@/services/LoggerService'
 import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
-import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
+
 import EmojiAvatar from './EmojiAvator'
 
 const logger = loggerService.withContext('Assistant Item')

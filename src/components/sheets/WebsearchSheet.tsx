@@ -1,6 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { useNavigation } from '@react-navigation/native'
-import { forwardRef } from 'react'
+import { useNavigation, usePreventRemove } from '@react-navigation/native'
+import { forwardRef, useImperativeHandle } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
@@ -25,6 +25,13 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
     const { isDark } = useCustomTheme()
     const { t } = useTranslation()
     const navigation = useNavigation<DrawerNavigationProps>()
+
+    useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+
+    // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
+    usePreventRemove(true, () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+    })
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />

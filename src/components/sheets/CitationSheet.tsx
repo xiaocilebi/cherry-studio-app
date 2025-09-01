@@ -1,6 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { usePreventRemove } from '@react-navigation/native'
 import * as ExpoLinking from 'expo-linking'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
@@ -81,6 +82,13 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
   const { t } = useTranslation()
   const theme = useTheme()
   const { isDark } = useCustomTheme()
+
+  useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+
+  // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
+  usePreventRemove(true, () => {
+    ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+  })
 
   // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (

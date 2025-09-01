@@ -1,5 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import React, { forwardRef } from 'react'
+import { usePreventRemove } from '@react-navigation/native'
+import React, { forwardRef, useImperativeHandle } from 'react'
 import { useTheme, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -23,6 +24,13 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ files, setFiles, assistant, updateAssistant }, ref) => {
     const theme = useTheme()
     const { isDark } = useCustomTheme()
+
+    useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+
+    // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
+    usePreventRemove(true, () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+    })
 
     const dismissSheet = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()

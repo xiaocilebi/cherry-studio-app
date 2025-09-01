@@ -1,6 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { usePreventRemove } from '@react-navigation/native'
 import { Check } from '@tamagui/lucide-icons'
-import React, { forwardRef, useEffect } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
@@ -107,6 +108,13 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
 
       return MODEL_SUPPORTED_OPTIONS[modelType]
     })()
+
+    useImperativeHandle(ref, () => (ref as React.RefObject<BottomSheetModal>)?.current)
+
+    // 当 Sheet 打开时，阻止默认跳转，并关闭 Sheet
+    usePreventRemove(true, () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+    })
 
     useEffect(() => {
       if (currentReasoningEffort && !supportedOptions.includes(currentReasoningEffort)) {
