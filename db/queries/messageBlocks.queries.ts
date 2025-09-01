@@ -328,13 +328,15 @@ export async function upsertBlocks(blocks: MessageBlock | MessageBlock[]) {
   try {
     const dbRecords = blocksArray.map(transformMessageBlockToDb)
 
-    const upsertPromises = dbRecords.map(record =>
-      db.insert(messageBlocks).values(record).onConflictDoUpdate({
-        target: messageBlocks.id,
-        set: record // 更新除主键外的所有字段
-      })
-    )
-    await Promise.all(upsertPromises)
+    await db.transaction(async tx => {
+      const upsertPromises = dbRecords.map(record =>
+        tx.insert(messageBlocks).values(record).onConflictDoUpdate({
+          target: messageBlocks.id,
+          set: record // 更新除主键外的所有字段
+        })
+      )
+      await Promise.all(upsertPromises)
+    })
   } catch (error) {
     logger.error('Error upserting block(s):', error)
     throw error
