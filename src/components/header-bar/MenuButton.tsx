@@ -14,13 +14,9 @@ export const MenuButton = ({ onMenuPress }: MenuButtonProps) => {
       circular
       icon={<Menu size={24} />}
       onPress={onMenuPress}
-      backgroundColor="transparent"
-      borderWidth={0}
-      hoverStyle={{
-        backgroundColor: '$backgroundHover'
-      }}
+      unstyled
       pressStyle={{
-        backgroundColor: '$backgroundPress'
+        opacity: 0.6
       }}
     />
   )

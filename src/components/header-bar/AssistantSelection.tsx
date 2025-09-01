@@ -41,7 +41,7 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
 
   return (
     <>
-      <Button chromeless onPress={handlePress}>
+      <Button unstyled onPress={handlePress} pressStyle={{ opacity: 0.6 }}>
         <XStack gap={14} alignItems="center" justifyContent="center">
           {/*<Text fontSize={30}>{formateEmoji(assistant.emoji)}</Text>*/}
 
