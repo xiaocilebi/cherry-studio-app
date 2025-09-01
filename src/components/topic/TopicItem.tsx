@@ -4,13 +4,12 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable } from 'react-native-gesture-handler'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
 import i18n from '@/i18n'
 import { getAssistantById } from '@/services/AssistantService'
-import { useAppDispatch } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { setCurrentTopicId } from '@/store/topic'
 import { Assistant, Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
@@ -34,13 +33,14 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
   const navigation = useNavigation<DrawerNavigationProps>()
   const [assistant, setAssistant] = useState<Assistant>()
 
+  const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
+
   const openTopic = () => {
+    dispatch(setCurrentTopicId(topic.id))
     if (handleNavigateChatScreen) {
       handleNavigateChatScreen(topic.id)
     } else {
       haptic(ImpactFeedbackStyle.Medium)
-      dispatch(setCurrentTopicId(topic.id))
-      console.log('openTopic', topic.id)
       navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topic.id } })
     }
   }
@@ -76,7 +76,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
   }, [topic.assistantId])
 
   return (
-    <ContextMenu.Root >
+    <ContextMenu.Root>
       <ContextMenu.Trigger>
         <XStack
           onPress={openTopic}
@@ -86,8 +86,9 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
           gap={14}
           justifyContent="center"
           alignItems="center"
-          pressStyle={{ backgroundColor: '$gray20' }}>
-          <EmojiAvatar emoji={assistant?.emoji} size={40} borderRadius={16} />
+          backgroundColor={isActive ? '$green10' : 'none'}
+          pressStyle={{ backgroundColor: '$green20' }}>
+          <EmojiAvatar emoji={assistant?.emoji} size={40} borderRadius={12} borderWidth={3} />
           <YStack flex={1}>
             <XStack justifyContent="space-between">
               <Text fontWeight="bold" color="$textPrimary">

@@ -142,6 +142,7 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
       }}
       estimatedItemSize={40}
       ItemSeparatorComponent={() => <YStack height={10} />}
+      contentContainerStyle={{ paddingHorizontal: 20 }}
     />
   )
 }

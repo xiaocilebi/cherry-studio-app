@@ -50,13 +50,12 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   return (
     <YStack flex={1}>
-      <YStack gap={10} flex={1} paddingVertical={20}>
+      <YStack gap={10} flex={1} paddingVertical={20} paddingBottom={0}>
         <YStack
           backgroundColor="transparent"
-          flex={1}
           gap={10}
           paddingHorizontal={10}
-          paddingTop={Platform.OS === 'ios' ? 40 : 0}>
+          paddingTop={Platform.OS === 'ios' ? 50 : 0}>
           <ListItem onPress={handleNavigateAssistantMarketScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
               <MarketIcon size={20} />
@@ -72,25 +71,26 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             </XStack>
             <ChevronRight size={20} color={theme.color} />
           </ListItem>
-          <Stack paddingVertical={30} paddingHorizontal={10}>
+          <Stack paddingVertical={5} paddingHorizontal={10}>
             <SettingDivider />
           </Stack>
-          <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
-            <View flex={1} minHeight={200}>
-              {/* 只显示7条 */}
-              {topics.length > 0 && (
-                <GroupedTopicList
-                  topics={topics.slice(0, 7)}
-                  enableScroll={false}
-                  handleNavigateChatScreen={handleNavigateChatScreen}
-                />
-              )}
-            </View>
-          </MenuTabContent>
         </YStack>
+
+        <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
+          <View flex={1} minHeight={200}>
+            {/* 只显示7条 */}
+            {topics.length > 0 && (
+              <GroupedTopicList
+                topics={topics}
+                enableScroll={true}
+                handleNavigateChatScreen={handleNavigateChatScreen}
+              />
+            )}
+          </View>
+        </MenuTabContent>
       </YStack>
 
-      <Stack padding={20}>
+      <Stack paddingHorizontal={20} paddingBottom={10}>
         <SettingDivider />
       </Stack>
 
