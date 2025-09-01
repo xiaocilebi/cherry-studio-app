@@ -7,7 +7,7 @@ import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
-import { createNewTopic, deleteTopicById } from '@/services/TopicService'
+import { createNewTopic, deleteTopicById, renameTopic } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
 import { newMessagesActions } from '@/store/newMessage'
 import { setCurrentTopicId } from '@/store/topic'
@@ -102,6 +102,22 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
     }
   }
 
+  const handleRename = async (topicId: string, newName: string) => {
+    try {
+      await renameTopic(topicId, newName)
+      
+      const updatedTopics = localTopics.map(topic =>
+        topic.id === topicId ? { ...topic, name: newName, updatedAt: new Date().toISOString() } : topic
+      )
+      setLocalTopics(updatedTopics)
+      
+      logger.info('Topic renamed successfully', topicId, newName)
+    } catch (error) {
+      logger.error('Error renaming topic:', error)
+      throw error
+    }
+  }
+
   const renderItem = ({ item, index }: { item: ListItem; index: number }) => {
     switch (item.type) {
       case 'header':
@@ -116,6 +132,7 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
             topic={item.topic}
             timeFormat={item.timeFormat}
             onDelete={handleDelete}
+            onRename={handleRename}
             handleNavigateChatScreen={handleNavigateChatScreen}
           />
         )

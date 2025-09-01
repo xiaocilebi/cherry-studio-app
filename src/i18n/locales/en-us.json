@@ -108,6 +108,7 @@
       "photo": "Photo",
       "preset": "Preset",
       "prompt": "Prompt",
+      "rename": "Rename",
       "save": "Save",
       "search_placeholder": "Search...",
       "see_all": "See All",
@@ -665,6 +666,9 @@
     },
     "topics": {
       "new_topic": "New Topic",
+      "rename": {
+        "title": "Rename Topic"
+      },
       "title": "Topic",
       "title.recent": "Recent Topics"
     }

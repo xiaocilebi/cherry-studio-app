@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
-import { Trash2 } from '@tamagui/lucide-icons'
+import { Edit3, Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
@@ -23,10 +24,11 @@ interface TopicItemProps {
   topic: Topic
   timeFormat?: TimeFormat
   onDelete?: (topicId: string) => Promise<void>
+  onRename?: (topicId: string, newName: string) => Promise<void>
   handleNavigateChatScreen?: (topicId: string) => void
 }
 
-const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, handleNavigateChatScreen }) => {
+const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, onRename, handleNavigateChatScreen }) => {
   const { t } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState<string>(i18n.language)
   const dispatch = useAppDispatch()
@@ -75,7 +77,35 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
     fetchAssistant()
   }, [topic.assistantId])
 
+  const handleRename = () => {
+    Alert.prompt(
+      t('topics.rename.title'),
+      '',
+      [
+        {
+          text: t('common.cancel'),
+          style: 'cancel'
+        },
+        {
+          text: t('common.save'),
+          onPress: async (newName) => {
+            if (newName && newName.trim() && newName.trim() !== topic.name) {
+              try {
+                await onRename?.(topic.id, newName.trim())
+              } catch (error) {
+                Alert.alert(t('common.error_occurred'), (error as Error).message || 'Unknown error')
+              }
+            }
+          }
+        }
+      ],
+      'plain-text',
+      topic.name
+    )
+  }
+
   return (
+    <>
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <XStack
@@ -105,6 +135,12 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
         </XStack>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
+        <ContextMenu.Item key="rename" onSelect={handleRename}>
+          <ContextMenu.ItemTitle>{t('common.rename')}</ContextMenu.ItemTitle>
+          <ContextMenu.ItemIcon ios={{ name: 'pencil' }}>
+            <Edit3 size={16} color="$textPrimary" />
+          </ContextMenu.ItemIcon>
+        </ContextMenu.Item>
         <ContextMenu.Item key="delete" onSelect={async () => await onDelete?.(topic.id)}>
           <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
           <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
@@ -113,6 +149,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
         </ContextMenu.Item>
       </ContextMenu.Content>
     </ContextMenu.Root>
+    </>
   )
 }
 

@@ -108,6 +108,7 @@
       "photo": "照片",
       "preset": "预设",
       "prompt": "提示词",
+      "rename": "重命名",
       "save": "保存",
       "search_placeholder": "搜索...",
       "see_all": "查看全部",
@@ -665,6 +666,9 @@
     },
     "topics": {
       "new_topic": "新话题",
+      "rename": {
+        "title": "重命名话题",
+      },
       "title": "话题",
       "title.recent": "最近的话题"
     }

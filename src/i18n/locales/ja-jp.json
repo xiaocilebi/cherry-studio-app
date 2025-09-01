@@ -108,6 +108,7 @@
       "photo": "写真",
       "preset": "プリセット",
       "prompt": "プロンプト",
+      "rename": "名前を変更",
       "save": "保存",
       "search_placeholder": "検索...",
       "see_all": "すべて表示",
@@ -665,6 +666,9 @@
     },
     "topics": {
       "new_topic": "新しいトピック",
+      "rename": {
+        "title": "トピック名を変更"
+      },
       "title": "トピック",
       "title.recent": "最近のトピック"
     }
