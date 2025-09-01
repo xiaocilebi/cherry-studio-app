@@ -1,7 +1,5 @@
 import { Theme, View, ViewProps } from '@tamagui/core'
-import * as NavigationBar from 'expo-navigation-bar'
-import * as StatusBar from 'expo-status-bar'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -15,14 +13,6 @@ const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, 
   const insets = useSafeAreaInsets()
   const { isDark } = useTheme()
   const backgroundColor = isDark ? '#121213ff' : '#f7f7f7ff'
-
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      // Set the navigation bar style
-      NavigationBar.setBackgroundColorAsync(backgroundColor)
-      StatusBar.setStatusBarBackgroundColor(backgroundColor)
-    }
-  }, [backgroundColor])
 
   return (
     <Theme name={isDark ? 'dark' : 'light'}>

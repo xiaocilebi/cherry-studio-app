@@ -3,7 +3,7 @@ import { ChevronRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Avatar, Button, Stack, styled, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
@@ -15,11 +15,13 @@ import { haptic } from '@/utils/haptic'
 import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
 import { SettingDivider } from '../settings'
+import SafeAreaContainer from '../ui/SafeAreaContainer'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
   const theme = useTheme()
   const { avatar, userName } = useSettings()
+  const insets = useSafeAreaInsets()
 
   const { topics } = useTopics()
 
@@ -49,13 +51,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   }
 
   return (
-    <YStack flex={1}>
-      <YStack gap={10} flex={1} paddingVertical={20} paddingBottom={0}>
-        <YStack
-          backgroundColor="transparent"
-          gap={10}
-          paddingHorizontal={10}
-          paddingTop={Platform.OS === 'ios' ? 50 : 0}>
+    <SafeAreaContainer>
+      <YStack gap={10} flex={1}>
+        <YStack gap={10} paddingHorizontal={10}>
           <ListItem onPress={handleNavigateAssistantMarketScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
               <MarketIcon size={20} />
@@ -81,7 +79,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             {/* 只显示7条 */}
             {topics.length > 0 && (
               <GroupedTopicList
-                topics={topics}
+                topics={topics.slice(0, 10)}
                 enableScroll={true}
                 handleNavigateChatScreen={handleNavigateChatScreen}
               />
@@ -94,7 +92,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
         <SettingDivider />
       </Stack>
 
-      <XStack paddingHorizontal={20} paddingBottom={40} justifyContent="space-between" alignItems="center">
+      <XStack paddingHorizontal={20} justifyContent="space-between" alignItems="center">
         <XStack gap={10} alignItems="center">
           <Avatar circular size={48}>
             <Avatar.Image accessibilityLabel="Cam" src={avatar || require('@/assets/images/favicon.png')} />
@@ -104,7 +102,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
         </XStack>
         <Button icon={<Settings size={24} color={theme.color} />} chromeless onPress={handleNavigateSettingsScreen} />
       </XStack>
-    </YStack>
+    </SafeAreaContainer>
   )
 }
 

@@ -108,6 +108,7 @@
       "photo": "Photo",
       "preset": "Preset",
       "prompt": "Prompt",
+      "rename": "Rename",
       "save": "Save",
       "search_placeholder": "Search...",
       "see_all": "See All",
@@ -150,6 +151,7 @@
         "description": "Failed to render message content. Please check if the message format is correct.",
         "title": "Rendering error"
       },
+      "translate_assistant_model_not_defined": "Translate assistant model is not configured. Please go to Settings > Default Assistant to configure the translation assistant model",
       "unknown": "Unknown error",
       "user_message_not_found": "Unable to locate the original user message"
     },
@@ -664,6 +666,9 @@
     },
     "topics": {
       "new_topic": "New Topic",
+      "rename": {
+        "title": "Rename Topic"
+      },
       "title": "Topic",
       "title.recent": "Recent Topics"
     }

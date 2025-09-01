@@ -2,6 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetTextInput, BottomShee
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -24,6 +25,7 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
   const [modelId, setModelId] = useState('')
   const [modelName, setModelName] = useState('')
   const [modelGroup, setModelGroup] = useState('')
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     setModelName(modelId)
@@ -88,7 +90,7 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
 
   return (
     <BottomSheetModal
-      snapPoints={['55%']}
+      enableDynamicSizing={true}
       ref={ref}
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
@@ -101,7 +103,7 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
         backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
-      <BottomSheetView>
+      <BottomSheetView style={{ paddingBottom: insets.bottom }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
             <XStack width="100%" alignItems="center" justifyContent="center">
@@ -162,7 +164,15 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
                   onChangeText={setModelGroup}
                 />
               </YStack>
-              <Button height={44} width={216} borderRadius={15} onPress={handleAddModel} disabled={!modelId.trim()}>
+              <Button
+                backgroundColor="$green10"
+                borderColor="$green20"
+                color="$green100"
+                height={44}
+                width={216}
+                borderRadius={15}
+                onPress={handleAddModel}
+                disabled={!modelId.trim()}>
                 {t('settings.models.add.model')}
               </Button>
             </YStack>

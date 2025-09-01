@@ -108,6 +108,7 @@
       "photo": "照片",
       "preset": "预设",
       "prompt": "提示词",
+      "rename": "重命名",
       "save": "保存",
       "search_placeholder": "搜索...",
       "see_all": "查看全部",
@@ -150,6 +151,7 @@
         "description": "消息内容渲染失败，请检查消息内容格式是否正确",
         "title": "渲染错误"
       },
+      "translate_assistant_model_not_defined": "翻译助手模型未配置，请前往设置 > 默认助手中配置翻译助手的模型",
       "unknown": "未知错误",
       "user_message_not_found": "无法找到原始用户消息"
     },
@@ -664,6 +666,9 @@
     },
     "topics": {
       "new_topic": "新话题",
+      "rename": {
+        "title": "重命名话题",
+      },
       "title": "话题",
       "title.recent": "最近的话题"
     }

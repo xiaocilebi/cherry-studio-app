@@ -36,7 +36,7 @@ export const HeaderBar = ({ topic }: HeaderBarProps) => {
           <MenuButton onMenuPress={handleMenuPress} />
         </XStack>
         <XStack flex={1} justifyContent="center" alignItems="center">
-          <AssistantSelection assistant={assistant} />
+          <AssistantSelection assistant={assistant} topic={topic} />
         </XStack>
         <XStack alignItems="center" minWidth={40} justifyContent="flex-end">
           {topic.messages.length > 0 && <NewTopicButton assistant={assistant} />}

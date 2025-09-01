@@ -114,3 +114,25 @@ export async function deleteTopicsByAssistantId(assistantId: string): Promise<vo
     throw error
   }
 }
+
+export async function renameTopic(topicId: string, newName: string): Promise<void> {
+  try {
+    const topic = await getTopicById(topicId)
+    if (!topic) {
+      throw new Error(`Topic with ID ${topicId} not found`)
+    }
+
+    const updatedTopic: Topic = {
+      ...topic,
+      name: newName.trim(),
+      updatedAt: new Date().toISOString(),
+      isNameManuallyEdited: true
+    }
+
+    await upsertTopics([updatedTopic])
+    logger.info('renameTopic', topicId, newName)
+  } catch (error) {
+    logger.error('Failed to rename topic:', error)
+    throw error
+  }
+}

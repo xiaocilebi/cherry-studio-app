@@ -52,29 +52,29 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <Pressable delayLongPress={100} onPress={handlePress} onLongPress={() => {}}>
-          <XStack
-            paddingVertical={10}
-            paddingHorizontal={10}
-            justifyContent="space-between"
-            alignItems="center"
-            borderRadius={16}
-            backgroundColor="$uiCardBackground">
-            <XStack gap={14} flex={1}>
-              <EmojiAvatar emoji={assistant.emoji} size={46} borderRadius={18} borderWidth={2} />
-              <YStack gap={4} flex={1} justifyContent="center">
-                <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" color="$textPrimary">
-                  {assistant.name}
+        <XStack
+          onPress={handlePress}
+          paddingVertical={10}
+          paddingHorizontal={10}
+          justifyContent="space-between"
+          alignItems="center"
+          borderRadius={16}
+          backgroundColor="$uiCardBackground"
+          pressStyle={{ backgroundColor: '$gray20' }}>
+          <XStack gap={14} flex={1}>
+            <EmojiAvatar emoji={assistant.emoji} size={46} borderRadius={18} borderWidth={2} />
+            <YStack gap={4} flex={1} justifyContent="center">
+              <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail" fontWeight="bold" color="$textPrimary">
+                {assistant.name}
+              </Text>
+              {!isEmpty(assistant.prompt) && (
+                <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
+                  {assistant.prompt}
                 </Text>
-                {!isEmpty(assistant.prompt) && (
-                  <Text ellipsizeMode="tail" numberOfLines={1} fontSize={12} lineHeight={18} color="$textSecondary">
-                    {assistant.prompt}
-                  </Text>
-                )}
-              </YStack>
-            </XStack>
+              )}
+            </YStack>
           </XStack>
-        </Pressable>
+        </XStack>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item key="delete" onSelect={handleDelete}>

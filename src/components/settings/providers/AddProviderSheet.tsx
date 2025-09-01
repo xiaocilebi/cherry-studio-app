@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
@@ -24,6 +25,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
   const { t } = useTranslation()
   const theme = useTheme()
   const { isDark } = useCustomTheme()
+  const insets = useSafeAreaInsets()
 
   const [providerName, setProviderName] = useState('')
   const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)
@@ -70,8 +72,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
 
   return (
     <BottomSheetModal
-      snapPoints={['55%']}
-      enableDynamicSizing={false}
+      enableDynamicSizing={true}
       ref={ref}
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
@@ -84,7 +85,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
         backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
-      <BottomSheetView>
+      <BottomSheetView style={{ paddingBottom: insets.bottom }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
             <XStack width="100%" alignItems="center" justifyContent="center">
@@ -121,7 +122,9 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
                 placeholder={t('settings.provider.add.type')}
               />
               <Button
-                backgroundColor="$colorBrand"
+                backgroundColor="$green10"
+                borderColor="$green20"
+                color="$green100"
                 height={44}
                 width={216}
                 borderRadius={15}

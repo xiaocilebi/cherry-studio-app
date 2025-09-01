@@ -6,15 +6,17 @@ import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
+import { Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 
 import AssistantItemSheet from '../assistant/market/AssistantItemSheet'
 
 interface AssistantSelectionProps {
   assistant: Assistant
+  topic: Topic
 }
 
-export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistant }) => {
+export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistant, topic }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const navigation = useNavigation<DrawerNavigationProps>()
   const { t } = useTranslation()
@@ -39,13 +41,16 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
 
   return (
     <>
-      <Button chromeless onPress={handlePress}>
+      <Button unstyled onPress={handlePress} pressStyle={{ opacity: 0.6 }}>
         <XStack gap={14} alignItems="center" justifyContent="center">
           {/*<Text fontSize={30}>{formateEmoji(assistant.emoji)}</Text>*/}
 
           <YStack gap={2} alignItems="center" justifyContent="flex-start">
-            <Text fontSize={20} ellipsizeMode="tail" numberOfLines={1}>
+            <Text fontSize={16} ellipsizeMode="tail" numberOfLines={1}>
               {assistant.name}
+            </Text>
+            <Text fontSize={11} ellipsizeMode="tail" numberOfLines={1} color="$gray11">
+              {topic.name}
             </Text>
             {/*{assistant.model && (
               <XStack gap={2} alignItems="center" justifyContent="center">
@@ -56,7 +61,7 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
               </XStack>
             )}*/}
           </YStack>
-          <ChevronRight color="$textPrimary" size={18} />
+          {/* <ChevronRight color="$textPrimary" size={18} /> */}
         </XStack>
       </Button>
       <AssistantItemSheet

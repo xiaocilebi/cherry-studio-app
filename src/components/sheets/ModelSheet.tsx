@@ -6,6 +6,7 @@ import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
@@ -34,6 +35,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
+  const insets = useSafeAreaInsets()
 
   // 处理Android返回按钮事件
   useEffect(() => {
@@ -146,7 +148,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   return (
     <BottomSheetModal
       snapPoints={['50%']}
-      enableDynamicSizing={false}
+      enableDynamicSizing={true}
       ref={ref}
       backgroundStyle={{
         borderRadius: 30,
@@ -158,7 +160,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       backdropComponent={renderBackdrop}
       enablePanDownToClose={true}
       android_keyboardInputMode="adjustResize">
-      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+      <BottomSheetScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: insets.bottom }}>
         <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
           <XStack gap={5} flex={1} alignItems="center" justifyContent="center">
             <Stack flex={1}>

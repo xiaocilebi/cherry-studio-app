@@ -1,6 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { sortBy } from 'lodash'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +20,7 @@ import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNav
 import { checkApi } from '@/services/ApiService'
 import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
+import { haptic } from '@/utils/haptic'
 import { getModelUniqId } from '@/utils/model'
 const logger = loggerService.withContext('ApiServiceScreen')
 
@@ -88,6 +90,7 @@ export default function ApiServiceScreen() {
       ]
 
   const handleOpenBottomSheet = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     bottomSheetRef.current?.present()
   }
 

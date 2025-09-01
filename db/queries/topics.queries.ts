@@ -114,20 +114,23 @@ export async function upsertTopics(topicsToUpsert: Topic | Topic[]): Promise<Top
   try {
     const dbRecords = topicsArray.map(transformTopicToDb)
 
-    const upsertPromises = dbRecords.map(record =>
-      db
-        .insert(topics)
-        .values(record)
-        .onConflictDoUpdate({
-          target: topics.id,
-          set: record
-        })
-        .returning()
-    )
+    const results = await db.transaction(async tx => {
+      const upsertPromises = dbRecords.map(record =>
+        tx
+          .insert(topics)
+          .values(record)
+          .onConflictDoUpdate({
+            target: topics.id,
+            set: record
+          })
+          .returning()
+      )
 
-    const results = await Promise.all(upsertPromises)
-    const flattenedResults = results.flat()
-    return flattenedResults.map(transformDbToTopic)
+      const transactionResults = await Promise.all(upsertPromises)
+      return transactionResults.flat()
+    })
+
+    return results.map(transformDbToTopic)
   } catch (error) {
     logger.error('Error upserting topic(s):', error)
     throw error

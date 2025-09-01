@@ -1,6 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Eye, EyeOff, ShieldCheck } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
@@ -16,6 +17,7 @@ import { useWebSearchProvider } from '@/hooks/useWebsearchProviders'
 import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
 import WebSearchService from '@/services/WebSearchService'
 import { ApiStatus } from '@/types/assistant'
+import { haptic } from '@/utils/haptic'
 
 type WebsearchProviderSettingsRouteProp = RouteProp<WebSearchStackParamList, 'WebSearchProviderSettingsScreen'>
 
@@ -55,6 +57,7 @@ export default function WebSearchProviderSettingsScreen() {
   }
 
   const handleOpenBottomSheet = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     bottomSheetRef.current?.present()
   }
 

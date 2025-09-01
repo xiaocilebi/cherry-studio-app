@@ -25,14 +25,14 @@ export function ModelGroup({
   showModelCount = false
 }: ModelGroupProps) {
   const renderModelItem: ListRenderItem<Model> = ({ item: model }) => (
-    <XStack alignItems="center" justifyContent="space-between" paddingHorizontal={8} width="100%">
-      <XStack gap={8} flex={1} maxWidth="80%">
+    <XStack alignItems="center" justifyContent="space-between" width="100%">
+      <XStack gap={8} flex={1}>
         {/* icon */}
         <XStack justifyContent="center" alignItems="center" flexShrink={0}>
           <ModelIcon model={model} />
         </XStack>
         {/* name and tool */}
-        <YStack gap={5} flex={1} minWidth={0}>
+        <YStack gap={5} flex={1}>
           <Text numberOfLines={1} ellipsizeMode="tail">
             {model.name}
           </Text>
@@ -89,6 +89,8 @@ export function ModelGroup({
           exitStyle={{ opacity: 0 }}
           borderBottomLeftRadius={9}
           borderBottomRightRadius={9}
+          paddingHorizontal={16}
+          paddingVertical={5}
           backgroundColor="$uiCardBackground">
           <FlatList
             data={models}
@@ -96,7 +98,7 @@ export function ModelGroup({
             keyExtractor={model => model.id}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingVertical: 8 }}
-            ItemSeparatorComponent={() => <YStack height={10} />}
+            ItemSeparatorComponent={() => <YStack height={15} />}
             scrollEnabled={false}
             getItemLayout={(data, index) => ({
               length: 48,

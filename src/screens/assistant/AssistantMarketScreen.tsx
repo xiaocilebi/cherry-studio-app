@@ -43,6 +43,7 @@ export default function AssistantMarketScreen() {
   const [isInitializing, setIsInitializing] = useState(true)
 
   const handleAssistantItemPress = useCallback((assistant: Assistant) => {
+    haptic(ImpactFeedbackStyle.Medium)
     setSelectedAssistant(assistant)
     bottomSheetRef.current?.present()
   }, [])

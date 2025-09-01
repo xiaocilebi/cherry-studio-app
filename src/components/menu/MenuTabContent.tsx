@@ -18,7 +18,7 @@ export function MenuTabContent({ title, onSeeAllPress, children }: MenuTabConten
           <XStack paddingVertical={10} gap={8} alignItems="center">
             <Text>{title}</Text>
           </XStack>
-          <Text color="$textLink" onPress={onSeeAllPress}>
+          <Text color="$textLink" onPress={onSeeAllPress} pressStyle={{ opacity: 0.6 }}>
             {t('menu.see_all')}
           </Text>
         </XStack>

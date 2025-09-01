@@ -3,6 +3,7 @@ import { ChevronsRight } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Spinner, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
@@ -36,6 +37,7 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
     const { t } = useTranslation()
     const theme = useTheme()
     const { isDark } = useCustomTheme()
+    const insets = useSafeAreaInsets()
 
     // 处理Android返回按钮事件
     useEffect(() => {
@@ -65,7 +67,7 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
         handleIndicatorStyle={{
           backgroundColor: theme.color.val
         }}>
-        <BottomSheetView>
+        <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
             <XStack width="100%" alignItems="center" justifyContent="center">
               <Text fontSize={24}>{t('settings.provider.api_check.title')}</Text>
@@ -83,10 +85,9 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
 
             <XStack width="100%" alignItems="center" justifyContent="center">
               <Button
-                height={60}
+                height={44}
                 width={224}
-                borderRadius={70}
-                borderWidth={0.5}
+                borderRadius={15}
                 backgroundColor="$green10"
                 borderColor="$green20"
                 disabled={checkApiStatus === 'processing'}

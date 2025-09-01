@@ -15,6 +15,7 @@ import { useTopic } from '@/hooks/useTopic'
 import { HomeStackParamList } from '@/navigators/HomeStackNavigator'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { createNewTopic, getNewestTopic } from '@/services/TopicService'
+import { useAppSelector } from '@/store'
 import { setCurrentTopicId } from '@/store/topic'
 import { runAsyncFunction } from '@/utils'
 import { haptic } from '@/utils/haptic'
@@ -27,7 +28,8 @@ type ChatScreenRouteProp = RouteProp<HomeStackParamList, 'ChatScreen'>
 const ChatScreen = () => {
   const route = useRoute<ChatScreenRouteProp>()
   const navigation = useNavigation<DrawerNavigationProp<any>>()
-  const { topicId } = route.params || {}
+  const currentTopicId = useAppSelector(state => state.topic.currentTopicId)
+  const topicId = route.params?.topicId || currentTopicId
   const { topic, isLoading } = useTopic(topicId)
   const dispatch = useDispatch()
   useEffect(() => {
