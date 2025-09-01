@@ -24,18 +24,18 @@ const AssistantItemRow: FC<AssistantItemRowProps> = ({ assistant, onAssistantPre
       alignItems="center"
       borderRadius={16}
       backgroundColor="$uiCardBackground"
+      gap={14}
+      pressStyle={{ backgroundColor: '$gray20' }}
       onPress={handlePress}>
-      <XStack gap={14} flex={1}>
-        <EmojiAvatar emoji={assistant.emoji} size={45} borderRadius={18} borderWidth={2} />
-        <YStack gap={4} flex={1} justifyContent="center">
-          <Text numberOfLines={1} ellipsizeMode="tail">
-            {assistant.name}
-          </Text>
-          <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail">
-            {assistant.description}
-          </Text>
-        </YStack>
-      </XStack>
+      <EmojiAvatar emoji={assistant.emoji} size={45} borderRadius={18} borderWidth={2} />
+      <YStack gap={4} flex={1} justifyContent="center">
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {assistant.name}
+        </Text>
+        <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail">
+          {assistant.description}
+        </Text>
+      </YStack>
     </XStack>
   )
 }

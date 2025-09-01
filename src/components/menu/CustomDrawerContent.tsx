@@ -79,7 +79,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             {/* 只显示7条 */}
             {topics.length > 0 && (
               <GroupedTopicList
-                topics={topics}
+                topics={topics.slice(0, 10)}
                 enableScroll={true}
                 handleNavigateChatScreen={handleNavigateChatScreen}
               />

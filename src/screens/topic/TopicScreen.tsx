@@ -81,8 +81,14 @@ export default function TopicScreen() {
               onPress: handleAddNewTopic
             }}
           />
-          <YStack flex={1} padding={20} gap={20}>
-            <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
+          <YStack flex={1} gap={15}>
+            <View style={{ paddingHorizontal: 20 }}>
+              <SearchInput
+                placeholder={t('common.search_placeholder')}
+                value={searchText}
+                onChangeText={setSearchText}
+              />
+            </View>
             <GroupedTopicList topics={filteredTopics} enableScroll={true} />
           </YStack>
         </View>

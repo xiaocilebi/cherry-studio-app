@@ -99,8 +99,14 @@ export default function AssistantScreen() {
               onPress: onAddAssistant
             }}
           />
-          <SettingContainer paddingVertical={0}>
-            <SearchInput placeholder={t('common.search_placeholder')} value={searchText} onChangeText={setSearchText} />
+          <SettingContainer padding={0} gap={10}>
+            <View style={{ paddingHorizontal: 16 }}>
+              <SearchInput
+                placeholder={t('common.search_placeholder')}
+                value={searchText}
+                onChangeText={setSearchText}
+              />
+            </View>
 
             {isLoading ? (
               <FlashList
@@ -108,7 +114,7 @@ export default function AssistantScreen() {
                 renderItem={() => <AssistantItemSkeleton />}
                 keyExtractor={(_, index) => `skeleton-${index}`}
                 estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack height={16} />}
+                ItemSeparatorComponent={() => <YStack height={10} />}
               />
             ) : (
               <FlashList
@@ -119,12 +125,13 @@ export default function AssistantScreen() {
                 )}
                 keyExtractor={item => item.id}
                 estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack height={16} />}
+                ItemSeparatorComponent={() => <YStack height={10} />}
                 ListEmptyComponent={
                   <YStack flex={1} justifyContent="center" alignItems="center" paddingTop="$8">
                     <Text>{t('settings.assistant.empty')}</Text>
                   </YStack>
                 }
+                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10 }}
               />
             )}
           </SettingContainer>
