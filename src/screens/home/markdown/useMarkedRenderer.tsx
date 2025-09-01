@@ -3,18 +3,17 @@ import * as Clipboard from 'expo-clipboard'
 import React, { memo, ReactNode, useMemo } from 'react'
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
-import type { RendererInterface, Tokens } from 'react-native-marked'
+import type { RendererInterface } from 'react-native-marked'
 import { MarkedTokenizer, Renderer } from 'react-native-marked'
 import MathJax from 'react-native-mathjax-svg'
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Button, Image, Text, View, XStack } from 'tamagui'
 
-import { loggerService } from '@/services/LoggerService'
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
 
-const logger = loggerService.withContext('useMarkedRenderer')
+// const logger = loggerService.withContext('useMarkedRenderer')
 
 // Memoized MathJax component to prevent unnecessary re-renders
 const MemoizedMathJax = memo(({ content, fontSize, color }: { content: string; fontSize: number; color: string }) => {
@@ -25,21 +24,7 @@ const MemoizedMathJax = memo(({ content, fontSize, color }: { content: string; f
   )
 })
 
-class CustomTokenizer extends MarkedTokenizer {
-  codespan(src: string): Tokens.Codespan | undefined {
-    const match = src.match(/^\$+([^\$\n]+?)\$+/)
-
-    if (match?.[1]) {
-      return {
-        type: 'codespan',
-        raw: match[0],
-        text: match[0]
-      }
-    }
-
-    return super.codespan(src)
-  }
-}
+class CustomTokenizer extends MarkedTokenizer {}
 
 class CustomRenderer extends Renderer implements RendererInterface {
   private isDark: boolean
@@ -115,7 +100,8 @@ class CustomRenderer extends Renderer implements RendererInterface {
 
   // Override inline code rendering
   codespan(text: string): ReactNode {
-    const match = text.match(/^\$+([^\$\n]+?)\$+/)
+    // support katex
+    const match = text.match(/\$+([^\$\n]+?)\$+/)
 
     if (match?.[1]) {
       return this.renderInlineMath(match[1])
@@ -153,15 +139,26 @@ class CustomRenderer extends Renderer implements RendererInterface {
     )
   }
 
-  // text(text: string | ReactNode[], styles?: TextStyle): ReactNode {
-  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+  text(text: string | ReactNode[], styles?: TextStyle): ReactNode {
+    const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
 
-  //   return (
-  //     <Text selectable key={this.getKey()} style={[styles, { color: currentColors.text }]}>
-  //       {text}
-  //     </Text>
-  //   )
-  // }
+    if (typeof text === 'string') {
+      // support katex
+      const match = text.match(/\$+([^\$\n]+?)\$+/)
+
+      if (match?.[1]) {
+        return this.renderInlineMath(match[1])
+      }
+    }
+
+    // return (
+    //   <Text selectable key={this.getKey()} style={[styles, { color: currentColors.text }]}>
+    //     {text}
+    //   </Text>
+    // )
+
+    return super.text(text, { ...styles, color: currentColors.text })
+  }
 
   // em(children: string | ReactNode[], styles?: TextStyle): ReactNode {
   //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
@@ -193,16 +190,26 @@ class CustomRenderer extends Renderer implements RendererInterface {
   //   )
   // }
 
-  // list(
-  //   ordered: boolean,
-  //   li: ReactNode[],
-  //   listStyle?: ViewStyle,
-  //   textStyle?: TextStyle,
-  //   startIndex?: number
-  // ): ReactNode {
-  //   const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
-  //   return super.list(ordered, li, { ...listStyle, ...currentColors }, textStyle, startIndex)
-  // }
+  list(
+    ordered: boolean,
+    li: ReactNode[],
+    listStyle?: ViewStyle,
+    textStyle?: TextStyle,
+    startIndex?: number
+  ): ReactNode {
+    const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+    return super.list(
+      ordered,
+      li,
+      { ...listStyle, ...currentColors, alignItems: 'center', justifyContent: 'center' },
+      textStyle,
+      startIndex
+    )
+  }
+
+  listItem(children: ReactNode[], styles?: ViewStyle): ReactNode {
+    return super.listItem(children, { ...styles, paddingVertical: 5 })
+  }
 }
 
 /**
