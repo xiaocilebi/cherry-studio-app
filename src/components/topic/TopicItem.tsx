@@ -88,7 +88,7 @@ const TopicItem: FC<TopicItemProps> = ({ topic, timeFormat = 'time', onDelete, h
           alignItems="center"
           backgroundColor={isActive ? '$green10' : 'none'}
           pressStyle={{ backgroundColor: '$green20' }}>
-          <EmojiAvatar emoji={assistant?.emoji} size={40} borderRadius={12} borderWidth={3} />
+          <EmojiAvatar emoji={assistant?.emoji} size={40} borderRadius={12} borderWidth={3} borderColor='$uiCardBackground' />
           <YStack flex={1}>
             <XStack justifyContent="space-between">
               <Text fontWeight="bold" color="$textPrimary">
