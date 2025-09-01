@@ -62,11 +62,13 @@ export default function AssistantScreen() {
   const [selectedAssistant, setSelectedAssistant] = useState<Assistant | null>(null)
 
   const handleAssistantItemPress = (assistant: Assistant) => {
+    haptic(ImpactFeedbackStyle.Medium)
     setSelectedAssistant(assistant)
     bottomSheetRef.current?.present()
   }
 
   const onAddAssistant = async () => {
+    haptic(ImpactFeedbackStyle.Medium)
     const newAssistant = await createAssistant()
     navigation.navigate('Assistant', { screen: 'AssistantDetailScreen', params: { assistantId: newAssistant.id } })
   }
