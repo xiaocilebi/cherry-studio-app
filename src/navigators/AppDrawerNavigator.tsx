@@ -15,7 +15,7 @@ export default function AppDrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} screenOptions={screenOptions}>
       {/* Main grouped navigators */}
-      <Drawer.Screen name="Home" options={{ swipeEnabled: false, ...options }} component={HomeStackNavigator} />
+      <Drawer.Screen name="Home" options={options} component={HomeStackNavigator} />
       <Drawer.Screen name="Assistant" options={options} component={AssistantStackNavigator} />
 
       {/* Individual screens for backward compatibility */}
