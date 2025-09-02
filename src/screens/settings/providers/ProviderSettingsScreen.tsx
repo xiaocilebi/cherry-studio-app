@@ -1,6 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import type { StackNavigationProp } from '@react-navigation/stack'
 import { ChevronRight, HeartPulse, Plus, Settings2 } from '@tamagui/lucide-icons'
 import { groupBy } from 'lodash'
 import debounce from 'lodash/debounce'
@@ -26,13 +25,14 @@ import { useProvider } from '@/hooks/useProviders'
 import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
+import { ProvidersNavigationProps } from '@/types/naviagate'
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ProviderSettingsScreen'>
 
 export default function ProviderSettingsScreen() {
   const { t } = useTranslation()
-  const navigation = useNavigation<StackNavigationProp<ProvidersStackParamList>>()
+  const navigation = useNavigation<ProvidersNavigationProps>()
   const route = useRoute<ProviderSettingsRouteProp>()
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)

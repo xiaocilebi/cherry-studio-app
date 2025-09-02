@@ -8,13 +8,13 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { defaultLanguage, languagesOptions } from '@/config/languages'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
-import { NavigationProps } from '@/types/naviagate'
+import { GeneralSettingsNavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 
 export default function LanguageChangeScreen() {
   const { t, i18n } = useTranslation()
   const theme = useTheme()
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<GeneralSettingsNavigationProps>()
   const [currentLanguage, setCurrentLanguage] = useState<string>(storage.getString('language') || defaultLanguage)
   const { resetBuiltInAssistants } = useBuiltInAssistants()
 

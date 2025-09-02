@@ -27,6 +27,7 @@ export type AppDrawerParamList = {
   Home:
     | { screen: 'ChatScreen'; params: { topicId: string } }
     | { screen: 'TopicScreen' }
+    | { screen: 'SettingsScreen' }
     | { screen: 'AssistantDetailScreen'; params: { assistantId: string; tab?: string } }
     | undefined
   Assistant:
@@ -34,7 +35,6 @@ export type AppDrawerParamList = {
     | { screen: 'AssistantMarketScreen' }
     | { screen: 'AssistantDetailScreen'; params: { assistantId: string; tab?: string } }
     | undefined
-  Settings: { screen?: string; params?: any } | undefined
 }
 
 // Navigation Props
