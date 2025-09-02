@@ -61,7 +61,7 @@ export default function ProviderListScreen() {
     bottomSheetRef.current?.present()
   }
 
-  const handleProviderSave = (provider: Provider) => {
+  const handleProviderSave = () => {
     // Force refresh by clearing and resetting the editing provider
     setEditingProvider(undefined)
   }
