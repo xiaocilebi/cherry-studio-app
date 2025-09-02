@@ -1,47 +1,42 @@
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React, { memo, ReactNode, useMemo } from 'react'
+import React, { ReactNode, useMemo } from 'react'
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
 import type { RendererInterface } from 'react-native-marked'
 import { MarkedTokenizer, Renderer } from 'react-native-marked'
-import MathJax from 'react-native-mathjax-svg'
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Button, Image, Text, View, XStack } from 'tamagui'
 
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
+import { useMathEquation } from './useMathEquation'
 
 // const logger = loggerService.withContext('useMarkedRenderer')
-
-// Memoized MathJax component to prevent unnecessary re-renders
-const MemoizedMathJax = memo(({ content, fontSize, color }: { content: string; fontSize: number; color: string }) => {
-  return (
-    <MathJax fontSize={fontSize} color={color}>
-      {content}
-    </MathJax>
-  )
-})
 
 class CustomTokenizer extends MarkedTokenizer {}
 
 class CustomRenderer extends Renderer implements RendererInterface {
   private isDark: boolean
   private equationColor: string
+  private extractMathEquation: (text: string) => string | null
+  private renderInlineMath: (content: string, key?: string | number) => React.JSX.Element
 
-  constructor(isDark: boolean) {
+  constructor(
+    isDark: boolean,
+    extractMathEquation: (text: string) => string | null,
+    renderInlineMath: (content: string, key?: string | number) => React.JSX.Element
+  ) {
     super()
     this.isDark = isDark
     this.equationColor = isDark ? markdownColors.dark.text : markdownColors.light.text
+    this.extractMathEquation = extractMathEquation
+    this.renderInlineMath = renderInlineMath
   }
 
   private async onCopy(content: string) {
     await Clipboard.setStringAsync(content)
-  }
-
-  private renderInlineMath(content: string) {
-    return <MemoizedMathJax key={this.getKey()} content={content} fontSize={16} color={this.equationColor} />
   }
 
   // Override code block rendering
@@ -101,10 +96,10 @@ class CustomRenderer extends Renderer implements RendererInterface {
   // Override inline code rendering
   codespan(text: string): ReactNode {
     // support katex
-    const match = text.match(/\$+([^\$\n]+?)\$+/)
+    const equation = this.extractMathEquation(text)
 
-    if (match?.[1]) {
-      return this.renderInlineMath(match[1])
+    if (equation) {
+      return this.renderInlineMath(equation, this.getKey())
     }
 
     return (
@@ -144,10 +139,10 @@ class CustomRenderer extends Renderer implements RendererInterface {
 
     if (typeof text === 'string') {
       // support katex
-      const match = text.match(/\$+([^\$\n]+?)\$+/)
+      const equation = this.extractMathEquation(text)
 
-      if (match?.[1]) {
-        return this.renderInlineMath(match[1])
+      if (equation) {
+        return this.renderInlineMath(equation, this.getKey())
       }
     }
 
@@ -157,7 +152,13 @@ class CustomRenderer extends Renderer implements RendererInterface {
     //   </Text>
     // )
 
-    return super.text(text, { ...styles, color: currentColors.text })
+    return super.text(text, {
+      ...styles,
+      color: currentColors.text,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1
+    })
   }
 
   // em(children: string | ReactNode[], styles?: TextStyle): ReactNode {
@@ -202,13 +203,13 @@ class CustomRenderer extends Renderer implements RendererInterface {
       ordered,
       li,
       { ...listStyle, ...currentColors, alignItems: 'center', justifyContent: 'center' },
-      textStyle,
+      { ...textStyle, textAlign: 'center', alignSelf: 'center' },
       startIndex
     )
   }
 
   listItem(children: ReactNode[], styles?: ViewStyle): ReactNode {
-    return super.listItem(children, { ...styles, paddingVertical: 5 })
+    return super.listItem(children, { ...styles, paddingVertical: 5, alignItems: 'center', justifyContent: 'center' })
   }
 }
 
@@ -218,7 +219,13 @@ class CustomRenderer extends Renderer implements RendererInterface {
  * @param isDark - Whether the theme is dark, used for styling.
  */
 export const useMarkedRenderer = (isDark: boolean) => {
-  const renderer = useMemo(() => new CustomRenderer(isDark), [isDark])
+  const equationColor = isDark ? markdownColors.dark.text : markdownColors.light.text
+  const { extractMathEquation, renderInlineMath } = useMathEquation(equationColor)
+
+  const renderer = useMemo(
+    () => new CustomRenderer(isDark, extractMathEquation, renderInlineMath),
+    [isDark, extractMathEquation, renderInlineMath]
+  )
   const tokenizer = useMemo(() => new CustomTokenizer(), [])
 
   return { renderer, tokenizer }
