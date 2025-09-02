@@ -5,7 +5,8 @@ import {
   getAllProviders as _getAllProviders,
   getProviderById as _getProviderById,
   getProviderByIdSync as _getProviderByIdSync,
-  upsertProviders
+  upsertProviders,
+  deleteProvider as _deleteProvider
 } from '../../db/queries/providers.queries'
 import { getDefaultModel } from './AssistantService'
 const logger = loggerService.withContext('Provider Service')
@@ -61,4 +62,13 @@ export function getDefaultProvider() {
 export async function getAssistantProvider(assistant: Assistant): Promise<Provider> {
   const provider = await getProviderById(assistant.model?.provider || '')
   return provider || getDefaultProvider()
+}
+
+export async function deleteProvider(providerId: string) {
+  try {
+    await _deleteProvider(providerId)
+  } catch (error) {
+    logger.error('Error deleting provider:', error)
+    throw error
+  }
 }
