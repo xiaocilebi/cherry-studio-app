@@ -1,5 +1,4 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet'
-import { PenLine } from '@tamagui/lucide-icons'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,14 +6,13 @@ import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
-import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
-import { AvatarEditButton } from '@/components/ui/AvatarEditButton'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { saveProvider } from '@/services/ProviderService'
 import { Provider, ProviderType } from '@/types/assistant'
 import { uuid } from '@/utils'
 
+import { ProviderIconButton } from './ProviderIconButton'
 import { ProviderSelect } from './ProviderSelect'
 
 const logger = loggerService.withContext('AddProviderSheet')
@@ -26,6 +24,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
   const theme = useTheme()
   const { isDark } = useCustomTheme()
   const insets = useSafeAreaInsets()
+  const [providerId] = useState(() => uuid())
 
   const [providerName, setProviderName] = useState('')
   const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)
@@ -53,7 +52,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
   const handleAddProvider = async () => {
     try {
       const newProvider: Provider = {
-        id: uuid(),
+        id: providerId,
         type: selectedProviderType ?? 'openai',
         name: providerName,
         apiKey: '',
@@ -92,11 +91,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
               <Text fontSize={24}>{t('settings.provider.add.title')}</Text>
             </XStack>
             <YStack width="100%" gap={24} justifyContent="center" alignItems="center">
-              <AvatarEditButton
-                content={<DefaultProviderIcon />}
-                editIcon={<PenLine size={24} />}
-                updateAvatar={async () => {}}
-              />
+              <ProviderIconButton providerId={providerId} />
               <YStack width="100%" gap={8}>
                 <XStack gap={8}>
                   <Text color="red">*</Text>
