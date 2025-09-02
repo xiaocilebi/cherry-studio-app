@@ -49,7 +49,7 @@ export default function ProviderListScreen() {
   }
 
   const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (
-    <ProviderItem key={item.id} provider={item} mode="checked" />
+    <ProviderItem key={item.id} provider={item} mode={item.enabled ? 'enabled' : 'checked'} />
   )
 
   return (

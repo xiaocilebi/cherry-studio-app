@@ -16,6 +16,7 @@ import { Assistant, Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
+
 import EmojiAvatar from '../assistant/EmojiAvator'
 
 type TimeFormat = 'time' | 'date'
@@ -45,6 +46,7 @@ const TopicItem: FC<TopicItemProps> = ({
 
   const openTopic = () => {
     dispatch(setCurrentTopicId(topic.id))
+
     if (handleNavigateChatScreen) {
       handleNavigateChatScreen(topic.id)
     } else {
