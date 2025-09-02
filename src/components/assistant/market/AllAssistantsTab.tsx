@@ -5,6 +5,7 @@ import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 import AssistantItemCard from '@/components/assistant/AssistantItemCard'
 import { Assistant } from '@/types/assistant'
+import { TouchableOpacity } from 'react-native'
 
 interface AllAssistantsTabProps {
   assistantGroups: Record<string, Assistant[]>
@@ -30,17 +31,19 @@ const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistantGroups, on
 
   const renderGroupItem = ({ item }: { item: GroupItem }) => (
     <YStack gap={16}>
-      <XStack justifyContent="space-between" alignItems="center">
-        <Text>{item.groupKey.charAt(0).toUpperCase() + item.groupKey.slice(1)}</Text>
-        <XStack pressStyle={{ backgroundColor: 'black' }} onPress={() => onArrowClick(item.groupKey)}>
-          <ChevronRight size={20} color="white" />
+      <TouchableOpacity onPress={() => onArrowClick(item.groupKey)}>
+        <XStack justifyContent="space-between" alignItems="center">
+          <Text fontSize={15} fontWeight="bold">
+            {item.groupKey.charAt(0).toUpperCase() + item.groupKey.slice(1)}
+          </Text>
+          <ChevronRight size={22} />
           {/*<MaskedView
             style={{ width: 18, height: 18 }}
             maskElement={<ChevronRight size={20} color="$uiCardBackground" />}>
             <LinearGradient colors={['#BAF4A5', '#315923']} start={[1, 0]} end={[0, 1]} style={{ flex: 1 }} />
           </MaskedView>*/}
         </XStack>
-      </XStack>
+      </TouchableOpacity>
       <XStack flex={1}>
         <ScrollView flex={1} horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap={20}>
@@ -59,9 +62,10 @@ const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistantGroups, on
         data={flatData}
         renderItem={renderGroupItem}
         estimatedItemSize={220}
-        ItemSeparatorComponent={() => <YStack height={16} />}
+        ItemSeparatorComponent={() => <YStack height={24} />}
         keyExtractor={item => item.groupKey}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingVertical: 8 }}
       />
     </YStack>
   )

@@ -120,7 +120,12 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
             {/* Header with emoji and groups */}
             <YStack justifyContent="center" alignItems="center" gap={20}>
               <View marginTop={20}>
-                <EmojiAvatar emoji={assistant.emoji} size={120} borderWidth={5} borderColor="$uiCardBackground" />
+                <EmojiAvatar
+                  emoji={assistant.emoji}
+                  size={120}
+                  borderWidth={5}
+                  borderColor={isDark ? '#333333' : '$uiCardBackground'}
+                />
               </View>
               <Text fontSize={22} fontWeight="bold" textAlign="center">
                 {assistant.name}
