@@ -121,7 +121,12 @@
       "websearch": "網路搜尋",
       "yesterday": "昨天",
       "copy": "複製文本",
-      "select_text": "選擇文本"
+      "select_text": "選擇文本",
+      "delete_translation": "刪除翻譯",
+      "play": "播放",
+      "regenerate": "重新生成",
+      "stop": "停止",
+      "translate": "翻譯"
     },
     "error": {
       "backup": {

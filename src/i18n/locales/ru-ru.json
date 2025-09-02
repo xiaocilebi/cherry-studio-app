@@ -121,7 +121,12 @@
       "websearch": "Поиск в интернете",
       "yesterday": "Вчера",
       "copy": "Копировать текст",
-      "select_text": "Выбрать текст"
+      "select_text": "Выбрать текст",
+      "delete_translation": "Удалить перевод",
+      "play": "Играть",
+      "regenerate": "Регенерация",
+      "stop": "Стоп",
+      "translate": "Перевод"
     },
     "error": {
       "backup": {

@@ -121,7 +121,12 @@
       "websearch": "Web Search",
       "yesterday": "Yesterday",
       "copy": "Copy Text",
-      "select_text": "Select Text"
+      "select_text": "Select Text",
+      "delete_translation": "Delete Translation",
+      "play": "Play",
+      "regenerate": "Regenerate",
+      "stop": "Stop",
+      "translate": "Translate"
     },
     "error": {
       "backup": {

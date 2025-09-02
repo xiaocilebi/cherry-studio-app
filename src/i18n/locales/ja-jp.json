@@ -121,7 +121,12 @@
       "websearch": "ウェブ検索",
       "yesterday": "昨日",
       "copy": "テキストをコピー",
-      "select_text": "テキストを選択"
+      "select_text": "テキストを選択",
+      "delete_translation": "翻訳を削除",
+      "play": "再生",
+      "regenerate": "再生成",
+      "stop": "停止",
+      "translate": "翻訳"
     },
     "error": {
       "backup": {
