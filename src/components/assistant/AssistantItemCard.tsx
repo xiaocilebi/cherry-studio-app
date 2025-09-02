@@ -5,6 +5,7 @@ import { Assistant } from '@/types/assistant'
 
 import EmojiAvatar from './EmojiAvator'
 import GroupTag from './market/GroupTag'
+import { useTheme } from '@/hooks/useTheme'
 
 interface AssistantItemCardProps {
   assistant: Assistant
@@ -12,6 +13,7 @@ interface AssistantItemCardProps {
 }
 
 const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
+  const { isDark } = useTheme()
   const handlePress = () => {
     onAssistantPress(assistant)
   }
@@ -19,7 +21,12 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   return (
     <View backgroundColor="$uiCardBackground" padding={14} width={148} borderRadius={16} onPress={handlePress}>
       <YStack gap={8} alignItems="center" height="100%">
-        <EmojiAvatar emoji={assistant.emoji} size={70} borderWidth={5} />
+        <EmojiAvatar
+          emoji={assistant.emoji}
+          size={70}
+          borderWidth={5}
+          borderColor={isDark ? '#333333' : '$backgroundPrimary'}
+        />
         <Text textAlign="center" numberOfLines={1} ellipsizeMode="tail">
           {assistant.name}
         </Text>

@@ -3,7 +3,6 @@ import { ChevronRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Avatar, Button, Stack, styled, Text, useTheme, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
@@ -21,7 +20,6 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const { t } = useTranslation()
   const theme = useTheme()
   const { avatar, userName } = useSettings()
-  const insets = useSafeAreaInsets()
 
   const { topics } = useTopics()
 
@@ -42,7 +40,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   const handleNavigateSettingsScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('Settings', { screen: 'SettingsScreen' })
+    props.navigation.navigate('Home', { screen: 'SettingsScreen' })
   }
 
   const handleNavigateChatScreen = (topicId: string) => {
