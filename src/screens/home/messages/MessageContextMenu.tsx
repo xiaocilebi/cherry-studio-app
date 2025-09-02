@@ -1,4 +1,3 @@
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, Trash2 } from '@tamagui/lucide-icons'
 import { FC, memo, useEffect, useRef, useState } from 'react'
 import React from 'react'
@@ -6,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import * as ContextMenu from 'zeego/context-menu'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
-import TextSelectionSheet from '@/components/sheets/TextSelectionSheet'
+import TextSelectionSheet, { TextSelectionSheetRef } from '@/components/sheets/TextSelectionSheet'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
@@ -19,7 +18,7 @@ interface MessageItemProps {
 
 const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant }) => {
   const { t } = useTranslation()
-  const textSelectionSheetRef = useRef<BottomSheetModal>(null)
+  const textSelectionSheetRef = useRef<TextSelectionSheetRef>(null)
   const [messageContent, setMessageContent] = useState('')
 
   const {
