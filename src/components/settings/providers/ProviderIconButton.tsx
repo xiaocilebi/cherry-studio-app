@@ -6,7 +6,6 @@ import { Image } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
 import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
-import { uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { FileType } from '@/types/file'
 import { getFileType } from '@/utils/file'
@@ -14,9 +13,10 @@ import { getFileType } from '@/utils/file'
 const logger = loggerService.withContext('ProviderIconButton')
 interface ProviderIconButtonProps {
   providerId: string
+  onImageSelected?: (file: Omit<FileType, 'md5'> | null) => void
 }
 
-export function ProviderIconButton({ providerId }: ProviderIconButtonProps) {
+export function ProviderIconButton({ providerId, onImageSelected }: ProviderIconButtonProps) {
   const [image, setImage] = useState<string | null>(null)
 
   const handleUploadIcon = async () => {
@@ -40,7 +40,7 @@ export function ProviderIconButton({ providerId }: ProviderIconButtonProps) {
           created_at: new Date().toISOString(),
           count: 1
         }
-        await uploadFiles([file])
+        onImageSelected?.(file)
       }
     } catch (error) {
       logger.error('handleUploadIcon Error', error)

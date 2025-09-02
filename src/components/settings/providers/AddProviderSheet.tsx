@@ -7,9 +7,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { saveProvider } from '@/services/ProviderService'
 import { Provider, ProviderType } from '@/types/assistant'
+import { FileType } from '@/types/file'
 import { uuid } from '@/utils'
 
 import { ProviderIconButton } from './ProviderIconButton'
@@ -28,6 +30,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
 
   const [providerName, setProviderName] = useState('')
   const [selectedProviderType, setSelectedProviderType] = useState<ProviderType | undefined>(undefined)
+  const [selectedImageFile, setSelectedImageFile] = useState<Omit<FileType, 'md5'> | null>(null)
 
   // 处理Android返回按钮事件
   useEffect(() => {
@@ -49,8 +52,17 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
+  const handleImageSelected = (file: Omit<FileType, 'md5'> | null) => {
+    setSelectedImageFile(file)
+  }
+
   const handleAddProvider = async () => {
     try {
+      // 如果有选中的图片，先上传
+      if (selectedImageFile) {
+        await uploadFiles([selectedImageFile])
+      }
+
       const newProvider: Provider = {
         id: providerId,
         type: selectedProviderType ?? 'openai',
@@ -66,6 +78,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
     } finally {
       setSelectedProviderType(undefined)
       setProviderName('')
+      setSelectedImageFile(null)
     }
   }
 
@@ -91,7 +104,7 @@ const AddProviderSheet = forwardRef<BottomSheetModal, AddProviderSheetProps>((pr
               <Text fontSize={24}>{t('settings.provider.add.title')}</Text>
             </XStack>
             <YStack width="100%" gap={24} justifyContent="center" alignItems="center">
-              <ProviderIconButton providerId={providerId} />
+              <ProviderIconButton providerId={providerId} onImageSelected={handleImageSelected} />
               <YStack width="100%" gap={8}>
                 <XStack gap={8}>
                   <Text color="red">*</Text>
