@@ -119,7 +119,14 @@
       "tool": "工具",
       "visit": "访问",
       "websearch": "网络搜索",
-      "yesterday": "昨天"
+      "yesterday": "昨天",
+      "copy": "复制文本",
+      "select_text": "选择文本",
+      "play": "播放",
+      "stop": "停止",
+      "regenerate": "重新生成",
+      "translate": "翻译",
+      "delete_translation": "删除翻译"
     },
     "error": {
       "backup": {
@@ -232,6 +239,7 @@
     },
     "message": {
       "delete_message": "删除消息",
+      "delete_message_confirmation": "您确定要删除这条消息吗？",
       "delete_translation": "删除翻译",
       "searching": "正在搜索...",
       "translate_message": "翻译消息",

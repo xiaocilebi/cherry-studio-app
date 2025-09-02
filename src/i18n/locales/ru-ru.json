@@ -119,7 +119,9 @@
       "tool": "Инструмент",
       "visit": "Посетить",
       "websearch": "Поиск в интернете",
-      "yesterday": "Вчера"
+      "yesterday": "Вчера",
+      "copy": "Копировать текст",
+      "select_text": "Выбрать текст"
     },
     "error": {
       "backup": {
@@ -232,6 +234,7 @@
     },
     "message": {
       "delete_message": "Удалить сообщение",
+      "delete_message_confirmation": "Вы уверены, что хотите удалить это сообщение?",
       "delete_translation": "Удалить перевод",
       "searching": "Поиск...",
       "translate_message": "Перевести сообщение",

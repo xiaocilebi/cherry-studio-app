@@ -119,7 +119,9 @@
       "tool": "Tool",
       "visit": "Visit",
       "websearch": "Web Search",
-      "yesterday": "Yesterday"
+      "yesterday": "Yesterday",
+      "copy": "Copy Text",
+      "select_text": "Select Text"
     },
     "error": {
       "backup": {
@@ -232,6 +234,7 @@
     },
     "message": {
       "delete_message": "Delete Message",
+      "delete_message_confirmation": "Are you sure you want to delete this message?",
       "delete_translation": "Remove Translation",
       "searching": "Searching...",
       "translate_message": "Translate Message",
