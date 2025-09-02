@@ -1,8 +1,8 @@
 import { X } from '@tamagui/lucide-icons'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Modal, ScrollView, TouchableOpacity } from 'react-native'
-import { Text, XStack, YStack } from 'tamagui'
+import { Modal, Platform, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, XStack, YStack } from 'tamagui'
 
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 
@@ -15,6 +15,22 @@ export interface TextSelectionSheetRef {
   dismiss: () => void
 }
 
+// TODO: 自定义选择后弹出的菜单
+function SelectableText({ children }) {
+  if (Platform.OS === 'ios') {
+    return (
+      <TextInput multiline editable={false} style={{ fontSize: 15, lineHeight: 24 }} scrollEnabled={false}>
+        {children}
+      </TextInput>
+    )
+  } else {
+    return (
+      <Text userSelect="all" fontSize={15} lineHeight={24}>
+        {children}
+      </Text>
+    )
+  }
+}
 const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetProps>(({ content }, ref) => {
   const { isDark } = useCustomTheme()
   const { t } = useTranslation()
@@ -31,7 +47,7 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
       animationType="slide"
       presentationStyle="pageSheet"
       onRequestClose={() => setVisible(false)}>
-      <YStack flex={1} backgroundColor="$uiCardBackground">
+      <YStack flex={1}>
         <XStack
           justifyContent="space-between"
           alignItems="center"
@@ -46,11 +62,8 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
             <X size={20} />
           </TouchableOpacity>
         </XStack>
-        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 20 }}>
-          {/* FIXME: 还是无法选择文字，待解决 */}
-          <Text selectable={true} fontSize={15} lineHeight={24}>
-            {content}
-          </Text>
+        <ScrollView contentContainerStyle={{ flex: 1, paddingHorizontal: 20, paddingBottom: 30 }}>
+          <SelectableText>{content}</SelectableText>
         </ScrollView>
       </YStack>
     </Modal>
