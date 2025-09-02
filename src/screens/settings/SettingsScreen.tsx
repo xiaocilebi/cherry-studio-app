@@ -11,7 +11,7 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
 import { useSwipeGesture } from '@/hooks/useSwipeGesture'
-import { SettingsNavigationProps } from '@/types/naviagate'
+import { HomeNavigationProps } from '@/types/naviagate'
 
 interface SettingItemConfig {
   title: string
@@ -145,7 +145,7 @@ interface SettingItemProps {
 }
 
 function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) {
-  const navigation = useNavigation<SettingsNavigationProps>()
+  const navigation = useNavigation<HomeNavigationProps>()
   const theme = useTheme()
 
   const renderIcon = () => {
