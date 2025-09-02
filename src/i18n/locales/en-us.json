@@ -91,6 +91,7 @@
       "confirm": "Confirm",
       "delete": "Delete",
       "description": "Description",
+      "edit": "Edit",
       "enabled": "Enabled",
       "error_occurred": "An error occurred",
       "file": "File",
@@ -553,6 +554,9 @@
         },
         "delete.content": "Are you sure you want to delete this provider?",
         "delete.title": "Delete Provider",
+        "edit": {
+          "title": "Edit Provider"
+        },
         "enabled": "On",
         "list.title": "Provider List",
         "not_found": "Provider not found",

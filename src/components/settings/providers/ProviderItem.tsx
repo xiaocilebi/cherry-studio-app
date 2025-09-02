@@ -16,7 +16,7 @@ import { PressableSettingRow } from '..'
 
 interface ProviderItemProps {
   provider: Provider
-  mode?: 'enabled' | 'checked' // 添加 mode 属性来区分显示模式
+  mode?: 'enabled' | 'checked' // Add mode prop to distinguish display modes
   onEdit?: (provider: Provider) => void
 }
 
@@ -24,7 +24,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<ProvidersStackParamList>>()
 
-  // 根据模式决定显示条件和文本
+  // Determine display conditions and text based on mode
   const shouldShowStatus = mode === 'enabled' ? provider.enabled : provider.apiKey
   const statusText = mode === 'enabled' ? t('settings.provider.enabled') : t('settings.provider.added')
 
@@ -45,7 +45,8 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
           try {
             await deleteProvider(provider.id)
           } catch (error) {
-            Alert.alert(t('common.error_occurred'), (error as Error).message || 'Unknown error')
+            const errorMessage = error instanceof Error ? error.message : t('common.unknown_error')
+            Alert.alert(t('common.error_occurred'), errorMessage)
           }
         }
       }

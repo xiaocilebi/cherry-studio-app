@@ -91,6 +91,7 @@
       "confirm": "確認",
       "delete": "削除",
       "description": "説明",
+      "edit": "編集",
       "enabled": "有効",
       "error_occurred": "エラーが発生しました",
       "file": "ファイル",
@@ -553,6 +554,9 @@
         },
         "delete.content": "このプロバイダーを削除してもよろしいですか？",
         "delete.title": "プロバイダーの削除",
+        "edit": {
+          "title": "編集サービスプロバイダ"
+        },
         "enabled": "オン",
         "list.title": "プロバイダーリスト",
         "not_found": "プロバイダーが見つかりません",

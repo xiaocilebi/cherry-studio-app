@@ -3,7 +3,7 @@ import { File, Paths } from 'expo-file-system/next'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Alert, BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
 
@@ -77,34 +77,44 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
       setSelectedImageFile(file)
     }
 
+    // Helper function to upload provider image
+    const uploadProviderImage = async (file: Omit<FileType, 'md5'> | null) => {
+      if (file) {
+        await uploadFiles([file])
+      }
+    }
+
+    // Helper function to create provider data
+    const createProviderData = (): Provider => {
+      if (mode === 'edit' && editProvider) {
+        return {
+          ...editProvider,
+          name: providerName,
+          type: selectedProviderType ?? editProvider.type
+        }
+      }
+
+      return {
+        id: providerId,
+        type: selectedProviderType ?? 'openai',
+        name: providerName,
+        apiKey: '',
+        apiHost: '',
+        models: []
+      }
+    }
+
     const handleSaveProvider = async () => {
       try {
-        // 如果有选中的图片，先上传
-        if (selectedImageFile) {
-          await uploadFiles([selectedImageFile])
-        }
-
-        const providerData: Provider =
-          mode === 'edit' && editProvider
-            ? {
-                ...editProvider,
-                name: providerName,
-                type: selectedProviderType ?? editProvider.type
-              }
-            : {
-                id: providerId,
-                type: selectedProviderType ?? 'openai',
-                name: providerName,
-                apiKey: '',
-                apiHost: '',
-                models: []
-              }
-
+        await uploadProviderImage(selectedImageFile)
+        const providerData = createProviderData()
         await saveProvider(providerData)
         onSave?.(providerData)
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
       } catch (error) {
         logger.error('handleSaveProvider', error as Error)
+        // Add user-friendly error alert
+        Alert.alert(t('common.error_occurred'), error instanceof Error ? error.message : t('common.unknown_error'))
       } finally {
         if (mode === 'add') {
           setSelectedProviderType(undefined)
@@ -190,6 +200,3 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
 )
 
 export { ProviderSheet }
-
-// Keep the old export for backward compatibility during transition
-export { ProviderSheet as AddProviderSheet }

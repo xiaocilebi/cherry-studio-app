@@ -1,6 +1,8 @@
 import { PenLine } from '@tamagui/lucide-icons'
 import * as ImagePicker from 'expo-image-picker'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import { Button, Stack, YStack } from 'tamagui'
 import { Image } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
@@ -11,13 +13,51 @@ import { FileType } from '@/types/file'
 import { getFileType } from '@/utils/file'
 
 const logger = loggerService.withContext('ProviderIconButton')
+
+// Constants for image validation
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
+const ALLOWED_FORMATS = ['png', 'jpg', 'jpeg']
 interface ProviderIconButtonProps {
   providerId: string
   iconUri?: string
   onImageSelected?: (file: Omit<FileType, 'md5'> | null) => void
 }
 
+// Helper function to create file from image asset
+const createFileFromImageAsset = (asset: ImagePicker.ImagePickerAsset, providerId: string): Omit<FileType, 'md5'> => {
+  const ext = asset.fileName?.split('.').pop() || 'png'
+
+  return {
+    id: providerId,
+    name: asset.fileName || providerId,
+    origin_name: asset.fileName || providerId,
+    path: asset.uri,
+    size: asset.fileSize || 0,
+    ext,
+    type: getFileType(ext),
+    mime_type: asset.mimeType || '',
+    created_at: new Date().toISOString(),
+    count: 1
+  }
+}
+
+// Helper function to validate image
+const validateImage = (asset: ImagePicker.ImagePickerAsset): string | null => {
+  const ext = asset.fileName?.split('.').pop()?.toLowerCase()
+
+  if (ext && !ALLOWED_FORMATS.includes(ext)) {
+    return 'Invalid image format. Please use PNG, JPG, or JPEG.'
+  }
+
+  if (asset.fileSize && asset.fileSize > MAX_IMAGE_SIZE) {
+    return 'Image size is too large. Please use an image smaller than 5MB.'
+  }
+
+  return null
+}
+
 export function ProviderIconButton({ providerId, iconUri, onImageSelected }: ProviderIconButtonProps) {
+  const { t } = useTranslation()
   const [image, setImage] = useState<string | null>(null)
 
   useEffect(() => {
@@ -33,27 +73,27 @@ export function ProviderIconButton({ providerId, iconUri, onImageSelected }: Pro
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
-        allowsEditing: true
+        allowsEditing: true,
+        aspect: [1, 1], // Force square aspect ratio
+        quality: 0.8
       })
 
-      if (!result.canceled) {
-        setImage(result.assets[0].uri)
-        const file: Omit<FileType, 'md5'> = {
-          id: providerId,
-          name: result.assets[0].fileName || providerId,
-          origin_name: result.assets[0].fileName || providerId,
-          path: result.assets[0].uri,
-          size: result.assets[0].fileSize || 0,
-          ext: result.assets[0].fileName?.split('.').pop() || 'png',
-          type: getFileType(result.assets[0].fileName?.split('.').pop() || 'png'),
-          mime_type: result.assets[0].mimeType || '',
-          created_at: new Date().toISOString(),
-          count: 1
-        }
-        onImageSelected?.(file)
+      if (result.canceled) return
+
+      const asset = result.assets[0]
+      const validationError = validateImage(asset)
+
+      if (validationError) {
+        Alert.alert(t('common.error'), validationError)
+        return
       }
+
+      setImage(asset.uri)
+      const file = createFileFromImageAsset(asset, providerId)
+      onImageSelected?.(file)
     } catch (error) {
       logger.error('handleUploadIcon Error', error)
+      Alert.alert(t('common.error_occurred'), 'Failed to upload image. Please try again.')
     }
   }
 

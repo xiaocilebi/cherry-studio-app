@@ -91,6 +91,7 @@
       "confirm": "确认",
       "delete": "删除",
       "description": "描述",
+      "edit": "编辑",
       "enabled": "已启用",
       "error_occurred": "发生错误",
       "file": "文件",
@@ -553,6 +554,9 @@
         },
         "delete.content": "您确定要删除此服务商吗？",
         "delete.title": "删除服务商",
+        "edit": {
+          "title": "编辑服务商"
+        },
         "enabled": "开启",
         "list.title": "服务商列表",
         "not_found": "未找到服务商",
