@@ -1,9 +1,10 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { Modal, ScrollView, TouchableOpacity } from 'react-native'
 import { X } from '@tamagui/lucide-icons'
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { XStack, Text, YStack } from 'tamagui'
+import { Modal, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, XStack, YStack } from 'tamagui'
+
+import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 
 interface TextSelectionSheetProps {
   content: string

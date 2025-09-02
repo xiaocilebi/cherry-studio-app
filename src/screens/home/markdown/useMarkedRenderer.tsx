@@ -21,18 +21,24 @@ class CustomRenderer extends Renderer implements RendererInterface {
   private isDark: boolean
   private equationColor: string
   private extractMathEquation: (text: string) => string | null
+  private extractBlockMathEquation: (text: string) => string | null
   private renderInlineMath: (content: string, key?: string | number) => React.JSX.Element
+  private renderBlockMath: (content: string, key?: string | number) => React.JSX.Element
 
   constructor(
     isDark: boolean,
     extractMathEquation: (text: string) => string | null,
-    renderInlineMath: (content: string, key?: string | number) => React.JSX.Element
+    extractBlockMathEquation: (text: string) => string | null,
+    renderInlineMath: (content: string, key?: string | number) => React.JSX.Element,
+    renderBlockMath: (content: string, key?: string | number) => React.JSX.Element
   ) {
     super()
     this.isDark = isDark
     this.equationColor = isDark ? markdownColors.dark.text : markdownColors.light.text
     this.extractMathEquation = extractMathEquation
+    this.extractBlockMathEquation = extractBlockMathEquation
     this.renderInlineMath = renderInlineMath
+    this.renderBlockMath = renderBlockMath
   }
 
   private async onCopy(content: string) {
@@ -138,7 +144,14 @@ class CustomRenderer extends Renderer implements RendererInterface {
     const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
 
     if (typeof text === 'string') {
-      // support katex
+      // Check for block equations first
+      const blockEquation = this.extractBlockMathEquation(text)
+
+      if (blockEquation) {
+        return this.renderBlockMath(blockEquation, this.getKey())
+      }
+
+      // Then check for inline equations
       const equation = this.extractMathEquation(text)
 
       if (equation) {
@@ -202,14 +215,18 @@ class CustomRenderer extends Renderer implements RendererInterface {
     return super.list(
       ordered,
       li,
-      { ...listStyle, ...currentColors, alignItems: 'center', justifyContent: 'center' },
-      { ...textStyle, textAlign: 'center', alignSelf: 'center' },
+      { ...listStyle, ...currentColors, alignItems: 'flex-start', justifyContent: 'flex-start' },
+      { ...textStyle, textAlign: 'center', alignSelf: 'flex-start' },
       startIndex
     )
   }
 
   listItem(children: ReactNode[], styles?: ViewStyle): ReactNode {
-    return super.listItem(children, { ...styles, paddingVertical: 5, alignItems: 'center', justifyContent: 'center' })
+    return super.listItem(children, {
+      ...styles,
+      width: '100%',
+      alignItems: 'flex-start'
+    })
   }
 }
 
@@ -220,11 +237,12 @@ class CustomRenderer extends Renderer implements RendererInterface {
  */
 export const useMarkedRenderer = (isDark: boolean) => {
   const equationColor = isDark ? markdownColors.dark.text : markdownColors.light.text
-  const { extractMathEquation, renderInlineMath } = useMathEquation(equationColor)
+  const { extractMathEquation, extractBlockMathEquation, renderInlineMath, renderBlockMath } =
+    useMathEquation(equationColor)
 
   const renderer = useMemo(
-    () => new CustomRenderer(isDark, extractMathEquation, renderInlineMath),
-    [isDark, extractMathEquation, renderInlineMath]
+    () => new CustomRenderer(isDark, extractMathEquation, extractBlockMathEquation, renderInlineMath, renderBlockMath),
+    [isDark, extractMathEquation, extractBlockMathEquation, renderInlineMath, renderBlockMath]
   )
   const tokenizer = useMemo(() => new CustomTokenizer(), [])
 

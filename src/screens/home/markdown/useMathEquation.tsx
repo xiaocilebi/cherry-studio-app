@@ -6,7 +6,7 @@ import MathJax from 'react-native-mathjax-svg'
 export const MemoizedMathJax = memo(
   ({ content, fontSize, color }: { content: string; fontSize: number; color: string }) => {
     return (
-      <MathJax fontSize={fontSize} color={color} style={{ height: 20, alignItems: 'center', justifyContent: 'center' }}>
+      <MathJax fontSize={fontSize} color={color} style={{ alignItems: 'center', justifyContent: 'center' }}>
         {content}
       </MathJax>
     )
@@ -44,6 +44,29 @@ export const useMathEquation = (equationColor: string) => {
   }
 
   /**
+   * Check if text contains block math equation pattern
+   * @param text - Text to check
+   * @returns Matched block equation content or null
+   */
+  const extractBlockMathEquation = (text: string): string | null => {
+    // Match \[...\] pattern for block equations (including multiline)
+    const blockMatch = text.match(/\\\[\s*([\s\S]+?)\s*\\\]/)
+
+    if (blockMatch?.[1]) {
+      return blockMatch[1]
+    }
+
+    // Match $$...$$ pattern for block equations (multiline)
+    const doubleDollarMatch = text.match(/\$\$\s*([\s\S]+?)\s*\$\$/)
+
+    if (doubleDollarMatch?.[1]) {
+      return doubleDollarMatch[1]
+    }
+
+    return null
+  }
+
+  /**
    * Render inline math equation
    * @param content - Math equation content
    * @param key - React key for the component
@@ -56,8 +79,30 @@ export const useMathEquation = (equationColor: string) => {
     )
   }
 
+  /**
+   * Render block math equation (centered, larger)
+   * @param content - Math equation content
+   * @param key - React key for the component
+   */
+  const renderBlockMath = (content: string, key?: string | number) => {
+    return (
+      <View
+        key={key}
+        style={{
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingVertical: 10
+        }}>
+        <MemoizedMathJax content={content} fontSize={18} color={equationColor} />
+      </View>
+    )
+  }
+
   return {
     extractMathEquation,
-    renderInlineMath
+    extractBlockMathEquation,
+    renderInlineMath,
+    renderBlockMath
   }
 }
