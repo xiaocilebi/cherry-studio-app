@@ -9,7 +9,7 @@ import { YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
-import { AddProviderSheet } from '@/components/settings/providers/AddProviderSheet'
+import { ProviderSheet } from '@/components/settings/providers/AddProviderSheet'
 import { ProviderItem } from '@/components/settings/providers/ProviderItem'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
@@ -24,6 +24,8 @@ export default function ProviderListScreen() {
 
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
+  const [sheetMode, setSheetMode] = useState<'add' | 'edit'>('add')
+  const [editingProvider, setEditingProvider] = useState<Provider | undefined>(undefined)
 
   // 创建防抖函数，300ms 延迟
   const debouncedSetSearch = debounce((text: string) => {
@@ -45,11 +47,19 @@ export default function ProviderListScreen() {
   )
 
   const onAddProvider = () => {
+    setSheetMode('add')
+    setEditingProvider(undefined)
+    bottomSheetRef.current?.present()
+  }
+
+  const onEditProvider = (provider: Provider) => {
+    setSheetMode('edit')
+    setEditingProvider(provider)
     bottomSheetRef.current?.present()
   }
 
   const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (
-    <ProviderItem key={item.id} provider={item} mode={item.enabled ? 'enabled' : 'checked'} />
+    <ProviderItem key={item.id} provider={item} mode={item.enabled ? 'enabled' : 'checked'} onEdit={onEditProvider} />
   )
 
   return (
@@ -84,7 +94,7 @@ export default function ProviderListScreen() {
         </SettingContainer>
       )}
 
-      <AddProviderSheet ref={bottomSheetRef} />
+      <ProviderSheet ref={bottomSheetRef} mode={sheetMode} editProvider={editingProvider} />
     </SafeAreaContainer>
   )
 }

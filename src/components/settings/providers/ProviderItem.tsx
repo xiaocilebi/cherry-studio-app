@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import type { StackNavigationProp } from '@react-navigation/stack'
-import { ChevronRight, Trash2 } from '@tamagui/lucide-icons'
+import { ChevronRight, Edit3, Trash2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
@@ -17,15 +17,20 @@ import { PressableSettingRow } from '..'
 interface ProviderItemProps {
   provider: Provider
   mode?: 'enabled' | 'checked' // 添加 mode 属性来区分显示模式
+  onEdit?: (provider: Provider) => void
 }
 
-export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'enabled' }) => {
+export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'enabled', onEdit }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<ProvidersStackParamList>>()
 
   // 根据模式决定显示条件和文本
   const shouldShowStatus = mode === 'enabled' ? provider.enabled : provider.apiKey
   const statusText = mode === 'enabled' ? t('settings.provider.enabled') : t('settings.provider.added')
+
+  const handleEdit = () => {
+    onEdit?.(provider)
+  }
 
   const handleDelete = () => {
     Alert.alert(t('settings.provider.delete.title'), t('settings.provider.delete.content'), [
@@ -80,6 +85,12 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
     <ContextMenu.Root>
       <ContextMenu.Trigger>{providerRow}</ContextMenu.Trigger>
       <ContextMenu.Content>
+        <ContextMenu.Item key="edit" onSelect={handleEdit}>
+          <ContextMenu.ItemTitle>{t('common.edit')}</ContextMenu.ItemTitle>
+          <ContextMenu.ItemIcon ios={{ name: 'pencil' }}>
+            <Edit3 size={16} color="$blue10" />
+          </ContextMenu.ItemIcon>
+        </ContextMenu.Item>
         <ContextMenu.Item key="delete" onSelect={handleDelete}>
           <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
           <ContextMenu.ItemIcon ios={{ name: 'trash' }}>

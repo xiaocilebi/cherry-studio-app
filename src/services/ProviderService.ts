@@ -2,11 +2,11 @@ import { loggerService } from '@/services/LoggerService'
 import { Assistant, Model, Provider } from '@/types/assistant'
 
 import {
+  deleteProvider as _deleteProvider,
   getAllProviders as _getAllProviders,
   getProviderById as _getProviderById,
   getProviderByIdSync as _getProviderByIdSync,
-  upsertProviders,
-  deleteProvider as _deleteProvider
+  upsertProviders
 } from '../../db/queries/providers.queries'
 import { getDefaultModel } from './AssistantService'
 const logger = loggerService.withContext('Provider Service')

@@ -1,6 +1,6 @@
 import { PenLine } from '@tamagui/lucide-icons'
 import * as ImagePicker from 'expo-image-picker'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Stack, YStack } from 'tamagui'
 import { Image } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
@@ -13,11 +13,21 @@ import { getFileType } from '@/utils/file'
 const logger = loggerService.withContext('ProviderIconButton')
 interface ProviderIconButtonProps {
   providerId: string
+  iconUri?: string
   onImageSelected?: (file: Omit<FileType, 'md5'> | null) => void
 }
 
-export function ProviderIconButton({ providerId, onImageSelected }: ProviderIconButtonProps) {
+export function ProviderIconButton({ providerId, iconUri, onImageSelected }: ProviderIconButtonProps) {
   const [image, setImage] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!iconUri) {
+      setImage(null)
+      return
+    }
+
+    setImage(iconUri)
+  }, [iconUri])
 
   const handleUploadIcon = async () => {
     try {

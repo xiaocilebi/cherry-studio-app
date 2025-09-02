@@ -1,6 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight } from '@tamagui/lucide-icons'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
