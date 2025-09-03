@@ -127,7 +127,7 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
   return (
     <BottomSheetModal
       snapPoints={['60%']}
-      enableDynamicSizing={true}
+      enableDynamicSizing={false}
       ref={ref}
       backgroundStyle={{
         borderRadius: 30,
@@ -137,8 +137,8 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
         backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
-      <BottomSheetScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: insets.bottom }}>
-        <Stack justifyContent="center" alignItems="center" paddingHorizontal={20} paddingBottom={20}>
+      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+        <Stack justifyContent="center" alignItems="center" paddingHorizontal={20}>
           <Text fontSize={20} lineHeight={22} fontWeight={600}>
             {t('common.source')}
           </Text>

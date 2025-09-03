@@ -9,8 +9,9 @@ import { Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 
 import { AssistantSelection } from './AssistantSelection'
-import { MenuButton } from './MenuButton'
 import { NewTopicButton } from './NewTopicButton'
+import { Menu } from '@tamagui/lucide-icons'
+import { IconButton } from '../ui/IconButton'
 
 interface HeaderBarProps {
   topic: Topic
@@ -32,7 +33,7 @@ export const HeaderBar = ({ topic }: HeaderBarProps) => {
   return (
     <XStack alignItems="center" height={44} justifyContent="space-between" paddingHorizontal={14}>
       <XStack alignItems="center" minWidth={40}>
-        <MenuButton onMenuPress={handleMenuPress} />
+        <IconButton onPress={handleMenuPress} icon={<Menu size={24} />} />
       </XStack>
       <XStack flex={1} justifyContent="center" alignItems="center">
         <AssistantSelection assistant={assistant} topic={topic} />
