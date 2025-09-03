@@ -28,7 +28,12 @@ export type AppDrawerParamList = {
     | { screen: 'ChatScreen'; params: { topicId: string } }
     | { screen: 'TopicScreen' }
     | { screen: 'SettingsScreen' }
-    | { screen: 'AssistantDetailScreen'; params: { assistantId: string; tab?: string } }
+    | { screen: 'WebSearchSettings' }
+    | { screen: 'GeneralSettings' }
+    | { screen: 'AssistantSettings' }
+    | { screen: 'ProvidersSettings' }
+    | { screen: 'DataSourcesSettings' }
+    | { screen: 'AboutSettings' }
     | undefined
   Assistant:
     | { screen: 'AssistantScreen' }

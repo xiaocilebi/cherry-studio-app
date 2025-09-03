@@ -3,10 +3,9 @@ import * as ExpoLinking from 'expo-linking'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { Stack, Text, View, XStack, YStack } from 'tamagui'
 
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { Citation } from '@/types/websearch'
 import { getWebsiteBrand } from '@/utils/websearch'
@@ -81,9 +80,7 @@ const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url
 
 const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citations }, ref) => {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const { isDark } = useCustomTheme()
-  const insets = useSafeAreaInsets()
+  const { isDark } = useTheme()
 
   // 处理Android返回按钮事件
   useEffect(() => {
@@ -132,9 +129,6 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
       backgroundStyle={{
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-      }}
-      handleIndicatorStyle={{
-        backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>

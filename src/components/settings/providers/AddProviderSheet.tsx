@@ -5,9 +5,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, useTheme, XStack, YStack } from 'tamagui'
+import { Button, Text, XStack, YStack } from 'tamagui'
 
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { fileStorageDir, uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { saveProvider } from '@/services/ProviderService'
@@ -29,8 +29,7 @@ interface ProviderSheetProps {
 const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
   ({ mode = 'add', editProvider, onSave }, ref) => {
     const { t } = useTranslation()
-    const theme = useTheme()
-    const { isDark } = useCustomTheme()
+    const { isDark } = useTheme()
     const insets = useSafeAreaInsets()
     const [providerId, setProviderId] = useState(() => editProvider?.id || uuid())
 
@@ -134,9 +133,6 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         backgroundStyle={{
           borderRadius: 30,
           backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-        }}
-        handleIndicatorStyle={{
-          backgroundColor: theme.color.val
         }}
         backdropComponent={renderBackdrop}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>

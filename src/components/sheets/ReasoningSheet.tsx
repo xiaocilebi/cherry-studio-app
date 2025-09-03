@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { Button, Text, View, XStack, YStack } from 'tamagui'
 
 import {
   MdiLightbulbAutoOutline,
@@ -21,7 +21,7 @@ import {
   isSupportedThinkingTokenGeminiModel,
   isSupportedThinkingTokenQwenModel
 } from '@/config/models/reasoning'
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { Assistant, ReasoningEffortOptions } from '@/types/assistant'
 
 export type ThinkingOption = ReasoningEffortOptions | 'off'
@@ -74,8 +74,7 @@ const renderBackdrop = (props: any) => (
 export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
   ({ assistant, updateAssistant }, ref) => {
     const { t } = useTranslation()
-    const theme = useTheme()
-    const { isDark } = useCustomTheme()
+    const { isDark } = useTheme()
     const model = assistant.model!
 
     const isGrokModel = isSupportedReasoningEffortGrokModel(model)
@@ -183,9 +182,6 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
         backgroundStyle={{
           borderRadius: 30,
           backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-        }}
-        handleIndicatorStyle={{
-          backgroundColor: theme.color.val
         }}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack gap={10} paddingHorizontal={20} paddingBottom={20}>

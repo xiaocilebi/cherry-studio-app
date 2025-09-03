@@ -16,12 +16,12 @@ export type HomeStackParamList = {
   ChatScreen: { topicId: string }
   TopicScreen: undefined
   SettingsScreen: undefined
-  GeneralSettings: { screen?: string; params?: any } | undefined
-  AssistantSettings: { screen?: string; params?: any } | undefined
-  ProvidersSettings: { screen?: string; params?: any } | undefined
-  DataSourcesSettings: { screen?: string; params?: any } | undefined
-  WebSearchSettings: { screen?: string; params?: any } | undefined
-  AboutSettings: { screen?: string; params?: any } | undefined
+  GeneralSettings: undefined
+  AssistantSettings: undefined
+  ProvidersSettings: undefined
+  DataSourcesSettings: undefined
+  WebSearchSettings: undefined
+  AboutSettings: undefined
 }
 
 const Stack = createStackNavigator<HomeStackParamList>()
@@ -31,6 +31,7 @@ export default function HomeStackNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        gestureResponseDistance: 300,
         ...TransitionPresets.SlideFromRightIOS
       }}>
       <Stack.Screen name="ChatScreen" component={ChatScreen} />
