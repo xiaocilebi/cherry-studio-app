@@ -1,9 +1,12 @@
 import { debounce } from 'lodash'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { Assistant } from '@/types/assistant'
+interface UseSearchOptions {
+  delay?: number
+}
 
-export function useAssistantSearch(assistants: Assistant[], delay = 300) {
+export function useSearch<T>(items: T[], searchFields: (item: T) => string[], options: UseSearchOptions = {}) {
+  const { delay = 300 } = options
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
 
@@ -23,23 +26,22 @@ export function useAssistantSearch(assistants: Assistant[], delay = 300) {
     }
   }, [searchText, debouncedSetSearch])
 
-  const filteredAssistants = useMemo(() => {
+  const filteredItems = useMemo(() => {
     if (!debouncedSearchText) {
-      return assistants
+      return items
     }
 
     const lowerSearchText = debouncedSearchText.toLowerCase().trim()
 
     if (!lowerSearchText) {
-      return assistants
+      return items
     }
 
-    return assistants.filter(
-      assistant =>
-        (assistant.name && assistant.name.toLowerCase().includes(lowerSearchText)) ||
-        (assistant.id && assistant.id.toLowerCase().includes(lowerSearchText))
-    )
-  }, [assistants, debouncedSearchText])
+    return items.filter(item => {
+      const fields = searchFields(item)
+      return fields.some(field => field && field.toLowerCase().includes(lowerSearchText))
+    })
+  }, [items, debouncedSearchText, searchFields])
 
   const clearSearch = useCallback(() => {
     setSearchText('')
@@ -49,7 +51,7 @@ export function useAssistantSearch(assistants: Assistant[], delay = 300) {
   return {
     searchText,
     setSearchText,
-    filteredAssistants,
+    filteredItems,
     isSearching: searchText !== debouncedSearchText,
     hasSearchText: !!debouncedSearchText,
     clearSearch

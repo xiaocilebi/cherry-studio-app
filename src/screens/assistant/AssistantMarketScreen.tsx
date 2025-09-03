@@ -6,9 +6,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Tabs, Text, View } from 'tamagui'
 
-import AssistantsTabContent from '@/components/assistant/market/AllAssistantsTab'
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import AssistantMarketLoading from '@/components/assistant/market/AssistantMarketLoading'
+import AssistantsTabContent from '@/components/assistant/market/AssistantsTabContent'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
@@ -16,7 +16,7 @@ import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
 import { useAssistantFilter } from '@/hooks/useAssistantFilter'
-import { useAssistantSearch } from '@/hooks/useAssistantSearch'
+import { useSearch } from '@/hooks/useSearch'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
@@ -30,7 +30,14 @@ export default function AssistantMarketScreen() {
   const [isInitializing, setIsInitializing] = useState(true)
 
   const { builtInAssistants } = useBuiltInAssistants()
-  const { searchText, setSearchText, filteredAssistants } = useAssistantSearch(builtInAssistants)
+  const {
+    searchText,
+    setSearchText,
+    filteredItems: filteredAssistants
+  } = useSearch(
+    builtInAssistants,
+    useCallback((assistant: Assistant) => [assistant.name || '', assistant.id || ''], [])
+  )
   const {
     filterType,
     setFilterType,
