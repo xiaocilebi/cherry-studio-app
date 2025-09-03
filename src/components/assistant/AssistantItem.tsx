@@ -76,7 +76,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
         </XStack>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
-        <ContextMenu.Item key="delete" onSelect={handleDelete}>
+        <ContextMenu.Item key="delete" onSelect={handleDelete} destructive>
           <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
           <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
             <Trash2 size={16} color="red" />

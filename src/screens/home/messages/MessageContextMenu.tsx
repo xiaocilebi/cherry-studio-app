@@ -92,14 +92,14 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
             onSelect={isTranslated ? handleDeleteTranslation : handleTranslate}
             destructive={isTranslated}>
             <ContextMenu.ItemTitle>
-              {isTranslated ? t('common.delete_translation') : t('common.translate')}
+              {isTranslated ? t('common.delete_translation') : t('message.translate_message')}
             </ContextMenu.ItemTitle>
             <ContextMenu.ItemIcon ios={{ name: isTranslated ? 'translate' : 'translate' }}>
               {isTranslated ? <TranslatedIcon size={16} /> : <TranslationIcon size={16} />}
             </ContextMenu.ItemIcon>
           </ContextMenu.Item>
           <ContextMenu.Item key="delete" onSelect={handleDelete} destructive>
-            <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
+            <ContextMenu.ItemTitle>{t('message.delete_message')}</ContextMenu.ItemTitle>
             <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
               <Trash2 size={16} color="red" />
             </ContextMenu.ItemIcon>

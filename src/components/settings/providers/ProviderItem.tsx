@@ -97,7 +97,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
             <Edit3 size={16} color="$blue10" />
           </ContextMenu.ItemIcon>
         </ContextMenu.Item>
-        <ContextMenu.Item key="delete" onSelect={handleDelete}>
+        <ContextMenu.Item key="delete" onSelect={handleDelete} destructive>
           <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
           <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
             <Trash2 size={16} color="red" />
