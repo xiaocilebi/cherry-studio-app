@@ -1,7 +1,7 @@
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
 import React, { ReactNode, useMemo } from 'react'
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
+import { StyleSheet, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
 import type { RendererInterface } from 'react-native-marked'
 import { MarkedTokenizer, Renderer } from 'react-native-marked'
@@ -12,6 +12,7 @@ import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
 import { useMathEquation } from './useMathEquation'
+import { IconButton } from '@/components/ui/IconButton'
 
 // const logger = loggerService.withContext('useMarkedRenderer')
 
@@ -54,33 +55,31 @@ class CustomRenderer extends Renderer implements RendererInterface {
         key={this.getKey()}
         style={{
           gap: 10,
-          padding: 5,
-          borderRadius: 6,
-          borderWidth: 2,
-          borderColor: this.isDark ? '#8de59e26' : '#8de59e26',
-          backgroundColor: currentColors.background,
+          paddingHorizontal: 14,
+          paddingTop: 0,
+          paddingBottom: 14,
+          borderRadius: 12,
           ...containerStyle
         }}>
         <XStack
-          flex={1}
-          paddingVertical={5}
+          paddingVertical={10}
           justifyContent="space-between"
           alignItems="center"
           borderBottomWidth={1}
-          borderColor="$green10">
+          borderColor={currentColors.codeBorder}>
           <XStack gap={8} flex={1} alignItems="center">
             {getCodeLanguageIcon(lang) && <Image source={getCodeLanguageIcon(lang)} width={18} height={18} />}
-            <Text fontSize={13} lineHeight={16} color={currentColors.text}>
+            <Text fontSize={13} lineHeight={13} color="$textSecondary">
               {lang.toUpperCase()}
             </Text>
           </XStack>
-          <Button size={18} chromeless circular icon={<Copy size={16} />} onPress={() => this.onCopy(text)} />
+          <IconButton icon={<Copy size={16} color="$textSecondary" />} onPress={() => this.onCopy(text)} />
         </XStack>
         <CodeHighlighter
           customStyle={{ backgroundColor: 'transparent' }}
           scrollViewProps={{
             contentContainerStyle: {
-              backgroundColor: currentColors.background
+              backgroundColor: 'transparent'
             },
             showsHorizontalScrollIndicator: false
           }}

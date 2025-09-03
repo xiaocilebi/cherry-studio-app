@@ -6275,7 +6275,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.24.0"
     react-native-image-viewing: "npm:^0.2.2"
     react-native-ios-context-menu: "npm:3.1.0"
-    react-native-ios-utilities: "npm:5.1.2"
+    react-native-ios-utilities: "npm:^5.1.8"
     react-native-keyboard-controller: "npm:^1.17.5"
     react-native-marked: "npm:^7.0.2"
     react-native-mathjax-svg: "npm:^0.9.9"
@@ -14493,13 +14493,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-ios-utilities@npm:5.1.2":
-  version: 5.1.2
-  resolution: "react-native-ios-utilities@npm:5.1.2"
+"react-native-ios-utilities@npm:^5.1.8":
+  version: 5.1.8
+  resolution: "react-native-ios-utilities@npm:5.1.8"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/b1b700faa2f447423cbfbe941a5e0eaeb7357df5f85f0a5d27a717f040174ecc3f972007f39e76cd053e4d90248028b137726524d71756e3a051efa32136754d
+  checksum: 10c0/98e951062449fd639c1ae10c01f2d15dee26dcb39fec6398ab8492725e7eb1c4a964ae35c6280c8f831463d08d77d6fba61afe16c79fec2ab6b71c60d1fb4b28
   languageName: node
   linkType: hard
 
