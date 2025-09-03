@@ -6,13 +6,11 @@ import AssistantItemCard from '@/components/assistant/AssistantItemCard'
 import { Assistant } from '@/types/assistant'
 
 interface AllAssistantsTabProps {
-  assistantGroups: Record<string, Assistant[]>
+  assistants: Assistant[]
   onAssistantPress: (assistant: Assistant) => void
 }
 
-const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistantGroups, onAssistantPress }) => {
-  const flatData = Object.values(assistantGroups).flat()
-
+const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistants, onAssistantPress }) => {
   const renderItem = ({ item }: { item: Assistant }) => (
     <YStack flex={1} padding={4}>
       <AssistantItemCard assistant={item} onAssistantPress={onAssistantPress} />
@@ -22,7 +20,7 @@ const AllAssistantsTab: React.FC<AllAssistantsTabProps> = ({ assistantGroups, on
   return (
     <YStack flex={1}>
       <FlashList
-        data={flatData}
+        data={assistants}
         renderItem={renderItem}
         numColumns={2}
         estimatedItemSize={220}

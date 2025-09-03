@@ -10,7 +10,6 @@ import { ScrollView, Tabs, Text, View } from 'tamagui'
 
 import AllAssistantsTab from '@/components/assistant/market/AllAssistantsTab'
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
-import CategoryAssistantsTab from '@/components/assistant/market/CategoryAssistantsTab'
 import { SettingContainer } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
@@ -79,10 +78,6 @@ export default function AssistantMarketScreen() {
         (assistant.id && assistant.id.toLowerCase().includes(lowerSearchText))
     )
   }, [builtInAssistants, debouncedSearchText])
-
-  const assistantGroupsForDisplay = useMemo(() => {
-    return groupByCategories(baseFilteredAssistants)
-  }, [baseFilteredAssistants])
 
   const assistantGroupsForTabs = useMemo(() => {
     return groupByCategories(builtInAssistants)
@@ -168,18 +163,18 @@ export default function AssistantMarketScreen() {
     () => (
       <>
         <Tabs.Content value={'all'} flex={1}>
-          <AllAssistantsTab assistantGroups={assistantGroupsForDisplay} onAssistantPress={handleAssistantItemPress} />
+          <AllAssistantsTab assistants={baseFilteredAssistants} onAssistantPress={handleAssistantItemPress} />
         </Tabs.Content>
         {tabConfigs
           .filter(({ value }) => value !== 'all')
           .map(({ value }) => (
             <Tabs.Content key={value} value={value} flex={1}>
-              <CategoryAssistantsTab assistants={filterAssistants} onAssistantPress={handleAssistantItemPress} />
+              <AllAssistantsTab assistants={filterAssistants} onAssistantPress={handleAssistantItemPress} />
             </Tabs.Content>
           ))}
       </>
     ),
-    [assistantGroupsForDisplay, tabConfigs, filterAssistants, handleAssistantItemPress]
+    [baseFilteredAssistants, tabConfigs, filterAssistants, handleAssistantItemPress]
   )
 
   // 显示加载状态
