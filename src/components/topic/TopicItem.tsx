@@ -4,8 +4,8 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
-import { Text, XStack, YStack } from 'tamagui'
+import { Alert, TouchableOpacity } from 'react-native'
+import { Text, XStack, YStack, View } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
 import i18n from '@/i18n'
@@ -119,37 +119,37 @@ const TopicItem: FC<TopicItemProps> = ({
         shouldWaitForMenuToHideBeforeFiringOnPressMenuItem: false
       }}>
       <ContextMenu.Trigger>
-        <XStack
-          onPress={openTopic}
-          borderRadius={16}
-          paddingVertical={5}
-          paddingHorizontal={5}
-          gap={14}
-          justifyContent="center"
-          alignItems="center"
-          backgroundColor={isActive ? '$green10' : 'none'}
-          pressStyle={{ backgroundColor: '$green20' }}>
-          <EmojiAvatar
-            emoji={assistant?.emoji}
-            size={40}
-            borderRadius={12}
-            borderWidth={3}
-            borderColor="$uiCardBackground"
-          />
-          <YStack flex={1}>
-            <XStack justifyContent="space-between">
-              <Text fontWeight="bold" color="$textPrimary">
-                {assistant?.name}
+        <TouchableOpacity onPress={openTopic} onLongPress={() => {}} delayLongPress={400}>
+          <XStack
+            borderRadius={16}
+            paddingVertical={5}
+            paddingHorizontal={5}
+            gap={14}
+            justifyContent="center"
+            alignItems="center"
+            backgroundColor={isActive ? '$green10' : 'none'}>
+            <EmojiAvatar
+              emoji={assistant?.emoji}
+              size={40}
+              borderRadius={12}
+              borderWidth={3}
+              borderColor="$uiCardBackground"
+            />
+            <YStack flex={1}>
+              <XStack justifyContent="space-between">
+                <Text fontWeight="bold" color="$textPrimary">
+                  {assistant?.name}
+                </Text>
+                <Text fontSize={12} color="$textSecondary">
+                  {displayTime}
+                </Text>
+              </XStack>
+              <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+                {topic.name}
               </Text>
-              <Text fontSize={12} color="$textSecondary">
-                {displayTime}
-              </Text>
-            </XStack>
-            <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
-              {topic.name}
-            </Text>
-          </YStack>
-        </XStack>
+            </YStack>
+          </XStack>
+        </TouchableOpacity>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item key="rename" onSelect={handleRename}>

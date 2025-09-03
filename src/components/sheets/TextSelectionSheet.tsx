@@ -1,8 +1,8 @@
 import { X } from '@tamagui/lucide-icons'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Modal, Platform, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import { Text, XStack, YStack } from 'tamagui'
+import { Modal, Platform, TextInput, TouchableOpacity } from 'react-native'
+import { Text, XStack, YStack, ScrollView } from 'tamagui'
 
 interface TextSelectionSheetProps {
   content: string
@@ -59,7 +59,7 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
             <X size={20} />
           </TouchableOpacity>
         </XStack>
-        <ScrollView contentContainerStyle={{ flex: 1, paddingHorizontal: 20, paddingBottom: 30 }}>
+        <ScrollView flex={1} contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 40 }}>
           <SelectableText>{content}</SelectableText>
         </ScrollView>
       </YStack>
