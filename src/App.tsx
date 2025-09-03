@@ -113,7 +113,7 @@ function ThemedApp() {
           <NavigationContainer theme={reactNavigationTheme}>
             <ThemeProvider value={reactNavigationTheme}>
               <BottomSheetModalProvider>
-                <StatusBar style={isDark ? 'light' : 'dark'} />
+                <StatusBar style={isDark ? 'light' : 'dark'} backgroundColor={backgroundColor} />
                 <DatabaseInitializer />
                 <MainStackNavigator />
               </BottomSheetModalProvider>

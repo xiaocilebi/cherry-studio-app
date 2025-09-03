@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text, View, XStack, YStack } from 'tamagui'
 
+import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 
 import EmojiAvatar from './EmojiAvator'
 import GroupTag from './market/GroupTag'
-import { useTheme } from '@/hooks/useTheme'
 
 interface AssistantItemCardProps {
   assistant: Assistant
@@ -14,6 +14,7 @@ interface AssistantItemCardProps {
 
 const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
   const { isDark } = useTheme()
+
   const handlePress = () => {
     onAssistantPress(assistant)
   }
