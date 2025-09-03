@@ -2,9 +2,9 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/
 import React, { forwardRef, useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 import { FileType } from '@/types/file'
 
@@ -23,8 +23,7 @@ interface ToolSheetProps {
 
 const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ files, setFiles, assistant, updateAssistant }, ref) => {
-    const theme = useTheme()
-    const { isDark } = useCustomTheme()
+    const { isDark } = useTheme()
     const insets = useSafeAreaInsets()
 
     // 处理Android返回按钮事件
@@ -81,9 +80,6 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
           backgroundStyle={{
             borderRadius: 30,
             backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-          }}
-          handleIndicatorStyle={{
-            backgroundColor: theme.color.val
           }}
           backdropComponent={renderBackdrop}>
           <BottomSheetView style={{ paddingBottom: insets.bottom }}>

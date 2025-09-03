@@ -7,14 +7,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { ModelTags } from '@/components/ui/ModelTags'
 import { isEmbeddingModel } from '@/config/models/embedding'
 import { isRerankModel } from '@/config/models/rerank'
 import { useAllProviders } from '@/hooks/useProviders'
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 
@@ -29,8 +29,7 @@ interface ModelSheetProps {
 
 const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, setMentions, multiple }, ref) => {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const { isDark } = useCustomTheme()
+  const { isDark } = useTheme()
   const [selectedModels, setSelectedModels] = useState<string[]>(() => mentions.map(m => getModelUniqId(m)))
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -153,9 +152,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       backgroundStyle={{
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-      }}
-      handleIndicatorStyle={{
-        backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}
       enablePanDownToClose={true}

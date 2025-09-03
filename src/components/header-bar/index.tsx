@@ -1,5 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, ParamListBase, useNavigation } from '@react-navigation/native'
+import { Menu } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { XStack } from 'tamagui'
@@ -8,10 +9,9 @@ import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 
+import { IconButton } from '../ui/IconButton'
 import { AssistantSelection } from './AssistantSelection'
 import { NewTopicButton } from './NewTopicButton'
-import { Menu } from '@tamagui/lucide-icons'
-import { IconButton } from '../ui/IconButton'
 
 interface HeaderBarProps {
   topic: Topic

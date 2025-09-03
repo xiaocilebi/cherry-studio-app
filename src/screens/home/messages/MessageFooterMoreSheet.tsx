@@ -3,11 +3,11 @@ import { Trash2 } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
-import { Button, useTheme, YStack } from 'tamagui'
+import { Button, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
 import { useMessageActions } from '@/hooks/useMessageActions'
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { Message } from '@/types/message'
 
 interface MessageFooterMoreProps {
@@ -16,8 +16,8 @@ interface MessageFooterMoreProps {
 
 const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMoreProps>(({ message }, ref) => {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const { isDark } = useCustomTheme()
+
+  const { isDark } = useTheme()
   const { isTranslated, handleTranslate, handleDeleteTranslation, handleDelete } = useMessageActions({ message })
 
   const renderBackdrop = (props: any) => (
@@ -63,9 +63,6 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
       backgroundStyle={{
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-      }}
-      handleIndicatorStyle={{
-        backgroundColor: theme.color.val
       }}
       backdropComponent={renderBackdrop}>
       <BottomSheetView>

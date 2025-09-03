@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Stack, Text, useTheme, View, XStack, YStack } from 'tamagui'
+import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
@@ -32,7 +32,6 @@ interface AssistantItemSheetProps {
 const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>(
   ({ assistant, source, onEdit, onChatNavigation, actionButton }, ref) => {
     const { t } = useTranslation()
-    const theme = useTheme()
     const { isDark } = useCustomTheme()
     const { bottom } = useSafeAreaInsets()
 
@@ -109,9 +108,6 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         backgroundStyle={{
           borderRadius: 30,
           backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-        }}
-        handleIndicatorStyle={{
-          backgroundColor: theme.color.val
         }}
         backdropComponent={renderBackdrop}>
         <YStack flex={1} gap={17}>

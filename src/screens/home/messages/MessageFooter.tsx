@@ -3,12 +3,12 @@ import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw } from '@tamag
 import React, { useRef } from 'react'
 import { View, XStack } from 'tamagui'
 
+import { IconButton } from '@/components/ui/IconButton'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
 
 import MessageFooterMoreSheet from './MessageFooterMoreSheet'
-import { IconButton } from '@/components/ui/IconButton'
 
 interface MessageFooterProps {
   assistant: Assistant

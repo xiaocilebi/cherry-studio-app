@@ -9,6 +9,7 @@ import { setCurrentTopicId } from '@/store/topic'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
+
 import { IconButton } from '../ui/IconButton'
 
 interface NewTopicButtonProps {
