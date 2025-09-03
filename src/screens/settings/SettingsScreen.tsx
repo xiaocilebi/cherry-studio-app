@@ -176,7 +176,9 @@ function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) 
       <XStack alignItems="center" gap={12}>
         {renderIcon()}
         <YStack>
-          <Text fontWeight="bold">{title}</Text>
+          <Text color="$textPrimary" fontWeight="bold">
+            {title}
+          </Text>
         </YStack>
       </XStack>
       <ChevronRight size={20} color="$textSecondary" />

@@ -121,13 +121,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
             <TextArea
               placeholder={t('inputs.placeholder')}
               borderWidth={0}
-              backgroundColor="$colorTransparent"
+              backgroundColor="$backgroundPrimary"
               p={0}
               flex={1}
               value={text}
               onChangeText={setText}
               lineHeight={22}
-              color="$textSecondaryLight"
+              color="$textSecondary"
             />
           </XStack>
           {/* button */}
