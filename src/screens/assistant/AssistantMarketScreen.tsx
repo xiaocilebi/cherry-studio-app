@@ -140,12 +140,6 @@ export default function AssistantMarketScreen() {
     [actualFilterType]
   )
 
-  const handleArrowClick = useCallback((groupKey: string) => {
-    if (groupKey) {
-      setActualFilterType(groupKey)
-    }
-  }, [])
-
   const handleMenuPress = () => {
     haptic(ImpactFeedbackStyle.Medium)
     navigation.dispatch(DrawerActions.openDrawer())
@@ -174,11 +168,7 @@ export default function AssistantMarketScreen() {
     () => (
       <>
         <Tabs.Content value={'all'} flex={1}>
-          <AllAssistantsTab
-            assistantGroups={assistantGroupsForDisplay}
-            onArrowClick={handleArrowClick}
-            onAssistantPress={handleAssistantItemPress}
-          />
+          <AllAssistantsTab assistantGroups={assistantGroupsForDisplay} onAssistantPress={handleAssistantItemPress} />
         </Tabs.Content>
         {tabConfigs
           .filter(({ value }) => value !== 'all')
@@ -189,7 +179,7 @@ export default function AssistantMarketScreen() {
           ))}
       </>
     ),
-    [assistantGroupsForDisplay, tabConfigs, filterAssistants, handleArrowClick, handleAssistantItemPress]
+    [assistantGroupsForDisplay, tabConfigs, filterAssistants, handleAssistantItemPress]
   )
 
   // 显示加载状态
