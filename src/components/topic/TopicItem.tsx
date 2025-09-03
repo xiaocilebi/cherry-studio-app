@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
-import { Text, XStack, YStack, View } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 import * as ContextMenu from 'zeego/context-menu'
 
 import i18n from '@/i18n'

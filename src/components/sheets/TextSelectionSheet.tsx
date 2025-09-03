@@ -2,7 +2,7 @@ import { X } from '@tamagui/lucide-icons'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal, Platform, TextInput, TouchableOpacity } from 'react-native'
-import { Text, XStack, YStack, ScrollView } from 'tamagui'
+import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
 interface TextSelectionSheetProps {
   content: string
@@ -29,6 +29,7 @@ function SelectableText({ children }) {
     )
   }
 }
+
 const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetProps>(({ content }, ref) => {
   const { t } = useTranslation()
   const [visible, setVisible] = useState(false)

@@ -1,18 +1,18 @@
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
 import React, { ReactNode, useMemo } from 'react'
-import { StyleSheet, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
 import type { RendererInterface } from 'react-native-marked'
 import { MarkedTokenizer, Renderer } from 'react-native-marked'
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { Button, Image, Text, View, XStack } from 'tamagui'
+import { Image, Text, View, XStack } from 'tamagui'
 
+import { IconButton } from '@/components/ui/IconButton'
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
 import { useMathEquation } from './useMathEquation'
-import { IconButton } from '@/components/ui/IconButton'
 
 // const logger = loggerService.withContext('useMarkedRenderer')
 
