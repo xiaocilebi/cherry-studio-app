@@ -31,7 +31,7 @@ export default function HomeStackNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        gestureResponseDistance: 300,
+        gestureResponseDistance: 9999,
         ...TransitionPresets.SlideFromRightIOS
       }}>
       <Stack.Screen name="ChatScreen" component={ChatScreen} />
