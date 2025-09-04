@@ -182,6 +182,9 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
         backgroundStyle={{
           borderRadius: 30,
           backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
+        }}
+        handleIndicatorStyle={{
+          backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
         }}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack gap={10} paddingHorizontal={20} paddingBottom={20}>

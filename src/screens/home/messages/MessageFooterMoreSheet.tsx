@@ -64,6 +64,9 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
       }}
+      handleIndicatorStyle={{
+        backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
+      }}
       backdropComponent={renderBackdrop}>
       <BottomSheetView>
         <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>

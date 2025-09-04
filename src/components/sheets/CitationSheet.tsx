@@ -130,7 +130,10 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
       }}
-      backdropComponent={renderBackdrop}>
+      backdropComponent={renderBackdrop}
+      handleIndicatorStyle={{
+        backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
+      }}>
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
         <Stack justifyContent="center" alignItems="center" paddingHorizontal={20}>
           <Text fontSize={20} lineHeight={22} fontWeight={600}>

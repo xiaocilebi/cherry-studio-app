@@ -111,7 +111,7 @@ function ThemedApp() {
       <PortalProvider>
         <KeyboardProvider>
           <NavigationContainer theme={reactNavigationTheme}>
-            <Theme name={isDark ? 'light' : 'dark'}>
+            <Theme name={isDark ? 'dark' : 'light'}>
               <BottomSheetModalProvider>
                 <StatusBar style={isDark ? 'light' : 'dark'} backgroundColor={backgroundColor} />
                 <DatabaseInitializer />
