@@ -159,10 +159,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
         } else {
           return super.text(content, {
             ...styles,
-            color: currentColors.text,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flex: 1
+            color: currentColors.text
           })
         }
       })
@@ -175,6 +172,14 @@ class CustomRenderer extends Renderer implements RendererInterface {
         flex: 1
       })
     }
+  }
+
+  getTextNode(children: string | ReactNode[], styles?: TextStyle): ReactNode {
+    return (
+      <Text selectable key={this.getKey()} style={{ ...styles, lineHeight: undefined }}>
+        {children}
+      </Text>
+    )
   }
 
   // em(children: string | ReactNode[], styles?: TextStyle): ReactNode {
