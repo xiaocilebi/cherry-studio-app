@@ -109,6 +109,9 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
           borderRadius: 30,
           backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
         }}
+        handleIndicatorStyle={{
+          backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
+        }}
         backdropComponent={renderBackdrop}>
         <YStack flex={1} gap={17}>
           {/* Main Content */}

@@ -20,13 +20,13 @@ const logger = loggerService.withContext('Backup Service')
 const fileStorageDir = new Directory(Paths.cache, 'Files')
 
 export type RestoreStepId =
-  | 'restore_topics'
-  | 'restore_messages_blocks'
   | 'restore_llm_providers'
   | 'restore_assistants'
   | 'restore_websearch'
   | 'restore_user_avatar'
   | 'restore_user_name'
+  | 'restore_topics'
+  | 'restore_messages_blocks'
 
 export type StepStatus = 'pending' | 'in_progress' | 'completed' | 'error'
 
