@@ -36,7 +36,7 @@ export const AIFeatureOptions: React.FC<AIFeatureOptionsProps> = ({
       label: t('common.websearch'),
       icon: <Globe size={18} color={assistant.enableWebSearch ? '$green100' : '$textPrimary'} />,
       onPress: onWebSearchToggle,
-      shouldShow: assistant.model ? isWebSearchModel(assistant.model) || !!assistant.webSearchProviderId : true,
+      shouldShow: assistant.model ? isWebSearchModel(assistant.model) || !!assistant.webSearchProviderId : false,
       getTextColor: () => (assistant.enableWebSearch ? '$green100' : '$textPrimary'),
       getTrailingIcon: () => (assistant.enableWebSearch ? <Check size={18} color="$green100" /> : null)
     },
