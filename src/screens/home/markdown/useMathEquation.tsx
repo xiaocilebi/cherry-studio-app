@@ -15,32 +15,50 @@ export const MemoizedMathJax = memo(
 
 MemoizedMathJax.displayName = 'MemoizedMathJax'
 
+export type ExtractMathResult = { type: 'text' | 'inline-latex' | 'block-latex'; content: string }
+
 /**
  * Hook for math equation functionality
  * @param equationColor - Color for the math equations
  */
 export const useMathEquation = (equationColor: string) => {
+  const splitLatex = (text: string, type: 'inline' | 'block') => {
+    let match: RegExpExecArray | null
+    let parts: ExtractMathResult[] = []
+    let lastIndex = 0
+
+    const blockReg = /\\\[\s*([\s\S]+?)\s*\\\]|\$\$\s*([\s\S]+?)\s*\$\$/g
+    const inlineReg = /\$+([^\$\n]+?)\$+|\\\((.+?)\\\)/g
+    const regex = type === 'inline' ? inlineReg : blockReg
+
+    while ((match = regex.exec(text))) {
+      parts.push({
+        type: 'text',
+        content: text.slice(lastIndex, match.index)
+      })
+      lastIndex = match.index
+      parts.push({
+        type: type === 'inline' ? 'inline-latex' : 'block-latex',
+        content: match[1] || match[2]
+      })
+      lastIndex = match.index + match[0].length
+    }
+
+    parts.push({
+      type: 'text',
+      content: text.slice(lastIndex, text.length)
+    })
+    parts = parts.filter(item => item.content.length !== 0)
+    return parts
+  }
+
   /**
    * Check if text contains math equation pattern
    * @param text - Text to check
    * @returns Matched equation content or null
    */
-  const extractMathEquation = (text: string): string | null => {
-    // Match $...$ or $$...$$ patterns
-    const dollarMatch = text.match(/\$+([^\$\n]+?)\$+/)
-
-    if (dollarMatch?.[1]) {
-      return dollarMatch[1]
-    }
-
-    // Match \(...\) pattern
-    const parenMatch = text.match(/\\\((.+?)\\\)/)
-
-    if (parenMatch?.[1]) {
-      return parenMatch[1]
-    }
-
-    return null
+  const extractInlineMathEquation = (text: string) => {
+    return splitLatex(text, 'inline')
   }
 
   /**
@@ -48,22 +66,16 @@ export const useMathEquation = (equationColor: string) => {
    * @param text - Text to check
    * @returns Matched block equation content or null
    */
-  const extractBlockMathEquation = (text: string): string | null => {
-    // Match \[...\] pattern for block equations (including multiline)
-    const blockMatch = text.match(/\\\[\s*([\s\S]+?)\s*\\\]/)
+  const extractBlockMathEquation = (text: string) => {
+    return splitLatex(text, 'block')
+  }
 
-    if (blockMatch?.[1]) {
-      return blockMatch[1]
-    }
-
-    // Match $$...$$ pattern for block equations (multiline)
-    const doubleDollarMatch = text.match(/\$\$\s*([\s\S]+?)\s*\$\$/)
-
-    if (doubleDollarMatch?.[1]) {
-      return doubleDollarMatch[1]
-    }
-
-    return null
+  const extractAllMathEquation = (text: string) => {
+    const blocks = extractBlockMathEquation(text)
+    return blocks.flatMap(block => {
+      if (block.type === 'block-latex') return block
+      return extractInlineMathEquation(block.content)
+    })
   }
 
   /**
@@ -100,8 +112,8 @@ export const useMathEquation = (equationColor: string) => {
   }
 
   return {
-    extractMathEquation,
-    extractBlockMathEquation,
+    extractInlineMathEquation,
+    extractAllMathEquation,
     renderInlineMath,
     renderBlockMath
   }
