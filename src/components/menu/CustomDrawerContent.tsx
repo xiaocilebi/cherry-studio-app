@@ -54,7 +54,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <ListItem onPress={handleNavigateAssistantMarketScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
               <MarketIcon size={20} />
-              <Text color="$textPrimary">{t('assistants.market.title')}</Text>
+              <Text fontSize={16} color="$textPrimary">
+                {t('assistants.market.title')}
+              </Text>
             </XStack>
             <ChevronRight size={20} color="$textPrimary" />
           </ListItem>
@@ -62,7 +64,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <ListItem onPress={handleNavigateAssistantScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
               <UnionIcon size={20} />
-              <Text color="$textPrimary">{t('assistants.market.my_assistant')}</Text>
+              <Text fontSize={16} color="$textPrimary">
+                {t('assistants.market.my_assistant')}
+              </Text>
             </XStack>
             <ChevronRight size={20} color="$textPrimary" />
           </ListItem>
@@ -95,7 +99,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             <Avatar.Image accessibilityLabel="Cam" src={avatar || require('@/assets/images/favicon.png')} />
             <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
           </Avatar>
-          <Text color="$textPrimary">{userName || t('common.cherry_studio')}</Text>
+          <Text fontSize={16} color="$textPrimary">
+            {userName || t('common.cherry_studio')}
+          </Text>
         </XStack>
         <Button icon={<Settings size={24} color="$textPrimary" />} chromeless onPress={handleNavigateSettingsScreen} />
       </XStack>

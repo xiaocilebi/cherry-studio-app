@@ -137,14 +137,14 @@ const TopicItem: FC<TopicItemProps> = ({
             />
             <YStack flex={1}>
               <XStack justifyContent="space-between">
-                <Text fontWeight="bold" color="$textPrimary">
+                <Text fontSize={16} fontWeight="bold" color="$textPrimary">
                   {assistant?.name}
                 </Text>
                 <Text fontSize={12} color="$textSecondary">
                   {displayTime}
                 </Text>
               </XStack>
-              <Text fontSize={12} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+              <Text fontSize={13} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
                 {topic.name}
               </Text>
             </YStack>
