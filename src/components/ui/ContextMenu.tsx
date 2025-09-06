@@ -72,7 +72,7 @@ const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list 
 
     return (
       <>
-        <TouchableOpacity activeOpacity={0.7} onPress={onPress} onLongPress={openBottomSheet} delayLongPress={400}>
+        <TouchableOpacity activeOpacity={0.7} onPress={onPress} onLongPress={openBottomSheet}>
           {children}
         </TouchableOpacity>
         <BottomSheetModal
