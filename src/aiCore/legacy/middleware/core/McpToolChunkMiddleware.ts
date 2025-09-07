@@ -4,14 +4,7 @@ import { ChunkType, MCPToolCreatedChunk } from '@/types/chunk'
 import { MCPCallToolResponse, MCPToolResponse } from '@/types/mcp'
 import { SdkMessageParam, SdkRawOutput, SdkToolCall } from '@/types/sdk'
 import { MCPTool } from '@/types/tool'
-import {
-  callBuiltInTool,
-  callMCPTool,
-  getMcpServerByTool,
-  isToolAutoApproved,
-  parseToolUse,
-  upsertMCPToolResponse
-} from '@/utils/mcpTool'
+import { parseToolUse, upsertMCPToolResponse } from '@/utils/mcpTool'
 
 import { CompletionsParams, CompletionsResult, GenericChunk } from '../schemas'
 import { CompletionsContext, CompletionsMiddleware } from '../types'
@@ -447,155 +440,155 @@ export async function parseAndCallTools<R>(
   const confirmedTools: MCPToolResponse[] = []
   const pendingPromises: Promise<void>[] = []
 
-  curToolResponses.forEach(toolResponse => {
-    const server = getMcpServerByTool(toolResponse.tool)
-    const isAutoApproveEnabled = isToolAutoApproved(toolResponse.tool, server)
-    let confirmationPromise: Promise<boolean>
+  // curToolResponses.forEach(toolResponse => {
+  //   const server = getMcpServerByTool(toolResponse.tool)
+  //   const isAutoApproveEnabled = isToolAutoApproved(toolResponse.tool, server)
+  //   let confirmationPromise: Promise<boolean>
 
-    if (isAutoApproveEnabled) {
-      confirmationPromise = Promise.resolve(true)
-    } else {
-      setToolIdToNameMapping(toolResponse.id, toolResponse.tool.name)
+  //   if (isAutoApproveEnabled) {
+  //     confirmationPromise = Promise.resolve(true)
+  //   } else {
+  //     setToolIdToNameMapping(toolResponse.id, toolResponse.tool.name)
 
-      confirmationPromise = requestToolConfirmation(toolResponse.id, abortSignal).then(confirmed => {
-        if (confirmed && server) {
-          // 自动确认其他同名的待确认工具
-          confirmSameNameTools(toolResponse.tool.name)
-        }
+  //     confirmationPromise = requestToolConfirmation(toolResponse.id, abortSignal).then(confirmed => {
+  //       if (confirmed && server) {
+  //         // 自动确认其他同名的待确认工具
+  //         confirmSameNameTools(toolResponse.tool.name)
+  //       }
 
-        return confirmed
-      })
-    }
+  //       return confirmed
+  //     })
+  //   }
 
-    const processingPromise = confirmationPromise
-      .then(async confirmed => {
-        if (confirmed) {
-          // 立即更新为invoking状态
-          upsertMCPToolResponse(
-            allToolResponses,
-            {
-              ...toolResponse,
-              status: 'invoking'
-            },
-            onChunk!
-          )
+  //   const processingPromise = confirmationPromise
+  //     .then(async confirmed => {
+  //       if (confirmed) {
+  //         // 立即更新为invoking状态
+  //         upsertMCPToolResponse(
+  //           allToolResponses,
+  //           {
+  //             ...toolResponse,
+  //             status: 'invoking'
+  //           },
+  //           onChunk!
+  //         )
 
-          // 执行工具调用
-          try {
-            const images: string[] = []
-            // 根据工具类型选择不同的调用方式
-            const toolCallResponse = toolResponse.tool.isBuiltIn
-              ? await callBuiltInTool(toolResponse)
-              : await callMCPTool(toolResponse, topicId, model.name)
+  //         // 执行工具调用
+  //         try {
+  //           const images: string[] = []
+  //           // 根据工具类型选择不同的调用方式
+  //           const toolCallResponse = toolResponse.tool.isBuiltIn
+  //             ? await callBuiltInTool(toolResponse)
+  //             : await callMCPTool(toolResponse, topicId, model.name)
 
-            // 立即更新为done状态
-            upsertMCPToolResponse(
-              allToolResponses,
-              {
-                ...toolResponse,
-                status: 'done',
-                response: toolCallResponse
-              },
-              onChunk!
-            )
+  //           // 立即更新为done状态
+  //           upsertMCPToolResponse(
+  //             allToolResponses,
+  //             {
+  //               ...toolResponse,
+  //               status: 'done',
+  //               response: toolCallResponse
+  //             },
+  //             onChunk!
+  //           )
 
-            if (!toolCallResponse) {
-              return
-            }
+  //           if (!toolCallResponse) {
+  //             return
+  //           }
 
-            // 处理图片
-            for (const content of toolCallResponse.content) {
-              if (content.type === 'image' && content.data) {
-                images.push(`data:${content.mimeType};base64,${content.data}`)
-              }
-            }
+  //           // 处理图片
+  //           for (const content of toolCallResponse.content) {
+  //             if (content.type === 'image' && content.data) {
+  //               images.push(`data:${content.mimeType};base64,${content.data}`)
+  //             }
+  //           }
 
-            if (images.length) {
-              onChunk?.({
-                type: ChunkType.IMAGE_CREATED
-              })
-              onChunk?.({
-                type: ChunkType.IMAGE_COMPLETE,
-                image: {
-                  type: 'base64',
-                  images: images
-                }
-              })
-            }
+  //           if (images.length) {
+  //             onChunk?.({
+  //               type: ChunkType.IMAGE_CREATED
+  //             })
+  //             onChunk?.({
+  //               type: ChunkType.IMAGE_COMPLETE,
+  //               image: {
+  //                 type: 'base64',
+  //                 images: images
+  //               }
+  //             })
+  //           }
 
-            // 转换消息并添加到结果
-            const convertedMessage = convertToMessage(toolResponse, toolCallResponse, model)
+  //           // 转换消息并添加到结果
+  //           const convertedMessage = convertToMessage(toolResponse, toolCallResponse, model)
 
-            if (convertedMessage) {
-              confirmedTools.push(toolResponse)
-              toolResults.push(convertedMessage)
-            }
-          } catch (error) {
-            logger.error(`Error executing tool ${toolResponse.id}:`, error as Error)
-            // 更新为错误状态
-            upsertMCPToolResponse(
-              allToolResponses,
-              {
-                ...toolResponse,
-                status: 'done',
-                response: {
-                  isError: true,
-                  content: [
-                    {
-                      type: 'text',
-                      text: `Error executing tool: ${error instanceof Error ? error.message : 'Unknown error'}`
-                    }
-                  ]
-                }
-              },
-              onChunk!
-            )
-          }
-        } else {
-          // 立即更新为cancelled状态
-          upsertMCPToolResponse(
-            allToolResponses,
-            {
-              ...toolResponse,
-              status: 'cancelled',
-              response: {
-                isError: false,
-                content: [
-                  {
-                    type: 'text',
-                    text: 'Tool call cancelled by user.'
-                  }
-                ]
-              }
-            },
-            onChunk!
-          )
-        }
-      })
-      .catch(error => {
-        logger.error(`Error waiting for tool confirmation ${toolResponse.id}:`, error as Error)
-        // 立即更新为cancelled状态
-        upsertMCPToolResponse(
-          allToolResponses,
-          {
-            ...toolResponse,
-            status: 'cancelled',
-            response: {
-              isError: true,
-              content: [
-                {
-                  type: 'text',
-                  text: `Error in confirmation process: ${error instanceof Error ? error.message : 'Unknown error'}`
-                }
-              ]
-            }
-          },
-          onChunk!
-        )
-      })
+  //           if (convertedMessage) {
+  //             confirmedTools.push(toolResponse)
+  //             toolResults.push(convertedMessage)
+  //           }
+  //         } catch (error) {
+  //           logger.error(`Error executing tool ${toolResponse.id}:`, error as Error)
+  //           // 更新为错误状态
+  //           upsertMCPToolResponse(
+  //             allToolResponses,
+  //             {
+  //               ...toolResponse,
+  //               status: 'done',
+  //               response: {
+  //                 isError: true,
+  //                 content: [
+  //                   {
+  //                     type: 'text',
+  //                     text: `Error executing tool: ${error instanceof Error ? error.message : 'Unknown error'}`
+  //                   }
+  //                 ]
+  //               }
+  //             },
+  //             onChunk!
+  //           )
+  //         }
+  //       } else {
+  //         // 立即更新为cancelled状态
+  //         upsertMCPToolResponse(
+  //           allToolResponses,
+  //           {
+  //             ...toolResponse,
+  //             status: 'cancelled',
+  //             response: {
+  //               isError: false,
+  //               content: [
+  //                 {
+  //                   type: 'text',
+  //                   text: 'Tool call cancelled by user.'
+  //                 }
+  //               ]
+  //             }
+  //           },
+  //           onChunk!
+  //         )
+  //       }
+  //     })
+  //     .catch(error => {
+  //       logger.error(`Error waiting for tool confirmation ${toolResponse.id}:`, error as Error)
+  //       // 立即更新为cancelled状态
+  //       upsertMCPToolResponse(
+  //         allToolResponses,
+  //         {
+  //           ...toolResponse,
+  //           status: 'cancelled',
+  //           response: {
+  //             isError: true,
+  //             content: [
+  //               {
+  //                 type: 'text',
+  //                 text: `Error in confirmation process: ${error instanceof Error ? error.message : 'Unknown error'}`
+  //               }
+  //             ]
+  //           }
+  //         },
+  //         onChunk!
+  //       )
+  //     })
 
-    pendingPromises.push(processingPromise)
-  })
+  //   pendingPromises.push(processingPromise)
+  // })
 
   // 等待所有工具处理完成（但每个工具的状态已经实时更新）
   await Promise.all(pendingPromises)

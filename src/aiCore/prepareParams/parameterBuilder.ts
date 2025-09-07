@@ -6,13 +6,14 @@
 import type { ModelMessage } from 'ai'
 import { stepCountIs } from 'ai'
 
-import { isGenerateImageModel, isOpenRouterBuiltInWebSearchModel } from '@/config/models'
-import { isWebSearchModel } from '@/config/models/'
 import {
+  isGenerateImageModel,
+  isOpenRouterBuiltInWebSearchModel,
   isReasoningModel,
   isSupportedReasoningEffortModel,
-  isSupportedThinkingTokenModel
-} from '@/config/models/reasoning'
+  isSupportedThinkingTokenModel,
+  isWebSearchModel
+} from '@/config/models'
 import { getAssistantSettings, getDefaultModel } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { StreamTextParams } from '@/types/aiCoretypes'

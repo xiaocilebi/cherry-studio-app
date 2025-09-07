@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
 import { styled, TextArea, XStack, YStack } from 'tamagui'
 
-import { isReasoningModel } from '@/config/models/reasoning'
+import { isReasoningModel } from '@/config/models'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useMessageOperations, useTopicLoading } from '@/hooks/useMessageOperation'
 import { useTheme } from '@/hooks/useTheme'

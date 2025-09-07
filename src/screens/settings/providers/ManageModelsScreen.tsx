@@ -12,12 +12,16 @@ import { HeaderBar } from '@/components/settings/HeaderBar'
 import { ModelGroup } from '@/components/settings/providers/ModelGroup'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
-import { groupQwenModels, isFunctionCallingModel } from '@/config/models'
-import { isWebSearchModel } from '@/config/models/'
-import { isEmbeddingModel, isRerankModel } from '@/config/models/embedding'
+import {
+  groupQwenModels,
+  isEmbeddingModel,
+  isFunctionCallingModel,
+  isReasoningModel,
+  isRerankModel,
+  isVisionModel,
+  isWebSearchModel
+} from '@/config/models'
 import { isFreeModel } from '@/config/models/free'
-import { isReasoningModel } from '@/config/models/reasoning'
-import { isVisionModel } from '@/config/models/vision'
 import { useSearch } from '@/hooks/useSearch'
 import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { fetchModels } from '@/services/ApiService'

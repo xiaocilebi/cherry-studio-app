@@ -3,7 +3,7 @@
  * 检查不同模型支持的功能（PDF输入、图片输入、大文件上传等）
  */
 
-import { isVisionModel } from '@/config/models/vision'
+import { isVisionModel } from '@/config/models'
 import { getProviderByModel } from '@/services/ProviderService'
 import { Model } from '@/types/assistant'
 import { FileTypes } from '@/types/file'

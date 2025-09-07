@@ -2,9 +2,12 @@ import { InferToolInput, InferToolOutput, tool } from 'ai'
 import { z } from 'zod'
 
 import { REFERENCE_PROMPT } from '@/config/prompts'
+import { loggerService } from '@/services/LoggerService'
 import WebSearchService from '@/services/WebSearchService'
 import { ExtractResults } from '@/types/extract'
 import { WebSearchProvider, WebSearchProviderResponse } from '@/types/websearch'
+
+const logger = loggerService.withContext('WebSearchTool')
 
 /**
  * 使用预提取关键词的网络搜索工具
@@ -19,6 +22,8 @@ export const webSearchToolWithPreExtractedKeywords = (
   requestId: string
 ) => {
   const webSearchProvider = WebSearchService.getWebSearchProvider(webSearchProviderId)
+
+  logger.info('Starting web search with pre-extracted keywords')
 
   return tool({
     name: 'builtin_web_search',
