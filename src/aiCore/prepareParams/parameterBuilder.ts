@@ -7,12 +7,12 @@ import type { ModelMessage } from 'ai'
 import { stepCountIs } from 'ai'
 
 import { isGenerateImageModel, isOpenRouterBuiltInWebSearchModel } from '@/config/models'
+import { isWebSearchModel } from '@/config/models/'
 import {
   isReasoningModel,
   isSupportedReasoningEffortModel,
   isSupportedThinkingTokenModel
 } from '@/config/models/reasoning'
-import { isWebSearchModel } from '@/config/models/webSearch'
 import { getAssistantSettings, getDefaultModel } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { StreamTextParams } from '@/types/aiCoretypes'
