@@ -1,4 +1,4 @@
-import { SYSTEM_MODELS } from '@/config/models'
+import { SYSTEM_MODELS } from '@/config/models/default'
 import {
   DEFAULT_CONTEXTCOUNT,
   DEFAULT_MAX_TOKENS,
