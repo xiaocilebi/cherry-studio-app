@@ -3,12 +3,15 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack } from 'tamagui'
 
-import { isFunctionCallingModel } from '@/config/models'
-import { isEmbeddingModel, isRerankModel } from '@/config/models/embedding'
-import { isFreeModel } from '@/config/models/free'
-import { isReasoningModel } from '@/config/models/reasoning'
-import { isVisionModel } from '@/config/models/vision'
-import { isWebSearchModel } from '@/config/models/webSearch'
+import {
+  isEmbeddingModel,
+  isFreeModel,
+  isFunctionCallingModel,
+  isReasoningModel,
+  isRerankModel,
+  isVisionModel,
+  isWebSearchModel
+} from '@/config/models'
 import { Model } from '@/types/assistant'
 
 import { CustomTag } from './CustomTag'
