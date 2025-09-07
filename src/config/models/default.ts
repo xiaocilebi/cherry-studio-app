@@ -1,6 +1,44 @@
 import { Model, SystemProviderId } from '@/types/assistant'
 
-export const SYSTEM_MODELS: Record<SystemProviderId, Model[]> = {
+export const glm45FlashModel: Model = {
+  id: 'glm-4.5-flash',
+  name: 'GLM-4.5-Flash',
+  provider: 'cherryin',
+  group: 'GLM-4.5'
+}
+
+export const qwen38bModel: Model = {
+  id: 'Qwen/Qwen3-8B',
+  name: 'Qwen3-8B',
+  provider: 'cherryin',
+  group: 'Qwen'
+}
+
+export const SYSTEM_MODELS: Record<SystemProviderId | 'defaultModel', Model[]> = {
+  defaultModel: [
+    // Default assistant model
+    glm45FlashModel,
+    // Default topic naming model
+    qwen38bModel,
+    // Default translation model
+    glm45FlashModel,
+    // Default quick assistant model
+    glm45FlashModel
+  ],
+  cherryin: [
+    {
+      id: 'glm-4.5-flash',
+      name: 'GLM-4.5-Flash',
+      provider: 'cherryin',
+      group: 'GLM-4.5'
+    },
+    {
+      id: 'Qwen/Qwen3-8B',
+      name: 'Qwen3-8B',
+      provider: 'cherryin',
+      group: 'Qwen'
+    }
+  ],
   // vertexai: [],
   '302ai': [
     {
@@ -395,6 +433,12 @@ export const SYSTEM_MODELS: Record<SystemProviderId, Model[]> = {
       provider: 'gemini',
       name: 'Gemini 2.0 Flash',
       group: 'Gemini 2.0'
+    },
+    {
+      id: 'gemini-2.5-flash-image-preview',
+      provider: 'gemini',
+      name: 'Gemini 2.5 Flash Image',
+      group: 'Gemini 2.5'
     }
   ],
   anthropic: [
@@ -661,112 +705,34 @@ export const SYSTEM_MODELS: Record<SystemProviderId, Model[]> = {
   ],
   zhipu: [
     {
-      id: 'glm-4.5',
-      provider: 'zhipu',
-      name: 'GLM-4.5',
-      group: 'GLM-4.5'
-    },
-    {
       id: 'glm-4.5-flash',
       provider: 'zhipu',
       name: 'GLM-4.5-Flash',
       group: 'GLM-4.5'
     },
     {
+      id: 'glm-4.5',
+      provider: 'zhipu',
+      name: 'GLM-4.5',
+      group: 'GLM-4.5'
+    },
+    {
       id: 'glm-4.5-air',
       provider: 'zhipu',
-      name: 'GLM-4.5-AIR',
+      name: 'GLM-4.5-Air',
       group: 'GLM-4.5'
     },
     {
       id: 'glm-4.5-airx',
       provider: 'zhipu',
-      name: 'GLM-4.5-AIRX',
+      name: 'GLM-4.5-AirX',
       group: 'GLM-4.5'
     },
     {
-      id: 'glm-4.5-x',
+      id: 'glm-4.5v',
       provider: 'zhipu',
-      name: 'GLM-4.5-X',
-      group: 'GLM-4.5'
-    },
-    {
-      id: 'glm-z1-air',
-      provider: 'zhipu',
-      name: 'GLM-Z1-AIR',
-      group: 'GLM-Z1'
-    },
-    {
-      id: 'glm-z1-airx',
-      provider: 'zhipu',
-      name: 'GLM-Z1-AIRX',
-      group: 'GLM-Z1'
-    },
-    {
-      id: 'glm-z1-flash',
-      provider: 'zhipu',
-      name: 'GLM-Z1-FLASH',
-      group: 'GLM-Z1'
-    },
-    {
-      id: 'glm-4-long',
-      provider: 'zhipu',
-      name: 'GLM-4-Long',
-      group: 'GLM-4'
-    },
-    {
-      id: 'glm-4-plus',
-      provider: 'zhipu',
-      name: 'GLM-4-Plus',
-      group: 'GLM-4'
-    },
-    {
-      id: 'glm-4-air-250414',
-      provider: 'zhipu',
-      name: 'GLM-4-Air-250414',
-      group: 'GLM-4'
-    },
-    {
-      id: 'glm-4-airx',
-      provider: 'zhipu',
-      name: 'GLM-4-AirX',
-      group: 'GLM-4'
-    },
-    {
-      id: 'glm-4-flash-250414',
-      provider: 'zhipu',
-      name: 'GLM-4-Flash-250414',
-      group: 'GLM-4'
-    },
-    {
-      id: 'glm-4-flashx',
-      provider: 'zhipu',
-      name: 'GLM-4-FlashX',
-      group: 'GLM-4'
-    },
-    {
-      id: 'glm-4v',
-      provider: 'zhipu',
-      name: 'GLM 4V',
-      group: 'GLM-4v'
-    },
-    {
-      id: 'glm-4v-flash',
-      provider: 'zhipu',
-      name: 'GLM-4V-Flash',
-      group: 'GLM-4v'
-    },
-    {
-      id: 'glm-4v-plus-0111',
-      provider: 'zhipu',
-      name: 'GLM-4V-Plus-0111',
-      group: 'GLM-4v'
-    },
-    {
-      id: 'glm-4-alltools',
-      provider: 'zhipu',
-      name: 'GLM-4-AllTools',
-      group: 'GLM-4-AllTools'
+      name: 'GLM-4.5V',
+      group: 'GLM-4.5V'
     },
     {
       id: 'embedding-3',
@@ -853,7 +819,7 @@ export const SYSTEM_MODELS: Record<SystemProviderId, Model[]> = {
   dashscope: [
     { id: 'qwen-vl-plus', name: 'qwen-vl-plus', provider: 'dashscope', group: 'qwen-vl', owned_by: 'system' },
     { id: 'qwen-coder-plus', name: 'qwen-coder-plus', provider: 'dashscope', group: 'qwen-coder', owned_by: 'system' },
-    { id: 'qwen-turbo', name: 'qwen-turbo', provider: 'dashscope', group: 'qwen-turbo', owned_by: 'system' },
+    { id: 'qwen-flash', name: 'qwen-flash', provider: 'dashscope', group: 'qwen-flash', owned_by: 'system' },
     { id: 'qwen-plus', name: 'qwen-plus', provider: 'dashscope', group: 'qwen-plus', owned_by: 'system' },
     { id: 'qwen-max', name: 'qwen-max', provider: 'dashscope', group: 'qwen-max', owned_by: 'system' }
   ],
@@ -1298,6 +1264,12 @@ export const SYSTEM_MODELS: Record<SystemProviderId, Model[]> = {
     }
   ],
   openrouter: [
+    {
+      id: 'google/gemini-2.5-flash-image-preview',
+      provider: 'openrouter',
+      name: 'Google: Gemini 2.5 Flash Image',
+      group: 'google'
+    },
     {
       id: 'google/gemini-2.5-flash-preview',
       provider: 'openrouter',

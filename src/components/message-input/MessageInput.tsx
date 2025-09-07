@@ -16,7 +16,7 @@ import { sendMessage as _sendMessage } from '@/services/MessagesService'
 import { getUserMessage } from '@/services/MessagesService'
 import { useAppDispatch } from '@/store'
 import { Model, Topic } from '@/types/assistant'
-import { FileType } from '@/types/file'
+import { FileMetadata } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { haptic } from '@/utils/haptic'
 
@@ -40,7 +40,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const { assistant, isLoading, updateAssistant } = useAssistant(topic.assistantId)
 
   const [text, setText] = useState('')
-  const [files, setFiles] = useState<FileType[]>([])
+  const [files, setFiles] = useState<FileMetadata[]>([])
   const [mentions, setMentions] = useState<Model[]>([])
   const isTopicLoading = useTopicLoading(topic)
   const { pauseMessages } = useMessageOperations(topic)

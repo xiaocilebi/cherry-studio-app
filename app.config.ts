@@ -93,7 +93,8 @@ export default {
     ],
     experiments: {
       typedRoutes: true,
-      reactCompiler: true
+      reactCompiler: true,
+      tsconfigPaths: true
     },
     extra: {
       eas: {

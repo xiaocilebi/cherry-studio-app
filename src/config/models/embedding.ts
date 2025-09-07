@@ -1,26 +1,41 @@
 import { Model } from '@/types/assistant'
+import { isUserSelectedModelType } from '@/utils/model'
+import { getLowerBaseModelName } from '@/utils/naming'
 
-import { isRerankModel } from './rerank'
-
+// Embedding models
 export const EMBEDDING_REGEX =
   /(?:^text-|embed|bge-|e5-|LLM2Vec|retrieval|uae-|gte-|jina-clip|jina-embeddings|voyage-)/i
 
+// Rerank models
+export const RERANKING_REGEX = /(?:rerank|re-rank|re-ranker|re-ranking|retrieval|retriever)/i
+
 export function isEmbeddingModel(model: Model): boolean {
-  if (!model) {
+  if (!model || isRerankModel(model)) {
     return false
+  }
+
+  const modelId = getLowerBaseModelName(model.id)
+
+  if (isUserSelectedModelType(model, 'embedding') !== undefined) {
+    return isUserSelectedModelType(model, 'embedding')!
   }
 
   if (['anthropic'].includes(model?.provider)) {
     return false
   }
 
-  if (model.provider === 'doubao' || model.id.includes('doubao')) {
+  if (model.provider === 'doubao' || modelId.includes('doubao')) {
     return EMBEDDING_REGEX.test(model.name)
   }
 
-  if (isRerankModel(model)) {
-    return false
+  return EMBEDDING_REGEX.test(modelId) || false
+}
+
+export function isRerankModel(model: Model): boolean {
+  if (isUserSelectedModelType(model, 'rerank') !== undefined) {
+    return isUserSelectedModelType(model, 'rerank')!
   }
 
-  return EMBEDDING_REGEX.test(model.id) || model.type?.includes('embedding') || false
+  const modelId = getLowerBaseModelName(model.id)
+  return model ? RERANKING_REGEX.test(modelId) || false : false
 }

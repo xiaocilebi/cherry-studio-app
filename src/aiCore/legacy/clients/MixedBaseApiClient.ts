@@ -1,12 +1,11 @@
-import { isSupportedModel } from '@/config/models'
 import { Model, Provider } from '@/types/assistant'
 import { GenerateImageParams } from '@/types/image'
 import { MCPCallToolResponse, MCPToolResponse, ToolCallResponse } from '@/types/mcp'
 import {
-  NewApiModel,
   RequestOptions,
   SdkInstance,
   SdkMessageParam,
+  SdkModel,
   SdkParams,
   SdkRawChunk,
   SdkRawOutput,
@@ -23,29 +22,20 @@ import { OpenAIAPIClient } from './openai/OpenAIApiClient'
 import { OpenAIResponseAPIClient } from './openai/OpenAIResponseAPIClient'
 import { RequestTransformer, ResponseChunkTransformer } from './types'
 
-export class NewAPIClient extends BaseApiClient {
+/**
+ * MixedAPIClient - 适用于可能含有多种接口类型的Provider
+ */
+export abstract class MixedBaseAPIClient extends BaseApiClient {
   // 使用联合类型而不是any，保持类型安全
-  private clients: Map<string, AnthropicAPIClient | GeminiAPIClient | OpenAIResponseAPIClient | OpenAIAPIClient> =
-    new Map()
-  private defaultClient: OpenAIAPIClient
-  private currentClient: BaseApiClient
+  protected abstract clients: Map<
+    string,
+    AnthropicAPIClient | GeminiAPIClient | OpenAIResponseAPIClient | OpenAIAPIClient
+  >
+  protected abstract defaultClient: OpenAIAPIClient
+  protected abstract currentClient: BaseApiClient
 
   constructor(provider: Provider) {
     super(provider)
-
-    const claudeClient = new AnthropicAPIClient(provider)
-    const geminiClient = new GeminiAPIClient(provider)
-    const openaiClient = new OpenAIAPIClient(provider)
-    const openaiResponseClient = new OpenAIResponseAPIClient(provider)
-
-    this.clients.set('claude', claudeClient)
-    this.clients.set('gemini', geminiClient)
-    this.clients.set('openai', openaiClient)
-    this.clients.set('openai-response', openaiResponseClient)
-
-    // 设置默认client
-    this.defaultClient = openaiClient
-    this.currentClient = this.defaultClient as BaseApiClient
   }
 
   override getBaseURL(): string {
@@ -59,7 +49,7 @@ export class NewAPIClient extends BaseApiClient {
   /**
    * 类型守卫：确保client是BaseApiClient的实例
    */
-  private isValidClient(client: unknown): client is BaseApiClient {
+  protected isValidClient(client: unknown): client is BaseApiClient {
     return (
       client !== null &&
       client !== undefined &&
@@ -73,53 +63,7 @@ export class NewAPIClient extends BaseApiClient {
   /**
    * 根据模型获取合适的client
    */
-  private getClient(model: Model): BaseApiClient {
-    if (!model.endpoint_type) {
-      throw new Error('Model endpoint type is not defined')
-    }
-
-    if (model.endpoint_type === 'anthropic') {
-      const client = this.clients.get('claude')
-
-      if (!client || !this.isValidClient(client)) {
-        throw new Error('Failed to get claude client')
-      }
-
-      return client
-    }
-
-    if (model.endpoint_type === 'openai-response') {
-      const client = this.clients.get('openai-response')
-
-      if (!client || !this.isValidClient(client)) {
-        throw new Error('Failed to get openai-response client')
-      }
-
-      return client
-    }
-
-    if (model.endpoint_type === 'gemini') {
-      const client = this.clients.get('gemini')
-
-      if (!client || !this.isValidClient(client)) {
-        throw new Error('Failed to get gemini client')
-      }
-
-      return client
-    }
-
-    if (model.endpoint_type === 'openai' || model.endpoint_type === 'image-generation') {
-      const client = this.clients.get('openai')
-
-      if (!client || !this.isValidClient(client)) {
-        throw new Error('Failed to get openai client')
-      }
-
-      return client
-    }
-
-    throw new Error('Invalid model endpoint type: ' + model.endpoint_type)
-  }
+  protected abstract getClient(model: Model): BaseApiClient
 
   /**
    * 根据模型选择合适的client并委托调用
@@ -129,7 +73,31 @@ export class NewAPIClient extends BaseApiClient {
     return this.currentClient
   }
 
-  // ============ BaseApiClient 抽象方法实现 ============
+  /**
+   * 重写基类方法，返回内部实际使用的客户端类型
+   */
+  public override getClientCompatibilityType(model?: Model): string[] {
+    if (!model) {
+      return [this.constructor.name]
+    }
+
+    const actualClient = this.getClient(model)
+    return actualClient.getClientCompatibilityType(model)
+  }
+
+  /**
+   * 从SDK payload中提取模型ID
+   */
+  protected extractModelFromPayload(payload: SdkParams): string | null {
+    // 不同的SDK可能有不同的字段名
+    if ('model' in payload && typeof payload.model === 'string') {
+      return payload.model
+    }
+
+    return null
+  }
+
+  // ============ BaseApiClient 的抽象方法 ============
 
   async createCompletions(payload: SdkParams, options?: RequestOptions): Promise<SdkRawOutput> {
     // 尝试从payload中提取模型信息来选择client
@@ -145,18 +113,6 @@ export class NewAPIClient extends BaseApiClient {
     return this.currentClient.createCompletions(payload, options)
   }
 
-  /**
-   * 从SDK payload中提取模型ID
-   */
-  private extractModelFromPayload(payload: SdkParams): string | null {
-    // 不同的SDK可能有不同的字段名
-    if ('model' in payload && typeof payload.model === 'string') {
-      return payload.model
-    }
-
-    return null
-  }
-
   async generateImage(params: GenerateImageParams): Promise<string[]> {
     return this.currentClient.generateImage(params)
   }
@@ -166,25 +122,9 @@ export class NewAPIClient extends BaseApiClient {
     return client.getEmbeddingDimensions(model)
   }
 
-  override async listModels(): Promise<NewApiModel[]> {
-    try {
-      const sdk = await this.defaultClient.getSdkInstance()
-      // Explicitly type the expected response shape so that `data` is recognised.
-      const response = await sdk.request<{ data: NewApiModel[] }>({
-        method: 'get',
-        path: '/models'
-      })
-      const models: NewApiModel[] = response.data ?? []
-
-      models.forEach(model => {
-        model.id = model.id.trim()
-      })
-
-      return models.filter(isSupportedModel)
-    } catch (error) {
-      console.error('Error listing models:', error)
-      return []
-    }
+  async listModels(): Promise<SdkModel[]> {
+    // 可以聚合所有client的模型，或者使用默认client
+    return this.defaultClient.listModels()
   }
 
   async getSdkInstance(): Promise<SdkInstance> {
@@ -220,6 +160,10 @@ export class NewAPIClient extends BaseApiClient {
     return this.currentClient.buildSdkMessages(currentReqMessages, output, toolResults, toolCalls)
   }
 
+  estimateMessageTokens(message: SdkMessageParam): number {
+    return this.currentClient.estimateMessageTokens(message)
+  }
+
   convertMcpToolResponseToSdkMessageParam(
     mcpToolResponse: MCPToolResponse,
     resp: MCPCallToolResponse,
@@ -231,9 +175,5 @@ export class NewAPIClient extends BaseApiClient {
 
   extractMessagesFromSdkPayload(sdkPayload: SdkParams): SdkMessageParam[] {
     return this.currentClient.extractMessagesFromSdkPayload(sdkPayload)
-  }
-
-  estimateMessageTokens(message: SdkMessageParam): number {
-    return this.currentClient.estimateMessageTokens(message)
   }
 }
