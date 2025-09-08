@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet } from 'react-native'
-import { useTheme, View } from 'tamagui'
+import { useTheme } from '@/hooks/useTheme'
 
 type PromptDialogProps = {
   open: boolean
@@ -17,7 +17,7 @@ type PromptDialogProps = {
 export function PromptDialog({ open, onOpenChange, title, description, initialValue = '', onSave }: PromptDialogProps) {
   const { t } = useTranslation()
   const [value, setValue] = useState(initialValue)
-  const theme = useTheme()
+  const { isDark } = useTheme()
 
   useEffect(() => {
     if (open) {
@@ -39,7 +39,7 @@ export function PromptDialog({ open, onOpenChange, title, description, initialVa
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.4)'
+      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.4)'
     }
   })
 
