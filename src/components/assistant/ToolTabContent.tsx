@@ -57,9 +57,9 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
           backgroundColor="$uiCardBackground"
           onPress={handleToolUsePress}>
           <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
-            <XStack maxWidth="45%" gap={5}>
+            <XStack gap={5}>
               {assistant.settings?.toolUseMode ? (
-                <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
+                <XStack gap={8} flex={1} alignItems="center">
                   {/* ToolUse icon */}
                   {assistant.settings.toolUseMode === 'function' ? <SquareFunction size={20} /> : <Wrench size={20} />}
                   {/* ToolUse */}
