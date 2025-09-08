@@ -34,6 +34,7 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
       width={cardWidth}
       height={cardHeight}
       borderRadius={16}
+      pressStyle={{ backgroundColor: '$gray20' }}
       onPress={handlePress}>
       <YStack gap={8} alignItems="center" height="100%">
         <EmojiAvatar
