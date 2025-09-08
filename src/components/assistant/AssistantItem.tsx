@@ -60,7 +60,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   ]
 
   return (
-    <ContextMenu list={contextMenuItems} onPress={handlePress}>
+    <ContextMenu borderRadius={16} list={contextMenuItems} onPress={handlePress}>
       <XStack
         paddingVertical={10}
         paddingHorizontal={10}

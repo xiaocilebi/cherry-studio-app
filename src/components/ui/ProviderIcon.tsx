@@ -6,6 +6,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { fileStorageDir } from '@/services/FileService'
 import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
+import { View } from 'react-native'
 
 interface ProviderIconProps {
   provider: Provider
@@ -36,7 +37,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider }) => {
   }, [provider.id, provider.isSystem, isDark, version])
 
   if (!iconUri) {
-    return null
+    return <View style={{ width: 20, height: 20 }} />
   }
 
   return <Image borderRadius={99} width={20} height={20} source={{ uri: iconUri }} />

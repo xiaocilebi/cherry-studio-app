@@ -62,7 +62,7 @@ export const PressableSettingRow = styled(XStack, {
   alignItems: 'center',
   paddingVertical: 12,
   paddingLeft: 16,
-  paddingRight: 20,
+  paddingRight: 16,
   backgroundColor: '$uiCardBackground',
   pressStyle: { backgroundColor: '$gray20' }
 })

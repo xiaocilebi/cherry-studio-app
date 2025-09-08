@@ -81,7 +81,6 @@ export default function ProviderListScreen() {
                 keyExtractor={item => item.id}
                 estimatedItemSize={60}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 24 }}
                 extraData={providers}
               />
             </SettingGroup>

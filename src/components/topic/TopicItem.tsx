@@ -114,6 +114,7 @@ const TopicItem: FC<TopicItemProps> = ({
 
   return (
     <ContextMenu
+      borderRadius={16}
       list={[
         {
           title: t('common.rename'),
