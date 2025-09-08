@@ -1,9 +1,10 @@
 import { Button, Input, Text, XStack, YStack } from 'tamagui'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import React from 'react'
-import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet } from 'react-native'
+import { Modal, Pressable, StyleSheet } from 'react-native'
 import { useTheme } from '@/hooks/useTheme'
+import { MotiView } from 'moti'
 
 type PromptDialogProps = {
   open: boolean
@@ -45,7 +46,12 @@ export function PromptDialog({ open, onOpenChange, title, description, initialVa
 
   return (
     <Modal animationType="fade" transparent visible={open} onRequestClose={handleCancel}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.centeredView}>
+      <MotiView
+        from={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ type: 'timing', duration: 300 }}
+        style={styles.centeredView}>
         <Pressable style={StyleSheet.absoluteFill} onPress={handleCancel} />
         <YStack width="75%" borderRadius={20} backgroundColor="$uiCardBackground">
           <YStack gap={16} padding={20} alignItems="center">
@@ -91,7 +97,7 @@ export function PromptDialog({ open, onOpenChange, title, description, initialVa
             </Button>
           </XStack>
         </YStack>
-      </KeyboardAvoidingView>
+      </MotiView>
     </Modal>
   )
 }
