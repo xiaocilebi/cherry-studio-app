@@ -3,8 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
-import { isGenerateImageModel } from '@/config/models/image'
-import { isWebSearchModel } from '@/config/models/webSearch'
+import { isGenerateImageModel, isWebSearchModel } from '@/config/models'
 import { Assistant } from '@/types/assistant'
 
 interface AIFeatureOption {

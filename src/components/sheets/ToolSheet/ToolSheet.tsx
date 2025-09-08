@@ -6,7 +6,7 @@ import { YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
-import { FileType } from '@/types/file'
+import { FileMetadata } from '@/types/file'
 
 import { AIFeatureOptions } from './AIFeatureOptions'
 import { useCameraModal } from './CameraModal'
@@ -15,8 +15,8 @@ import { useAIFeatureHandler } from './useAIFeatureHandler'
 import { useFileHandler } from './useFileHandler'
 
 interface ToolSheetProps {
-  files: FileType[]
-  setFiles: (files: FileType[]) => void
+  files: FileMetadata[]
+  setFiles: (files: FileMetadata[]) => void
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
