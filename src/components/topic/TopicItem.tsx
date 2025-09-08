@@ -18,6 +18,7 @@ import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../assistant/EmojiAvator'
+import { PromptDialog } from '../ui/PromptDialog'
 
 type TimeFormat = 'time' | 'date'
 
@@ -41,6 +42,7 @@ const TopicItem: FC<TopicItemProps> = ({
   const dispatch = useAppDispatch()
   const navigation = useNavigation<DrawerNavigationProps>()
   const [assistant, setAssistant] = useState<Assistant>()
+  const [isRenameModalOpen, setRenameModalOpen] = useState(false)
 
   const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
 
@@ -86,82 +88,78 @@ const TopicItem: FC<TopicItemProps> = ({
   }, [topic.assistantId])
 
   const handleRename = () => {
-    Alert.prompt(
-      t('topics.rename.title'),
-      '',
-      [
-        {
-          text: t('common.cancel'),
-          style: 'cancel'
-        },
-        {
-          text: t('common.save'),
-          onPress: async newName => {
-            if (newName && newName.trim() && newName.trim() !== topic.name) {
-              try {
-                await onRename?.(topic.id, newName.trim())
-              } catch (error) {
-                Alert.alert(t('common.error_occurred'), (error as Error).message || 'Unknown error')
-              }
-            }
-          }
-        }
-      ],
-      'plain-text',
-      topic.name
-    )
+    setRenameModalOpen(true)
+  }
+
+  const handleSaveRename = async (newName: string) => {
+    if (newName && newName.trim() && newName.trim() !== topic.name) {
+      try {
+        await onRename?.(topic.id, newName.trim())
+      } catch (error) {
+        Alert.alert(t('common.error_occurred'), (error as Error).message || 'Unknown error')
+      }
+    }
   }
 
   return (
-    <ContextMenu
-      borderRadius={16}
-      list={[
-        {
-          title: t('common.rename'),
-          iOSIcon: 'rectangle.and.pencil.and.ellipsis',
-          androidIcon: <Edit3 size={16} color="$textPrimary" />,
-          onSelect: handleRename
-        },
-        {
-          title: t('common.delete'),
-          iOSIcon: 'trash',
-          androidIcon: <Trash2 size={16} color="red" />,
-          destructive: true,
-          color: 'red',
-          onSelect: () => onDelete?.(topic.id)
-        }
-      ]}
-      onPress={openTopic}>
-      <XStack
+    <>
+      <ContextMenu
         borderRadius={16}
-        paddingVertical={5}
-        paddingHorizontal={5}
-        gap={14}
-        justifyContent="center"
-        alignItems="center"
-        backgroundColor={isActive ? '$green10' : 'transparent'}>
-        <EmojiAvatar
-          emoji={assistant?.emoji}
-          size={40}
-          borderRadius={12}
-          borderWidth={3}
-          borderColor="$uiCardBackground"
-        />
-        <YStack flex={1}>
-          <XStack justifyContent="space-between">
-            <Text fontSize={16} fontWeight="bold" color="$textPrimary">
-              {assistant?.name}
+        list={[
+          {
+            title: t('common.rename'),
+            iOSIcon: 'rectangle.and.pencil.and.ellipsis',
+            androidIcon: <Edit3 size={16} color="$textPrimary" />,
+            onSelect: handleRename
+          },
+          {
+            title: t('common.delete'),
+            iOSIcon: 'trash',
+            androidIcon: <Trash2 size={16} color="red" />,
+            destructive: true,
+            color: 'red',
+            onSelect: () => onDelete?.(topic.id)
+          }
+        ]}
+        onPress={openTopic}>
+        <XStack
+          borderRadius={16}
+          paddingVertical={5}
+          paddingHorizontal={5}
+          gap={14}
+          justifyContent="center"
+          alignItems="center"
+          backgroundColor={isActive ? '$green10' : 'transparent'}>
+          <EmojiAvatar
+            emoji={assistant?.emoji}
+            size={40}
+            borderRadius={12}
+            borderWidth={3}
+            borderColor="$uiCardBackground"
+          />
+          <YStack flex={1}>
+            <XStack justifyContent="space-between">
+              <Text fontSize={16} fontWeight="bold" color="$textPrimary">
+                {assistant?.name}
+              </Text>
+              <Text fontSize={12} color="$textSecondary">
+                {displayTime}
+              </Text>
+            </XStack>
+            <Text fontSize={13} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+              {topic.name}
             </Text>
-            <Text fontSize={12} color="$textSecondary">
-              {displayTime}
-            </Text>
-          </XStack>
-          <Text fontSize={13} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
-            {topic.name}
-          </Text>
-        </YStack>
-      </XStack>
-    </ContextMenu>
+          </YStack>
+        </XStack>
+      </ContextMenu>
+      <PromptDialog
+        open={isRenameModalOpen}
+        onOpenChange={setRenameModalOpen}
+        title={t('topics.rename.title')}
+        initialValue={topic.name}
+        onSave={handleSaveRename}
+      />
+    </>
   )
 }
 
