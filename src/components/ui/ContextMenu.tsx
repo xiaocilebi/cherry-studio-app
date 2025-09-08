@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Pressable, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { useTheme } from '@/hooks/useTheme'
 import * as ZeegoContextMenu from 'zeego/context-menu'
 import { SFSymbol } from 'sf-symbols-typescript'
@@ -20,11 +20,12 @@ export interface ContextMenuListProps {
 
 export interface ContextMenuProps {
   children: React.ReactNode
+  activeOpacity?: number
   onPress?: () => void
   list: ContextMenuListProps[]
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list }) => {
+const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list, activeOpacity = 0.7 }) => {
   if (isIOS) {
     return (
       <ZeegoContextMenu.Root
@@ -33,9 +34,16 @@ const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list 
           shouldWaitForMenuToHideBeforeFiringOnPressMenuItem: false
         }}>
         <ZeegoContextMenu.Trigger>
-          <TouchableOpacity onPress={onPress} onLongPress={() => {}} delayLongPress={400}>
+          <Pressable
+            onPress={onPress}
+            onLongPress={() => {}}
+            unstable_pressDelay={50}
+            delayLongPress={400}
+            style={({ pressed }) => ({
+              opacity: pressed ? activeOpacity : 1
+            })}>
             {children}
-          </TouchableOpacity>
+          </Pressable>
         </ZeegoContextMenu.Trigger>
         <ZeegoContextMenu.Content>
           {list.map(item => (
@@ -72,9 +80,18 @@ const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list 
 
     return (
       <>
-        <TouchableOpacity activeOpacity={0.7} onPress={onPress} onLongPress={openBottomSheet}>
+        <Pressable
+          android_disableSound={true}
+          android_ripple={{ color: '$backgroundGray' }}
+          unstable_pressDelay={50}
+          delayLongPress={400}
+          onPress={onPress}
+          onLongPress={openBottomSheet}
+          style={({ pressed }) => ({
+            opacity: pressed ? activeOpacity : 1
+          })}>
           {children}
-        </TouchableOpacity>
+        </Pressable>
         <BottomSheetModal
           ref={bottomSheetModalRef}
           enableDynamicSizing={true}

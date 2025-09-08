@@ -105,7 +105,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
 
   return (
     <>
-      <ContextMenu list={contextMenuItems}>{children}</ContextMenu>
+      <ContextMenu list={contextMenuItems} activeOpacity={1}>{children}</ContextMenu>
 
       <TextSelectionSheet ref={textSelectionSheetRef} content={messageContent} />
     </>

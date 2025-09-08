@@ -137,7 +137,7 @@ const TopicItem: FC<TopicItemProps> = ({
         gap={14}
         justifyContent="center"
         alignItems="center"
-        backgroundColor={isActive ? '$green10' : 'none'}>
+        backgroundColor={isActive ? '$green10' : 'transparent'}>
         <EmojiAvatar
           emoji={assistant?.emoji}
           size={40}

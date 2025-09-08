@@ -66,7 +66,7 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
           alignItems="center"
           paddingHorizontal={16}
           paddingBottom={16}
-          borderBottomWidth={0.5}
+          borderBottomWidth={1}
           borderBottomColor="$borderColor">
           <Text fontSize={16} fontWeight="bold">
             {t('common.select_text')}
