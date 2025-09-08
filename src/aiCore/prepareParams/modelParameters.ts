@@ -3,8 +3,7 @@
  * 处理温度、TopP、超时等基础参数的获取逻辑
  */
 
-import { isNotSupportTemperatureAndTopP, isSupportedFlexServiceTier } from '@/config/models'
-import { isClaudeReasoningModel } from '@/config/models/reasoning'
+import { isClaudeReasoningModel, isNotSupportTemperatureAndTopP, isSupportedFlexServiceTier } from '@/config/models'
 import { defaultTimeout } from '@/constants'
 import { getAssistantSettings } from '@/services/AssistantService'
 import { Assistant, Model } from '@/types/assistant'

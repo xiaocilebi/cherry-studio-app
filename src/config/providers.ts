@@ -8,7 +8,7 @@ import {
   SystemProviderId
 } from '@/types/assistant'
 
-import { SYSTEM_MODELS } from './models'
+import { SYSTEM_MODELS } from './models/default'
 
 export const SYSTEM_PROVIDERS_CONFIG: Record<SystemProviderId, SystemProvider> = {
   cherryin: {

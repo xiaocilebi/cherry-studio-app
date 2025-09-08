@@ -1,5 +1,6 @@
-import { findTokenLimit, GEMINI_FLASH_MODEL_REGEX } from '@/config/models'
 import {
+  findTokenLimit,
+  GEMINI_FLASH_MODEL_REGEX,
   getThinkModelType,
   isDeepSeekHybridInferenceModel,
   isDoubaoThinkingAutoModel,
@@ -19,7 +20,7 @@ import {
   isSupportedThinkingTokenQwenModel,
   isSupportedThinkingTokenZhipuModel,
   MODEL_SUPPORTED_REASONING_EFFORT
-} from '@/config/models/reasoning'
+} from '@/config/models'
 import { isSupportEnableThinkingProvider } from '@/config/providers'
 import { DEFAULT_MAX_TOKENS } from '@/constants'
 import { getAssistantSettings } from '@/services/AssistantService'

@@ -83,7 +83,7 @@ export type AssistantSettings = {
    */
   reasoning_effort_cache?: ReasoningEffortOption
   qwenThinkMode?: boolean
-  toolUseMode: 'function' | 'prompt'
+  toolUseMode?: 'function' | 'prompt'
 }
 
 export type AssistantSettingCustomParameters = {

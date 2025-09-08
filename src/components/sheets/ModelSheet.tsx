@@ -11,7 +11,7 @@ import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { ModelTags } from '@/components/ui/ModelTags'
-import { isEmbeddingModel, isRerankModel } from '@/config/models/embedding'
+import { isEmbeddingModel, isRerankModel } from '@/config/models'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
