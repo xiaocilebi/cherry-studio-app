@@ -2,8 +2,8 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@g
 import { X } from '@tamagui/lucide-icons'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform, TextInput, TouchableOpacity } from 'react-native'
-import { Text, XStack, YStack } from 'tamagui'
+import { Platform, TouchableOpacity } from 'react-native'
+import { Text, TextArea, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 
@@ -20,9 +20,16 @@ export interface TextSelectionSheetRef {
 function SelectableText({ children }) {
   if (Platform.OS === 'ios') {
     return (
-      <TextInput multiline editable={false} style={{ fontSize: 15, lineHeight: 24 }} scrollEnabled={false}>
+      <TextArea
+        unstyled={true}
+        color="$textPrimary"
+        multiline
+        editable={false}
+        fontSize={15}
+        lineHeight={24}
+        scrollEnabled={false}>
         {children}
-      </TextInput>
+      </TextArea>
     )
   } else {
     return (

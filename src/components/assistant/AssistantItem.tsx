@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 import { isEmpty } from 'lodash'
 import { FC } from 'react'
 import React from 'react'
@@ -30,7 +29,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   const navigation = useNavigation<HomeNavigationProps>()
 
   const handlePress = () => {
-    haptic(ImpactFeedbackStyle.Medium)
+    haptic()
     onAssistantPress(assistant)
   }
 
@@ -60,7 +59,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   ]
 
   return (
-    <ContextMenu list={contextMenuItems} onPress={handlePress}>
+    <ContextMenu borderRadius={16} list={contextMenuItems} onPress={handlePress}>
       <XStack
         paddingVertical={10}
         paddingHorizontal={10}

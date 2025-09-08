@@ -3,9 +3,10 @@ import { ChevronRight, Edit3, Trash2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
+import { SFSymbol } from 'sf-symbols-typescript'
 import { Text, XStack } from 'tamagui'
-import * as ContextMenu from 'zeego/context-menu'
 
+import ContextMenu from '@/components/ui/ContextMenu'
 import { deleteProvider } from '@/services/ProviderService'
 import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
@@ -52,15 +53,20 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
     ])
   }
 
+  const handlePress = () => {
+    navigation.navigate('ProvidersSettings', {
+      screen: 'ProviderSettingsScreen',
+      params: { providerId: provider.id }
+    })
+  }
+
   const providerRow = (
-    <PressableSettingRow
-      onPress={() =>
-        navigation.navigate('ProvidersSettings', {
-          screen: 'ProviderSettingsScreen',
-          params: { providerId: provider.id }
-        })
-      }>
-      <XStack gap={5} alignItems="center">
+    <XStack
+      justifyContent="space-between"
+      alignItems="center"
+      paddingVertical={12}
+      paddingHorizontal={16}>
+      <XStack gap={8} alignItems="center">
         <ProviderIcon provider={provider} />
         <Text fontSize={16}>{t(`provider.${provider.id}`, { defaultValue: provider.name })}</Text>
       </XStack>
@@ -78,32 +84,31 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
             {statusText}
           </Text>
         )}
-        <ChevronRight color="$white9" width={6} height={12} />
+        <ChevronRight size={20} color="$textSecondary" />
       </XStack>
-    </PressableSettingRow>
+    </XStack>
   )
 
-  if (provider.isSystem) {
-    return providerRow
-  }
+  const contextMenuList = [
+    {
+      title: t('common.edit'),
+      onSelect: handleEdit,
+      iOSIcon: 'pencil' as SFSymbol,
+      androidIcon: <Edit3 size={16} />
+    },
+    {
+      title: t('common.delete'),
+      onSelect: handleDelete,
+      destructive: true,
+      iOSIcon: 'trash' as SFSymbol,
+      androidIcon: <Trash2 size={16} color="red" />,
+      color: 'red'
+    }
+  ]
 
   return (
-    <ContextMenu.Root>
-      <ContextMenu.Trigger>{providerRow}</ContextMenu.Trigger>
-      <ContextMenu.Content>
-        <ContextMenu.Item key="edit" onSelect={handleEdit}>
-          <ContextMenu.ItemTitle>{t('common.edit')}</ContextMenu.ItemTitle>
-          <ContextMenu.ItemIcon ios={{ name: 'pencil' }}>
-            <Edit3 size={16} color="$blue10" />
-          </ContextMenu.ItemIcon>
-        </ContextMenu.Item>
-        <ContextMenu.Item key="delete" onSelect={handleDelete} destructive>
-          <ContextMenu.ItemTitle>{t('common.delete')}</ContextMenu.ItemTitle>
-          <ContextMenu.ItemIcon ios={{ name: 'trash' }}>
-            <Trash2 size={16} color="red" />
-          </ContextMenu.ItemIcon>
-        </ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu.Root>
+    <ContextMenu list={contextMenuList} onPress={handlePress} disableContextMenu={provider.isSystem}>
+      {providerRow}
+    </ContextMenu>
   )
 }

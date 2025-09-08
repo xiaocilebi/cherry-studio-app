@@ -175,7 +175,7 @@ function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) 
       <XStack alignItems="center" gap={12}>
         {renderIcon()}
         <YStack>
-          <Text color="$textPrimary" fontWeight="bold">
+          <Text fontSize={16} color="$textPrimary" fontWeight="bold">
             {title}
           </Text>
         </YStack>

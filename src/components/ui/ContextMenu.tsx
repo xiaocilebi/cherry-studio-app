@@ -21,39 +21,56 @@ export interface ContextMenuListProps {
 export interface ContextMenuProps {
   children: React.ReactNode
   activeOpacity?: number
+  disableContextMenu?: boolean
+  borderRadius?: number
   onPress?: () => void
   list: ContextMenuListProps[]
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list, activeOpacity = 0.7 }) => {
+const ContextMenu: FC<ContextMenuProps> = ({
+  children,
+  onPress = () => {},
+  list,
+  activeOpacity = 0.7,
+  disableContextMenu = false,
+  borderRadius = 0
+}) => {
   if (isIOS) {
+    const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
+    const TriggerContent = (
+      <Pressable
+        onPress={onPress}
+        onLongPress={() => {}}
+        unstable_pressDelay={50}
+        delayLongPress={400}
+        style={({ pressed }) => ({
+          backgroundColor: pressed ? '#a0a1b033' : 'transparent',
+          borderRadius
+        })}>
+        {children}
+      </Pressable>
+    )
+
+    if (disableContextMenu) {
+      return TriggerContent
+    }
+
     return (
-      <ZeegoContextMenu.Root
+      <Root
         // @ts-expect-error: https://github.com/nandorojo/zeego/issues/80
         __unsafeIosProps={{
           shouldWaitForMenuToHideBeforeFiringOnPressMenuItem: false
         }}>
-        <ZeegoContextMenu.Trigger>
-          <Pressable
-            onPress={onPress}
-            onLongPress={() => {}}
-            unstable_pressDelay={50}
-            delayLongPress={400}
-            style={({ pressed }) => ({
-              opacity: pressed ? activeOpacity : 1
-            })}>
-            {children}
-          </Pressable>
-        </ZeegoContextMenu.Trigger>
-        <ZeegoContextMenu.Content>
+        <Trigger disabled={disableContextMenu}>{TriggerContent}</Trigger>
+        <Content>
           {list.map(item => (
-            <ZeegoContextMenu.Item key={item.title} onSelect={item.onSelect} destructive={item.destructive}>
-              <ZeegoContextMenu.ItemTitle>{item.title}</ZeegoContextMenu.ItemTitle>
-              {item.iOSIcon && <ZeegoContextMenu.ItemIcon ios={{ name: item.iOSIcon }} />}
-            </ZeegoContextMenu.Item>
+            <Item key={item.title} onSelect={item.onSelect} destructive={item.destructive}>
+              <ItemTitle>{item.title}</ItemTitle>
+              {item.iOSIcon && <ItemIcon ios={{ name: item.iOSIcon }} />}
+            </Item>
           ))}
-        </ZeegoContextMenu.Content>
-      </ZeegoContextMenu.Root>
+        </Content>
+      </Root>
     )
   }
 
@@ -66,6 +83,7 @@ const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list,
     )
 
     const openBottomSheet = () => {
+      if (disableContextMenu) return
       bottomSheetModalRef.current?.present()
     }
 
@@ -88,7 +106,8 @@ const ContextMenu: FC<ContextMenuProps> = ({ children, onPress = () => {}, list,
           onPress={onPress}
           onLongPress={openBottomSheet}
           style={({ pressed }) => ({
-            opacity: pressed ? activeOpacity : 1
+            backgroundColor: pressed ? '#a0a1b033' : 'transparent',
+            borderRadius
           })}>
           {children}
         </Pressable>
