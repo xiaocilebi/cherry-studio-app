@@ -46,25 +46,25 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
         <Text fontSize={16} textAlign="center" numberOfLines={1} ellipsizeMode="tail">
           {assistant.name}
         </Text>
-        <View height={40}>
-          <Text color="$textSecondary" fontSize={12} lineHeight={12} numberOfLines={3} ellipsizeMode="tail">
+        <YStack flex={1} justifyContent="space-between" alignItems="center">
+          <Text color="$textSecondary" fontSize={12} lineHeight={14} numberOfLines={3} ellipsizeMode="tail">
             {assistant.description}
           </Text>
-        </View>
-        <XStack gap={10}>
-          {assistant.group &&
-            assistant.group.map((group, index) => (
-              <GroupTag
-                key={index}
-                group={group}
-                fontSize={8}
-                backgroundColor="$green10"
-                color="$green100"
-                borderWidth={0.5}
-                borderColor="$green20"
-              />
-            ))}
-        </XStack>
+          <XStack gap={10}>
+            {assistant.group &&
+              assistant.group.map((group, index) => (
+                <GroupTag
+                  key={index}
+                  group={group}
+                  fontSize={8}
+                  backgroundColor="$green10"
+                  color="$green100"
+                  borderWidth={0.5}
+                  borderColor="$green20"
+                />
+              ))}
+          </XStack>
+        </YStack>
       </YStack>
     </View>
   )
