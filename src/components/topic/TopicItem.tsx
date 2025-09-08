@@ -4,10 +4,10 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, TouchableOpacity } from 'react-native'
+import { Alert } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
-import ContextMenu from '@/components/ui/ContextMenu'
 
+import ContextMenu from '@/components/ui/ContextMenu'
 import i18n from '@/i18n'
 import { getAssistantById } from '@/services/AssistantService'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -125,6 +125,7 @@ const TopicItem: FC<TopicItemProps> = ({
           title: t('common.delete'),
           iOSIcon: 'trash',
           androidIcon: <Trash2 size={16} color="red" />,
+          destructive: true,
           color: 'red',
           onSelect: () => onDelete?.(topic.id)
         }
