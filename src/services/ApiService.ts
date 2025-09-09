@@ -39,7 +39,7 @@ export async function fetchChatCompletion({
 
   const mcpTools: MCPTool[] = []
 
-  console.log('fetchChatCompletion', assistant)
+  onChunkReceived({ type: ChunkType.LLM_RESPONSE_CREATED })
 
   if (prompt) {
     messages = [
@@ -61,8 +61,6 @@ export async function fetchChatCompletion({
     requestOptions: options
   })
 
-  logger.info('fetchChatCompletion', capabilities)
-
   const middlewareConfig: AiSdkMiddlewareConfig = {
     streamOutput: assistant.settings?.streamOutput ?? true,
     onChunk: onChunkReceived,
@@ -78,7 +76,6 @@ export async function fetchChatCompletion({
   }
 
   // --- Call AI Completions ---
-  onChunkReceived({ type: ChunkType.LLM_RESPONSE_CREATED })
   await AI.completions(modelId, aiSdkParams, {
     ...middlewareConfig,
     assistant,

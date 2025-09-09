@@ -73,7 +73,7 @@ export default function AssistantScreen() {
   }
 
   return (
-    <SafeAreaContainer>
+    <SafeAreaContainer style={{ paddingBottom: 0 }}>
       <DrawerGestureWrapper>
         <View collapsable={false} style={{ flex: 1 }}>
           <HeaderBar
@@ -119,7 +119,7 @@ export default function AssistantScreen() {
                     <Text>{t('settings.assistant.empty')}</Text>
                   </YStack>
                 }
-                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10 }}
+                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
               />
             )}
           </SettingContainer>

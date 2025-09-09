@@ -2206,9 +2206,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cherrystudio/ai-core@npm:^1.0.0-alpha.12":
-  version: 1.0.0-alpha.12
-  resolution: "@cherrystudio/ai-core@npm:1.0.0-alpha.12"
+"@cherrystudio/ai-core@npm:^1.0.0-alpha.13":
+  version: 1.0.0-alpha.13
+  resolution: "@cherrystudio/ai-core@npm:1.0.0-alpha.13"
   dependencies:
     "@ai-sdk/anthropic": "npm:^2.0.5"
     "@ai-sdk/azure": "npm:^2.0.16"
@@ -2219,10 +2219,10 @@ __metadata:
     "@ai-sdk/provider": "npm:^2.0.0"
     "@ai-sdk/provider-utils": "npm:^3.0.4"
     "@ai-sdk/xai": "npm:^2.0.9"
-    zod: "npm:^3.25.0"
+    zod: "npm:^4.1.5"
   peerDependencies:
     ai: ^5.0.26
-  checksum: 10c0/ea583f87f8de058905320769eb9b9331525d3c81c158b92854c7a225bc16f1548aede4ddbb6cce1281bb9cf77df32ac08b610d7c1bef27605adabed265e7b04a
+  checksum: 10c0/3abbee09eaddc8e9d0080f027170131d0b29e6f5e67d4e95cac3dfa00a2bef91361e63a45408d6c5cd514f558aedec5f82b340cba98e8d59af78e03ea1c69fc1
   languageName: node
   linkType: hard
 
@@ -8144,7 +8144,7 @@ __metadata:
     "@aws-sdk/client-s3": "npm:^3.840.0"
     "@babel/core": "npm:^7.25.2"
     "@babel/plugin-transform-class-static-block": "npm:^7.27.1"
-    "@cherrystudio/ai-core": "npm:^1.0.0-alpha.12"
+    "@cherrystudio/ai-core": "npm:^1.0.0-alpha.13"
     "@google/genai": "npm:^1.17.0"
     "@gorhom/bottom-sheet": "npm:^5.1.5"
     "@mistralai/mistralai": "npm:^1.7.4"
@@ -20311,10 +20311,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.4, zod@npm:^3.25.0":
+"zod@npm:^3.22.4":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
+  languageName: node
+  linkType: hard
+
+"zod@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "zod@npm:4.1.5"
+  checksum: 10c0/7826fb931bc71d4d0fff2fbb72f1a1cf30a6672cf9dbe6933a216bbb60242ef1c3bdfbcd3c5b27e806235a35efaad7a4a9897ff4d3621452f9ea278bce6fd42a
   languageName: node
   linkType: hard
 

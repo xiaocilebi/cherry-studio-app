@@ -47,6 +47,7 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
         toolUseMode: newToolUseMode
       }
     })
+    ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
   }
 
   // 处理Android返回按钮事件
@@ -98,7 +99,7 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
                       {option.icon}
                     </XStack>
                     {/* Tool use mode name */}
-                    <Text numberOfLines={1} ellipsizeMode="tail" flex={1}>
+                    <Text color="$textPrimary" numberOfLines={1} ellipsizeMode="tail" flex={1}>
                       {option.name}
                     </Text>
                   </XStack>

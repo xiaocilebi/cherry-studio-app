@@ -28,7 +28,7 @@ const MessageContent: React.FC<Props> = ({ message, assistant }) => {
   if (isUser)
     return (
       <View style={[styles.userContainer, styles.container]} paddingHorizontal={14} borderRadius={16}>
-        {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} />}
+        {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
         <MessageContextMenu message={message} assistant={assistant}>
           {contentBlocks.length > 0 && (
             <Stack
@@ -37,7 +37,7 @@ const MessageContent: React.FC<Props> = ({ message, assistant }) => {
               backgroundColor={'$green10'}
               borderColor={'$green20'}
               borderWidth={1}>
-              <MessageBlockRenderer blocks={contentBlocks} />
+              <MessageBlockRenderer blocks={contentBlocks} message={message} />
             </Stack>
           )}
         </MessageContextMenu>
@@ -47,13 +47,13 @@ const MessageContent: React.FC<Props> = ({ message, assistant }) => {
   return (
     <MessageContextMenu message={message} assistant={assistant}>
       <View style={[styles.container]} paddingHorizontal={14} borderRadius={16}>
-        {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} />}
+        {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
         {contentBlocks.length > 0 && (
           <Stack
             style={[styles.assistantMessageContent, mediaBlocks.length > 0 && { marginTop: 8 }]}
             borderRadius={16}
             backgroundColor={'$green10'}>
-            <MessageBlockRenderer blocks={contentBlocks} />
+            <MessageBlockRenderer blocks={contentBlocks} message={message} />
           </Stack>
         )}
       </View>

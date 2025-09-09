@@ -1,5 +1,5 @@
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { Menu, PenSquare } from '@tamagui/lucide-icons'
+import { Menu, MessageSquareDiff } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -67,7 +67,7 @@ export default function TopicScreen() {
               onPress: handleMenuPress
             }}
             rightButton={{
-              icon: <PenSquare size={24} />,
+              icon: <MessageSquareDiff size={24} />,
               onPress: handleAddNewTopic
             }}
           />

@@ -79,7 +79,7 @@ export default function AssistantMarketScreen() {
   }
 
   return (
-    <SafeAreaContainer>
+    <SafeAreaContainer style={{ paddingBottom: 0 }}>
       <DrawerGestureWrapper>
         <View collapsable={false} style={{ flex: 1 }}>
           <HeaderBar

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { ArrowLeft } from '@tamagui/lucide-icons'
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import { Button, Text, XStack } from 'tamagui'
 
 import { DrawerNavigationProps } from '@/types/naviagate'
@@ -36,9 +37,13 @@ export function HeaderBar({ title, leftButton, rightButton, rightButtons, showBa
       {/* 左侧按钮 */}
       <XStack alignItems="center" minWidth={40}>
         {leftButton ? (
-          <Button size="$2" chromeless circular icon={leftButton.icon} onPress={leftButton.onPress} />
+          <TouchableOpacity hitSlop={10} onPress={leftButton.onPress}>
+            {leftButton.icon}
+          </TouchableOpacity>
         ) : showBackButton ? (
-          <Button size="$2" chromeless circular icon={<ArrowLeft size={24} />} onPress={navigateBack} />
+          <TouchableOpacity hitSlop={10} onPress={navigateBack}>
+            {<ArrowLeft size={24} />}
+          </TouchableOpacity>
         ) : (
           <XStack width={40} /> // 占位，确保标题能正确居中
         )}
@@ -56,7 +61,9 @@ export function HeaderBar({ title, leftButton, rightButton, rightButtons, showBa
         {buttonsToRender.length > 0 ? (
           <XStack gap="$2">
             {buttonsToRender.map((button, index) => (
-              <Button key={index} size="$2" chromeless circular icon={button.icon} onPress={button.onPress} />
+              <TouchableOpacity key={index} hitSlop={10} onPress={button.onPress}>
+                {button.icon}
+              </TouchableOpacity>
             ))}
           </XStack>
         ) : (
