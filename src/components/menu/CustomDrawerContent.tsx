@@ -43,6 +43,11 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     props.navigation.navigate('Home', { screen: 'SettingsScreen' })
   }
 
+  const handleNavigatePersonalScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    props.navigation.navigate('Home', { screen: 'AboutSettings', params: { screen: 'PersonalScreen' } })
+  }
+
   const handleNavigateChatScreen = (topicId: string) => {
     haptic(ImpactFeedbackStyle.Medium)
     props.navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topicId } })
@@ -95,7 +100,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       </Stack>
 
       <XStack paddingHorizontal={20} justifyContent="space-between" alignItems="center">
-        <XStack gap={10} alignItems="center">
+        <XStack gap={10} alignItems="center" onPress={handleNavigatePersonalScreen} pressStyle={{ opacity: 0.7 }}>
           <Avatar circular size={48}>
             <Avatar.Image accessibilityLabel="Cam" src={avatar || require('@/assets/images/favicon.png')} />
             <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
