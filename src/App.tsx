@@ -38,6 +38,7 @@ import { SYSTEM_PROVIDERS } from './config/providers'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
 import { DialogProvider } from './hooks/useDialog'
+import { ToastProvider } from '@tamagui/toast'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -117,7 +118,9 @@ function ThemedApp() {
                 <StatusBar style={isDark ? 'light' : 'dark'} backgroundColor={backgroundColor} />
                 <DatabaseInitializer />
                 <DialogProvider>
-                  <MainStackNavigator />
+                  <ToastProvider>
+                    <MainStackNavigator />
+                  </ToastProvider>
                 </DialogProvider>
               </BottomSheetModalProvider>
             </Theme>
