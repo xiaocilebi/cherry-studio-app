@@ -1,5 +1,5 @@
 import { AiPlugin } from '@cherrystudio/ai-core'
-import { createPromptToolUsePlugin, webSearchPlugin } from '@cherrystudio/ai-core/built-in/plugins'
+import { createPromptToolUsePlugin, googleToolsPlugin, webSearchPlugin } from '@cherrystudio/ai-core/built-in/plugins'
 
 import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
@@ -63,9 +63,10 @@ export function buildPlugins(
     )
   }
 
-  // if (!middlewareConfig.enableTool && middlewareConfig.mcpTools && middlewareConfig.mcpTools.length > 0) {
-  //   plugins.push(createNativeToolUsePlugin())
-  // }
+  if (middlewareConfig.enableUrlContext) {
+    plugins.push(googleToolsPlugin({ urlContext: true }))
+  }
+
   logger.info(
     'Final plugin list:',
     plugins.map(p => p.name)
