@@ -3,7 +3,7 @@ import { ChevronRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Avatar, Button, Stack, styled, Text, View, XStack, YStack } from 'tamagui'
+import { Avatar, Stack, styled, Text, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
@@ -15,6 +15,7 @@ import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
 import { SettingDivider } from '../settings'
 import SafeAreaContainer from '../ui/SafeAreaContainer'
+import { TouchableOpacity } from 'react-native'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
@@ -103,7 +104,9 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             {userName || t('common.cherry_studio')}
           </Text>
         </XStack>
-        <Button icon={<Settings size={24} color="$textPrimary" />} chromeless onPress={handleNavigateSettingsScreen} />
+        <TouchableOpacity onPress={handleNavigateSettingsScreen} hitSlop={10}>
+          <Settings size={24} color="$textPrimary" />
+        </TouchableOpacity>
       </XStack>
     </SafeAreaContainer>
   )
