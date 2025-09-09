@@ -37,6 +37,7 @@ import { getSystemAssistants } from './config/assistants'
 import { SYSTEM_PROVIDERS } from './config/providers'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
+import { DialogProvider } from './hooks/useDialog'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -115,7 +116,9 @@ function ThemedApp() {
               <BottomSheetModalProvider>
                 <StatusBar style={isDark ? 'light' : 'dark'} backgroundColor={backgroundColor} />
                 <DatabaseInitializer />
-                <MainStackNavigator />
+                <DialogProvider>
+                  <MainStackNavigator />
+                </DialogProvider>
               </BottomSheetModalProvider>
             </Theme>
           </NavigationContainer>
