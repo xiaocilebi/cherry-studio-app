@@ -71,6 +71,7 @@ export async function fetchChatCompletion({
     isImageGenerationEndpoint: isDedicatedImageGenerationModel(assistant.model || getDefaultModel()),
     enableWebSearch: capabilities.enableWebSearch,
     enableGenerateImage: capabilities.enableGenerateImage,
+    enableUrlContext: capabilities.enableUrlContext,
     mcpTools,
     uiMessages
   }
@@ -220,6 +221,7 @@ export async function fetchTopicNaming(topicId: string) {
     isImageGenerationEndpoint: false,
     enableWebSearch: false,
     enableGenerateImage: false,
+    enableUrlContext: false,
     mcpTools: []
   }
 

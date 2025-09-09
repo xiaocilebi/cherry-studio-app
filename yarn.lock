@@ -95,15 +95,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/gateway@npm:1.0.18":
-  version: 1.0.18
-  resolution: "@ai-sdk/gateway@npm:1.0.18"
+"@ai-sdk/gateway@npm:1.0.20":
+  version: 1.0.20
+  resolution: "@ai-sdk/gateway@npm:1.0.20"
   dependencies:
     "@ai-sdk/provider": "npm:2.0.0"
     "@ai-sdk/provider-utils": "npm:3.0.8"
   peerDependencies:
     zod: ^3.25.76 || ^4
-  checksum: 10c0/9f180c314f8a5e6a702ae8d305f8a5cc8ca5f16fe14e1d10e62323c12c096088a0da880156d310471147bd34f7768b58c2af20b805c8500bbd308d7d4e55f076
+  checksum: 10c0/c25e98aab2513f783b2b552245b027e5a73b209d974e25bbfae0e69b67fd3468bba0bf57085ca3d7259b4dc8881e7f40fca769f698f0b1eb028a849f587ad09c
   languageName: node
   linkType: hard
 
@@ -119,15 +119,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/google@npm:^2.0.7":
-  version: 2.0.8
-  resolution: "@ai-sdk/google@npm:2.0.8"
+"@ai-sdk/google@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@ai-sdk/google@npm:2.0.13"
   dependencies:
     "@ai-sdk/provider": "npm:2.0.0"
-    "@ai-sdk/provider-utils": "npm:3.0.5"
+    "@ai-sdk/provider-utils": "npm:3.0.8"
   peerDependencies:
     zod: ^3.25.76 || ^4
-  checksum: 10c0/5176c22ef04cca87003ab6bc1b915784ec5a23364a9095e8f204a78b09cf80780b334ba897bcc3ad5b50428fce314c4ced6af2483fbd164b88267fac0b5d518e
+  checksum: 10c0/a05210de11d7ab41d49bcd0330c37f4116441b149d8ccc9b6bc5eaa12ea42bae82364dc2cd09502734b15115071f07395525806ea4998930b285b1ce74102186
   languageName: node
   linkType: hard
 
@@ -179,15 +179,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:^2.0.19":
-  version: 2.0.24
-  resolution: "@ai-sdk/openai@npm:2.0.24"
+"@ai-sdk/openai@npm:^2.0.26":
+  version: 2.0.27
+  resolution: "@ai-sdk/openai@npm:2.0.27"
   dependencies:
     "@ai-sdk/provider": "npm:2.0.0"
     "@ai-sdk/provider-utils": "npm:3.0.8"
   peerDependencies:
     zod: ^3.25.76 || ^4
-  checksum: 10c0/8a83e1005978f6909457469d6373d60138a59b9e279e2ee6b46725dee797b4bbbb4d81fcf8b87c273c7c2957900657fabf4908f7e59782153bbe92079259d340
+  checksum: 10c0/7f71f39fd08d255983dc47a699913a3520fb81c468590b16592b35c771922ebb4a57291535316200e86bafb4edf8ebc019bb2f6fdd0d8bf3aeabab2d1052c361
   languageName: node
   linkType: hard
 
@@ -2206,15 +2206,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cherrystudio/ai-core@npm:^1.0.0-alpha.13":
-  version: 1.0.0-alpha.13
-  resolution: "@cherrystudio/ai-core@npm:1.0.0-alpha.13"
+"@cherrystudio/ai-core@npm:^1.0.0-alpha.14":
+  version: 1.0.0-alpha.14
+  resolution: "@cherrystudio/ai-core@npm:1.0.0-alpha.14"
   dependencies:
     "@ai-sdk/anthropic": "npm:^2.0.5"
     "@ai-sdk/azure": "npm:^2.0.16"
     "@ai-sdk/deepseek": "npm:^1.0.9"
-    "@ai-sdk/google": "npm:^2.0.7"
-    "@ai-sdk/openai": "npm:^2.0.19"
+    "@ai-sdk/google": "npm:^2.0.13"
+    "@ai-sdk/openai": "npm:^2.0.26"
     "@ai-sdk/openai-compatible": "npm:^1.0.9"
     "@ai-sdk/provider": "npm:^2.0.0"
     "@ai-sdk/provider-utils": "npm:^3.0.4"
@@ -2222,7 +2222,7 @@ __metadata:
     zod: "npm:^4.1.5"
   peerDependencies:
     ai: ^5.0.26
-  checksum: 10c0/3abbee09eaddc8e9d0080f027170131d0b29e6f5e67d4e95cac3dfa00a2bef91361e63a45408d6c5cd514f558aedec5f82b340cba98e8d59af78e03ea1c69fc1
+  checksum: 10c0/46a76d858ef30d5d5e3106bef157c188dd686d8748db6eb441332b836945aa23e3c11a34c6ab628f5aba4d7eea28c5c194bdb7814c4fbfd5818285a558d913ca
   languageName: node
   linkType: hard
 
@@ -8144,7 +8144,7 @@ __metadata:
     "@aws-sdk/client-s3": "npm:^3.840.0"
     "@babel/core": "npm:^7.25.2"
     "@babel/plugin-transform-class-static-block": "npm:^7.27.1"
-    "@cherrystudio/ai-core": "npm:^1.0.0-alpha.13"
+    "@cherrystudio/ai-core": "npm:^1.0.0-alpha.14"
     "@google/genai": "npm:^1.17.0"
     "@gorhom/bottom-sheet": "npm:^5.1.5"
     "@mistralai/mistralai": "npm:^1.7.4"
@@ -8192,7 +8192,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.18.2"
     "@typescript-eslint/parser": "npm:^8.18.2"
     "@ungap/structured-clone": "npm:^1.3.0"
-    ai: "npm:^5.0.29"
+    ai: "npm:^5.0.38"
     babel-plugin-inline-import: "npm:^3.0.0"
     babel-plugin-module-resolver: "npm:^5.0.2"
     babel-plugin-react-compiler: "npm:^19.1.0-rc.2"
@@ -8396,17 +8396,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:^5.0.29":
-  version: 5.0.33
-  resolution: "ai@npm:5.0.33"
+"ai@npm:^5.0.38":
+  version: 5.0.38
+  resolution: "ai@npm:5.0.38"
   dependencies:
-    "@ai-sdk/gateway": "npm:1.0.18"
+    "@ai-sdk/gateway": "npm:1.0.20"
     "@ai-sdk/provider": "npm:2.0.0"
     "@ai-sdk/provider-utils": "npm:3.0.8"
     "@opentelemetry/api": "npm:1.9.0"
   peerDependencies:
     zod: ^3.25.76 || ^4
-  checksum: 10c0/8adcdb0a55336cf71e49ebd19fd1690598f0a3c8186cf3fd8aa807f9000cf791c428f77e83d7c528dee826fe4cce09627abd2898ebda948fd798277e36641945
+  checksum: 10c0/9ea7a76ae5609574e9edb2f9541e2fe9cf0e7296547c5e9ae30ec000206c967b4c07fbb03b85f9027493f6877e15f6bfbe454faa793fca860826acf306982fc5
   languageName: node
   linkType: hard
 
