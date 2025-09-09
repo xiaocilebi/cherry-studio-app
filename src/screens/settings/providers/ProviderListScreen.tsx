@@ -57,7 +57,7 @@ export default function ProviderListScreen() {
   )
 
   return (
-    <SafeAreaContainer>
+    <SafeAreaContainer style={{ paddingBottom: 0 }}>
       <HeaderBar
         title={t('settings.provider.list.title')}
         rightButton={{
@@ -82,6 +82,7 @@ export default function ProviderListScreen() {
                 estimatedItemSize={60}
                 showsVerticalScrollIndicator={false}
                 extraData={providers}
+                contentContainerStyle={{ paddingBottom: 30 }}
               />
             </SettingGroup>
           </YStack>

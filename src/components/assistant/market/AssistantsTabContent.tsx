@@ -47,6 +47,7 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
         showsVerticalScrollIndicator={false}
         removeClippedSubviews
         drawDistance={200}
+        contentContainerStyle={{ paddingBottom: 30 }}
       />
     </YStack>
   )
