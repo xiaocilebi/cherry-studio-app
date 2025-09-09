@@ -8,7 +8,7 @@ interface IconButtonProps {
 
 export const IconButton = ({ onPress, icon }: IconButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+    <TouchableOpacity onPress={onPress} hitSlop={10}>
       {icon}
     </TouchableOpacity>
   )
