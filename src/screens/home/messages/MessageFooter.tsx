@@ -9,6 +9,8 @@ import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
 
 import MessageFooterMoreSheet from './MessageFooterMoreSheet'
+import { haptic } from '@/utils/haptic'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 
 interface MessageFooterProps {
   assistant: Assistant
@@ -37,6 +39,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
         <IconButton
           icon={<MoreHorizontal size={18} color="$textSecondary" />}
           onPress={() => {
+            haptic(ImpactFeedbackStyle.Medium)
             bottomSheetModalRef.current?.present()
           }}
         />
