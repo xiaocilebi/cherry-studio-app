@@ -14,12 +14,12 @@ import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
-import { useToastController } from '@tamagui/toast'
 
 import EmojiAvatar from '../EmojiAvator'
 import GroupTag from './GroupTag'
 import { haptic } from '@/utils/haptic'
 import { ImpactFeedbackStyle } from 'expo-haptics'
+import { useToast } from '@/hooks/useToast'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -37,7 +37,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const { t } = useTranslation()
     const { isDark } = useCustomTheme()
     const { bottom } = useSafeAreaInsets()
-    const toast = useToastController()
+    const toast = useToast()
 
     // 处理Android返回按钮事件
     useEffect(() => {
@@ -90,9 +90,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         })
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
         haptic(ImpactFeedbackStyle.Medium)
-        toast.show(t('assistants.market.add.success', { assistant_name: assistant.name }), {
-          native: true
-        })
+        toast.show(t('assistants.market.add.success', { assistant_name: assistant.name }))
       }
     }
 

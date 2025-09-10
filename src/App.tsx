@@ -38,7 +38,7 @@ import { SYSTEM_PROVIDERS } from './config/providers'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
 import { DialogProvider } from './hooks/useDialog'
-import { ToastProvider } from '@tamagui/toast'
+import { ToastProvider } from './hooks/useToast'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()

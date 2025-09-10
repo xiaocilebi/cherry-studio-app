@@ -15,6 +15,7 @@ import { findTranslationBlocks } from '@/utils/messageUtils/find'
 
 import { removeManyBlocks } from '../../db/queries/messageBlocks.queries'
 import { upsertMessages } from '../../db/queries/messages.queries'
+import { useToast } from './useToast'
 
 const logger = loggerService.withContext('useMessageActions')
 
@@ -31,6 +32,7 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
   const [playState, setPlayState] = useState<PlayState>('idle')
   const [isTranslating, setIsTranslating] = useState(false)
   const [isTranslated, setIsTranslated] = useState(false)
+  const toast = useToast()
 
   useEffect(() => {
     const checkTranslation = async () => {
@@ -54,6 +56,7 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
       logger.info('Filtered Messages:', filteredMessages)
       const mainContent = await getMainTextContent(filteredMessages[0])
       await Clipboard.setStringAsync(mainContent)
+      toast.show(t('common.copied'))
     } catch (error) {
       logger.error('Error copying message:', error)
     }

@@ -1,5 +1,6 @@
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
+import { t } from 'i18next'
 import React, { ReactNode, useMemo } from 'react'
 import { Dimensions, ScrollView, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
@@ -10,6 +11,7 @@ import { Image, Text, View, XStack, YStack } from 'tamagui'
 
 import { IconButton } from '@/components/ui/IconButton'
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
+import { useToast } from '@/hooks/useToast'
 
 import { markdownColors } from './MarkdownStyles'
 import { ExtractMathResult, useMathEquation } from './useMathEquation'
@@ -27,13 +29,15 @@ class CustomRenderer extends Renderer implements RendererInterface {
   private extractAllMathEquation: (text: string) => ExtractMathResult[]
   private renderInlineMath: (content: string, key?: string | number) => React.JSX.Element
   private renderBlockMath: (content: string, key?: string | number) => React.JSX.Element
+  private showToast: (content: string) => void
 
   constructor(
     isDark: boolean,
     extractInlineMathEquation: (text: string) => ExtractMathResult[],
     extractAllMathEquation: (text: string) => ExtractMathResult[],
     renderInlineMath: (content: string, key?: string | number) => React.JSX.Element,
-    renderBlockMath: (content: string, key?: string | number) => React.JSX.Element
+    renderBlockMath: (content: string, key?: string | number) => React.JSX.Element,
+    showToast: (content: string) => void
   ) {
     super()
     this.isDark = isDark
@@ -42,11 +46,12 @@ class CustomRenderer extends Renderer implements RendererInterface {
     this.extractAllMathEquation = extractAllMathEquation
     this.renderInlineMath = renderInlineMath
     this.renderBlockMath = renderBlockMath
+    this.showToast = showToast
   }
 
   private async onCopy(content: string) {
-    haptic(ImpactFeedbackStyle.Medium)
     await Clipboard.setStringAsync(content)
+    this.showToast(t('common.copied'))
   }
 
   // Override code block rendering
@@ -304,10 +309,13 @@ export const useMarkedRenderer = (isDark: boolean) => {
   const { extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath } =
     useMathEquation(equationColor)
 
+  // Use useToast hook
+  const { show: showToast } = useToast()
+
   const renderer = useMemo(
     () =>
-      new CustomRenderer(isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath),
-    [isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath]
+      new CustomRenderer(isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath, showToast),
+    [isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath, showToast]
   )
   const tokenizer = useMemo(() => new CustomTokenizer(), [])
 
