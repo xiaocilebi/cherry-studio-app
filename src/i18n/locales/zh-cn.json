@@ -611,6 +611,7 @@
           "title": "模型检查失败"
         },
         "delete.content": "您确定要删除此服务商吗？",
+        "provider_deleted": "服务商已删除",
         "delete.title": "删除服务商",
         "edit": {
           "title": "编辑服务商"

@@ -611,6 +611,7 @@
           "title": "Model check failed"
         },
         "delete.content": "Are you sure you want to delete this provider?",
+        "provider_deleted": "Provider deleted",
         "delete.title": "Delete Provider",
         "edit": {
           "title": "Edit Provider"

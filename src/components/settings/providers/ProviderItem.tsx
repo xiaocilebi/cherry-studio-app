@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native'
 import { ChevronRight, Edit3, Trash2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
 import { Text, XStack } from 'tamagui'
 
@@ -12,6 +11,8 @@ import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
+import { useDialog } from '@/hooks/useDialog'
+import { useToast } from '@/hooks/useToast'
 
 interface ProviderItemProps {
   provider: Provider
@@ -22,6 +23,8 @@ interface ProviderItemProps {
 export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'enabled', onEdit }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<HomeNavigationProps>()
+  const dialog = useDialog()
+  const toast = useToast()
 
   // Determine display conditions and text based on mode
   const shouldShowStatus = mode === 'enabled' ? provider.enabled : provider.apiKey
@@ -32,24 +35,22 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
   }
 
   const handleDelete = () => {
-    Alert.alert(t('settings.provider.delete.title'), t('settings.provider.delete.content'), [
-      {
-        text: t('common.cancel'),
-        style: 'cancel'
-      },
-      {
-        text: t('common.delete'),
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            await deleteProvider(provider.id)
-          } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : t('common.unknown_error')
-            Alert.alert(t('common.error_occurred'), errorMessage)
-          }
+    dialog.open({
+      type: 'error',
+      title: t('settings.provider.delete.title'),
+      content: t('settings.provider.delete.content'),
+      confirmText: t('common.delete'),
+      cancelText: t('common.cancel'),
+      onConFirm: async () => {
+        try {
+          await deleteProvider(provider.id)
+          toast.show(t('settings.provider.provider_deleted'))
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : t('common.unknown_error')
+          toast.show(t('common.error_occurred') + '\n' + errorMessage)
         }
       }
-    ])
+    })
   }
 
   const handlePress = () => {

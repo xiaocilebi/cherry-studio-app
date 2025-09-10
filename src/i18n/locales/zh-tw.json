@@ -611,6 +611,7 @@
           "title": "模型檢查失敗"
         },
         "delete.content": "您確定要刪除這個提供者嗎？",
+        "provider_deleted": "提供者已刪除",
         "delete.title": "刪除提供者",
         "edit": {
           "title": "編輯服務供應商"

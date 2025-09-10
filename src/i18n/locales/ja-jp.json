@@ -611,6 +611,7 @@
           "title": "モデルチェック失敗"
         },
         "delete.content": "このプロバイダーを削除してもよろしいですか？",
+        "provider_deleted": "プロバイダーが削除されました",
         "delete.title": "プロバイダーの削除",
         "edit": {
           "title": "編集サービスプロバイダ"
