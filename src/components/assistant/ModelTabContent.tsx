@@ -19,16 +19,13 @@ interface ModelTabContentProps {
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentProps) {
+export function ModelTabContent({ assistant: _assistant, updateAssistant }: ModelTabContentProps) {
   const { t } = useTranslation()
   const modelSheetRef = useRef<BottomSheetModal>(null)
   const reasoningSheetRef = useRef<BottomSheetModal>(null)
+  const [assistant, setAssistant] = useState<Assistant>(_assistant)
   const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
   const [settings, setSettings] = useState<Partial<AssistantSettings>>(assistant.settings || {})
-
-  useEffect(() => {
-    console.log('assistant', assistant.settings)
-  }, [assistant.settings])
 
   // handle model sheet change
   useEffect(() => {
@@ -51,6 +48,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
 
   const handleReasoningChange = async (assistant: Assistant) => {
     await updateAssistant(assistant)
+    setAssistant(assistant)
     setSettings({ ...settings, reasoning_effort: assistant.settings?.reasoning_effort })
   }
 

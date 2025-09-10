@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ChevronRight, SquareFunction, Wrench } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -15,14 +15,20 @@ import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface ToolTabContentProps {
   assistant: Assistant
-  updateAssistant: (assistant: Assistant) => void
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentProps) {
+export function ToolTabContent({ assistant: _assistant, updateAssistant }: ToolTabContentProps) {
   const { t } = useTranslation()
   const toolUseSheetRef = useRef<BottomSheetModal>(null)
   const websearchSheetRef = useRef<BottomSheetModal>(null)
   const { apiProviders } = useWebsearchProviders()
+  const [assistant, setAssistant] = useState(_assistant)
+
+  const handleAssistantChange = async (assistant: Assistant) => {
+    await updateAssistant(assistant)
+    setAssistant(assistant)
+  }
 
   const handleToolUsePress = () => {
     toolUseSheetRef.current?.present()
@@ -106,11 +112,11 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
           </XStack>
         </Button>
       </YStack>
-      <ToolUseSheet ref={toolUseSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
+      <ToolUseSheet ref={toolUseSheetRef} assistant={assistant} updateAssistant={handleAssistantChange} />
       <WebsearchSheet
         ref={websearchSheetRef}
         assistant={assistant}
-        updateAssistant={updateAssistant}
+        updateAssistant={handleAssistantChange}
         providers={apiProviders.filter(p => p.apiKey)}
       />
     </MotiView>
