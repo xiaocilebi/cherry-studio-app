@@ -17,7 +17,7 @@ import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface WebsearchSheetProps {
   assistant: Assistant
-  updateAssistant: (assistant: Assistant) => void
+  updateAssistant: (assistant: Assistant) => Promise<void>
   providers: WebSearchProvider[]
 }
 
@@ -32,12 +32,13 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
     )
 
-    const handleProviderToggle = (id: string) => {
+    const handleProviderToggle = async (id: string) => {
       const newProviderId = id === assistant.webSearchProviderId ? undefined : id
-      updateAssistant({
+      await updateAssistant({
         ...assistant,
         webSearchProviderId: newProviderId
       })
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
 
     const handleNavigateToWebSearhPage = () => {

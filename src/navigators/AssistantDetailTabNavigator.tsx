@@ -13,9 +13,9 @@ import ToolTabScreen from '@/screens/assistant/tabs/ToolTabScreen'
 import { Assistant } from '@/types/assistant'
 
 export type AssistantDetailTabParamList = {
-  PromptTab: { assistant: Assistant; updateAssistant: (assistant: Assistant) => void }
-  ModelTab: { assistant: Assistant; updateAssistant: (assistant: Assistant) => Promise<void> }
-  ToolTab: { assistant: Assistant; updateAssistant: (assistant: Assistant) => void }
+  PromptTab: { assistant: Assistant }
+  ModelTab: { assistant: Assistant }
+  ToolTab: { assistant: Assistant }
 }
 
 const Tab = createMaterialTopTabNavigator<AssistantDetailTabParamList>()
@@ -24,10 +24,9 @@ type AssistantDetailRouteProp = RouteProp<AssistantStackParamList, 'AssistantDet
 
 interface AssistantDetailTabNavigatorProps {
   assistant: Assistant
-  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-function CustomTabBar({ state, descriptors, navigation }: any) {
+function CustomTabBar({ state, navigation }: any) {
   const { isDark } = useTheme()
   const { t } = useTranslation()
 
@@ -92,7 +91,7 @@ function CustomTabBar({ state, descriptors, navigation }: any) {
   )
 }
 
-export default function AssistantDetailTabNavigator({ assistant, updateAssistant }: AssistantDetailTabNavigatorProps) {
+export default function AssistantDetailTabNavigator({ assistant }: AssistantDetailTabNavigatorProps) {
   const { t } = useTranslation()
   const route = useRoute<AssistantDetailRouteProp>()
   const { tab } = route.params
@@ -111,7 +110,7 @@ export default function AssistantDetailTabNavigator({ assistant, updateAssistant
         options={{
           tabBarLabel: t('common.prompt')
         }}
-        initialParams={{ assistant, updateAssistant }}
+        initialParams={{ assistant }}
       />
       <Tab.Screen
         name="ModelTab"
@@ -119,7 +118,7 @@ export default function AssistantDetailTabNavigator({ assistant, updateAssistant
         options={{
           tabBarLabel: t('common.model')
         }}
-        initialParams={{ assistant, updateAssistant }}
+        initialParams={{ assistant }}
       />
       <Tab.Screen
         name="ToolTab"
@@ -127,7 +126,7 @@ export default function AssistantDetailTabNavigator({ assistant, updateAssistant
         options={{
           tabBarLabel: t('common.tool')
         }}
-        initialParams={{ assistant, updateAssistant }}
+        initialParams={{ assistant }}
       />
     </Tab.Navigator>
   )

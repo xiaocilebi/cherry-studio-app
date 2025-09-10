@@ -92,7 +92,7 @@ export default function AssistantDetailScreen() {
 
               {/* Material Top Tabs Navigator */}
               <View style={{ flex: 1 }}>
-                <AssistantDetailTabNavigator assistant={assistant} updateAssistant={updateAssistant} />
+                <AssistantDetailTabNavigator assistant={assistant} />
               </View>
             </SettingContainer>
           </KeyboardAwareScrollView>

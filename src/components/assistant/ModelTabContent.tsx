@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Input, Stack, Text, XStack } from 'tamagui'
 
@@ -19,37 +19,26 @@ interface ModelTabContentProps {
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export function ModelTabContent({ assistant: _assistant, updateAssistant }: ModelTabContentProps) {
+export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentProps) {
   const { t } = useTranslation()
   const modelSheetRef = useRef<BottomSheetModal>(null)
   const reasoningSheetRef = useRef<BottomSheetModal>(null)
-  const [assistant, setAssistant] = useState<Assistant>(_assistant)
-  const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
-  const [settings, setSettings] = useState<Partial<AssistantSettings>>(assistant.settings || {})
 
-  // handle model sheet change
-  useEffect(() => {
-    updateAssistant({
-      ...assistant,
-      model: model[0]
-    })
-  }, [assistant, model, updateAssistant])
-
-  useEffect(() => {
-    updateAssistant({
-      ...assistant,
-      settings
-    })
-  }, [assistant, settings, updateAssistant])
-
-  const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
-    setSettings(prevSettings => ({ ...prevSettings, [key]: value }))
+  // 统一的助手更新函数
+  const handleAssistantChange = async (updates: Partial<Assistant>) => {
+    const updatedAssistant = { ...assistant, ...updates }
+    await updateAssistant(updatedAssistant)
   }
 
-  const handleReasoningChange = async (assistant: Assistant) => {
-    await updateAssistant(assistant)
-    setAssistant(assistant)
-    setSettings({ ...settings, reasoning_effort: assistant.settings?.reasoning_effort })
+  // 设置更新函数
+  const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
+    const updatedSettings = { ...assistant.settings, [key]: value }
+    handleAssistantChange({ settings: updatedSettings })
+  }
+
+  // 模型更新函数
+  const handleModelChange = (models: Model[]) => {
+    handleAssistantChange({ model: models[0] })
   }
 
   const handleModelPress = () => {
@@ -59,6 +48,9 @@ export function ModelTabContent({ assistant: _assistant, updateAssistant }: Mode
   const handleReasoningPress = () => {
     reasoningSheetRef.current?.present()
   }
+
+  const model = assistant?.model ? [assistant.model] : []
+  const settings = assistant.settings || {}
 
   return (
     <MotiView
@@ -150,8 +142,8 @@ export function ModelTabContent({ assistant: _assistant, updateAssistant }: Mode
               fontSize={12}
               lineHeight={12 * 1.2}
               value={settings.maxTokens?.toString() ?? ''}
-              onChangeText={value => handleSettingsChange('maxTokens', value[0])}
-              onBlur={value => handleSettingsChange('maxTokens', value[0])}
+              onChangeText={value => handleSettingsChange('maxTokens', parseInt(value) || 0)}
+              onBlur={e => handleSettingsChange('maxTokens', parseInt(e.nativeEvent.text) || 0)}
               keyboardType="numeric"
             />
           </SettingRow>
@@ -184,9 +176,9 @@ export function ModelTabContent({ assistant: _assistant, updateAssistant }: Mode
           </Button>
         )}
       </SettingGroup>
-      <ModelSheet ref={modelSheetRef} mentions={model} setMentions={setModel} multiple={false} />
+      <ModelSheet ref={modelSheetRef} mentions={model} setMentions={handleModelChange} multiple={false} />
       {model[0] && (
-        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={handleReasoningChange} />
+        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={handleAssistantChange} />
       )}
     </MotiView>
   )
