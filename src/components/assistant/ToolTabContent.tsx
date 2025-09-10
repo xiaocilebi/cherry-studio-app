@@ -15,7 +15,7 @@ import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface ToolTabContentProps {
   assistant: Assistant
-  updateAssistant: (assistant: Assistant) => void
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
 export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentProps) {

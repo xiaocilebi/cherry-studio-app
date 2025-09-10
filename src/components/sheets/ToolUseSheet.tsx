@@ -3,7 +3,6 @@ import { SquareFunction, Wrench } from '@tamagui/lucide-icons'
 import { t } from 'i18next'
 import { forwardRef, useEffect } from 'react'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
@@ -13,7 +12,7 @@ import { Assistant } from '@/types/assistant'
 
 interface ToolUseSheetProps {
   assistant: Assistant
-  updateAssistant: (assistant: Assistant) => void
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
 const toolUseOptions = [
@@ -31,16 +30,15 @@ const toolUseOptions = [
 
 const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistant, updateAssistant }, ref) => {
   const { isDark } = useTheme()
-  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
-  const handleToolUseModeToggle = (mode: 'function' | 'prompt') => {
+  const handleToolUseModeToggle = async (mode: 'function' | 'prompt') => {
     const newToolUseMode = mode === assistant.settings?.toolUseMode ? undefined : mode
-    updateAssistant({
+    await updateAssistant({
       ...assistant,
       settings: {
         ...assistant.settings,

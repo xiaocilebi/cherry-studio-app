@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { MotiView } from 'moti'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Input, Stack, Text, XStack } from 'tamagui'
 
@@ -23,51 +23,22 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
   const { t } = useTranslation()
   const modelSheetRef = useRef<BottomSheetModal>(null)
   const reasoningSheetRef = useRef<BottomSheetModal>(null)
-  const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
-  const [maxTokensInput, setMaxTokensInput] = useState<string>(
-    assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : ''
-  )
-  const isReasoning = isReasoningModel(assistant?.model)
 
-  useEffect(() => {
-    updateAssistant({
-      ...assistant,
-      model: model[0]
-    })
-  }, [model])
+  // 统一的助手更新函数
+  const handleAssistantChange = async (updates: Partial<Assistant>) => {
+    const updatedAssistant = { ...assistant, ...updates }
+    await updateAssistant(updatedAssistant)
+  }
 
-  useEffect(() => {
-    setMaxTokensInput(assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : '')
-  }, [assistant.settings?.maxTokens])
-
+  // 设置更新函数
   const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
-    updateAssistant({
-      ...assistant,
-      settings: {
-        ...assistant.settings,
-        [key]: value
-      }
-    })
+    const updatedSettings = { ...assistant.settings, [key]: value }
+    handleAssistantChange({ settings: updatedSettings })
   }
 
-  const handleMaxTokensInputChange = (value: string) => {
-    setMaxTokensInput(value)
-  }
-
-  const handleMaxTokensBlur = () => {
-    if (maxTokensInput.trim() === '') {
-      handleSettingsChange('maxTokens', undefined)
-      return
-    }
-
-    const numValue = parseInt(maxTokensInput, 10)
-
-    if (!isNaN(numValue) && numValue > 0) {
-      handleSettingsChange('maxTokens', numValue)
-    } else {
-      // Reset to previous valid value if invalid
-      setMaxTokensInput(settings.maxTokens ? settings.maxTokens.toString() : '')
-    }
+  // 模型更新函数
+  const handleModelChange = (models: Model[]) => {
+    handleAssistantChange({ model: models[0] })
   }
 
   const handleModelPress = () => {
@@ -78,6 +49,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
     reasoningSheetRef.current?.present()
   }
 
+  const model = assistant?.model ? [assistant.model] : []
   const settings = assistant.settings || {}
 
   return (
@@ -169,18 +141,14 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               height={25}
               fontSize={12}
               lineHeight={12 * 1.2}
-              value={maxTokensInput}
-              onChangeText={handleMaxTokensInputChange}
-              onBlur={handleMaxTokensBlur}
+              value={settings.maxTokens?.toString() ?? ''}
+              onChangeText={value => handleSettingsChange('maxTokens', parseInt(value) || 0)}
+              onBlur={e => handleSettingsChange('maxTokens', parseInt(e.nativeEvent.text) || 0)}
               keyboardType="numeric"
             />
           </SettingRow>
         )}
-        {isReasoning && (
-          // <SettingRow>
-          //   <Text>{t('assistants.settings.reasoning')}</Text>
-          //   <ReasoningSelect assistant={assistant} updateAssistant={updateAssistant} />
-          // </SettingRow>
+        {isReasoningModel(model[0]) && (
           <Button
             backgroundColor="$colorTransparent"
             borderWidth={0}
@@ -202,15 +170,15 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
                 paddingVertical={2}
                 paddingHorizontal={8}
                 borderRadius={8}>
-                {t(`assistants.settings.reasoning.${assistant?.settings?.reasoning_effort || 'off'}`)}
+                {t(`assistants.settings.reasoning.${settings.reasoning_effort || 'off'}`)}
               </Text>
             </Stack>
           </Button>
         )}
       </SettingGroup>
-      <ModelSheet ref={modelSheetRef} mentions={model} setMentions={setModel} multiple={false} />
-      {assistant.model && (
-        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
+      <ModelSheet ref={modelSheetRef} mentions={model} setMentions={handleModelChange} multiple={false} />
+      {model[0] && (
+        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={handleAssistantChange} />
       )}
     </MotiView>
   )
