@@ -37,6 +37,9 @@ const ContextMenu: FC<ContextMenuProps> = ({
   borderRadius = 0,
   withHighLight = true
 }) => {
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const { isDark } = useTheme()
+
   if (isIOS) {
     const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
     const TriggerContent = withHighLight ? (
@@ -79,9 +82,6 @@ const ContextMenu: FC<ContextMenuProps> = ({
   }
 
   if (isAndroid) {
-    const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-    const { isDark } = useTheme()
-
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
     )

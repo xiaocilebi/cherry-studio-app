@@ -3,7 +3,6 @@ import { SquareFunction, Wrench } from '@tamagui/lucide-icons'
 import { t } from 'i18next'
 import { forwardRef, useEffect } from 'react'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
@@ -32,7 +31,6 @@ const toolUseOptions = [
 const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistant, updateAssistant }, ref) => {
   console.log('ToolUseSheet', assistant.settings?.toolUseMode)
   const { isDark } = useTheme()
-  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
   const renderBackdrop = (props: any) => (
