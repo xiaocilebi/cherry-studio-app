@@ -10,13 +10,11 @@ import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/sty
 import { Image, Text, View, XStack, YStack } from 'tamagui'
 
 import { IconButton } from '@/components/ui/IconButton'
-import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 import { useToast } from '@/hooks/useToast'
+import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
 import { ExtractMathResult, useMathEquation } from './useMathEquation'
-import { haptic } from '@/utils/haptic'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 
 // const logger = loggerService.withContext('useMarkedRenderer')
 
@@ -254,6 +252,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
   ): ReactNode {
     const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
     const cellWidth = Math.floor(Dimensions.get('window').width / header.length)
+
     const renderCell = (cellData: ReactNode, cellIndex: number) => {
       return (
         <View
@@ -268,6 +267,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
         </View>
       )
     }
+
     return (
       <ScrollView horizontal={true} style={{ marginTop: 10 }}>
         <YStack borderWidth={1} borderColor={currentColors.border} borderRadius={12}>
@@ -314,7 +314,14 @@ export const useMarkedRenderer = (isDark: boolean) => {
 
   const renderer = useMemo(
     () =>
-      new CustomRenderer(isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath, showToast),
+      new CustomRenderer(
+        isDark,
+        extractInlineMathEquation,
+        extractAllMathEquation,
+        renderInlineMath,
+        renderBlockMath,
+        showToast
+      ),
     [isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath, showToast]
   )
   const tokenizer = useMemo(() => new CustomTokenizer(), [])

@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useState } from 'react'
-import { Button, StackProps, Text, XStack, YStack } from 'tamagui'
-import { Modal, Pressable, StyleSheet } from 'react-native'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { MotiView } from 'moti'
+import React, { createContext, useContext, useState } from 'react'
+import { Modal, Pressable, StyleSheet } from 'react-native'
+import { Button, StackProps, Text, XStack, YStack } from 'tamagui'
+
 import { useTheme } from '@/hooks/useTheme'
+import { haptic } from '@/utils/haptic'
 
 export type DialogOptions = {
   title?: React.ReactNode | string
@@ -14,6 +17,7 @@ export type DialogOptions = {
   showCancel?: boolean
   /** 是否可以点击遮罩层关闭 */
   maskClosable?: boolean
+  type?: 'info' | 'warning' | 'error' | 'success'
   onConFirm?: () => void
   onCancle?: () => void
 }
@@ -44,18 +48,36 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
   }
 
   const cancel = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     options?.onCancle?.()
     close()
   }
 
   const confirm = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     options?.onConFirm?.()
     close()
   }
 
   const open = (newOptions: DialogOptions) => {
+    haptic(ImpactFeedbackStyle.Medium)
     setOptions(newOptions)
     setOpen(true)
+  }
+
+  const getConfirmButtonStyle = () => {
+    switch (options?.type) {
+      case 'info':
+        return { backgroundColor: '$blue20', borderColor: '$blue20', color: '$blue100' }
+      case 'warning':
+        return { backgroundColor: '$orange20', borderColor: '$orange20', color: '$orange100' }
+      case 'error':
+        return { backgroundColor: '$red20', borderColor: '$red20', color: '$red100' }
+      case 'success':
+        return { backgroundColor: '$green10', borderColor: '$green20', color: '$green100' }
+      default:
+        return { backgroundColor: '$green10', borderColor: '$green20', color: '$green100' }
+    }
   }
 
   const api = { open, close }
@@ -64,6 +86,8 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
   const maskClosable = options?.maskClosable ?? true
   const confirmText = options?.confirmText ?? 'OK'
   const cancelText = options?.cancelText ?? 'Cancel'
+
+  const confirmButtonStyle = getConfirmButtonStyle()
 
   return (
     <DialogContext.Provider value={api}>
@@ -101,7 +125,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
                   size={42}
                   borderRadius={30}
                   fontSize={17}
-                  backgroundColor="$gray20"
+                  backgroundColor="transparent"
                   borderColor="$gray20"
                   color="$gray80"
                   onPress={cancel}
@@ -114,9 +138,10 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
                 size={42}
                 borderRadius={30}
                 fontSize={17}
-                backgroundColor="$green10"
-                borderColor="$green20"
-                color="$green100"
+                borderWidth={1}
+                backgroundColor={confirmButtonStyle.backgroundColor}
+                borderColor={confirmButtonStyle.borderColor}
+                color={confirmButtonStyle.color}
                 onPress={confirm}
                 style={options?.confirmStyle}>
                 {confirmText}

@@ -286,12 +286,15 @@
     "message": {
       "delete_message": "删除消息",
       "delete_message_confirmation": "您确定要删除这条消息吗？",
+      "delete_topic": "删除话题",
+      "delete_topic_confirmation": "您确定要删除这个话题吗？",
       "delete_translation": "删除翻译",
       "searching": "正在搜索...",
       "translate_message": "翻译消息",
       "websearch": {
         "fetch_complete": "已完成 {{count}} 次搜索..."
-      }
+      },
+      "topic_deleted": "话题已删除"
     },
     "models": {
       "no_models": "暂无可用模型",

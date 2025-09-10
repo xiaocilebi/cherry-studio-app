@@ -1,5 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { View, XStack } from 'tamagui'
 
@@ -7,10 +8,9 @@ import { IconButton } from '@/components/ui/IconButton'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
+import { haptic } from '@/utils/haptic'
 
 import MessageFooterMoreSheet from './MessageFooterMoreSheet'
-import { haptic } from '@/utils/haptic'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 
 interface MessageFooterProps {
   assistant: Assistant

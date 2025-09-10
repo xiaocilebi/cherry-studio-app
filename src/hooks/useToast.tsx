@@ -1,11 +1,12 @@
-import React, { createContext, useContext, useState } from 'react'
-import { Text } from 'tamagui'
-import { StyleSheet, View } from 'react-native'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import { AnimatePresence, MotiView } from 'moti'
+import React, { createContext, useContext, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'tamagui'
+
 import { useTheme } from '@/hooks/useTheme'
 import { uuid } from '@/utils'
 import { haptic } from '@/utils/haptic'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 
 export type ToastOptions = {
   key?: string

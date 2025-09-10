@@ -3,6 +3,7 @@ import { ChevronRight, Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { TouchableOpacity } from 'react-native'
 import { Avatar, Stack, styled, Text, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
@@ -15,7 +16,6 @@ import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
 import { SettingDivider } from '../settings'
 import SafeAreaContainer from '../ui/SafeAreaContainer'
-import { TouchableOpacity } from 'react-native'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()

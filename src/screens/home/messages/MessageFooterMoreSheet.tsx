@@ -3,7 +3,7 @@ import { Trash2 } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, TouchableOpacity } from 'react-native'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
 import { useMessageActions } from '@/hooks/useMessageActions'
@@ -94,7 +94,9 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
               borderRadius={16}
               backgroundColor="$uiCardBackground">
               <Trash2 size={18} color="red" />
-              <Text fontSize={16} color="red">{t('message.delete_message')}</Text>
+              <Text fontSize={16} color="red">
+                {t('message.delete_message')}
+              </Text>
             </XStack>
           </TouchableOpacity>
         </YStack>

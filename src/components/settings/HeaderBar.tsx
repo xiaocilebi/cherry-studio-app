@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ArrowLeft } from '@tamagui/lucide-icons'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Button, Text, XStack } from 'tamagui'
+import { Text, XStack } from 'tamagui'
 
 import { DrawerNavigationProps } from '@/types/naviagate'
 

@@ -1,13 +1,14 @@
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { FC, useRef } from 'react'
 import React from 'react'
-import { Pressable, TouchableHighlight, TouchableOpacity } from 'react-native'
-import { useTheme } from '@/hooks/useTheme'
-import * as ZeegoContextMenu from 'zeego/context-menu'
+import { Pressable, TouchableOpacity } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
-import { isAndroid, isIOS } from '@/utils/device'
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { Text, YStack } from 'tamagui'
 import { XStack } from 'tamagui'
+import * as ZeegoContextMenu from 'zeego/context-menu'
+
+import { useTheme } from '@/hooks/useTheme'
+import { isAndroid, isIOS } from '@/utils/device'
 
 export interface ContextMenuListProps {
   title: string

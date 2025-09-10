@@ -12,7 +12,6 @@ import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
-import { PressableSettingRow } from '..'
 
 interface ProviderItemProps {
   provider: Provider
@@ -61,11 +60,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
   }
 
   const providerRow = (
-    <XStack
-      justifyContent="space-between"
-      alignItems="center"
-      paddingVertical={12}
-      paddingHorizontal={16}>
+    <XStack justifyContent="space-between" alignItems="center" paddingVertical={12} paddingHorizontal={16}>
       <XStack gap={8} alignItems="center">
         <ProviderIcon provider={provider} />
         <Text fontSize={16}>{t(`provider.${provider.id}`, { defaultValue: provider.name })}</Text>
