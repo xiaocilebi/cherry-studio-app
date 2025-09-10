@@ -4,7 +4,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { Text, XStack } from 'tamagui'
 
 import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
@@ -74,12 +73,7 @@ export default function AssistantDetailScreen() {
             title={!assistant?.emoji ? t('assistants.title.create') : t('assistants.title.edit')}
             onBackPress={() => navigation.goBack()}
           />
-          <KeyboardAwareScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flexGrow: 1 }}
-            style={{ flex: 1 }}
-            keyboardShouldPersistTaps="handled"
-            bottomOffset={10}>
+          <View style={{ flex: 1 }}>
             <SettingContainer>
               <XStack justifyContent="center" alignItems="center" paddingBottom={20}>
                 <AvatarEditButton
@@ -95,7 +89,7 @@ export default function AssistantDetailScreen() {
                 <AssistantDetailTabNavigator assistant={assistant} />
               </View>
             </SettingContainer>
-          </KeyboardAwareScrollView>
+          </View>
         </View>
       </GestureDetector>
     </SafeAreaContainer>

@@ -1,5 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { YStack } from 'tamagui'
 
 import { PromptTabContent } from '@/components/assistant/PromptTabContent'
@@ -16,8 +17,15 @@ export default function PromptTabScreen() {
   if (!assistant) return null
 
   return (
-    <YStack flex={1} paddingTop={10} backgroundColor="$backgroundPrimary">
-      <PromptTabContent assistant={assistant} updateAssistant={updateAssistant} />
-    </YStack>
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+      bottomOffset={10}>
+      <YStack flex={1} paddingTop={10} backgroundColor="$backgroundPrimary">
+        <PromptTabContent assistant={assistant} updateAssistant={updateAssistant} />
+      </YStack>
+    </KeyboardAwareScrollView>
   )
 }
