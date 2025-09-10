@@ -54,16 +54,16 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
 
   const contextMenuItems: ContextMenuListProps[] = [
     {
-      title: t('common.select_text'),
-      iOSIcon: 'character.cursor.ibeam',
-      androidIcon: <TextSelect size={16} color="$textPrimary" />,
-      onSelect: handleSelectText
-    },
-    {
       title: t('common.copy'),
       iOSIcon: 'document.on.document',
       androidIcon: <Copy size={16} color="$textPrimary" />,
       onSelect: handleCopy
+    },
+    {
+      title: t('common.select_text'),
+      iOSIcon: 'character.cursor.ibeam',
+      androidIcon: <TextSelect size={16} color="$textPrimary" />,
+      onSelect: handleSelectText
     },
     ...(message.role === 'assistant'
       ? [
