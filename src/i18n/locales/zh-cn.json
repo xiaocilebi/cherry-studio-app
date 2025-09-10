@@ -294,6 +294,7 @@
       "websearch": {
         "fetch_complete": "已完成 {{count}} 次搜索..."
       },
+      "assistant_deleted": "助手已删除",
       "topic_deleted": "话题已删除"
     },
     "models": {

@@ -16,6 +16,7 @@ import { HomeNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from './EmojiAvator'
+import { useToast } from '@/hooks/useToast'
 
 const logger = loggerService.withContext('Assistant Item')
 
@@ -27,6 +28,7 @@ interface AssistantItemProps {
 const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<HomeNavigationProps>()
+  const toast = useToast()
 
   const handlePress = () => {
     haptic()
@@ -42,6 +44,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
 
       await deleteAssistantById(assistant.id)
       await deleteTopicsByAssistantId(assistant.id)
+      toast.show(t('message.assistant_deleted'))
     } catch (error) {
       logger.error('Delete Assistant error', error)
     }

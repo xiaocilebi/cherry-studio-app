@@ -73,8 +73,6 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
   }, [topics, t])
 
   const handleDelete = async (topicId: string) => {
-    if (!handleNavigateChatScreen) return
-
     dialog.open({
       type: 'error',
       title: t('message.delete_topic'),
@@ -100,13 +98,13 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
 
             if (nextTopic) {
               dispatch(setCurrentTopicId(nextTopic.id))
-              handleNavigateChatScreen(nextTopic.id)
+              handleNavigateChatScreen?.(nextTopic.id)
               logger.info('navigateToChatScreen after delete', nextTopic)
             } else {
               const defaultAssistant = await getDefaultAssistant()
               const newTopic = await createNewTopic(defaultAssistant)
               dispatch(setCurrentTopicId(newTopic.id))
-              handleNavigateChatScreen(newTopic.id)
+              handleNavigateChatScreen?.(newTopic.id)
               logger.info('navigateToChatScreen with new topic', newTopic)
             }
           }
