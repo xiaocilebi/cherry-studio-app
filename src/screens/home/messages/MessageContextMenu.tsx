@@ -105,7 +105,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
 
   return (
     <>
-      <ContextMenu list={contextMenuItems} activeOpacity={1}>
+      <ContextMenu list={contextMenuItems} withHighLight={false}>
         {children}
       </ContextMenu>
 

@@ -20,9 +20,10 @@ export interface ContextMenuListProps {
 
 export interface ContextMenuProps {
   children: React.ReactNode
-  activeOpacity?: number
   disableContextMenu?: boolean
   borderRadius?: number
+  /** 解决子元素有ScrollView时无法横向滚动问题 */
+  withHighLight?: boolean
   onPress?: () => void
   list: ContextMenuListProps[]
 }
@@ -31,13 +32,13 @@ const ContextMenu: FC<ContextMenuProps> = ({
   children,
   onPress = () => {},
   list,
-  activeOpacity = 0.7,
   disableContextMenu = false,
-  borderRadius = 0
+  borderRadius = 0,
+  withHighLight = true
 }) => {
   if (isIOS) {
     const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
-    const TriggerContent = (
+    const TriggerContent = withHighLight ? (
       <Pressable
         onPress={onPress}
         onLongPress={() => {}}
@@ -49,6 +50,8 @@ const ContextMenu: FC<ContextMenuProps> = ({
         })}>
         {children}
       </Pressable>
+    ) : (
+      children
     )
 
     if (disableContextMenu) {
