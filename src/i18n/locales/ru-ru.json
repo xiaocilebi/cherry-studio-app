@@ -291,7 +291,11 @@
       "translate_message": "Перевести сообщение",
       "websearch": {
         "fetch_complete": "Выполнено {{count}} поисков..."
-      }
+      },
+      "assistant_deleted": "Помощник удален",
+      "delete_topic": "Удалить тему",
+      "delete_topic_confirmation": "Вы уверены, что хотите удалить эту тему?",
+      "topic_deleted": "Тема удалена"
     },
     "models": {
       "no_models": "Нет доступных моделей",
@@ -607,6 +611,7 @@
           "title": "Проверка модели не удалась"
         },
         "delete.content": "Вы уверены, что хотите удалить этого поставщика?",
+        "provider_deleted": "Поставщик удален",
         "delete.title": "Удалить поставщика",
         "edit": {
           "title": "Редактирование поставщиков услуг"

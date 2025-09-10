@@ -291,7 +291,11 @@
       "translate_message": "メッセージを翻訳",
       "websearch": {
         "fetch_complete": "検索が {{count}} 回完了しました..."
-      }
+      },
+      "assistant_deleted": "アシスタントが削除されました",
+      "delete_topic": "トピックを削除",
+      "delete_topic_confirmation": "このトピックを削除しますか？",
+      "topic_deleted": "トピックが削除されました"
     },
     "models": {
       "no_models": "利用可能なモデルがありません",
@@ -607,6 +611,7 @@
           "title": "モデルチェック失敗"
         },
         "delete.content": "このプロバイダーを削除してもよろしいですか？",
+        "provider_deleted": "プロバイダーが削除されました",
         "delete.title": "プロバイダーの削除",
         "edit": {
           "title": "編集サービスプロバイダ"

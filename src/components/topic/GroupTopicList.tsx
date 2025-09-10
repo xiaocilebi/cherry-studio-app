@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 import { Text, YStack } from 'tamagui'
 
+import { useDialog } from '@/hooks/useDialog'
+import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -31,6 +33,8 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
   const dispatch = useAppDispatch()
+  const toast = useToast()
+  const dialog = useDialog()
 
   useEffect(() => {
     setLocalTopics(topics)
@@ -69,37 +73,46 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
   }, [topics, t])
 
   const handleDelete = async (topicId: string) => {
-    if (!handleNavigateChatScreen) return
+    dialog.open({
+      type: 'error',
+      title: t('message.delete_topic'),
+      content: t('message.delete_topic_confirmation'),
+      confirmText: t('common.delete'),
+      cancelText: t('common.cancel'),
+      onConFirm: async () => {
+        try {
+          const updatedTopics = localTopics.filter(topic => topic.id !== topicId)
+          setLocalTopics(updatedTopics)
 
-    try {
-      const updatedTopics = localTopics.filter(topic => topic.id !== topicId)
-      setLocalTopics(updatedTopics)
+          await deleteMessagesByTopicId(topicId)
+          await deleteTopicById(topicId)
+          dispatch(newMessagesActions.deleteTopicLoading({ topicId }))
 
-      await deleteMessagesByTopicId(topicId)
-      await deleteTopicById(topicId)
-      dispatch(newMessagesActions.deleteTopicLoading({ topicId }))
+          toast.show(t('message.topic_deleted'))
 
-      if (topicId === getCurrentTopicId()) {
-        const nextTopic =
-          updatedTopics.length > 0
-            ? updatedTopics.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())[0]
-            : null
+          if (topicId === getCurrentTopicId()) {
+            const nextTopic =
+              updatedTopics.length > 0
+                ? updatedTopics.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())[0]
+                : null
 
-        if (nextTopic) {
-          dispatch(setCurrentTopicId(nextTopic.id))
-          handleNavigateChatScreen(nextTopic.id)
-          logger.info('navigateToChatScreen after delete', nextTopic)
-        } else {
-          const defaultAssistant = await getDefaultAssistant()
-          const newTopic = await createNewTopic(defaultAssistant)
-          dispatch(setCurrentTopicId(newTopic.id))
-          handleNavigateChatScreen(newTopic.id)
-          logger.info('navigateToChatScreen with new topic', newTopic)
+            if (nextTopic) {
+              dispatch(setCurrentTopicId(nextTopic.id))
+              handleNavigateChatScreen?.(nextTopic.id)
+              logger.info('navigateToChatScreen after delete', nextTopic)
+            } else {
+              const defaultAssistant = await getDefaultAssistant()
+              const newTopic = await createNewTopic(defaultAssistant)
+              dispatch(setCurrentTopicId(newTopic.id))
+              handleNavigateChatScreen?.(newTopic.id)
+              logger.info('navigateToChatScreen with new topic', newTopic)
+            }
+          }
+        } catch (error) {
+          logger.error('Error deleting topic:', error)
         }
       }
-    } catch (error) {
-      logger.error('Error deleting topic:', error)
-    }
+    })
   }
 
   const handleRename = async (topicId: string, newName: string) => {

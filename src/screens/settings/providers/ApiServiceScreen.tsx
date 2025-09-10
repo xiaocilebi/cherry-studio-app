@@ -6,12 +6,13 @@ import { sortBy } from 'lodash'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
-import { Button, Input, Stack, Text, XStack, YStack } from 'tamagui'
+import { Input, Stack, Text, XStack, YStack } from 'tamagui'
 
 import ExternalLink from '@/components/ExternalLink'
 import { SettingContainer, SettingGroupTitle, SettingHelpText } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { ApiCheckSheet } from '@/components/settings/providers/ApiCheckSheet'
+import { IconButton } from '@/components/ui/IconButton'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { isEmbeddingModel } from '@/config/models'
 import { PROVIDER_URLS } from '@/config/providers'
@@ -187,13 +188,7 @@ export default function ApiServiceScreen() {
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} justifyContent="space-between" alignItems="center">
             <SettingGroupTitle>{t('settings.provider.api_key')}</SettingGroupTitle>
-            <Button
-              size={16}
-              icon={<ShieldCheck size={16} color="$textLink" />}
-              backgroundColor="$colorTransparent"
-              circular
-              onPress={handleOpenBottomSheet}
-            />
+            <IconButton icon={<ShieldCheck size={16} color="$textLink" />} onPress={handleOpenBottomSheet} />
           </XStack>
 
           <XStack paddingVertical={8} gap={8} position="relative">

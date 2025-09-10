@@ -1,12 +1,12 @@
 import { File, Paths } from 'expo-file-system/next'
 import React, { useEffect, useState } from 'react'
+import { View } from 'react-native'
 import { Image } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { fileStorageDir } from '@/services/FileService'
 import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
-import { View } from 'react-native'
 
 interface ProviderIconProps {
   provider: Provider

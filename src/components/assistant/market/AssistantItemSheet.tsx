@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Settings2 } from '@tamagui/lucide-icons'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { forwardRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, BackHandler } from 'react-native'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
@@ -10,16 +11,15 @@ import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
 import { SettingDivider } from '@/components/settings'
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
-import { useToastController } from '@tamagui/toast'
+import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../EmojiAvator'
 import GroupTag from './GroupTag'
-import { haptic } from '@/utils/haptic'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -37,7 +37,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const { t } = useTranslation()
     const { isDark } = useCustomTheme()
     const { bottom } = useSafeAreaInsets()
-    const toast = useToastController()
+    const toast = useToast()
 
     // 处理Android返回按钮事件
     useEffect(() => {
@@ -90,9 +90,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         })
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
         haptic(ImpactFeedbackStyle.Medium)
-        toast.show(t('assistants.market.add.success', { assistant_name: assistant.name }), {
-          native: true
-        })
+        toast.show(t('assistants.market.add.success', { assistant_name: assistant.name }))
       }
     }
 

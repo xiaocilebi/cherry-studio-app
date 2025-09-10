@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
 import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
+import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -27,6 +28,7 @@ interface AssistantItemProps {
 const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<HomeNavigationProps>()
+  const toast = useToast()
 
   const handlePress = () => {
     haptic()
@@ -42,6 +44,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
 
       await deleteAssistantById(assistant.id)
       await deleteTopicsByAssistantId(assistant.id)
+      toast.show(t('message.assistant_deleted'))
     } catch (error) {
       logger.error('Delete Assistant error', error)
     }

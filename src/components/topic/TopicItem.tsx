@@ -6,6 +6,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
+import { Input } from 'tamagui'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import i18n from '@/i18n'
@@ -17,9 +18,8 @@ import { DrawerNavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
 
-import EmojiAvatar from '../assistant/EmojiAvator'
 import { useDialog } from '../../hooks/useDialog'
-import { Input } from 'tamagui'
+import EmojiAvatar from '../assistant/EmojiAvator'
 
 type TimeFormat = 'time' | 'date'
 
@@ -89,6 +89,7 @@ const TopicItem: FC<TopicItemProps> = ({
   }, [topic.assistantId])
 
   const tempNameRef = useRef(topic.name)
+
   const handleRename = () => {
     dialog.open({
       title: t('topics.rename.title'),

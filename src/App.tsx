@@ -35,10 +35,10 @@ import migrations from '../drizzle/migrations'
 import tamaguiConfig from '../tamagui.config'
 import { getSystemAssistants } from './config/assistants'
 import { SYSTEM_PROVIDERS } from './config/providers'
+import { DialogProvider } from './hooks/useDialog'
+import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
-import { DialogProvider } from './hooks/useDialog'
-import { ToastProvider } from '@tamagui/toast'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()

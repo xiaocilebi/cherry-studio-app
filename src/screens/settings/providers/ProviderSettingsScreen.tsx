@@ -5,7 +5,7 @@ import { groupBy } from 'lodash'
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
-import { Accordion, Button, Separator, Stack, Text, XStack, YStack } from 'tamagui'
+import { Accordion, Separator, Stack, Text, XStack, YStack } from 'tamagui'
 
 import {
   PressableSettingRow,
@@ -17,6 +17,7 @@ import {
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
 import { ModelGroup } from '@/components/settings/providers/ModelGroup'
+import { IconButton } from '@/components/ui/IconButton'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { CustomSwitch } from '@/components/ui/Switch'
@@ -26,6 +27,7 @@ import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNav
 import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
 import { ProvidersNavigationProps } from '@/types/naviagate'
+
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ProviderSettingsScreen'>
@@ -185,7 +187,7 @@ export default function ProviderSettingsScreen() {
             <YStack flex={1}>
               <XStack justifyContent="space-between" alignItems="center" marginBottom={16}>
                 <SettingGroupTitle>{t('settings.models.title')}</SettingGroupTitle>
-                <Button size={14} chromeless icon={<HeartPulse size={14} />} />
+                <IconButton icon={<HeartPulse size={14} />} />
               </XStack>
               <SettingGroup>
                 {sortedModelGroups.length > 0 ? (

@@ -11,6 +11,7 @@ import { Image } from 'tamagui'
 import { SettingContainer, SettingHelpText } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import ModelSheet from '@/components/sheets/ModelSheet'
+import { IconButton } from '@/components/ui/IconButton'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
@@ -96,10 +97,9 @@ function AssistantSettingItem({
             {icon}
             <Text>{t(titleKey)}</Text>
           </XStack>
-          <Button
-            size={14}
-            icon={<Settings2 size={14} color="$textLink" />}
-            backgroundColor="$colorTransparent"
+          <IconButton
+            style={{ padding: 2 }}
+            icon={<Settings2 size={16} color="$textLink" />}
             onPress={() => navigation.navigate('AssistantDetailScreen', { assistantId })}
           />
         </XStack>

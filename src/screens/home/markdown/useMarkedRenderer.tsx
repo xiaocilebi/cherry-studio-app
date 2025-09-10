@@ -1,14 +1,16 @@
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
+import { t } from 'i18next'
 import React, { ReactNode, useMemo } from 'react'
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
 import type { RendererInterface } from 'react-native-marked'
 import { MarkedTokenizer, Renderer } from 'react-native-marked'
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { Image, Text, View, XStack } from 'tamagui'
+import { Image, Text, View, XStack, YStack } from 'tamagui'
 
 import { IconButton } from '@/components/ui/IconButton'
+import { useToast } from '@/hooks/useToast'
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
 import { markdownColors } from './MarkdownStyles'
@@ -25,13 +27,15 @@ class CustomRenderer extends Renderer implements RendererInterface {
   private extractAllMathEquation: (text: string) => ExtractMathResult[]
   private renderInlineMath: (content: string, key?: string | number) => React.JSX.Element
   private renderBlockMath: (content: string, key?: string | number) => React.JSX.Element
+  private showToast: (content: string) => void
 
   constructor(
     isDark: boolean,
     extractInlineMathEquation: (text: string) => ExtractMathResult[],
     extractAllMathEquation: (text: string) => ExtractMathResult[],
     renderInlineMath: (content: string, key?: string | number) => React.JSX.Element,
-    renderBlockMath: (content: string, key?: string | number) => React.JSX.Element
+    renderBlockMath: (content: string, key?: string | number) => React.JSX.Element,
+    showToast: (content: string) => void
   ) {
     super()
     this.isDark = isDark
@@ -40,10 +44,12 @@ class CustomRenderer extends Renderer implements RendererInterface {
     this.extractAllMathEquation = extractAllMathEquation
     this.renderInlineMath = renderInlineMath
     this.renderBlockMath = renderBlockMath
+    this.showToast = showToast
   }
 
   private async onCopy(content: string) {
     await Clipboard.setStringAsync(content)
+    this.showToast(t('common.copied'))
   }
 
   // Override code block rendering
@@ -59,6 +65,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
           paddingTop: 0,
           paddingBottom: 14,
           borderRadius: 12,
+          marginTop: 10,
           ...containerStyle
         }}>
         <XStack
@@ -73,7 +80,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
               {lang.toUpperCase()}
             </Text>
           </XStack>
-          <IconButton icon={<Copy size={16} color="$textSecondary" />} onPress={() => this.onCopy(text)} />
+          <IconButton icon={<Copy size={16} color="$gray60" />} onPress={() => this.onCopy(text)} />
         </XStack>
         <CodeHighlighter
           customStyle={{ backgroundColor: 'transparent' }}
@@ -134,12 +141,10 @@ class CustomRenderer extends Renderer implements RendererInterface {
       <View
         key={this.getKey()}
         style={{
-          marginTop: 6,
-          marginBottom: 6,
-          backgroundColor: 'transparent',
-          ...styles
+          ...styles,
+          color: currentColors.text
         }}>
-        <Text style={{ backgroundColor: 'transparent', color: currentColors.text, fontSize: 16 }}>{children}</Text>
+        {children}
       </View>
     )
   }
@@ -165,21 +170,12 @@ class CustomRenderer extends Renderer implements RendererInterface {
       })
     } else {
       return super.text(text, {
-        ...styles,
+        fontSize: 16,
+        lineHeight: 24,
         color: currentColors.text,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1
+        ...styles
       })
     }
-  }
-
-  getTextNode(children: string | ReactNode[], styles?: TextStyle): ReactNode {
-    return (
-      <Text selectable key={this.getKey()} style={{ ...styles, lineHeight: undefined }}>
-        {children}
-      </Text>
-    )
   }
 
   // em(children: string | ReactNode[], styles?: TextStyle): ReactNode {
@@ -223,8 +219,14 @@ class CustomRenderer extends Renderer implements RendererInterface {
     return super.list(
       ordered,
       li,
-      { ...listStyle, ...currentColors, alignItems: 'flex-start', justifyContent: 'flex-start' },
-      { ...textStyle, textAlign: 'center', alignSelf: 'flex-start' },
+      {
+        ...listStyle,
+        ...currentColors,
+        width: 26,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start'
+      },
+      { ...textStyle, textAlign: 'center', marginTop: 8 },
       startIndex
     )
   }
@@ -233,8 +235,67 @@ class CustomRenderer extends Renderer implements RendererInterface {
     return super.listItem(children, {
       ...styles,
       width: '100%',
-      alignItems: 'flex-start'
+      marginTop: 8
     })
+  }
+
+  hr(styles?: ViewStyle): ReactNode {
+    return super.hr({ ...styles, marginVertical: 12 })
+  }
+
+  table(
+    header: ReactNode[][],
+    rows: ReactNode[][][],
+    tableStyle?: ViewStyle,
+    rowStyle?: ViewStyle,
+    cellStyle?: ViewStyle
+  ): ReactNode {
+    const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+    const cellWidth = Math.floor(Dimensions.get('window').width / header.length)
+
+    const renderCell = (cellData: ReactNode, cellIndex: number) => {
+      return (
+        <View
+          key={`${cellIndex}`}
+          style={{
+            width: cellWidth,
+            padding: 8,
+            borderRightWidth: cellIndex === header.length - 1 ? 0 : 1,
+            borderColor: currentColors.border
+          }}>
+          {cellData}
+        </View>
+      )
+    }
+
+    return (
+      <ScrollView horizontal={true} style={{ marginTop: 10 }}>
+        <YStack borderWidth={1} borderColor={currentColors.border} borderRadius={12}>
+          <XStack
+            borderBottomWidth={1}
+            borderColor={currentColors.border}
+            borderTopLeftRadius={12}
+            borderTopRightRadius={12}
+            backgroundColor={currentColors.codeBg}>
+            {header.map((cellData, cellIndex) => {
+              return renderCell(cellData, cellIndex)
+            })}
+          </XStack>
+          {rows.map((rowData, index) => {
+            return (
+              <XStack
+                key={`${index}`}
+                borderBottomWidth={index === rows.length - 1 ? 0 : 1}
+                borderColor={currentColors.border}>
+                {rowData.map((cellData, cellIndex) => {
+                  return renderCell(cellData, cellIndex)
+                })}
+              </XStack>
+            )
+          })}
+        </YStack>
+      </ScrollView>
+    )
   }
 }
 
@@ -248,10 +309,20 @@ export const useMarkedRenderer = (isDark: boolean) => {
   const { extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath } =
     useMathEquation(equationColor)
 
+  // Use useToast hook
+  const { show: showToast } = useToast()
+
   const renderer = useMemo(
     () =>
-      new CustomRenderer(isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath),
-    [isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath]
+      new CustomRenderer(
+        isDark,
+        extractInlineMathEquation,
+        extractAllMathEquation,
+        renderInlineMath,
+        renderBlockMath,
+        showToast
+      ),
+    [isDark, extractInlineMathEquation, extractAllMathEquation, renderInlineMath, renderBlockMath, showToast]
   )
   const tokenizer = useMemo(() => new CustomTokenizer(), [])
 
