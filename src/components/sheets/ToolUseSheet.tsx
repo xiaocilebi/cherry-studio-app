@@ -29,7 +29,6 @@ const toolUseOptions = [
 ]
 
 const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistant, updateAssistant }, ref) => {
-  console.log('ToolUseSheet', assistant.settings?.toolUseMode)
   const { isDark } = useTheme()
   const insets = useSafeAreaInsets()
 
