@@ -24,50 +24,34 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
   const modelSheetRef = useRef<BottomSheetModal>(null)
   const reasoningSheetRef = useRef<BottomSheetModal>(null)
   const [model, setModel] = useState<Model[]>(assistant?.model ? [assistant.model] : [])
-  const [maxTokensInput, setMaxTokensInput] = useState<string>(
-    assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : ''
-  )
-  const isReasoning = isReasoningModel(assistant?.model)
+  const [settings, setSettings] = useState<Partial<AssistantSettings>>(assistant.settings || {})
 
+  useEffect(() => {
+    console.log('assistant', assistant.settings)
+  }, [assistant.settings])
+
+  // handle model sheet change
   useEffect(() => {
     updateAssistant({
       ...assistant,
       model: model[0]
     })
-  }, [model])
+  }, [assistant, model, updateAssistant])
 
   useEffect(() => {
-    setMaxTokensInput(assistant.settings?.maxTokens ? assistant.settings.maxTokens.toString() : '')
-  }, [assistant.settings?.maxTokens])
-
-  const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
     updateAssistant({
       ...assistant,
-      settings: {
-        ...assistant.settings,
-        [key]: value
-      }
+      settings
     })
+  }, [assistant, settings, updateAssistant])
+
+  const handleSettingsChange = (key: keyof AssistantSettings, value: any) => {
+    setSettings(prevSettings => ({ ...prevSettings, [key]: value }))
   }
 
-  const handleMaxTokensInputChange = (value: string) => {
-    setMaxTokensInput(value)
-  }
-
-  const handleMaxTokensBlur = () => {
-    if (maxTokensInput.trim() === '') {
-      handleSettingsChange('maxTokens', undefined)
-      return
-    }
-
-    const numValue = parseInt(maxTokensInput, 10)
-
-    if (!isNaN(numValue) && numValue > 0) {
-      handleSettingsChange('maxTokens', numValue)
-    } else {
-      // Reset to previous valid value if invalid
-      setMaxTokensInput(settings.maxTokens ? settings.maxTokens.toString() : '')
-    }
+  const handleReasoningChange = async (assistant: Assistant) => {
+    await updateAssistant(assistant)
+    setSettings({ ...settings, reasoning_effort: assistant.settings?.reasoning_effort })
   }
 
   const handleModelPress = () => {
@@ -77,8 +61,6 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
   const handleReasoningPress = () => {
     reasoningSheetRef.current?.present()
   }
-
-  const settings = assistant.settings || {}
 
   return (
     <MotiView
@@ -169,18 +151,14 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               height={25}
               fontSize={12}
               lineHeight={12 * 1.2}
-              value={maxTokensInput}
-              onChangeText={handleMaxTokensInputChange}
-              onBlur={handleMaxTokensBlur}
+              value={settings.maxTokens?.toString() ?? ''}
+              onChangeText={value => handleSettingsChange('maxTokens', value[0])}
+              onBlur={value => handleSettingsChange('maxTokens', value[0])}
               keyboardType="numeric"
             />
           </SettingRow>
         )}
-        {isReasoning && (
-          // <SettingRow>
-          //   <Text>{t('assistants.settings.reasoning')}</Text>
-          //   <ReasoningSelect assistant={assistant} updateAssistant={updateAssistant} />
-          // </SettingRow>
+        {isReasoningModel(model[0]) && (
           <Button
             backgroundColor="$colorTransparent"
             borderWidth={0}
@@ -202,15 +180,15 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
                 paddingVertical={2}
                 paddingHorizontal={8}
                 borderRadius={8}>
-                {t(`assistants.settings.reasoning.${assistant?.settings?.reasoning_effort || 'off'}`)}
+                {t(`assistants.settings.reasoning.${settings.reasoning_effort || 'off'}`)}
               </Text>
             </Stack>
           </Button>
         )}
       </SettingGroup>
       <ModelSheet ref={modelSheetRef} mentions={model} setMentions={setModel} multiple={false} />
-      {assistant.model && (
-        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
+      {model[0] && (
+        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={handleReasoningChange} />
       )}
     </MotiView>
   )
