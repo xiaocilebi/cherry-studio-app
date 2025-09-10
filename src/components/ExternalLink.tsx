@@ -5,6 +5,7 @@ import { Alert, OpaqueColorValue } from 'react-native'
 import { Button, GetThemeValueForKey, Text } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
+import { IconButton } from './ui/IconButton'
 const logger = loggerService.withContext('External Link Component')
 
 interface ExternalLinkProps {
@@ -57,16 +58,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({ href, children, color = '$t
       children
     )
 
-  return (
-    <Button
-      size={size ? size + 8 : undefined}
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor="$colorTransparent"
-      onPress={handlePress}>
-      {content}
-    </Button>
-  )
+  return <IconButton icon={content} onPress={handlePress} />
 }
 
 export default ExternalLink

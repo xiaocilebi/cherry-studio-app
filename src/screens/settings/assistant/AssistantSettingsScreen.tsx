@@ -17,6 +17,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { AssistantSettingsStackParamList } from '@/navigators/settings/AssistantSettingsStackNavigator'
 import { Assistant, Model } from '@/types/assistant'
 import { getModelOrProviderIcon } from '@/utils/icons'
+import { IconButton } from '@/components/ui/IconButton'
 
 function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: () => void }) {
   const { t } = useTranslation()
@@ -96,10 +97,9 @@ function AssistantSettingItem({
             {icon}
             <Text>{t(titleKey)}</Text>
           </XStack>
-          <Button
-            size={14}
-            icon={<Settings2 size={14} color="$textLink" />}
-            backgroundColor="$colorTransparent"
+          <IconButton
+            style={{ padding: 2 }}
+            icon={<Settings2 size={16} color="$textLink" />}
             onPress={() => navigation.navigate('AssistantDetailScreen', { assistantId })}
           />
         </XStack>

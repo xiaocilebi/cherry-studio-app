@@ -6,13 +6,13 @@ import { SFSymbol } from 'sf-symbols-typescript'
 import { Text, XStack } from 'tamagui'
 
 import ContextMenu from '@/components/ui/ContextMenu'
+import { useDialog } from '@/hooks/useDialog'
+import { useToast } from '@/hooks/useToast'
 import { deleteProvider } from '@/services/ProviderService'
 import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
-import { useDialog } from '@/hooks/useDialog'
-import { useToast } from '@/hooks/useToast'
 
 interface ProviderItemProps {
   provider: Provider

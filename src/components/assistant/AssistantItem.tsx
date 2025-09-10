@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
 import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
+import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -16,7 +17,6 @@ import { HomeNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from './EmojiAvator'
-import { useToast } from '@/hooks/useToast'
 
 const logger = loggerService.withContext('Assistant Item')
 

@@ -22,6 +22,7 @@ import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getModelUniqId } from '@/utils/model'
+import { IconButton } from '@/components/ui/IconButton'
 const logger = loggerService.withContext('ApiServiceScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ApiServiceScreen'>
@@ -187,13 +188,7 @@ export default function ApiServiceScreen() {
         <YStack gap={8}>
           <XStack paddingHorizontal={10} height={20} justifyContent="space-between" alignItems="center">
             <SettingGroupTitle>{t('settings.provider.api_key')}</SettingGroupTitle>
-            <Button
-              size={16}
-              icon={<ShieldCheck size={16} color="$textLink" />}
-              backgroundColor="$colorTransparent"
-              circular
-              onPress={handleOpenBottomSheet}
-            />
+            <IconButton icon={<ShieldCheck size={16} color="$textLink" />} onPress={handleOpenBottomSheet} />
           </XStack>
 
           <XStack paddingVertical={8} gap={8} position="relative">

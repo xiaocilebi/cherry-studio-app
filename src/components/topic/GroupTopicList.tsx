@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 import { Text, YStack } from 'tamagui'
 
+import { useDialog } from '@/hooks/useDialog'
+import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
@@ -15,8 +17,6 @@ import { Topic } from '@/types/assistant'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
 
 import TopicItem from './TopicItem'
-import { useToast } from '@/hooks/useToast'
-import { useDialog } from '@/hooks/useDialog'
 
 const logger = loggerService.withContext('GroupTopicList')
 
