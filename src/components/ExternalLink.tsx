@@ -2,9 +2,10 @@ import * as ExpoLinking from 'expo-linking'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, OpaqueColorValue } from 'react-native'
-import { Button, GetThemeValueForKey, Text } from 'tamagui'
+import { GetThemeValueForKey, Text } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'
+
 import { IconButton } from './ui/IconButton'
 const logger = loggerService.withContext('External Link Component')
 

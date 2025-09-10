@@ -6,12 +6,13 @@ import { sortBy } from 'lodash'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
-import { Button, Input, Stack, Text, XStack, YStack } from 'tamagui'
+import { Input, Stack, Text, XStack, YStack } from 'tamagui'
 
 import ExternalLink from '@/components/ExternalLink'
 import { SettingContainer, SettingGroupTitle, SettingHelpText } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { ApiCheckSheet } from '@/components/settings/providers/ApiCheckSheet'
+import { IconButton } from '@/components/ui/IconButton'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { isEmbeddingModel } from '@/config/models'
 import { PROVIDER_URLS } from '@/config/providers'
@@ -22,7 +23,6 @@ import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getModelUniqId } from '@/utils/model'
-import { IconButton } from '@/components/ui/IconButton'
 const logger = loggerService.withContext('ApiServiceScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ApiServiceScreen'>

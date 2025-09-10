@@ -11,13 +11,13 @@ import { Image } from 'tamagui'
 import { SettingContainer, SettingHelpText } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import ModelSheet from '@/components/sheets/ModelSheet'
+import { IconButton } from '@/components/ui/IconButton'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { AssistantSettingsStackParamList } from '@/navigators/settings/AssistantSettingsStackNavigator'
 import { Assistant, Model } from '@/types/assistant'
 import { getModelOrProviderIcon } from '@/utils/icons'
-import { IconButton } from '@/components/ui/IconButton'
 
 function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: () => void }) {
   const { t } = useTranslation()
