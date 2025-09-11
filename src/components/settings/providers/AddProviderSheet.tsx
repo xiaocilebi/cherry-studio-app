@@ -3,7 +3,7 @@ import { File, Paths } from 'expo-file-system/next'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -53,22 +53,6 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         setSelectedProviderType(undefined)
       }
     }, [editProvider])
-
-    // 处理Android返回按钮事件
-    useEffect(() => {
-      const backAction = () => {
-        if ((ref as React.RefObject<BottomSheetModal>)?.current) {
-          ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-          return true
-        }
-
-        return false
-      }
-
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-
-      return () => backHandler.remove()
-    }, [ref])
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
