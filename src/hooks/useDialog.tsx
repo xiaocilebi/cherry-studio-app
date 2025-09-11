@@ -101,7 +101,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
           style={styles.centeredView}>
           {maskClosable && <Pressable style={StyleSheet.absoluteFill} onPress={cancel} />}
           <YStack width="75%" borderRadius={20} backgroundColor="$uiCardBackground">
-            <YStack gap={8} padding={20} alignItems="center">
+            <YStack gap={12} padding={20} alignItems="center">
               {typeof options?.title === 'string' ? (
                 <Text fontSize={18} fontWeight="bold" color="$textPrimary">
                   {options.title}

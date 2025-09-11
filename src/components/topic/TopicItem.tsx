@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 import { Input } from 'tamagui'
-
+import { useTheme } from '@/hooks/useTheme'
 import ContextMenu from '@/components/ui/ContextMenu'
 import i18n from '@/i18n'
 import { getAssistantById } from '@/services/AssistantService'
@@ -44,7 +44,7 @@ const TopicItem: FC<TopicItemProps> = ({
   const navigation = useNavigation<DrawerNavigationProps>()
   const [assistant, setAssistant] = useState<Assistant>()
   const dialog = useDialog()
-
+  const { isDark } = useTheme()
   const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
 
   const openTopic = () => {
@@ -98,6 +98,8 @@ const TopicItem: FC<TopicItemProps> = ({
       content: (
         <Input
           width="100%"
+          marginTop={8}
+          backgroundColor="$colorTransparent"
           defaultValue={topic.name}
           onChangeText={value => {
             tempNameRef.current = value
@@ -143,7 +145,7 @@ const TopicItem: FC<TopicItemProps> = ({
       ]}
       onPress={openTopic}>
       <XStack
-        borderRadius={16}
+        borderRadius={18}
         paddingVertical={5}
         paddingHorizontal={5}
         gap={14}
@@ -153,20 +155,26 @@ const TopicItem: FC<TopicItemProps> = ({
         <EmojiAvatar
           emoji={assistant?.emoji}
           size={40}
-          borderRadius={12}
+          borderRadius={16}
           borderWidth={3}
-          borderColor="$uiCardBackground"
+          borderColor={isDark ? '#444444' : '#ffffff'}
         />
-        <YStack flex={1}>
+        <YStack flex={1} gap={4}>
           <XStack justifyContent="space-between">
-            <Text fontSize={16} fontWeight="bold" color="$textPrimary">
+            <Text fontSize={16} lineHeight={16} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
             <Text fontSize={12} color="$textSecondary">
               {displayTime}
             </Text>
           </XStack>
-          <Text fontSize={13} numberOfLines={1} ellipsizeMode="tail" fontWeight="400" color="$textPrimary">
+          <Text
+            fontSize={13}
+            lineHeight={13}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            fontWeight="400"
+            color="$textSecondary">
             {topic.name}
           </Text>
         </YStack>
