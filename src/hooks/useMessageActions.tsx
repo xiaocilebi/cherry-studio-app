@@ -1,24 +1,23 @@
+import { useNavigation } from '@react-navigation/native'
 import * as Clipboard from 'expo-clipboard'
 import * as Speech from 'expo-speech'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
 
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessageById, fetchTranslateThunk, regenerateAssistantMessage } from '@/services/MessagesService'
 import { useAppDispatch } from '@/store'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
+import { HomeNavigationProps } from '@/types/naviagate'
 import { filterMessages } from '@/utils/messageUtils/filters'
 import { getMainTextContent } from '@/utils/messageUtils/find'
 import { findTranslationBlocks } from '@/utils/messageUtils/find'
 
 import { removeManyBlocks } from '../../db/queries/messageBlocks.queries'
 import { upsertMessages } from '../../db/queries/messages.queries'
-import { useToast } from './useToast'
 import { useDialog } from './useDialog'
-import { useNavigation } from '@react-navigation/native'
-import { HomeNavigationProps } from '@/types/naviagate'
+import { useToast } from './useToast'
 
 const logger = loggerService.withContext('useMessageActions')
 
@@ -69,33 +68,36 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
 
   const handleDelete = async () => {
     return new Promise<void>((resolve, reject) => {
-      Alert.alert(t('message.delete_message'), t('message.delete_message_confirmation'), [
-        {
-          text: t('common.cancel'),
-          style: 'cancel',
-          onPress: () => reject(new Error('User cancelled'))
-        },
-        {
-          text: t('common.delete'),
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await deleteMessageById(message.id)
+      dialog.open({
+        type: 'error',
+        title: t('message.delete_message'),
+        content: t('message.delete_message_confirmation'),
+        confirmText: t('common.delete'),
+        cancelText: t('common.cancel'),
+        onConFirm: async () => {
+          try {
+            await deleteMessageById(message.id)
 
-              if (message.askId) {
-                await deleteMessageById(message.askId)
-              }
-
-              logger.info('Message deleted successfully:', message.id)
-              resolve()
-            } catch (error) {
-              logger.error('Error deleting message:', error)
-              Alert.alert(t('common.error'), t('common.error_occurred'))
-              reject(error)
+            if (message.askId) {
+              await deleteMessageById(message.askId)
             }
+
+            logger.info('Message deleted successfully:', message.id)
+            resolve()
+          } catch (error) {
+            logger.error('Error deleting message:', error)
+            dialog.open({
+              type: 'error',
+              title: t('common.error'),
+              content: t('common.error_occurred')
+            })
+            reject(error)
           }
+        },
+        onCancel: () => {
+          reject(new Error('User cancelled'))
         }
-      ])
+      })
     })
   }
 

@@ -3,10 +3,11 @@ import { File, Paths } from 'expo-file-system/next'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
+import { useDialog } from '@/hooks/useDialog'
 import { useTheme } from '@/hooks/useTheme'
 import { fileStorageDir, uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
@@ -31,6 +32,7 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
     const { t } = useTranslation()
     const { isDark } = useTheme()
     const insets = useSafeAreaInsets()
+    const dialog = useDialog()
     const [providerId, setProviderId] = useState(() => editProvider?.id || uuid())
 
     const [providerName, setProviderName] = useState(editProvider?.name || '')
@@ -112,8 +114,11 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
       } catch (error) {
         logger.error('handleSaveProvider', error as Error)
-        // Add user-friendly error alert
-        Alert.alert(t('common.error_occurred'), error instanceof Error ? error.message : t('common.unknown_error'))
+        dialog.open({
+          type: 'error',
+          title: t('common.error_occurred'),
+          content: error instanceof Error ? error.message : t('common.unknown_error')
+        })
       } finally {
         if (mode === 'add') {
           setSelectedProviderType(undefined)

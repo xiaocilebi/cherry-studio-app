@@ -1,12 +1,12 @@
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { MotiView } from 'moti'
 import React, { createContext, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Modal, Pressable, StyleSheet } from 'react-native'
 import { Button, StackProps, Text, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { haptic } from '@/utils/haptic'
-import { useTranslation } from 'react-i18next'
 
 export type DialogOptions = {
   title?: React.ReactNode | string
@@ -20,7 +20,7 @@ export type DialogOptions = {
   maskClosable?: boolean
   type?: 'info' | 'warning' | 'error' | 'success'
   onConFirm?: () => void
-  onCancle?: () => void
+  onCancel?: () => void
 }
 
 type DialogContextValue = { open: (options: DialogOptions) => void; close: () => void } | undefined
@@ -51,7 +51,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
 
   const cancel = () => {
     haptic(ImpactFeedbackStyle.Medium)
-    options?.onCancle?.()
+    options?.onCancel?.()
     close()
   }
 

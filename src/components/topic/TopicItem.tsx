@@ -4,11 +4,11 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 import { Input } from 'tamagui'
-import { useTheme } from '@/hooks/useTheme'
+
 import ContextMenu from '@/components/ui/ContextMenu'
+import { useTheme } from '@/hooks/useTheme'
 import i18n from '@/i18n'
 import { getAssistantById } from '@/services/AssistantService'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -119,7 +119,11 @@ const TopicItem: FC<TopicItemProps> = ({
       try {
         onRename?.(topic.id, newName.trim())
       } catch (error) {
-        Alert.alert(t('common.error_occurred'), (error as Error).message || 'Unknown error')
+        dialog.open({
+          type: 'error',
+          title: t('common.error_occurred'),
+          content: (error as Error).message || 'Unknown error'
+        })
       }
     }
   }
