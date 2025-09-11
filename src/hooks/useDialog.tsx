@@ -6,6 +6,7 @@ import { Button, StackProps, Text, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { haptic } from '@/utils/haptic'
+import { useTranslation } from 'react-i18next'
 
 export type DialogOptions = {
   title?: React.ReactNode | string
@@ -30,6 +31,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
   const { isDark } = useTheme()
   const [isOpen, setOpen] = useState(false)
   const [options, setOptions] = useState<DialogOptions | null>(null)
+  const { t } = useTranslation()
 
   const styles = StyleSheet.create({
     centeredView: {
@@ -84,8 +86,8 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
 
   const showCancel = options?.showCancel ?? true
   const maskClosable = options?.maskClosable ?? true
-  const confirmText = options?.confirmText ?? 'OK'
-  const cancelText = options?.cancelText ?? 'Cancel'
+  const confirmText = options?.confirmText ?? t('common.ok')
+  const cancelText = options?.cancelText ?? t('common.cancel')
 
   const confirmButtonStyle = getConfirmButtonStyle()
 
@@ -110,7 +112,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
                 options?.title
               )}
               {typeof options?.content === 'string' ? (
-                <Text fontSize={16} color="$textSecondary" textAlign="center">
+                <Text fontSize={15} lineHeight={20} color="$textSecondary" textAlign="center">
                   {options.content}
                 </Text>
               ) : (

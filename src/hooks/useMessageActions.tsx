@@ -16,6 +16,9 @@ import { findTranslationBlocks } from '@/utils/messageUtils/find'
 import { removeManyBlocks } from '../../db/queries/messageBlocks.queries'
 import { upsertMessages } from '../../db/queries/messages.queries'
 import { useToast } from './useToast'
+import { useDialog } from './useDialog'
+import { useNavigation } from '@react-navigation/native'
+import { HomeNavigationProps } from '@/types/naviagate'
 
 const logger = loggerService.withContext('useMessageActions')
 
@@ -33,6 +36,8 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
   const [isTranslating, setIsTranslating] = useState(false)
   const [isTranslated, setIsTranslated] = useState(false)
   const toast = useToast()
+  const dialog = useDialog()
+  const navigation = useNavigation<HomeNavigationProps>()
 
   useEffect(() => {
     const checkTranslation = async () => {
@@ -138,9 +143,23 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
       const errorMessage = error instanceof Error ? error.message : String(error)
 
       if (errorMessage.includes('Translate assistant model is not defined')) {
-        Alert.alert(t('common.error_occurred'), t('error.translate_assistant_model_not_defined'))
+        dialog.open({
+          type: 'warning',
+          title: t('common.error_occurred'),
+          content: t('error.translate_assistant_model_not_defined'),
+          confirmText: t('common.go_to_settings'),
+          onConFirm: () => {
+            navigation.navigate('AssistantSettings', {
+              screen: 'AssistantSettingsScreen'
+            })
+          }
+        })
       } else {
-        Alert.alert(t('common.error_occurred'), errorMessage)
+        dialog.open({
+          title: t('common.error_occurred'),
+          content: errorMessage,
+          type: 'error'
+        })
       }
     } finally {
       setIsTranslating(false)
