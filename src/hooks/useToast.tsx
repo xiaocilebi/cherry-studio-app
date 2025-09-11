@@ -21,7 +21,7 @@ type ToastContextValue = { show: (content: React.ReactNode | string, options?: T
 
 const ToastContext = createContext<ToastContextValue>(undefined)
 
-const DEFAULT_DURATION = 2000
+const DEFAULT_DURATION = 1500
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const { isDark } = useTheme()
