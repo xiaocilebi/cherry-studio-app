@@ -1,7 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { ChevronsRight } from '@tamagui/lucide-icons'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
 
@@ -36,6 +37,19 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
     const { t } = useTranslation()
     const { isDark } = useTheme()
     const insets = useSafeAreaInsets()
+    const [isVisible, setIsVisible] = useState(false)
+
+    useEffect(() => {
+      if (!isVisible) return
+
+      const backAction = () => {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+      return () => backHandler.remove()
+    }, [ref, isVisible])
 
     return (
       <BottomSheetModal
@@ -48,7 +62,9 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
         }}
         handleIndicatorStyle={{
           backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-        }}>
+        }}
+        onDismiss={() => setIsVisible(false)}
+        onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
             <XStack width="100%" alignItems="center" justifyContent="center">

@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -26,6 +27,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
     const { t } = useTranslation()
     const navigation = useNavigation<DrawerNavigationProps>()
     const insets = useSafeAreaInsets()
+    const [isVisible, setIsVisible] = useState(false)
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
@@ -45,6 +47,18 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
       navigation.navigate('Home', { screen: 'WebSearchSettings' })
     }
 
+    useEffect(() => {
+      if (!isVisible) return
+
+      const backAction = () => {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+      return () => backHandler.remove()
+    }, [ref, isVisible])
+
     return (
       <BottomSheetModal
         snapPoints={['30%']}
@@ -57,7 +71,9 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
         handleIndicatorStyle={{
           backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
         }}
-        backdropComponent={renderBackdrop}>
+        backdropComponent={renderBackdrop}
+        onDismiss={() => setIsVisible(false)}
+        onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack gap={5} paddingHorizontal={20} paddingBottom={20}>
             {providers.length > 0 ? (

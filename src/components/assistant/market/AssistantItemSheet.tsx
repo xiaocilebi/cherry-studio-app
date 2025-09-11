@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Settings2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
@@ -37,6 +38,19 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const { isDark } = useCustomTheme()
     const { bottom } = useSafeAreaInsets()
     const toast = useToast()
+    const [isVisible, setIsVisible] = useState(false)
+
+    useEffect(() => {
+      if (!isVisible) return
+
+      const backAction = () => {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+      return () => backHandler.remove()
+    }, [ref, isVisible])
 
     // 添加背景组件渲染函数
     const renderBackdrop = (props: any) => (
@@ -100,7 +114,9 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         handleIndicatorStyle={{
           backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
         }}
-        backdropComponent={renderBackdrop}>
+        backdropComponent={renderBackdrop}
+        onDismiss={() => setIsVisible(false)}
+        onChange={index => setIsVisible(index >= 0)}>
         <YStack flex={1} gap={17}>
           {/* Main Content */}
           <YStack flex={1} gap={25}>

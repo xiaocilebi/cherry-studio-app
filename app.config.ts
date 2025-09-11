@@ -21,7 +21,7 @@ export default {
       },
       package: 'com.anonymous.cherrystudio',
       userInterfaceStyle: 'automatic',
-      predictiveBackGestureEnabled: false
+      predictiveBackGestureEnabled: true
     },
     plugins: [
       ['expo-build-properties', { ios: { deploymentTarget: '15.5' } }],

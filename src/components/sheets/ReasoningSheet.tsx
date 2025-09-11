@@ -1,7 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { Check } from '@tamagui/lucide-icons'
-import React, { forwardRef, useMemo } from 'react'
+import React, { forwardRef, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, View, XStack, YStack } from 'tamagui'
 
@@ -54,6 +55,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
     const { t } = useTranslation()
     const { isDark } = useTheme()
     const model = assistant.model!
+    const [isVisible, setIsVisible] = useState(false)
 
     const isGrokModel = isSupportedReasoningEffortGrokModel(model)
     const isGeminiModel = isSupportedThinkingTokenGeminiModel(model)
@@ -123,6 +125,18 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
       action: () => onValueChange(option)
     }))
 
+    useEffect(() => {
+      if (!isVisible) return
+
+      const backAction = () => {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+      return () => backHandler.remove()
+    }, [ref, isVisible])
+
     return (
       <BottomSheetModal
         backdropComponent={renderBackdrop}
@@ -134,7 +148,9 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
         }}
         handleIndicatorStyle={{
           backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-        }}>
+        }}
+        onDismiss={() => setIsVisible(false)}
+        onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <YStack gap={10} paddingHorizontal={20} paddingBottom={20}>
             {sheetOptions.map(option => (

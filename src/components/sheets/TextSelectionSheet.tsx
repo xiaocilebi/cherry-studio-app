@@ -1,8 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { X } from '@tamagui/lucide-icons'
-import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform, TouchableOpacity } from 'react-native'
+import { BackHandler, Platform, TouchableOpacity } from 'react-native'
 import { Text, TextArea, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
@@ -44,11 +44,24 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
   const { t } = useTranslation()
   const { isDark } = useTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   useImperativeHandle(ref, () => ({
     present: () => bottomSheetModalRef.current?.present(),
     dismiss: () => bottomSheetModalRef.current?.dismiss()
   }))
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      bottomSheetModalRef.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [isVisible])
 
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
@@ -66,7 +79,9 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
       }}
-      backdropComponent={renderBackdrop}>
+      backdropComponent={renderBackdrop}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <YStack flex={1}>
         <XStack
           justifyContent="space-between"

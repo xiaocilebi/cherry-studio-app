@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -24,12 +24,25 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
   const [modelId, setModelId] = useState('')
   const [modelName, setModelName] = useState('')
   const [modelGroup, setModelGroup] = useState('')
+  const [isVisible, setIsVisible] = useState(false)
   const insets = useSafeAreaInsets()
 
   useEffect(() => {
     setModelName(modelId)
     setModelGroup(getDefaultGroupName(modelId, provider?.id))
   }, [modelId, provider?.id])
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [ref, isVisible])
 
   const handleAddModel = async () => {
     if (!provider || !modelId.trim()) {
@@ -85,7 +98,9 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
       }}
-      backdropComponent={renderBackdrop}>
+      backdropComponent={renderBackdrop}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView style={{ paddingBottom: insets.bottom }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>

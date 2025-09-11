@@ -1,7 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import * as ExpoLinking from 'expo-linking'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
@@ -80,6 +81,19 @@ const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url
 const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citations }, ref) => {
   const { t } = useTranslation()
   const { isDark } = useTheme()
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [ref, isVisible])
 
   // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (
@@ -116,7 +130,9 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
       backdropComponent={renderBackdrop}
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-      }}>
+      }}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetScrollView showsVerticalScrollIndicator={false}>
         <Stack justifyContent="center" alignItems="center" paddingHorizontal={20}>
           <Text fontSize={20} lineHeight={22} fontWeight={600}>
