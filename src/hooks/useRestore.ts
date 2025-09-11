@@ -79,7 +79,7 @@ export function useRestore(options: UseRestoreOptions = {}) {
   const [overallStatus, setOverallStatus] = useState<'running' | 'success' | 'error'>('running')
 
   const validateFile = (file: { mimeType?: string; name: string; type?: string }) => {
-    const isValid = file.name.includes('cherry-studio-app')
+    const isValid = file.name.includes('cherry-studio')
 
     if (!isValid) {
       Alert.alert(t('error.backup.title'), t('error.backup.file_invalid'))
