@@ -1,9 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { SquareFunction, Wrench } from '@tamagui/lucide-icons'
-import { forwardRef, useEffect } from 'react'
+import { forwardRef } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -48,22 +47,6 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
     })
     ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
   }
-
-  // 处理Android返回按钮事件
-  useEffect(() => {
-    const backAction = () => {
-      if ((ref as React.RefObject<BottomSheetModal>)?.current) {
-        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-        return true
-      }
-
-      return false
-    }
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-
-    return () => backHandler.remove()
-  }, [ref])
 
   return (
     <BottomSheetModal
