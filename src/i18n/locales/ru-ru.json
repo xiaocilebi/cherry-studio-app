@@ -292,6 +292,8 @@
       "delete_message": "Удалить сообщение",
       "delete_message_confirmation": "Вы уверены, что хотите удалить это сообщение?",
       "delete_translation": "Удалить перевод",
+      "marked_as_best_answer": "Отмечено как лучший ответ",
+      "unmarked_as_best_answer": "Снята отметка лучшего ответа",
       "searching": "Поиск...",
       "translate_message": "Перевести сообщение",
       "websearch": {

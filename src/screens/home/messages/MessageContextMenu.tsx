@@ -1,4 +1,4 @@
-import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, Trash2 } from '@tamagui/lucide-icons'
+import { AudioLines, CirclePause, Copy, RefreshCw, ThumbsUp, TextSelect, Trash2 } from '@tamagui/lucide-icons'
 import { FC, memo, useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,6 +9,7 @@ import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
+import { useTheme } from '@/hooks/useTheme'
 
 interface MessageItemProps {
   children: React.ReactNode
@@ -18,6 +19,7 @@ interface MessageItemProps {
 
 const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant }) => {
   const { t } = useTranslation()
+  const { isDark } = useTheme()
   const textSelectionSheetRef = useRef<TextSelectionSheetRef>(null)
   const [messageContent, setMessageContent] = useState('')
 
@@ -30,7 +32,9 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
     handlePlay,
     handleTranslate,
     handleDeleteTranslation,
-    getMessageContent
+    getMessageContent,
+    handleBestAnswer,
+    isUseful
   } = useMessageActions({ message, assistant })
 
   const handleSelectText = async () => {
@@ -80,6 +84,16 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       iOSIcon: playState === 'playing' ? 'pause.circle' : 'speaker.wave.2',
       androidIcon: getAudioIcon(),
       onSelect: handlePlay
+    },
+    {
+      title: t('button.best_answer'),
+      iOSIcon: isUseful ? 'hand.thumbsup.fill' : 'hand.thumbsup',
+      androidIcon: isUseful ? (
+        <ThumbsUp size={16} fill={isDark ? '#f9f9f9' : '#202020'} color={isDark ? '#f9f9f9' : '#202020'} />
+      ) : (
+        <ThumbsUp size={16} />
+      ),
+      onSelect: handleBestAnswer
     },
     {
       title: isTranslated ? t('common.delete_translation') : t('message.translate_message'),

@@ -292,6 +292,8 @@
       "delete_message": "メッセージを削除",
       "delete_message_confirmation": "このメッセージを削除しますか？",
       "delete_translation": "翻訳を削除",
+      "marked_as_best_answer": "最適な回答として設定しました",
+      "unmarked_as_best_answer": "最適な回答の設定を解除しました",
       "searching": "検索中...",
       "translate_message": "メッセージを翻訳",
       "websearch": {

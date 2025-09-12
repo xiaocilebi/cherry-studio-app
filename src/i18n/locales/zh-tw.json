@@ -292,6 +292,8 @@
       "delete_message": "刪除訊息",
       "delete_message_confirmation": "您確定要刪除這條訊息嗎？",
       "delete_translation": "刪除翻譯",
+      "marked_as_best_answer": "已標記為最佳回答",
+      "unmarked_as_best_answer": "已取消最佳回答標記",
       "searching": "搜尋中...",
       "translate_message": "翻譯訊息",
       "websearch": {

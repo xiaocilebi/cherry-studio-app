@@ -294,6 +294,8 @@
       "delete_topic": "删除话题",
       "delete_topic_confirmation": "您确定要删除这个话题吗？",
       "delete_translation": "删除翻译",
+      "marked_as_best_answer": "已标记为最佳回复",
+      "unmarked_as_best_answer": "已取消最佳回复标记",
       "searching": "正在搜索...",
       "translate_message": "翻译消息",
       "websearch": {

@@ -292,6 +292,8 @@
       "delete_message": "Delete Message",
       "delete_message_confirmation": "Are you sure you want to delete this message?",
       "delete_translation": "Remove Translation",
+      "marked_as_best_answer": "Marked as best answer",
+      "unmarked_as_best_answer": "Unmarked as best answer",
       "searching": "Searching...",
       "translate_message": "Translate Message",
       "websearch": {
