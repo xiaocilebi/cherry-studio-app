@@ -59,12 +59,15 @@
       "placeholder": "Ask something casually",
       "recents": "Recents",
       "save": "Save",
+      "save_image": "Save to Photos",
+      "share": "Share",
       "select_model": "Select Model",
       "sort": "Sort",
       "start_check_model": "Let's Start",
       "success": "Successful!",
       "tag": "Tag",
-      "web_search": "Search online"
+      "web_search": "Search online",
+      "best_answer": "Best Answer"
     },
     "chat": {
       "assistant": {
@@ -123,6 +126,7 @@
       "regenerate": "Regenerate",
       "rename": "Rename",
       "save": "Save",
+      "saved": "Saved",
       "search_placeholder": "Search...",
       "see_all": "See All",
       "select_text": "Select Text",

@@ -35,52 +35,50 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width }) => {
   }
 
   return (
-    <View>
-      <TouchableOpacity onPress={handlePreview}>
-        <View>
-          <XStack
-            gap={12}
-            width={fileWidth}
-            borderRadius={8}
-            backgroundColor="$green20"
-            justifyContent="flex-start"
+    <TouchableOpacity onPress={handlePreview}>
+      <View>
+        <XStack
+          gap={12}
+          width={fileWidth}
+          borderRadius={16}
+          backgroundColor="$green20"
+          justifyContent="flex-start"
+          alignItems="center"
+          paddingVertical={8}
+          paddingHorizontal={12}>
+          <Stack
+            width={40}
+            height={40}
+            gap={10}
+            borderRadius={99}
+            backgroundColor="$green100"
             alignItems="center"
-            paddingVertical={8}
-            paddingHorizontal={12}>
-            <Stack
-              width={40}
-              height={40}
-              gap={10}
-              borderRadius={99}
-              backgroundColor="$green100"
-              alignItems="center"
-              justifyContent="center">
-              <FileIcon size={24} />
-            </Stack>
-            <YStack flex={1} justifyContent="center" gap={2}>
-              <Text maxWidth="80%" fontSize={16} lineHeight={20} numberOfLines={1} ellipsizeMode="middle">
-                {file.name}
-              </Text>
-              <Text fontSize={12} lineHeight={16}>
-                {formatFileSize(file.size)}
-              </Text>
-            </YStack>
-          </XStack>
-          {onRemove && (
-            <TouchableOpacity
-              onPress={handleRemove}
-              style={{
-                position: 'absolute',
-                top: -6,
-                right: -6,
-                borderRadius: 99
-              }}>
-              <CircleX size={20} color="$backgroundPrimary" borderRadius={99} backgroundColor="$gray60" />
-            </TouchableOpacity>
-          )}
-        </View>
-      </TouchableOpacity>
-    </View>
+            justifyContent="center">
+            <FileIcon size={24} />
+          </Stack>
+          <YStack justifyContent="center" gap={2}>
+            <Text fontSize={16} lineHeight={20} numberOfLines={1} ellipsizeMode="middle">
+              {file.name}
+            </Text>
+            <Text fontSize={12} lineHeight={16}>
+              {formatFileSize(file.size)}
+            </Text>
+          </YStack>
+        </XStack>
+        {onRemove && (
+          <TouchableOpacity
+            onPress={handleRemove}
+            style={{
+              position: 'absolute',
+              top: -6,
+              right: -6,
+              borderRadius: 99
+            }}>
+            <CircleX size={20} color="$backgroundPrimary" borderRadius={99} backgroundColor="$gray60" />
+          </TouchableOpacity>
+        )}
+      </View>
+    </TouchableOpacity>
   )
 }
 

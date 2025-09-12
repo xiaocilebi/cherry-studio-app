@@ -64,7 +64,10 @@
       "start_check_model": "Начать",
       "success": "Успешно!",
       "tag": "Тег",
-      "web_search": "Поиск в интернете"
+      "web_search": "Поиск в интернете",
+      "best_answer": "Лучший ответ",
+      "save_image": "Сохранить в фото",
+      "share": "Поделиться"
     },
     "chat": {
       "assistant": {
@@ -135,7 +138,8 @@
       "visit": "Посетить",
       "websearch": "Поиск в интернете",
       "yesterday": "Вчера",
-      "go_to_settings": "В настройки"
+      "go_to_settings": "В настройки",
+      "saved": "Сохранить"
     },
     "error": {
       "availableProviders": "Доступные провайдеры",

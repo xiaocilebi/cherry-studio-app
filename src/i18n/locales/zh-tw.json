@@ -59,6 +59,9 @@
       "placeholder": "隨便問些什麼",
       "recents": "最近",
       "save": "保存",
+      "save_image": "保存到“照片”",
+      "share": "分享",
+      "best_answer": "最佳回答",
       "select_model": "選擇模型",
       "sort": "排序",
       "start_check_model": "讓我們開始",
@@ -135,7 +138,8 @@
       "visit": "訪問",
       "websearch": "網路搜尋",
       "yesterday": "昨天",
-      "go_to_settings": "前往設定"
+      "go_to_settings": "前往設定",
+      "saved": "保存"
     },
     "error": {
       "availableProviders": "可用供應商",

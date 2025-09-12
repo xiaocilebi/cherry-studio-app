@@ -124,6 +124,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
           onLongPress={openBottomSheet}
           style={({ pressed }) => ({
             backgroundColor: pressed ? '#a0a1b033' : 'transparent',
+            opacity: pressed ? 0.9 : 1,
             borderRadius
           })}>
           {children}

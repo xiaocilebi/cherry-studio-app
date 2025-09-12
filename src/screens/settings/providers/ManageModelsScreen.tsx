@@ -29,6 +29,9 @@ import { loggerService } from '@/services/LoggerService'
 import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { getDefaultGroupName } from '@/utils/naming'
+import { IconButton } from '@/components/ui/IconButton'
+import { haptic } from '@/utils/haptic'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 const logger = loggerService.withContext('ManageModelsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ManageModelsScreen'>
@@ -143,18 +146,22 @@ export default function ManageModelsScreen() {
   }
 
   const onAddModel = async (model: Model) => {
+    haptic(ImpactFeedbackStyle.Medium)
     await handleUpdateModels(uniqBy([...(provider?.models || []), model], 'id'))
   }
 
   const onRemoveModel = async (model: Model) => {
+    haptic(ImpactFeedbackStyle.Medium)
     await handleUpdateModels((provider?.models || []).filter(m => m.id !== model.id))
   }
 
   const onAddAllModels = async (modelsToAdd: Model[]) => {
+    haptic(ImpactFeedbackStyle.Medium)
     await handleUpdateModels(uniqBy([...(provider?.models || []), ...modelsToAdd], 'id'))
   }
 
   const onRemoveAllModels = async (modelsToRemove: Model[]) => {
+    haptic(ImpactFeedbackStyle.Medium)
     const modelsToRemoveIds = new Set(modelsToRemove.map(m => m.id))
     await handleUpdateModels((provider?.models || []).filter(m => !modelsToRemoveIds.has(m.id)))
   }
@@ -189,15 +196,12 @@ export default function ManageModelsScreen() {
       index={index}
       showModelCount={true}
       renderGroupButton={groupButtonModels => (
-        <Button
-          size={20}
-          chromeless
-          circular
+        <IconButton
           icon={
             isAllModelsInCurrentProvider(groupButtonModels) ? (
-              <Minus size={20} borderRadius={99} backgroundColor="$red20" color="$red100" />
+              <Minus size={18} borderRadius={99} backgroundColor="$red20" color="$red100" />
             ) : (
-              <Plus size={20} borderRadius={99} backgroundColor="$green20" color="$green100" />
+              <Plus size={18} borderRadius={99} backgroundColor="$green20" color="$green100" />
             )
           }
           onPress={
@@ -208,15 +212,12 @@ export default function ManageModelsScreen() {
         />
       )}
       renderModelButton={model => (
-        <Button
-          size={16}
-          chromeless
-          circular
+        <IconButton
           icon={
             isModelInCurrentProvider(model.id) ? (
-              <Minus size={16} borderRadius={99} backgroundColor="$red20" color="$red100" />
+              <Minus size={18} borderRadius={99} backgroundColor="$red20" color="$red100" />
             ) : (
-              <Plus size={16} borderRadius={99} backgroundColor="$green20" color="$green100" />
+              <Plus size={18} borderRadius={99} backgroundColor="$green20" color="$green100" />
             )
           }
           onPress={isModelInCurrentProvider(model.id) ? () => onRemoveModel(model) : () => onAddModel(model)}
