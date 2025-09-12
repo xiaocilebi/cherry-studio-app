@@ -46,8 +46,8 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
   }
 
   // 模型更新函数
-  const handleModelChange = (models: Model[]) => {
-    handleAssistantChange({ model: models[0] })
+  const handleModelChange = async (models: Model[]) => {
+    await handleAssistantChange({ defaultModel: models[0] })
   }
 
   const handleModelPress = () => {
@@ -58,7 +58,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
     reasoningSheetRef.current?.present()
   }
 
-  const model = assistant?.model ? [assistant.model] : []
+  const model = assistant?.defaultModel ? [assistant.defaultModel] : []
   const settings = assistant.settings || {}
 
   return (

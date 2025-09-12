@@ -1,28 +1,41 @@
 import React from 'react'
-import { Text, View, XStack } from 'tamagui'
+import { useTranslation } from 'react-i18next'
+import { Text, View, XStack, YStack } from 'tamagui'
 
-import { Assistant } from '@/types/assistant'
+import { ModelIcon } from '@/components/ui/ModelIcon'
 import { Message } from '@/types/message'
+import { storage } from '@/utils'
 
 interface MessageHeaderProps {
   message: Message
-  assistant: Assistant
 }
 
-const MessageHeader: React.FC<MessageHeaderProps> = ({ message, assistant }) => {
+const MessageHeader: React.FC<MessageHeaderProps> = ({ message }) => {
+  const { t } = useTranslation()
+  const currentLanguage = storage.getString('language')
   return (
-    <View>
-      <XStack gap={10} alignItems="center">
-        <Text height={24} width={24} textAlign="center" lineHeight={24}>
-          {assistant.emoji}
-        </Text>
-        <Text fontSize={14} fontWeight="bold">
-          {assistant.name}
-        </Text>
-        <Text fontSize={10}>
-          {new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
-        </Text>
-      </XStack>
+    <View style={{ paddingHorizontal: 16 }}>
+      {message.model && (
+        <YStack gap={10}>
+          <XStack alignItems="center" gap={4}>
+            <Text>{t(`provider.${message.model?.provider}`)}</Text>
+            <Text fontSize={10}>
+              {new Date(message.createdAt).toLocaleTimeString(currentLanguage, {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+              })}
+            </Text>
+          </XStack>
+          <XStack alignItems="center" gap={4}>
+            <ModelIcon model={message.model} />
+
+            <Text fontSize={14} fontWeight="bold">
+              {message.model?.name}
+            </Text>
+          </XStack>
+        </YStack>
+      )}
     </View>
   )
 }

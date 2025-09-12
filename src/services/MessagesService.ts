@@ -218,7 +218,7 @@ export async function regenerateAssistantMessage(
     const resetAssistantMsg = resetAssistantMessage(
       messageToResetEntity,
       // Grouped message (mentioned model message) should not reset model and modelId, always use the original model
-      assistantMessage.modelId
+      assistantMessage.mentions
         ? {
             status: AssistantMessageStatus.PENDING,
             updatedAt: new Date().toISOString()

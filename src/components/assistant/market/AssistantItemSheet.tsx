@@ -148,11 +148,11 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                     ))}
                   </XStack>
                 )}
-                {assistant.model && (
+                {assistant.defaultModel && (
                   <XStack gap={2} alignItems="center" justifyContent="center">
-                    <ModelIcon model={assistant.model} size={14} />
+                    <ModelIcon model={assistant.defaultModel} size={14} />
                     <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail">
-                      {assistant.model.name}
+                      {assistant.defaultModel.name}
                     </Text>
                   </XStack>
                 )}
