@@ -76,6 +76,16 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
             iOSIcon: 'arrow.clockwise' as const,
             androidIcon: <RefreshCw size={16} color="$textPrimary" />,
             onSelect: handleRegenerate
+          },
+          {
+            title: t('button.best_answer'),
+            iOSIcon: isUseful ? 'hand.thumbsup.fill' as const : 'hand.thumbsup' as const,
+            androidIcon: isUseful ? (
+              <ThumbsUp size={16} fill={isDark ? '#f9f9f9' : '#202020'} color={isDark ? '#f9f9f9' : '#202020'} />
+            ) : (
+              <ThumbsUp size={16} />
+            ),
+            onSelect: handleBestAnswer
           }
         ]
       : []),
@@ -85,16 +95,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       androidIcon: getAudioIcon(),
       onSelect: handlePlay
     },
-    {
-      title: t('button.best_answer'),
-      iOSIcon: isUseful ? 'hand.thumbsup.fill' : 'hand.thumbsup',
-      androidIcon: isUseful ? (
-        <ThumbsUp size={16} fill={isDark ? '#f9f9f9' : '#202020'} color={isDark ? '#f9f9f9' : '#202020'} />
-      ) : (
-        <ThumbsUp size={16} />
-      ),
-      onSelect: handleBestAnswer
-    },
+
     {
       title: isTranslated ? t('common.delete_translation') : t('message.translate_message'),
       iOSIcon: 'translate',

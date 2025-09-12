@@ -1,5 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw } from '@tamagui/lucide-icons'
+import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw, ThumbsUp } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { View, XStack } from 'tamagui'
@@ -19,7 +19,10 @@ interface MessageFooterProps {
 
 const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-  const { playState, handleCopy, handleRegenerate, handlePlay } = useMessageActions({ message, assistant })
+  const { playState, handleCopy, handleRegenerate, handlePlay, handleBestAnswer } = useMessageActions({
+    message,
+    assistant
+  })
 
   const getAudioIcon = () => {
     switch (playState) {
@@ -36,6 +39,14 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
         <IconButton icon={<Copy size={18} color="$textSecondary" />} onPress={handleCopy} />
         <IconButton icon={<RefreshCw size={18} color="$textSecondary" />} onPress={handleRegenerate} />
         <IconButton icon={getAudioIcon()} onPress={handlePlay} />
+        {message.role === 'assistant' && (
+          <IconButton
+            icon={
+              message.useful ? <ThumbsUp size={18} color="$green100" /> : <ThumbsUp size={18} color="$textSecondary" />
+            }
+            onPress={handleBestAnswer}
+          />
+        )}
         <IconButton
           icon={<MoreHorizontal size={18} color="$textSecondary" />}
           onPress={() => {
