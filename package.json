@@ -3,7 +3,7 @@
   "main": "index.js",
   "version": "0.1.0",
   "scripts": {
-    "start": "expo start",
+    "start": "npx expo start",
     "prebuild": "expo prebuild",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",

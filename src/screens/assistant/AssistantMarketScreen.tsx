@@ -38,11 +38,11 @@ export default function AssistantMarketScreen() {
     useCallback((assistant: Assistant) => [assistant.name || '', assistant.id || ''], [])
   )
 
-  const handleAssistantItemPress = useCallback((assistant: Assistant) => {
+  const handleAssistantItemPress = (assistant: Assistant) => {
     haptic(ImpactFeedbackStyle.Medium)
     setSelectedAssistant(assistant)
     bottomSheetRef.current?.present()
-  }, [])
+  }
 
   const handleMenuPress = () => {
     haptic(ImpactFeedbackStyle.Medium)

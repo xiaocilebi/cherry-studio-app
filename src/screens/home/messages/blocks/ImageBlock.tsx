@@ -12,7 +12,7 @@ interface Props {
 const ImageBlock: React.FC<Props> = ({ block }) => {
   if (block.status === MessageBlockStatus.PENDING)
     return (
-      <View style={{ paddingHorizontal: 10 }}>
+      <View>
         <ImageSkeleton />
       </View>
     )
@@ -25,7 +25,7 @@ const ImageBlock: React.FC<Props> = ({ block }) => {
 
   if (uploadedFile) {
     return (
-      <View style={{ paddingHorizontal: 10 }}>
+      <View>
         <ImageItem file={uploadedFile} />
       </View>
     )
