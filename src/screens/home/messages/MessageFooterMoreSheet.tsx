@@ -78,7 +78,9 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
             {
               id: 'delete',
               label: t('message.delete_message'),
-              icon: <Trash2 size={18} />,
+              icon: <Trash2 size={18} color="$red100" />,
+              color: '$red100',
+              backgroundColor: '$red20',
               onSelect: onDelete
             }
           ]}

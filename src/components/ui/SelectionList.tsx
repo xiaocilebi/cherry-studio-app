@@ -4,9 +4,11 @@ import { TouchableOpacity } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 
 export interface SelectionListItem {
-  label: string
+  label: React.ReactNode | string
   icon?: React.ReactNode | ((isSelected: boolean) => React.ReactNode)
   isSelected?: boolean
+  backgroundColor?: string
+  color?: string
   onSelect?: () => void
   [x: string]: any
 }
@@ -44,9 +46,9 @@ const SelectionList: React.FC<SelectionListProps> = ({ items, emptyContent }) =>
               borderRadius={16}
               borderWidth={1}
               borderColor={item.isSelected ? '$green20' : 'transparent'}
-              backgroundColor={item.isSelected ? '$green10' : '$uiCardBackground'}>
+              backgroundColor={item.isSelected ? '$green10' : (item.backgroundColor ?? '$uiCardBackground')}>
               {iconElement}
-              <Text color={item.isSelected ? '$green100' : '$textPrimary'} fontSize={16} flex={1}>
+              <Text color={item.isSelected ? '$green100' : (item.color ?? '$textPrimary')} fontSize={16} flex={1}>
                 {item.label}
               </Text>
               {item.isSelected && <Check size={20} color="$green100" />}
