@@ -114,15 +114,15 @@ function ThemedApp() {
         <KeyboardProvider>
           <NavigationContainer theme={reactNavigationTheme}>
             <Theme name={isDark ? 'dark' : 'light'}>
-              <BottomSheetModalProvider>
-                <StatusBar style={isDark ? 'light' : 'dark'} backgroundColor={backgroundColor} />
-                <DatabaseInitializer />
-                <DialogProvider>
-                  <ToastProvider>
+              <StatusBar style={isDark ? 'light' : 'dark'} backgroundColor={backgroundColor} />
+              <DatabaseInitializer />
+              <DialogProvider>
+                <ToastProvider>
+                  <BottomSheetModalProvider>
                     <MainStackNavigator />
-                  </ToastProvider>
-                </DialogProvider>
-              </BottomSheetModalProvider>
+                  </BottomSheetModalProvider>
+                </ToastProvider>
+              </DialogProvider>
             </Theme>
           </NavigationContainer>
         </KeyboardProvider>
