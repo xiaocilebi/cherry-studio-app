@@ -1,18 +1,18 @@
 import { Share, X } from '@tamagui/lucide-icons'
 import { FC } from 'react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import FileViewer from 'react-native-file-viewer'
 import { Stack, Text, useWindowDimensions, View, XStack, YStack } from 'tamagui'
 
 import { FileIcon } from '@/components/icons/FileIcon'
+import ContextMenu from '@/components/ui/ContextMenu'
+import { useToast } from '@/hooks/useToast'
+import { shareFile } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
 import { formatFileSize } from '@/utils/file'
-import ContextMenu from '@/components/ui/ContextMenu'
-import { useTranslation } from 'react-i18next'
-import { shareFile } from '@/services/FileService'
-import { useToast } from '@/hooks/useToast'
 const logger = loggerService.withContext('File Item')
 
 interface FileItemProps {
@@ -26,9 +26,10 @@ interface FileItemProps {
 const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMenu }) => {
   const { width: screenWidth } = useWindowDimensions()
   // Default size is 30% of the screen width
-  const fileWidth = width ? width : screenWidth * 0.45
+  const fileWidth = width ? width : (screenWidth - 8) * 0.45
   const { t } = useTranslation()
   const toast = useToast()
+
   const handlePreview = () => {
     FileViewer.open(file.path, { displayName: file.name }).catch(error => {
       logger.error('Handle Preview Error', error)
@@ -70,6 +71,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
       ]}
       borderRadius={16}>
       <XStack
+        width={fileWidth}
         gap={12}
         borderRadius={16}
         backgroundColor="$green20"

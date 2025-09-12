@@ -1,4 +1,4 @@
-import { CircleX, Download, Share, X } from '@tamagui/lucide-icons'
+import { Download, Share, X } from '@tamagui/lucide-icons'
 import { FC, useState } from 'react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,11 +7,11 @@ import ImageView from 'react-native-image-viewing'
 import { Image, useWindowDimensions, View } from 'tamagui'
 
 import ContextMenu from '@/components/ui/ContextMenu'
-import { loggerService } from '@/services/LoggerService'
-import { saveImageToGallery } from '@/services/ImageService'
-import { shareFile } from '@/services/FileService'
-import { FileMetadata } from '@/types/file'
 import { useToast } from '@/hooks/useToast'
+import { shareFile } from '@/services/FileService'
+import { saveImageToGallery } from '@/services/ImageService'
+import { loggerService } from '@/services/LoggerService'
+import { FileMetadata } from '@/types/file'
 
 const logger = loggerService.withContext('Image Item')
 
@@ -28,8 +28,8 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
   const imagesForViewer = allImages.length > 0 ? allImages : [file]
   const imageIndex = imagesForViewer.findIndex(img => img.path === file.path)
   const { width: screenWidth } = useWindowDimensions()
-  // Default size is 30% of the screen width
-  const imageWidth = size ? size : screenWidth * 0.3
+  // Default size is 30% of the (screen width - gap)
+  const imageWidth = size ? size : (screenWidth - 24) * 0.3
   const { t } = useTranslation()
   const toast = useToast()
 
