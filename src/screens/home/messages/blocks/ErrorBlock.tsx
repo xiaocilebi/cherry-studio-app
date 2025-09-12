@@ -136,7 +136,7 @@ const MessageErrorInfo: React.FC<{ block: ErrorMessageBlock; message: Message; o
       borderColor="$red5"
       borderWidth={1}
       borderRadius={16}
-      marginTop={5}
+      marginVertical={5}
       pressStyle={{ backgroundColor: '$red3' }}
       onPress={onShowDetail}>
       <XStack justifyContent="space-between" width="100%" alignItems="center" gap={8}>
