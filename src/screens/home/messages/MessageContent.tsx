@@ -29,10 +29,11 @@ const MessageContent: React.FC<Props> = ({ message, assistant }) => {
     return (
       <View style={[styles.userContainer, styles.container]} paddingHorizontal={14} borderRadius={16}>
         {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
+        {mediaBlocks.length > 0 && <View style={{ height: 8 }} />}
         <MessageContextMenu message={message} assistant={assistant}>
           {contentBlocks.length > 0 && (
             <Stack
-              style={[styles.contentWrapper, styles.userMessageContent, mediaBlocks.length > 0 && { marginTop: 8 }]}
+              style={[styles.contentWrapper, styles.userMessageContent]}
               borderRadius={16}
               backgroundColor={'$green10'}
               borderColor={'$green20'}
@@ -78,7 +79,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 24
   },
   userMessageContent: {
-    flex: 1,
     paddingHorizontal: 20
   },
   assistantMessageContent: {

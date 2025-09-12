@@ -1,4 +1,4 @@
-import { CircleX, Download, Share } from '@tamagui/lucide-icons'
+import { CircleX, Download, Share, X } from '@tamagui/lucide-icons'
 import { FC, useState } from 'react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,9 +20,10 @@ interface ImageItemProps {
   allImages?: FileMetadata[]
   onRemove?: (file: FileMetadata) => void
   size?: number
+  disabledContextMenu?: boolean
 }
 
-const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size }) => {
+const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, disabledContextMenu }) => {
   const [visible, setIsVisible] = useState(false)
   const imagesForViewer = allImages.length > 0 ? allImages : [file]
   const imageIndex = imagesForViewer.findIndex(img => img.path === file.path)
@@ -74,6 +75,7 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size })
     <View style={{ position: 'relative' }}>
       <ContextMenu
         onPress={() => setIsVisible(true)}
+        disableContextMenu={disabledContextMenu}
         list={[
           {
             title: t('button.save_image'),
@@ -88,8 +90,11 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size })
             onSelect: handleShareImage
           }
         ]}
-        borderRadius={8}>
-        <Image source={{ uri: file.path, width: imageWidth, height: imageWidth }} style={{ borderRadius: 8 }} />
+        borderRadius={10}>
+        <Image
+          source={{ uri: file.path, width: imageWidth, height: imageWidth }}
+          style={{ borderRadius: 10, backgroundColor: '$gray10' }}
+        />
       </ContextMenu>
       <ImageView
         images={imagesForViewer.map(f => ({ uri: f.path }))}
@@ -102,13 +107,16 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size })
       {onRemove && (
         <TouchableOpacity
           onPress={handleRemove}
+          hitSlop={5}
           style={{
             position: 'absolute',
             top: -6,
             right: -6,
             borderRadius: 99
           }}>
-          <CircleX size={20} color="$backgroundPrimary" borderRadius={99} backgroundColor="$gray60" />
+          <View borderRadius={99} backgroundColor="$foregroundGray" padding={2}>
+            <X size={14} color="#eeeeee" />
+          </View>
         </TouchableOpacity>
       )}
     </View>

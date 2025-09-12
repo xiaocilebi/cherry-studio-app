@@ -69,7 +69,7 @@ const prepareBlocksForRender = (blocks: MessageBlock[]) => {
 const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks, message }) => {
   const { contentBlocks, citationBlocks } = useMemo(() => prepareBlocksForRender(blocks), [blocks])
   return (
-    <View gap={5}>
+    <View>
       {contentBlocks.map(blockOrGroup => {
         if (Array.isArray(blockOrGroup)) {
           const groupKey = blockOrGroup[0]?.id || 'media-group'
@@ -77,7 +77,7 @@ const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks, message }
             <XStack
               key={groupKey}
               flexWrap="wrap"
-              gap="5"
+              gap={8}
               style={{ justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start' }}>
               {blockOrGroup.map(block => {
                 switch (block.type) {
