@@ -14,7 +14,7 @@ interface Props {
 const TranslationBlock: FC<Props> = ({ block }) => {
   return (
     <View>
-      <XStack flex={1} justifyContent="center" alignItems="center" gap={10}>
+      <XStack justifyContent="center" alignItems="center" gap={10}>
         <Separator borderColor="$gray40" />
         <Languages size={16} />
         <Separator borderColor="$gray40" />
