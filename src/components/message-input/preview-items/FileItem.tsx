@@ -3,7 +3,7 @@ import { FC } from 'react'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import FileViewer from 'react-native-file-viewer'
-import { Stack, Text, View, XStack, YStack } from 'tamagui'
+import { Stack, Text, useWindowDimensions, View, XStack, YStack } from 'tamagui'
 
 import { FileIcon } from '@/components/icons/FileIcon'
 import { loggerService } from '@/services/LoggerService'
@@ -18,7 +18,11 @@ interface FileItemProps {
   height?: number
 }
 
-const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
+const FileItem: FC<FileItemProps> = ({ file, onRemove, width }) => {
+  const { width: screenWidth } = useWindowDimensions()
+  // Default size is 30% of the screen width
+  const fileWidth = width ? width : screenWidth * 0.45
+
   const handlePreview = () => {
     FileViewer.open(file.path, { displayName: file.name }).catch(error => {
       logger.error('Handle Preview Error', error)
@@ -36,12 +40,11 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
         <View>
           <XStack
             gap={12}
-            width="auto"
-            // height={height}
+            width={fileWidth}
             borderRadius={8}
             backgroundColor="$green20"
-            justifyContent="center"
-            alignItems="flex-start"
+            justifyContent="flex-start"
+            alignItems="center"
             paddingVertical={8}
             paddingHorizontal={12}>
             <Stack
@@ -54,8 +57,8 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove }) => {
               justifyContent="center">
               <FileIcon size={24} />
             </Stack>
-            <YStack justifyContent="center" gap={2}>
-              <Text fontSize={16} lineHeight={20} numberOfLines={1} ellipsizeMode="middle">
+            <YStack flex={1} justifyContent="center" gap={2}>
+              <Text maxWidth="80%" fontSize={16} lineHeight={20} numberOfLines={1} ellipsizeMode="middle">
                 {file.name}
               </Text>
               <Text fontSize={12} lineHeight={16}>

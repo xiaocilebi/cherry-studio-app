@@ -19,8 +19,8 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size })
   const imagesForViewer = allImages.length > 0 ? allImages : [file]
   const imageIndex = imagesForViewer.findIndex(img => img.path === file.path)
   const { width: screenWidth } = useWindowDimensions()
-  // Default size is 30% of the screen width, (32 is the padding on both sides)
-  const imageWidth = size ? size : (screenWidth - 32) * 0.3
+  // Default size is 30% of the screen width
+  const imageWidth = size ? size : screenWidth * 0.3
 
   const handleRemove = e => {
     e.stopPropagation()
