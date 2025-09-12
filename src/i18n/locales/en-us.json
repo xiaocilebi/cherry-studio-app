@@ -67,7 +67,9 @@
       "success": "Successful!",
       "tag": "Tag",
       "web_search": "Search online",
-      "best_answer": "Best Answer"
+      "best_answer": "Best Answer",
+      "generate_topic_name": "Generate Topic Name",
+      "rename_topic_name": "Rename Topic Name"
     },
     "chat": {
       "assistant": {

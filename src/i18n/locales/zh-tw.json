@@ -67,7 +67,9 @@
       "start_check_model": "讓我們開始",
       "success": "成功！",
       "tag": "標籤",
-      "web_search": "在線搜尋"
+      "web_search": "在線搜尋",
+      "generate_topic_name": "生成話題名稱",
+      "rename_topic_name": "編輯話題名稱"
     },
     "chat": {
       "assistant": {

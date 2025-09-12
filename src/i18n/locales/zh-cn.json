@@ -67,7 +67,9 @@
       "start_check_model": "让我们开始",
       "success": "成功 🎉",
       "tag": "标签",
-      "web_search": "在线搜索"
+      "web_search": "在线搜索",
+      "generate_topic_name": "生成话题名称",
+      "rename_topic_name": "编辑话题名称"
     },
     "chat": {
       "assistant": {

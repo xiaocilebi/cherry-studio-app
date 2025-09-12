@@ -67,7 +67,9 @@
       "web_search": "Поиск в интернете",
       "best_answer": "Лучший ответ",
       "save_image": "Сохранить в фото",
-      "share": "Поделиться"
+      "share": "Поделиться",
+      "generate_topic_name": "Генерировать название темы",
+      "rename_topic_name": "Редактировать название темы"
     },
     "chat": {
       "assistant": {

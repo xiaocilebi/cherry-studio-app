@@ -165,7 +165,7 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
   }
 }
 
-export async function fetchTopicNaming(topicId: string) {
+export async function fetchTopicNaming(topicId: string, regenerate: boolean = false) {
   logger.info('Fetching topic naming...')
   const topic = await getTopicById(topicId)
 
@@ -174,7 +174,7 @@ export async function fetchTopicNaming(topicId: string) {
     return
   }
 
-  if (topic.name !== t('topics.new_topic')) {
+  if (topic.name !== t('topics.new_topic') && !regenerate) {
     return
   }
 

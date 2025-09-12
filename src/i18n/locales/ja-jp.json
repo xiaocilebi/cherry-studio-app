@@ -67,7 +67,9 @@
       "web_search": "オンラインで検索する",
       "best_answer": "最適な回答",
       "save_image": "写真を保存",
-      "share": "共有"
+      "share": "共有",
+      "generate_topic_name": "トピック名を生成",
+      "rename_topic_name": "トピック名を編集"
     },
     "chat": {
       "assistant": {
