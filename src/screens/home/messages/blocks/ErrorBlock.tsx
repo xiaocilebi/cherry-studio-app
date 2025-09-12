@@ -1,9 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
-import React, { forwardRef, useCallback, useRef, useState } from 'react'
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { BackHandler, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Separator, Text, View, XStack, YStack } from 'tamagui'
 
@@ -162,6 +162,19 @@ const ErrorDetailSheet = forwardRef<BottomSheetModal, ErrorDetailSheetProps>(({ 
   const { isDark } = useTheme()
   const insets = useSafeAreaInsets()
   const [copiedText, setCopiedText] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [ref, isVisible])
 
   const copyErrorDetails = async () => {
     if (!error) return
@@ -202,7 +215,9 @@ const ErrorDetailSheet = forwardRef<BottomSheetModal, ErrorDetailSheetProps>(({ 
       }}
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-      }}>
+      }}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}

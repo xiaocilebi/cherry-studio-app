@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { FC, useRef } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
-import { Pressable, TouchableOpacity } from 'react-native'
+import { BackHandler, Pressable, TouchableOpacity } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
 import { Text, YStack } from 'tamagui'
 import { XStack } from 'tamagui'
@@ -39,6 +39,19 @@ const ContextMenu: FC<ContextMenuProps> = ({
 }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { isDark } = useTheme()
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      bottomSheetModalRef.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [isVisible])
 
   if (isIOS) {
     const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
@@ -125,7 +138,9 @@ const ContextMenu: FC<ContextMenuProps> = ({
           handleIndicatorStyle={{
             backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
           }}
-          backdropComponent={renderBackdrop}>
+          backdropComponent={renderBackdrop}
+          onDismiss={() => setIsVisible(false)}
+          onChange={index => setIsVisible(index >= 0)}>
           <BottomSheetView>
             <YStack width="100%" paddingTop={0} paddingBottom={30} paddingHorizontal={16} gap={10}>
               {list.map(item => (

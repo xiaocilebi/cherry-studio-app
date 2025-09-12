@@ -1,8 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { Trash2 } from '@tamagui/lucide-icons'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
+import { BackHandler, TouchableOpacity } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
@@ -16,9 +16,21 @@ interface MessageFooterMoreProps {
 
 const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMoreProps>(({ message }, ref) => {
   const { t } = useTranslation()
-
   const { isDark } = useTheme()
   const { isTranslated, handleTranslate, handleDeleteTranslation, handleDelete } = useMessageActions({ message })
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [ref, isVisible])
 
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
@@ -50,7 +62,9 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
       }}
-      backdropComponent={renderBackdrop}>
+      backdropComponent={renderBackdrop}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView>
         <YStack width="100%" paddingTop={0} paddingBottom={30} paddingHorizontal={16} gap={10}>
           <TouchableOpacity onPress={isTranslated ? onDeleteTranslation : onTranslate} activeOpacity={0.7}>

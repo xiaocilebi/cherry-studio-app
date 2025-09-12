@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { SquareFunction, Wrench } from '@tamagui/lucide-icons'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -18,6 +19,7 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
   const { isDark } = useTheme()
   const insets = useSafeAreaInsets()
   const { t } = useTranslation()
+  const [isVisible, setIsVisible] = useState(false)
 
   const toolUseOptions = [
     {
@@ -48,6 +50,18 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
     ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
   }
 
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [ref, isVisible])
+
   return (
     <BottomSheetModal
       snapPoints={['25%']}
@@ -60,7 +74,9 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
       }}
-      backdropComponent={renderBackdrop}>
+      backdropComponent={renderBackdrop}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView style={{ paddingBottom: insets.bottom }}>
         <YStack gap={5} paddingHorizontal={20} paddingBottom={20}>
           <YStack gap={5} padding="20">

@@ -1,5 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
+import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { YStack } from 'tamagui'
 
@@ -24,6 +25,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ files, setFiles, assistant, updateAssistant }, ref) => {
     const { isDark } = useTheme()
     const insets = useSafeAreaInsets()
+    const [isVisible, setIsVisible] = useState(false)
 
     const dismissSheet = () => {
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
@@ -46,6 +48,18 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
       onSuccess: dismissSheet
     })
 
+    useEffect(() => {
+      if (!isVisible) return
+
+      const backAction = () => {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+      return () => backHandler.remove()
+    }, [ref, isVisible])
+
     const handleCameraPress = () => {
       dismissSheet()
       cameraModal.handleOpenCamera()
@@ -67,7 +81,9 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
           handleIndicatorStyle={{
             backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
           }}
-          backdropComponent={renderBackdrop}>
+          backdropComponent={renderBackdrop}
+          onDismiss={() => setIsVisible(false)}
+          onChange={index => setIsVisible(index >= 0)}>
           <BottomSheetView style={{ paddingBottom: insets.bottom }}>
             <YStack gap={12}>
               <ToolOptions

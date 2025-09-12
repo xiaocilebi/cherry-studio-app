@@ -3,7 +3,7 @@ import { File, Paths } from 'expo-file-system/next'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
@@ -40,6 +40,7 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
       editProvider?.type || undefined
     )
     const [selectedImageFile, setSelectedImageFile] = useState<Omit<FileMetadata, 'md5'> | null>(null)
+    const [isVisible, setIsVisible] = useState(false)
 
     // 当 editProvider 变化时，更新表单字段
     useEffect(() => {
@@ -53,6 +54,18 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         setSelectedProviderType(undefined)
       }
     }, [editProvider])
+
+    useEffect(() => {
+      if (!isVisible) return
+
+      const backAction = () => {
+        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+        return true
+      }
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+      return () => backHandler.remove()
+    }, [ref, isVisible])
 
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
@@ -126,7 +139,9 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         handleIndicatorStyle={{
           backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
         }}
-        backdropComponent={renderBackdrop}>
+        backdropComponent={renderBackdrop}
+        onDismiss={() => setIsVisible(false)}
+        onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>

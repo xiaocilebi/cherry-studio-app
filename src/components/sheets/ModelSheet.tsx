@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
+import { BackHandler, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
@@ -33,6 +33,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const insets = useSafeAreaInsets()
   const dimensions = useWindowDimensions()
 
@@ -48,6 +49,18 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   useEffect(() => {
     setSelectedModels(mentions.map(m => getModelUniqId(m)))
   }, [mentions])
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const backAction = () => {
+      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backHandler.remove()
+  }, [ref, isVisible])
 
   const { providers } = useAllProviders()
   const selectOptions = providers
@@ -142,7 +155,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       backdropComponent={renderBackdrop}
       enablePanDownToClose={true}
       android_keyboardInputMode="adjustResize"
-      maxDynamicContentSize={dimensions.height - 2 * insets.top}>
+      maxDynamicContentSize={dimensions.height - 2 * insets.top}
+      onDismiss={() => setIsVisible(false)}
+      onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: insets.bottom }}>
         <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
           <XStack gap={5} flex={1} alignItems="center" justifyContent="center">
