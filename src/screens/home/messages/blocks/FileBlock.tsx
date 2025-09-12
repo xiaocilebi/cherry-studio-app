@@ -10,11 +10,7 @@ interface Props {
 }
 
 const FileBlock: React.FC<Props> = ({ block }) => {
-  return (
-    <View>
-      <FileItem file={block.file} />
-    </View>
-  )
+  return <FileItem file={block.file} />
 }
 
 export default memo(FileBlock)

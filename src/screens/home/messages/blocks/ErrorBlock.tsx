@@ -131,13 +131,15 @@ const MessageErrorInfo: React.FC<{ block: ErrorMessageBlock; message: Message; o
 
   return (
     <Button
-      size="$5"
+      size="$4"
       backgroundColor="$red2"
       borderColor="$red5"
       borderWidth={1}
+      borderRadius={16}
+      marginVertical={5}
       pressStyle={{ backgroundColor: '$red3' }}
       onPress={onShowDetail}>
-      <XStack justifyContent="space-between" width="100%" alignItems="center">
+      <XStack justifyContent="space-between" width="100%" alignItems="center" gap={8}>
         <Text flex={1} numberOfLines={1} color="$red11">
           {getAlertDescription()}
         </Text>
@@ -258,7 +260,7 @@ const ErrorDetailValue: React.FC<{ children: React.ReactNode; isCode?: boolean }
   return (
     <View
       backgroundColor={isDark ? '$gray2' : '$gray3'}
-      borderRadius="$2"
+      borderRadius="$4"
       padding="$2"
       borderWidth={1}
       borderColor={isDark ? '$gray5' : '$gray6'}>
@@ -274,7 +276,7 @@ const StackTrace: React.FC<{ stack: string }> = ({ stack }) => {
   return (
     <View
       backgroundColor={isDark ? '$red2' : '$red3'}
-      borderRadius="$2"
+      borderRadius="$4"
       padding="$3"
       borderWidth={1}
       borderColor="$red8">
@@ -292,7 +294,7 @@ const JsonViewer: React.FC<{ data: any }> = ({ data }) => {
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View
         backgroundColor={isDark ? '$gray2' : '$gray3'}
-        borderRadius="$2"
+        borderRadius="$4"
         padding="$2"
         borderWidth={1}
         borderColor={isDark ? '$gray5' : '$gray6'}>

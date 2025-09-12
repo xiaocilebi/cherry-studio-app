@@ -1,11 +1,19 @@
 import * as FileSystem from 'expo-file-system'
 import { Directory, File, Paths } from 'expo-file-system/next'
+import * as Sharing from 'expo-sharing'
+
 
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata, FileTypes } from '@/types/file'
 import { uuid } from '@/utils'
 
 import { deleteFileById, getAllFiles, getFileById, upsertFiles } from '../../db/queries/files.queries'
+
+export interface ShareFileResult {
+  success: boolean
+  message: string
+}
+
 const logger = loggerService.withContext('File Service')
 
 export const fileStorageDir = new Directory(Paths.cache, 'Files')
@@ -197,6 +205,41 @@ export async function getCacheDirectorySize() {
   return filesSize
 }
 
+export async function shareFile(uri: string): Promise<ShareFileResult> {
+  try {
+    if (!(await Sharing.isAvailableAsync())) {
+      logger.warn('Sharing is not available on this device')
+      return {
+        success: false,
+        message: 'Sharing is not available on this device.'
+      }
+    }
+
+    const fileInfo = await FileSystem.getInfoAsync(uri)
+    if (!fileInfo.exists) {
+      logger.error('File not found:', uri)
+      return {
+        success: false,
+        message: 'File not found.'
+      }
+    }
+
+    await Sharing.shareAsync(uri)
+    
+    logger.info('File shared successfully')
+    return {
+      success: true,
+      message: 'File shared successfully.'
+    }
+  } catch (error) {
+    logger.error('Error sharing file:', error)
+    return {
+      success: false,
+      message: 'Failed to share file. Please try again.'
+    }
+  }
+}
+
 export default {
   readFile,
   readBase64File,
@@ -208,5 +251,6 @@ export default {
   deleteFiles,
   resetCacheDirectory,
   getDirectorySizeAsync,
-  getCacheDirectorySize
+  getCacheDirectorySize,
+  shareFile
 }

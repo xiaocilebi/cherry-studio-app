@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
-import { Edit3, Trash2 } from '@tamagui/lucide-icons'
+import { Edit3, Sparkles, Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, XStack, YStack } from 'tamagui'
+import { Text, View, XStack, YStack } from 'tamagui'
 import { Input } from 'tamagui'
+import ContentLoader, { Rect } from 'react-content-loader/native'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
@@ -20,8 +21,27 @@ import { haptic } from '@/utils/haptic'
 
 import { useDialog } from '../../hooks/useDialog'
 import EmojiAvatar from '../assistant/EmojiAvator'
+import { fetchTopicNaming } from '@/services/ApiService'
 
 type TimeFormat = 'time' | 'date'
+
+// 话题名称骨架屏组件
+const TopicNameSkeleton: FC<{ isDark: boolean }> = ({ isDark }) => {
+  return (
+    <View width="100%">
+      <ContentLoader
+        height={13}
+        width="100%"
+        speed={1.5}
+        backgroundColor={isDark ? '#333' : '#f0f0f0'}
+        foregroundColor={isDark ? '#555' : '#e0e0e0'}
+        preserveAspectRatio="none"
+        viewBox="0 0 100 13">
+        <Rect x="0" y="0" rx="2" ry="2" width="100%" height="13" />
+      </ContentLoader>
+    </View>
+  )
+}
 
 interface TopicItemProps {
   topic: Topic
@@ -43,6 +63,7 @@ const TopicItem: FC<TopicItemProps> = ({
   const dispatch = useAppDispatch()
   const navigation = useNavigation<DrawerNavigationProps>()
   const [assistant, setAssistant] = useState<Assistant>()
+  const [isGeneratingName, setIsGeneratingName] = useState(false)
   const dialog = useDialog()
   const { isDark } = useTheme()
   const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
@@ -114,6 +135,18 @@ const TopicItem: FC<TopicItemProps> = ({
     })
   }
 
+  const handleGenerateName = async () => {
+    try {
+      setIsGeneratingName(true)
+      await fetchTopicNaming(topic.id, true)
+      haptic(ImpactFeedbackStyle.Medium)
+    } catch (error) {
+      console.error('Error generating topic name:', error)
+    } finally {
+      setIsGeneratingName(false)
+    }
+  }
+
   const handleSaveRename = (newName: string) => {
     if (newName && newName.trim() && newName.trim() !== topic.name) {
       try {
@@ -133,7 +166,13 @@ const TopicItem: FC<TopicItemProps> = ({
       borderRadius={16}
       list={[
         {
-          title: t('common.rename'),
+          title: t('button.generate_topic_name'),
+          iOSIcon: 'sparkles',
+          androidIcon: <Sparkles size={16} color="$textPrimary" />,
+          onSelect: handleGenerateName
+        },
+        {
+          title: t('button.rename_topic_name'),
           iOSIcon: 'rectangle.and.pencil.and.ellipsis',
           androidIcon: <Edit3 size={16} color="$textPrimary" />,
           onSelect: handleRename
@@ -152,7 +191,7 @@ const TopicItem: FC<TopicItemProps> = ({
         borderRadius={18}
         paddingVertical={5}
         paddingHorizontal={5}
-        gap={14}
+        gap={8}
         justifyContent="center"
         alignItems="center"
         backgroundColor={isActive ? '$green10' : 'transparent'}>
@@ -168,19 +207,23 @@ const TopicItem: FC<TopicItemProps> = ({
             <Text fontSize={16} lineHeight={16} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
-            <Text fontSize={12} color="$textSecondary">
+            <Text fontSize={12} color="$textSecondary" flexShrink={0} textWrap="nowrap">
               {displayTime}
             </Text>
           </XStack>
-          <Text
-            fontSize={13}
-            lineHeight={13}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            fontWeight="400"
-            color="$textSecondary">
-            {topic.name}
-          </Text>
+          {isGeneratingName ? (
+            <TopicNameSkeleton isDark={isDark} />
+          ) : (
+            <Text
+              fontSize={13}
+              lineHeight={13}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              fontWeight="400"
+              color="$textSecondary">
+              {topic.name}
+            </Text>
+          )}
         </YStack>
       </XStack>
     </ContextMenu>

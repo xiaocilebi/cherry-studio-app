@@ -9,6 +9,7 @@ import * as ZeegoContextMenu from 'zeego/context-menu'
 
 import { useTheme } from '@/hooks/useTheme'
 import { isAndroid, isIOS } from '@/utils/device'
+import SelectionList from './SelectionList'
 
 export interface ContextMenuListProps {
   title: string
@@ -124,6 +125,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
           onLongPress={openBottomSheet}
           style={({ pressed }) => ({
             backgroundColor: pressed ? '#a0a1b033' : 'transparent',
+            opacity: pressed ? 0.9 : 1,
             borderRadius
           })}>
           {children}
@@ -142,25 +144,14 @@ const ContextMenu: FC<ContextMenuProps> = ({
           onDismiss={() => setIsVisible(false)}
           onChange={index => setIsVisible(index >= 0)}>
           <BottomSheetView>
-            <YStack width="100%" paddingTop={0} paddingBottom={30} paddingHorizontal={16} gap={10}>
-              {list.map(item => (
-                <TouchableOpacity onPress={() => onAndroidSelect(item.onSelect)} activeOpacity={0.7} key={item.title}>
-                  <XStack
-                    width="100%"
-                    alignItems="center"
-                    gap={10}
-                    paddingHorizontal={20}
-                    paddingVertical={16}
-                    borderRadius={16}
-                    backgroundColor="$uiCardBackground">
-                    {item.androidIcon}
-                    <Text color={item.color} fontSize={16}>
-                      {item.title}
-                    </Text>
-                  </XStack>
-                </TouchableOpacity>
-              ))}
-            </YStack>
+            <SelectionList
+              items={list.map(item => ({
+                key: item.title,
+                label: item.title,
+                icon: item.androidIcon,
+                onSelect: () => onAndroidSelect(item.onSelect)
+              }))}
+            />
           </BottomSheetView>
         </BottomSheetModal>
       </>

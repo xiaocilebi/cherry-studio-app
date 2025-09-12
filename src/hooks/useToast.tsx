@@ -1,6 +1,6 @@
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { AnimatePresence, MotiView } from 'moti'
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text } from 'tamagui'
 
@@ -66,9 +66,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const animationFrameId = requestAnimationFrame(removeExpiredToasts)
+
     if (toasts.length === 0) {
       cancelAnimationFrame(animationFrameId)
     }
+
     return () => cancelAnimationFrame(animationFrameId)
   }, [toasts])
 

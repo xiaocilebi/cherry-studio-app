@@ -59,12 +59,17 @@
       "placeholder": "随便问点什么",
       "recents": "最近",
       "save": "保存",
+      "save_image": "保存到“照片”",
+      "share": "分享",
+      "best_answer": "最佳回复",
       "select_model": "选择型号",
       "sort": "排序",
       "start_check_model": "让我们开始",
       "success": "成功 🎉",
       "tag": "标签",
-      "web_search": "在线搜索"
+      "web_search": "在线搜索",
+      "generate_topic_name": "生成话题名称",
+      "rename_topic_name": "编辑话题名称"
     },
     "chat": {
       "assistant": {
@@ -123,6 +128,7 @@
       "regenerate": "重新生成",
       "rename": "重命名",
       "save": "保存",
+      "saved": "已保存",
       "search_placeholder": "搜索...",
       "see_all": "查看全部",
       "select_text": "选择文本",
@@ -290,6 +296,8 @@
       "delete_topic": "删除话题",
       "delete_topic_confirmation": "您确定要删除这个话题吗？",
       "delete_translation": "删除翻译",
+      "marked_as_best_answer": "已标记为最佳回复",
+      "unmarked_as_best_answer": "已取消最佳回复标记",
       "searching": "正在搜索...",
       "translate_message": "翻译消息",
       "websearch": {
@@ -695,7 +703,7 @@
         "check_success_message": "API 运作正常",
         "contentLengthLimit": "内容长度限制",
         "empty": "暂无服务商...",
-        "empty.description": "点击按钮添加服务商",
+        "empty.description": "前往添加服务商",
         "overrideSearchService": "覆盖搜索服务",
         "provider": {
           "api": {

@@ -1,37 +1,101 @@
-import { CircleX } from '@tamagui/lucide-icons'
+import { Download, Share, X } from '@tamagui/lucide-icons'
 import { FC, useState } from 'react'
-import React from 'react'
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import ImageView from 'react-native-image-viewing'
 import { Image, useWindowDimensions, View } from 'tamagui'
 
+import ContextMenu from '@/components/ui/ContextMenu'
+import { useToast } from '@/hooks/useToast'
+import { shareFile } from '@/services/FileService'
+import { saveImageToGallery } from '@/services/ImageService'
+import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
+
+const logger = loggerService.withContext('Image Item')
 
 interface ImageItemProps {
   file: FileMetadata
   allImages?: FileMetadata[]
   onRemove?: (file: FileMetadata) => void
   size?: number
+  disabledContextMenu?: boolean
 }
 
-const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size }) => {
+const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, disabledContextMenu }) => {
   const [visible, setIsVisible] = useState(false)
   const imagesForViewer = allImages.length > 0 ? allImages : [file]
   const imageIndex = imagesForViewer.findIndex(img => img.path === file.path)
   const { width: screenWidth } = useWindowDimensions()
-  // Default size is 30% of the screen width, (32 is the padding on both sides)
-  const imageWidth = size ? size : (screenWidth - 32) * 0.3
+  // Default size is 30% of the (screen width - gap)
+  const imageWidth = size ? size : (screenWidth - 24) * 0.3
+  const { t } = useTranslation()
+  const toast = useToast()
 
   const handleRemove = e => {
     e.stopPropagation()
     onRemove?.(file)
   }
 
+  const handleSaveImage = async () => {
+    try {
+      const result = await saveImageToGallery(file.path)
+
+      if (result.success) {
+        toast.show(t('common.saved'))
+        logger.info('Image saved successfully')
+      } else {
+        toast.show(result.message, { color: '$red100', duration: 2500 })
+        logger.warn('Failed to save image:', result.message)
+      }
+    } catch (error) {
+      toast.show(t('common.error_occurred'), { color: '$red100', duration: 2500 })
+      logger.error('Error in handleSaveImage:', error)
+    }
+  }
+
+  const handleShareImage = async () => {
+    try {
+      const result = await shareFile(file.path)
+
+      if (result.success) {
+        logger.info('Image shared successfully')
+      } else {
+        toast.show(result.message, { color: '$red100', duration: 2500 })
+        logger.warn('Failed to share image:', result.message)
+      }
+    } catch (error) {
+      toast.show(t('common.error_occurred'), { color: '$red100', duration: 2500 })
+      logger.error('Error in handleShareImage:', error)
+    }
+  }
+
   return (
     <View style={{ position: 'relative' }}>
-      <TouchableOpacity onPress={() => setIsVisible(true)}>
-        <Image source={{ uri: file.path, width: imageWidth, height: imageWidth }} style={{ borderRadius: 8 }} />
-      </TouchableOpacity>
+      <ContextMenu
+        onPress={() => setIsVisible(true)}
+        disableContextMenu={disabledContextMenu}
+        list={[
+          {
+            title: t('button.save_image'),
+            iOSIcon: 'square.and.arrow.down',
+            androidIcon: <Download size={16} />,
+            onSelect: handleSaveImage
+          },
+          {
+            title: t('button.share'),
+            iOSIcon: 'square.and.arrow.up',
+            androidIcon: <Share size={16} />,
+            onSelect: handleShareImage
+          }
+        ]}
+        borderRadius={10}>
+        <Image
+          source={{ uri: file.path, width: imageWidth, height: imageWidth }}
+          style={{ borderRadius: 10, backgroundColor: '$gray10' }}
+        />
+      </ContextMenu>
       <ImageView
         images={imagesForViewer.map(f => ({ uri: f.path }))}
         imageIndex={imageIndex >= 0 ? imageIndex : 0}
@@ -43,13 +107,16 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size })
       {onRemove && (
         <TouchableOpacity
           onPress={handleRemove}
+          hitSlop={5}
           style={{
             position: 'absolute',
             top: -6,
             right: -6,
             borderRadius: 99
           }}>
-          <CircleX size={20} color="$backgroundPrimary" borderRadius={99} backgroundColor="$gray60" />
+          <View borderRadius={99} backgroundColor="$foregroundGray" padding={2}>
+            <X size={14} color="#eeeeee" />
+          </View>
         </TouchableOpacity>
       )}
     </View>

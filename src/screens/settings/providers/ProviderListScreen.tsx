@@ -24,6 +24,8 @@ export default function ProviderListScreen() {
 
   const [sheetMode, setSheetMode] = useState<'add' | 'edit'>('add')
   const [editingProvider, setEditingProvider] = useState<Provider | undefined>(undefined)
+  // 当编辑provider icon时需要通过refresh key刷新
+  const [refreshKey, setRefreshKey] = useState(0)
 
   const {
     searchText,
@@ -50,10 +52,17 @@ export default function ProviderListScreen() {
   const handleProviderSave = () => {
     // Force refresh by clearing and resetting the editing provider
     setEditingProvider(undefined)
+    // Increment refresh key to force ProviderItem re-render
+    setRefreshKey(prev => prev + 1)
   }
 
   const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (
-    <ProviderItem key={item.id} provider={item} mode={item.enabled ? 'enabled' : 'checked'} onEdit={onEditProvider} />
+    <ProviderItem
+      key={`${item.id}-${refreshKey}`}
+      provider={item}
+      mode={item.enabled ? 'enabled' : 'checked'}
+      onEdit={onEditProvider}
+    />
   )
 
   return (

@@ -12,7 +12,7 @@ interface FilePreviewProps {
 
 const FilePreview: React.FC<FilePreviewProps> = ({ files, setFiles }) => {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={true} style={{ flexDirection: 'row' }}>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row' }}>
       {files.map((file, index) => (
         <PreviewItem key={index} file={file} files={files} setFiles={setFiles} />
       ))}

@@ -5,10 +5,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
+
+import SelectionList, { SelectionListItem } from '../ui/SelectionList'
 
 interface ToolUseSheetProps {
   assistant: Assistant
@@ -21,16 +22,20 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
   const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState(false)
 
-  const toolUseOptions = [
+  const toolUseOptions: SelectionListItem[] = [
     {
-      id: 'function' as const,
-      name: t('assistants.settings.tooluse.function'),
-      icon: <SquareFunction size={20} />
+      id: 'function',
+      label: t('assistants.settings.tooluse.function'),
+      icon: (isSelected: boolean) => <SquareFunction size={20} color={isSelected ? '$green100' : '$textPrimary'} />,
+      isSelected: assistant.settings?.toolUseMode === 'function',
+      onSelect: () => handleToolUseModeToggle('function')
     },
     {
-      id: 'prompt' as const,
-      name: t('assistants.settings.tooluse.prompt'),
-      icon: <Wrench size={20} />
+      id: 'prompt',
+      label: t('assistants.settings.tooluse.prompt'),
+      icon: (isSelected: boolean) => <Wrench size={20} color={isSelected ? '$green100' : '$textPrimary'} />,
+      isSelected: assistant.settings?.toolUseMode === 'prompt',
+      onSelect: () => handleToolUseModeToggle('prompt')
     }
   ]
 
@@ -78,35 +83,7 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView style={{ paddingBottom: insets.bottom }}>
-        <YStack gap={5} paddingHorizontal={20} paddingBottom={20}>
-          <YStack gap={5} padding="20">
-            {toolUseOptions.map(option => (
-              <Button
-                key={option.id}
-                onPress={() => handleToolUseModeToggle(option.id)}
-                justifyContent="space-between"
-                chromeless
-                paddingHorizontal={8}
-                paddingVertical={8}
-                borderColor={assistant.settings?.toolUseMode === option.id ? '$green20' : 'transparent'}
-                backgroundColor={assistant.settings?.toolUseMode === option.id ? '$green10' : 'transparent'}>
-                <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
-                  <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
-                    {/* Tool use mode icon */}
-                    <XStack justifyContent="center" alignItems="center" flexShrink={0}>
-                      {option.icon}
-                    </XStack>
-                    {/* Tool use mode name */}
-                    <Text color="$textPrimary" numberOfLines={1} ellipsizeMode="tail" flex={1}>
-                      {option.name}
-                    </Text>
-                  </XStack>
-                  <XStack gap={8} alignItems="center" flexShrink={0}></XStack>
-                </XStack>
-              </Button>
-            ))}
-          </YStack>
-        </YStack>
+        <SelectionList items={toolUseOptions} />
       </BottomSheetView>
     </BottomSheetModal>
   )

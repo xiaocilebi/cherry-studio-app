@@ -22,7 +22,7 @@ import { getModelOrProviderIcon } from '@/utils/icons'
 function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: () => void }) {
   const { t } = useTranslation()
   const { isDark } = useTheme()
-  const model = assistant?.model
+  const model = assistant?.defaultModel
 
   return (
     <Button
@@ -86,7 +86,7 @@ function AssistantSettingItem({
 
   const handleModelChange = async (models: Model[]) => {
     const newModel = models[0]
-    await updateAssistant({ ...assistant, model: newModel })
+    await updateAssistant({ ...assistant, defaultModel: newModel })
   }
 
   return (
@@ -111,7 +111,7 @@ function AssistantSettingItem({
 
       <ModelSheet
         ref={sheetRef}
-        mentions={assistant.model ? [assistant.model] : []}
+        mentions={assistant.defaultModel ? [assistant.defaultModel] : []}
         setMentions={handleModelChange}
         multiple={false}
       />

@@ -1,10 +1,8 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { Check } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, View, XStack, YStack } from 'tamagui'
 
 import {
   MdiLightbulbAutoOutline,
@@ -23,6 +21,9 @@ import {
 } from '@/config/models'
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant, ThinkingOption } from '@/types/assistant'
+
+import SelectionList, { SelectionListItem } from '../ui/SelectionList'
+import { View } from 'tamagui'
 
 interface ReasoningSheetProps {
   assistant: Assistant
@@ -117,12 +118,16 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
 
-    const sheetOptions = supportedOptions.map(option => ({
+    const sheetOptions: SelectionListItem[] = supportedOptions.map(option => ({
       value: option,
       label: t(`assistants.settings.reasoning.${option === 'auto' ? 'auto' : option}`),
-      icon: createThinkingIcon(option),
+      icon: (
+        <View width={20} height={20}>
+          {createThinkingIcon(option)}
+        </View>
+      ),
       isSelected: currentReasoningEffort === option,
-      action: () => onValueChange(option)
+      onSelect: () => onValueChange(option)
     }))
 
     useEffect(() => {
@@ -152,21 +157,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
         onDismiss={() => setIsVisible(false)}
         onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
-          <YStack gap={10} paddingHorizontal={20} paddingBottom={20}>
-            {sheetOptions.map(option => (
-              <Button
-                key={option.value}
-                icon={option.icon}
-                onPress={option.action}
-                justifyContent="space-between"
-                chromeless>
-                <XStack flex={1} justifyContent="space-between" alignItems="center">
-                  <Text>{option.label}</Text>
-                  {option.isSelected ? <Check size={20} /> : <View width={20} />}
-                </XStack>
-              </Button>
-            ))}
-          </YStack>
+          <SelectionList items={sheetOptions} />
         </BottomSheetView>
       </BottomSheetModal>
     )

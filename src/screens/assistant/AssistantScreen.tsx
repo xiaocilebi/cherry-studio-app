@@ -83,7 +83,7 @@ export default function AssistantScreen() {
               onPress: handleMenuPress
             }}
             rightButton={{
-              icon: <UnionPlusIcon size={24} />,
+              icon: <UnionPlusIcon size={20} />,
               onPress: onAddAssistant
             }}
           />

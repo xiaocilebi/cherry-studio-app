@@ -89,6 +89,14 @@ export default {
           // microphonePermission: 'Allow Cherry Studio App to access your microphone',
           recordAudioAndroid: true
         }
+      ],
+      [
+        'expo-media-library',
+        {
+          photosPermission: 'Allow Cherry Studio App to save images to your photo library.',
+          savePhotosPermission: 'Allow Cherry Studio App to save images to your photo library.',
+          isAccessMediaLocationEnabled: true
+        }
       ]
     ],
     experiments: {

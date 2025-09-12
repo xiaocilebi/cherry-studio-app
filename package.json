@@ -3,7 +3,7 @@
   "main": "index.js",
   "version": "0.1.0",
   "scripts": {
-    "start": "expo start",
+    "start": "npx expo start",
     "prebuild": "expo prebuild",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
@@ -97,6 +97,7 @@
     "expo-linear-gradient": "~14.1.4",
     "expo-linking": "~7.1.5",
     "expo-localization": "~16.1.5",
+    "expo-media-library": "^18.1.1",
     "expo-navigation-bar": "~4.2.8",
     "expo-network": "~7.1.5",
     "expo-sharing": "~13.1.5",

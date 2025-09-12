@@ -64,7 +64,12 @@
       "start_check_model": "Начать",
       "success": "Успешно!",
       "tag": "Тег",
-      "web_search": "Поиск в интернете"
+      "web_search": "Поиск в интернете",
+      "best_answer": "Лучший ответ",
+      "save_image": "Сохранить в фото",
+      "share": "Поделиться",
+      "generate_topic_name": "Генерировать название темы",
+      "rename_topic_name": "Редактировать название темы"
     },
     "chat": {
       "assistant": {
@@ -135,7 +140,8 @@
       "visit": "Посетить",
       "websearch": "Поиск в интернете",
       "yesterday": "Вчера",
-      "go_to_settings": "В настройки"
+      "go_to_settings": "В настройки",
+      "saved": "Сохранить"
     },
     "error": {
       "availableProviders": "Доступные провайдеры",
@@ -288,6 +294,8 @@
       "delete_message": "Удалить сообщение",
       "delete_message_confirmation": "Вы уверены, что хотите удалить это сообщение?",
       "delete_translation": "Удалить перевод",
+      "marked_as_best_answer": "Отмечено как лучший ответ",
+      "unmarked_as_best_answer": "Снята отметка лучшего ответа",
       "searching": "Поиск...",
       "translate_message": "Перевести сообщение",
       "websearch": {
@@ -695,7 +703,7 @@
         "check_success_message": "API работает правильно",
         "contentLengthLimit": "Ограничение длины контента",
         "empty": "Поставщиков пока нет...",
-        "empty.description": "Нажмите кнопку, чтобы добавить поставщика",
+        "empty.description": "Перейти к добавлению поставщика",
         "overrideSearchService": "Переопределить поисковую службу",
         "provider": {
           "api": {

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
 import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
+import { useTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
 import { deleteAssistantById } from '@/services/AssistantService'
@@ -19,7 +20,6 @@ import { haptic } from '@/utils/haptic'
 import EmojiAvatar from './EmojiAvator'
 
 const logger = loggerService.withContext('Assistant Item')
-import { useTheme } from '@/hooks/useTheme'
 
 interface AssistantItemProps {
   assistant: Assistant
@@ -31,6 +31,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   const navigation = useNavigation<HomeNavigationProps>()
   const toast = useToast()
   const { isDark } = useTheme()
+
   const handlePress = () => {
     haptic()
     onAssistantPress(assistant)

@@ -9,6 +9,7 @@ import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationI
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { useTheme } from '@/hooks/useTheme'
 import { Message } from '@/types/message'
+import SelectionList from '@/components/ui/SelectionList'
 
 interface MessageFooterMoreProps {
   message: Message
@@ -66,38 +67,24 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView>
-        <YStack width="100%" paddingTop={0} paddingBottom={30} paddingHorizontal={16} gap={10}>
-          <TouchableOpacity onPress={isTranslated ? onDeleteTranslation : onTranslate} activeOpacity={0.7}>
-            <XStack
-              width="100%"
-              alignItems="center"
-              gap={10}
-              paddingHorizontal={20}
-              paddingVertical={16}
-              borderRadius={16}
-              backgroundColor="$uiCardBackground">
-              {isTranslated ? <TranslatedIcon size={18} /> : <TranslationIcon size={18} />}
-              <Text fontSize={16}>
-                {isTranslated ? t('message.delete_translation') : t('message.translate_message')}
-              </Text>
-            </XStack>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onDelete} activeOpacity={0.7}>
-            <XStack
-              width="100%"
-              alignItems="center"
-              gap={10}
-              paddingHorizontal={20}
-              paddingVertical={16}
-              borderRadius={16}
-              backgroundColor="$uiCardBackground">
-              <Trash2 size={18} color="red" />
-              <Text fontSize={16} color="red">
-                {t('message.delete_message')}
-              </Text>
-            </XStack>
-          </TouchableOpacity>
-        </YStack>
+        <SelectionList
+          items={[
+            {
+              id: 'translate',
+              label: t('message.translate_message'),
+              icon: <TranslationIcon size={18} />,
+              onSelect: onTranslate
+            },
+            {
+              id: 'delete',
+              label: t('message.delete_message'),
+              icon: <Trash2 size={18} color="$red100" />,
+              color: '$red100',
+              backgroundColor: '$red20',
+              onSelect: onDelete
+            }
+          ]}
+        />
       </BottomSheetView>
     </BottomSheetModal>
   )

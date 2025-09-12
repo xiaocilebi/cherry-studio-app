@@ -22,7 +22,7 @@ import { BottomSheetSearchInput } from './BottomSheetSearchInput'
 
 interface ModelSheetProps {
   mentions: Model[]
-  setMentions: (mentions: Model[]) => void
+  setMentions: (mentions: Model[], isMultiSelectActive?: boolean) => Promise<void>
   multiple?: boolean
 }
 
@@ -88,7 +88,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
   const allModelOptions = selectOptions.flatMap(group => group.options)
 
-  const handleModelToggle = (modelValue: string) => {
+  const handleModelToggle = async (modelValue: string) => {
     const isSelected = selectedModels.includes(modelValue)
     let newSelection: string[]
 
@@ -115,15 +115,15 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     const newMentions = allModelOptions
       .filter(option => newSelection.includes(option.value))
       .map(option => option.model)
-    setMentions(newMentions)
+    await setMentions(newMentions, isMultiSelectActive)
   }
 
-  const handleClearAll = () => {
+  const handleClearAll = async () => {
     setSelectedModels([])
-    setMentions([])
+    await setMentions([])
   }
 
-  const toggleMultiSelectMode = () => {
+  const toggleMultiSelectMode = async () => {
     const newMultiSelectActive = !isMultiSelectActive
     setIsMultiSelectActive(newMultiSelectActive)
 
@@ -132,7 +132,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       const firstSelected = selectedModels[0]
       setSelectedModels([firstSelected])
       const newMentions = allModelOptions.filter(option => option.value === firstSelected).map(option => option.model)
-      setMentions(newMentions)
+      await setMentions(newMentions)
     }
   }
 
@@ -202,6 +202,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                     paddingHorizontal={8}
                     paddingVertical={8}
                     borderWidth={1}
+                    borderRadius={16}
                     borderColor={selectedModels.includes(item.value) ? '$green20' : 'transparent'}
                     backgroundColor={selectedModels.includes(item.value) ? '$green10' : 'transparent'}>
                     <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
