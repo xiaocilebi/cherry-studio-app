@@ -699,7 +699,7 @@
         "check_success_message": "APIは正常に動作しています",
         "contentLengthLimit": "コンテンツ長の制限",
         "empty": "プロバイダーはまだありません...",
-        "empty.description": "クリックしてプロバイダーを追加",
+        "empty.description": "プロバイダーを追加",
         "overrideSearchService": "検索サービスを上書き",
         "provider": {
           "api": {

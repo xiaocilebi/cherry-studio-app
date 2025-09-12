@@ -36,7 +36,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
 
   return (
     <MotiView
-      style={{ flex: 1, gap: 30 }}
+      style={{ flex: 1, gap: 16 }}
       from={{ opacity: 0, translateY: 10 }}
       animate={{
         translateY: 0,
@@ -46,8 +46,8 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
       transition={{
         type: 'timing'
       }}>
-      <YStack gap={5}>
-        <SettingRowTitle>{t('assistants.settings.tooluse.title')}</SettingRowTitle>
+      <YStack width="100%" gap={8}>
+        <SettingRowTitle paddingHorizontal={10}>{t('assistants.settings.tooluse.title')}</SettingRowTitle>
         <Button
           chromeless
           height={30}
@@ -75,7 +75,11 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
             </XStack>
           </XStack>
         </Button>
-        <SettingRowTitle>{t('settings.websearch.provider.title')}</SettingRowTitle>
+      </YStack>
+      <YStack width="100%" gap={8}>
+        <SettingRowTitle paddingHorizontal={10}>
+          {t('settings.websearch.provider.title')}
+        </SettingRowTitle>
         <Button
           chromeless
           height={30}

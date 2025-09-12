@@ -38,7 +38,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
 
   return (
     <MotiView
-      style={{ flex: 1, gap: 30 }}
+      style={{ flex: 1, gap: 16 }}
       from={{ opacity: 0, translateY: 10 }}
       animate={{
         translateY: 0,

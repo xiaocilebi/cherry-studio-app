@@ -3,9 +3,10 @@ import { useNavigation } from '@react-navigation/native'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler } from 'react-native'
+import { BackHandler, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Text, XStack } from 'tamagui'
+import { ChevronRight } from '@tamagui/lucide-icons'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
@@ -13,6 +14,7 @@ import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
 import { SettingHelpText } from '../settings'
+import SelectionList, { SelectionListItem } from '../ui/SelectionList'
 import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
 interface WebsearchSheetProps {
@@ -33,7 +35,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
     )
 
-    const handleProviderToggle = async (id: string) => {
+    const handleItemSelect = async (id: string) => {
       const newProviderId = id === assistant.webSearchProviderId ? undefined : id
       await updateAssistant({
         ...assistant,
@@ -46,6 +48,35 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
       navigation.navigate('Home', { screen: 'WebSearchSettings' })
     }
+
+    const providerItems: SelectionListItem[] = providers.map(p => ({
+      id: p.id,
+      name: p.name,
+      icon: <WebsearchProviderIcon provider={p} />,
+      isSelected: assistant.webSearchProviderId === p.id,
+      onSelect: () => handleItemSelect(p.id)
+    }))
+
+    const emptyContent = (
+      <TouchableOpacity onPress={handleNavigateToWebSearhPage} activeOpacity={0.7}>
+        <XStack
+          width="100%"
+          alignItems="center"
+          gap={10}
+          paddingHorizontal={20}
+          paddingVertical={16}
+          borderRadius={16}
+          backgroundColor="$uiCardBackground">
+          <Text color="$textPrimary" fontSize={16} flex={1}>
+            {t('settings.websearch.empty')}
+          </Text>
+          <XStack alignItems="center" gap={5}>
+            <SettingHelpText>{t('settings.websearch.empty.description')}</SettingHelpText>
+            <ChevronRight size={16} color="$textSecondary" />
+          </XStack>
+        </XStack>
+      </TouchableOpacity>
+    )
 
     useEffect(() => {
       if (!isVisible) return
@@ -75,47 +106,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
         onDismiss={() => setIsVisible(false)}
         onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
-          <YStack gap={5} paddingHorizontal={20} paddingBottom={20}>
-            {providers.length > 0 ? (
-              // 如果有提供商，则显示列表
-              <YStack gap={5} padding="20">
-                {providers.map(p => (
-                  <Button
-                    key={p.id}
-                    onPress={() => handleProviderToggle(p.id)}
-                    justifyContent="space-between"
-                    chromeless
-                    paddingHorizontal={8}
-                    paddingVertical={8}
-                    borderColor={assistant.webSearchProviderId === p.id ? '$green20' : 'transparent'}
-                    backgroundColor={assistant.webSearchProviderId === p.id ? '$green10' : 'transparent'}>
-                    <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
-                      <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
-                        {/* Provider icon */}
-                        <XStack justifyContent="center" alignItems="center" flexShrink={0}>
-                          <WebsearchProviderIcon provider={p} />
-                        </XStack>
-                        {/* Provider name */}
-                        <Text numberOfLines={1} ellipsizeMode="tail" flex={1}>
-                          {p.name}
-                        </Text>
-                      </XStack>
-                      <XStack gap={8} alignItems="center" flexShrink={0}></XStack>
-                    </XStack>
-                  </Button>
-                ))}
-              </YStack>
-            ) : (
-              <YStack flex={1} justifyContent="center" alignItems="center" padding="20">
-                <Button onPress={handleNavigateToWebSearhPage}>
-                  <YStack alignItems="center">
-                    <Text>{t('settings.websearch.empty')}</Text>
-                    <SettingHelpText>{t('settings.websearch.empty.description')}</SettingHelpText>
-                  </YStack>
-                </Button>
-              </YStack>
-            )}
-          </YStack>
+          <SelectionList items={providerItems} emptyContent={emptyContent} />
         </BottomSheetView>
       </BottomSheetModal>
     )

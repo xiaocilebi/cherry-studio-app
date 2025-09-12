@@ -699,7 +699,7 @@
         "check_success_message": "API 运作正常",
         "contentLengthLimit": "内容长度限制",
         "empty": "暂无服务商...",
-        "empty.description": "点击按钮添加服务商",
+        "empty.description": "前往添加服务商",
         "overrideSearchService": "覆盖搜索服务",
         "provider": {
           "api": {

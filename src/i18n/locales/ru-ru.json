@@ -699,7 +699,7 @@
         "check_success_message": "API работает правильно",
         "contentLengthLimit": "Ограничение длины контента",
         "empty": "Поставщиков пока нет...",
-        "empty.description": "Нажмите кнопку, чтобы добавить поставщика",
+        "empty.description": "Перейти к добавлению поставщика",
         "overrideSearchService": "Переопределить поисковую службу",
         "provider": {
           "api": {

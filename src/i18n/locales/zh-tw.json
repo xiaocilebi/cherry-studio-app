@@ -699,7 +699,7 @@
         "check_success_message": "API 運作正常",
         "contentLengthLimit": "內容長度限制",
         "empty": "尚未提供者...",
-        "empty.description": "點擊按鈕以新增供應商",
+        "empty.description": "前往新增供應商",
         "overrideSearchService": "覆蓋搜尋服務",
         "provider": {
           "api": {

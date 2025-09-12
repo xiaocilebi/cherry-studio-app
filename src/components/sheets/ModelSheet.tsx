@@ -202,6 +202,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                     paddingHorizontal={8}
                     paddingVertical={8}
                     borderWidth={1}
+                    borderRadius={16}
                     borderColor={selectedModels.includes(item.value) ? '$green20' : 'transparent'}
                     backgroundColor={selectedModels.includes(item.value) ? '$green10' : 'transparent'}>
                     <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">

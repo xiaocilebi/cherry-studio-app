@@ -699,7 +699,7 @@
         "check_success_message": "The API is working properly",
         "contentLengthLimit": "Content Length Limit",
         "empty": "No Provider yet...",
-        "empty.description": "Click Button To Add Provider",
+        "empty.description": "Go to Add Provider",
         "overrideSearchService": "Override search service",
         "provider": {
           "api": {
