@@ -168,7 +168,7 @@ const TopicItem: FC<TopicItemProps> = ({
             <Text fontSize={16} lineHeight={16} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
-            <Text fontSize={12} color="$textSecondary">
+            <Text fontSize={12} color="$textSecondary" flexShrink={0} textWrap="nowrap">
               {displayTime}
             </Text>
           </XStack>
