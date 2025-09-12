@@ -94,9 +94,14 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
             {t('common.select_text')}
           </Text>
           <TouchableOpacity
+            style={{
+              padding: 4,
+              backgroundColor: isDark ? '#333333' : '#dddddd',
+              borderRadius: 16
+            }}
             onPress={() => bottomSheetModalRef.current?.dismiss()}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-            <X size={20} />
+            <X size={16} />
           </TouchableOpacity>
         </XStack>
         <BottomSheetScrollView
