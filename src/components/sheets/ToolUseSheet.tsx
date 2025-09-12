@@ -25,14 +25,14 @@ const ToolUseSheet = forwardRef<BottomSheetModal, ToolUseSheetProps>(({ assistan
   const toolUseOptions: SelectionListItem[] = [
     {
       id: 'function',
-      name: t('assistants.settings.tooluse.function'),
+      label: t('assistants.settings.tooluse.function'),
       icon: (isSelected: boolean) => <SquareFunction size={20} color={isSelected ? '$green100' : '$textPrimary'} />,
       isSelected: assistant.settings?.toolUseMode === 'function',
       onSelect: () => handleToolUseModeToggle('function')
     },
     {
       id: 'prompt',
-      name: t('assistants.settings.tooluse.prompt'),
+      label: t('assistants.settings.tooluse.prompt'),
       icon: (isSelected: boolean) => <Wrench size={20} color={isSelected ? '$green100' : '$textPrimary'} />,
       isSelected: assistant.settings?.toolUseMode === 'prompt',
       onSelect: () => handleToolUseModeToggle('prompt')

@@ -51,7 +51,7 @@ const WebsearchSheet = forwardRef<BottomSheetModal, WebsearchSheetProps>(
 
     const providerItems: SelectionListItem[] = providers.map(p => ({
       id: p.id,
-      name: p.name,
+      label: p.name,
       icon: <WebsearchProviderIcon provider={p} />,
       isSelected: assistant.webSearchProviderId === p.id,
       onSelect: () => handleItemSelect(p.id)

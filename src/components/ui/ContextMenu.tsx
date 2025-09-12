@@ -146,8 +146,8 @@ const ContextMenu: FC<ContextMenuProps> = ({
           <BottomSheetView>
             <SelectionList
               items={list.map(item => ({
-                id: item.title,
-                name: item.title,
+                key: item.title,
+                label: item.title,
                 icon: item.androidIcon,
                 onSelect: () => onAndroidSelect(item.onSelect)
               }))}

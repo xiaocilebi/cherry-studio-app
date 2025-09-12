@@ -71,13 +71,13 @@ const MessageFooterMoreSheet = forwardRef<BottomSheetModal, MessageFooterMorePro
           items={[
             {
               id: 'translate',
-              name: t('message.translate_message'),
+              label: t('message.translate_message'),
               icon: <TranslationIcon size={18} />,
               onSelect: onTranslate
             },
             {
               id: 'delete',
-              name: t('message.delete_message'),
+              label: t('message.delete_message'),
               icon: <Trash2 size={18} />,
               onSelect: onDelete
             }

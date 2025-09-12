@@ -4,17 +4,21 @@ import { TouchableOpacity } from 'react-native'
 import { Text, XStack, YStack } from 'tamagui'
 
 export interface SelectionListItem {
-  id: string
-  name: string
+  label: string
   icon?: React.ReactNode | ((isSelected: boolean) => React.ReactNode)
   isSelected?: boolean
   onSelect?: () => void
+  [x: string]: any
 }
 
 export interface SelectionListProps {
   items: SelectionListItem[]
   emptyContent?: React.ReactNode
 }
+
+/**
+ * 用于在BottomSheetModal中显示列表
+ */
 
 const SelectionList: React.FC<SelectionListProps> = ({ items, emptyContent }) => {
   if (items.length === 0 && emptyContent) {
@@ -30,7 +34,7 @@ const SelectionList: React.FC<SelectionListProps> = ({ items, emptyContent }) =>
       {items.map(item => {
         const iconElement = typeof item.icon === 'function' ? item.icon(item.isSelected ?? false) : item.icon
         return (
-          <TouchableOpacity key={item.id} onPress={() => item.onSelect?.()} activeOpacity={0.7}>
+          <TouchableOpacity key={item.key || item.label} onPress={() => item.onSelect?.()} activeOpacity={0.7}>
             <XStack
               width="100%"
               alignItems="center"
@@ -43,7 +47,7 @@ const SelectionList: React.FC<SelectionListProps> = ({ items, emptyContent }) =>
               backgroundColor={item.isSelected ? '$green10' : '$uiCardBackground'}>
               {iconElement}
               <Text color={item.isSelected ? '$green100' : '$textPrimary'} fontSize={16} flex={1}>
-                {item.name}
+                {item.label}
               </Text>
               {item.isSelected && <Check size={20} color="$green100" />}
             </XStack>
