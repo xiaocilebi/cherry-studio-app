@@ -78,6 +78,7 @@ const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks, message }
               key={groupKey}
               flexWrap="wrap"
               gap={8}
+              marginTop={10}
               style={{ justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start' }}>
               {blockOrGroup.map(block => {
                 switch (block.type) {

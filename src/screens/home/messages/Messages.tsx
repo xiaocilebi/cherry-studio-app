@@ -3,7 +3,7 @@ import { debounce } from 'lodash'
 import { MotiView } from 'moti'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import React from 'react'
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleSheet } from 'react-native'
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, Pressable, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
 import { AnimatePresence, Button, View, YStack } from 'tamagui'
 
@@ -118,17 +118,16 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ type: 'timing' }}>
-            <Button
-              onPress={handleScrollToEnd}
-              position="absolute"
-              bottom={2}
-              right={2}
-              size={40}
-              circular
-              borderWidth={2}
-              borderColor="$green20"
-              icon={<ChevronDown size={24} color="$green100" />}
-            />
+            <Pressable onPress={handleScrollToEnd} hitSlop={8} style={{ position: 'absolute', bottom: 2, right: 12 }}>
+              <Button
+                onPress={handleScrollToEnd}
+                size={40}
+                circular
+                borderWidth={2}
+                borderColor="$green20"
+                icon={<ChevronDown size={24} color="$green100" />}
+              />
+            </Pressable>
           </MotiView>
         )}
       </AnimatePresence>

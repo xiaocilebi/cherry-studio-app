@@ -71,8 +71,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
       ]}
       borderRadius={16}>
       <XStack
-        width={fileWidth}
-        gap={12}
+        gap={6}
         borderRadius={16}
         backgroundColor="$green20"
         justifyContent="flex-start"
