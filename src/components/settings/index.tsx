@@ -64,7 +64,7 @@ export const PressableSettingRow = styled(XStack, {
   paddingLeft: 16,
   paddingRight: 16,
   backgroundColor: '$uiCardBackground',
-  pressStyle: { backgroundColor: '$gray20' }
+  pressStyle: { opacity: 0.5 }
 })
 
 export const SettingRowTitle = styled(Text, {
