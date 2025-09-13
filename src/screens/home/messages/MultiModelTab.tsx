@@ -23,16 +23,9 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
 
   return (
     <View>
-      <Tabs
-        value={currentTab}
-        onValueChange={setCurrentTab}
-        orientation="horizontal"
-        flexDirection="column"
-        flex={1}
-        gap={10}>
+      <Tabs value={currentTab} onValueChange={setCurrentTab} orientation="horizontal" flexDirection="column" flex={1}>
         <Tabs.List>
           <XStack flex={1} gap={8} justifyContent="center" alignItems="center" paddingHorizontal={14}>
-            <MultiModalIcon size={18} />
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <XStack gap={5}>
                 {messages.map((_message, index) => {
@@ -41,6 +34,7 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
                     <Tabs.Tab
                       key={tabValue}
                       value={tabValue}
+                      gap={4}
                       paddingHorizontal={10}
                       paddingVertical={3}
                       borderRadius={48}
@@ -48,6 +42,7 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
                       alignItems="center"
                       backgroundColor="$colorTransparent"
                       height={26}>
+                      {_message.useful && <MultiModalIcon size={14} />}
                       <Text
                         fontSize={12}
                         lineHeight={17}
@@ -74,10 +69,10 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
               transition={{
                 type: 'timing'
               }}>
-              <MessageItem message={message} assistant={assistant} />
+              <MessageItem message={message} assistant={assistant} isMultiModel={true} />
               {/* 输出过程中不显示footer */}
               {message.status !== AssistantMessageStatus.PROCESSING && (
-                <MessageFooter assistant={assistant} message={message} />
+                <MessageFooter assistant={assistant} message={message} isMultiModel={true} />
               )}
             </MotiView>
           </Tabs.Content>

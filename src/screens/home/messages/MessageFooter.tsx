@@ -15,9 +15,10 @@ import MessageFooterMoreSheet from './MessageFooterMoreSheet'
 interface MessageFooterProps {
   assistant: Assistant
   message: Message
+  isMultiModel?: boolean
 }
 
-const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
+const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFooterProps) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { playState, handleCopy, handleRegenerate, handlePlay, handleBestAnswer } = useMessageActions({
     message,
@@ -39,7 +40,7 @@ const MessageFooter = ({ message, assistant }: MessageFooterProps) => {
         <IconButton icon={<Copy size={18} color="$textSecondary" />} onPress={handleCopy} />
         <IconButton icon={<RefreshCw size={18} color="$textSecondary" />} onPress={handleRegenerate} />
         <IconButton icon={getAudioIcon()} onPress={handlePlay} />
-        {message.role === 'assistant' && (
+        {message.role === 'assistant' && isMultiModel && (
           <IconButton
             icon={
               message.useful ? <ThumbsUp size={18} color="$green100" /> : <ThumbsUp size={18} color="$textSecondary" />

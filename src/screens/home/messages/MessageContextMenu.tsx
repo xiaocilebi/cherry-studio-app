@@ -15,9 +15,11 @@ interface MessageItemProps {
   children: React.ReactNode
   message: Message
   assistant?: Assistant
+  isMultiModel?: boolean
 }
 
-const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant }) => {
+const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant, isMultiModel = false }) => {
+  console.log('🌟TEO🌟 ~ MessageContextMenu ~ isMultiModel:', isMultiModel)
   const { t } = useTranslation()
   const { isDark } = useTheme()
   const textSelectionSheetRef = useRef<TextSelectionSheetRef>(null)
@@ -76,10 +78,14 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
             iOSIcon: 'arrow.clockwise' as const,
             androidIcon: <RefreshCw size={16} color="$textPrimary" />,
             onSelect: handleRegenerate
-          },
+          }
+        ]
+      : []),
+    ...(message.role === 'assistant' && isMultiModel
+      ? [
           {
             title: t('button.best_answer'),
-            iOSIcon: isUseful ? 'hand.thumbsup.fill' as const : 'hand.thumbsup' as const,
+            iOSIcon: isUseful ? ('hand.thumbsup.fill' as const) : ('hand.thumbsup' as const),
             androidIcon: isUseful ? (
               <ThumbsUp size={16} fill={isDark ? '#f9f9f9' : '#202020'} color={isDark ? '#f9f9f9' : '#202020'} />
             ) : (

@@ -12,9 +12,10 @@ import MessageContextMenu from './MessageContextMenu'
 interface Props {
   message: Message
   assistant?: Assistant
+  isMultiModel?: boolean
 }
 
-const MessageContent: React.FC<Props> = ({ message, assistant }) => {
+const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = false }) => {
   const isUser = message.role === 'user'
   const { processedBlocks } = useMessageBlocks(message.id)
 
@@ -46,8 +47,8 @@ const MessageContent: React.FC<Props> = ({ message, assistant }) => {
     )
 
   return (
-    <MessageContextMenu message={message} assistant={assistant}>
-      <View style={[styles.container]} paddingHorizontal={14} borderRadius={16}>
+    <MessageContextMenu message={message} assistant={assistant} isMultiModel={isMultiModel}>
+      <View style={[styles.container]} paddingHorizontal={14} paddingBottom={8} borderRadius={16}>
         {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
         {contentBlocks.length > 0 && (
           <Stack

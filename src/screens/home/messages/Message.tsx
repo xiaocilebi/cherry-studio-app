@@ -10,13 +10,14 @@ import MessageContent from './MessageContent'
 interface MessageItemProps {
   message: Message
   assistant?: Assistant
+  isMultiModel?: boolean
 }
 
-const MessageItem: FC<MessageItemProps> = ({ message, assistant }) => {
+const MessageItem: FC<MessageItemProps> = ({ message, assistant, isMultiModel = false }) => {
   return (
     <View flex={1}>
       <YStack flex={1}>
-        <MessageContent message={message} assistant={assistant} />
+        <MessageContent message={message} assistant={assistant} isMultiModel={isMultiModel} />
       </YStack>
     </View>
   )
