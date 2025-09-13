@@ -225,7 +225,6 @@ class CustomRenderer extends Renderer implements RendererInterface {
       {
         ...listStyle,
         ...currentColors,
-        width: 26,
         alignItems: 'flex-end',
         justifyContent: 'flex-start'
       },
