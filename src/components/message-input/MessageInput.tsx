@@ -146,7 +146,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
               />
               <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
             </XStack>
-            <XStack gap={10} alignItems="center">
+            <XStack gap={20} alignItems="center" paddingBottom={5}>
               <AnimatePresence exitBeforeEnter>
                 {text && !isTopicLoading && (
                   <MotiView
