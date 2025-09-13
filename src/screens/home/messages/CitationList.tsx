@@ -1,12 +1,14 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { Button, Text } from 'tamagui'
+import { StyleSheet } from 'react-native'
+import { Button, Text, View } from 'tamagui'
 
 import FallbackFavicon from '@/components/icons/FallbackFavicon'
 import CitationSheet from '@/components/sheets/CitationSheet'
 import { Citation } from '@/types/websearch'
+import { haptic } from '@/utils/haptic'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 
 interface PreviewIconProps {
   citation: Citation
@@ -33,11 +35,12 @@ const CitationsList: React.FC<CitationsListProps> = ({ citations }) => {
   if (!count) return null
 
   const handlePress = () => {
+    haptic(ImpactFeedbackStyle.Medium)
     bottomSheetModalRef.current?.present()
   }
 
   return (
-    <View>
+    <View marginVertical={6}>
       <Button
         chromeless
         alignSelf="flex-start"

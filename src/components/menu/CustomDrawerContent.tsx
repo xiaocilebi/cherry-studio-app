@@ -56,27 +56,27 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   return (
     <SafeAreaContainer>
       <YStack gap={10} flex={1}>
-        <YStack gap={10} paddingHorizontal={10}>
+        <YStack gap={6} paddingHorizontal={10}>
           <ListItem onPress={handleNavigateAssistantMarketScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
-              <MarketIcon size={20} />
+              <MarketIcon size={24} />
               <Text fontSize={16} color="$textPrimary">
                 {t('assistants.market.title')}
               </Text>
             </XStack>
-            <ChevronRight size={20} color="$textPrimary" />
+            <ChevronRight size={20} color="$textSecondary" />
           </ListItem>
 
           <ListItem onPress={handleNavigateAssistantScreen}>
             <XStack gap={10} alignItems="center" justifyContent="center">
-              <UnionIcon size={20} />
+              <UnionIcon size={24} />
               <Text fontSize={16} color="$textPrimary">
                 {t('assistants.market.my_assistant')}
               </Text>
             </XStack>
-            <ChevronRight size={20} color="$textPrimary" />
+            <ChevronRight size={20} color="$textSecondary" />
           </ListItem>
-          <Stack paddingVertical={5} paddingHorizontal={10}>
+          <Stack paddingHorizontal={10}>
             <SettingDivider />
           </Stack>
         </YStack>

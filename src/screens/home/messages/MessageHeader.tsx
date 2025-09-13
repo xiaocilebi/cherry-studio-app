@@ -18,8 +18,8 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ message }) => {
       {message.model && (
         <YStack gap={10}>
           <XStack alignItems="center" gap={4}>
-            <Text>{t(`provider.${message.model?.provider}`)}</Text>
-            <Text fontSize={10}>
+            <Text fontSize={14}>{t(`provider.${message.model?.provider}`)}</Text>
+            <Text fontSize={10} color="$textSecondary">
               {new Date(message.createdAt).toLocaleTimeString(currentLanguage, {
                 hour: '2-digit',
                 minute: '2-digit',

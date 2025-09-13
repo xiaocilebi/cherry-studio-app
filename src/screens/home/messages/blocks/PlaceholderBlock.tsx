@@ -10,7 +10,7 @@ interface PlaceholderBlockProps {
 const PlaceholderBlock: React.FC<PlaceholderBlockProps> = ({ block }) => {
   if (block.status === MessageBlockStatus.PROCESSING && block.type === MessageBlockType.UNKNOWN) {
     return (
-      <View flex={1} alignItems="flex-start">
+      <View flex={1} alignItems="flex-start" marginVertical={10}>
         <Spinner size="small" color="$gray" />
       </View>
     )

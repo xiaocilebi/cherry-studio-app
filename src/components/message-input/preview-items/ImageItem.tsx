@@ -1,4 +1,4 @@
-import { Download, Share, X } from '@tamagui/lucide-icons'
+import { Download, ImageOff, Share, X } from '@tamagui/lucide-icons'
 import { FC, useState } from 'react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,6 +25,7 @@ interface ImageItemProps {
 
 const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, disabledContextMenu }) => {
   const [visible, setIsVisible] = useState(false)
+  const [imageError, setImageError] = useState(false)
   const imagesForViewer = allImages.length > 0 ? allImages : [file]
   const imageIndex = imagesForViewer.findIndex(img => img.path === file.path)
   const { width: screenWidth } = useWindowDimensions()
@@ -36,6 +37,11 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
   const handleRemove = e => {
     e.stopPropagation()
     onRemove?.(file)
+  }
+
+  const handleImageError = () => {
+    setImageError(true)
+    logger.warn('Image failed to load:', file.path)
   }
 
   const handleSaveImage = async () => {
@@ -74,8 +80,8 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
   return (
     <View style={{ position: 'relative' }}>
       <ContextMenu
-        onPress={() => setIsVisible(true)}
-        disableContextMenu={disabledContextMenu}
+        onPress={() => !imageError && setIsVisible(true)}
+        disableContextMenu={disabledContextMenu || imageError}
         list={[
           {
             title: t('button.save_image'),
@@ -91,10 +97,23 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
           }
         ]}
         borderRadius={10}>
-        <Image
-          source={{ uri: file.path, width: imageWidth, height: imageWidth }}
-          style={{ borderRadius: 10, backgroundColor: '$gray10' }}
-        />
+        {imageError ? (
+          <View
+            width={imageWidth}
+            height={imageWidth}
+            borderRadius={10}
+            backgroundColor="$gray20"
+            alignItems="center"
+            justifyContent="center">
+            <ImageOff size={imageWidth * 0.3} color="$gray20" />
+          </View>
+        ) : (
+          <Image
+            source={{ uri: file.path, width: imageWidth, height: imageWidth }}
+            style={{ borderRadius: 10, backgroundColor: '$gray10' }}
+            onError={handleImageError}
+          />
+        )}
       </ContextMenu>
       <ImageView
         images={imagesForViewer.map(f => ({ uri: f.path }))}

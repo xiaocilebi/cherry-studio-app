@@ -214,7 +214,12 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
       </SettingGroup>
       <ModelSheet ref={modelSheetRef} mentions={model} setMentions={handleModelChange} multiple={false} />
       {model[0] && (
-        <ReasoningSheet ref={reasoningSheetRef} assistant={assistant} updateAssistant={handleAssistantChange} />
+        <ReasoningSheet
+          ref={reasoningSheetRef}
+          model={model[0]}
+          assistant={assistant}
+          updateAssistant={handleAssistantChange}
+        />
       )}
     </MotiView>
   )

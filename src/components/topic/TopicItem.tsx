@@ -3,14 +3,15 @@ import { Edit3, Sparkles, Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
+import ContentLoader, { Rect } from 'react-content-loader/native'
 import { useTranslation } from 'react-i18next'
 import { Text, View, XStack, YStack } from 'tamagui'
 import { Input } from 'tamagui'
-import ContentLoader, { Rect } from 'react-content-loader/native'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
 import i18n from '@/i18n'
+import { fetchTopicNaming } from '@/services/ApiService'
 import { getAssistantById } from '@/services/AssistantService'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { setCurrentTopicId } from '@/store/topic'
@@ -21,7 +22,6 @@ import { haptic } from '@/utils/haptic'
 
 import { useDialog } from '../../hooks/useDialog'
 import EmojiAvatar from '../assistant/EmojiAvator'
-import { fetchTopicNaming } from '@/services/ApiService'
 
 type TimeFormat = 'time' | 'date'
 
@@ -191,7 +191,7 @@ const TopicItem: FC<TopicItemProps> = ({
         borderRadius={18}
         paddingVertical={5}
         paddingHorizontal={5}
-        gap={8}
+        gap={6}
         justifyContent="center"
         alignItems="center"
         backgroundColor={isActive ? '$green10' : 'transparent'}>
@@ -204,10 +204,10 @@ const TopicItem: FC<TopicItemProps> = ({
         />
         <YStack flex={1} gap={4}>
           <XStack justifyContent="space-between">
-            <Text fontSize={16} lineHeight={16} fontWeight="bold" color="$textPrimary">
+            <Text fontSize={14} lineHeight={16} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
-            <Text fontSize={12} color="$textSecondary" flexShrink={0} textWrap="nowrap">
+            <Text fontSize={11} color="$textSecondary" flexShrink={0} textWrap="nowrap">
               {displayTime}
             </Text>
           </XStack>

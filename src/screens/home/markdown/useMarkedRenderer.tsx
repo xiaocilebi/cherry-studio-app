@@ -91,8 +91,8 @@ class CustomRenderer extends Renderer implements RendererInterface {
             showsHorizontalScrollIndicator: false
           }}
           textStyle={{
-            ...styles.text,
-            ...textStyle
+            ...textStyle,
+            ...styles.code
           }}
           hljsStyle={this.isDark ? atomOneDark : atomOneLight}
           language={lang}
@@ -225,7 +225,6 @@ class CustomRenderer extends Renderer implements RendererInterface {
       {
         ...listStyle,
         ...currentColors,
-        width: 26,
         alignItems: 'flex-end',
         justifyContent: 'flex-start'
       },
@@ -334,8 +333,8 @@ export const useMarkedRenderer = (isDark: boolean) => {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 14,
+  code: {
+    fontSize: 12,
     fontFamily: 'JetbrainMono',
     userSelect: 'none'
   }

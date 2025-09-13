@@ -52,24 +52,24 @@
     },
     "button": {
       "add": "Добавить",
+      "best_answer": "Лучший ответ",
       "checking": "Проверка...",
+      "generate_topic_name": "Генерировать название темы",
       "image_generate": "Генерация изображений",
       "manage": "Управлять",
       "multiple": "Множественный выбор",
       "placeholder": "Спроси что-нибудь небрежно",
       "recents": "Недавние",
+      "rename_topic_name": "Редактировать название темы",
       "save": "Сохранить",
+      "save_image": "Сохранить в фото",
       "select_model": "Выберите модель",
+      "share": "Поделиться",
       "sort": "Сортировать",
       "start_check_model": "Начать",
       "success": "Успешно!",
       "tag": "Тег",
-      "web_search": "Поиск в интернете",
-      "best_answer": "Лучший ответ",
-      "save_image": "Сохранить в фото",
-      "share": "Поделиться",
-      "generate_topic_name": "Генерировать название темы",
-      "rename_topic_name": "Редактировать название темы"
+      "web_search": "Поиск в интернете"
     },
     "chat": {
       "assistant": {
@@ -111,6 +111,7 @@
       "error_occurred": "Произошла ошибка",
       "file": "Файл",
       "generateImage": "Создать изображение",
+      "go_to_settings": "В настройки",
       "language": "Язык",
       "last_month": "Прошлый месяц",
       "last_week": "На прошлой неделе",
@@ -128,6 +129,7 @@
       "regenerate": "Регенерация",
       "rename": "Переименовать",
       "save": "Сохранить",
+      "saved": "Сохранить",
       "search_placeholder": "Поиск...",
       "see_all": "Показать все",
       "select_text": "Выбрать текст",
@@ -139,9 +141,7 @@
       "translate": "Перевод",
       "visit": "Посетить",
       "websearch": "Поиск в интернете",
-      "yesterday": "Вчера",
-      "go_to_settings": "В настройки",
-      "saved": "Сохранить"
+      "yesterday": "Вчера"
     },
     "error": {
       "availableProviders": "Доступные провайдеры",
@@ -276,6 +276,7 @@
       "topics.empty": "Темы не найдены"
     },
     "inputs": {
+      "mentions": "@ {{number}} моделей",
       "placeholder": "Отправить сообщение..."
     },
     "menu": {
@@ -291,20 +292,20 @@
       }
     },
     "message": {
+      "assistant_deleted": "Помощник удален",
       "delete_message": "Удалить сообщение",
       "delete_message_confirmation": "Вы уверены, что хотите удалить это сообщение?",
-      "delete_translation": "Удалить перевод",
-      "marked_as_best_answer": "Отмечено как лучший ответ",
-      "unmarked_as_best_answer": "Снята отметка лучшего ответа",
-      "searching": "Поиск...",
-      "translate_message": "Перевести сообщение",
-      "websearch": {
-        "fetch_complete": "Выполнено {{count}} поисков..."
-      },
-      "assistant_deleted": "Помощник удален",
       "delete_topic": "Удалить тему",
       "delete_topic_confirmation": "Вы уверены, что хотите удалить эту тему?",
-      "topic_deleted": "Тема удалена"
+      "delete_translation": "Удалить перевод",
+      "marked_as_best_answer": "Отмечено как лучший ответ",
+      "searching": "Поиск...",
+      "topic_deleted": "Тема удалена",
+      "translate_message": "Перевести сообщение",
+      "unmarked_as_best_answer": "Снята отметка лучшего ответа",
+      "websearch": {
+        "fetch_complete": "Выполнено {{count}} поисков..."
+      }
     },
     "models": {
       "no_models": "Нет доступных моделей",
@@ -620,7 +621,6 @@
           "title": "Проверка модели не удалась"
         },
         "delete.content": "Вы уверены, что хотите удалить этого поставщика?",
-        "provider_deleted": "Поставщик удален",
         "delete.title": "Удалить поставщика",
         "edit": {
           "title": "Редактирование поставщиков услуг"
@@ -629,6 +629,7 @@
         "list.title": "Список поставщиков",
         "not_found": "Поставщик не найден",
         "not_found_message": "Произошла ошибка при переходе на страницу провайдера.",
+        "provider_deleted": "Поставщик удален",
         "search": "Поисковые системы...",
         "title": "Поставщик моделей"
       },

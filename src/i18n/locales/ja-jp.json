@@ -52,24 +52,24 @@
     },
     "button": {
       "add": "追加",
+      "best_answer": "最適な回答",
       "checking": "確認中...",
+      "generate_topic_name": "トピック名を生成",
       "image_generate": "画像生成",
       "manage": "マネージ",
       "multiple": "複数選択",
       "placeholder": "何かをカジュアルに尋ねる",
       "recents": "最近",
+      "rename_topic_name": "トピック名を編集",
       "save": "保存",
+      "save_image": "写真を保存",
       "select_model": "モデルを選択してください。",
+      "share": "共有",
       "sort": "ソート",
       "start_check_model": "始めましょう",
       "success": "成功しました！",
       "tag": "タグ",
-      "web_search": "オンラインで検索する",
-      "best_answer": "最適な回答",
-      "save_image": "写真を保存",
-      "share": "共有",
-      "generate_topic_name": "トピック名を生成",
-      "rename_topic_name": "トピック名を編集"
+      "web_search": "オンラインで検索する"
     },
     "chat": {
       "assistant": {
@@ -111,6 +111,7 @@
       "error_occurred": "エラーが発生しました",
       "file": "ファイル",
       "generateImage": "画像を作成する",
+      "go_to_settings": "設定に移動",
       "language": "言語",
       "last_month": "先月",
       "last_week": "先週",
@@ -128,6 +129,7 @@
       "regenerate": "再生成",
       "rename": "名前を変更",
       "save": "保存",
+      "saved": "保存しました",
       "search_placeholder": "検索...",
       "see_all": "すべて表示",
       "select_text": "テキストを選択",
@@ -139,9 +141,7 @@
       "translate": "翻訳",
       "visit": "訪問",
       "websearch": "ウェブ検索",
-      "yesterday": "昨日",
-      "go_to_settings": "設定に移動",
-      "saved": "保存しました"
+      "yesterday": "昨日"
     },
     "error": {
       "availableProviders": "利用可能なプロバイダー",
@@ -276,6 +276,7 @@
       "topics.empty": "トピックが見つかりません。"
     },
     "inputs": {
+      "mentions": "@ {{number}} モデル",
       "placeholder": "メッセージを送信..."
     },
     "menu": {
@@ -291,20 +292,20 @@
       }
     },
     "message": {
+      "assistant_deleted": "アシスタントが削除されました",
       "delete_message": "メッセージを削除",
       "delete_message_confirmation": "このメッセージを削除しますか？",
-      "delete_translation": "翻訳を削除",
-      "marked_as_best_answer": "最適な回答として設定しました",
-      "unmarked_as_best_answer": "最適な回答の設定を解除しました",
-      "searching": "検索中...",
-      "translate_message": "メッセージを翻訳",
-      "websearch": {
-        "fetch_complete": "検索が {{count}} 回完了しました..."
-      },
-      "assistant_deleted": "アシスタントが削除されました",
       "delete_topic": "トピックを削除",
       "delete_topic_confirmation": "このトピックを削除しますか？",
-      "topic_deleted": "トピックが削除されました"
+      "delete_translation": "翻訳を削除",
+      "marked_as_best_answer": "最適な回答として設定しました",
+      "searching": "検索中...",
+      "topic_deleted": "トピックが削除されました",
+      "translate_message": "メッセージを翻訳",
+      "unmarked_as_best_answer": "最適な回答の設定を解除しました",
+      "websearch": {
+        "fetch_complete": "検索が {{count}} 回完了しました..."
+      }
     },
     "models": {
       "no_models": "利用可能なモデルがありません",
@@ -620,7 +621,6 @@
           "title": "モデルチェック失敗"
         },
         "delete.content": "このプロバイダーを削除してもよろしいですか？",
-        "provider_deleted": "プロバイダーが削除されました",
         "delete.title": "プロバイダーの削除",
         "edit": {
           "title": "編集サービスプロバイダ"
@@ -629,6 +629,7 @@
         "list.title": "プロバイダーリスト",
         "not_found": "プロバイダーが見つかりません",
         "not_found_message": "プロバイダーページに移動する際にエラーが発生しました。",
+        "provider_deleted": "プロバイダーが削除されました",
         "search": "検索プロバイダー...",
         "title": "モデルプロバイダー"
       },
