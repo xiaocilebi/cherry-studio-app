@@ -156,8 +156,8 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
           paddingTop: 10
         }}>
         {citations.map((citation, index) => (
-          <View borderBottomWidth={index < citations.length - 1 ? 1 : 0} borderBottomColor="$borderColor">
-            <CitationCard key={index} citation={citation} onPress={handlePress} />
+          <View key={index} borderBottomWidth={index < citations.length - 1 ? 1 : 0} borderBottomColor="$borderColor">
+            <CitationCard citation={citation} onPress={handlePress} />
           </View>
         ))}
       </BottomSheetScrollView>
