@@ -91,6 +91,7 @@ export default function PersonalScreen() {
                 borderRadius={8}
                 borderColor="$gray10"
                 backgroundColor="$backgroundPrimary"
+                paddingVertical={0}
                 height={40}
                 fontSize={14}
               />

@@ -1,10 +1,12 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
-import React, { useCallback, useEffect } from 'react'
+import * as React from 'react'
+import { useCallback, useEffect } from 'react'
 import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
+import { useNavigationMode } from 'react-native-navigation-mode'
 import { useDispatch } from 'react-redux'
 import { YStack } from 'tamagui'
 
@@ -33,6 +35,7 @@ const ChatScreen = () => {
   const { topic, isLoading } = useTopic(topicId)
   const dispatch = useDispatch()
   const logger = loggerService.withContext('ChatScreen')
+  const { navigationMode } = useNavigationMode()
 
   const initializeTopic = useCallback(async () => {
     try {
@@ -110,8 +113,18 @@ const ChatScreen = () => {
           <YStack flex={1}>
             <HeaderBar topic={topic} />
 
-            <View style={{ flex: 1, marginVertical: 10, paddingHorizontal: 0 }}>
-              {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}
+            <View
+              style={{
+                flex: 1,
+                marginVertical: 10,
+                paddingHorizontal: 0,
+                ...Platform.select({
+                  android: {
+                    marginVertical: navigationMode?.isGestureNavigation ? 15 : 10
+                  }
+                })
+              }}>
+              {!hasMessage ? <WelcomeContent /> : <ChatContent topic={topic} />}
             </View>
             <MessageInput topic={topic} />
           </YStack>

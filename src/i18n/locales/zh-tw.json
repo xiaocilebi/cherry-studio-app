@@ -27,6 +27,7 @@
       "settings.reasoning.high": "高",
       "settings.reasoning.low": "低",
       "settings.reasoning.medium": "中",
+      "settings.reasoning.minimal": "微念",
       "settings.reasoning.off": "關閉",
       "settings.stream_output": "串流輸出",
       "settings.temperature": "溫度",
