@@ -1,8 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { X } from '@tamagui/lucide-icons'
 import * as ExpoLinking from 'expo-linking'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler } from 'react-native'
+import { BackHandler, TouchableOpacity } from 'react-native'
 import { Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
@@ -19,24 +20,22 @@ interface CitationSheetProps {
 
 const CitationTitle = ({ number, title }: { number: number; title: string }) => {
   return (
-    <XStack gap={11} alignItems="center">
+    <XStack gap={10} alignItems="center">
       <Stack
-        borderRadius={8}
+        borderRadius={99}
         borderWidth={0.5}
         padding={3}
-        gap={2}
         justifyContent="center"
         alignItems="center"
         borderColor="$green20"
         backgroundColor="$green10"
-        minWidth={20}
-        minHeight={20}>
+        minWidth={20}>
         <Text fontSize={10} textAlign="center" color="$green100">
           {number}
         </Text>
       </Stack>
       <Stack flex={1}>
-        <Text lineHeight={20} numberOfLines={1} ellipsizeMode="tail">
+        <Text fontSize={14} lineHeight={14} numberOfLines={1} ellipsizeMode="tail">
           {title}
         </Text>
       </Stack>
@@ -45,15 +44,15 @@ const CitationTitle = ({ number, title }: { number: number; title: string }) => 
 }
 
 const Content = ({ content }: { content: string }) => (
-  <XStack>
-    <Text fontSize={12} lineHeight={16} numberOfLines={2} ellipsizeMode="tail">
+  <XStack marginTop={4}>
+    <Text fontSize={12} lineHeight={16} numberOfLines={3} color="$textSecondary" ellipsizeMode="tail">
       {content}
     </Text>
   </XStack>
 )
 
 const Footer = ({ url, title }: { url: string; title: string }) => (
-  <XStack gap={6} alignItems="center">
+  <XStack gap={6} alignItems="center" marginTop={4}>
     <FallbackFavicon hostname={new URL(url).hostname} alt={title || ''} />
     <Text lineHeight={20} fontSize={10}>
       {getWebsiteBrand(url)}
@@ -63,18 +62,13 @@ const Footer = ({ url, title }: { url: string; title: string }) => (
 
 const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url: string) => void }) => {
   return (
-    <View paddingHorizontal={30} paddingVertical={20}>
-      <YStack
-        gap={5}
-        padding={10}
-        backgroundColor="$uiCardBackground"
-        borderRadius={8}
-        onPress={() => onPress(citation.url)}>
+    <YStack paddingVertical={10} gap={5}>
+      <TouchableOpacity onPress={() => onPress(citation.url)}>
         <CitationTitle number={citation.number} title={citation.title || ''} />
         <Content content={citation.content || ''} />
         <Footer url={citation.url} title={citation.title || ''} />
-      </YStack>
-    </View>
+      </TouchableOpacity>
+    </YStack>
   )
 }
 
@@ -120,7 +114,7 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
 
   return (
     <BottomSheetModal
-      snapPoints={['60%']}
+      snapPoints={['40%', '90%']}
       enableDynamicSizing={false}
       ref={ref}
       backgroundStyle={{
@@ -133,14 +127,38 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
       }}
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
-      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-        <Stack justifyContent="center" alignItems="center" paddingHorizontal={20}>
-          <Text fontSize={20} lineHeight={22} fontWeight={600}>
-            {t('common.source')}
-          </Text>
-        </Stack>
+      <XStack
+        justifyContent="space-between"
+        alignItems="center"
+        paddingHorizontal={16}
+        paddingBottom={16}
+        borderBottomWidth={1}
+        borderBottomColor="$borderColor">
+        <Text fontSize={16} fontWeight="bold">
+          {t('common.source')}
+        </Text>
+        <TouchableOpacity
+          style={{
+            padding: 4,
+            backgroundColor: isDark ? '#333333' : '#dddddd',
+            borderRadius: 16
+          }}
+          onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+          <X size={16} />
+        </TouchableOpacity>
+      </XStack>
+      <BottomSheetScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 20,
+          paddingBottom: 40,
+          paddingTop: 10
+        }}>
         {citations.map((citation, index) => (
-          <CitationCard key={index} citation={citation} onPress={handlePress} />
+          <View borderBottomWidth={index < citations.length - 1 ? 1 : 0} borderBottomColor="$borderColor">
+            <CitationCard key={index} citation={citation} onPress={handlePress} />
+          </View>
         ))}
       </BottomSheetScrollView>
     </BottomSheetModal>
