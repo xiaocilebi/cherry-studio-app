@@ -40,9 +40,11 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
           <XStack
             gap={5}
             borderRadius={48}
-            paddingVertical={5}
-            paddingHorizontal={10}
+            paddingVertical={4}
+            paddingHorizontal={4}
             backgroundColor="$green10"
+            borderWidth={0.5}
+            borderColor="$green20"
             justifyContent="space-between"
             alignItems="center">
             <Palette size={20} color="$green100" />
@@ -53,8 +55,10 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
           <XStack
             gap={5}
             borderRadius={48}
-            paddingVertical={5}
-            paddingHorizontal={10}
+            paddingVertical={4}
+            paddingHorizontal={4}
+            borderWidth={0.5}
+            borderColor="$green20"
             backgroundColor="$green10"
             justifyContent="space-between"
             alignItems="center">

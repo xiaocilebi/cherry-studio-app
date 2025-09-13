@@ -1,6 +1,6 @@
 import { CirclePause } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Button } from 'tamagui'
+
 import { IconButton } from '../ui/IconButton'
 
 interface PauseButtonProps {
