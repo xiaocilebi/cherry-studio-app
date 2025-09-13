@@ -6,13 +6,13 @@ import { useCallback, useEffect } from 'react'
 import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
-import { useNavigationMode } from 'react-native-navigation-mode'
 import { useDispatch } from 'react-redux'
 import { YStack } from 'tamagui'
 
 import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
+import { useBottom } from '@/hooks/useBottom'
 import { useTopic } from '@/hooks/useTopic'
 import { HomeStackParamList } from '@/navigators/HomeStackNavigator'
 import { getDefaultAssistant } from '@/services/AssistantService'
@@ -25,6 +25,8 @@ import { haptic } from '@/utils/haptic'
 import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
 
+const logger = loggerService.withContext('ChatScreen')
+
 type ChatScreenRouteProp = RouteProp<HomeStackParamList, 'ChatScreen'>
 
 const ChatScreen = () => {
@@ -34,8 +36,7 @@ const ChatScreen = () => {
   const topicId = route.params?.topicId || currentTopicId
   const { topic, isLoading } = useTopic(topicId)
   const dispatch = useDispatch()
-  const logger = loggerService.withContext('ChatScreen')
-  const { navigationMode } = useNavigationMode()
+  const specificBottom = useBottom()
 
   const initializeTopic = useCallback(async () => {
     try {
@@ -57,7 +58,7 @@ const ChatScreen = () => {
     } catch (error) {
       logger.error('Failed to initialize topic', error, { topicId })
     }
-  }, [topicId, navigation, dispatch, logger])
+  }, [topicId, navigation, dispatch])
 
   useEffect(() => {
     // Only initialize if topicId indicates a new or missing topic
@@ -100,7 +101,7 @@ const ChatScreen = () => {
   const hasMessage = topic.messages.length > 0
 
   return (
-    <SafeAreaContainer>
+    <SafeAreaContainer style={{ paddingBottom: 0 }}>
       <PanGestureHandler
         onGestureEvent={handleSwipeGesture}
         onHandlerStateChange={handleSwipeGesture}
@@ -108,8 +109,8 @@ const ChatScreen = () => {
         failOffsetY={[-20, 20]}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 10}>
+          keyboardVerticalOffset={-specificBottom}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <YStack flex={1}>
             <HeaderBar topic={topic} />
 
@@ -117,12 +118,7 @@ const ChatScreen = () => {
               style={{
                 flex: 1,
                 marginVertical: 10,
-                paddingHorizontal: 0,
-                ...Platform.select({
-                  android: {
-                    marginVertical: navigationMode?.isGestureNavigation ? 15 : 10
-                  }
-                })
+                paddingHorizontal: 0
               }}>
               {!hasMessage ? <WelcomeContent /> : <ChatContent topic={topic} />}
             </View>

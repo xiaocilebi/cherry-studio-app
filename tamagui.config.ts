@@ -70,7 +70,8 @@ const extendedConfig = {
       backgroundSecondary: '#ffffff99',
       uiCard: '#ffffffff',
       textPrimary: '#202020ff',
-      textSecondary: '#646464ff'
+      textSecondary: '#646464ff',
+      backgroundOpacity: '#ffffffff'
     },
     dark: {
       ...config.themes.dark,
@@ -85,7 +86,8 @@ const extendedConfig = {
       backgroundSecondary: '#20202099',
       uiCard: '#19191cff',
       textPrimary: '#f9f9f9ff',
-      textSecondary: '#cececeff'
+      textSecondary: '#cececeff',
+      backgroundOpacity: 'rgba(34,34,34,0.7)'
     }
   }
 }

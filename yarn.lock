@@ -8283,7 +8283,6 @@ __metadata:
     expo-linking: "npm:~7.1.5"
     expo-localization: "npm:~16.1.5"
     expo-media-library: "npm:^18.1.1"
-    expo-navigation-bar: "npm:~4.2.8"
     expo-network: "npm:~7.1.5"
     expo-sharing: "npm:~13.1.5"
     expo-speech: "npm:~13.1.7"
@@ -8322,7 +8321,6 @@ __metadata:
     react-native-marked: "npm:^7.0.2"
     react-native-mathjax-svg: "npm:^0.9.9"
     react-native-mmkv: "npm:^3.3.0"
-    react-native-navigation-mode: "npm:^1.2.2"
     react-native-pager-view: "npm:6.7.1"
     react-native-qrcode-styled: "npm:^0.3.3"
     react-native-reanimated: "npm:~3.17.5"
@@ -11762,22 +11760,6 @@ __metadata:
   dependencies:
     invariant: "npm:^2.2.4"
   checksum: 10c0/9586d80644278fa4c15cc1e85f403934a07936574c050623b26a0dec8d8cbc8776ed68e988510621495d1227f52a127938a2aad2c997d05a449d0f1fd009da86
-  languageName: node
-  linkType: hard
-
-"expo-navigation-bar@npm:~4.2.8":
-  version: 4.2.8
-  resolution: "expo-navigation-bar@npm:4.2.8"
-  dependencies:
-    "@react-native/normalize-colors": "npm:0.79.6"
-    debug: "npm:^4.3.2"
-    react-native-edge-to-edge: "npm:1.6.0"
-    react-native-is-edge-to-edge: "npm:^1.1.6"
-  peerDependencies:
-    expo: "*"
-    react: "*"
-    react-native: "*"
-  checksum: 10c0/a116d8717502c80d1fc7ac0f30e10ce506aabd0ee65273276b3f27e05163c15da80d87d094b21c742971ec0ffb8025d0b50f8d04d109cc25e8be19af2432ebf5
   languageName: node
   linkType: hard
 
@@ -16989,20 +16971,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/a1b93b4d5ccc87d9bda88e0708f7d6c2470c56c32daa8de5cbe1df2350c49d697549ce13512ee6b13e91a421093358a7f0a60cf286a8d1bbd63346d8b217def1
-  languageName: node
-  linkType: hard
-
-"react-native-navigation-mode@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "react-native-navigation-mode@npm:1.2.2"
-  peerDependencies:
-    expo: "*"
-    react: "*"
-    react-native: ">=0.77.0"
-  peerDependenciesMeta:
-    expo:
-      optional: true
-  checksum: 10c0/fb5c716442af5b6e132affe10f9807a6b7dfff8889e3ba971009ad14f91fe4c2edae83a606c6749945809fea385aa717eeae8fad73fe9b013bab19af51c0804b
   languageName: node
   linkType: hard
 

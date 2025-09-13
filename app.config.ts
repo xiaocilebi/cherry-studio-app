@@ -1,3 +1,4 @@
+import 'tsx/cjs'
 export default {
   expo: {
     name: 'Cherry Studio',
@@ -19,6 +20,7 @@ export default {
         foregroundImage: './src/assets/images/adaptive-icon.png',
         backgroundColor: '#F65D5D'
       },
+      edgeToEdgeEnabled: true,
       package: 'com.anonymous.cherrystudio',
       userInterfaceStyle: 'automatic',
       predictiveBackGestureEnabled: true
@@ -98,7 +100,8 @@ export default {
           isAccessMediaLocationEnabled: true
         }
       ],
-      ['react-native-compressor']
+      ['react-native-compressor'],
+      ['./plugins/withAndroidTransparentNavigation']
     ],
     experiments: {
       typedRoutes: true,
