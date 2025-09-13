@@ -97,7 +97,8 @@ export default {
           savePhotosPermission: 'Allow Cherry Studio App to save images to your photo library.',
           isAccessMediaLocationEnabled: true
         }
-      ]
+      ],
+      ['react-native-compressor']
     ],
     experiments: {
       typedRoutes: true,

@@ -8309,6 +8309,7 @@ __metadata:
     react-i18next: "npm:^15.4.1"
     react-native: "npm:0.79.5"
     react-native-code-highlighter: "npm:^1.3.0"
+    react-native-compressor: "npm:^1.12.0"
     react-native-device-info: "npm:^14.0.4"
     react-native-file-viewer: "npm:^2.1.5"
     react-native-gesture-handler: "npm:~2.24.0"
@@ -16713,6 +16714,16 @@ __metadata:
     react-native: ">=0.60.0"
     react-syntax-highlighter: ">=15.5.0"
   checksum: 10c0/b4f6a791ae8c26113d532659df4ade0f62286936d773ca460e11912d18f13af8c4318b28ed12cefafdea2f01f333810244cfb0b9dbfc647e18576b4873a483e0
+  languageName: node
+  linkType: hard
+
+"react-native-compressor@npm:^1.12.0":
+  version: 1.12.0
+  resolution: "react-native-compressor@npm:1.12.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/49ce38eeeb2d121253bc761840a04a93ac7fc7bfef77881e82620575cce0817d9d7cd4d6f3df5d29469e45760b107d22f5b2f7ae7116a95ef44c8d83953a6f20
   languageName: node
   linkType: hard
 

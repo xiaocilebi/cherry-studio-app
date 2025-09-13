@@ -2,7 +2,6 @@ import * as FileSystem from 'expo-file-system'
 import { Directory, File, Paths } from 'expo-file-system/next'
 import * as Sharing from 'expo-sharing'
 
-
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata, FileTypes } from '@/types/file'
 import { uuid } from '@/utils'
@@ -76,7 +75,6 @@ export async function uploadFiles(files: Omit<FileMetadata, 'md5'>[]): Promise<F
     try {
       const sourceUri = file.path
       const destinationUri = `${fileStorageDir.uri}${file.id}.${file.ext}`
-      console.log('destinationUri', destinationUri)
       await FileSystem.copyAsync({
         from: sourceUri,
         to: destinationUri
@@ -216,6 +214,7 @@ export async function shareFile(uri: string): Promise<ShareFileResult> {
     }
 
     const fileInfo = await FileSystem.getInfoAsync(uri)
+
     if (!fileInfo.exists) {
       logger.error('File not found:', uri)
       return {
@@ -225,7 +224,7 @@ export async function shareFile(uri: string): Promise<ShareFileResult> {
     }
 
     await Sharing.shareAsync(uri)
-    
+
     logger.info('File shared successfully')
     return {
       success: true,
