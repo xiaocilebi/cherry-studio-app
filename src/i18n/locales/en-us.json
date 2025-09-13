@@ -52,24 +52,24 @@
     },
     "button": {
       "add": "Add",
+      "best_answer": "Best Answer",
       "checking": "Checking...",
+      "generate_topic_name": "Generate Topic Name",
       "image_generate": "Image generation",
       "manage": "Manage",
       "multiple": "Multi",
       "placeholder": "Ask something casually",
       "recents": "Recents",
+      "rename_topic_name": "Rename Topic Name",
       "save": "Save",
       "save_image": "Save to Photos",
-      "share": "Share",
       "select_model": "Select Model",
+      "share": "Share",
       "sort": "Sort",
       "start_check_model": "Let's Start",
       "success": "Successful!",
       "tag": "Tag",
-      "web_search": "Search online",
-      "best_answer": "Best Answer",
-      "generate_topic_name": "Generate Topic Name",
-      "rename_topic_name": "Rename Topic Name"
+      "web_search": "Search online"
     },
     "chat": {
       "assistant": {
@@ -111,6 +111,7 @@
       "error_occurred": "An error occurred",
       "file": "File",
       "generateImage": "Create an image",
+      "go_to_settings": "Settings",
       "language": "Language",
       "last_month": "Last Month",
       "last_week": "Last Week",
@@ -140,8 +141,7 @@
       "translate": "Translate",
       "visit": "Visit",
       "websearch": "Web Search",
-      "yesterday": "Yesterday",
-      "go_to_settings": "Settings"
+      "yesterday": "Yesterday"
     },
     "error": {
       "availableProviders": "Available Providers",
@@ -276,6 +276,7 @@
       "topics.empty": " No topics found"
     },
     "inputs": {
+      "mentions": "@ {{number}} models",
       "placeholder": "Send Message..."
     },
     "menu": {
@@ -291,20 +292,20 @@
       }
     },
     "message": {
+      "assistant_deleted": "Assistant deleted",
       "delete_message": "Delete Message",
       "delete_message_confirmation": "Are you sure you want to delete this message?",
-      "delete_translation": "Remove Translation",
-      "marked_as_best_answer": "Marked as best answer",
-      "unmarked_as_best_answer": "Unmarked as best answer",
-      "searching": "Searching...",
-      "translate_message": "Translate Message",
-      "websearch": {
-        "fetch_complete": "Completed {{count}} searches..."
-      },
-      "assistant_deleted": "Assistant deleted",
       "delete_topic": "Delete Topic",
       "delete_topic_confirmation": "Are you sure you want to delete this topic?",
-      "topic_deleted": "Topic deleted"
+      "delete_translation": "Remove Translation",
+      "marked_as_best_answer": "Marked as best answer",
+      "searching": "Searching...",
+      "topic_deleted": "Topic deleted",
+      "translate_message": "Translate Message",
+      "unmarked_as_best_answer": "Unmarked as best answer",
+      "websearch": {
+        "fetch_complete": "Completed {{count}} searches..."
+      }
     },
     "models": {
       "no_models": "No models available",
@@ -620,7 +621,6 @@
           "title": "Model check failed"
         },
         "delete.content": "Are you sure you want to delete this provider?",
-        "provider_deleted": "Provider deleted",
         "delete.title": "Delete Provider",
         "edit": {
           "title": "Edit Provider"
@@ -629,6 +629,7 @@
         "list.title": "Provider List",
         "not_found": "Provider not found",
         "not_found_message": "There is an error navigate to the provider page.",
+        "provider_deleted": "Provider deleted",
         "search": "Search Providers...",
         "title": "Model Provider"
       },

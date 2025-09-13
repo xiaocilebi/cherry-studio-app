@@ -48,9 +48,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const isReasoning = isReasoningModel(assistant?.model)
 
   useEffect(() => {
-    if (!assistant || !assistant?.model) return
-    setMentions([assistant?.model])
-  }, [assistant])
+    if (!assistant || !assistant?.defaultModel || mentions.length !== 0) return
+    setMentions([assistant?.defaultModel])
+  }, [assistant, mentions])
 
   const sendMessage = async () => {
     if (isEmpty(text.trim()) || !assistant) {
@@ -117,22 +117,25 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
         <YStack gap={10}>
           {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
           {/* message */}
-          <XStack>
+          <XStack top={5}>
             <TextArea
+              minHeight={50}
+              fontSize={16}
               placeholder={t('inputs.placeholder')}
               borderWidth={0}
               backgroundColor="$backgroundPrimary"
+              numberOfLines={10}
               p={0}
               flex={1}
               value={text}
               onChangeText={setText}
-              lineHeight={22}
+              paddingVertical={0}
               color="$textSecondary"
             />
           </XStack>
           {/* button */}
-          <XStack justifyContent="space-between" alignItems="center" minHeight={30}>
-            <XStack gap={10} alignItems="center">
+          <XStack justifyContent="space-between" alignItems="center">
+            <XStack flex={1} gap={10} alignItems="center">
               <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
               {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
               <MentionButton
@@ -195,7 +198,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
 
 const InputContent = styled(YStack, {
   paddingHorizontal: 16,
-  paddingVertical: 12,
+  paddingVertical: 4,
   borderRadius: 20,
   backgroundColor: '$backgroundPrimary'
 })
