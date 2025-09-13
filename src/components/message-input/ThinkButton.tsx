@@ -52,7 +52,14 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
     <>
       <Button chromeless circular size={20} icon={getIcon()} onPress={handlePress} />
 
-      <ReasoningSheet ref={bottomSheetModalRef} assistant={assistant} updateAssistant={updateAssistant} />
+      {assistant.model && (
+        <ReasoningSheet
+          ref={bottomSheetModalRef}
+          model={assistant.model}
+          assistant={assistant}
+          updateAssistant={updateAssistant}
+        />
+      )}
     </>
   )
 }

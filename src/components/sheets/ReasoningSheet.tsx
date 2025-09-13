@@ -3,6 +3,7 @@ import React, { forwardRef, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { View } from 'tamagui'
 
 import {
   MdiLightbulbAutoOutline,
@@ -20,12 +21,12 @@ import {
   isSupportedThinkingTokenQwenModel
 } from '@/config/models'
 import { useTheme } from '@/hooks/useTheme'
-import { Assistant, ThinkingOption } from '@/types/assistant'
+import { Assistant, Model, ThinkingOption } from '@/types/assistant'
 
 import SelectionList, { SelectionListItem } from '../ui/SelectionList'
-import { View } from 'tamagui'
 
 interface ReasoningSheetProps {
+  model: Model
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
@@ -52,10 +53,9 @@ const renderBackdrop = (props: any) => (
 )
 
 export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
-  ({ assistant, updateAssistant }, ref) => {
+  ({ model, assistant, updateAssistant }, ref) => {
     const { t } = useTranslation()
     const { isDark } = useTheme()
-    const model = assistant.model!
     const [isVisible, setIsVisible] = useState(false)
 
     const isGrokModel = isSupportedReasoningEffortGrokModel(model)
