@@ -68,13 +68,21 @@ export function readStreamFile(file: FileMetadata): ReadableStream {
   return new File(file.path).readableStream()
 }
 
-export async function uploadFiles(files: Omit<FileMetadata, 'md5'>[]): Promise<FileMetadata[]> {
+export async function uploadFiles(
+  files: Omit<FileMetadata, 'md5'>[],
+  uploadedDir?: Directory
+): Promise<FileMetadata[]> {
   const filePromises = files.map(async file => {
     try {
-      const storageDir = file.type === FileTypes.IMAGE ? DEFAULT_IMAGES_STORAGE : DEFAULT_DOCUMENTS_STORAGE
+      const storageDir = uploadedDir
+        ? uploadedDir
+        : file.type === FileTypes.IMAGE
+          ? DEFAULT_IMAGES_STORAGE
+          : DEFAULT_DOCUMENTS_STORAGE
       await ensureDirExists(storageDir)
       const sourceUri = file.path
-      const destinationUri = `${storageDir.uri}${file.id}.${file.ext}`
+      // ios upload image will be .JPG
+      const destinationUri = `${storageDir.uri}${file.id}.${file.ext.toLowerCase()}`
       await FileSystem.copyAsync({
         from: sourceUri,
         to: destinationUri
@@ -94,6 +102,7 @@ export async function uploadFiles(files: Omit<FileMetadata, 'md5'>[]): Promise<F
         path: destinationUri,
         size: fileInfo.size
       }
+      console.log('finalFile', finalFile)
       upsertFiles([finalFile])
       return finalFile
     } catch (error) {

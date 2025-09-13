@@ -7,9 +7,10 @@ import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
+import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
 import { useDialog } from '@/hooks/useDialog'
 import { useTheme } from '@/hooks/useTheme'
-import { fileStorageDir, uploadFiles } from '@/services/FileService'
+import { uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { saveProvider } from '@/services/ProviderService'
 import { Provider, ProviderType } from '@/types/assistant'
@@ -78,7 +79,7 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
     // Helper function to upload provider image
     const uploadProviderImage = async (file: Omit<FileMetadata, 'md5'> | null) => {
       if (file) {
-        await uploadFiles([file])
+        await uploadFiles([file], DEFAULT_ICONS_STORAGE)
       }
     }
 
@@ -153,7 +154,9 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
               <YStack width="100%" gap={24} justifyContent="center" alignItems="center">
                 <ProviderIconButton
                   providerId={providerId}
-                  iconUri={mode === 'edit' ? new File(Paths.join(fileStorageDir, `${providerId}.png`)).uri : undefined}
+                  iconUri={
+                    mode === 'edit' ? new File(Paths.join(DEFAULT_ICONS_STORAGE, `${providerId}.jpg`)).uri : undefined
+                  }
                   onImageSelected={handleImageSelected}
                 />
                 <YStack width="100%" gap={8}>

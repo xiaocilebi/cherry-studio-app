@@ -8275,6 +8275,7 @@ __metadata:
     expo-file-system: "npm:~18.1.10"
     expo-font: "npm:^13.3.2"
     expo-haptics: "npm:~14.1.4"
+    expo-image: "npm:^3.0.8"
     expo-image-picker: "npm:~16.1.4"
     expo-intent-launcher: "npm:~12.1.5"
     expo-linear-gradient: "npm:~14.1.4"
@@ -11573,6 +11574,21 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10c0/7e27458a48140cea2864564db40ff102525302ca60e9526838ae265523dba8b1d9ceea3a2ac94c1eaece78f4cd1ded0f1a2391517e61a3fd8a6f17b06e337293
+  languageName: node
+  linkType: hard
+
+"expo-image@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "expo-image@npm:3.0.8"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+    react-native-web: "*"
+  peerDependenciesMeta:
+    react-native-web:
+      optional: true
+  checksum: 10c0/d02cedb90b45e6098f5ba064862d613ac95f27a9c0332cacbfb7138600565538ef5e5afa28c7b7f15867ea7e5fbbc8197fbeccce13605b9a8b92461ea5238ba0
   languageName: node
   linkType: hard
 
