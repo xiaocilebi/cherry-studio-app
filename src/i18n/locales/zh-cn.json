@@ -27,6 +27,7 @@
       "settings.reasoning.high": "沉思",
       "settings.reasoning.low": "浮想",
       "settings.reasoning.medium": "斟酌",
+      "settings.reasoning.minimal": "微念",
       "settings.reasoning.off": "关闭",
       "settings.stream_output": "流式输出",
       "settings.temperature": "温度",

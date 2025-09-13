@@ -1,5 +1,5 @@
+import { Image } from 'expo-image'
 import React from 'react'
-import { Image } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
@@ -15,5 +15,5 @@ export const ModelIcon: React.FC<ModelIconProps> = ({ model, size }) => {
 
   const iconSource = getModelOrProviderIcon(model.id, model.provider, isDark)
 
-  return <Image width={size ?? 20} height={size ?? 20} source={iconSource} />
+  return <Image style={{ width: size ?? 20, height: size ?? 20 }} source={iconSource} />
 }

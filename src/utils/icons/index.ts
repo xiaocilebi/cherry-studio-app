@@ -1,7 +1,5 @@
 import { SystemProviderId } from '@/types/assistant'
 
-const iconCache = new Map<string, any>()
-
 const MODEL_ICONS_DARK = {
   chatgpt: require('@/assets/images/llmIcons/dark/openai.png'),
   o1: require('@/assets/images/llmIcons/dark/openai.png'),
@@ -83,13 +81,6 @@ const MODEL_ICONS_LIGHT = {
 }
 
 export function getModelIcon(modelId: string, isDark: boolean): any {
-  const cacheKey = `${modelId}-${isDark}`
-
-  // 检查缓存
-  if (iconCache.has(cacheKey)) {
-    return iconCache.get(cacheKey)
-  }
-
   const modelIcons = isDark ? MODEL_ICONS_DARK : MODEL_ICONS_LIGHT
   let result = null
 
@@ -102,8 +93,6 @@ export function getModelIcon(modelId: string, isDark: boolean): any {
     }
   }
 
-  // 缓存结果
-  iconCache.set(cacheKey, result)
   return result
 }
 
@@ -220,19 +209,8 @@ const PROVIDER_ICONS_LIGHT: Record<SystemProviderId | 'default', any> = {
 }
 
 export function getProviderIcon(providerId: string, isDark: boolean): any {
-  const cacheKey = `${providerId}-${isDark}`
-
-  // 检查缓存
-  if (iconCache.has(cacheKey)) {
-    return iconCache.get(cacheKey)
-  }
-
   const providerIcons = isDark ? PROVIDER_ICONS_DARK : PROVIDER_ICONS_LIGHT
-  const result = providerIcons[providerId as keyof typeof providerIcons] || providerIcons.default
-
-  // 缓存结果
-  iconCache.set(cacheKey, result)
-  return result
+  return providerIcons[providerId as SystemProviderId] || providerIcons.default
 }
 
 export function getModelOrProviderIcon(modelId: string, providerId: string, isDark: boolean): any {

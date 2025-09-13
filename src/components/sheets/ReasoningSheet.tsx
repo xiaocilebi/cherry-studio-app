@@ -8,18 +8,13 @@ import { View } from 'tamagui'
 import {
   MdiLightbulbAutoOutline,
   MdiLightbulbOffOutline,
-  MdiLightbulbOn10,
+  MdiLightbulbOn,
+  MdiLightbulbOn30,
   MdiLightbulbOn50,
-  MdiLightbulbOn90
+  MdiLightbulbOn80
 } from '@/components/icons/MdiLightbulbIcon'
-import { GEMINI_FLASH_MODEL_REGEX, MODEL_SUPPORTED_OPTIONS } from '@/config/models'
-import {
-  isDoubaoThinkingAutoModel,
-  isSupportedReasoningEffortGrokModel,
-  isSupportedThinkingTokenDoubaoModel,
-  isSupportedThinkingTokenGeminiModel,
-  isSupportedThinkingTokenQwenModel
-} from '@/config/models'
+import { getThinkModelType, MODEL_SUPPORTED_OPTIONS } from '@/config/models'
+import { isDoubaoThinkingAutoModel } from '@/config/models'
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant, Model, ThinkingOption } from '@/types/assistant'
 
@@ -33,12 +28,14 @@ interface ReasoningSheetProps {
 
 const createThinkingIcon = (option?: ThinkingOption) => {
   switch (option) {
+    case 'minimal':
+      return <MdiLightbulbOn30 />
     case 'low':
-      return <MdiLightbulbOn10 />
-    case 'medium':
       return <MdiLightbulbOn50 />
+    case 'medium':
+      return <MdiLightbulbOn80 />
     case 'high':
-      return <MdiLightbulbOn90 />
+      return <MdiLightbulbOn />
     case 'auto':
       return <MdiLightbulbAutoOutline />
     case 'off':
@@ -58,26 +55,12 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
     const { isDark } = useTheme()
     const [isVisible, setIsVisible] = useState(false)
 
-    const isGrokModel = isSupportedReasoningEffortGrokModel(model)
-    const isGeminiModel = isSupportedThinkingTokenGeminiModel(model)
-    const isGeminiFlashModel = GEMINI_FLASH_MODEL_REGEX.test(model?.id || '')
-    const isQwenModel = isSupportedThinkingTokenQwenModel(model)
-    const isDoubaoModel = isSupportedThinkingTokenDoubaoModel(model)
     const insets = useSafeAreaInsets()
 
     // Converted from useMemo to a simple const
     const currentReasoningEffort = assistant.settings?.reasoning_effort || 'off'
 
-    const modelType = (() => {
-      if (isGeminiModel) {
-        return isGeminiFlashModel ? 'gemini' : 'gemini_pro'
-      }
-
-      if (isGrokModel) return 'grok'
-      if (isQwenModel) return 'qwen'
-      if (isDoubaoModel) return 'doubao'
-      return 'default'
-    })()
+    const modelType = getThinkModelType(model)
 
     // 获取当前模型支持的选项
     const supportedOptions: ThinkingOption[] = useMemo(() => {
@@ -101,6 +84,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
           settings: {
             ...assistant.settings,
             reasoning_effort: undefined,
+            reasoning_effort_cache: undefined,
             qwenThinkMode: false
           }
         })
@@ -110,6 +94,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
           settings: {
             ...assistant.settings,
             reasoning_effort: option,
+            reasoning_effort_cache: option,
             qwenThinkMode: true
           }
         })
@@ -120,7 +105,7 @@ export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
 
     const sheetOptions: SelectionListItem[] = supportedOptions.map(option => ({
       value: option,
-      label: t(`assistants.settings.reasoning.${option === 'auto' ? 'auto' : option}`),
+      label: t(`assistants.settings.reasoning.${option}`),
       icon: (
         <View width={20} height={20}>
           {createThinkingIcon(option)}

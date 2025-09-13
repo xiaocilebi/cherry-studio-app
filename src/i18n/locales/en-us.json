@@ -27,6 +27,7 @@
       "settings.reasoning.high": "High",
       "settings.reasoning.low": "Low",
       "settings.reasoning.medium": "Medium",
+      "settings.reasoning.minimal": "Weinian",
       "settings.reasoning.off": "Off",
       "settings.stream_output": "Stream Output",
       "settings.temperature": "Temperature",
