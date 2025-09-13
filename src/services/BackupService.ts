@@ -111,9 +111,11 @@ export async function restore(
     fileStorageDir.create({ intermediates: true, overwrite: true })
   }
 
+  let unzipPath: string | undefined
+
   try {
     const dataDir = Paths.join(fileStorageDir, backupFile.name.replace('.zip', ''))
-    const unzipPath = await unzip(backupFile.path, dataDir)
+    unzipPath = await unzip(backupFile.path, dataDir)
 
     const dataFile = new File(unzipPath, 'data.json')
 
@@ -124,6 +126,14 @@ export async function restore(
   } catch (error) {
     logger.error('restore error: ', error)
     throw error
+  } finally {
+    if (unzipPath) {
+      try {
+        new Directory(unzipPath).delete()
+      } catch (cleanupError) {
+        logger.error('Failed to cleanup temporary directory: ', cleanupError)
+      }
+    }
   }
 }
 
