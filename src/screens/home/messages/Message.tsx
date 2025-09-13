@@ -14,13 +14,7 @@ interface MessageItemProps {
 }
 
 const MessageItem: FC<MessageItemProps> = ({ message, assistant, isMultiModel = false }) => {
-  return (
-    <View flex={1}>
-      <YStack flex={1}>
-        <MessageContent message={message} assistant={assistant} isMultiModel={isMultiModel} />
-      </YStack>
-    </View>
-  )
+  return <MessageContent message={message} assistant={assistant} isMultiModel={isMultiModel} />
 }
 
 export default memo(MessageItem)
