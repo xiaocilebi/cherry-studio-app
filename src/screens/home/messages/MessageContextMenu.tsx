@@ -19,7 +19,6 @@ interface MessageItemProps {
 }
 
 const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant, isMultiModel = false }) => {
-  console.log('🌟TEO🌟 ~ MessageContextMenu ~ isMultiModel:', isMultiModel)
   const { t } = useTranslation()
   const { isDark } = useTheme()
   const textSelectionSheetRef = useRef<TextSelectionSheetRef>(null)
