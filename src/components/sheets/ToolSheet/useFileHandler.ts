@@ -1,6 +1,7 @@
 import * as DocumentPicker from 'expo-document-picker'
 import * as FileSystem from 'expo-file-system'
 import * as ImagePicker from 'expo-image-picker'
+import { Image } from 'react-native-compressor'
 
 import { uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
@@ -33,28 +34,32 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
         allowsMultipleSelection: true,
-        quality: 0.2
+        quality: 1
       })
 
       if (result.canceled) {
         return
       }
 
-      const _files: Omit<FileMetadata, 'md5'>[] = result.assets.map(asset => {
-        const id = uuid()
-        return {
-          id: id,
-          name: asset.fileName || id,
-          origin_name: asset.fileName || id,
-          path: asset.uri,
-          size: asset.fileSize || 0,
-          ext: asset.fileName?.split('.').pop() || 'png',
-          type: getFileType(asset.fileName?.split('.').pop() || 'png'),
-          mime_type: asset.mimeType || '',
-          created_at: new Date().toISOString(),
-          count: 1
-        }
-      })
+      const _files: Omit<FileMetadata, 'md5'>[] = await Promise.all(
+        result.assets.map(async asset => {
+          const id = uuid()
+          const compressedUri = await Image.compress(asset.uri)
+
+          return {
+            id: id,
+            name: asset.fileName || id,
+            origin_name: asset.fileName || id,
+            path: compressedUri,
+            size: asset.fileSize || 0,
+            ext: asset.fileName?.split('.').pop() || 'jpg',
+            type: getFileType(asset.fileName?.split('.').pop() || 'jpg'),
+            mime_type: asset.mimeType || '',
+            created_at: new Date().toISOString(),
+            count: 1
+          }
+        })
+      )
 
       const uploadedFiles = await uploadFiles(_files)
       setFiles([...files, ...uploadedFiles])
@@ -106,15 +111,16 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
 
       const id = uuid()
       const fileName = photoUri.split('/').pop() || `${id}.jpg`
+      const compressedUri = await Image.compress(photoUri)
+
       const _file: Omit<FileMetadata, 'md5'> = {
         id: id,
         name: fileName,
         origin_name: fileName,
-        path: photoUri,
+        path: compressedUri,
         size: fileInfo.size,
         ext: 'jpg',
         type: FileTypes.IMAGE,
-        mime_type: 'image/jpeg',
         created_at: new Date().toISOString(),
         count: 1
       }
