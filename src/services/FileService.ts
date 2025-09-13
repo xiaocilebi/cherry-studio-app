@@ -2,6 +2,7 @@ import * as FileSystem from 'expo-file-system'
 import { Directory, File, Paths } from 'expo-file-system/next'
 import * as Sharing from 'expo-sharing'
 
+import { DEFAULT_DOCUMENTS_STORAGE, DEFAULT_IMAGES_STORAGE, DEFAULT_STORAGE } from '@/constants/storage'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata, FileTypes } from '@/types/file'
 import { uuid } from '@/utils'
@@ -15,14 +16,12 @@ export interface ShareFileResult {
 
 const logger = loggerService.withContext('File Service')
 
-export const fileStorageDir = new Directory(Paths.cache, 'Files')
-
 // 辅助函数，确保目录存在
-async function ensureDirExists() {
-  const dirInfo = await FileSystem.getInfoAsync(fileStorageDir.uri)
+async function ensureDirExists(dir: Directory) {
+  const dirInfo = await FileSystem.getInfoAsync(dir.uri)
 
   if (!dirInfo.exists) {
-    await FileSystem.makeDirectoryAsync(fileStorageDir.uri, { intermediates: true })
+    await FileSystem.makeDirectoryAsync(dir.uri, { intermediates: true })
   }
 }
 
@@ -35,14 +34,14 @@ export function readBase64File(file: FileMetadata): string {
 }
 
 export async function writeBase64File(data: string): Promise<FileMetadata> {
-  if (!fileStorageDir.exists) {
-    fileStorageDir.create({ intermediates: true, overwrite: true })
+  if (!DEFAULT_IMAGES_STORAGE.exists) {
+    DEFAULT_IMAGES_STORAGE.create({ intermediates: true, overwrite: true })
   }
 
   const cleanedBase64 = data.includes('data:image') ? data.split(',')[1] : data
 
   const fileName = uuid()
-  const fileUri = fileStorageDir.uri + `${fileName}.png`
+  const fileUri = DEFAULT_IMAGES_STORAGE.uri + `${fileName}.png`
 
   await FileSystem.writeAsStringAsync(fileUri, cleanedBase64, {
     encoding: FileSystem.EncodingType.Base64
@@ -70,11 +69,12 @@ export function readStreamFile(file: FileMetadata): ReadableStream {
 }
 
 export async function uploadFiles(files: Omit<FileMetadata, 'md5'>[]): Promise<FileMetadata[]> {
-  await ensureDirExists()
   const filePromises = files.map(async file => {
     try {
+      const storageDir = file.type === FileTypes.IMAGE ? DEFAULT_IMAGES_STORAGE : DEFAULT_DOCUMENTS_STORAGE
+      await ensureDirExists(storageDir)
       const sourceUri = file.path
-      const destinationUri = `${fileStorageDir.uri}${file.id}.${file.ext}`
+      const destinationUri = `${storageDir.uri}${file.id}.${file.ext}`
       await FileSystem.copyAsync({
         from: sourceUri,
         to: destinationUri
@@ -130,11 +130,8 @@ export async function deleteFiles(files: FileMetadata[]): Promise<void> {
 
 export async function resetCacheDirectory() {
   try {
-    // Delete Files directory
-    const filesDirectory = new Directory(Paths.cache, 'Files')
-
-    if (filesDirectory.exists) {
-      filesDirectory.delete()
+    if (DEFAULT_STORAGE.exists) {
+      DEFAULT_STORAGE.delete()
     }
 
     // Delete ImagePicker directory
@@ -152,7 +149,7 @@ export async function resetCacheDirectory() {
     }
 
     // Recreate Files directory
-    await FileSystem.makeDirectoryAsync(fileStorageDir.uri, { intermediates: true })
+    await FileSystem.makeDirectoryAsync(DEFAULT_STORAGE.uri, { intermediates: true })
   } catch (error) {
     logger.error('resetCacheDirectory', error)
   }
@@ -179,7 +176,7 @@ export async function getDirectorySizeAsync(directoryUri: string): Promise<numbe
 
     return totalSize
   } catch (error) {
-    console.error('无法计算目录大小:', error)
+    console.error('Cannot get directory size:', error)
     return 0
   }
 }
@@ -191,11 +188,11 @@ export async function getDirectorySizeAsync(directoryUri: string): Promise<numbe
 export async function getCacheDirectorySize() {
   // imagePicker and documentPicker will copy files to File, so size will double compututaion
   // this is not equal to ios system cache storage
-  const filesDirectory = new Directory(Paths.cache, 'Files')
+
   // const imagePickerDirectory = new Directory(Paths.cache, 'ImagePicker')
   // const documentPickerDirectory = new Directory(Paths.cache, 'DocumentPicker')
 
-  const filesSize = await getDirectorySizeAsync(filesDirectory.uri)
+  const filesSize = await getDirectorySizeAsync(DEFAULT_STORAGE.uri)
   // const imageSize = await getDirectorySizeAsync(imagePickerDirectory.uri)
   // const documentSize = await getDirectorySizeAsync(documentPickerDirectory.uri)
 

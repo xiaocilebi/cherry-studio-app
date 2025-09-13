@@ -2,6 +2,7 @@ import { Dispatch } from '@reduxjs/toolkit'
 import { Directory, File, Paths } from 'expo-file-system/next'
 import { unzip } from 'react-native-zip-archive'
 
+import { DEFAULT_DOCUMENTS_STORAGE } from '@/constants/storage'
 import { loggerService } from '@/services/LoggerService'
 import { setAvatar, setUserName } from '@/store/settings'
 import { Assistant } from '@/types/assistant'
@@ -16,8 +17,6 @@ import { upsertProviders } from '../../db/queries/providers.queries'
 import { upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
 import { upsertTopics } from './TopicService'
 const logger = loggerService.withContext('Backup Service')
-
-const fileStorageDir = new Directory(Paths.cache, 'Files')
 
 export type RestoreStepId =
   | 'restore_llm_providers'
@@ -107,14 +106,14 @@ export async function restore(
   onProgress: OnProgressCallback,
   dispatch: Dispatch
 ) {
-  if (!fileStorageDir.exists) {
-    fileStorageDir.create({ intermediates: true, overwrite: true })
+  if (!DEFAULT_DOCUMENTS_STORAGE.exists) {
+    DEFAULT_DOCUMENTS_STORAGE.create({ intermediates: true, overwrite: true })
   }
 
   let unzipPath: string | undefined
 
   try {
-    const dataDir = Paths.join(fileStorageDir, backupFile.name.replace('.zip', ''))
+    const dataDir = Paths.join(DEFAULT_DOCUMENTS_STORAGE, backupFile.name.replace('.zip', ''))
     unzipPath = await unzip(backupFile.path, dataDir)
 
     const dataFile = new File(unzipPath, 'data.json')
