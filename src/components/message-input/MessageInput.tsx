@@ -134,7 +134,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
         {/* button */}
         <XStack justifyContent="space-between" alignItems="center">
           <XStack flex={1} gap={10} alignItems="center">
-            <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
+            <ToolButton
+              mentions={mentions}
+              files={files}
+              setFiles={setFiles}
+              assistant={assistant}
+              updateAssistant={updateAssistant}
+            />
             {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
             <MentionButton
               mentions={mentions}

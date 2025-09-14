@@ -3,7 +3,7 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { Keyboard } from 'react-native'
 
-import { Assistant } from '@/types/assistant'
+import { Assistant, Model } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 import { haptic } from '@/utils/haptic'
 
@@ -12,13 +12,20 @@ import ToolSheet from '../sheets/ToolSheet'
 import { IconButton } from '../ui/IconButton'
 
 interface AddAssetsButtonProps {
+  mentions: Model[]
   files: FileMetadata[]
   setFiles: (files: FileMetadata[]) => void
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export const ToolButton: React.FC<AddAssetsButtonProps> = ({ files, setFiles, assistant, updateAssistant }) => {
+export const ToolButton: React.FC<AddAssetsButtonProps> = ({
+  mentions,
+  files,
+  setFiles,
+  assistant,
+  updateAssistant
+}) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const handlePress = () => {
@@ -33,6 +40,7 @@ export const ToolButton: React.FC<AddAssetsButtonProps> = ({ files, setFiles, as
 
       <ToolSheet
         ref={bottomSheetModalRef}
+        mentions={mentions}
         files={files}
         setFiles={setFiles}
         assistant={assistant}
