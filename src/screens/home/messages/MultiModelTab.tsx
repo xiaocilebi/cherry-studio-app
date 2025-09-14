@@ -23,7 +23,13 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
 
   return (
     <View>
-      <Tabs value={currentTab} onValueChange={setCurrentTab} orientation="horizontal" flexDirection="column" flex={1}>
+      <Tabs
+        value={currentTab}
+        onValueChange={setCurrentTab}
+        orientation="horizontal"
+        flexDirection="column"
+        flex={1}
+        gap={5}>
         <Tabs.List>
           <XStack flex={1} gap={8} justifyContent="center" alignItems="center" paddingHorizontal={14}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>

@@ -3,23 +3,23 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
-interface ToolOption {
+interface SystemTool {
   key: string
   label: string
   icon: React.ReactNode
   onPress: () => void
 }
 
-interface ToolOptionsProps {
+interface SystemToolsProps {
   onCameraPress: () => void
   onImagePress: () => void
   onFilePress: () => void
 }
 
-export const ToolOptions: React.FC<ToolOptionsProps> = ({ onCameraPress, onImagePress, onFilePress }) => {
+export const SystemTools: React.FC<SystemToolsProps> = ({ onCameraPress, onImagePress, onFilePress }) => {
   const { t } = useTranslation()
 
-  const options: ToolOption[] = [
+  const options: SystemTool[] = [
     {
       key: 'camera',
       label: t('common.camera'),

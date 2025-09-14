@@ -5,16 +5,17 @@ import { YStack } from 'tamagui'
 
 import { useBottom } from '@/hooks/useBottom'
 import { useTheme } from '@/hooks/useTheme'
-import { Assistant } from '@/types/assistant'
+import { Assistant, Model } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 
-import { AIFeatureOptions } from './AIFeatureOptions'
 import { useCameraModal } from './CameraModal'
-import { ToolOptions } from './ToolOptions'
+import { ExternalTools } from './ExternalTools'
+import { SystemTools } from './SystemTools'
 import { useAIFeatureHandler } from './useAIFeatureHandler'
 import { useFileHandler } from './useFileHandler'
 
 interface ToolSheetProps {
+  mentions: Model[]
   files: FileMetadata[]
   setFiles: (files: FileMetadata[]) => void
   assistant: Assistant
@@ -22,7 +23,7 @@ interface ToolSheetProps {
 }
 
 const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
-  ({ files, setFiles, assistant, updateAssistant }, ref) => {
+  ({ mentions, files, setFiles, assistant, updateAssistant }, ref) => {
     const { isDark } = useTheme()
     const bottom = useBottom()
     const [isVisible, setIsVisible] = useState(false)
@@ -86,12 +87,13 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
           onChange={index => setIsVisible(index >= 0)}>
           <BottomSheetView style={{ paddingBottom: bottom }}>
             <YStack gap={12}>
-              <ToolOptions
+              <SystemTools
                 onCameraPress={handleCameraPress}
                 onImagePress={handleAddImage}
                 onFilePress={handleAddFile}
               />
-              <AIFeatureOptions
+              <ExternalTools
+                mentions={mentions}
                 assistant={assistant}
                 onWebSearchToggle={handleEnableWebSearch}
                 onGenerateImageToggle={handleEnableGenerateImage}

@@ -2,7 +2,6 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { Keyboard } from 'react-native'
-import { Button } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
@@ -10,11 +9,13 @@ import { haptic } from '@/utils/haptic'
 import {
   MdiLightbulbAutoOutline,
   MdiLightbulbOffOutline,
-  MdiLightbulbOn10,
+  MdiLightbulbOn,
+  MdiLightbulbOn30,
   MdiLightbulbOn50,
-  MdiLightbulbOn90
+  MdiLightbulbOn80
 } from '../icons/MdiLightbulbIcon'
 import { ReasoningSheet } from '../sheets/ReasoningSheet'
+import { IconButton } from '../ui/IconButton'
 
 interface ThinkButtonProps {
   assistant: Assistant
@@ -31,11 +32,13 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
       case 'auto':
         return <MdiLightbulbAutoOutline size={size} />
       case 'high':
-        return <MdiLightbulbOn90 size={size} />
+        return <MdiLightbulbOn size={size} />
       case 'medium':
-        return <MdiLightbulbOn50 size={size} />
+        return <MdiLightbulbOn80 size={size} />
       case 'low':
-        return <MdiLightbulbOn10 size={size} />
+        return <MdiLightbulbOn50 size={size} />
+      case 'minimal':
+        return <MdiLightbulbOn30 size={size} />
       case null:
       default:
         return <MdiLightbulbOffOutline size={size} />
@@ -50,7 +53,7 @@ export const ThinkButton: React.FC<ThinkButtonProps> = ({ assistant, updateAssis
 
   return (
     <>
-      <Button chromeless circular size={20} icon={getIcon()} onPress={handlePress} />
+      <IconButton icon={getIcon()} onPress={handlePress} />
 
       {assistant.model && (
         <ReasoningSheet

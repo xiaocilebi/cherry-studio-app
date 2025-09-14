@@ -134,7 +134,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
         {/* button */}
         <XStack justifyContent="space-between" alignItems="center">
           <XStack flex={1} gap={10} alignItems="center">
-            <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
+            <ToolButton
+              mentions={mentions}
+              files={files}
+              setFiles={setFiles}
+              assistant={assistant}
+              updateAssistant={updateAssistant}
+            />
             {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
             <MentionButton
               mentions={mentions}
@@ -144,19 +150,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
             />
             <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
           </XStack>
-          <XStack gap={20} alignItems="center" paddingBottom={5}>
+          <XStack gap={20} alignItems="center">
             <AnimatePresence exitBeforeEnter>
-              {text && !isTopicLoading && (
-                <MotiView
-                  key="send-button"
-                  from={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  transition={{ type: 'timing', duration: 200 }}>
-                  <SendButton onSend={sendMessage} />
-                </MotiView>
-              )}
-              {isTopicLoading && (
+              {isTopicLoading ? (
                 <MotiView
                   key="pause-button"
                   from={{ opacity: 0, scale: 0.5 }}
@@ -165,26 +161,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
                   transition={{ type: 'timing', duration: 200 }}>
                   <PauseButton onPause={onPause} />
                 </MotiView>
+              ) : (
+                <MotiView
+                  key="send-button"
+                  from={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={{ type: 'timing', duration: 200 }}>
+                  <SendButton onSend={sendMessage} disabled={!text} />
+                </MotiView>
               )}
-              {/*{text ? (
-                    <MotiView
-                      key="send-button"
-                      from={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{ type: 'timing', duration: 100 }}>
-                      <SendButton onSend={sendMessage} />
-                    </MotiView>
-                  ) : (
-                    <MotiView
-                      key="voice-button"
-                      from={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{ type: 'timing', duration: 100 }}>
-                      <VoiceButton />
-                    </MotiView>
-                  )}*/}
             </AnimatePresence>
           </XStack>
         </XStack>
