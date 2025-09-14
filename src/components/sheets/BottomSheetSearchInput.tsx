@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
     fontSize: 16,
-    lineHeight: 16 * 1.2,
+    lineHeight: 16,
     width: '100%',
     borderWidth: 1
   }

@@ -1,4 +1,3 @@
-import { LinearGradient } from '@tamagui/linear-gradient'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { isEmpty } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
@@ -9,8 +8,8 @@ import { styled, TextArea, XStack, YStack } from 'tamagui'
 
 import { isReasoningModel } from '@/config/models'
 import { useAssistant } from '@/hooks/useAssistant'
+import { useBottom } from '@/hooks/useBottom'
 import { useMessageOperations, useTopicLoading } from '@/hooks/useMessageOperation'
-import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { sendMessage as _sendMessage } from '@/services/MessagesService'
 import { getUserMessage } from '@/services/MessagesService'
@@ -35,10 +34,9 @@ interface MessageInputProps {
 
 export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const { t } = useTranslation()
-  const { isDark } = useTheme()
   const dispatch = useAppDispatch()
   const { assistant, isLoading, updateAssistant } = useAssistant(topic.assistantId)
-
+  const bottomPad = useBottom()
   const [text, setText] = useState('')
   const [files, setFiles] = useState<FileMetadata[]>([])
   const [mentions, setMentions] = useState<Model[]>([])
@@ -97,78 +95,78 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
     return null
   }
 
+  const InputContent = styled(YStack, {
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+    paddingBottom: bottomPad + 8,
+    borderRadius: 20,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    backgroundColor: '$backgroundOpacity',
+    shadowColor: '$textPrimary',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4
+  })
+
   return (
-    <LinearGradient
-      marginHorizontal={14}
-      padding={1}
-      borderRadius={20}
-      colors={
-        text
-          ? isDark
-            ? ['#acf3a633', '#acf3a6ff', '#acf3a633']
-            : ['#8de59e4d', '#81df94ff', '#8de59e4d']
-          : isDark
-            ? ['#acf3a633', '#acf3a633']
-            : ['#8de59e4d', '#8de59e4d']
-      }
-      start={[0, 0]}
-      end={[1, 1]}>
-      <InputContent>
-        <YStack gap={10}>
-          {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
-          {/* message */}
-          <XStack top={5}>
-            <TextArea
-              minHeight={50}
-              fontSize={16}
-              placeholder={t('inputs.placeholder')}
-              borderWidth={0}
-              backgroundColor="$backgroundPrimary"
-              numberOfLines={10}
-              p={0}
-              flex={1}
-              value={text}
-              onChangeText={setText}
-              paddingVertical={0}
-              color="$textSecondary"
+    <InputContent>
+      <YStack gap={10}>
+        {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
+        {/* message */}
+        <XStack top={5}>
+          <TextArea
+            minHeight={50}
+            fontSize={16}
+            placeholder={t('inputs.placeholder')}
+            backgroundColor="$colorTransparent"
+            borderWidth={0}
+            numberOfLines={10}
+            p={0}
+            flex={1}
+            value={text}
+            onChangeText={setText}
+            paddingVertical={0}
+            color="$textSecondary"
+          />
+        </XStack>
+        {/* button */}
+        <XStack justifyContent="space-between" alignItems="center">
+          <XStack flex={1} gap={10} alignItems="center">
+            <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
+            {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
+            <MentionButton
+              mentions={mentions}
+              setMentions={setMentions}
+              assistant={assistant}
+              updateAssistant={updateAssistant}
             />
+            <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
           </XStack>
-          {/* button */}
-          <XStack justifyContent="space-between" alignItems="center">
-            <XStack flex={1} gap={10} alignItems="center">
-              <ToolButton files={files} setFiles={setFiles} assistant={assistant} updateAssistant={updateAssistant} />
-              {isReasoning && <ThinkButton assistant={assistant} updateAssistant={updateAssistant} />}
-              <MentionButton
-                mentions={mentions}
-                setMentions={setMentions}
-                assistant={assistant}
-                updateAssistant={updateAssistant}
-              />
-              <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
-            </XStack>
-            <XStack gap={20} alignItems="center" paddingBottom={5}>
-              <AnimatePresence exitBeforeEnter>
-                {text && !isTopicLoading && (
-                  <MotiView
-                    key="send-button"
-                    from={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ type: 'timing', duration: 200 }}>
-                    <SendButton onSend={sendMessage} />
-                  </MotiView>
-                )}
-                {isTopicLoading && (
-                  <MotiView
-                    key="pause-button"
-                    from={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ type: 'timing', duration: 200 }}>
-                    <PauseButton onPause={onPause} />
-                  </MotiView>
-                )}
-                {/*{text ? (
+          <XStack gap={20} alignItems="center" paddingBottom={5}>
+            <AnimatePresence exitBeforeEnter>
+              {text && !isTopicLoading && (
+                <MotiView
+                  key="send-button"
+                  from={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={{ type: 'timing', duration: 200 }}>
+                  <SendButton onSend={sendMessage} />
+                </MotiView>
+              )}
+              {isTopicLoading && (
+                <MotiView
+                  key="pause-button"
+                  from={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={{ type: 'timing', duration: 200 }}>
+                  <PauseButton onPause={onPause} />
+                </MotiView>
+              )}
+              {/*{text ? (
                     <MotiView
                       key="send-button"
                       from={{ opacity: 0, scale: 0.5 }}
@@ -187,18 +185,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
                       <VoiceButton />
                     </MotiView>
                   )}*/}
-              </AnimatePresence>
-            </XStack>
+            </AnimatePresence>
           </XStack>
-        </YStack>
-      </InputContent>
-    </LinearGradient>
+        </XStack>
+      </YStack>
+    </InputContent>
   )
 }
-
-const InputContent = styled(YStack, {
-  paddingHorizontal: 16,
-  paddingVertical: 4,
-  borderRadius: 20,
-  backgroundColor: '$backgroundPrimary'
-})

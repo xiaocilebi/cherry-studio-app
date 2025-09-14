@@ -1,8 +1,8 @@
 import { Theme, View, ViewProps } from '@tamagui/core'
 import React from 'react'
-import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { useBottom } from '@/hooks/useBottom'
 import { useTheme } from '@/hooks/useTheme'
 
 interface SafeAreaContainerProps extends ViewProps {
@@ -13,6 +13,7 @@ const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, 
   const insets = useSafeAreaInsets()
   const { isDark } = useTheme()
   const backgroundColor = isDark ? '#121213ff' : '#f7f7f7ff'
+  const specificBottom = useBottom()
 
   return (
     <Theme name={isDark ? 'dark' : 'light'}>
@@ -20,7 +21,7 @@ const SafeAreaContainer: React.FC<SafeAreaContainerProps> = ({ children, style, 
         style={[
           {
             paddingTop: insets.top,
-            paddingBottom: Platform.OS === 'android' ? insets.bottom + 10 : insets.bottom,
+            paddingBottom: specificBottom,
             paddingLeft: insets.left,
             paddingRight: insets.right,
             flex: 1,
