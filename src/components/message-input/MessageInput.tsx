@@ -102,7 +102,12 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
     borderRadius: 20,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    backgroundColor: '$backgroundOpacity'
+    backgroundColor: '$backgroundOpacity',
+    shadowColor: '$textPrimary',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4
   })
 
   return (

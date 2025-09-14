@@ -5,18 +5,20 @@ import debounce from 'lodash/debounce'
 import { forwardRef, useEffect, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, useWindowDimensions } from 'react-native'
+import { BackHandler, Platform, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { ModelTags } from '@/components/ui/ModelTags'
 import { isEmbeddingModel, isRerankModel } from '@/config/models'
+import { useBottom } from '@/hooks/useBottom'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 
+import { EmptyModelView } from '../settings/providers/EmptyModelView'
 import { ProviderIcon } from '../ui/ProviderIcon'
 import { BottomSheetSearchInput } from './BottomSheetSearchInput'
 
@@ -35,6 +37,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const insets = useSafeAreaInsets()
+  const bottom = useBottom()
   const dimensions = useWindowDimensions()
 
   const debouncedSetQuery = debounce((query: string) => {
@@ -154,7 +157,11 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       }}
       backdropComponent={renderBackdrop}
       enablePanDownToClose={true}
+      topInset={insets.top}
+      bottomInset={bottom}
       android_keyboardInputMode="adjustResize"
+      keyboardBehavior={Platform.OS === 'ios' ? 'interactive' : 'fillParent'}
+      keyboardBlurBehavior="restore"
       maxDynamicContentSize={dimensions.height - 2 * insets.top}
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
@@ -182,54 +189,58 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
               <Button circular backgroundColor="$uiCard" onPress={handleClearAll} icon={<BrushCleaning size={18} />} />
             )}
           </XStack>
-          {selectOptions.map((group, groupIndex) => (
-            <View key={group.title || group.label || groupIndex} gap={12}>
-              <XStack gap={12} alignItems="center" justifyContent="flex-start" paddingHorizontal={4}>
-                <XStack width={32} height={32} borderRadius={8} alignItems="center" justifyContent="center">
-                  <ProviderIcon provider={group.provider} />
+          {selectOptions.length === 0 ? (
+            <EmptyModelView />
+          ) : (
+            selectOptions.map((group, groupIndex) => (
+              <View key={group.title || group.label || groupIndex} gap={12}>
+                <XStack gap={12} alignItems="center" justifyContent="flex-start" paddingHorizontal={4}>
+                  <XStack width={32} height={32} borderRadius={8} alignItems="center" justifyContent="center">
+                    <ProviderIcon provider={group.provider} />
+                  </XStack>
+                  <Text fontSize={15} fontWeight="bold" color="$gray12">
+                    {group.label}
+                  </Text>
                 </XStack>
-                <Text fontSize={15} fontWeight="bold" color="$gray12">
-                  {group.label}
-                </Text>
-              </XStack>
-              <YStack gap={6}>
-                {group.options.map(item => (
-                  <Button
-                    key={item.value}
-                    onPress={() => handleModelToggle(item.value)}
-                    justifyContent="space-between"
-                    chromeless
-                    paddingHorizontal={8}
-                    paddingVertical={8}
-                    borderWidth={1}
-                    borderRadius={16}
-                    borderColor={selectedModels.includes(item.value) ? '$green20' : 'transparent'}
-                    backgroundColor={selectedModels.includes(item.value) ? '$green10' : 'transparent'}>
-                    <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
-                      <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
-                        {/* Model icon */}
-                        <XStack justifyContent="center" alignItems="center" flexShrink={0}>
-                          <ModelIcon model={item.model} />
+                <YStack gap={6}>
+                  {group.options.map(item => (
+                    <Button
+                      key={item.value}
+                      onPress={() => handleModelToggle(item.value)}
+                      justifyContent="space-between"
+                      chromeless
+                      paddingHorizontal={8}
+                      paddingVertical={8}
+                      borderWidth={1}
+                      borderRadius={16}
+                      borderColor={selectedModels.includes(item.value) ? '$green20' : 'transparent'}
+                      backgroundColor={selectedModels.includes(item.value) ? '$green10' : 'transparent'}>
+                      <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
+                        <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
+                          {/* Model icon */}
+                          <XStack justifyContent="center" alignItems="center" flexShrink={0}>
+                            <ModelIcon model={item.model} />
+                          </XStack>
+                          {/* Model name */}
+                          <Text
+                            color={selectedModels.includes(item.value) ? '$green100' : undefined}
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            flex={1}>
+                            {item.label}
+                          </Text>
                         </XStack>
-                        {/* Model name */}
-                        <Text
-                          color={selectedModels.includes(item.value) ? '$green100' : undefined}
-                          numberOfLines={1}
-                          ellipsizeMode="tail"
-                          flex={1}>
-                          {item.label}
-                        </Text>
+                        <XStack gap={8} alignItems="center" flexShrink={0}>
+                          {/* Model tags */}
+                          <ModelTags model={item.model} size={11} />
+                        </XStack>
                       </XStack>
-                      <XStack gap={8} alignItems="center" flexShrink={0}>
-                        {/* Model tags */}
-                        <ModelTags model={item.model} size={11} />
-                      </XStack>
-                    </XStack>
-                  </Button>
-                ))}
-              </YStack>
-            </View>
-          ))}
+                    </Button>
+                  ))}
+                </YStack>
+              </View>
+            ))
+          )}
         </YStack>
       </BottomSheetScrollView>
     </BottomSheetModal>
