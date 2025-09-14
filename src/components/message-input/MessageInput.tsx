@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard } from 'react-native'
+import { Keyboard, Platform } from 'react-native'
 import { styled, TextArea, XStack, YStack } from 'tamagui'
 
 import { isReasoningModel } from '@/config/models'
@@ -98,7 +98,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const InputContent = styled(YStack, {
     paddingHorizontal: 18,
     paddingVertical: 8,
-    paddingBottom: bottomPad + 8,
+    paddingBottom: Platform.OS === 'android' ? bottomPad + 8 : bottomPad,
     borderRadius: 20,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
