@@ -109,7 +109,7 @@ const ChatScreen = () => {
         failOffsetY={[-20, 20]}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          keyboardVerticalOffset={-specificBottom}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? -20 : -specificBottom}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <YStack flex={1}>
             <HeaderBar topic={topic} />
