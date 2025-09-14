@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
-import { Keyboard, TouchableOpacity } from 'react-native'
+import { Keyboard } from 'react-native'
 
 import { Assistant } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
@@ -9,6 +9,7 @@ import { haptic } from '@/utils/haptic'
 
 import { AssetsIcon } from '../icons/AssetsIcon'
 import ToolSheet from '../sheets/ToolSheet'
+import { IconButton } from '../ui/IconButton'
 
 interface AddAssetsButtonProps {
   files: FileMetadata[]
@@ -28,9 +29,7 @@ export const ToolButton: React.FC<AddAssetsButtonProps> = ({ files, setFiles, as
 
   return (
     <>
-      <TouchableOpacity onPress={handlePress}>
-        <AssetsIcon size={20} />
-      </TouchableOpacity>
+      <IconButton icon={<AssetsIcon size={20} />} onPress={handlePress} />
 
       <ToolSheet
         ref={bottomSheetModalRef}

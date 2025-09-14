@@ -1,15 +1,19 @@
-import { Send } from '@tamagui/lucide-icons'
+import { CircleArrowUp } from '@tamagui/lucide-icons'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+
+import { IconButton } from '../ui/IconButton'
 
 interface SendButtonProps {
   onSend: () => void
+  disabled?: boolean
 }
 
-export const SendButton: React.FC<SendButtonProps> = ({ onSend }) => {
+export const SendButton: React.FC<SendButtonProps> = ({ onSend, disabled = false }) => {
   return (
-    <TouchableOpacity onPress={onSend}>
-      <Send size={20} />
-    </TouchableOpacity>
+    <IconButton
+      icon={<CircleArrowUp size={20} color={disabled ? '#999' : undefined} />}
+      onPress={disabled ? undefined : onSend}
+      disabled={disabled}
+    />
   )
 }

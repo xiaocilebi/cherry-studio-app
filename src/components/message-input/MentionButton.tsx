@@ -103,7 +103,7 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
 
   return (
     <>
-      <TouchableOpacity style={{ maxWidth: BUTTON_STYLES.maxWidth }} onPress={handlePress}>
+      <TouchableOpacity style={{ maxWidth: BUTTON_STYLES.maxWidth }} onPress={handlePress} hitSlop={5}>
         {renderButtonContent()}
       </TouchableOpacity>
 
