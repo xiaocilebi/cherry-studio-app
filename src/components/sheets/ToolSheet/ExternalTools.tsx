@@ -40,10 +40,7 @@ export const ExternalTools: React.FC<ExternalToolsProps> = ({
       getTextColor: () => (assistant.enableWebSearch ? '$green100' : '$textPrimary'),
       getTrailingIcon: () => (assistant.enableWebSearch ? <Check size={18} color="$green100" /> : null),
       // 网络搜索模型 && 设置了工具调用 && 设置了网络搜索服务商 才能开启网络搜索
-      shouldShow:
-        isWebSearchModel(mentions[0]) &&
-        assistant.settings?.toolUseMode !== undefined &&
-        assistant.webSearchProviderId !== undefined
+      shouldShow: isWebSearchModel(mentions[0]) && !!assistant.settings?.toolUseMode && !!assistant.webSearchProviderId
     },
     {
       key: 'generateImage',
