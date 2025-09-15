@@ -45,9 +45,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   const isReasoning = isReasoningModel(assistant?.model)
 
   useEffect(() => {
-    if (!assistant || !assistant?.defaultModel || mentions.length !== 0) return
+    if (!assistant || !assistant?.defaultModel) return
     setMentions([assistant?.defaultModel])
-  }, [assistant, mentions])
+  }, [assistant, assistant?.id, assistant?.defaultModel])
 
   const sendMessage = async () => {
     if (isEmpty(text.trim()) || !assistant) {
