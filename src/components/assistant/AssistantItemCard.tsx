@@ -7,6 +7,9 @@ import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from './EmojiAvator'
 import GroupTag from './market/GroupTag'
+import { formateEmoji } from '@/utils/formats'
+import { BlurView } from 'expo-blur'
+import { Platform } from 'react-native'
 
 interface AssistantItemCardProps {
   assistant: Assistant
@@ -22,48 +25,74 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   }
 
   return (
-    <View padding={6} width="100%">
-      <YStack
+    <View padding={6}>
+      <View
         onPress={handlePress}
         height={230}
-        gap={8}
-        alignItems="center"
         backgroundColor="$uiCardBackground"
         borderRadius={16}
-        paddingVertical={16}
-        paddingHorizontal={14}
+        overflow="hidden"
         pressStyle={{
           backgroundColor: '$gray20'
         }}>
-        <EmojiAvatar
-          emoji={assistant.emoji}
-          size={90}
-          borderWidth={5}
-          borderColor={isDark ? '#333333' : '$backgroundPrimary'}
-        />
-        <Text fontSize={16} textAlign="center" numberOfLines={1} ellipsizeMode="tail">
-          {assistant.name}
-        </Text>
-        <YStack flex={1} justifyContent="space-between" alignItems="center">
-          <Text color="$textSecondary" fontSize={12} lineHeight={14} numberOfLines={3} ellipsizeMode="tail">
-            {assistant.description}
+        {/* 背景模糊emoji */}
+        <View
+          top={0}
+          left={0}
+          right={0}
+          overflow="hidden"
+          position="absolute"
+          alignItems="center"
+          justifyContent="center"
+          scale={1}
+          transformOrigin="center center">
+          <Text fontSize={140} opacity={0.2}>
+            {formateEmoji(assistant.emoji)}
           </Text>
-          <XStack gap={10}>
-            {assistant.group &&
-              assistant.group.map((group, index) => (
-                <GroupTag
-                  key={index}
-                  group={group}
-                  fontSize={8}
-                  backgroundColor="$green10"
-                  color="$green100"
-                  borderWidth={0.5}
-                  borderColor="$green20"
-                />
-              ))}
-          </XStack>
+        </View>
+        {/* BlurView模糊层 */}
+        <BlurView
+          intensity={60}
+          experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
+          tint={isDark ? 'dark' : 'light'}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 90 / 2
+          }}
+        />
+
+        <YStack flex={1} gap={8} alignItems="center" borderRadius={16} paddingVertical={16} paddingHorizontal={14}>
+          <EmojiAvatar
+            emoji={assistant.emoji}
+            size={90}
+            borderWidth={5}
+            borderColor={isDark ? '#333333' : '$backgroundPrimary'}
+          />
+          <Text fontSize={16} textAlign="center" numberOfLines={1} ellipsizeMode="tail">
+            {assistant.name}
+          </Text>
+          <YStack flex={1} justifyContent="space-between" alignItems="center">
+            <Text color="$textSecondary" fontSize={12} lineHeight={14} numberOfLines={3} ellipsizeMode="tail">
+              {assistant.description}
+            </Text>
+            <XStack gap={10}>
+              {assistant.group &&
+                assistant.group.map((group, index) => (
+                  <GroupTag
+                    key={index}
+                    group={group}
+                    fontSize={10}
+                    backgroundColor="$green10"
+                    color="$green100"
+                    borderWidth={0.5}
+                    borderColor="$green20"
+                  />
+                ))}
+            </XStack>
+          </YStack>
         </YStack>
-      </YStack>
+      </View>
     </View>
   )
 }
