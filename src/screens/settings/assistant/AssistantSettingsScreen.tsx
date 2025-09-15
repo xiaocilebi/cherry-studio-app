@@ -86,7 +86,7 @@ function AssistantSettingItem({
 
   const handleModelChange = async (models: Model[]) => {
     const newModel = models[0]
-    await updateAssistant({ ...assistant, defaultModel: newModel })
+    await updateAssistant({ ...assistant, model: newModel, defaultModel: newModel })
   }
 
   return (

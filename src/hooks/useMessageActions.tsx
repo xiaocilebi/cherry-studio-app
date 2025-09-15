@@ -15,7 +15,7 @@ import { getMainTextContent } from '@/utils/messageUtils/find'
 import { findTranslationBlocks } from '@/utils/messageUtils/find'
 
 import { removeManyBlocks } from '../../db/queries/messageBlocks.queries'
-import { upsertMessages, updateMessageById, getMessagesByTopicId } from '../../db/queries/messages.queries'
+import { getMessagesByTopicId, updateMessageById, upsertMessages } from '../../db/queries/messages.queries'
 import { useDialog } from './useDialog'
 import { useToast } from './useToast'
 
@@ -200,33 +200,29 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
   const handleBestAnswer = async () => {
     try {
       const newUsefulState = !message.useful
-      
+
       // 如果要标记为最佳答案，需要先将同一个askId组中的其他消息设置为非最佳答案
       if (newUsefulState && message.askId) {
         // 获取当前话题的所有消息
         const allMessages = await getMessagesByTopicId(message.topicId)
-        
+
         // 找到同一个askId组的所有消息（包括问题消息和其他回答）
-        const relatedMessages = allMessages.filter(msg => 
-          msg.askId === message.askId || msg.id === message.askId
-        )
-        
+        const relatedMessages = allMessages.filter(msg => msg.askId === message.askId || msg.id === message.askId)
+
         // 将所有相关消息的useful状态设置为false
         const updatePromises = relatedMessages
           .filter(msg => msg.id !== message.id && msg.useful) // 排除当前消息，只更新其他有用标记的消息
           .map(msg => updateMessageById(msg.id, { useful: false }))
-        
+
         await Promise.all(updatePromises)
         logger.info(`Reset useful state for ${updatePromises.length} related messages in askId group: ${message.askId}`)
       }
-      
+
       // 更新当前消息的useful状态
       await updateMessageById(message.id, { useful: newUsefulState })
-      
-      const successMessage = newUsefulState 
-        ? t('message.marked_as_best_answer')
-        : t('message.unmarked_as_best_answer')
-      
+
+      const successMessage = newUsefulState ? t('message.marked_as_best_answer') : t('message.unmarked_as_best_answer')
+
       toast.show(successMessage)
       logger.info(`Message ${message.id} useful state updated to: ${newUsefulState}`)
     } catch (error) {

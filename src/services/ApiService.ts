@@ -193,7 +193,7 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
   const streamProcessorCallbacks = createStreamProcessor(callbacks)
   const quickAssistant = await getAssistantById('quick')
 
-  if (!quickAssistant.model) {
+  if (!quickAssistant.defaultModel) {
     return
   }
 
@@ -205,9 +205,9 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
   // LLM对多条消息的总结有问题，用单条结构化的消息表示会话内容会更好
   const mainTextMessages = await filterMainTextMessages(contextMessages)
 
-  const llmMessages = await convertMessagesToSdkMessages(mainTextMessages, quickAssistant.model)
+  const llmMessages = await convertMessagesToSdkMessages(mainTextMessages, quickAssistant.defaultModel)
 
-  const AI = new ModernAiProvider(quickAssistant.model || getDefaultModel(), provider)
+  const AI = new ModernAiProvider(quickAssistant.defaultModel || getDefaultModel(), provider)
   const { params: aiSdkParams, modelId } = await buildStreamTextParams(llmMessages, quickAssistant, provider)
 
   const middlewareConfig: AiSdkMiddlewareConfig = {
