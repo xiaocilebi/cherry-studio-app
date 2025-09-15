@@ -103,6 +103,7 @@ export default function AssistantScreen() {
                 keyExtractor={(_, index) => `skeleton-${index}`}
                 estimatedItemSize={80}
                 ItemSeparatorComponent={() => <YStack height={10} />}
+                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
               />
             ) : (
               <FlashList
