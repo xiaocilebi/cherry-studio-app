@@ -84,8 +84,8 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
         <XStack
           alignItems="center"
           gap={10}
-          paddingHorizontal={12}
-          paddingVertical={10}
+          paddingHorizontal={14}
+          paddingVertical={12}
           borderRadius={16}
           borderWidth={1}
           borderColor={item.isSelected ? '$green20' : 'transparent'}

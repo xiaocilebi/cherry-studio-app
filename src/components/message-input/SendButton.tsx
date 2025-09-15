@@ -11,7 +11,7 @@ interface SendButtonProps {
 export const SendButton: React.FC<SendButtonProps> = ({ onSend, disabled = false }) => {
   return (
     <IconButton
-      icon={<ArrowUp size={18} color={disabled ? '#eeeeee' : '#ffffff'} />}
+      icon={<ArrowUp size={20} color={disabled ? '#eeeeee' : '#ffffff'} />}
       onPress={disabled ? undefined : onSend}
       style={{
         borderRadius: 99,

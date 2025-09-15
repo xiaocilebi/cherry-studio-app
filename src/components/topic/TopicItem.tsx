@@ -197,12 +197,12 @@ const TopicItem: FC<TopicItemProps> = ({
         backgroundColor={isActive ? '$green10' : 'transparent'}>
         <EmojiAvatar
           emoji={assistant?.emoji}
-          size={40}
+          size={42}
           borderRadius={16}
           borderWidth={3}
           borderColor={isDark ? '#444444' : '#ffffff'}
         />
-        <YStack flex={1} gap={4}>
+        <YStack flex={1} gap={3}>
           <XStack justifyContent="space-between">
             <Text fontSize={14} lineHeight={16} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
@@ -216,7 +216,7 @@ const TopicItem: FC<TopicItemProps> = ({
           ) : (
             <Text
               fontSize={13}
-              lineHeight={13}
+              lineHeight={15}
               numberOfLines={1}
               ellipsizeMode="tail"
               fontWeight="400"
