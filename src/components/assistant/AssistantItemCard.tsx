@@ -9,7 +9,7 @@ import EmojiAvatar from './EmojiAvator'
 import GroupTag from './market/GroupTag'
 import { formateEmoji } from '@/utils/formats'
 import { BlurView } from 'expo-blur'
-import { Platform } from 'react-native'
+import { Platform, ScrollView } from 'react-native'
 
 interface AssistantItemCardProps {
   assistant: Assistant
@@ -37,14 +37,13 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
         }}>
         {/* 背景模糊emoji */}
         <View
-          top={0}
+          top="-50%"
           left={0}
           right={0}
-          overflow="hidden"
           position="absolute"
           alignItems="center"
           justifyContent="center"
-          scale={1}
+          scale={2}
           transformOrigin="center center">
           <Text fontSize={140} opacity={0.2}>
             {formateEmoji(assistant.emoji)}
@@ -52,13 +51,12 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
         </View>
         {/* BlurView模糊层 */}
         <BlurView
-          intensity={60}
+          intensity={Platform.OS === 'android' ? 60 : 70}
           experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
           tint={isDark ? 'dark' : 'light'}
           style={{
             position: 'absolute',
-            inset: 0,
-            borderRadius: 90 / 2
+            inset: 0
           }}
         />
 
@@ -76,7 +74,7 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
             <Text color="$textSecondary" fontSize={12} lineHeight={14} numberOfLines={3} ellipsizeMode="tail">
               {assistant.description}
             </Text>
-            <XStack gap={10}>
+            <XStack gap={10} flexWrap="wrap" height={18} justifyContent="center" overflow="hidden">
               {assistant.group &&
                 assistant.group.map((group, index) => (
                   <GroupTag

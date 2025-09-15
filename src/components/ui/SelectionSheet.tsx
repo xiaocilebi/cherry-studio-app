@@ -145,7 +145,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
         showsVerticalScrollIndicator={false}
         estimatedItemSize={60}
         ItemSeparatorComponent={() => <YStack height={10} />}
-        contentContainerStyle={{ paddingBottom: insets.bottom, paddingHorizontal: 16 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 16, paddingHorizontal: 16 }}
       />
     </BottomSheetModal>
   )

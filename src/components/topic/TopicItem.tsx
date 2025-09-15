@@ -204,7 +204,7 @@ const TopicItem: FC<TopicItemProps> = ({
         />
         <YStack flex={1} gap={3}>
           <XStack justifyContent="space-between">
-            <Text fontSize={14} lineHeight={16} fontWeight="bold" color="$textPrimary">
+            <Text fontSize={14} lineHeight={18} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
             <Text fontSize={11} color="$textSecondary" flexShrink={0} textWrap="nowrap">
