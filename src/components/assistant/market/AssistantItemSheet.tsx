@@ -22,6 +22,8 @@ import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../EmojiAvator'
 import GroupTag from './GroupTag'
+import { setCurrentTopicId } from '@/store/topic'
+import { useAppDispatch } from '@/store'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -39,6 +41,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const { t } = useTranslation()
     const { isDark } = useCustomTheme()
     const { bottom } = useSafeAreaInsets()
+    const dispatch = useAppDispatch()
     const toast = useToast()
     const [isVisible, setIsVisible] = useState(false)
 
@@ -76,6 +79,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
       }
 
       const topic = await createNewTopic(newAssistant)
+      dispatch(setCurrentTopicId(topic.id))
       await onChatNavigation(topic.id)
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
