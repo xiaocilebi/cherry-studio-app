@@ -22,6 +22,7 @@ import { haptic } from '@/utils/haptic'
 
 import { useDialog } from '../../hooks/useDialog'
 import EmojiAvatar from '../assistant/EmojiAvator'
+import { useToast } from '@/hooks/useToast'
 
 type TimeFormat = 'time' | 'date'
 
@@ -67,7 +68,7 @@ const TopicItem: FC<TopicItemProps> = ({
   const dialog = useDialog()
   const { isDark } = useTheme()
   const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
-
+  const toast = useToast()
   const openTopic = () => {
     dispatch(setCurrentTopicId(topic.id))
 
@@ -141,7 +142,7 @@ const TopicItem: FC<TopicItemProps> = ({
       await fetchTopicNaming(topic.id, true)
       haptic(ImpactFeedbackStyle.Medium)
     } catch (error) {
-      console.error('Error generating topic name:', error)
+      toast.show(t('common.error_occurred' + '\n' + (error as Error)?.message), { color: '$red100', duration: 2500 })
     } finally {
       setIsGeneratingName(false)
     }
