@@ -158,7 +158,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       backdropComponent={renderBackdrop}
       enablePanDownToClose={true}
       topInset={insets.top}
-      bottomInset={bottom}
       android_keyboardInputMode="adjustResize"
       keyboardBehavior={Platform.OS === 'ios' ? 'interactive' : 'fillParent'}
       keyboardBlurBehavior="restore"
