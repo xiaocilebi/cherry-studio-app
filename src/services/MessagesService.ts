@@ -41,6 +41,7 @@ import {
   upsertMessages
 } from '../../db/queries/messages.queries'
 import { getTopicById, updateTopicMessages } from '../../db/queries/topics.queries'
+import { fetchTopicNaming } from './ApiService'
 import { getAssistantById, getDefaultModel } from './AssistantService'
 import { BlockManager, createCallbacks } from './messageStreaming'
 import { transformMessagesAndFetch } from './OrchestrationService'
@@ -487,6 +488,8 @@ export async function fetchAndProcessAssistantResponseImpl(
       // 确保无论如何都设置 loading 为 false（onError 回调中已设置，这里是保险）
       dispatch(newMessagesActions.setTopicLoading({ topicId, loading: false }))
     }
+  } finally {
+    await fetchTopicNaming(topicId)
   }
 }
 
@@ -645,7 +648,7 @@ export async function fetchTranslateThunk(assistantMessageId: string, message: M
 
   const streamProcessorCallbacks = createStreamProcessor(callbacks)
 
-  if (!translateAssistant.model) {
+  if (!translateAssistant.defaultModel) {
     throw new Error('Translate assistant model is not defined')
   }
 
@@ -654,15 +657,15 @@ export async function fetchTranslateThunk(assistantMessageId: string, message: M
     ...message,
     role: 'user'
   }
-  const llmMessages = await convertMessagesToSdkMessages([message], translateAssistant.model)
+  const llmMessages = await convertMessagesToSdkMessages([message], translateAssistant.defaultModel)
 
-  const AI = new ModernAiProvider(translateAssistant.model || getDefaultModel(), provider)
+  const AI = new ModernAiProvider(translateAssistant.defaultModel || getDefaultModel(), provider)
   const { params: aiSdkParams, modelId } = await buildStreamTextParams(llmMessages, translateAssistant, provider)
 
   const middlewareConfig: AiSdkMiddlewareConfig = {
     streamOutput: true,
     onChunk: streamProcessorCallbacks,
-    model: translateAssistant.model,
+    model: translateAssistant.defaultModel,
     provider: provider,
     enableReasoning: false,
     isPromptToolUse: false,

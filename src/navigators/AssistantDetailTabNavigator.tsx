@@ -79,7 +79,7 @@ function CustomTabBar({ state, navigation }: any) {
               justifyContent: 'center'
             }}>
             <Text
-              fontSize={12}
+              fontSize={14}
               fontWeight="bold"
               color={isFocused ? (isDark ? '#acf3a6ff' : '#81df94ff') : isDark ? '#f9f9f9ff' : '#202020ff'}>
               {tabLabels[route.name as keyof typeof tabLabels]}
