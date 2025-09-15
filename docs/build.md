@@ -12,8 +12,8 @@ npm install -g expo-cli eas-cli
 | -------------------------------- | --------------------------------------------------------------------- |
 | 安卓本地构建（debug）            | `cd android && ./gradlew assembleDebug`                               |
 | 安卓本地构建（release）          | `cd android && ./gradlew assembleRelease`                             |
-| iOS 本地构建（debug）            | `cd ios && xcodebuild -scheme CherryStudioApp -configuration Debug`   |
-| iOS 本地构建（release）          | `cd ios && xcodebuild -scheme CherryStudioApp -configuration Release` |
+| iOS 本地构建（debug）            | `cd ios && xcodebuild -scheme CherryStudio -configuration Debug`   |
+| iOS 本地构建（release）          | `cd ios && xcodebuild -scheme CherryStudio -configuration Release` |
 | 使用 EAS 线上编译安卓（debug）   | `eas build --platform android --profile development --local`          |
 | 使用 EAS 线上编译安卓（release） | `eas build --platform android --local`                                |
 | 使用 EAS 线上编译安卓            | `eas build --platform android`                                        |
