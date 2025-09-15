@@ -1,16 +1,17 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw, ThumbsUp } from '@tamagui/lucide-icons'
+import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw, ThumbsUp, Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { View, XStack } from 'tamagui'
 
+import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
 import { IconButton } from '@/components/ui/IconButton'
+import SelectionSheet from '@/components/ui/SelectionSheet'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
 import { haptic } from '@/utils/haptic'
-
-import MessageFooterMoreSheet from './MessageFooterMoreSheet'
 
 interface MessageFooterProps {
   assistant: Assistant
@@ -20,10 +21,45 @@ interface MessageFooterProps {
 
 const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFooterProps) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-  const { playState, handleCopy, handleRegenerate, handlePlay, handleBestAnswer } = useMessageActions({
+  const {
+    isTranslated,
+    playState,
+    handleCopy,
+    handleRegenerate,
+    handlePlay,
+    handleBestAnswer,
+    handleDeleteTranslation,
+    handleTranslate,
+    handleDelete
+  } = useMessageActions({
     message,
     assistant
   })
+
+  const { t } = useTranslation()
+
+  const moreItems = [
+    {
+      id: 'translate',
+      label: isTranslated ? t('common.delete_translation') : t('message.translate_message'),
+      icon: isTranslated ? (
+        <TranslatedIcon size={18} color={isTranslated ? 'red' : '$textPrimary'} />
+      ) : (
+        <TranslationIcon size={18} color="$textPrimary" />
+      ),
+      color: isTranslated ? '$red100' : undefined,
+      backgroundColor: isTranslated ? '$red20' : undefined,
+      onSelect: isTranslated ? handleDeleteTranslation : handleTranslate
+    },
+    {
+      id: 'delete',
+      label: t('message.delete_message'),
+      icon: <Trash2 size={18} color="$red100" />,
+      color: '$red100',
+      backgroundColor: '$red20',
+      onSelect: handleDelete
+    }
+  ]
 
   const getAudioIcon = () => {
     switch (playState) {
@@ -56,7 +92,8 @@ const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFoot
           }}
         />
       </XStack>
-      <MessageFooterMoreSheet ref={bottomSheetModalRef} message={message} />
+
+      <SelectionSheet ref={bottomSheetModalRef} items={moreItems} />
     </View>
   )
 }

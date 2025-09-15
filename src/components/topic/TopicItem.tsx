@@ -10,6 +10,7 @@ import { Input } from 'tamagui'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 import i18n from '@/i18n'
 import { fetchTopicNaming } from '@/services/ApiService'
 import { getAssistantById } from '@/services/AssistantService'
@@ -67,6 +68,7 @@ const TopicItem: FC<TopicItemProps> = ({
   const dialog = useDialog()
   const { isDark } = useTheme()
   const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
+  const toast = useToast()
 
   const openTopic = () => {
     dispatch(setCurrentTopicId(topic.id))
@@ -141,7 +143,7 @@ const TopicItem: FC<TopicItemProps> = ({
       await fetchTopicNaming(topic.id, true)
       haptic(ImpactFeedbackStyle.Medium)
     } catch (error) {
-      console.error('Error generating topic name:', error)
+      toast.show(t('common.error_occurred' + '\n' + (error as Error)?.message), { color: '$red100', duration: 2500 })
     } finally {
       setIsGeneratingName(false)
     }
@@ -197,14 +199,14 @@ const TopicItem: FC<TopicItemProps> = ({
         backgroundColor={isActive ? '$green10' : 'transparent'}>
         <EmojiAvatar
           emoji={assistant?.emoji}
-          size={40}
+          size={42}
           borderRadius={16}
           borderWidth={3}
           borderColor={isDark ? '#444444' : '#ffffff'}
         />
-        <YStack flex={1} gap={4}>
+        <YStack flex={1} gap={3}>
           <XStack justifyContent="space-between">
-            <Text fontSize={14} lineHeight={16} fontWeight="bold" color="$textPrimary">
+            <Text fontSize={14} lineHeight={18} fontWeight="bold" color="$textPrimary">
               {assistant?.name}
             </Text>
             <Text fontSize={11} color="$textSecondary" flexShrink={0} textWrap="nowrap">
@@ -216,7 +218,7 @@ const TopicItem: FC<TopicItemProps> = ({
           ) : (
             <Text
               fontSize={13}
-              lineHeight={13}
+              lineHeight={15}
               numberOfLines={1}
               ellipsizeMode="tail"
               fontWeight="400"

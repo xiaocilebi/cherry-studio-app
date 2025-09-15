@@ -1,8 +1,6 @@
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import React, { forwardRef, useEffect, useMemo, useState } from 'react'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import React, { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { View } from 'tamagui'
 
 import {
@@ -15,15 +13,15 @@ import {
 } from '@/components/icons/MdiLightbulbIcon'
 import { getThinkModelType, MODEL_SUPPORTED_OPTIONS } from '@/config/models'
 import { isDoubaoThinkingAutoModel } from '@/config/models'
-import { useTheme } from '@/hooks/useTheme'
 import { Assistant, Model, ThinkingOption } from '@/types/assistant'
 
-import SelectionList, { SelectionListItem } from '../ui/SelectionList'
+import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
 
 interface ReasoningSheetProps {
   model: Model
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>
+  ref: React.RefObject<BottomSheetModal | null>
 }
 
 const createThinkingIcon = (option?: ThinkingOption) => {
@@ -45,108 +43,66 @@ const createThinkingIcon = (option?: ThinkingOption) => {
   }
 }
 
-const renderBackdrop = (props: any) => (
-  <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
-)
+export const ReasoningSheet: FC<ReasoningSheetProps> = ({ model, assistant, updateAssistant, ref }) => {
+  const { t } = useTranslation()
 
-export const ReasoningSheet = forwardRef<BottomSheetModal, ReasoningSheetProps>(
-  ({ model, assistant, updateAssistant }, ref) => {
-    const { t } = useTranslation()
-    const { isDark } = useTheme()
-    const [isVisible, setIsVisible] = useState(false)
+  // Converted from useMemo to a simple const
+  const currentReasoningEffort = assistant.settings?.reasoning_effort || 'off'
 
-    const insets = useSafeAreaInsets()
+  const modelType = getThinkModelType(model)
 
-    // Converted from useMemo to a simple const
-    const currentReasoningEffort = assistant.settings?.reasoning_effort || 'off'
-
-    const modelType = getThinkModelType(model)
-
-    // 获取当前模型支持的选项
-    const supportedOptions: ThinkingOption[] = useMemo(() => {
-      if (modelType === 'doubao') {
-        if (isDoubaoThinkingAutoModel(model)) {
-          return ['off', 'auto', 'high']
-        }
-
-        return ['off', 'high']
+  // 获取当前模型支持的选项
+  const supportedOptions: ThinkingOption[] = useMemo(() => {
+    if (modelType === 'doubao') {
+      if (isDoubaoThinkingAutoModel(model)) {
+        return ['off', 'auto', 'high']
       }
 
-      return MODEL_SUPPORTED_OPTIONS[modelType]
-    }, [model, modelType])
-
-    const onValueChange = (option?: ThinkingOption) => {
-      const isEnabled = option !== undefined && option !== 'off'
-
-      if (!isEnabled) {
-        updateAssistant({
-          ...assistant,
-          settings: {
-            ...assistant.settings,
-            reasoning_effort: undefined,
-            reasoning_effort_cache: undefined,
-            qwenThinkMode: false
-          }
-        })
-      } else {
-        updateAssistant({
-          ...assistant,
-          settings: {
-            ...assistant.settings,
-            reasoning_effort: option,
-            reasoning_effort_cache: option,
-            qwenThinkMode: true
-          }
-        })
-      }
-
-      ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
+      return ['off', 'high']
     }
 
-    const sheetOptions: SelectionListItem[] = supportedOptions.map(option => ({
-      value: option,
-      label: t(`assistants.settings.reasoning.${option}`),
-      icon: (
-        <View width={20} height={20}>
-          {createThinkingIcon(option)}
-        </View>
-      ),
-      isSelected: currentReasoningEffort === option,
-      onSelect: () => onValueChange(option)
-    }))
+    return MODEL_SUPPORTED_OPTIONS[modelType]
+  }, [model, modelType])
 
-    useEffect(() => {
-      if (!isVisible) return
+  const onValueChange = (option?: ThinkingOption) => {
+    const isEnabled = option !== undefined && option !== 'off'
 
-      const backAction = () => {
-        ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-        return true
-      }
+    if (!isEnabled) {
+      updateAssistant({
+        ...assistant,
+        settings: {
+          ...assistant.settings,
+          reasoning_effort: undefined,
+          reasoning_effort_cache: undefined,
+          qwenThinkMode: false
+        }
+      })
+    } else {
+      updateAssistant({
+        ...assistant,
+        settings: {
+          ...assistant.settings,
+          reasoning_effort: option,
+          reasoning_effort_cache: option,
+          qwenThinkMode: true
+        }
+      })
+    }
 
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-      return () => backHandler.remove()
-    }, [ref, isVisible])
-
-    return (
-      <BottomSheetModal
-        backdropComponent={renderBackdrop}
-        enableDynamicSizing={true}
-        ref={ref}
-        backgroundStyle={{
-          borderRadius: 30,
-          backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-        }}
-        handleIndicatorStyle={{
-          backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-        }}
-        onDismiss={() => setIsVisible(false)}
-        onChange={index => setIsVisible(index >= 0)}>
-        <BottomSheetView style={{ paddingBottom: insets.bottom }}>
-          <SelectionList items={sheetOptions} />
-        </BottomSheetView>
-      </BottomSheetModal>
-    )
+    ref.current?.dismiss()
   }
-)
 
-ReasoningSheet.displayName = 'ReasoningSheet'
+  const sheetOptions: SelectionSheetItem[] = supportedOptions.map(option => ({
+    key: option,
+    label: t(`assistants.settings.reasoning.${option}`),
+    icon: (
+      <View width={20} height={20}>
+        {createThinkingIcon(option)}
+      </View>
+    ),
+    isSelected: currentReasoningEffort === option,
+    onSelect: () => onValueChange(option)
+  }))
+
+  return <SelectionSheet items={sheetOptions} ref={ref} />
+}

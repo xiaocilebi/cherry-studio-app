@@ -95,7 +95,8 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         ItemSeparatorComponent={() => <YStack height={20} />}
         contentContainerStyle={{
-          flexGrow: 1
+          flexGrow: 1,
+          paddingTop: 16
         }}
         initialNumToRender={2}
         maxToRenderPerBatch={10}

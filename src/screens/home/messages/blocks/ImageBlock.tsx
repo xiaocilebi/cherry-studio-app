@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import { View } from 'tamagui'
 
 import ImageItem from '@/components/message-input/preview-items/ImageItem'
 import ImageSkeleton from '@/components/ui/ImageSkeleton'

@@ -1,15 +1,14 @@
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { FC, useEffect, useRef, useState } from 'react'
 import React from 'react'
-import { BackHandler, Pressable, TouchableOpacity } from 'react-native'
+import { BackHandler, Pressable } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
-import { Text, YStack } from 'tamagui'
-import { XStack } from 'tamagui'
 import * as ZeegoContextMenu from 'zeego/context-menu'
 
 import { useTheme } from '@/hooks/useTheme'
 import { isAndroid, isIOS } from '@/utils/device'
-import SelectionList from './SelectionList'
+
+import SelectionSheet from './SelectionSheet'
 
 export interface ContextMenuListProps {
   title: string
@@ -38,7 +37,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
   borderRadius = 0,
   withHighLight = true
 }) => {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const selectionSheetRef = useRef<BottomSheetModal>(null)
   const { isDark } = useTheme()
   const [isVisible, setIsVisible] = useState(false)
 
@@ -46,7 +45,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
     if (!isVisible) return
 
     const backAction = () => {
-      bottomSheetModalRef.current?.dismiss()
+      selectionSheetRef.current?.dismiss()
       return true
     }
 
@@ -102,11 +101,11 @@ const ContextMenu: FC<ContextMenuProps> = ({
 
     const openBottomSheet = () => {
       if (disableContextMenu) return
-      bottomSheetModalRef.current?.present()
+      selectionSheetRef.current?.present()
     }
 
     const closeBottomSheet = () => {
-      bottomSheetModalRef.current?.dismiss()
+      selectionSheetRef.current?.dismiss()
     }
 
     const onAndroidSelect = (fn: () => void) => {
@@ -130,30 +129,16 @@ const ContextMenu: FC<ContextMenuProps> = ({
           })}>
           {children}
         </Pressable>
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          enableDynamicSizing={true}
-          backgroundStyle={{
-            borderRadius: 24,
-            backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
-          }}
-          handleIndicatorStyle={{
-            backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-          }}
-          backdropComponent={renderBackdrop}
-          onDismiss={() => setIsVisible(false)}
-          onChange={index => setIsVisible(index >= 0)}>
-          <BottomSheetView>
-            <SelectionList
-              items={list.map(item => ({
-                key: item.title,
-                label: item.title,
-                icon: item.androidIcon,
-                onSelect: () => onAndroidSelect(item.onSelect)
-              }))}
-            />
-          </BottomSheetView>
-        </BottomSheetModal>
+
+        <SelectionSheet
+          ref={selectionSheetRef}
+          items={list.map(item => ({
+            key: item.title,
+            label: item.title,
+            icon: item.androidIcon,
+            onSelect: () => onAndroidSelect(item.onSelect)
+          }))}
+        />
       </>
     )
   }

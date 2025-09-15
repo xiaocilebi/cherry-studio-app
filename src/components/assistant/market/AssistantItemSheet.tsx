@@ -1,9 +1,11 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Settings2 } from '@tamagui/lucide-icons'
+import { BlurView } from 'expo-blur'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
@@ -16,6 +18,7 @@ import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
+import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../EmojiAvator'
@@ -102,23 +105,47 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         snapPoints={['80%']}
         enableDynamicSizing={false}
         ref={ref}
-        style={{
-          paddingHorizontal: 25
-        }}
         backgroundStyle={{
           borderRadius: 30,
           backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
         }}
-        handleIndicatorStyle={{
-          backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
-        }}
+        handleComponent={() => null}
         backdropComponent={renderBackdrop}
         onDismiss={() => setIsVisible(false)}
         onChange={index => setIsVisible(index >= 0)}>
         {!assistant ? null : (
           <YStack flex={1} gap={17}>
+            {/* 背景模糊emoji */}
+            <View
+              borderRadius={30}
+              top={0}
+              left={0}
+              right={0}
+              overflow="hidden"
+              position="absolute"
+              alignItems="center"
+              justifyContent="center"
+              scale={3}
+              transformOrigin="center center">
+              <Text fontSize={140} opacity={0.1}>
+                {formateEmoji(assistant.emoji)}
+              </Text>
+            </View>
+            {/* BlurView模糊层 */}
+            <BlurView
+              intensity={Platform.OS === 'android' ? 60 : 80}
+              experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
+              tint={isDark ? 'dark' : 'light'}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                overflow: 'hidden',
+                borderRadius: 30
+              }}
+            />
+
             {/* Main Content */}
-            <YStack flex={1} gap={25}>
+            <YStack flex={1} gap={25} paddingHorizontal={25}>
               {/* Header with emoji and groups */}
               <YStack justifyContent="center" alignItems="center" gap={20}>
                 <View marginTop={20}>
@@ -188,6 +215,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
             </YStack>
             {/* Footer positioned absolutely at the bottom */}
             <XStack
+              paddingHorizontal={25}
               bottom={bottom}
               justifyContent="space-between"
               alignItems="center"

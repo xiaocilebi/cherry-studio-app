@@ -740,6 +740,7 @@
     },
     "topics": {
       "new_topic": "新主題",
+      "select_assistant": "選擇新對話助手",
       "rename": {
         "title": "重新命名主題"
       },

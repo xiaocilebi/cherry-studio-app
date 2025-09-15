@@ -77,9 +77,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
         </Button>
       </YStack>
       <YStack width="100%" gap={8}>
-        <SettingRowTitle paddingHorizontal={10}>
-          {t('settings.websearch.provider.title')}
-        </SettingRowTitle>
+        <SettingRowTitle paddingHorizontal={10}>{t('settings.websearch.provider.title')}</SettingRowTitle>
         <Button
           chromeless
           height={30}

@@ -116,9 +116,7 @@ const ChatScreen = () => {
 
             <View
               style={{
-                flex: 1,
-                marginVertical: 10,
-                paddingHorizontal: 0
+                flex: 1
               }}>
               {/* ChatContent use key to re-render screen content */}
               {/* if remove key, change topic will not re-render */}

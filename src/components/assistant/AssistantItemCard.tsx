@@ -1,9 +1,11 @@
+import { BlurView } from 'expo-blur'
 import React from 'react'
-import { Dimensions } from 'react-native'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Platform } from 'react-native'
+import { Text, View, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
+import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from './EmojiAvator'
@@ -17,35 +19,51 @@ interface AssistantItemCardProps {
 const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
   const { isDark } = useTheme()
 
-  // 计算卡片宽度和高度
-  const screenWidth = Dimensions.get('window').width
-  const horizontalPadding = 20 // 左右各10px的padding
-  const columnGap = 8 // 列间距
-  const cardWidth = (screenWidth - horizontalPadding * 2 - columnGap) / 2
-  const cardHeight = cardWidth / 0.78 // 宽高比为0.78
-
   const handlePress = () => {
     haptic()
     onAssistantPress(assistant)
   }
 
   return (
-    <Button
-      onPress={handlePress}
-      width={cardWidth}
-      height={cardHeight}
-      padding={0}
-      backgroundColor="$uiCardBackground"
-      borderRadius={16}
-      pressStyle={{
-        backgroundColor: '$gray20'
-      }}
-      unstyled>
-      <YStack padding={14} width="100%" height="100%" borderRadius={16}>
-        <YStack gap={8} alignItems="center" height="100%">
+    <View padding={6}>
+      <View
+        onPress={handlePress}
+        height={230}
+        backgroundColor="$uiCardBackground"
+        borderRadius={16}
+        overflow="hidden"
+        pressStyle={{
+          backgroundColor: '$gray20'
+        }}>
+        {/* 背景模糊emoji */}
+        <View
+          top="-50%"
+          left={0}
+          right={0}
+          position="absolute"
+          alignItems="center"
+          justifyContent="center"
+          scale={2}
+          transformOrigin="center center">
+          <Text fontSize={140} opacity={0.2}>
+            {formateEmoji(assistant.emoji)}
+          </Text>
+        </View>
+        {/* BlurView模糊层 */}
+        <BlurView
+          intensity={Platform.OS === 'android' ? 60 : 70}
+          experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
+          tint={isDark ? 'dark' : 'light'}
+          style={{
+            position: 'absolute',
+            inset: 0
+          }}
+        />
+
+        <YStack flex={1} gap={8} alignItems="center" borderRadius={16} paddingVertical={16} paddingHorizontal={14}>
           <EmojiAvatar
             emoji={assistant.emoji}
-            size={cardWidth / 2}
+            size={90}
             borderWidth={5}
             borderColor={isDark ? '#333333' : '$backgroundPrimary'}
           />
@@ -56,13 +74,13 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
             <Text color="$textSecondary" fontSize={12} lineHeight={14} numberOfLines={3} ellipsizeMode="tail">
               {assistant.description}
             </Text>
-            <XStack gap={10}>
+            <XStack gap={10} flexWrap="wrap" height={18} justifyContent="center" overflow="hidden">
               {assistant.group &&
                 assistant.group.map((group, index) => (
                   <GroupTag
                     key={index}
                     group={group}
-                    fontSize={8}
+                    fontSize={10}
                     backgroundColor="$green10"
                     color="$green100"
                     borderWidth={0.5}
@@ -72,8 +90,8 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
             </XStack>
           </YStack>
         </YStack>
-      </YStack>
-    </Button>
+      </View>
+    </View>
   )
 }
 

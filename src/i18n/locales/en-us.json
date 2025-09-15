@@ -740,6 +740,7 @@
     },
     "topics": {
       "new_topic": "New Topic",
+      "select_assistant": "Select New Assistant",
       "rename": {
         "title": "Rename Topic"
       },
