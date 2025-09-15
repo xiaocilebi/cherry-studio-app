@@ -1,4 +1,4 @@
-import { AudioLines, CirclePause, Copy, RefreshCw, ThumbsUp, TextSelect, Trash2 } from '@tamagui/lucide-icons'
+import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, ThumbsUp, Trash2 } from '@tamagui/lucide-icons'
 import { FC, memo, useEffect, useRef, useState } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,9 +7,9 @@ import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationI
 import TextSelectionSheet, { TextSelectionSheetRef } from '@/components/sheets/TextSelectionSheet'
 import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
 import { useMessageActions } from '@/hooks/useMessageActions'
+import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
-import { useTheme } from '@/hooks/useTheme'
 
 interface MessageItemProps {
   children: React.ReactNode

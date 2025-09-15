@@ -97,7 +97,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
 
   const InputContent = styled(YStack, {
     paddingHorizontal: 18,
-    paddingVertical: 8,
+    paddingVertical: 8, 
     paddingBottom: Platform.OS === 'android' ? bottomPad + 8 : bottomPad,
     borderRadius: 20,
     borderBottomLeftRadius: 0,

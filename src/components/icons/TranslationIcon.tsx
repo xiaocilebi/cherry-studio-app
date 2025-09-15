@@ -51,7 +51,7 @@ export function TranslationIcon(props: IconProps) {
 
 export function TranslatedIcon(props: IconProps) {
   const { isDark } = useTheme()
-  const fillColor = isDark ? 'white' : 'black'
+  const fillColor = props.color || (isDark ? 'white' : 'black')
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 20 20" fill="none" {...props}>
       <Path

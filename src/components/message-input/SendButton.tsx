@@ -1,4 +1,4 @@
-import { CircleArrowUp } from '@tamagui/lucide-icons'
+import { ArrowUp } from '@tamagui/lucide-icons'
 import React from 'react'
 
 import { IconButton } from '../ui/IconButton'
@@ -11,8 +11,13 @@ interface SendButtonProps {
 export const SendButton: React.FC<SendButtonProps> = ({ onSend, disabled = false }) => {
   return (
     <IconButton
-      icon={<CircleArrowUp size={20} color={disabled ? '#999' : undefined} />}
+      icon={<ArrowUp size={18} color={disabled ? '#eeeeee' : '#ffffff'} />}
       onPress={disabled ? undefined : onSend}
+      style={{
+        borderRadius: 99,
+        padding: 3,
+        backgroundColor: disabled ? '#cccccc' : '#81df94'
+      }}
       disabled={disabled}
     />
   )

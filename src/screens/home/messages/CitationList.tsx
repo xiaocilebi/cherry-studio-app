@@ -1,4 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
@@ -8,7 +9,6 @@ import FallbackFavicon from '@/components/icons/FallbackFavicon'
 import CitationSheet from '@/components/sheets/CitationSheet'
 import { Citation } from '@/types/websearch'
 import { haptic } from '@/utils/haptic'
-import { ImpactFeedbackStyle } from 'expo-haptics'
 
 interface PreviewIconProps {
   citation: Citation

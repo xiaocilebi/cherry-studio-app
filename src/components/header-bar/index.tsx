@@ -11,7 +11,7 @@ import { haptic } from '@/utils/haptic'
 
 import { IconButton } from '../ui/IconButton'
 import { AssistantSelection } from './AssistantSelection'
-import { NewTopicButton } from './NewTopicButton'
+import NewTopicButton from './NewTopicButton'
 
 interface HeaderBarProps {
   topic: Topic

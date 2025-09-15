@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import React from 'react'
-import { View } from 'tamagui'
 
 import FileItem from '@/components/message-input/preview-items/FileItem'
 import { FileMessageBlock } from '@/types/message'
