@@ -5,6 +5,7 @@ import { Text, YStack } from 'tamagui'
 
 import AssistantItemCard from '@/components/assistant/AssistantItemCard'
 import { Assistant } from '@/types/assistant'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface AssistantsTabProps {
   assistants: Assistant[]
@@ -17,13 +18,13 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
   assistants,
   onAssistantPress,
   numColumns = 2,
-  estimatedItemSize = 220
+  estimatedItemSize = 230
 }) => {
   const { t } = useTranslation()
+  const insets = useSafeAreaInsets()
+
   const renderItem = ({ item }: { item: Assistant }) => (
-    <YStack flex={1} padding={4}>
-      <AssistantItemCard assistant={item} onAssistantPress={onAssistantPress} />
-    </YStack>
+    <AssistantItemCard assistant={item} onAssistantPress={onAssistantPress} />
   )
 
   if (!assistants || assistants.length === 0) {
@@ -47,7 +48,7 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
         showsVerticalScrollIndicator={false}
         removeClippedSubviews
         drawDistance={200}
-        contentContainerStyle={{ paddingBottom: 30 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom }}
       />
     </YStack>
   )

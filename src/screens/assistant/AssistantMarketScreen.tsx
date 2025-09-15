@@ -76,7 +76,7 @@ export default function AssistantMarketScreen() {
               onPress: handleMenuPress
             }}
           />
-          <SettingContainer paddingVertical={0}>
+          <SettingContainer paddingVertical={0} style={{ gap: 10 }}>
             <SearchInput
               placeholder={t('assistants.market.search_placeholder')}
               value={searchText}
