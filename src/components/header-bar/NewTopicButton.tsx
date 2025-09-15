@@ -17,18 +17,23 @@ import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../assistant/EmojiAvator'
 import SelectionSheet from '../ui/SelectionSheet'
+import { useTranslation } from 'react-i18next'
+import { YStack, Text } from 'tamagui'
+import { useTheme } from '@/hooks/useTheme'
 
 interface NewTopicButtonProps {
   assistant: Assistant
 }
 
 const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
+  const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
   const dispatch = useAppDispatch()
   const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
   const selectionSheetRef = useRef<BottomSheetModal | null>(null)
+  const { isDark } = useTheme()
 
   const handleAddNewTopic = async (selectedAssistant?: Assistant) => {
     haptic(ImpactFeedbackStyle.Medium)
@@ -67,9 +72,27 @@ const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
 
     return assistantWithTopics.map(assistantItem => ({
       key: assistantItem.id,
-      label: assistantItem.name,
-      description: assistantItem.description,
-      icon: <EmojiAvatar emoji={assistantItem.emoji} size={30} borderRadius={12} borderWidth={1} />,
+      label: (
+        <YStack gap={3}>
+          <Text fontSize={16} lineHeight={18} ellipsizeMode="tail" numberOfLines={1}>
+            {assistantItem.name}
+          </Text>
+          {assistantItem.description && (
+            <Text fontSize={12} ellipsizeMode="tail" numberOfLines={1} color="$textSecondary" opacity={0.7}>
+              {assistantItem.description}
+            </Text>
+          )}
+        </YStack>
+      ),
+      icon: (
+        <EmojiAvatar
+          emoji={assistantItem.emoji}
+          size={42}
+          borderRadius={16}
+          borderWidth={3}
+          borderColor={isDark ? '#444444' : '#eeeeee'}
+        />
+      ),
       onSelect: () => handleSelectAssistant(assistantItem)
     }))
   }, [assistantWithTopics, isLoading])
@@ -93,7 +116,7 @@ const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
         items={selectionItems}
         snapPoints={['40%', '90%']}
         ref={selectionSheetRef}
-        placeholder="选择新对话助手"
+        placeholder={t('topics.select_assistant')}
       />
     </>
   )

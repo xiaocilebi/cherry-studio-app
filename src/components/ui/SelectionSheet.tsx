@@ -133,7 +133,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
       onChange={index => setIsVisible(index >= 0)}>
       {placeholder && (
         <View paddingHorizontal={16} paddingBottom={8}>
-          <Text fontSize={12} color="$textSecondary" textAlign="center">
+          <Text fontSize={14} color="$textSecondary" textAlign="center" opacity={0.6}>
             {placeholder}
           </Text>
         </View>

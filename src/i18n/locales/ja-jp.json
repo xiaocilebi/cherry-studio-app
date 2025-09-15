@@ -740,6 +740,7 @@
     },
     "topics": {
       "new_topic": "新しいトピック",
+      "select_assistant": "新しいアシスタントを選択",
       "rename": {
         "title": "トピック名を変更"
       },
