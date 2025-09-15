@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StackActions, useNavigation } from '@react-navigation/native'
-import { useEffect, useRef, useState } from 'react'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions, Image, TouchableOpacity } from 'react-native'
 import PagerView from 'react-native-pager-view'
 import { Button, Text, View, XStack, YStack } from 'tamagui'

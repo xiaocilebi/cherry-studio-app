@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { Trash2 } from '@tamagui/lucide-icons'
 import { isEmpty } from 'lodash'
-import { FC } from 'react'
-import React from 'react'
+import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 

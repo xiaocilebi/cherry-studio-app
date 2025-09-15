@@ -1,6 +1,5 @@
 import { Languages } from '@tamagui/lucide-icons'
-import { FC } from 'react'
-import React from 'react'
+import React, { FC } from 'react'
 import { Separator, View, XStack } from 'tamagui'
 
 import { TranslationMessageBlock } from '@/types/message'

@@ -1,7 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SquareFunction, Wrench } from '@tamagui/lucide-icons'
-import { FC } from 'react'
-import React from 'react'
+import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Assistant } from '@/types/assistant'

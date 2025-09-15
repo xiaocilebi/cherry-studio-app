@@ -1,7 +1,6 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ChevronRight } from '@tamagui/lucide-icons'
-import { useCallback, useState } from 'react'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 

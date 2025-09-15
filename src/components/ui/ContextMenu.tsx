@@ -1,6 +1,5 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
-import { FC, useEffect, useRef, useState } from 'react'
-import React from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { BackHandler, Pressable } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
 import * as ZeegoContextMenu from 'zeego/context-menu'

@@ -11,8 +11,7 @@ import {
   MdiLightbulbOn50,
   MdiLightbulbOn80
 } from '@/components/icons/MdiLightbulbIcon'
-import { getThinkModelType, MODEL_SUPPORTED_OPTIONS } from '@/config/models'
-import { isDoubaoThinkingAutoModel } from '@/config/models'
+import { getThinkModelType, MODEL_SUPPORTED_OPTIONS, isDoubaoThinkingAutoModel } from '@/config/models'
 import { Assistant, Model, ThinkingOption } from '@/types/assistant'
 
 import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'

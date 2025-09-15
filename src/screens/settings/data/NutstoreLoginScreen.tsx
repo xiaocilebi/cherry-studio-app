@@ -1,6 +1,5 @@
 import { ChevronRight, HardDriveDownload, HardDriveUpload, LogOut, RefreshCcw, UserPlus } from '@tamagui/lucide-icons'
-import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
 

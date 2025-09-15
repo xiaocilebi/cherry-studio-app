@@ -1,5 +1,4 @@
-import { FC } from 'react'
-import React from 'react'
+import React, { FC } from 'react'
 import { View } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
