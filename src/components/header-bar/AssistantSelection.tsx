@@ -4,8 +4,7 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Text, XStack, YStack } from 'tamagui'
 
-import { Assistant } from '@/types/assistant'
-import { Topic } from '@/types/assistant'
+import { Assistant, Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 
 import AssistantItemSheet from '../assistant/market/AssistantItemSheet'

@@ -5,8 +5,7 @@ import { ChevronDown, Languages, MessageSquareMore, Rocket, Settings2 } from '@t
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Button, Text, XStack, YStack } from 'tamagui'
-import { Image } from 'tamagui'
+import { Button, Text, XStack, YStack, Image } from 'tamagui'
 
 import { SettingContainer, SettingHelpText } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'

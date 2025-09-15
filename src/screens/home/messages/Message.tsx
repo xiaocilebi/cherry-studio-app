@@ -1,5 +1,4 @@
-import { FC, memo } from 'react'
-import React from 'react'
+import React, { FC, memo } from 'react'
 
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'

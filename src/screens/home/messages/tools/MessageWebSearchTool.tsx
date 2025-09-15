@@ -1,7 +1,6 @@
 import { Search } from '@tamagui/lucide-icons'
 import React from 'react'
-import { styled, XStack } from 'tamagui'
-import { Text } from 'tamagui'
+import { styled, XStack, Text } from 'tamagui'
 
 import { WebSearchToolInput, WebSearchToolOutput } from '@/aiCore/tools/WebSearchTool'
 import Searching from '@/components/ui/Searching'

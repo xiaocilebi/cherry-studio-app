@@ -1,6 +1,5 @@
 import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, ThumbsUp, Trash2 } from '@tamagui/lucide-icons'
-import { FC, memo, useEffect, useRef, useState } from 'react'
-import React from 'react'
+import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'

@@ -1,5 +1,4 @@
-import { FC } from 'react'
-import React from 'react'
+import React, { FC } from 'react'
 import { View } from 'tamagui'
 
 import { FileMetadata, FileTypes } from '@/types/file'

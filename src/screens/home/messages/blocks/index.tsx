@@ -1,5 +1,4 @@
-import { FC, memo, useMemo } from 'react'
-import React from 'react'
+import React, { FC, memo, useMemo } from 'react'
 import { View, XStack } from 'tamagui'
 
 import { loggerService } from '@/services/LoggerService'

@@ -1,7 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet'
 import { File, Paths } from 'expo-file-system/next'
-import { forwardRef, useEffect, useState } from 'react'
-import React from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

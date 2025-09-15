@@ -1,6 +1,5 @@
 import { Keyboard } from 'react-native'
-import { Separator, styled, XStack, YStack } from 'tamagui'
-import { Text, View } from 'tamagui'
+import { Separator, styled, XStack, YStack, Text, View } from 'tamagui'
 
 export const SettingContainer = styled(YStack, {
   flex: 1,

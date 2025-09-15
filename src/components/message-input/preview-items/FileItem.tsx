@@ -1,6 +1,5 @@
 import { Share, X } from '@tamagui/lucide-icons'
-import { FC } from 'react'
-import React from 'react'
+import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import FileViewer from 'react-native-file-viewer'
