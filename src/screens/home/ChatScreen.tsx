@@ -120,7 +120,9 @@ const ChatScreen = () => {
                 marginVertical: 10,
                 paddingHorizontal: 0
               }}>
-              {!hasMessage ? <WelcomeContent /> : <ChatContent topic={topic} />}
+              {/* ChatContent use key to re-render screen content */}
+              {/* if remove key, change topic will not re-render */}
+              {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}
             </View>
             <MessageInput topic={topic} />
           </YStack>
