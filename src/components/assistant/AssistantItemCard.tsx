@@ -1,15 +1,15 @@
+import { BlurView } from 'expo-blur'
 import React from 'react'
-import { Button, Text, View, XStack, YStack } from 'tamagui'
+import { Platform } from 'react-native'
+import { Text, View, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
+import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from './EmojiAvator'
 import GroupTag from './market/GroupTag'
-import { formateEmoji } from '@/utils/formats'
-import { BlurView } from 'expo-blur'
-import { Platform, ScrollView } from 'react-native'
 
 interface AssistantItemCardProps {
   assistant: Assistant

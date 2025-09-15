@@ -1,11 +1,11 @@
 import { FlashList } from '@shopify/flash-list'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Text, YStack } from 'tamagui'
 
 import AssistantItemCard from '@/components/assistant/AssistantItemCard'
 import { Assistant } from '@/types/assistant'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface AssistantsTabProps {
   assistants: Assistant[]

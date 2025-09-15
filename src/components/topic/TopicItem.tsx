@@ -10,6 +10,7 @@ import { Input } from 'tamagui'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 import i18n from '@/i18n'
 import { fetchTopicNaming } from '@/services/ApiService'
 import { getAssistantById } from '@/services/AssistantService'
@@ -22,7 +23,6 @@ import { haptic } from '@/utils/haptic'
 
 import { useDialog } from '../../hooks/useDialog'
 import EmojiAvatar from '../assistant/EmojiAvator'
-import { useToast } from '@/hooks/useToast'
 
 type TimeFormat = 'time' | 'date'
 
@@ -69,6 +69,7 @@ const TopicItem: FC<TopicItemProps> = ({
   const { isDark } = useTheme()
   const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
   const toast = useToast()
+
   const openTopic = () => {
     dispatch(setCurrentTopicId(topic.id))
 

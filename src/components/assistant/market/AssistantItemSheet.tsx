@@ -1,9 +1,11 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Settings2 } from '@tamagui/lucide-icons'
+import { BlurView } from 'expo-blur'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler } from 'react-native'
+import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
@@ -16,13 +18,11 @@ import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
+import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../EmojiAvator'
 import GroupTag from './GroupTag'
-import { BlurView } from 'expo-blur'
-import { Platform } from 'react-native'
-import { formateEmoji } from '@/utils/formats'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null

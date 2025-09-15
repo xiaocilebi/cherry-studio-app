@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
 import React from 'react'
-import { View, YStack } from 'tamagui'
 
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'

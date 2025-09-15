@@ -1,8 +1,9 @@
-import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
 import { FC } from 'react'
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { View } from 'tamagui'
+
+import { useTheme } from '@/hooks/useTheme'
 
 const AssistantItemSkeleton: FC = () => {
   const { isDark } = useTheme()

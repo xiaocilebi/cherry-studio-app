@@ -3,9 +3,12 @@ import { useNavigation } from '@react-navigation/native'
 import { MessageSquareDiff } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Pressable } from 'react-native'
+import { Text, YStack } from 'tamagui'
 
 import { useExternalAssistants } from '@/hooks/useAssistant'
+import { useTheme } from '@/hooks/useTheme'
 import { useTopics } from '@/hooks/useTopic'
 import { createNewTopic, getNewestTopic } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
@@ -17,9 +20,6 @@ import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../assistant/EmojiAvator'
 import SelectionSheet from '../ui/SelectionSheet'
-import { useTranslation } from 'react-i18next'
-import { YStack, Text } from 'tamagui'
-import { useTheme } from '@/hooks/useTheme'
 
 interface NewTopicButtonProps {
   assistant: Assistant
