@@ -213,7 +213,7 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
   const middlewareConfig: AiSdkMiddlewareConfig = {
     streamOutput: false,
     onChunk: streamProcessorCallbacks,
-    model: quickAssistant.model,
+    model: quickAssistant.defaultModel,
     provider: provider,
     enableReasoning: false,
     isPromptToolUse: false,

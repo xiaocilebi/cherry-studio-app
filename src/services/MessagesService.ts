@@ -662,7 +662,7 @@ export async function fetchTranslateThunk(assistantMessageId: string, message: M
   const middlewareConfig: AiSdkMiddlewareConfig = {
     streamOutput: true,
     onChunk: streamProcessorCallbacks,
-    model: translateAssistant.model,
+    model: translateAssistant.defaultModel,
     provider: provider,
     enableReasoning: false,
     isPromptToolUse: false,
