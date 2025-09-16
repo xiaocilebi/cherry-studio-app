@@ -45,6 +45,8 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const toast = useToast()
     const [isVisible, setIsVisible] = useState(false)
 
+    const emojiOpacity = Platform.OS === 'android' ? (isDark ? 0.2 : 0.9) : isDark ? 0.2 : 0.5
+
     useEffect(() => {
       if (!isVisible) return
 
@@ -119,24 +121,27 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         {!assistant ? null : (
           <YStack flex={1} gap={17}>
             {/* 背景模糊emoji */}
-            <View
+            <XStack
+              width={'100%'}
+              height={200}
               borderRadius={30}
               top={0}
               left={0}
               right={0}
               overflow="hidden"
               position="absolute"
-              alignItems="center"
-              justifyContent="center"
-              scale={3}
-              transformOrigin="center center">
-              <Text fontSize={140} opacity={0.1}>
-                {formateEmoji(assistant.emoji)}
-              </Text>
-            </View>
+              flexWrap="wrap">
+              {Array.from({ length: 70 }).map((_, index) => (
+                <View key={index} width={'9.99%'} scale={1.5} alignItems="center" justifyContent="center">
+                  <Text fontSize={20} opacity={emojiOpacity}>
+                    {formateEmoji(assistant.emoji)}
+                  </Text>
+                </View>
+              ))}
+            </XStack>
             {/* BlurView模糊层 */}
             <BlurView
-              intensity={Platform.OS === 'android' ? 60 : 80}
+              intensity={Platform.OS === 'android' ? 90 : 90}
               experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
               tint={isDark ? 'dark' : 'light'}
               style={{

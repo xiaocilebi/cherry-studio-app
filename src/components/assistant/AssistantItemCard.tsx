@@ -19,6 +19,8 @@ interface AssistantItemCardProps {
 const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
   const { isDark } = useTheme()
 
+  const emojiOpacity = Platform.OS === 'android' ? (isDark ? 0.1 : 0.9) : isDark ? 0.2 : 0.5
+
   const handlePress = () => {
     haptic()
     onAssistantPress(assistant)
@@ -36,22 +38,18 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
           backgroundColor: '$gray20'
         }}>
         {/* 背景模糊emoji */}
-        <View
-          top="-50%"
-          left={0}
-          right={0}
-          position="absolute"
-          alignItems="center"
-          justifyContent="center"
-          scale={2}
-          transformOrigin="center center">
-          <Text fontSize={140} opacity={0.2}>
-            {formateEmoji(assistant.emoji)}
-          </Text>
-        </View>
+        <XStack width={'100%'} height={'50%'} top={0} left={0} right={0} position="absolute" flexWrap="wrap">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <View key={index} width={'25%'} scale={1.5} alignItems="center" justifyContent="center">
+              <Text fontSize={40} opacity={emojiOpacity}>
+                {formateEmoji(assistant.emoji)}
+              </Text>
+            </View>
+          ))}
+        </XStack>
         {/* BlurView模糊层 */}
         <BlurView
-          intensity={Platform.OS === 'android' ? 60 : 70}
+          intensity={90}
           experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
           tint={isDark ? 'dark' : 'light'}
           style={{
