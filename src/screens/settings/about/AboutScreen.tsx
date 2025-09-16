@@ -1,9 +1,19 @@
 import * as ExpoLinking from 'expo-linking'
 import React from 'react'
-import { Text, Image, XStack, YStack, PressableRow, Row, Group, Container, SafeAreaContainer } from '@/componentsV2'
+import {
+  Text,
+  Image,
+  XStack,
+  YStack,
+  PressableRow,
+  Row,
+  Group,
+  Container,
+  SafeAreaContainer,
+  HeaderBar
+} from '@/componentsV2'
 import { useTranslation } from 'react-i18next'
 
-import { HeaderBar } from '@/components/settings/HeaderBar'
 import { loggerService } from '@/services/LoggerService'
 import { ArrowUpRight, Copyright, Github, Globe, Mail, Rss } from '@/componentsV2/icons/LucideIcon'
 const logger = loggerService.withContext('AboutScreen')

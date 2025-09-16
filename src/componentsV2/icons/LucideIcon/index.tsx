@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowUpRight, Copyright, Github, Globe, LucideIcon, Mail, Rss } from 'lucide-react-native'
+import { ArrowLeft, ArrowUpRight, Copyright, Github, Globe, LucideIcon, Mail, Rss } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
 import { cn } from '../../utils'
 
@@ -15,6 +15,7 @@ function interopIcon(icon: LucideIcon) {
   })
 }
 
+interopIcon(ArrowLeft)
 interopIcon(ArrowUpRight)
 interopIcon(Copyright)
 interopIcon(Github)
@@ -29,6 +30,7 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   return Wrapped
 }
 
+const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const CopyrightIcon = withDefaultIconClass(Copyright)
 const GithubIcon = withDefaultIconClass(Github)
@@ -37,6 +39,7 @@ const MailIcon = withDefaultIconClass(Mail)
 const RssIcon = withDefaultIconClass(Rss)
 
 export {
+  ArrowLeftIcon as ArrowLeft,
   ArrowUpRightIcon as ArrowUpRight,
   CopyrightIcon as Copyright,
   GithubIcon as Github,

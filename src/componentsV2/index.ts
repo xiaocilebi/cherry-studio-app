@@ -10,3 +10,5 @@ export { default as Row, type RowProps } from './layout/Row'
 export { default as Group, type GroupProps } from './layout/Group'
 export { default as Container, type ContainerProps } from './layout/Container'
 export { default as SafeAreaContainer, type SafeAreaContainerProps } from './layout/SafeAreaContainer'
+// Interactive components
+export { default as HeaderBar, type HeaderBarProps } from './interactive/HeaderBar'
