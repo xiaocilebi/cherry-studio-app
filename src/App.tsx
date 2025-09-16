@@ -14,7 +14,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
 import { StatusBar } from 'expo-status-bar'
 import React, { Suspense, useEffect } from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Provider, useSelector } from 'react-redux'
@@ -41,6 +41,8 @@ import { DialogProvider } from './hooks/useDialog'
 import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { SafeAreaContainer } from './componentsV2'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -103,8 +105,8 @@ function ThemedApp() {
   const { themeSetting, activeTheme, reactNavigationTheme, isDark } = useTheme()
 
   return (
-    <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
-      <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
+    <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
+      <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
         <PortalProvider>
           <KeyboardProvider>
             <NavigationContainer theme={reactNavigationTheme}>
@@ -122,8 +124,8 @@ function ThemedApp() {
             </NavigationContainer>
           </KeyboardProvider>
         </PortalProvider>
-      </TamaguiProvider>
-    </HeroUINativeProvider>
+      </HeroUINativeProvider>
+    </TamaguiProvider>
   )
 }
 

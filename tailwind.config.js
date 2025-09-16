@@ -8,43 +8,31 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Brand colors
-        'color-brand': '#00b96b',
-
-        // Purple variants
+        // Base color tokens
+        brand: '#00b96b',
         purple: {
           100: '#9c96f9',
           20: '#9c96f933'
         },
-
-        // Orange variants
         orange: {
           100: '#ffb26e',
           20: '#ffb26e33',
           10: '#ffb26e1a'
         },
-
-        // Blue variants
         blue: {
           100: '#6fb1fa',
           20: '#6fb1fa33',
           10: '#6fb1fa1a'
         },
-
-        // Pink variants
         pink: {
           100: '#e398c9',
           20: '#e398c933'
         },
-
-        // Red variants
         red: {
           100: '#ff0000',
           20: '#ff000033',
           10: '#ff00001a'
         },
-
-        // Gray variants
         gray: {
           80: '#a0a1b0cc',
           60: '#a0a1b099',
@@ -52,38 +40,57 @@ module.exports = {
           20: '#a0a1b033',
           10: '#a0a1b01a'
         },
-
-        // Yellow variants
         yellow: {
-          100: '#F9EA42',
-          20: '#F9EA4233'
+          100: '#f2e218', // light
+          20: '#f2e21833', // light
+          'dark-100': '#f9ea42', // dark
+          'dark-20': '#f9ea4233' // dark
         },
-
-        // Green variants (from themes)
-        green: {
-          100: '#81df94', // light theme
-          20: '#8de59e4d',
-          10: '#8de59e26'
-        },
-
-        // Text colors
         'text-delete': '#dc3e42',
         'text-link': '#0090ff',
-        'text-primary': '#202020', // light theme
-        'text-secondary': '#646464', // light theme
-
-        // Background colors
-        'background-primary': '#f7f7f7', // light theme
-        'background-secondary': '#ffffff99', // light theme
-        'background-opacity': '#ffffff', // light theme
-
-        // UI colors
-        'ui-card': '#ffffff', // light theme
-        'ui-card-background': '#ffffff', // light theme
-
-        // Border colors
         'border-color': 'rgba(0, 0, 0, 0.1)',
-        'color-border-linear': '#000000' // light theme
+
+        // Theme-aware colors with dark mode variants
+        green: {
+          100: '#81df94', // light
+          20: '#8de59e4d', // light
+          10: '#8de59e26', // light
+          'dark-100': '#acf3a6', // dark
+          'dark-20': '#acf3a633', // dark
+          'dark-10': '#acf3a61a' // dark
+        },
+        'ui-card-background': {
+          DEFAULT: '#ffffff', // light
+          dark: '#19191c' // dark
+        },
+        'color-border-linear': {
+          DEFAULT: '#000000', // light
+          dark: '#ffffff' // dark
+        },
+        'background-primary': {
+          DEFAULT: '#f7f7f7', // light
+          dark: '#121213' // dark
+        },
+        'background-secondary': {
+          DEFAULT: '#ffffff99', // light
+          dark: '#20202099' // dark
+        },
+        'ui-card': {
+          DEFAULT: '#ffffff', // light
+          dark: '#19191c' // dark
+        },
+        'text-primary': {
+          DEFAULT: '#202020', // light
+          dark: '#f9f9f9' // dark
+        },
+        'text-secondary': {
+          DEFAULT: '#646464', // light
+          dark: '#cecece' // dark
+        },
+        'background-opacity': {
+          DEFAULT: '#ffffff', // light
+          dark: 'rgba(34,34,34,0.7)' // dark
+        }
       }
     }
   },
