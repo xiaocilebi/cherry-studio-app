@@ -4,7 +4,13 @@ import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
-import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle, SettingRowRightArrow } from '@/components/settings'
+import {
+  PressableSettingRow,
+  SettingContainer,
+  SettingGroup,
+  SettingGroupTitle,
+  SettingRowRightArrow
+} from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'

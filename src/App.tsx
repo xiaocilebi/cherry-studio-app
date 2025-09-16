@@ -103,8 +103,8 @@ function ThemedApp() {
   const { themeSetting, activeTheme, reactNavigationTheme, isDark } = useTheme()
 
   return (
-    <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
-      <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
+    <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
+      <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
         <PortalProvider>
           <KeyboardProvider>
             <NavigationContainer theme={reactNavigationTheme}>
@@ -122,8 +122,8 @@ function ThemedApp() {
             </NavigationContainer>
           </KeyboardProvider>
         </PortalProvider>
-      </TamaguiProvider>
-    </HeroUINativeProvider>
+      </HeroUINativeProvider>
+    </TamaguiProvider>
   )
 }
 

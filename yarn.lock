@@ -8241,6 +8241,7 @@ __metadata:
     buffer: "npm:^6.0.3"
     burnt: "npm:^0.13.0"
     cli-progress: "npm:^3.12.0"
+    clsx: "npm:^2.1.1"
     dayjs: "npm:^1.11.13"
     dompurify: "npm:^3.2.6"
     dotenv-cli: "npm:^7.4.2"
@@ -8288,6 +8289,7 @@ __metadata:
     jest-expo: "npm:~53.0.10"
     lodash: "npm:^4.17.21"
     lru-cache: "npm:^11.1.0"
+    lucide-react-native: "npm:^0.544.0"
     markdown-it-math: "npm:^5.2.1"
     moti: "npm:^0.30.0"
     nativewind: "npm:^4.2.1"
@@ -9692,6 +9694,13 @@ __metadata:
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
   checksum: 10c0/2176952b3649293473999a95d7bebfc9dc96410f6cbd3d2595cf12fd401f63a4bf41a7adbfd3ab2ff09ed60cb9870c58c6acdd18b87767366fabfc163700f13b
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
 
@@ -14977,6 +14986,17 @@ __metadata:
   dependencies:
     yallist: "npm:^3.0.2"
   checksum: 10c0/89b2ef2ef45f543011e38737b8a8622a2f8998cddf0e5437174ef8f1f70a8b9d14a918ab3e232cb3ba343b7abddffa667f0b59075b2b80e6b4d63c3de6127482
+  languageName: node
+  linkType: hard
+
+"lucide-react-native@npm:^0.544.0":
+  version: 0.544.0
+  resolution: "lucide-react-native@npm:0.544.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-native: "*"
+    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+  checksum: 10c0/050d3875af679eff153462d21ab68b8fc29d88c40e4110c7ec5e4ab3955283120984777c2978df849bc37b7e348f984c78462c8daa128032a20fb259d77f29ea
   languageName: node
   linkType: hard
 
