@@ -1,8 +1,7 @@
 import * as ExpoLinking from 'expo-linking'
 import React from 'react'
-import { Text, Image } from '@/componentsV2'
+import { Text, Image, XStack, YStack } from '@/componentsV2'
 import { useTranslation } from 'react-i18next'
-import { XStack, YStack } from 'tamagui'
 
 import { PressableSettingRow, SettingContainer, SettingGroup, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -32,12 +31,12 @@ export default function AboutScreen() {
         }}
       />
       <SettingContainer>
-        <YStack gap={24} flex={1}>
+        <YStack className="gap-6 flex-1">
           {/* Logo and Description */}
           <SettingGroup>
             <SettingRow gap={18}>
               <Image className="h-[70px] w-[70px] rounded-[41px]" source={require('@/assets/images/favicon.png')} />
-              <YStack gap={5} paddingVertical={4} flex={1}>
+              <YStack className="gap-[5px] py-1 flex-1">
                 <Text className="font-bold text-[22px]">{t('common.cherry_studio')}</Text>
                 <Text size="sm" className="text-text-secondary dark:text-text-secondary-dark" numberOfLines={0}>
                   {t('common.cherry_studio_description')}
@@ -54,14 +53,14 @@ export default function AboutScreen() {
           <SettingGroup>
             <PressableSettingRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio-app/releases/')}>
-              <XStack alignItems="center" gap={10}>
+              <XStack className="items-center gap-[10px]">
                 <Rss size={20} />
                 <Text>{t('settings.about.releases.title')}</Text>
               </XStack>
               <ArrowUpRight size={16} />
             </PressableSettingRow>
             <PressableSettingRow onPress={async () => await openLink('https://www.cherry-ai.com/')}>
-              <XStack alignItems="center" gap={12}>
+              <XStack className="items-center gap-3">
                 <Globe size={20} />
                 <Text>{t('settings.about.website.title')}</Text>
               </XStack>
@@ -69,7 +68,7 @@ export default function AboutScreen() {
             </PressableSettingRow>
             <PressableSettingRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio-app/issues/')}>
-              <XStack alignItems="center" gap={12}>
+              <XStack className="items-center gap-3">
                 <Github size={20} />
                 <Text>{t('settings.about.feedback.title')}</Text>
               </XStack>
@@ -77,7 +76,7 @@ export default function AboutScreen() {
             </PressableSettingRow>
             <PressableSettingRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio/blob/main/LICENSE/')}>
-              <XStack alignItems="center" gap={12}>
+              <XStack className="items-center gap-3">
                 <Copyright size={20} />
                 <Text>{t('settings.about.license.title')}</Text>
               </XStack>
@@ -85,7 +84,7 @@ export default function AboutScreen() {
             </PressableSettingRow>
             <PressableSettingRow
               onPress={async () => await openLink('https://docs.cherry-ai.com/contact-us/questions/')}>
-              <XStack alignItems="center" gap={12}>
+              <XStack className="items-center gap-3">
                 <Mail size={20} />
                 <Text>{t('settings.about.contact.title')}</Text>
               </XStack>
