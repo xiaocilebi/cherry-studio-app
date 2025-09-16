@@ -69,12 +69,13 @@ export function ISelect<T = any>({
       <DropdownMenu.Trigger>
         <XStack
           width={width}
-          paddingVertical={15}
+          height={46}
+          paddingVertical={12}
           paddingHorizontal={16}
           alignItems="center"
           justifyContent="space-between"
           gap={10}
-          borderRadius={9}
+          borderRadius={16}
           backgroundColor="$uiCardBackground">
           <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
             {selectedDisplayInfo ? (
@@ -92,7 +93,7 @@ export function ISelect<T = any>({
               </Text>
             )}
           </XStack>
-          <ChevronRight size={16} />
+          <ChevronRight size={16} color="$textSecondary" opacity={0.9} marginRight={-4} />
         </XStack>
       </DropdownMenu.Trigger>
 
