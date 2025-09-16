@@ -8302,7 +8302,7 @@ __metadata:
     react-i18next: "npm:^15.4.1"
     react-native: "npm:0.79.5"
     react-native-code-highlighter: "npm:^1.3.0"
-    react-native-compressor: "npm:^1.12.0"
+    react-native-compressor: "patch:react-native-compressor@npm%3A1.12.0#~/.yarn/patches/react-native-compressor-npm-1.12.0-b82f64dce8.patch"
     react-native-device-info: "npm:^14.0.4"
     react-native-file-viewer: "npm:^2.1.5"
     react-native-gesture-handler: "npm:~2.24.0"
@@ -17274,13 +17274,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-compressor@npm:^1.12.0":
+"react-native-compressor@npm:1.12.0":
   version: 1.12.0
   resolution: "react-native-compressor@npm:1.12.0"
   peerDependencies:
     react: "*"
     react-native: "*"
   checksum: 10c0/49ce38eeeb2d121253bc761840a04a93ac7fc7bfef77881e82620575cce0817d9d7cd4d6f3df5d29469e45760b107d22f5b2f7ae7116a95ef44c8d83953a6f20
+  languageName: node
+  linkType: hard
+
+"react-native-compressor@patch:react-native-compressor@npm%3A1.12.0#~/.yarn/patches/react-native-compressor-npm-1.12.0-b82f64dce8.patch":
+  version: 1.12.0
+  resolution: "react-native-compressor@patch:react-native-compressor@npm%3A1.12.0#~/.yarn/patches/react-native-compressor-npm-1.12.0-b82f64dce8.patch::version=1.12.0&hash=1c9689"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/27b3aa25f0313b48b25f43f05a62246ee9a801df493e782b0f29fedf5bb0d1e17c0080cb1a1d75648b065235131142901b32e265eaa8ccb0a9500d8480b020a6
   languageName: node
   linkType: hard
 
