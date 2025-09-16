@@ -4,7 +4,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, useTheme, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import {
+  SettingContainer,
+  SettingGroup,
+  SettingGroupTitle,
+  SettingRow,
+  SettingRowRightArrow
+} from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { CustomSwitch } from '@/components/ui/Switch'
@@ -31,7 +37,7 @@ export default function WebDavScreen() {
                   <CloudUpload size={24} />
                   <Text fontSize="$5">{t('settings.webdav.config.title')}</Text>
                 </XStack>
-                <ChevronRight size={24} color="$colorFocus" />
+                <SettingRowRightArrow />
               </SettingRow>
             </SettingGroup>
           </YStack>
@@ -70,7 +76,7 @@ export default function WebDavScreen() {
                 </XStack>
                 <XStack alignItems="center" gap={12}>
                   <Text fontSize="$5">{t('settings.webdav.backup.unlimited')}</Text>
-                  <ChevronRight size={24} color="$colorFocus" />
+                  <SettingRowRightArrow />
                 </XStack>
               </SettingRow>
             </SettingGroup>

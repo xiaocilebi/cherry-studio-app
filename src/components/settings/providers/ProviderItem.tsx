@@ -13,6 +13,7 @@ import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
+import { SettingRowRightArrow } from '..'
 
 interface ProviderItemProps {
   provider: Provider
@@ -80,7 +81,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
             {statusText}
           </Text>
         )}
-        <ChevronRight size={20} color="$textSecondary" />
+        <SettingRowRightArrow />
       </XStack>
     </XStack>
   )

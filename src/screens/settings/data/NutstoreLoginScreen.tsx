@@ -3,7 +3,13 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
-import { SettingContainer, SettingGroup, SettingGroupTitle, SettingRow } from '@/components/settings'
+import {
+  SettingContainer,
+  SettingGroup,
+  SettingGroupTitle,
+  SettingRow,
+  SettingRowRightArrow
+} from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 
@@ -59,7 +65,7 @@ export default function NutstoreLoginScreen() {
                   </XStack>
                   <XStack alignItems="center" gap={12}>
                     <Text fontSize="$5">/cherry-studio</Text>
-                    <ChevronRight size={24} color="$colorFocus" />
+                    <SettingRowRightArrow />
                   </XStack>
                 </SettingRow>
                 <SettingRow>
@@ -68,7 +74,7 @@ export default function NutstoreLoginScreen() {
                   </XStack>
                   <XStack alignItems="center" gap={12}>
                     <Text fontSize="$5">1 min</Text>
-                    <ChevronRight size={24} color="$colorFocus" />
+                    <SettingRowRightArrow />
                   </XStack>
                 </SettingRow>
                 <SettingRow onPress={() => {}}>
@@ -90,7 +96,7 @@ export default function NutstoreLoginScreen() {
                     <UserPlus size={24} />
                     <Text fontSize="$5">{t('settings.nutstore.login')}</Text>
                   </XStack>
-                  <ChevronRight size={24} color="$colorFocus" />
+                  <SettingRowRightArrow />
                 </SettingRow>
               </SettingGroup>
             </YStack>

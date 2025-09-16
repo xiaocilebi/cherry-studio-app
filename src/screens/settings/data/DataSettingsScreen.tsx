@@ -4,7 +4,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, XStack, YStack } from 'tamagui'
 
-import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
+import {
+  PressableSettingRow,
+  SettingContainer,
+  SettingGroup,
+  SettingGroupTitle,
+  SettingRowRightArrow
+} from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { NavigationProps } from '@/types/naviagate'
@@ -124,7 +130,7 @@ function SettingItem({ title, screen, icon }: SettingItemProps) {
         {icon}
         <Text fontSize="$5">{title}</Text>
       </XStack>
-      <ChevronRight size={24} color="$colorFocus" />
+      <SettingRowRightArrow />
     </PressableSettingRow>
   )
 }

@@ -25,7 +25,7 @@ export default function ModelTabScreen() {
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
       bottomOffset={10}>
-      <YStack flex={1} paddingTop={10} backgroundColor="$backgroundPrimary">
+      <YStack flex={1} paddingTop={10} paddingHorizontal={8}>
         <ModelTabContent assistant={assistant} updateAssistant={updateAssistant} />
       </YStack>
     </KeyboardAwareScrollView>
