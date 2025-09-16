@@ -19,7 +19,7 @@ interface AssistantItemCardProps {
 const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardProps) => {
   const { isDark } = useTheme()
 
-  const emojiOpacity = Platform.OS === 'android' ? (isDark ? 0.1 : 0.9) : isDark ? 0.2 : 0.5
+  const emojiOpacity = Platform.OS === 'android' ? (isDark ? 0.1 : 0.9) : isDark ? 0.2 : 0.4
 
   const handlePress = () => {
     haptic()
