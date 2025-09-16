@@ -103,23 +103,24 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
       onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView style={{ paddingBottom: insets.bottom }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
+          <YStack alignItems="center" paddingBottom={30} paddingHorizontal={20} gap={10}>
             <XStack width="100%" alignItems="center" justifyContent="center">
-              <Text fontSize={24}>{t('settings.models.add.model')}</Text>
+              <Text fontSize={20}>{t('settings.models.add.model')}</Text>
             </XStack>
             <YStack width="100%" gap={24} justifyContent="center" alignItems="center">
               {/* Model ID Input */}
               <YStack width="100%" gap={8}>
-                <XStack gap={8}>
+                <XStack gap={8} paddingHorizontal={12}>
+                  <Text color="$textSecondary">{t('settings.models.add.model.id')}</Text>
                   <Text color="red">*</Text>
-                  <Text>{t('settings.models.add.model.id')}</Text>
                 </XStack>
                 <BottomSheetTextInput
                   style={{
-                    padding: 16,
-                    borderRadius: 8,
+                    paddingHorizontal: 14,
+                    paddingVertical: 12,
+                    borderRadius: 16,
                     backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                    borderWidth: 1,
+                    borderWidth: 0.5,
                     borderColor: '#a0a1b066',
                     color: isDark ? '#f9f9f9ff' : '#202020ff'
                   }}
@@ -130,13 +131,16 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
               </YStack>
               {/* Model Name Input */}
               <YStack width="100%" gap={8}>
-                <Text>{t('settings.models.add.model.name')}</Text>
+                <XStack gap={8} paddingHorizontal={12}>
+                  <Text color="$textSecondary">{t('settings.models.add.model.name')}</Text>
+                </XStack>
                 <BottomSheetTextInput
                   style={{
-                    padding: 16,
-                    borderRadius: 8,
+                    paddingHorizontal: 14,
+                    paddingVertical: 12,
+                    borderRadius: 16,
                     backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                    borderWidth: 1,
+                    borderWidth: 0.5,
                     borderColor: '#a0a1b066',
                     color: isDark ? '#f9f9f9ff' : '#202020ff'
                   }}
@@ -147,13 +151,16 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
               </YStack>
               {/* Model Group Input */}
               <YStack width="100%" gap={8}>
-                <Text>{t('settings.models.add.model.group')}</Text>
+                <XStack gap={8} paddingHorizontal={12}>
+                  <Text color="$textSecondary">{t('settings.models.add.model.group')}</Text>
+                </XStack>
                 <BottomSheetTextInput
                   style={{
-                    padding: 16,
-                    borderRadius: 8,
+                    paddingHorizontal: 14,
+                    paddingVertical: 12,
+                    borderRadius: 16,
                     backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                    borderWidth: 1,
+                    borderWidth: 0.5,
                     borderColor: '#a0a1b066',
                     color: isDark ? '#f9f9f9ff' : '#202020ff'
                   }}
@@ -168,7 +175,7 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
                 color="$green100"
                 height={44}
                 width={216}
-                borderRadius={15}
+                borderRadius={16}
                 onPress={handleAddModel}
                 disabled={!modelId.trim()}>
                 {t('settings.models.add.model')}

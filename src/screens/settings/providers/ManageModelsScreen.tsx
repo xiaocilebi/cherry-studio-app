@@ -6,7 +6,7 @@ import { groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Accordion, ScrollView, Tabs, Text, YStack } from 'tamagui'
+import { Accordion, ScrollView, Tabs, Text, View, YStack } from 'tamagui'
 
 import { SettingContainer, SettingGroup } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
@@ -266,10 +266,15 @@ export default function ManageModelsScreen() {
             </ScrollView>
           </Tabs>
 
-          <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
-
           <YStack flex={1} height="100%">
             <SettingGroup flex={1}>
+              <View padding={10}>
+                <SearchInput
+                  placeholder={t('settings.models.search')}
+                  value={searchText}
+                  onChangeText={setSearchText}
+                />
+              </View>
               {sortedModelGroups.length > 0 ? (
                 <Accordion overflow="hidden" type="multiple" flex={1}>
                   <FlashList

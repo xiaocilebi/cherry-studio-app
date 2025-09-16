@@ -89,5 +89,5 @@ export const SettingGroup = styled(YStack, {
 export const SettingGroupTitle = styled(Text, {
   fontWeight: 'bold',
   opacity: 0.7,
-  paddingLeft: 16
+  paddingLeft: 12
 })

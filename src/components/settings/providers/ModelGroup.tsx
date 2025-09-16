@@ -54,7 +54,8 @@ export function ModelGroup({
         paddingVertical={12}
         paddingHorizontal={16}
         borderWidth={0}
-        pressStyle={{ backgroundColor: '$gray20' }}>
+        backgroundColor="transparent"
+        pressStyle={{ backgroundColor: 'transparent', opacity: 0.6 }}>
         {({ open }: { open: boolean }) => (
           <XStack gap={10} alignItems="center" justifyContent="space-between">
             <XStack gap={10} alignItems="center" flex={1}>
@@ -84,7 +85,11 @@ export function ModelGroup({
       </Accordion.Trigger>
 
       <Accordion.HeightAnimator animation="quick">
-        <Accordion.Content exitStyle={{ opacity: 0 }} paddingHorizontal={16} paddingVertical={5}>
+        <Accordion.Content
+          exitStyle={{ opacity: 0 }}
+          paddingHorizontal={16}
+          paddingVertical={5}
+          backgroundColor="transparent">
           <FlatList
             data={models}
             renderItem={renderModelItem}

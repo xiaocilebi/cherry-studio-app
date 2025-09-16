@@ -120,6 +120,7 @@ const TopicItem: FC<TopicItemProps> = ({
         <Input
           width="100%"
           marginTop={8}
+          borderRadius={16}
           backgroundColor="$colorTransparent"
           defaultValue={topic.name}
           onChangeText={value => {

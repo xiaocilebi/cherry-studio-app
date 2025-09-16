@@ -5,7 +5,7 @@ import { groupBy } from 'lodash'
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
-import { Accordion, Separator, Stack, Text, XStack, YStack } from 'tamagui'
+import { Accordion, Separator, Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import {
   PressableSettingRow,
@@ -179,18 +179,21 @@ export default function ProviderSettingsScreen() {
               </SettingGroup>
             </YStack>
 
-            <Separator />
-
-            {/* Search Card */}
-            <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
-
             {/* Model List Card with Accordion */}
-            <YStack flex={1}>
-              <XStack justifyContent="space-between" alignItems="center" marginBottom={16}>
+            <YStack flex={1} gap={8}>
+              <XStack justifyContent="space-between" alignItems="center" paddingRight={10}>
                 <SettingGroupTitle>{t('settings.models.title')}</SettingGroupTitle>
                 <IconButton icon={<HeartPulse size={14} />} />
               </XStack>
               <SettingGroup>
+                {/* Search Card */}
+                <View padding={10}>
+                  <SearchInput
+                    placeholder={t('settings.models.search')}
+                    value={searchText}
+                    onChangeText={setSearchText}
+                  />
+                </View>
                 {sortedModelGroups.length > 0 ? (
                   <Accordion overflow="hidden" type="multiple" defaultValue={defaultOpenGroups}>
                     {sortedModelGroups.map(([groupName, modelsInGroup], index) => (
