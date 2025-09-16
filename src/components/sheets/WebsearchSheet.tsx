@@ -10,7 +10,7 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
-import { SettingHelpText } from '../settings'
+import { SettingHelpText, SettingRowRightArrow } from '../settings'
 import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
 import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
@@ -62,7 +62,7 @@ const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, updateA
         </Text>
         <XStack alignItems="center" gap={5}>
           <SettingHelpText>{t('settings.websearch.empty.description')}</SettingHelpText>
-          <ChevronRight size={16} color="$textSecondary" />
+          <SettingRowRightArrow />
         </XStack>
       </XStack>
     </TouchableOpacity>

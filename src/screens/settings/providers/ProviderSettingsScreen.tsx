@@ -12,7 +12,8 @@ import {
   SettingContainer,
   SettingGroup,
   SettingGroupTitle,
-  SettingRow
+  SettingRow,
+  SettingRowRightArrow
 } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
@@ -172,7 +173,7 @@ export default function ProviderSettingsScreen() {
                         {t('settings.provider.added')}
                       </Text>
                     )}
-                    <ChevronRight color="$white9" width={6} height={12} />
+                    <SettingRowRightArrow />
                   </XStack>
                 </PressableSettingRow>
               </SettingGroup>

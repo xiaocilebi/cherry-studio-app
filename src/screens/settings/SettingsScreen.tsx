@@ -6,7 +6,13 @@ import { View } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 import { Avatar, Text, XStack, YStack } from 'tamagui'
 
-import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
+import {
+  PressableSettingRow,
+  SettingContainer,
+  SettingGroup,
+  SettingGroupTitle,
+  SettingRowRightArrow
+} from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useSettings } from '@/hooks/useSettings'
@@ -180,7 +186,7 @@ function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) 
           </Text>
         </YStack>
       </XStack>
-      <ChevronRight size={20} color="$textSecondary" />
+      <SettingRowRightArrow />
     </PressableSettingRow>
   )
 }

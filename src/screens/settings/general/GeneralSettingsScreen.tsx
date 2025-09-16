@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, XStack, YStack } from 'tamagui'
 
-import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle } from '@/components/settings'
+import { PressableSettingRow, SettingContainer, SettingGroup, SettingGroupTitle, SettingRowRightArrow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { languagesOptions } from '@/config/languages'
@@ -54,9 +54,9 @@ export default function GeneralSettingsScreen() {
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.theme.title')}</Text>
                 </XStack>
-                <XStack alignItems="center" space="$2">
-                  <Text color="$colorFocus">{t(`settings.general.theme.${activeTheme}`)}</Text>
-                  <ChevronRight size={24} color="$colorFocus" />
+                <XStack alignItems="center" gap="$2">
+                  <Text color="$textSecondary">{t(`settings.general.theme.${activeTheme}`)}</Text>
+                  <SettingRowRightArrow />
                 </XStack>
               </PressableSettingRow>
             </SettingGroup>
@@ -70,9 +70,9 @@ export default function GeneralSettingsScreen() {
                 <XStack alignItems="center">
                   <Text fontSize="$5">{t('settings.general.language.title')}</Text>
                 </XStack>
-                <XStack alignItems="center" space="$2">
+                <XStack alignItems="center" gap="$2">
                   <Text color="$colorFocus">{getCurrentLanguage()}</Text>
-                  <ChevronRight size={24} color="$colorFocus" />
+                  <SettingRowRightArrow />
                 </XStack>
               </PressableSettingRow>
             </SettingGroup>

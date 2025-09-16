@@ -8,7 +8,7 @@ import { Button, Text, XStack, YStack } from 'tamagui'
 import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 import { Assistant } from '@/types/assistant'
 
-import { SettingRowTitle } from '../settings'
+import { SettingRowRightArrow, SettingRowTitle } from '../settings'
 import ToolUseSheet from '../sheets/ToolUseSheet'
 import WebsearchSheet from '../sheets/WebsearchSheet'
 import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
@@ -49,11 +49,13 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
       <YStack width="100%" gap={8}>
         <SettingRowTitle paddingHorizontal={10}>{t('assistants.settings.tooluse.title')}</SettingRowTitle>
         <Button
+          borderRadius={16}
           chromeless
           height={30}
           paddingHorizontal={16}
+          paddingRight={10}
           paddingVertical={23}
-          iconAfter={<ChevronRight size={16} />}
+          iconAfter={<SettingRowRightArrow />}
           backgroundColor="$uiCardBackground"
           onPress={handleToolUsePress}>
           <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
@@ -79,11 +81,13 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
       <YStack width="100%" gap={8}>
         <SettingRowTitle paddingHorizontal={10}>{t('settings.websearch.provider.title')}</SettingRowTitle>
         <Button
+          borderRadius={16}
           chromeless
           height={30}
           paddingHorizontal={16}
+          paddingRight={10}
           paddingVertical={23}
-          iconAfter={<ChevronRight size={16} />}
+          iconAfter={<SettingRowRightArrow />}
           backgroundColor="$uiCardBackground"
           onPress={handleWebsearchPress}>
           <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">

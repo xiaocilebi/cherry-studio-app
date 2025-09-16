@@ -51,6 +51,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
       <YStack width="100%" gap={8}>
         <SettingRowTitle paddingHorizontal={10}>{t('common.name')}</SettingRowTitle>
         <Input
+          borderRadius={16}
           height={49}
           paddingVertical={0}
           paddingHorizontal={16}
@@ -65,6 +66,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
       <YStack width="100%" gap={8} flex={1}>
         <SettingRowTitle paddingHorizontal={10}>{t('common.prompt')}</SettingRowTitle>
         <TextArea
+          borderRadius={16}
           flex={1}
           padding={15}
           placeholder={t('common.prompt')}

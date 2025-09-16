@@ -5,7 +5,7 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Input, Stack, Text, XStack } from 'tamagui'
 
-import { SettingGroup, SettingRow } from '@/components/settings'
+import { SettingGroup, SettingRow, SettingRowRightArrow } from '@/components/settings'
 import { isReasoningModel } from '@/config/models'
 import { DEFAULT_CONTEXTCOUNT, DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE } from '@/constants'
 import { Assistant, AssistantSettings, Model } from '@/types/assistant'
@@ -74,11 +74,13 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         type: 'timing'
       }}>
       <Button
+        borderRadius={16}
         chromeless
         height={30}
         paddingHorizontal={16}
+        paddingRight={10}
         paddingVertical={23}
-        iconAfter={<ChevronRight size={16} />}
+        iconAfter={<SettingRowRightArrow />}
         backgroundColor="$uiCardBackground"
         onPress={handleModelPress}>
         <XStack height={20} flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">

@@ -1,3 +1,5 @@
+import React from 'react'
+import { ChevronRight } from '@tamagui/lucide-icons'
 import { Keyboard } from 'react-native'
 import { Separator, styled, XStack, YStack, Text, View } from 'tamagui'
 
@@ -47,24 +49,20 @@ export const SettingDivider = styled(Separator, {
 })
 
 export const SettingRow = styled(XStack, {
-  borderRadius: 9,
   justifyContent: 'space-between',
   alignItems: 'center',
-  paddingVertical: 12,
+  paddingVertical: 14,
   paddingLeft: 16,
-  paddingRight: 20,
-  backgroundColor: '$colorTransparent'
+  paddingRight: 16
 })
 
-export const PressableSettingRow = styled(XStack, {
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  paddingVertical: 12,
-  paddingLeft: 16,
-  paddingRight: 16,
-  backgroundColor: '$uiCardBackground',
+export const PressableSettingRow = styled(SettingRow, {
   pressStyle: { opacity: 0.5 }
 })
+
+export const SettingRowRightArrow = () => (
+  <ChevronRight size={20} marginRight={-4} color="$textSecondary" opacity={0.9} />
+)
 
 export const SettingRowTitle = styled(Text, {
   fontSize: 14
@@ -83,15 +81,13 @@ export const SettingHelpText = styled(Text, {
 })
 
 export const SettingGroup = styled(YStack, {
-  // flex: 1,
-  gap: 8,
-  // paddingVertical: 8,
-  borderRadius: 9,
+  borderRadius: 16,
   backgroundColor: '$uiCardBackground',
   overflow: 'hidden'
 })
 
 export const SettingGroupTitle = styled(Text, {
   fontWeight: 'bold',
-  opacity: 0.7
+  opacity: 0.7,
+  paddingLeft: 16
 })

@@ -65,38 +65,38 @@ export default function AboutScreen() {
                 <Rss size={20} />
                 <Text>{t('settings.about.releases.title')}</Text>
               </XStack>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={16} color="$textSecondary" />
             </PressableSettingRow>
             <PressableSettingRow onPress={async () => await openLink('https://www.cherry-ai.com/')}>
-              <XStack alignItems="center" gap={10}>
+              <XStack alignItems="center" gap={12}>
                 <Globe size={20} />
                 <Text>{t('settings.about.website.title')}</Text>
               </XStack>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={16} color="$textSecondary" />
             </PressableSettingRow>
             <PressableSettingRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio-app/issues/')}>
-              <XStack alignItems="center" gap={10}>
+              <XStack alignItems="center" gap={12}>
                 <Github size={20} />
                 <Text>{t('settings.about.feedback.title')}</Text>
               </XStack>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={16} color="$textSecondary" />
             </PressableSettingRow>
             <PressableSettingRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio/blob/main/LICENSE/')}>
-              <XStack alignItems="center" gap={10}>
+              <XStack alignItems="center" gap={12}>
                 <Copyright size={20} />
                 <Text>{t('settings.about.license.title')}</Text>
               </XStack>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={16} color="$textSecondary" />
             </PressableSettingRow>
             <PressableSettingRow
               onPress={async () => await openLink('https://docs.cherry-ai.com/contact-us/questions/')}>
-              <XStack alignItems="center" gap={10}>
+              <XStack alignItems="center" gap={12}>
                 <Mail size={20} />
                 <Text>{t('settings.about.contact.title')}</Text>
               </XStack>
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={16} color="$textSecondary" />
             </PressableSettingRow>
           </SettingGroup>
         </YStack>

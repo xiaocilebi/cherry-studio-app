@@ -14,7 +14,7 @@ import { haptic } from '@/utils/haptic'
 
 import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
-import { SettingDivider } from '../settings'
+import { SettingDivider, SettingRowRightArrow } from '../settings'
 import SafeAreaContainer from '../ui/SafeAreaContainer'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
@@ -64,7 +64,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 {t('assistants.market.title')}
               </Text>
             </XStack>
-            <ChevronRight size={20} color="$textSecondary" />
+            <SettingRowRightArrow />
           </ListItem>
 
           <ListItem onPress={handleNavigateAssistantScreen}>
@@ -74,7 +74,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 {t('assistants.market.my_assistant')}
               </Text>
             </XStack>
-            <ChevronRight size={20} color="$textSecondary" />
+            <SettingRowRightArrow />
           </ListItem>
           <Stack paddingHorizontal={10}>
             <SettingDivider />
