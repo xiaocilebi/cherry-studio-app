@@ -35,7 +35,7 @@ const CitationTitle = ({ number, title }: { number: number; title: string }) => 
         </Text>
       </Stack>
       <Stack flex={1}>
-        <Text fontSize={14} lineHeight={14} numberOfLines={1} ellipsizeMode="tail">
+        <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail">
           {title}
         </Text>
       </Stack>

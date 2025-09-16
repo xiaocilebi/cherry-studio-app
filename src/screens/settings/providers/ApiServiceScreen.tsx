@@ -186,29 +186,31 @@ export default function ApiServiceScreen() {
       <SettingContainer>
         {/* API Key 配置 */}
         <YStack gap={8}>
-          <XStack paddingHorizontal={10} height={20} justifyContent="space-between" alignItems="center">
+          <XStack paddingRight={12} justifyContent="space-between" alignItems="center">
             <SettingGroupTitle>{t('settings.provider.api_key')}</SettingGroupTitle>
             <IconButton icon={<ShieldCheck size={16} color="$textLink" />} onPress={handleOpenBottomSheet} />
           </XStack>
 
-          <XStack paddingVertical={8} gap={8} position="relative">
+          <XStack gap={8} position="relative">
             <Input
+              borderRadius={16}
+              height={46}
               paddingVertical={0}
               flex={1}
-              placeholder={t('settings.provider.api_key.placeholder')}
-              secureTextEntry={!showApiKey}
-              paddingRight={48}
-              value={apiKey}
-              onChangeText={text => handleProviderConfigChange('apiKey', text)}
+              paddingRight={46}
               fontSize={14}
               multiline={false}
               numberOfLines={1}
+              value={apiKey}
+              secureTextEntry={!showApiKey}
+              placeholder={t('settings.provider.api_key.placeholder')}
+              onChangeText={text => handleProviderConfigChange('apiKey', text)}
             />
             <Stack
               position="absolute"
-              right={10}
-              top="50%"
-              height={16}
+              right={12}
+              top={0}
+              height={46}
               width={16}
               alignItems="center"
               justifyContent="center"
@@ -219,7 +221,7 @@ export default function ApiServiceScreen() {
             </Stack>
           </XStack>
 
-          <XStack justifyContent="space-between">
+          <XStack justifyContent="space-between" paddingHorizontal={12}>
             <SettingHelpText>{t('settings.provider.api_key.tip')}</SettingHelpText>
             <ExternalLink href={apiKeyWebsite} size={12}>
               {t('settings.provider.api_key.get')}
@@ -229,10 +231,12 @@ export default function ApiServiceScreen() {
 
         {/* API Host 配置 */}
         <YStack gap={8}>
-          <XStack paddingHorizontal={10} height={20} alignItems="center">
+          <XStack paddingRight={12} justifyContent="space-between" alignItems="center">
             <SettingGroupTitle>{t('settings.provider.api_host')}</SettingGroupTitle>
           </XStack>
           <Input
+            borderRadius={16}
+            height={46}
             paddingVertical={0}
             placeholder={t('settings.provider.api_host.placeholder')}
             value={apiHost}

@@ -1,10 +1,10 @@
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
-import { Settings2 } from '@tamagui/lucide-icons'
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { Settings2, X } from '@tamagui/lucide-icons'
 import { BlurView } from 'expo-blur'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, Platform } from 'react-native'
+import { BackHandler, Platform, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
@@ -22,6 +22,8 @@ import { haptic } from '@/utils/haptic'
 
 import EmojiAvatar from '../EmojiAvator'
 import GroupTag from './GroupTag'
+import { setCurrentTopicId } from '@/store/topic'
+import { useAppDispatch } from '@/store'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -39,8 +41,11 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
     const { t } = useTranslation()
     const { isDark } = useCustomTheme()
     const { bottom } = useSafeAreaInsets()
+    const dispatch = useAppDispatch()
     const toast = useToast()
     const [isVisible, setIsVisible] = useState(false)
+
+    const emojiOpacity = Platform.OS === 'android' ? (isDark ? 0.2 : 0.9) : isDark ? 0.2 : 0.5
 
     useEffect(() => {
       if (!isVisible) return
@@ -76,6 +81,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
       }
 
       const topic = await createNewTopic(newAssistant)
+      dispatch(setCurrentTopicId(topic.id))
       await onChatNavigation(topic.id)
       ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     }
@@ -101,7 +107,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
     return (
       <BottomSheetModal
-        snapPoints={['80%']}
+        snapPoints={['90%']}
         enableDynamicSizing={false}
         ref={ref}
         backgroundStyle={{
@@ -113,26 +119,29 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         onDismiss={() => setIsVisible(false)}
         onChange={index => setIsVisible(index >= 0)}>
         {!assistant ? null : (
-          <YStack flex={1} gap={17}>
+          <YStack flex={1} gap={40} position="relative">
             {/* 背景模糊emoji */}
-            <View
+            <XStack
+              width={'100%'}
+              height={200}
               borderRadius={30}
               top={0}
               left={0}
               right={0}
               overflow="hidden"
               position="absolute"
-              alignItems="center"
-              justifyContent="center"
-              scale={3}
-              transformOrigin="center center">
-              <Text fontSize={140} opacity={0.1}>
-                {formateEmoji(assistant.emoji)}
-              </Text>
-            </View>
+              flexWrap="wrap">
+              {Array.from({ length: 70 }).map((_, index) => (
+                <View key={index} width={'9.99%'} scale={1.5} alignItems="center" justifyContent="center">
+                  <Text fontSize={20} opacity={emojiOpacity}>
+                    {formateEmoji(assistant.emoji)}
+                  </Text>
+                </View>
+              ))}
+            </XStack>
             {/* BlurView模糊层 */}
             <BlurView
-              intensity={Platform.OS === 'android' ? 60 : 80}
+              intensity={Platform.OS === 'android' ? 90 : 90}
               experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
               tint={isDark ? 'dark' : 'light'}
               style={{
@@ -143,8 +152,22 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               }}
             />
 
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                padding: 4,
+                backgroundColor: isDark ? '#333333' : '#dddddd',
+                borderRadius: 16
+              }}
+              onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <X size={16} />
+            </TouchableOpacity>
+
             {/* Main Content */}
-            <YStack flex={1} gap={25} paddingHorizontal={25}>
+            <YStack flex={1} gap={16} paddingHorizontal={25}>
               {/* Header with emoji and groups */}
               <YStack justifyContent="center" alignItems="center" gap={20}>
                 <View marginTop={20}>
@@ -184,33 +207,38 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                 )}
               </YStack>
 
-              <Stack>
-                <SettingDivider />
-              </Stack>
+              <SettingDivider />
 
-              {/* Description */}
-              {assistant.description && (
-                <YStack gap={5}>
-                  <Text lineHeight={20} fontSize={18} fontWeight="bold" color="$textPrimary">
-                    {t('common.description')}
-                  </Text>
-                  <Text lineHeight={20} color="$textSecondary" numberOfLines={2} ellipsizeMode="tail">
-                    {assistant.description}
-                  </Text>
-                </YStack>
-              )}
+              <BottomSheetScrollView
+                style={{ flex: 1 }}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingVertical: 16 }}>
+                <YStack gap={16}>
+                  {/* Description */}
+                  {assistant.description && (
+                    <YStack gap={5}>
+                      <Text lineHeight={20} fontSize={18} fontWeight="bold" color="$textPrimary">
+                        {t('common.description')}
+                      </Text>
+                      <Text lineHeight={20} color="$textSecondary">
+                        {assistant.description}
+                      </Text>
+                    </YStack>
+                  )}
 
-              {/* Additional details could go here */}
-              {assistant.prompt && (
-                <YStack gap={5}>
-                  <Text lineHeight={20} fontSize={18} fontWeight="bold" color="$textPrimary">
-                    {t('common.prompt')}
-                  </Text>
-                  <Text fontSize={16} lineHeight={20} numberOfLines={6} ellipsizeMode="tail">
-                    {assistant.prompt}
-                  </Text>
+                  {/* Additional details could go here */}
+                  {assistant.prompt && (
+                    <YStack gap={5}>
+                      <Text lineHeight={20} fontSize={18} fontWeight="bold" color="$textPrimary">
+                        {t('common.prompt')}
+                      </Text>
+                      <Text fontSize={16} lineHeight={20}>
+                        {assistant.prompt}
+                      </Text>
+                    </YStack>
+                  )}
                 </YStack>
-              )}
+              </BottomSheetScrollView>
             </YStack>
             {/* Footer positioned absolutely at the bottom */}
             <XStack
@@ -219,7 +247,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               justifyContent="space-between"
               alignItems="center"
               gap={15}
-              backgroundColor="$backgroundPrimary">
+              flexShrink={0}>
               {source === 'builtIn' && (
                 <Button
                   chromeless

@@ -1,5 +1,8 @@
 import 'react-native-reanimated'
 import '@/i18n'
+import '../global.css'
+
+import { HeroUINativeProvider } from 'heroui-native'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { NavigationContainer } from '@react-navigation/native'
@@ -97,28 +100,30 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const { activeTheme, reactNavigationTheme, isDark } = useTheme()
+  const { themeSetting, activeTheme, reactNavigationTheme, isDark } = useTheme()
 
   return (
-    <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
-      <PortalProvider>
-        <KeyboardProvider>
-          <NavigationContainer theme={reactNavigationTheme}>
-            <Theme name={isDark ? 'dark' : 'light'}>
-              <StatusBar style={isDark ? 'light' : 'dark'} />
-              <DatabaseInitializer />
-              <DialogProvider>
-                <ToastProvider>
-                  <BottomSheetModalProvider>
-                    <MainStackNavigator />
-                  </BottomSheetModalProvider>
-                </ToastProvider>
-              </DialogProvider>
-            </Theme>
-          </NavigationContainer>
-        </KeyboardProvider>
-      </PortalProvider>
-    </TamaguiProvider>
+    <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
+      <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
+        <PortalProvider>
+          <KeyboardProvider>
+            <NavigationContainer theme={reactNavigationTheme}>
+              <Theme name={isDark ? 'dark' : 'light'}>
+                <StatusBar style={isDark ? 'light' : 'dark'} />
+                <DatabaseInitializer />
+                <DialogProvider>
+                  <ToastProvider>
+                    <BottomSheetModalProvider>
+                      <MainStackNavigator />
+                    </BottomSheetModalProvider>
+                  </ToastProvider>
+                </DialogProvider>
+              </Theme>
+            </NavigationContainer>
+          </KeyboardProvider>
+        </PortalProvider>
+      </TamaguiProvider>
+    </HeroUINativeProvider>
   )
 }
 

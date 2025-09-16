@@ -79,7 +79,7 @@ export default function ProviderListScreen() {
           <ActivityIndicator />
         </SafeAreaContainer>
       ) : (
-        <SettingContainer paddingBottom={0}>
+        <SettingContainer paddingBottom={0} gap={16}>
           <SearchInput placeholder={t('settings.provider.search')} value={searchText} onChangeText={setSearchText} />
 
           <YStack flex={1} height="100%">

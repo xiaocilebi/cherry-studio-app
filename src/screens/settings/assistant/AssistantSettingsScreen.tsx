@@ -28,10 +28,11 @@ function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: ()
       chromeless
       width="100%"
       height="100%"
+      borderRadius={16}
       paddingHorizontal={16}
-      paddingVertical={15}
+      paddingVertical={14}
       onPress={onPress}
-      iconAfter={<ChevronDown size={16} />}
+      iconAfter={<ChevronDown size={18} color="$textSecondary" opacity={0.9} />}
       backgroundColor="$uiCardBackground">
       <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
         {model ? (
@@ -91,13 +92,14 @@ function AssistantSettingItem({
   return (
     <>
       <YStack gap={8}>
-        <XStack justifyContent="space-between" height={20}>
+        <XStack justifyContent="space-between" alignItems="center" paddingHorizontal={10}>
           <XStack alignItems="center" gap={8}>
             {icon}
-            <Text>{t(titleKey)}</Text>
+            <Text fontWeight="bold" opacity={0.7}>
+              {t(titleKey)}
+            </Text>
           </XStack>
           <IconButton
-            style={{ padding: 2 }}
             icon={<Settings2 size={16} color="$textLink" />}
             onPress={() => navigation.navigate('AssistantDetailScreen', { assistantId })}
           />
@@ -105,7 +107,7 @@ function AssistantSettingItem({
         <XStack>
           <ModelPicker assistant={assistant} onPress={() => sheetRef.current?.present()} />
         </XStack>
-        <SettingHelpText>{t(descriptionKey)}</SettingHelpText>
+        <SettingHelpText paddingHorizontal={10}>{t(descriptionKey)}</SettingHelpText>
       </YStack>
 
       <ModelSheet

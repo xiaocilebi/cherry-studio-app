@@ -144,9 +144,9 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
+            <YStack alignItems="center" paddingBottom={30} paddingHorizontal={20} gap={30}>
               <XStack width="100%" alignItems="center" justifyContent="center">
-                <Text fontSize={24}>
+                <Text fontSize={20} color="$textSecondary">
                   {mode === 'edit' ? t('settings.provider.edit.title') : t('settings.provider.add.title')}
                 </Text>
               </XStack>
@@ -159,16 +159,17 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
                   onImageSelected={handleImageSelected}
                 />
                 <YStack width="100%" gap={8}>
-                  <XStack gap={8}>
+                  <XStack gap={8} paddingHorizontal={12}>
+                    <Text color="$textSecondary">{t('settings.provider.add.name')}</Text>
                     <Text color="red">*</Text>
-                    <Text>{t('settings.provider.add.name')}</Text>
                   </XStack>
                   <BottomSheetTextInput
                     style={{
-                      padding: 16,
-                      borderRadius: 8,
+                      paddingHorizontal: 14,
+                      paddingVertical: 12,
+                      borderRadius: 16,
                       backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                      borderWidth: 1,
+                      borderWidth: 0.5,
                       borderColor: '#a0a1b066',
                       color: isDark ? '#f9f9f9ff' : '#202020ff'
                     }}
@@ -188,7 +189,7 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
                   color="$green100"
                   height={44}
                   width={216}
-                  borderRadius={15}
+                  borderRadius={16}
                   paddingVertical={10}
                   paddingHorizontal={15}
                   fontSize={16}

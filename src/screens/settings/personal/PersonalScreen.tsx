@@ -50,7 +50,7 @@ export default function PersonalScreen() {
     <SafeAreaContainer>
       <HeaderBar title={t('settings.personal.title')} />
       <SettingContainer>
-        <Card elevate bordered padding={16} borderRadius={14}>
+        <Card elevate bordered padding={16} borderRadius={16}>
           <YStack gap={16}>
             <XStack alignItems="center" justifyContent="center" marginTop={8}>
               <TouchableOpacity onPress={handleAvatarPress} activeOpacity={0.8}>
@@ -74,12 +74,19 @@ export default function PersonalScreen() {
               </TouchableOpacity>
             </XStack>
 
-            <Separator />
-
-            <XStack justifyContent="space-between" alignItems="center">
+            <XStack
+              justifyContent="space-between"
+              alignItems="center"
+              borderRadius={16}
+              borderWidth={1}
+              borderColor="$borderColor"
+              paddingVertical={0}
+              paddingLeft={14}>
               <XStack gap={6} alignItems="center">
-                <CircleUserRound />
-                <Text fontWeight="600">{t('settings.personal.name')}</Text>
+                <CircleUserRound opacity={0.8} color="$textSecondary" />
+                <Text opacity={0.8} color="$textSecondary">
+                  {t('settings.personal.name')}
+                </Text>
               </XStack>
 
               <Input
@@ -87,12 +94,11 @@ export default function PersonalScreen() {
                 onChangeText={setUserName}
                 placeholder={t('settings.personal.namePlaceholder')}
                 flex={1}
-                marginLeft={12}
-                borderRadius={8}
-                borderColor="$gray10"
-                backgroundColor="$backgroundPrimary"
+                borderColor="transparent"
+                backgroundColor="transparent"
                 paddingVertical={0}
-                height={40}
+                height={48}
+                focusStyle={{ borderColor: 'transparent' }}
                 fontSize={14}
               />
             </XStack>

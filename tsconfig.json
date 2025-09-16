@@ -7,10 +7,22 @@
     "strict": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["./*"],
-      "@mcp-trace/trace-core": ["../packages/mcp-trace/trace-core"],
-      "@mcp-trace/trace-node": ["../packages/mcp-trace/trace-node"]
+      "@/*": [
+        "./*"
+      ],
+      "@mcp-trace/trace-core": [
+        "../packages/mcp-trace/trace-core"
+      ],
+      "@mcp-trace/trace-node": [
+        "../packages/mcp-trace/trace-node"
+      ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ]
 }

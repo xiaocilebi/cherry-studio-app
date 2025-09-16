@@ -3,7 +3,6 @@ import { Check } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useEffect, useState } from 'react'
 import { BackHandler, TouchableOpacity } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Text, View, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
@@ -35,7 +34,6 @@ export interface SelectionSheetProps {
 const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, snapPoints = [], ref, placeholder }) => {
   const { isDark } = useTheme()
   const [isVisible, setIsVisible] = useState(false)
-  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     if (!isVisible || !ref?.current) return
@@ -145,7 +143,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
         showsVerticalScrollIndicator={false}
         estimatedItemSize={60}
         ItemSeparatorComponent={() => <YStack height={10} />}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 16, paddingHorizontal: 16 }}
+        contentContainerStyle={{ paddingBottom: 40, paddingHorizontal: 16 }}
       />
     </BottomSheetModal>
   )

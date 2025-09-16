@@ -26,6 +26,7 @@ export const SearchInput = ({ placeholder, onChangeText, value }: SearchInputPro
         borderColor="$green20"
         color="$green100"
         placeholderTextColor="$green100"
+        backgroundColor="transparent"
       />
       <Stack
         position="absolute"
