@@ -1,11 +1,9 @@
 import * as ExpoLinking from 'expo-linking'
 import React from 'react'
-import { Text, Image, XStack, YStack } from '@/componentsV2'
+import { Text, Image, XStack, YStack, PressableRow, Row, Group, Container, SafeAreaContainer } from '@/componentsV2'
 import { useTranslation } from 'react-i18next'
 
-import { PressableSettingRow, SettingContainer, SettingGroup, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { loggerService } from '@/services/LoggerService'
 import { ArrowUpRight, Copyright, Github, Globe, Mail, Rss } from '@/componentsV2/icons/LucideIcon'
 const logger = loggerService.withContext('AboutScreen')
@@ -30,11 +28,11 @@ export default function AboutScreen() {
           onPress: async () => await openLink('https://github.com/CherryHQ/cherry-studio-app')
         }}
       />
-      <SettingContainer>
+      <Container>
         <YStack className="gap-6 flex-1">
           {/* Logo and Description */}
-          <SettingGroup>
-            <SettingRow gap={18}>
+          <Group>
+            <Row className="gap-4">
               <Image className="h-[70px] w-[70px] rounded-[41px]" source={require('@/assets/images/favicon.png')} />
               <YStack className="gap-[5px] py-1 flex-1">
                 <Text className="font-bold text-[22px]">{t('common.cherry_studio')}</Text>
@@ -47,52 +45,50 @@ export default function AboutScreen() {
                   v0.0.1
                 </Text>
               </YStack>
-            </SettingRow>
-          </SettingGroup>
+            </Row>
+          </Group>
 
-          <SettingGroup>
-            <PressableSettingRow
+          <Group>
+            <PressableRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio-app/releases/')}>
               <XStack className="items-center gap-[10px]">
                 <Rss size={20} />
                 <Text>{t('settings.about.releases.title')}</Text>
               </XStack>
               <ArrowUpRight size={16} />
-            </PressableSettingRow>
-            <PressableSettingRow onPress={async () => await openLink('https://www.cherry-ai.com/')}>
+            </PressableRow>
+            <PressableRow onPress={async () => await openLink('https://www.cherry-ai.com/')}>
               <XStack className="items-center gap-3">
                 <Globe size={20} />
                 <Text>{t('settings.about.website.title')}</Text>
               </XStack>
               <ArrowUpRight size={16} />
-            </PressableSettingRow>
-            <PressableSettingRow
-              onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio-app/issues/')}>
+            </PressableRow>
+            <PressableRow onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio-app/issues/')}>
               <XStack className="items-center gap-3">
                 <Github size={20} />
                 <Text>{t('settings.about.feedback.title')}</Text>
               </XStack>
               <ArrowUpRight size={16} />
-            </PressableSettingRow>
-            <PressableSettingRow
+            </PressableRow>
+            <PressableRow
               onPress={async () => await openLink('https://github.com/CherryHQ/cherry-studio/blob/main/LICENSE/')}>
               <XStack className="items-center gap-3">
                 <Copyright size={20} />
                 <Text>{t('settings.about.license.title')}</Text>
               </XStack>
               <ArrowUpRight size={16} />
-            </PressableSettingRow>
-            <PressableSettingRow
-              onPress={async () => await openLink('https://docs.cherry-ai.com/contact-us/questions/')}>
+            </PressableRow>
+            <PressableRow onPress={async () => await openLink('https://docs.cherry-ai.com/contact-us/questions/')}>
               <XStack className="items-center gap-3">
                 <Mail size={20} />
                 <Text>{t('settings.about.contact.title')}</Text>
               </XStack>
               <ArrowUpRight size={16} />
-            </PressableSettingRow>
-          </SettingGroup>
+            </PressableRow>
+          </Group>
         </YStack>
-      </SettingContainer>
+      </Container>
     </SafeAreaContainer>
   )
 }
