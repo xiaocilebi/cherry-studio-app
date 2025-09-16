@@ -3,11 +3,13 @@ import * as ExpoLinking from 'expo-linking'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Image, Text, XStack, YStack } from 'tamagui'
+import { Text as ReactNativeText, View } from 'react-native'
 
 import { PressableSettingRow, SettingContainer, SettingGroup, SettingRow } from '@/components/settings'
 import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { loggerService } from '@/services/LoggerService'
+import { Button } from 'heroui-native'
 const logger = loggerService.withContext('AboutScreen')
 
 export default function AboutScreen() {
