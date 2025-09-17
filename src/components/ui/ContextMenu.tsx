@@ -15,6 +15,7 @@ export interface ContextMenuListProps {
   androidIcon?: React.ReactNode
   destructive?: boolean
   color?: string
+  backgroundColor?: string
   onSelect: () => void
 }
 
@@ -37,20 +38,6 @@ const ContextMenu: FC<ContextMenuProps> = ({
   withHighLight = true
 }) => {
   const selectionSheetRef = useRef<BottomSheetModal>(null)
-  const { isDark } = useTheme()
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    if (!isVisible) return
-
-    const backAction = () => {
-      selectionSheetRef.current?.dismiss()
-      return true
-    }
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-    return () => backHandler.remove()
-  }, [isVisible])
 
   if (isIOS) {
     const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
@@ -59,7 +46,8 @@ const ContextMenu: FC<ContextMenuProps> = ({
         onPress={onPress}
         onLongPress={() => {}}
         unstable_pressDelay={50}
-        delayLongPress={400}
+        delayLongPress={350}
+        // FIXME: 这里失效了
         style={({ pressed }) => ({
           backgroundColor: pressed ? '#a0a1b033' : 'transparent',
           borderRadius
@@ -94,10 +82,6 @@ const ContextMenu: FC<ContextMenuProps> = ({
   }
 
   if (isAndroid) {
-    const renderBackdrop = (props: any) => (
-      <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
-    )
-
     const openBottomSheet = () => {
       if (disableContextMenu) return
       selectionSheetRef.current?.present()
@@ -135,6 +119,8 @@ const ContextMenu: FC<ContextMenuProps> = ({
             key: item.title,
             label: item.title,
             icon: item.androidIcon,
+            color: item.color,
+            backgroundColor: item.backgroundColor,
             onSelect: () => onAndroidSelect(item.onSelect)
           }))}
         />
