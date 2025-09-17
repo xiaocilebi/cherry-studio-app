@@ -55,7 +55,7 @@ export default function PersonalScreen() {
                 <XStack className="relative">
                   <Image
                     className="w-24 h-24 rounded-full"
-                    source={avatar ? { uri: avatar } : { uri: require('@/assets/images/favicon.png') }}
+                    source={avatar ? { uri: avatar } : require('@/assets/images/favicon.png')}
                   />
                   <XStack className="absolute bottom-0 right-0 bg-blue-100 p-1.5 rounded-full border-2 border-white">
                     <Camera className="text-white" size={14} />

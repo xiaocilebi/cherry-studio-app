@@ -6,6 +6,8 @@ import {
   ChevronDown,
   Cloud,
   Copyright,
+  Eye,
+  EyeOff,
   FileText,
   Folder,
   FolderOpen,
@@ -26,6 +28,7 @@ import {
   ScanQrCode,
   Settings2,
   ChevronRight,
+  ShieldCheck,
   Trash2,
   Wifi
 } from 'lucide-react-native'
@@ -51,6 +54,8 @@ interopIcon(ChevronDown)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copyright)
+interopIcon(Eye)
+interopIcon(EyeOff)
 interopIcon(FileText)
 interopIcon(Folder)
 interopIcon(FolderOpen)
@@ -69,6 +74,7 @@ interopIcon(Rss)
 interopIcon(ScanQrCode)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
+interopIcon(ShieldCheck)
 interopIcon(Trash2)
 interopIcon(Wifi)
 
@@ -85,6 +91,8 @@ const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
 const CloudIcon = withDefaultIconClass(Cloud)
 const CopyrightIcon = withDefaultIconClass(Copyright)
+const EyeIcon = withDefaultIconClass(Eye)
+const EyeOffIcon = withDefaultIconClass(EyeOff)
 const FileTextIcon = withDefaultIconClass(FileText)
 const FolderIcon = withDefaultIconClass(Folder)
 const FolderOpenIcon = withDefaultIconClass(FolderOpen)
@@ -104,6 +112,7 @@ const RssIcon = withDefaultIconClass(Rss)
 const ScanQrCodeIcon = withDefaultIconClass(ScanQrCode)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
+const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
 const Trash2Icon = withDefaultIconClass(Trash2)
 const WifiIcon = withDefaultIconClass(Wifi)
 
@@ -114,6 +123,8 @@ export {
   ChevronDownIcon as ChevronDown,
   CloudIcon as Cloud,
   CopyrightIcon as Copyright,
+  EyeIcon as Eye,
+  EyeOffIcon as EyeOff,
   FileTextIcon as FileText,
   FolderIcon as Folder,
   FolderOpenIcon as FolderOpen,
@@ -133,6 +144,7 @@ export {
   ScanQrCodeIcon as ScanQrCode,
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
+  ShieldCheckIcon as ShieldCheck,
   Trash2Icon as Trash2,
   WifiIcon as Wifi
 }

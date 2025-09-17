@@ -10,8 +10,8 @@
 
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
-- **分析文件总数**: 143
-- **需要迁移的文件**: 111 (使用 Tamagui)
+- **分析文件总数**: 142
+- **需要迁移的文件**: 106 (使用 Tamagui)
 - **已迁移文件**: 15 (componentsV2/)
 - **无需迁移文件**: 13 (未使用 Tamagui)
 
@@ -171,7 +171,7 @@
 - [ ] `assistant/tabs/PromptTabScreen.tsx`
 - [ ] `assistant/tabs/ToolTabScreen.tsx`
 
-#### 设置相关页面 (17 个页面)
+#### 设置相关页面 (16 个页面)
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [ ] `settings/data/BasicDataSettingsScreen.tsx`
 - [ ] `settings/data/DataSettingsScreen.tsx`
@@ -184,11 +184,10 @@
 - [ ] `settings/providers/ManageModelsScreen.tsx`
 - [ ] `settings/providers/ProviderListScreen.tsx`
 - [ ] `settings/providers/ProviderSettingsScreen.tsx`
-- [ ] `settings/websearch/BlacklistSettings.tsx`
-- [ ] `settings/websearch/GeneralSettings.tsx`
-- [ ] `settings/websearch/ProviderSettings.tsx`
-- [ ] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
-- [ ] `settings/websearch/WebSearchSettingsScreen.tsx`
+- [x] `settings/websearch/GeneralSettings.tsx`
+- [x] `settings/websearch/ProviderSettings.tsx`
+- [x] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
+- [x] `settings/websearch/WebSearchSettingsScreen.tsx`
 
 ## ✨ 无需迁移的组件 (24/24)
 
@@ -273,9 +272,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 19/143 (13.3%)
+- **总体进度**: 23/142 (16.2%)
 - **组件**: 0/87 (0%)
-- **页面**: 7/31 (22.6%)
+- **页面**: 11/30 (36.7%)
 - **已完成**: 15/15 (100%)
 
 最后更新: 2025-09-17
+Git 信息: migrate(websearch): hero screens

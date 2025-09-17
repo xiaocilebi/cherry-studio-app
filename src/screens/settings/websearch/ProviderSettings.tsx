@@ -1,8 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { YStack } from 'tamagui'
 
-import { SettingGroup, SettingGroupTitle } from '@/components/settings'
+import { Group, GroupTitle, YStack } from '@/componentsV2'
 import { WebsearchProviderRow } from '@/components/settings/websearch/WebsearchProviderRow'
 import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 
@@ -11,22 +10,22 @@ export default function ProviderSettings() {
   const { freeProviders, apiProviders } = useWebsearchProviders()
 
   return (
-    <YStack gap={24}>
-      {/*<YStack gap={8}>*/}
-      {/*  <SettingGroupTitle>{t('settings.websearch.provider.free.title')}</SettingGroupTitle>*/}
-      {/*  <SettingGroup>*/}
+    <YStack className="gap-6">
+      {/*<YStack className="gap-2">*/}
+      {/*  <GroupTitle>{t('settings.websearch.provider.free.title')}</GroupTitle>*/}
+      {/*  <Group>*/}
       {/*    {freeProviders.map((provider, index) => (*/}
       {/*      <WebsearchProviderRow key={index} provider={provider} need_config={provider.id === 'searxng'} />*/}
       {/*    ))}*/}
-      {/*  </SettingGroup>*/}
+      {/*  </Group>*/}
       {/*</YStack>*/}
-      <YStack gap={8}>
-        <SettingGroupTitle>{t('settings.websearch.provider.api.title')}</SettingGroupTitle>
-        <SettingGroup>
+      <YStack className="gap-2">
+        <GroupTitle>{t('settings.websearch.provider.api.title')}</GroupTitle>
+        <Group>
           {apiProviders.map((provider, index) => (
             <WebsearchProviderRow key={index} provider={provider} need_config={true} />
           ))}
-        </SettingGroup>
+        </Group>
       </YStack>
     </YStack>
   )
