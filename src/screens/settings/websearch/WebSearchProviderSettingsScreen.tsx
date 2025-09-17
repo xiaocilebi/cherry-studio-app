@@ -7,7 +7,6 @@ import { ActivityIndicator } from 'react-native'
 import { Button } from 'heroui-native'
 
 import ExternalLink from '@/components/ExternalLink'
-import { SettingHelpText } from '@/components/settings'
 import { ApiCheckSheet } from '@/components/settings/websearch/ApiCheckSheet'
 import { Container, GroupTitle, HeaderBar, SafeAreaContainer, Text, TextField, XStack, YStack } from '@/componentsV2'
 import { Eye, EyeOff, ShieldCheck } from '@/componentsV2/icons/LucideIcon'
@@ -147,7 +146,7 @@ export default function WebSearchProviderSettingsScreen() {
             </XStack>
 
             <XStack className="justify-between px-3">
-              <SettingHelpText>{t('settings.provider.api_key.tip')}</SettingHelpText>
+              <Text className="text-xs opacity-40">{t('settings.provider.api_key.tip')}</Text>
               <ExternalLink href={apiKeyWebsite} size={12}>
                 {t('settings.websearch.api_key.get')}
               </ExternalLink>
