@@ -41,8 +41,6 @@ import { DialogProvider } from './hooks/useDialog'
 import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { SafeAreaContainer } from './componentsV2'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()

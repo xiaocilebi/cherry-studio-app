@@ -15,12 +15,14 @@ import {
   Github,
   Globe,
   HardDrive,
+  HeartPulse,
   Info,
   Languages,
   CircleUserRound,
   LucideIcon,
   Mail,
   MessageSquareMore,
+  Minus,
   Package,
   Plus,
   Rocket,
@@ -64,10 +66,12 @@ interopIcon(FolderSearch2)
 interopIcon(Github)
 interopIcon(Globe)
 interopIcon(HardDrive)
+interopIcon(HeartPulse)
 interopIcon(Info)
 interopIcon(Languages)
 interopIcon(Mail)
 interopIcon(MessageSquareMore)
+interopIcon(Minus)
 interopIcon(Package)
 interopIcon(Plus)
 interopIcon(Rocket)
@@ -102,11 +106,13 @@ const FolderSearch2Icon = withDefaultIconClass(FolderSearch2)
 const GithubIcon = withDefaultIconClass(Github)
 const GlobeIcon = withDefaultIconClass(Globe)
 const HardDriveIcon = withDefaultIconClass(HardDrive)
+const HeartPulseIcon = withDefaultIconClass(HeartPulse)
 const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
 const CircleUserRoundIcon = withDefaultIconClass(CircleUserRound)
 const MailIcon = withDefaultIconClass(Mail)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
+const MinusIcon = withDefaultIconClass(Minus)
 const PackageIcon = withDefaultIconClass(Package)
 const PlusIcon = withDefaultIconClass(Plus)
 const RocketIcon = withDefaultIconClass(Rocket)
@@ -135,11 +141,13 @@ export {
   GithubIcon as Github,
   GlobeIcon as Globe,
   HardDriveIcon as HardDrive,
+  HeartPulseIcon as HeartPulse,
   InfoIcon as Info,
   LanguagesIcon as Languages,
   CircleUserRoundIcon as CircleUserRound,
   MailIcon as Mail,
   MessageSquareMoreIcon as MessageSquareMore,
+  MinusIcon as Minus,
   PackageIcon as Package,
   PlusIcon as Plus,
   RocketIcon as Rocket,

@@ -17,7 +17,7 @@
 
 ## 迁移进度
 
-### ✅ 已完成迁移的组件 (15/15)
+### ✅ 已完成迁移的组件 (16/16)
 
 位于 `src/componentsV2/`:
 
@@ -26,6 +26,7 @@
 - [x] `base/TextField/index.tsx`
 - [x] `icons/LucideIcon/index.tsx`
 - [x] `interactive/HeaderBar/index.tsx`
+- [x] `interactive/ModelGroup/index.tsx`
 - [x] `layout/Container/index.tsx`
 - [x] `layout/Group/index.tsx`
 - [x] `layout/PressableRow/index.tsx`
@@ -181,9 +182,9 @@
 - [x] `settings/general/ThemeSettingsScreen.tsx`
 - [x] `settings/personal/PersonalScreen.tsx`
 - [ ] `settings/providers/ApiServiceScreen.tsx`
-- [ ] `settings/providers/ManageModelsScreen.tsx`
+- [x] `settings/providers/ManageModelsScreen.tsx`
 - [x] `settings/providers/ProviderListScreen.tsx`
-- [ ] `settings/providers/ProviderSettingsScreen.tsx`
+- [x] `settings/providers/ProviderSettingsScreen.tsx`
 - [x] `settings/websearch/GeneralSettings.tsx`
 - [x] `settings/websearch/ProviderSettings.tsx`
 - [x] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
@@ -243,6 +244,29 @@
 - [x] `settings/data/Landrop/Overlay.tsx`
 - [x] `settings/about/AboutScreen.tsx` (Already migrated to HeroUI)
 
+## 最新组件提取
+
+### ModelGroup 组件 (2025-09-17)
+
+**提取位置**: `src/componentsV2/interactive/ModelGroup/index.tsx`
+
+**功能描述**:
+- 统一的模型分组展示组件，使用 Accordion 布局
+- 支持自定义模型项渲染和组按钮渲染
+- 完全响应式设计，支持亮/暗主题
+- 内置空状态处理和国际化支持
+
+**影响的文件**:
+- `src/screens/settings/providers/ManageModelsScreen.tsx` - 使用完整功能版本
+- `src/screens/settings/providers/ProviderSettingsScreen.tsx` - 使用简化版本
+- `src/componentsV2/index.ts` - 新增导出
+
+**代码优化效果**:
+- 减少重复代码 ~90 行
+- 统一组件行为和样式
+- 提高可维护性和复用性
+- 修复 React key props 警告
+
 ## 迁移指南
 
 ### 推荐迁移顺序
@@ -272,10 +296,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 24/142 (16.9%)
-- **组件**: 0/87 (0%)
-- **页面**: 12/30 (40.0%)
-- **已完成**: 15/15 (100%)
+- **总体进度**: 27/142 (19.0%)
+- **组件**: 1/87 (1.1%)
+- **页面**: 14/30 (46.7%)
+- **已完成**: 16/16 (100%)
 
 最后更新: 2025-09-17
-Git 信息: migrate(provider-list): hero screen
+Git 信息: feat(model-group): extract reusable ModelGroup component
