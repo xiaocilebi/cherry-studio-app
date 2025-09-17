@@ -118,7 +118,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ type: 'timing' }}>
-            <Pressable onPress={handleScrollToEnd} hitSlop={8} style={{ position: 'absolute', bottom: 2, right: 12 }}>
+            <Pressable onPress={handleScrollToEnd} hitSlop={8} style={{ position: 'absolute', bottom: 8, right: 12 }}>
               <Button
                 onPress={handleScrollToEnd}
                 size={40}

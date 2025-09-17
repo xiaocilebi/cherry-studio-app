@@ -78,7 +78,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
         item.description
       )
     return (
-      <TouchableOpacity onPress={() => handleSelect(item)} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => handleSelect(item)} activeOpacity={0.5}>
         <XStack
           alignItems="center"
           gap={10}

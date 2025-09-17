@@ -47,11 +47,10 @@ const ContextMenu: FC<ContextMenuProps> = ({
         onLongPress={() => {}}
         unstable_pressDelay={50}
         delayLongPress={350}
-        // FIXME: 这里失效了
-        style={({ pressed }) => ({
-          backgroundColor: pressed ? '#a0a1b033' : 'transparent',
+        className="active:opacity-70"
+        style={{
           borderRadius
-        })}>
+        }}>
         {children}
       </Pressable>
     ) : (
@@ -105,11 +104,10 @@ const ContextMenu: FC<ContextMenuProps> = ({
           delayLongPress={400}
           onPress={onPress}
           onLongPress={openBottomSheet}
-          style={({ pressed }) => ({
-            backgroundColor: pressed ? '#a0a1b033' : 'transparent',
-            opacity: pressed ? 0.9 : 1,
+          className="active:opacity-70"
+          style={{
             borderRadius
-          })}>
+          }}>
           {children}
         </Pressable>
 
