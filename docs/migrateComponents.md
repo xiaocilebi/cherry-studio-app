@@ -164,7 +164,7 @@
 - [ ] `assistant/tabs/ToolTabScreen.tsx`
 
 #### 设置相关页面 (22 个页面)
-- [ ] `settings/assistant/AssistantSettingsScreen.tsx`
+- [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [ ] `settings/data/BasicDataSettingsScreen.tsx`
 - [ ] `settings/data/DataProviderSettingsScreen.tsx`
 - [ ] `settings/data/DataSettingsScreen.tsx`
