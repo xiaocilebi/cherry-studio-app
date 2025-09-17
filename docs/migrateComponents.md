@@ -1,11 +1,17 @@
 # Tamagui 到 HeroUI 组件迁移计划
 
+## 迁移须知
+1. 所有新的迁移组件均为与 ./src/componentsV2/ 目录下。组件中具有默认的样式，添加样式时需要查看组件中的样式
+2. 需要将tamagui改为使用heroui-native
+3. 新添加的icon需要在LucideIcon/index.tsx中注册
+
+
 ## 迁移概述
 
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
-- **分析文件总数**: 152
-- **需要迁移的文件**: 126 (使用 Tamagui)
+- **分析文件总数**: 142
+- **需要迁移的文件**: 105 (使用 Tamagui)
 - **已迁移文件**: 15 (componentsV2/)
 - **无需迁移文件**: 13 (未使用 Tamagui)
 
@@ -25,10 +31,10 @@
 - [x] `layout/PressableRow/index.tsx`
 - [x] `layout/Group/GroupTitle.tsx`
 - [x] `layout/Row/index.tsx`
+- [x] `layout/Row/RowRightArrow.tsx`
 - [x] `layout/SafeAreaContainer/index.tsx`
 - [x] `layout/XStack/index.tsx`
 - [x] `layout/YStack/index.tsx`
-- [x] `utils/index.ts`
 - [x] `index.ts`
 
 ## 🔄 待迁移组件
@@ -165,29 +171,23 @@
 - [ ] `assistant/tabs/PromptTabScreen.tsx`
 - [ ] `assistant/tabs/ToolTabScreen.tsx`
 
-#### 设置相关页面 (22 个页面)
+#### 设置相关页面 (16 个页面)
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [ ] `settings/data/BasicDataSettingsScreen.tsx`
-- [ ] `settings/data/DataProviderSettingsScreen.tsx`
 - [ ] `settings/data/DataSettingsScreen.tsx`
-- [ ] `settings/data/Landrop/QRCodeScanner.tsx`
-- [ ] `settings/data/NutstoreLoginScreen.tsx`
-- [ ] `settings/data/ObsidianSettingsScreen.tsx`
-- [ ] `settings/data/WebDavConfigScreen.tsx`
-- [ ] `settings/data/WebDavScreen.tsx`
-- [ ] `settings/general/GeneralSettingsScreen.tsx`
-- [ ] `settings/general/LanguageChangeScreen.tsx`
-- [ ] `settings/general/ThemeSettingsScreen.tsx`
+- [x] `settings/data/Landrop/QRCodeScanner.tsx`
+- [x] `settings/general/GeneralSettingsScreen.tsx`
+- [x] `settings/general/LanguageChangeScreen.tsx`
+- [x] `settings/general/ThemeSettingsScreen.tsx`
 - [x] `settings/personal/PersonalScreen.tsx`
 - [ ] `settings/providers/ApiServiceScreen.tsx`
 - [ ] `settings/providers/ManageModelsScreen.tsx`
-- [ ] `settings/providers/ProviderListScreen.tsx`
+- [x] `settings/providers/ProviderListScreen.tsx`
 - [ ] `settings/providers/ProviderSettingsScreen.tsx`
-- [ ] `settings/websearch/BlacklistSettings.tsx`
-- [ ] `settings/websearch/GeneralSettings.tsx`
-- [ ] `settings/websearch/ProviderSettings.tsx`
-- [ ] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
-- [ ] `settings/websearch/WebSearchSettingsScreen.tsx`
+- [x] `settings/websearch/GeneralSettings.tsx`
+- [x] `settings/websearch/ProviderSettings.tsx`
+- [x] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
+- [x] `settings/websearch/WebSearchSettingsScreen.tsx`
 
 ## ✨ 无需迁移的组件 (24/24)
 
@@ -228,7 +228,7 @@
 - [x] `ui/ModelIcon.tsx`
 - [x] `ui/ProviderIcon.tsx`
 
-### 不使用 Tamagui 的页面组件 (16 个页面)
+### 不使用 Tamagui 的页面组件 (13 个页面)
 - [x] `home/ChatContent.tsx`
 - [x] `home/markdown/MarkdownStyles.tsx`
 - [x] `home/markdown/useMathEquation.tsx`
@@ -239,12 +239,8 @@
 - [x] `home/messages/blocks/ToolBlock.tsx`
 - [x] `home/messages/tools/MessageTool.tsx`
 - [x] `home/messages/tools/MessageTools.tsx`
-- [x] `settings/data/JoplinSettingsScreen.tsx`
 - [x] `settings/data/Landrop/LandropSettingsScreen.tsx`
 - [x] `settings/data/Landrop/Overlay.tsx`
-- [x] `settings/data/NotionSettingsScreen.tsx`
-- [x] `settings/data/SiyuanSettingsScreen.tsx`
-- [x] `settings/data/YuqueSettingsScreen.tsx`
 - [x] `settings/about/AboutScreen.tsx` (Already migrated to HeroUI)
 
 ## 迁移指南
@@ -276,9 +272,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 15/152 (9.9%)
+- **总体进度**: 24/142 (16.9%)
 - **组件**: 0/87 (0%)
-- **页面**: 3/39 (7.7%)
+- **页面**: 12/30 (40.0%)
 - **已完成**: 15/15 (100%)
 
 最后更新: 2025-09-17
+Git 信息: migrate(provider-list): hero screen

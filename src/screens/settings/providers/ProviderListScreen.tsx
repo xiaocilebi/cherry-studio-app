@@ -1,16 +1,12 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
-import { Plus } from '@tamagui/lucide-icons'
+import { Plus } from '@/componentsV2/icons/LucideIcon'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { YStack } from 'tamagui'
-
-import { SettingContainer, SettingGroup } from '@/components/settings'
-import { HeaderBar } from '@/components/settings/HeaderBar'
+import { YStack, SafeAreaContainer, Container, Group, HeaderBar } from '@/componentsV2'
 import { ProviderSheet } from '@/components/settings/providers/AddProviderSheet'
 import { ProviderItem } from '@/components/settings/providers/ProviderItem'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
@@ -79,11 +75,11 @@ export default function ProviderListScreen() {
           <ActivityIndicator />
         </SafeAreaContainer>
       ) : (
-        <SettingContainer paddingBottom={0} gap={16}>
+        <Container className="pb-0 gap-4">
           <SearchInput placeholder={t('settings.provider.search')} value={searchText} onChangeText={setSearchText} />
 
-          <YStack flex={1} height="100%">
-            <SettingGroup flex={1}>
+          <YStack className="flex-1" style={{ height: '100%' }}>
+            <Group className="flex-1">
               <FlashList
                 data={filteredProviders}
                 renderItem={renderProviderItem}
@@ -93,9 +89,9 @@ export default function ProviderListScreen() {
                 extraData={providers}
                 contentContainerStyle={{ paddingBottom: 30 }}
               />
-            </SettingGroup>
+            </Group>
           </YStack>
-        </SettingContainer>
+        </Container>
       )}
 
       <ProviderSheet ref={bottomSheetRef} mode={sheetMode} editProvider={editingProvider} onSave={handleProviderSave} />

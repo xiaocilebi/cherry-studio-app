@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import { Image as RNImage, ImageProps as RNImageProps, Animated } from 'react-native'
-import { cn } from '../../utils'
+import { cn } from 'heroui-native'
 
 export interface ImageProps extends RNImageProps {
   className?: string

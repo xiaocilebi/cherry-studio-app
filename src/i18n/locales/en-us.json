@@ -451,6 +451,9 @@
           "filename": "File Name",
           "scan_qr_code": {
             "description": "Scan QR Code from Cherry Studio",
+            "grant_permission": "Grant Permission",
+            "permission_denied": "Camera permission not granted. Please enable it in your device settings to scan QR codes.",
+            "requesting_permission": "Requesting camera permission...",
             "success": "Connection Successful 🎉",
             "success_description": "You can now Click Send Button to Restore Data!",
             "title": "Scan QR Code"
@@ -740,10 +743,10 @@
     },
     "topics": {
       "new_topic": "New Topic",
-      "select_assistant": "Select New Assistant",
       "rename": {
         "title": "Rename Topic"
       },
+      "select_assistant": "Select New Assistant",
       "title": "Topic",
       "title.recent": "Recent Topics"
     }
