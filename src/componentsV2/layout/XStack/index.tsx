@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
-import { View, ViewProps, Animated } from 'react-native'
+import { View, ViewProps } from 'react-native'
+import Animated from 'react-native-reanimated'
 import { cn } from '../../utils'
 
 export interface XStackProps extends ViewProps {

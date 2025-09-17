@@ -110,6 +110,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       ),
       destructive: isTranslated,
       color: isTranslated ? 'red' : undefined,
+      backgroundColor: isTranslated ? '$red20' : undefined,
       onSelect: isTranslated ? handleDeleteTranslation : handleTranslate
     },
     {
@@ -118,6 +119,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       androidIcon: <Trash2 size={16} color="red" />,
       destructive: true,
       color: 'red',
+      backgroundColor: '$red20',
       onSelect: handleDelete
     }
   ]

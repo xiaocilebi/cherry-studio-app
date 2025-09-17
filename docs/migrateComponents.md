@@ -6,22 +6,24 @@
 
 - **分析文件总数**: 152
 - **需要迁移的文件**: 126 (使用 Tamagui)
-- **已迁移文件**: 13 (componentsV2/)
+- **已迁移文件**: 15 (componentsV2/)
 - **无需迁移文件**: 13 (未使用 Tamagui)
 
 ## 迁移进度
 
-### ✅ 已完成迁移的组件 (13/13)
+### ✅ 已完成迁移的组件 (15/15)
 
 位于 `src/componentsV2/`:
 
 - [x] `base/Image/index.tsx`
 - [x] `base/Text/index.tsx`
+- [x] `base/TextField/index.tsx`
 - [x] `icons/LucideIcon/index.tsx`
 - [x] `interactive/HeaderBar/index.tsx`
 - [x] `layout/Container/index.tsx`
 - [x] `layout/Group/index.tsx`
 - [x] `layout/PressableRow/index.tsx`
+- [x] `layout/Group/GroupTitle.tsx`
 - [x] `layout/Row/index.tsx`
 - [x] `layout/SafeAreaContainer/index.tsx`
 - [x] `layout/XStack/index.tsx`
@@ -134,7 +136,7 @@
 - [ ] `home/ChatScreen.tsx`
 - [ ] `topic/TopicScreen.tsx`
 - [ ] `assistant/AssistantScreen.tsx`
-- [ ] `settings/SettingsScreen.tsx`
+- [x] `settings/SettingsScreen.tsx`
 
 #### 聊天和首页相关页面 (16 个页面)
 - [ ] `home/markdown/ReactNativeMarkdown.tsx`
@@ -164,7 +166,7 @@
 - [ ] `assistant/tabs/ToolTabScreen.tsx`
 
 #### 设置相关页面 (22 个页面)
-- [ ] `settings/assistant/AssistantSettingsScreen.tsx`
+- [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [ ] `settings/data/BasicDataSettingsScreen.tsx`
 - [ ] `settings/data/DataProviderSettingsScreen.tsx`
 - [ ] `settings/data/DataSettingsScreen.tsx`
@@ -176,7 +178,7 @@
 - [ ] `settings/general/GeneralSettingsScreen.tsx`
 - [ ] `settings/general/LanguageChangeScreen.tsx`
 - [ ] `settings/general/ThemeSettingsScreen.tsx`
-- [ ] `settings/personal/PersonalScreen.tsx`
+- [x] `settings/personal/PersonalScreen.tsx`
 - [ ] `settings/providers/ApiServiceScreen.tsx`
 - [ ] `settings/providers/ManageModelsScreen.tsx`
 - [ ] `settings/providers/ProviderListScreen.tsx`
@@ -274,9 +276,9 @@
 
 ## 进度追踪
 
-- **总体进度**: 13/152 (8.6%)
+- **总体进度**: 15/152 (9.9%)
 - **组件**: 0/87 (0%)
-- **页面**: 0/39 (0%)
-- **已完成**: 13/13 (100%)
+- **页面**: 3/39 (7.7%)
+- **已完成**: 15/15 (100%)
 
-最后更新: 2024-09-16
+最后更新: 2025-09-17

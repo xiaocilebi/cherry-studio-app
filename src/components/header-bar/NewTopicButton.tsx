@@ -102,12 +102,9 @@ const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
       <Pressable
         onPress={() => handleAddNewTopic()}
         onLongPress={openAssistantSelection}
-        delayLongPress={400}
-        style={({ pressed }) => ({
-          opacity: pressed ? 0.6 : 1,
-          padding: 8,
-          borderRadius: 8
-        })}
+        unstable_pressDelay={50}
+        delayLongPress={350}
+        className="active:opacity-20"
         disabled={isLoading}>
         <MessageSquareDiff size={24} />
       </Pressable>
