@@ -451,6 +451,9 @@
           "filename": "文件名",
           "scan_qr_code": {
             "description": "请使用Cherry Studio扫码",
+            "grant_permission": "授予权限",
+            "permission_denied": "未获得相机权限。请在设备设置中启用相机权限以扫描二维码。",
+            "requesting_permission": "正在请求相机权限...",
             "success": "连接成功 🎉",
             "success_description": "现在可以点击发送按钮来恢复数据了！",
             "title": "扫描二维码"
@@ -740,10 +743,10 @@
     },
     "topics": {
       "new_topic": "新话题",
-      "select_assistant": "选择新对话助手",
       "rename": {
         "title": "重命名话题"
       },
+      "select_assistant": "选择新对话助手",
       "title": "话题",
       "title.recent": "最近的话题"
     }

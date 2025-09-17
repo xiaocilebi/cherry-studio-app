@@ -23,6 +23,7 @@ import {
   Rocket,
   RotateCcw,
   Rss,
+  ScanQrCode,
   Settings2,
   ChevronRight,
   Trash2,
@@ -65,6 +66,7 @@ interopIcon(Package)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
 interopIcon(Rss)
+interopIcon(ScanQrCode)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(Trash2)
@@ -99,6 +101,7 @@ const PackageIcon = withDefaultIconClass(Package)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
 const RssIcon = withDefaultIconClass(Rss)
+const ScanQrCodeIcon = withDefaultIconClass(ScanQrCode)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const Trash2Icon = withDefaultIconClass(Trash2)
@@ -127,6 +130,7 @@ export {
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
   RssIcon as Rss,
+  ScanQrCodeIcon as ScanQrCode,
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
   Trash2Icon as Trash2,

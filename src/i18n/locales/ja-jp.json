@@ -451,6 +451,9 @@
           "filename": "ファイル名",
           "scan_qr_code": {
             "description": "Cherry StudioからQRコードをスキャン",
+            "grant_permission": "権限を付与する",
+            "permission_denied": "カメラの権限が許可されていません。QRコードをスキャンするには、デバイスの設定でカメラの権限を有効にしてください。",
+            "requesting_permission": "カメラの権限をリクエスト中...",
             "success": "接続に成功しました 🎉",
             "success_description": "今すぐ送信ボタンをクリックしてデータを復元できます！",
             "title": "QRコードをスキャン"
@@ -740,10 +743,10 @@
     },
     "topics": {
       "new_topic": "新しいトピック",
-      "select_assistant": "新しいアシスタントを選択",
       "rename": {
         "title": "トピック名を変更"
       },
+      "select_assistant": "新しいアシスタントを選択",
       "title": "トピック",
       "title.recent": "最近のトピック"
     }

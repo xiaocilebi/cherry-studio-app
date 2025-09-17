@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 
-import { SettingRowRightArrow } from '@/components/settings'
 import {
   Image,
   Text,
@@ -161,7 +160,7 @@ function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) 
     if (typeof icon === 'string') {
       return (
         <Image
-          source={{ uri: icon || require('@/assets/images/favicon.png') }}
+          source={icon ? { uri: icon } : require('@/assets/images/favicon.png')}
           className="w-10 h-10 rounded-full"
           accessibilityLabel={title}
         />

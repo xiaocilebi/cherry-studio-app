@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { TextField as HeroUITextField, useTextFieldContext } from 'heroui-native'
+import { TextField as HeroUITextField, useTextFieldContext, cn } from 'heroui-native'
 import type {
   TextFieldDescriptionProps,
   TextFieldErrorMessageProps,
@@ -10,8 +10,6 @@ import type {
   TextFieldRootProps
 } from 'heroui-native'
 import { TextInput, View } from 'react-native'
-
-import { cn } from 'heroui-native'
 
 const TextFieldRoot = forwardRef<View, TextFieldRootProps>(({ className, ...props }, ref) => {
   return <HeroUITextField ref={ref} className={cn(className)} {...props} />

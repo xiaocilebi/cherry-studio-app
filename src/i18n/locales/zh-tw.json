@@ -451,6 +451,9 @@
           "filename": "檔名",
           "scan_qr_code": {
             "description": "從Cherry Studio掃描QR碼",
+            "grant_permission": "授與權限",
+            "permission_denied": "未取得相機權限。請在裝置設定中啟用相機權限以掃描QR碼。",
+            "requesting_permission": "正在請求相機權限...",
             "success": "連接成功 🎉",
             "success_description": "您現在可以點擊發送按鈕來恢復資料！",
             "title": "掃描QR碼"
@@ -740,10 +743,10 @@
     },
     "topics": {
       "new_topic": "新主題",
-      "select_assistant": "選擇新對話助手",
       "rename": {
         "title": "重新命名主題"
       },
+      "select_assistant": "選擇新對話助手",
       "title": "主題",
       "title.recent": "最近的主題"
     }

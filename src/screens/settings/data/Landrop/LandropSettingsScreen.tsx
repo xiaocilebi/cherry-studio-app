@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { File, Paths } from 'expo-file-system/next'
-import React, { useEffect, useRef, useState } from 'react' // Import useRef
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'

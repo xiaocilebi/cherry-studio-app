@@ -5,7 +5,7 @@
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
 - **分析文件总数**: 143
-- **需要迁移的文件**: 115 (使用 Tamagui)
+- **需要迁移的文件**: 114 (使用 Tamagui)
 - **已迁移文件**: 15 (componentsV2/)
 - **无需迁移文件**: 13 (未使用 Tamagui)
 
@@ -169,7 +169,7 @@
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [ ] `settings/data/BasicDataSettingsScreen.tsx`
 - [ ] `settings/data/DataSettingsScreen.tsx`
-- [ ] `settings/data/Landrop/QRCodeScanner.tsx`
+- [x] `settings/data/Landrop/QRCodeScanner.tsx`
 - [ ] `settings/general/GeneralSettingsScreen.tsx`
 - [ ] `settings/general/LanguageChangeScreen.tsx`
 - [ ] `settings/general/ThemeSettingsScreen.tsx`
@@ -267,9 +267,9 @@
 
 ## 进度追踪
 
-- **总体进度**: 15/143 (10.5%)
+- **总体进度**: 16/143 (11.2%)
 - **组件**: 0/87 (0%)
-- **页面**: 3/31 (9.7%)
+- **页面**: 4/31 (12.9%)
 - **已完成**: 15/15 (100%)
 
 最后更新: 2025-09-17
