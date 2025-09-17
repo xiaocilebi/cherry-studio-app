@@ -18,7 +18,8 @@ import {
   Package,
   Rocket,
   Rss,
-  Settings2
+  Settings2,
+  ChevronRight
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
 import { cn } from '../../utils'
@@ -53,6 +54,7 @@ interopIcon(Package)
 interopIcon(Rocket)
 interopIcon(Rss)
 interopIcon(Settings2)
+interopIcon(ChevronRight)
 
 function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   const Wrapped = (({ className, ...props }: any) => (
@@ -79,6 +81,7 @@ const PackageIcon = withDefaultIconClass(Package)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RssIcon = withDefaultIconClass(Rss)
 const Settings2Icon = withDefaultIconClass(Settings2)
+const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 
 export {
   ArrowLeftIcon as ArrowLeft,
@@ -98,5 +101,6 @@ export {
   PackageIcon as Package,
   RocketIcon as Rocket,
   RssIcon as Rss,
-  Settings2Icon as Settings2
+  Settings2Icon as Settings2,
+  ChevronRightIcon as ChevronRight
 }

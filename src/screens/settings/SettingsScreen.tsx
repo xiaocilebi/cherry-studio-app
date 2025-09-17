@@ -15,7 +15,8 @@ import {
   Container,
   Group,
   PressableRow,
-  GroupTitle
+  GroupTitle,
+  RowRightArrow
 } from '@/componentsV2'
 import { Cloud, Package, Globe, Settings2, HardDrive, Info } from '@/componentsV2/icons/LucideIcon'
 import { useSettings } from '@/hooks/useSettings'
@@ -188,7 +189,7 @@ function SettingItem({ title, screen, icon, specificScreen }: SettingItemProps) 
           <Text className="font-bold">{title}</Text>
         </YStack>
       </XStack>
-      <SettingRowRightArrow />
+      <RowRightArrow />
     </PressableRow>
   )
 }

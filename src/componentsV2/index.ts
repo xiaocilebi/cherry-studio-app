@@ -18,6 +18,7 @@ export { default as XStack, AnimatedXStack, type XStackProps } from './layout/XS
 export { default as YStack, AnimatedYStack, type YStackProps } from './layout/YStack'
 export { default as PressableRow, type PressableRowProps } from './layout/PressableRow'
 export { default as Row, type RowProps } from './layout/Row'
+export { default as RowRightArrow } from './layout/Row/RowRightArrow'
 export { default as Group, type GroupProps } from './layout/Group'
 export { default as GroupTitle, type GroupTitleProps } from './layout/Group/GroupTitle'
 export { default as Container, type ContainerProps } from './layout/Container'
