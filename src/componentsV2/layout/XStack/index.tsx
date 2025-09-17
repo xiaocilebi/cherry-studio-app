@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import { View, ViewProps } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { cn } from '../../utils'
+import { cn } from 'heroui-native'
 
 export interface XStackProps extends ViewProps {
   className?: string

@@ -11,7 +11,7 @@ import type {
 } from 'heroui-native'
 import { TextInput, View } from 'react-native'
 
-import { cn } from '../../utils'
+import { cn } from 'heroui-native'
 
 const TextFieldRoot = forwardRef<View, TextFieldRootProps>(({ className, ...props }, ref) => {
   return <HeroUITextField ref={ref} className={cn(className)} {...props} />

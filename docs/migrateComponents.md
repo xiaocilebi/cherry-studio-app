@@ -4,14 +4,14 @@
 
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
-- **分析文件总数**: 152
-- **需要迁移的文件**: 126 (使用 Tamagui)
-- **已迁移文件**: 16 (componentsV2/)
+- **分析文件总数**: 143
+- **需要迁移的文件**: 115 (使用 Tamagui)
+- **已迁移文件**: 15 (componentsV2/)
 - **无需迁移文件**: 13 (未使用 Tamagui)
 
 ## 迁移进度
 
-### ✅ 已完成迁移的组件 (16/16)
+### ✅ 已完成迁移的组件 (15/15)
 
 位于 `src/componentsV2/`:
 
@@ -29,7 +29,6 @@
 - [x] `layout/SafeAreaContainer/index.tsx`
 - [x] `layout/XStack/index.tsx`
 - [x] `layout/YStack/index.tsx`
-- [x] `utils/index.ts`
 - [x] `index.ts`
 
 ## 🔄 待迁移组件
@@ -166,16 +165,11 @@
 - [ ] `assistant/tabs/PromptTabScreen.tsx`
 - [ ] `assistant/tabs/ToolTabScreen.tsx`
 
-#### 设置相关页面 (22 个页面)
+#### 设置相关页面 (17 个页面)
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [ ] `settings/data/BasicDataSettingsScreen.tsx`
-- [ ] `settings/data/DataProviderSettingsScreen.tsx`
 - [ ] `settings/data/DataSettingsScreen.tsx`
 - [ ] `settings/data/Landrop/QRCodeScanner.tsx`
-- [ ] `settings/data/NutstoreLoginScreen.tsx`
-- [ ] `settings/data/ObsidianSettingsScreen.tsx`
-- [ ] `settings/data/WebDavConfigScreen.tsx`
-- [ ] `settings/data/WebDavScreen.tsx`
 - [ ] `settings/general/GeneralSettingsScreen.tsx`
 - [ ] `settings/general/LanguageChangeScreen.tsx`
 - [ ] `settings/general/ThemeSettingsScreen.tsx`
@@ -229,7 +223,7 @@
 - [x] `ui/ModelIcon.tsx`
 - [x] `ui/ProviderIcon.tsx`
 
-### 不使用 Tamagui 的页面组件 (16 个页面)
+### 不使用 Tamagui 的页面组件 (13 个页面)
 - [x] `home/ChatContent.tsx`
 - [x] `home/markdown/MarkdownStyles.tsx`
 - [x] `home/markdown/useMathEquation.tsx`
@@ -240,12 +234,8 @@
 - [x] `home/messages/blocks/ToolBlock.tsx`
 - [x] `home/messages/tools/MessageTool.tsx`
 - [x] `home/messages/tools/MessageTools.tsx`
-- [x] `settings/data/JoplinSettingsScreen.tsx`
 - [x] `settings/data/Landrop/LandropSettingsScreen.tsx`
 - [x] `settings/data/Landrop/Overlay.tsx`
-- [x] `settings/data/NotionSettingsScreen.tsx`
-- [x] `settings/data/SiyuanSettingsScreen.tsx`
-- [x] `settings/data/YuqueSettingsScreen.tsx`
 - [x] `settings/about/AboutScreen.tsx` (Already migrated to HeroUI)
 
 ## 迁移指南
@@ -277,9 +267,9 @@
 
 ## 进度追踪
 
-- **总体进度**: 16/152 (10.5%)
+- **总体进度**: 15/143 (10.5%)
 - **组件**: 0/87 (0%)
-- **页面**: 3/39 (7.7%)
-- **已完成**: 16/16 (100%)
+- **页面**: 3/31 (9.7%)
+- **已完成**: 15/15 (100%)
 
 最后更新: 2025-09-17

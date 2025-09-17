@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight, FileText, Folder, FolderOpen, RotateCcw, Trash2 } from '@tamagui/lucide-icons'
 import { reloadAppAsync } from 'expo'
 import * as DocumentPicker from 'expo-document-picker'
 import { Paths } from 'expo-file-system/next'
@@ -8,18 +7,21 @@ import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { Text, XStack, YStack } from 'tamagui'
 
 import {
-  PressableSettingRow,
-  SettingContainer,
-  SettingGroup,
-  SettingGroupTitle,
-  SettingRowRightArrow
-} from '@/components/settings'
+  Container,
+  Group,
+  GroupTitle,
+  HeaderBar,
+  PressableRow,
+  RowRightArrow,
+  SafeAreaContainer,
+  Text,
+  XStack,
+  YStack
+} from '@/componentsV2'
+import { FileText, Folder, FolderOpen, RotateCcw, Trash2 } from '@/componentsV2/icons/LucideIcon'
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
-import { HeaderBar } from '@/components/settings/HeaderBar'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useDialog } from '@/hooks/useDialog'
 import { LOCAL_RESTORE_STEPS, useRestore } from '@/hooks/useRestore'
 import { getCacheDirectorySize, resetCacheDirectory } from '@/services/FileService'
@@ -209,7 +211,7 @@ export default function BasicDataSettingsScreen() {
         },
         {
           title: isResetting ? t('common.loading') : t('settings.data.reset'),
-          icon: <RotateCcw size={24} color="red" />,
+          icon: <RotateCcw size={24} className="text-red-500 dark:text-red-500" />,
           danger: true,
           onPress: handleDataReset,
           disabled: isResetting
@@ -231,7 +233,7 @@ export default function BasicDataSettingsScreen() {
         },
         {
           title: t('settings.data.clear_cache.button', { cacheSize }),
-          icon: <Trash2 size={24} color="red" />,
+          icon: <Trash2 size={24} className="text-red-500 dark:text-red-500" />,
           danger: true,
           onPress: handleClearCache
         }
@@ -243,17 +245,17 @@ export default function BasicDataSettingsScreen() {
     <SafeAreaContainer style={{ flex: 1 }}>
       <HeaderBar title={t('settings.data.basic_title')} />
 
-      <SettingContainer>
-        <YStack gap={24} flex={1}>
+      <Container>
+        <YStack className="gap-6 flex-1">
           {settingsItems.map(group => (
-            <Group key={group.title} title={group.title}>
+            <GroupContainer key={group.title} title={group.title}>
               {group.items.map(item => (
                 <SettingItem key={item.title} {...item} />
               ))}
-            </Group>
+            </GroupContainer>
           ))}
         </YStack>
-      </SettingContainer>
+      </Container>
 
       <RestoreProgressModal
         isOpen={isModalOpen}
@@ -265,11 +267,11 @@ export default function BasicDataSettingsScreen() {
   )
 }
 
-function Group({ title, children }: { title: string; children: React.ReactNode }) {
+function GroupContainer({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <YStack gap={8}>
-      <SettingGroupTitle>{title}</SettingGroupTitle>
-      <SettingGroup>{children}</SettingGroup>
+    <YStack className="gap-2">
+      <GroupTitle>{title}</GroupTitle>
+      <Group>{children}</Group>
     </YStack>
   )
 }
@@ -288,17 +290,15 @@ function SettingItem({ title, screen, icon, subtitle, danger, onPress, disabled 
   }
 
   return (
-    <PressableSettingRow onPress={handlePress} opacity={disabled ? 0.5 : 1}>
-      <XStack alignItems="center" gap={12}>
+    <PressableRow onPress={handlePress} style={{ opacity: disabled ? 0.5 : 1 }}>
+      <XStack className="items-center gap-3">
         {icon}
         <YStack>
-          <Text fontSize="$5" color={danger ? 'red' : undefined}>
-            {title}
-          </Text>
-          {subtitle && <Text fontSize="$2">{subtitle}</Text>}
+          <Text className={danger ? 'text-red-500 dark:text-red-500' : ''}>{title}</Text>
+          {subtitle && <Text size="sm">{subtitle}</Text>}
         </YStack>
       </XStack>
-      {screen && <SettingRowRightArrow />}
-    </PressableSettingRow>
+      {screen && <RowRightArrow />}
+    </PressableRow>
   )
 }
