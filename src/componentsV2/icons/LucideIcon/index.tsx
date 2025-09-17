@@ -2,11 +2,13 @@ import React from 'react'
 import {
   ArrowLeft,
   ArrowUpRight,
+  Camera,
   ChevronDown,
   Copyright,
   Github,
   Globe,
   Languages,
+  CircleUserRound,
   LucideIcon,
   Mail,
   MessageSquareMore,
@@ -31,7 +33,9 @@ function interopIcon(icon: LucideIcon) {
 
 interopIcon(ArrowLeft)
 interopIcon(ArrowUpRight)
+interopIcon(Camera)
 interopIcon(ChevronDown)
+interopIcon(CircleUserRound)
 interopIcon(Copyright)
 interopIcon(Github)
 interopIcon(Globe)
@@ -51,11 +55,13 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
 
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
+const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
 const CopyrightIcon = withDefaultIconClass(Copyright)
 const GithubIcon = withDefaultIconClass(Github)
 const GlobeIcon = withDefaultIconClass(Globe)
 const LanguagesIcon = withDefaultIconClass(Languages)
+const CircleUserRoundIcon = withDefaultIconClass(CircleUserRound)
 const MailIcon = withDefaultIconClass(Mail)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
 const RocketIcon = withDefaultIconClass(Rocket)
@@ -65,11 +71,13 @@ const Settings2Icon = withDefaultIconClass(Settings2)
 export {
   ArrowLeftIcon as ArrowLeft,
   ArrowUpRightIcon as ArrowUpRight,
+  CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
   CopyrightIcon as Copyright,
   GithubIcon as Github,
   GlobeIcon as Globe,
   LanguagesIcon as Languages,
+  CircleUserRoundIcon as CircleUserRound,
   MailIcon as Mail,
   MessageSquareMoreIcon as MessageSquareMore,
   RocketIcon as Rocket,

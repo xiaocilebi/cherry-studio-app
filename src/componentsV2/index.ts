@@ -1,6 +1,17 @@
 // Base components
 export { default as Text, type TextProps } from './base/Text'
 export { default as Image, AnimatedImage, type ImageProps } from './base/Image'
+export {
+  default as TextField,
+  useTextFieldContext,
+  type TextFieldRootProps,
+  type TextFieldLabelProps,
+  type TextFieldInputProps,
+  type TextFieldInputStartContentProps,
+  type TextFieldInputEndContentProps,
+  type TextFieldDescriptionProps,
+  type TextFieldErrorMessageProps
+} from './base/TextField'
 
 // Layout components
 export { default as XStack, AnimatedXStack, type XStackProps } from './layout/XStack'

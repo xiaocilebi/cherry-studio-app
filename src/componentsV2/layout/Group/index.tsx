@@ -8,11 +8,12 @@ export interface GroupProps extends ViewProps {
 
 const Group: React.FC<GroupProps> = ({ className, children, ...props }) => {
   return (
-    <YStack className={`rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark overflow-hidden ${className || ''}`} {...props}>
+    <YStack
+      className={`rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark overflow-hidden ${className || ''}`}
+      {...props}>
       {children}
     </YStack>
   )
 }
 
 export default Group
-export type { GroupProps }

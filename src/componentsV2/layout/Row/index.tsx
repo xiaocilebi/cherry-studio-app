@@ -15,4 +15,3 @@ const Row: React.FC<RowProps> = ({ className, children, ...props }) => {
 }
 
 export default Row
-export type { RowProps }

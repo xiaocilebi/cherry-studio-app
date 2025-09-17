@@ -12,12 +12,10 @@ const Container: React.FC<ContainerProps> = ({ className, children, ...props }) 
       className={`flex-1 p-4 gap-5 bg-transparent overflow-hidden ${className || ''}`}
       onStartShouldSetResponder={() => true}
       onResponderRelease={Keyboard.dismiss}
-      {...props}
-    >
+      {...props}>
       {children}
     </YStack>
   )
 }
 
 export default Container
-export type { ContainerProps }
