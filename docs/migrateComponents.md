@@ -11,7 +11,7 @@
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
 - **分析文件总数**: 142
-- **需要迁移的文件**: 106 (使用 Tamagui)
+- **需要迁移的文件**: 105 (使用 Tamagui)
 - **已迁移文件**: 15 (componentsV2/)
 - **无需迁移文件**: 13 (未使用 Tamagui)
 
@@ -182,7 +182,7 @@
 - [x] `settings/personal/PersonalScreen.tsx`
 - [ ] `settings/providers/ApiServiceScreen.tsx`
 - [ ] `settings/providers/ManageModelsScreen.tsx`
-- [ ] `settings/providers/ProviderListScreen.tsx`
+- [x] `settings/providers/ProviderListScreen.tsx`
 - [ ] `settings/providers/ProviderSettingsScreen.tsx`
 - [x] `settings/websearch/GeneralSettings.tsx`
 - [x] `settings/websearch/ProviderSettings.tsx`
@@ -272,10 +272,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 23/142 (16.2%)
+- **总体进度**: 24/142 (16.9%)
 - **组件**: 0/87 (0%)
-- **页面**: 11/30 (36.7%)
+- **页面**: 12/30 (40.0%)
 - **已完成**: 15/15 (100%)
 
 最后更新: 2025-09-17
-Git 信息: migrate(websearch): hero screens
+Git 信息: migrate(provider-list): hero screen

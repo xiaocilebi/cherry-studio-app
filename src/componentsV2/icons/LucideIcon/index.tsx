@@ -22,6 +22,7 @@ import {
   Mail,
   MessageSquareMore,
   Package,
+  Plus,
   Rocket,
   RotateCcw,
   Rss,
@@ -68,6 +69,7 @@ interopIcon(Languages)
 interopIcon(Mail)
 interopIcon(MessageSquareMore)
 interopIcon(Package)
+interopIcon(Plus)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
 interopIcon(Rss)
@@ -106,6 +108,7 @@ const CircleUserRoundIcon = withDefaultIconClass(CircleUserRound)
 const MailIcon = withDefaultIconClass(Mail)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
 const PackageIcon = withDefaultIconClass(Package)
+const PlusIcon = withDefaultIconClass(Plus)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
 const RssIcon = withDefaultIconClass(Rss)
@@ -138,6 +141,7 @@ export {
   MailIcon as Mail,
   MessageSquareMoreIcon as MessageSquareMore,
   PackageIcon as Package,
+  PlusIcon as Plus,
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
   RssIcon as Rss,
