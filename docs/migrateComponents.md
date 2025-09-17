@@ -1,5 +1,11 @@
 # Tamagui 到 HeroUI 组件迁移计划
 
+## 迁移须知
+1. 所有新的迁移组件均为与 ./src/componentsV2/ 目录下。组件中具有默认的样式，添加样式时需要查看组件中的样式
+2. 需要将tamagui改为使用heroui-native
+3. 新添加的icon需要在LucideIcon/index.tsx中注册
+
+
 ## 迁移概述
 
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
