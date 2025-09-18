@@ -7,7 +7,7 @@ import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
-import { YStack } from 'tamagui'
+import { YStack } from '@/componentsV2'
 
 import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
@@ -111,7 +111,7 @@ const ChatScreen = () => {
           style={{ flex: 1 }}
           keyboardVerticalOffset={Platform.OS === 'ios' ? -20 : -specificBottom}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <YStack flex={1}>
+          <YStack className="flex-1">
             <HeaderBar topic={topic} />
 
             <View

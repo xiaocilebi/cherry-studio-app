@@ -147,9 +147,9 @@
 
 #### 聊天和首页相关页面 (16 个页面)
 - [ ] `home/markdown/ReactNativeMarkdown.tsx`
-- [ ] `home/markdown/useMarkedRenderer.tsx`
-- [ ] `home/messages/blocks/ErrorBlock.tsx`
-- [ ] `home/messages/blocks/index.tsx`
+- [x] `home/markdown/useMarkedRenderer.tsx`
+- [x] `home/messages/blocks/ErrorBlock.tsx`
+- [x] `home/messages/blocks/index.tsx`
 - [ ] `home/messages/blocks/MainTextBlock.tsx`
 - [ ] `home/messages/blocks/PlaceholderBlock.tsx`
 - [ ] `home/messages/blocks/ThinkingBlock.tsx`
@@ -162,8 +162,8 @@
 - [ ] `home/messages/MessageHeader.tsx`
 - [ ] `home/messages/Messages.tsx`
 - [ ] `home/messages/MultiModelTab.tsx`
-- [ ] `home/messages/tools/MessageWebSearchTool.tsx`
-- [ ] `home/WelcomeContent.tsx`
+- [x] `home/messages/tools/MessageWebSearchTool.tsx`
+- [x] `home/WelcomeContent.tsx`
 
 #### 助手相关页面 (5 个页面)
 - [ ] `assistant/AssistantDetailScreen.tsx`

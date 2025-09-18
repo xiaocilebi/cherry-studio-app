@@ -34,6 +34,7 @@ import {
   RotateCcw,
   Rss,
   ScanQrCode,
+  Search,
   Settings2,
   ChevronRight,
   ShieldCheck,
@@ -88,6 +89,7 @@ interopIcon(Rocket)
 interopIcon(RotateCcw)
 interopIcon(Rss)
 interopIcon(ScanQrCode)
+interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(ShieldCheck)
@@ -134,6 +136,7 @@ const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
 const RssIcon = withDefaultIconClass(Rss)
 const ScanQrCodeIcon = withDefaultIconClass(ScanQrCode)
+const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
@@ -174,6 +177,7 @@ export {
   RotateCcwIcon as RotateCcw,
   RssIcon as Rss,
   ScanQrCodeIcon as ScanQrCode,
+  SearchIcon as Search,
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
   ShieldCheckIcon as ShieldCheck,

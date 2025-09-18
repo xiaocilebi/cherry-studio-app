@@ -11,3 +11,6 @@
 5. 不确定的组件保持现状不变
 6. 不确定的需要和我进行商量
 7. 迁移完后需要更新migrateComponents.md并且询问我是否添加到git，git commit信息格式为: migrate(xxx): xxx
+
+## 组件导入规范
+1. 从index.ts中导入，例如 `import { YStack } from '@/componentsV2'`

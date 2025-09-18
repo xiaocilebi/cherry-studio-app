@@ -1,6 +1,8 @@
 import { Languages } from '@tamagui/lucide-icons'
 import React, { FC } from 'react'
-import { Separator, View, XStack } from 'tamagui'
+import { View } from 'react-native'
+import { Divider } from 'heroui-native'
+import { XStack } from '@/componentsV2'
 
 import { TranslationMessageBlock } from '@/types/message'
 
@@ -13,10 +15,10 @@ interface Props {
 const TranslationBlock: FC<Props> = ({ block }) => {
   return (
     <View>
-      <XStack justifyContent="center" alignItems="center" gap={10}>
-        <Separator borderColor="$gray40" />
+      <XStack className="justify-center items-center gap-2.5">
+        <Divider className="flex-1 bg-gray-40" thickness={1} />
         <Languages size={16} />
-        <Separator borderColor="$gray40" />
+        <Divider className="flex-1 bg-gray-40" thickness={1} />
       </XStack>
       <ReactNativeMarkdown block={block} />
     </View>
