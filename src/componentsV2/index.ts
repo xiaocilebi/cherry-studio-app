@@ -25,3 +25,4 @@ export { default as Container, type ContainerProps } from './layout/Container'
 export { default as SafeAreaContainer, type SafeAreaContainerProps } from './layout/SafeAreaContainer'
 // Interactive components
 export { default as HeaderBar, type HeaderBarProps } from './interactive/HeaderBar'
+export { default as ModelGroup, type ModelGroupProps } from './interactive/ModelGroup'

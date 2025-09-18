@@ -2,8 +2,7 @@ import { t } from 'i18next'
 import { isEmpty, takeRight } from 'lodash'
 
 import LegacyAiProvider from '@/aiCore'
-import AiProvider from '@/aiCore'
-import ModernAiProvider from '@/aiCore/index_new'
+
 import { CompletionsParams } from '@/aiCore/legacy/middleware/schemas'
 import { AiSdkMiddlewareConfig } from '@/aiCore/middleware/AiSdkMiddlewareBuilder'
 import { buildStreamTextParams, convertMessagesToSdkMessages } from '@/aiCore/prepareParams'
@@ -87,7 +86,7 @@ export async function fetchChatCompletion({
 }
 
 export async function fetchModels(provider: Provider): Promise<SdkModel[]> {
-  const AI = new AiProvider(provider)
+  const AI = new AiProviderNew(provider)
 
   try {
     return await AI.models()
@@ -207,7 +206,7 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
 
   const llmMessages = await convertMessagesToSdkMessages(mainTextMessages, quickAssistant.defaultModel)
 
-  const AI = new ModernAiProvider(quickAssistant.defaultModel || getDefaultModel(), provider)
+  const AI = new AiProviderNew(quickAssistant.defaultModel || getDefaultModel(), provider)
   const { params: aiSdkParams, modelId } = await buildStreamTextParams(llmMessages, quickAssistant, provider)
 
   const middlewareConfig: AiSdkMiddlewareConfig = {

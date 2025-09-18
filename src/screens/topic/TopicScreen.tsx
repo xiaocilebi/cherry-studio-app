@@ -1,12 +1,13 @@
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { Menu, MessageSquareDiff } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
-import { YStack } from 'tamagui'
 
-import { HeaderBar } from '@/components/settings/HeaderBar'
+import { Menu, MessageSquareDiff } from '@/componentsV2/icons/LucideIcon'
+import { YStack } from '@/componentsV2'
+
+import { HeaderBar } from '@/componentsV2/interactive/HeaderBar'
 import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
@@ -46,9 +47,9 @@ export default function TopicScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <SafeAreaContainer className="items-center justify-center">
         <DrawerGestureWrapper>
-          <View collapsable={false} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View collapsable={false} className="flex-1 items-center justify-center">
             <ActivityIndicator />
           </View>
         </DrawerGestureWrapper>
@@ -57,9 +58,9 @@ export default function TopicScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ flex: 1 }}>
+    <SafeAreaContainer className="flex-1">
       <DrawerGestureWrapper>
-        <View collapsable={false} style={{ flex: 1 }}>
+        <View collapsable={false} className="flex-1">
           <HeaderBar
             title={t('topics.title.recent')}
             leftButton={{
@@ -71,8 +72,8 @@ export default function TopicScreen() {
               onPress: handleAddNewTopic
             }}
           />
-          <YStack flex={1} gap={15}>
-            <View style={{ paddingHorizontal: 20 }}>
+          <YStack className="flex-1 gap-[15px]">
+            <View className="px-5">
               <SearchInput
                 placeholder={t('common.search_placeholder')}
                 value={searchText}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Pressable, StyleSheet } from 'react-native'
-import { View } from 'tamagui'
+import { Pressable, StyleSheet, View } from 'react-native'
 
 import MarqueeComponent from '@/components/ui/MarqueeComponent'
 import { ThinkingMessageBlock } from '@/types/message'

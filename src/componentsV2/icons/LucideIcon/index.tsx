@@ -1,10 +1,12 @@
 import React from 'react'
 import {
   ArrowLeft,
+  ArrowLeftRight,
   ArrowUpRight,
   Camera,
   ChevronDown,
   Cloud,
+  Copy,
   Copyright,
   Eye,
   EyeOff,
@@ -15,18 +17,24 @@ import {
   Github,
   Globe,
   HardDrive,
+  HeartPulse,
   Info,
   Languages,
   CircleUserRound,
   LucideIcon,
   Mail,
+  Menu,
+  MessageSquareDiff,
   MessageSquareMore,
+  Minus,
   Package,
+  PenLine,
   Plus,
   Rocket,
   RotateCcw,
   Rss,
   ScanQrCode,
+  Search,
   Settings2,
   ChevronRight,
   ShieldCheck,
@@ -49,11 +57,13 @@ function interopIcon(icon: LucideIcon) {
 }
 
 interopIcon(ArrowLeft)
+interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
 interopIcon(Camera)
 interopIcon(ChevronDown)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
+interopIcon(Copy)
 interopIcon(Copyright)
 interopIcon(Eye)
 interopIcon(EyeOff)
@@ -64,16 +74,22 @@ interopIcon(FolderSearch2)
 interopIcon(Github)
 interopIcon(Globe)
 interopIcon(HardDrive)
+interopIcon(HeartPulse)
 interopIcon(Info)
 interopIcon(Languages)
 interopIcon(Mail)
+interopIcon(Menu)
+interopIcon(MessageSquareDiff)
 interopIcon(MessageSquareMore)
+interopIcon(Minus)
 interopIcon(Package)
+interopIcon(PenLine)
 interopIcon(Plus)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
 interopIcon(Rss)
 interopIcon(ScanQrCode)
+interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(ShieldCheck)
@@ -88,10 +104,12 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
 }
 
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
+const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
 const CloudIcon = withDefaultIconClass(Cloud)
+const CopyIcon = withDefaultIconClass(Copy)
 const CopyrightIcon = withDefaultIconClass(Copyright)
 const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
@@ -102,17 +120,23 @@ const FolderSearch2Icon = withDefaultIconClass(FolderSearch2)
 const GithubIcon = withDefaultIconClass(Github)
 const GlobeIcon = withDefaultIconClass(Globe)
 const HardDriveIcon = withDefaultIconClass(HardDrive)
+const HeartPulseIcon = withDefaultIconClass(HeartPulse)
 const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
 const CircleUserRoundIcon = withDefaultIconClass(CircleUserRound)
 const MailIcon = withDefaultIconClass(Mail)
+const MenuIcon = withDefaultIconClass(Menu)
+const MessageSquareDiffIcon = withDefaultIconClass(MessageSquareDiff)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
+const MinusIcon = withDefaultIconClass(Minus)
 const PackageIcon = withDefaultIconClass(Package)
+const PenLineIcon = withDefaultIconClass(PenLine)
 const PlusIcon = withDefaultIconClass(Plus)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
 const RssIcon = withDefaultIconClass(Rss)
 const ScanQrCodeIcon = withDefaultIconClass(ScanQrCode)
+const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
@@ -121,10 +145,12 @@ const WifiIcon = withDefaultIconClass(Wifi)
 
 export {
   ArrowLeftIcon as ArrowLeft,
+  ArrowLeftRightIcon as ArrowLeftRight,
   ArrowUpRightIcon as ArrowUpRight,
   CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
   CloudIcon as Cloud,
+  CopyIcon as Copy,
   CopyrightIcon as Copyright,
   EyeIcon as Eye,
   EyeOffIcon as EyeOff,
@@ -135,17 +161,23 @@ export {
   GithubIcon as Github,
   GlobeIcon as Globe,
   HardDriveIcon as HardDrive,
+  HeartPulseIcon as HeartPulse,
   InfoIcon as Info,
   LanguagesIcon as Languages,
   CircleUserRoundIcon as CircleUserRound,
   MailIcon as Mail,
+  MenuIcon as Menu,
+  MessageSquareDiffIcon as MessageSquareDiff,
   MessageSquareMoreIcon as MessageSquareMore,
+  MinusIcon as Minus,
   PackageIcon as Package,
+  PenLineIcon as PenLine,
   PlusIcon as Plus,
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
   RssIcon as Rss,
   ScanQrCodeIcon as ScanQrCode,
+  SearchIcon as Search,
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
   ShieldCheckIcon as ShieldCheck,

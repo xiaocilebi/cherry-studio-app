@@ -1,18 +1,14 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
-import { Minus, Plus } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
-import { Accordion, ScrollView, Tabs, Text, View, YStack } from 'tamagui'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
+import { Tabs } from 'tamagui'
 
-import { SettingContainer, SettingGroup } from '@/components/settings'
-import { HeaderBar } from '@/components/settings/HeaderBar'
-import { ModelGroup } from '@/components/settings/providers/ModelGroup'
+import { Container, Group, HeaderBar, ModelGroup, SafeAreaContainer, Text, XStack, YStack } from '@/componentsV2'
+import { Minus, Plus } from '@/componentsV2/icons/LucideIcon'
 import { IconButton } from '@/components/ui/IconButton'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import {
   groupQwenModels,
@@ -32,6 +28,8 @@ import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getDefaultGroupName } from '@/utils/naming'
+import { ModelIcon } from '@/components/ui/ModelIcon'
+import { ModelTags } from '@/components/ui/ModelTags'
 const logger = loggerService.withContext('ManageModelsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ManageModelsScreen'>
@@ -189,43 +187,6 @@ export default function ManageModelsScreen() {
     fetchAndSetModels()
   }, [providerId])
 
-  const renderModelGroupItem = ({ item: [groupName, currentModels], index }: ListRenderItemInfo<[string, Model[]]>) => (
-    <ModelGroup
-      groupName={groupName}
-      models={currentModels}
-      index={index}
-      showModelCount={true}
-      renderGroupButton={groupButtonModels => (
-        <IconButton
-          icon={
-            isAllModelsInCurrentProvider(groupButtonModels) ? (
-              <Minus size={18} borderRadius={99} backgroundColor="$red20" color="$red100" />
-            ) : (
-              <Plus size={18} borderRadius={99} backgroundColor="$green20" color="$green100" />
-            )
-          }
-          onPress={
-            isAllModelsInCurrentProvider(groupButtonModels)
-              ? () => onRemoveAllModels(groupButtonModels)
-              : () => onAddAllModels(groupButtonModels)
-          }
-        />
-      )}
-      renderModelButton={model => (
-        <IconButton
-          icon={
-            isModelInCurrentProvider(model.id) ? (
-              <Minus size={18} borderRadius={99} backgroundColor="$red20" color="$red100" />
-            ) : (
-              <Plus size={18} borderRadius={99} backgroundColor="$green20" color="$green100" />
-            )
-          }
-          onPress={isModelInCurrentProvider(model.id) ? () => onRemoveModel(model) : () => onAddModel(model)}
-        />
-      )}
-    />
-  )
-
   const getTabStyle = (isActive: boolean) => ({
     height: '100%',
     backgroundColor: isActive ? '$background' : 'transparent',
@@ -233,20 +194,14 @@ export default function ManageModelsScreen() {
   })
 
   return (
-    <SafeAreaContainer
-      style={{
-        flex: 1
-      }}>
+    <SafeAreaContainer className="flex-1">
       <HeaderBar title={provider?.name || t('settings.models.manage_models')} />
       {isLoading ? (
         <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />
         </SafeAreaContainer>
       ) : (
-        <SettingContainer
-          paddingBottom={0}
-          onStartShouldSetResponder={() => false}
-          onMoveShouldSetResponder={() => false}>
+        <Container className="pb-0" onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
           {/* Filter Tabs */}
           <Tabs
             defaultValue="all"
@@ -266,37 +221,67 @@ export default function ManageModelsScreen() {
             </ScrollView>
           </Tabs>
 
-          <YStack flex={1} height="100%">
-            <SettingGroup flex={1}>
-              <View padding={10}>
-                <SearchInput
-                  placeholder={t('settings.models.search')}
-                  value={searchText}
-                  onChangeText={setSearchText}
-                />
-              </View>
-              {sortedModelGroups.length > 0 ? (
-                <Accordion overflow="hidden" type="multiple" flex={1}>
-                  <FlashList
-                    data={sortedModelGroups}
-                    renderItem={renderModelGroupItem}
-                    keyExtractor={([groupName]) => groupName}
-                    estimatedItemSize={60}
-                    showsVerticalScrollIndicator={false}
-                    extraData={provider}
-                    contentContainerStyle={{ paddingBottom: 24 }}
+          <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
+
+          <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+            <Group className="flex-1">
+              <ModelGroup
+                modelGroups={sortedModelGroups}
+                renderModelItem={(model, index) => (
+                  <XStack className="items-center justify-between w-full">
+                    <XStack className="flex-1 gap-2">
+                      <XStack className="items-center justify-center">
+                        <ModelIcon model={model} />
+                      </XStack>
+                      <YStack className="flex-1 gap-1">
+                        <Text numberOfLines={1} ellipsizeMode="tail">
+                          {model.name}
+                        </Text>
+                        <ModelTags model={model} size={11} />
+                      </YStack>
+                    </XStack>
+                    <XStack>
+                      <IconButton
+                        icon={
+                          isModelInCurrentProvider(model.id) ? (
+                            <Minus size={18} className="rounded-full bg-red-20 text-red-100 dark:text-red-100" />
+                          ) : (
+                            <Plus
+                              size={18}
+                              className="rounded-full bg-green-20 text-green-100 dark:bg-green-dark-20 dark:text-green-dark-100"
+                            />
+                          )
+                        }
+                        onPress={
+                          isModelInCurrentProvider(model.id) ? () => onRemoveModel(model) : () => onAddModel(model)
+                        }
+                      />
+                    </XStack>
+                  </XStack>
+                )}
+                renderGroupButton={(groupName, models) => (
+                  <IconButton
+                    icon={
+                      isAllModelsInCurrentProvider(models) ? (
+                        <Minus size={18} className="rounded-full bg-red-20 text-red-100 dark:text-red-100" />
+                      ) : (
+                        <Plus
+                          size={18}
+                          className="rounded-full bg-green-20 text-green-100 dark:bg-green-dark-20 dark:text-green-dark-100"
+                        />
+                      )
+                    }
+                    onPress={
+                      isAllModelsInCurrentProvider(models)
+                        ? () => onRemoveAllModels(models)
+                        : () => onAddAllModels(models)
+                    }
                   />
-                </Accordion>
-              ) : (
-                <YStack flex={1} justifyContent="center" alignItems="center">
-                  <Text textAlign="center" color="$gray10">
-                    {t('models.no_models')}
-                  </Text>
-                </YStack>
-              )}
-            </SettingGroup>
-          </YStack>
-        </SettingContainer>
+                )}
+              />
+            </Group>
+          </ScrollView>
+        </Container>
       )}
     </SafeAreaContainer>
   )

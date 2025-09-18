@@ -1,9 +1,9 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
-import { YStack } from 'tamagui'
 
 import { ToolTabContent } from '@/components/assistant/ToolTabContent'
+import { YStack } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { AssistantDetailTabParamList } from '@/navigators/AssistantDetailTabNavigator'
@@ -20,12 +20,12 @@ export default function ToolTabScreen() {
 
   return (
     <KeyboardAwareScrollView
-      style={{ flex: 1, backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff' }}
+      className={`flex-1 ${isDark ? 'bg-[#121213ff]' : 'bg-[#f7f7f7ff]'}`}
       contentContainerStyle={{ flexGrow: 1 }}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
       bottomOffset={10}>
-      <YStack flex={1} paddingTop={10} backgroundColor="$backgroundPrimary">
+      <YStack className="flex-1 pt-2.5 bg-transparent">
         <ToolTabContent assistant={assistant} updateAssistant={updateAssistant} />
       </YStack>
     </KeyboardAwareScrollView>

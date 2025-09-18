@@ -1,5 +1,6 @@
 import React, { FC, memo, useMemo } from 'react'
-import { View, XStack } from 'tamagui'
+import { XStack } from '@/componentsV2'
+import { View } from 'react-native'
 
 import { loggerService } from '@/services/LoggerService'
 import {
@@ -75,10 +76,7 @@ const MessageBlockRenderer: FC<MessageBlockRendererProps> = ({ blocks, message }
           return (
             <XStack
               key={groupKey}
-              flexWrap="wrap"
-              gap={8}
-              marginTop={10}
-              style={{ justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start' }}>
+              className={`flex-wrap gap-2 mt-2.5 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {blockOrGroup.map(block => {
                 switch (block.type) {
                   case MessageBlockType.IMAGE:

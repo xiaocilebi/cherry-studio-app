@@ -17,5 +17,6 @@ const Container: React.FC<ContainerProps> = ({ className, children, ...props }) 
     </YStack>
   )
 }
+Container.displayName = 'Container'
 
 export default Container
