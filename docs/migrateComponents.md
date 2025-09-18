@@ -135,7 +135,7 @@
 - [ ] `topic/GroupTopicList.tsx`
 - [ ] `topic/TopicItem.tsx`
 
-### 页面组件 (6 待迁移 / 39)
+### 页面组件 (5 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
 - [ ] `WelcomeScreen.tsx`
@@ -144,12 +144,12 @@
 - [x] `assistant/AssistantScreen.tsx`
 - [x] `settings/SettingsScreen.tsx`
 
-#### 聊天和首页相关页面 (18 个页面，其中 4 个待迁移)
+#### 聊天和首页相关页面 (18 个页面，其中 3 个待迁移)
 - [x] `home/WelcomeContent.tsx`
 - [x] `home/markdown/ReactNativeMarkdown.tsx`
 - [x] `home/markdown/useMarkedRenderer.tsx`
 - [x] `home/messages/CitationList.tsx`
-- [ ] `home/messages/MessageContent.tsx`
+- [x] `home/messages/MessageContent.tsx`
 - [ ] `home/messages/MessageContextMenu.tsx`
 - [x] `home/messages/MessageFooter.tsx`
 - [x] `home/messages/MessageGroup.tsx`
@@ -297,10 +297,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 99/178 (55.6%)
+- **总体进度**: 100/178 (56.2%)
 - **组件**: 32/105 (30.5%)
-- **页面**: 51/57 (89.5%)
+- **页面**: 52/57 (91.2%)
 - **已完成**: 16/16 (100%)
 
 最后更新: 2025-09-18
-Git 信息: migrate(CitationList): migrate from Tamagui to HeroUI-native with Tailwind styling
+Git 信息: migrate(MessageContent): migrate from Tamagui to HeroUI-native with Tailwind styling
