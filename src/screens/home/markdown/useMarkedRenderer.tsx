@@ -1,15 +1,15 @@
-import { Copy } from '@tamagui/lucide-icons'
 import * as Clipboard from 'expo-clipboard'
 import { t } from 'i18next'
 import React, { ReactNode, useMemo } from 'react'
-import { Dimensions, ScrollView, StyleSheet, TextStyle, ViewStyle } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, TextStyle, ViewStyle, View } from 'react-native'
 import CodeHighlighter from 'react-native-code-highlighter'
 import type { RendererInterface } from 'react-native-marked'
 import { MarkedTokenizer, Renderer } from 'react-native-marked'
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { Image, Text, View, XStack, YStack } from 'tamagui'
 
 import { IconButton } from '@/components/ui/IconButton'
+import { Image, Text, XStack, YStack } from '@/componentsV2'
+import { Copy } from '@/componentsV2/icons/LucideIcon'
 import { useToast } from '@/hooks/useToast'
 import { getCodeLanguageIcon } from '@/utils/icons/codeLanguage'
 
@@ -57,28 +57,13 @@ class CustomRenderer extends Renderer implements RendererInterface {
     const lang = language || 'text'
     const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
     return (
-      <View
-        key={this.getKey()}
-        style={{
-          gap: 10,
-          paddingHorizontal: 14,
-          paddingTop: 0,
-          paddingBottom: 14,
-          borderRadius: 12,
-          marginTop: 10,
-          ...containerStyle
-        }}>
+      <View key={this.getKey()} className="gap-2.5 px-3.5 pt-0 pb-3.5 rounded-3 mt-2.5" style={containerStyle}>
         <XStack
-          paddingVertical={10}
-          justifyContent="space-between"
-          alignItems="center"
-          borderBottomWidth={1}
-          borderColor={currentColors.codeBorder}>
-          <XStack gap={8} flex={1} alignItems="center">
-            {getCodeLanguageIcon(lang) && <Image source={getCodeLanguageIcon(lang)} width={18} height={18} />}
-            <Text fontSize={13} lineHeight={13} color="$textSecondary" userSelect="none">
-              {lang.toUpperCase()}
-            </Text>
+          className="py-2.5 justify-between items-center border-b"
+          style={{ borderColor: currentColors.codeBorder }}>
+          <XStack className="gap-2 flex-1 items-center">
+            {getCodeLanguageIcon(lang) && <Image source={getCodeLanguageIcon(lang)} className="w-4.5 h-4.5" />}
+            <Text className="text-xs leading-3 text-gray-600 select-none">{lang.toUpperCase()}</Text>
           </XStack>
           <IconButton icon={<Copy size={16} color="$gray60" />} onPress={() => this.onCopy(text)} />
         </XStack>
@@ -113,7 +98,7 @@ class CustomRenderer extends Renderer implements RendererInterface {
     return result.map(({ type, content }) => {
       if (type === 'text') {
         return (
-          <Text key={this.getKey()} color="$green100" fontFamily="monospace" userSelect="none">
+          <Text key={this.getKey()} className="text-green-500 font-mono select-none">
             {content}
           </Text>
         )
@@ -135,15 +120,15 @@ class CustomRenderer extends Renderer implements RendererInterface {
 
   // Override paragraph rendering
   paragraph(children: ReactNode[], styles?: ViewStyle): ReactNode {
-    const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
+    // const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
 
     return (
       <View
-        userSelect="none"
         key={this.getKey()}
+        className="select-none"
         style={{
-          ...styles,
-          color: currentColors.text
+          ...styles
+          // color: currentColors.text
         }}>
         {children}
       </View>
@@ -258,11 +243,10 @@ class CustomRenderer extends Renderer implements RendererInterface {
     const renderCell = (cellData: ReactNode, cellIndex: number) => {
       return (
         <View
-          userSelect="none"
           key={`${cellIndex}`}
+          className="p-2 select-none"
           style={{
             width: cellWidth,
-            padding: 8,
             borderRightWidth: cellIndex === header.length - 1 ? 0 : 1,
             borderColor: currentColors.border
           }}>
@@ -272,14 +256,14 @@ class CustomRenderer extends Renderer implements RendererInterface {
     }
 
     return (
-      <ScrollView horizontal={true} style={{ marginTop: 10 }}>
-        <YStack borderWidth={1} borderColor={currentColors.border} borderRadius={12}>
+      <ScrollView horizontal={true} className="mt-2.5">
+        <YStack className="border rounded-3" style={{ borderColor: currentColors.border }}>
           <XStack
-            borderBottomWidth={1}
-            borderColor={currentColors.border}
-            borderTopLeftRadius={12}
-            borderTopRightRadius={12}
-            backgroundColor={currentColors.codeBg}>
+            className="border-b rounded-t-3"
+            style={{
+              borderColor: currentColors.border,
+              backgroundColor: currentColors.codeBg
+            }}>
             {header.map((cellData, cellIndex) => {
               return renderCell(cellData, cellIndex)
             })}
@@ -288,8 +272,10 @@ class CustomRenderer extends Renderer implements RendererInterface {
             return (
               <XStack
                 key={`${index}`}
-                borderBottomWidth={index === rows.length - 1 ? 0 : 1}
-                borderColor={currentColors.border}>
+                className={index === rows.length - 1 ? '' : 'border-b'}
+                style={{
+                  borderColor: currentColors.border
+                }}>
                 {rowData.map((cellData, cellIndex) => {
                   return renderCell(cellData, cellIndex)
                 })}

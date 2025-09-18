@@ -6,6 +6,7 @@ import {
   Camera,
   ChevronDown,
   Cloud,
+  Copy,
   Copyright,
   Eye,
   EyeOff,
@@ -61,6 +62,7 @@ interopIcon(Camera)
 interopIcon(ChevronDown)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
+interopIcon(Copy)
 interopIcon(Copyright)
 interopIcon(Eye)
 interopIcon(EyeOff)
@@ -105,6 +107,7 @@ const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
 const CloudIcon = withDefaultIconClass(Cloud)
+const CopyIcon = withDefaultIconClass(Copy)
 const CopyrightIcon = withDefaultIconClass(Copyright)
 const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
@@ -144,6 +147,7 @@ export {
   CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
   CloudIcon as Cloud,
+  CopyIcon as Copy,
   CopyrightIcon as Copyright,
   EyeIcon as Eye,
   EyeOffIcon as EyeOff,

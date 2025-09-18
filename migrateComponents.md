@@ -67,16 +67,27 @@
   - 从 `@/components/settings/HeaderBar` 迁移到 `@/componentsV2` HeaderBar
   - 所有内联样式 `style` 属性改为 Tailwind `className`
 
+### useMarkedRenderer.tsx (src/screens/home/markdown/useMarkedRenderer.tsx)
+- **迁移日期**: 2025-09-18
+- **状态**: ✅ 已完成
+- **更改内容**:
+  - 从 `@tamagui/lucide-icons` 迁移到 `@/componentsV2/icons/LucideIcon`
+  - 从 `tamagui` Image, Text, View, XStack, YStack 迁移到 `@/componentsV2`
+  - 大量内联样式 `style` 属性改为 Tailwind `className`
+  - 代码块、表格、段落等复杂组件样式迁移
+  - 新增图标: Copy
+
 ### 新增的图标注册
 - **Menu**: 用于菜单按钮
 - **MessageSquareDiff**: 用于创建新话题按钮
 - **ArrowLeftRight**: 用于编辑头像按钮
 - **PenLine**: 用于创建头像按钮
+- **Copy**: 用于代码块复制按钮
 
 ## 迁移统计
-- **已迁移文件**: 7
-- **已注册图标**: 4 (新增)
-- **使用的组件**: HeaderBar, YStack, XStack, Text, Container, Menu, MessageSquareDiff, ArrowLeftRight, PenLine
+- **已迁移文件**: 8
+- **已注册图标**: 5 (新增)
+- **使用的组件**: HeaderBar, YStack, XStack, Text, Image, View, Container, Menu, MessageSquareDiff, ArrowLeftRight, PenLine, Copy
 
 ## 注意事项
 - SafeAreaContainer, DrawerGestureWrapper, SearchInput, GroupedTopicList 等组件暂时保持原状
