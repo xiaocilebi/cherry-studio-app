@@ -10,10 +10,10 @@
 
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
-- **分析文件总数**: 142
-- **需要迁移的文件**: 105 (使用 Tamagui)
-- **已迁移文件**: 15 (componentsV2/)
-- **无需迁移文件**: 13 (未使用 Tamagui)
+- **分析文件总数**: 178
+- **需要迁移的文件**: 84 (73 组件 + 11 页面仍使用 Tamagui)
+- **已迁移文件**: 16 (`src/componentsV2/`)
+- **无需迁移文件**: 78 (32 组件 + 46 页面已无 Tamagui)
 
 ## 迁移进度
 
@@ -38,13 +38,12 @@
 - [x] `layout/YStack/index.tsx`
 - [x] `index.ts`
 
+
 ## 🔄 待迁移组件
 
-### 高优先级 - 核心UI组件 (24/24)
+### 高优先级 - 核心UI组件 (30 项，全部待迁移)
 
-这些是被许多其他组件依赖的基础UI组件:
-
-#### `src/components/ui/` (11 个组件)
+#### `src/components/ui/` (15 个组件)
 - [ ] `AvatarEditButton.tsx`
 - [ ] `CustomButton.tsx`
 - [ ] `CustomSlider.tsx`
@@ -82,7 +81,7 @@
 #### 其他核心组件 (1 个组件)
 - [ ] `ExternalLink.tsx`
 
-### 中等优先级 - 功能组件 (61/61)
+### 中等优先级 - 功能组件 (43 项，其中 42 个待迁移)
 
 #### 助手相关组件 (11 个组件)
 - [ ] `assistant/AssistantItem.tsx`
@@ -97,7 +96,7 @@
 - [ ] `assistant/market/AssistantsTabContent.tsx`
 - [ ] `assistant/market/GroupTag.tsx`
 
-#### 设置相关组件 (17 个组件)
+#### 设置相关组件 (17 个组件，其中 1 个已完成)
 - [ ] `settings/HeaderBar.tsx`
 - [ ] `settings/index.tsx`
 - [ ] `settings/Providers.tsx`
@@ -110,11 +109,11 @@
 - [ ] `settings/providers/ApiCheckSheet.tsx`
 - [ ] `settings/providers/AuthCard.tsx`
 - [ ] `settings/providers/EmptyModelView.tsx`
-- [ ] `settings/providers/ModelGroup.tsx`
 - [ ] `settings/providers/ProviderIconButton.tsx`
 - [ ] `settings/providers/ProviderItem.tsx`
 - [ ] `settings/websearch/ApiCheckSheet.tsx`
 - [ ] `settings/websearch/WebsearchProviderRow.tsx`
+- [x] `settings/providers/ModelGroup.tsx` (已迁移至 `componentsV2/interactive/ModelGroup`)
 
 #### 弹窗和模态框组件 (11 个组件)
 - [ ] `sheets/BottomSheetSearchInput.tsx`
@@ -136,24 +135,19 @@
 - [ ] `topic/GroupTopicList.tsx`
 - [ ] `topic/TopicItem.tsx`
 
-### 页面组件 (39/39)
+### 页面组件 (11 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
 - [ ] `WelcomeScreen.tsx`
-- [ ] `home/ChatScreen.tsx`
-- [ ] `topic/TopicScreen.tsx`
-- [ ] `assistant/AssistantScreen.tsx`
+- [x] `home/ChatScreen.tsx`
+- [x] `topic/TopicScreen.tsx`
+- [x] `assistant/AssistantScreen.tsx`
 - [x] `settings/SettingsScreen.tsx`
 
-#### 聊天和首页相关页面 (16 个页面)
-- [ ] `home/markdown/ReactNativeMarkdown.tsx`
+#### 聊天和首页相关页面 (18 个页面，其中 9 个待迁移)
+- [x] `home/WelcomeContent.tsx`
+- [x] `home/markdown/ReactNativeMarkdown.tsx`
 - [x] `home/markdown/useMarkedRenderer.tsx`
-- [x] `home/messages/blocks/ErrorBlock.tsx`
-- [x] `home/messages/blocks/index.tsx`
-- [ ] `home/messages/blocks/MainTextBlock.tsx`
-- [ ] `home/messages/blocks/PlaceholderBlock.tsx`
-- [ ] `home/messages/blocks/ThinkingBlock.tsx`
-- [ ] `home/messages/blocks/TranslationBlock.tsx`
 - [ ] `home/messages/CitationList.tsx`
 - [ ] `home/messages/MessageContent.tsx`
 - [ ] `home/messages/MessageContextMenu.tsx`
@@ -162,27 +156,32 @@
 - [ ] `home/messages/MessageHeader.tsx`
 - [ ] `home/messages/Messages.tsx`
 - [ ] `home/messages/MultiModelTab.tsx`
+- [x] `home/messages/blocks/ErrorBlock.tsx`
+- [x] `home/messages/blocks/MainTextBlock.tsx`
+- [x] `home/messages/blocks/PlaceholderBlock.tsx`
+- [x] `home/messages/blocks/ThinkingBlock.tsx`
+- [ ] `home/messages/blocks/TranslationBlock.tsx`
+- [x] `home/messages/blocks/index.tsx`
 - [x] `home/messages/tools/MessageWebSearchTool.tsx`
-- [x] `home/WelcomeContent.tsx`
 
-#### 助手相关页面 (5 个页面)
-- [ ] `assistant/AssistantDetailScreen.tsx`
-- [ ] `assistant/AssistantMarketScreen.tsx`
-- [ ] `assistant/tabs/ModelTabScreen.tsx`
-- [ ] `assistant/tabs/PromptTabScreen.tsx`
-- [ ] `assistant/tabs/ToolTabScreen.tsx`
+#### 助手相关页面 (5 个页面，全部已迁移)
+- [x] `assistant/AssistantDetailScreen.tsx`
+- [x] `assistant/AssistantMarketScreen.tsx`
+- [x] `assistant/tabs/ModelTabScreen.tsx`
+- [x] `assistant/tabs/PromptTabScreen.tsx`
+- [x] `assistant/tabs/ToolTabScreen.tsx`
 
-#### 设置相关页面 (16 个页面)
+#### 设置相关页面 (16 个页面，其中 1 个待迁移)
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
-- [ ] `settings/data/BasicDataSettingsScreen.tsx`
-- [ ] `settings/data/DataSettingsScreen.tsx`
+- [x] `settings/data/BasicDataSettingsScreen.tsx`
+- [x] `settings/data/DataSettingsScreen.tsx`
 - [x] `settings/data/Landrop/QRCodeScanner.tsx`
 - [x] `settings/general/GeneralSettingsScreen.tsx`
 - [x] `settings/general/LanguageChangeScreen.tsx`
 - [x] `settings/general/ThemeSettingsScreen.tsx`
 - [x] `settings/personal/PersonalScreen.tsx`
-- [ ] `settings/providers/ApiServiceScreen.tsx`
-- [x] `settings/providers/ManageModelsScreen.tsx`
+- [x] `settings/providers/ApiServiceScreen.tsx`
+- [ ] `settings/providers/ManageModelsScreen.tsx`
 - [x] `settings/providers/ProviderListScreen.tsx`
 - [x] `settings/providers/ProviderSettingsScreen.tsx`
 - [x] `settings/websearch/GeneralSettings.tsx`
@@ -190,7 +189,8 @@
 - [x] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
 - [x] `settings/websearch/WebSearchSettingsScreen.tsx`
 
-## ✨ 无需迁移的组件 (24/24)
+
+## ✨ 无需迁移的组件 (共 45 项)
 
 这些组件不使用 Tamagui 或已经迁移完成:
 
@@ -212,13 +212,14 @@
 - [x] `icons/UserChangeIcon.tsx`
 - [x] `icons/VoiceIcon.tsx`
 
-### 其他组件 (8 个组件)
+### 其他组件 (16 个组件)
 - [x] `message-input/ThinkButton.tsx`
 - [x] `message-input/ToolButton.tsx`
 - [x] `settings/data/index.tsx`
 - [x] `settings/providers/ModelSelect.tsx`
 - [x] `settings/providers/ProviderSelect.tsx`
 - [x] `settings/websearch/WebsearchSelect.tsx`
+- [x] `sheets/ToolSheet.tsx`
 - [x] `sheets/ToolSheet/index.ts`
 - [x] `sheets/ToolSheet/useAIFeatureHandler.ts`
 - [x] `sheets/ToolSheet/useCameraHandler.ts`
@@ -233,16 +234,16 @@
 - [x] `home/ChatContent.tsx`
 - [x] `home/markdown/MarkdownStyles.tsx`
 - [x] `home/markdown/useMathEquation.tsx`
+- [x] `home/messages/Message.tsx`
 - [x] `home/messages/blocks/CitationBlock.tsx`
 - [x] `home/messages/blocks/FileBlock.tsx`
 - [x] `home/messages/blocks/ImageBlock.tsx`
-- [x] `home/messages/Message.tsx`
 - [x] `home/messages/blocks/ToolBlock.tsx`
 - [x] `home/messages/tools/MessageTool.tsx`
 - [x] `home/messages/tools/MessageTools.tsx`
+- [x] `settings/about/AboutScreen.tsx`
 - [x] `settings/data/Landrop/LandropSettingsScreen.tsx`
 - [x] `settings/data/Landrop/Overlay.tsx`
-- [x] `settings/about/AboutScreen.tsx` (Already migrated to HeroUI)
 
 ## 最新组件提取
 
@@ -296,10 +297,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 27/142 (19.0%)
-- **组件**: 1/87 (1.1%)
-- **页面**: 14/30 (46.7%)
+- **总体进度**: 94/178 (52.8%)
+- **组件**: 32/105 (30.5%)
+- **页面**: 46/57 (80.7%)
 - **已完成**: 16/16 (100%)
 
-最后更新: 2025-09-17
-Git 信息: feat(model-group): extract reusable ModelGroup component
+最后更新: 2025-09-18
+Git 信息: fa4db3e migrate(home-components): migrate WelcomeContent, message blocks and tools to HeroUI-native
