@@ -1,5 +1,4 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -222,15 +221,10 @@ export default function ManageModelsScreen() {
             </ScrollView>
           </Tabs>
 
+          <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
+
           <YStack className="flex-1" style={{ height: '100%' }}>
             <Group className="flex-1">
-              <View className="p-2.5">
-                <SearchInput
-                  placeholder={t('settings.models.search')}
-                  value={searchText}
-                  onChangeText={setSearchText}
-                />
-              </View>
               <ModelGroup
                 modelGroups={sortedModelGroups}
                 renderModelItem={(model, index) => (

@@ -157,7 +157,7 @@ export default function ProviderSettingsScreen() {
                   <Text>{t('settings.provider.api_service')}</Text>
                   <XStack className="justify-center items-center">
                     {provider.apiKey && provider.apiHost && (
-                      <Text className="py-0.5 px-2 rounded-md bg-green-10 border-green-20 text-green-100 border-[0.5px] font-bold text-xs">
+                      <Text className="py-0.5 px-2 rounded-md bg-green-10 border-green-20 text-green-100 dark:text-green-dark-100 border-[0.5px] font-bold text-xs">
                         {t('settings.provider.added')}
                       </Text>
                     )}
@@ -173,13 +173,7 @@ export default function ProviderSettingsScreen() {
                 <GroupTitle>{t('settings.models.title')}</GroupTitle>
                 <IconButton icon={<HeartPulse size={14} />} />
               </XStack>
-              <View className="p-2.5">
-                <SearchInput
-                  placeholder={t('settings.models.search')}
-                  value={searchText}
-                  onChangeText={setSearchText}
-                />
-              </View>
+              <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
               <Group>
                 <ModelGroup modelGroups={sortedModelGroups} />
               </Group>

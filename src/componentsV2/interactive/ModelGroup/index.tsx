@@ -59,7 +59,7 @@ export default function ModelGroup({
 
   return (
     <Animated.View className="flex-1" layout={AccordionLayoutTransition}>
-      <Accordion className="flex-1" selectionMode="multiple" variant="border">
+      <Accordion className="flex-1" selectionMode="multiple" variant="default">
         {modelGroups.map(([groupName, models], index) => (
           <Accordion.Item key={index} value={groupName}>
             <Accordion.Trigger className="bg-ui-card-background dark:bg-ui-card-background-dark">
