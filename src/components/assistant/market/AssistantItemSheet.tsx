@@ -8,7 +8,7 @@ import { BackHandler, Platform, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
-import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
+import { UnionPlusIcon } from '@/componentsV2/icons'
 import { SettingDivider } from '@/components/settings'
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'

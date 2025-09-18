@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native'
 import { Tabs } from 'tamagui'
 import { Text, XStack } from '@/componentsV2'
 
-import { MultiModalIcon } from '@/components/icons/MultiModelIcon'
+import { MultiModalIcon } from '@/componentsV2/icons'
 import { Assistant } from '@/types/assistant'
 import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 

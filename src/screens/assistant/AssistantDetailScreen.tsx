@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 
-import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
+import { DefaultProviderIcon } from '@/componentsV2/icons'
 import { AvatarEditButton } from '@/components/ui/AvatarEditButton'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'

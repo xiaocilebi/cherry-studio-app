@@ -11,7 +11,7 @@ import { loggerService } from '@/services/LoggerService'
 import { Citation } from '@/types/websearch'
 import { getWebsiteBrand } from '@/utils/websearch'
 
-import FallbackFavicon from '../icons/FallbackFavicon'
+import { FallbackFavicon } from '@/componentsV2/icons'
 const logger = loggerService.withContext('Citation Sheet')
 
 interface CitationSheetProps {

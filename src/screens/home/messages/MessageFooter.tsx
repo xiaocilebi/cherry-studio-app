@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
+import { TranslatedIcon, TranslationIcon } from '@/componentsV2/icons'
 import { IconButton, XStack } from '@/componentsV2'
 import SelectionSheet from '@/components/ui/SelectionSheet'
 import {

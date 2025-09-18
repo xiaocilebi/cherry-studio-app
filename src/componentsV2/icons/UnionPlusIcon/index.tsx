@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg'
 
 import { useTheme } from '@/hooks/useTheme'
 
-import { IconProps } from '.'
+import { IconProps } from '../types'
 
 export function UnionPlusIcon(props: IconProps) {
   const { isDark } = useTheme()

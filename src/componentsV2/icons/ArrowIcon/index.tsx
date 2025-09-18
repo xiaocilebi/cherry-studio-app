@@ -1,7 +1,7 @@
 import React from 'react'
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg'
 
-import { IconProps } from '.'
+import { IconProps } from '../types'
 
 export function ArrowIcon(props: IconProps) {
   return (

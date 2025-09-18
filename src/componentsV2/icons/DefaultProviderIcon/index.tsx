@@ -14,7 +14,7 @@ import Svg, {
   Rect
 } from 'react-native-svg'
 
-import { IconProps } from '.'
+import { IconProps } from '../types'
 
 export function DefaultProviderIcon(props: IconProps) {
   return (

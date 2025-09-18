@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { TouchableOpacity, View } from 'react-native'
 import { Text, YStack } from '@/componentsV2'
 
-import FallbackFavicon from '@/components/icons/FallbackFavicon'
+import { FallbackFavicon } from '@/componentsV2/icons'
 import CitationSheet from '@/components/sheets/CitationSheet'
 import { Citation } from '@/types/websearch'
 import { haptic } from '@/utils/haptic'

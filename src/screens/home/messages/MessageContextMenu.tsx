@@ -2,7 +2,7 @@ import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, ThumbsUp, Trash2 
 import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
+import { TranslatedIcon, TranslationIcon } from '@/componentsV2/icons'
 import TextSelectionSheet, { TextSelectionSheetRef } from '@/components/sheets/TextSelectionSheet'
 import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
 import { useMessageActions } from '@/hooks/useMessageActions'

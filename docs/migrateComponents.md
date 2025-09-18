@@ -410,3 +410,26 @@
 
 最后更新: 2025-09-18
 Git 信息: migrate(TopicComponents): migrate and restructure topic components to HeroUI-native features
+
+### Icon 组件迁移 (2025-09-19)
+
+**迁移位置**:
+- `src/components/icons/*` → `src/componentsV2/icons/*`
+
+**功能描述**:
+- 将旧版 SVG / 复杂逻辑图标统一迁移到 V2 目录，便于后续维护与主题适配
+- 新增 `types.ts` 与 `index.ts`，提供共享的 `IconProps` 类型与集中导出
+
+**迁移变更**:
+- 为每个图标创建独立目录 `src/componentsV2/icons/<IconName>/index.tsx`
+- 新增 `IconProps` 类型复用，保持与旧实现一致的 `size` / `color` 可选属性
+- 更新全局引用：所有原本引用 `@/components/icons/*` 的组件改为使用 `@/componentsV2/icons`
+- 删除旧的 `src/components/icons` 目录，避免重复实现
+
+**代码优化效果**:
+- V2 组件系统内实现统一的图标导入体验，可直接 `import { AssetsIcon } from '@/componentsV2/icons'`
+- 后续新增图标只需在 `src/componentsV2/icons` 下添加目录并在 barrel 文件导出
+- 减少跨目录样式差异，统一暗/亮模式逻辑
+
+最后更新: 2025-09-19
+Git 信息: migrate(icon): unify custom icons under componentsV2
