@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   ArrowLeft,
+  ArrowLeftRight,
   ArrowUpRight,
   Camera,
   ChevronDown,
@@ -26,6 +27,7 @@ import {
   MessageSquareMore,
   Minus,
   Package,
+  PenLine,
   Plus,
   Rocket,
   RotateCcw,
@@ -53,6 +55,7 @@ function interopIcon(icon: LucideIcon) {
 }
 
 interopIcon(ArrowLeft)
+interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
 interopIcon(Camera)
 interopIcon(ChevronDown)
@@ -77,6 +80,7 @@ interopIcon(MessageSquareDiff)
 interopIcon(MessageSquareMore)
 interopIcon(Minus)
 interopIcon(Package)
+interopIcon(PenLine)
 interopIcon(Plus)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
@@ -96,6 +100,7 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
 }
 
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
+const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
@@ -120,6 +125,7 @@ const MessageSquareDiffIcon = withDefaultIconClass(MessageSquareDiff)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
 const MinusIcon = withDefaultIconClass(Minus)
 const PackageIcon = withDefaultIconClass(Package)
+const PenLineIcon = withDefaultIconClass(PenLine)
 const PlusIcon = withDefaultIconClass(Plus)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
@@ -133,6 +139,7 @@ const WifiIcon = withDefaultIconClass(Wifi)
 
 export {
   ArrowLeftIcon as ArrowLeft,
+  ArrowLeftRightIcon as ArrowLeftRight,
   ArrowUpRightIcon as ArrowUpRight,
   CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
@@ -157,6 +164,7 @@ export {
   MessageSquareMoreIcon as MessageSquareMore,
   MinusIcon as Minus,
   PackageIcon as Package,
+  PenLineIcon as PenLine,
   PlusIcon as Plus,
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
