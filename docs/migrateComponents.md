@@ -135,10 +135,10 @@
 - [ ] `topic/GroupTopicList.tsx`
 - [ ] `topic/TopicItem.tsx`
 
-### 页面组件 (1 待迁移 / 39)
+### 页面组件 (0 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
-- [ ] `WelcomeScreen.tsx`
+- [x] `WelcomeScreen.tsx`
 - [x] `home/ChatScreen.tsx`
 - [x] `topic/TopicScreen.tsx`
 - [x] `assistant/AssistantScreen.tsx`
@@ -297,10 +297,38 @@
 
 ## 进度追踪
 
-- **总体进度**: 103/178 (57.9%)
+- **总体进度**: 104/178 (58.4%)
 - **组件**: 32/105 (30.5%)
-- **页面**: 55/57 (96.5%)
+- **页面**: 56/57 (98.2%)
 - **已完成**: 16/16 (100%)
 
+### WelcomeScreen 组件 (2025-09-18)
+
+**迁移位置**: `src/screens/WelcomeScreen.tsx`
+
+**功能描述**:
+- 应用启动欢迎页面，包含轮播介绍和开始按钮
+- 支持自动轮播和手动切换的功能介绍页面
+- 完全响应式设计，支持中文内容展示
+
+**迁移变更**:
+- 将 Tamagui 的 `Button, Text, View, XStack, YStack` 替换为 HeroUI 组件
+- `Button` 从 'tamagui' → 'heroui-native' 并使用 Tailwind 样式
+- `Text, XStack, YStack, Image, SafeAreaContainer` 从 'tamagui' → '@/componentsV2'
+- 所有样式属性转换为 Tailwind classes
+- 修复 ESLint 警告（转义引号字符）
+
+**样式转换示例**:
+- `fontSize={24}` → `className="text-2xl"`
+- `backgroundColor="#9333EA"` → `className="bg-purple-600"`
+- `paddingVertical={20}` → `className="py-5"`
+- `alignItems="center"` → `className="items-center"`
+
+**代码优化效果**:
+- 完全迁移到新的组件系统
+- 保持原有功能和视觉效果
+- 统一使用 Tailwind 样式规范
+- 符合项目 ESLint 规则
+
 最后更新: 2025-09-18
-Git 信息: migrate(Messages): migrate from Tamagui to HeroUI-native with Button component structure
+Git 信息: migrate(WelcomeScreen): migrate from Tamagui to HeroUI-native with Tailwind styling
