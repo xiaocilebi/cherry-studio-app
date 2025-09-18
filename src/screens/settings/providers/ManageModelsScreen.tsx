@@ -223,7 +223,7 @@ export default function ManageModelsScreen() {
 
           <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
 
-          <YStack className="flex-1" style={{ height: '100%' }}>
+          <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
             <Group className="flex-1">
               <ModelGroup
                 modelGroups={sortedModelGroups}
@@ -280,7 +280,7 @@ export default function ManageModelsScreen() {
                 )}
               />
             </Group>
-          </YStack>
+          </ScrollView>
         </Container>
       )}
     </SafeAreaContainer>

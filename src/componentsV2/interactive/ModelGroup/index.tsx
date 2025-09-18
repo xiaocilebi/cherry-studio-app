@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Animated from 'react-native-reanimated'
 
-import { Accordion, AccordionLayoutTransition } from 'heroui-native'
+import { Accordion, AccordionLayoutTransition, Chip } from 'heroui-native'
 
 import Text from '../../base/Text'
 import XStack from '../../layout/XStack'
@@ -67,16 +67,16 @@ export default function ModelGroup({
                 <XStack className="flex-1 gap-3 items-center">
                   <Accordion.Indicator />
                   <Text className="font-bold">{groupName}</Text>
-                  <XStack className="w-4 h-4 justify-center items-center p-3 rounded-md bg-green-20 dark:bg-green-dark-20">
-                    <Text className="text-[10px] h-3 w-3 text-center text-green-100 dark:text-green-dark-100">
+                  <Chip variant="tertiary" size="sm" className="rounded-md bg-green-20 dark:bg-green-dark-20">
+                    <Chip.LabelContent classNames={{ text: 'text-3 text-green-100 dark:text-green-dark-100' }}>
                       {models.length}
-                    </Text>
-                  </XStack>
+                    </Chip.LabelContent>
+                  </Chip>
                 </XStack>
                 {renderGroupButton && renderGroupButton(groupName, models)}
               </XStack>
             </Accordion.Trigger>
-            <Accordion.Content className="bg-ui-card-background dark:bg-ui-card-background-dark">
+            <Accordion.Content className="bg-ui-card-background dark:bg-ui-card-background-dark gap-2">
               {models.map((model, modelIndex) => (
                 <React.Fragment key={model.id || modelIndex}>{renderModelItem(model, modelIndex)}</React.Fragment>
               ))}
