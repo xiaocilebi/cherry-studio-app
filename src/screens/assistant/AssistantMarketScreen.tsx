@@ -1,19 +1,18 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { Menu } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'tamagui'
+import { View } from 'react-native'
 
 import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import AssistantMarketLoading from '@/components/assistant/market/AssistantMarketLoading'
 import AssistantsTabContent from '@/components/assistant/market/AssistantsTabContent'
-import { SettingContainer } from '@/components/settings'
-import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
+import { Container, HeaderBar } from '@/componentsV2'
+import { Menu } from '@/componentsV2/icons/LucideIcon'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
 import { useSearch } from '@/hooks/useSearch'
 import { Assistant } from '@/types/assistant'
@@ -66,9 +65,9 @@ export default function AssistantMarketScreen() {
   }
 
   return (
-    <SafeAreaContainer style={{ paddingBottom: 0 }}>
+    <SafeAreaContainer className="pb-0">
       <DrawerGestureWrapper>
-        <View collapsable={false} style={{ flex: 1 }}>
+        <View collapsable={false} className="flex-1">
           <HeaderBar
             title={t('assistants.market.title')}
             leftButton={{
@@ -76,7 +75,7 @@ export default function AssistantMarketScreen() {
               onPress: handleMenuPress
             }}
           />
-          <SettingContainer paddingVertical={0} style={{ gap: 10 }}>
+          <Container className="py-0 gap-2.5">
             <SearchInput
               placeholder={t('assistants.market.search_placeholder')}
               value={searchText}
@@ -84,7 +83,7 @@ export default function AssistantMarketScreen() {
             />
 
             <AssistantsTabContent assistants={filteredAssistants} onAssistantPress={handleAssistantItemPress} />
-          </SettingContainer>
+          </Container>
           <AssistantItemSheet
             ref={bottomSheetRef}
             assistant={selectedAssistant}
