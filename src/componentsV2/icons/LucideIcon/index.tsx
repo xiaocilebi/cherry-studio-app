@@ -21,6 +21,8 @@ import {
   CircleUserRound,
   LucideIcon,
   Mail,
+  Menu,
+  MessageSquareDiff,
   MessageSquareMore,
   Minus,
   Package,
@@ -70,6 +72,8 @@ interopIcon(HeartPulse)
 interopIcon(Info)
 interopIcon(Languages)
 interopIcon(Mail)
+interopIcon(Menu)
+interopIcon(MessageSquareDiff)
 interopIcon(MessageSquareMore)
 interopIcon(Minus)
 interopIcon(Package)
@@ -111,6 +115,8 @@ const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
 const CircleUserRoundIcon = withDefaultIconClass(CircleUserRound)
 const MailIcon = withDefaultIconClass(Mail)
+const MenuIcon = withDefaultIconClass(Menu)
+const MessageSquareDiffIcon = withDefaultIconClass(MessageSquareDiff)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
 const MinusIcon = withDefaultIconClass(Minus)
 const PackageIcon = withDefaultIconClass(Package)
@@ -146,6 +152,8 @@ export {
   LanguagesIcon as Languages,
   CircleUserRoundIcon as CircleUserRound,
   MailIcon as Mail,
+  MenuIcon as Menu,
+  MessageSquareDiffIcon as MessageSquareDiff,
   MessageSquareMoreIcon as MessageSquareMore,
   MinusIcon as Minus,
   PackageIcon as Package,
