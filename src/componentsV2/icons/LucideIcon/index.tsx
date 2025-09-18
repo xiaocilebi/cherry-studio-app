@@ -42,6 +42,7 @@ import {
   Settings2,
   ChevronRight,
   ShieldCheck,
+  TextSelect,
   ThumbsUp,
   Trash2,
   Wifi
@@ -102,6 +103,7 @@ interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(ShieldCheck)
+interopIcon(TextSelect)
 interopIcon(ThumbsUp)
 interopIcon(Trash2)
 interopIcon(Wifi)
@@ -154,6 +156,7 @@ const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
+const TextSelectIcon = withDefaultIconClass(TextSelect)
 const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
 const WifiIcon = withDefaultIconClass(Wifi)
@@ -200,6 +203,7 @@ export {
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
   ShieldCheckIcon as ShieldCheck,
+  TextSelectIcon as TextSelect,
   ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,
   WifiIcon as Wifi
