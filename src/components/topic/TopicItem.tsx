@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
-import { Edit3, Sparkles, Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { useTranslation } from 'react-i18next'
-import { Text, View, XStack, YStack, Input } from 'tamagui'
+import { View } from 'react-native'
+
+import { Edit3, Sparkles, Trash2 } from '@/componentsV2/icons/LucideIcon'
+import { Text, TextField, XStack, YStack } from '@/componentsV2'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
@@ -27,7 +29,7 @@ type TimeFormat = 'time' | 'date'
 // 话题名称骨架屏组件
 const TopicNameSkeleton: FC<{ isDark: boolean }> = ({ isDark }) => {
   return (
-    <View width="100%">
+    <View style={{ width: '100%' }}>
       <ContentLoader
         height={13}
         width="100%"
@@ -117,18 +119,17 @@ const TopicItem: FC<TopicItemProps> = ({
       confirmText: t('common.save'),
       cancelText: t('common.cancel'),
       content: (
-        <Input
-          width="100%"
-          marginTop={8}
-          borderRadius={16}
-          backgroundColor="$colorTransparent"
-          defaultValue={topic.name}
-          onChangeText={value => {
-            tempNameRef.current = value
-          }}
-          autoFocus
-          placeholder={t('common.please_enter') || ''}
-        />
+        <TextField className="w-full mt-2">
+          <TextField.Input
+            className="rounded-2xl bg-transparent"
+            defaultValue={topic.name}
+            onChangeText={value => {
+              tempNameRef.current = value
+            }}
+            autoFocus
+            placeholder={t('common.please_enter') || ''}
+          />
+        </TextField>
       ),
       onConFirm: () => {
         handleSaveRename(tempNameRef.current)
@@ -169,19 +170,19 @@ const TopicItem: FC<TopicItemProps> = ({
         {
           title: t('button.generate_topic_name'),
           iOSIcon: 'sparkles',
-          androidIcon: <Sparkles size={16} color="$textPrimary" />,
+          androidIcon: <Sparkles size={16} className="text-text-primary dark:text-text-primary-dark" />,
           onSelect: handleGenerateName
         },
         {
           title: t('button.rename_topic_name'),
           iOSIcon: 'rectangle.and.pencil.and.ellipsis',
-          androidIcon: <Edit3 size={16} color="$textPrimary" />,
+          androidIcon: <Edit3 size={16} className="text-text-primary dark:text-text-primary-dark" />,
           onSelect: handleRename
         },
         {
           title: t('common.delete'),
           iOSIcon: 'trash',
-          androidIcon: <Trash2 size={16} color="red" />,
+          androidIcon: <Trash2 size={16} className="text-red-500" />,
           destructive: true,
           color: 'red',
           onSelect: () => onDelete?.(topic.id)
@@ -189,13 +190,9 @@ const TopicItem: FC<TopicItemProps> = ({
       ]}
       onPress={openTopic}>
       <XStack
-        borderRadius={18}
-        paddingVertical={5}
-        paddingHorizontal={5}
-        gap={6}
-        justifyContent="center"
-        alignItems="center"
-        backgroundColor={isActive ? '$green10' : 'transparent'}>
+        className={`rounded-lg py-1 px-1 gap-1.5 justify-center items-center ${
+          isActive ? 'bg-green-10 dark:bg-green-10' : 'bg-transparent'
+        }`}>
         <EmojiAvatar
           emoji={assistant?.emoji}
           size={42}
@@ -203,12 +200,10 @@ const TopicItem: FC<TopicItemProps> = ({
           borderWidth={3}
           borderColor={isDark ? '#444444' : '#ffffff'}
         />
-        <YStack flex={1} gap={3}>
-          <XStack justifyContent="space-between">
-            <Text fontSize={14} lineHeight={18} fontWeight="bold" color="$textPrimary">
-              {assistant?.name}
-            </Text>
-            <Text fontSize={11} color="$textSecondary" flexShrink={0} textWrap="nowrap">
+        <YStack className="flex-1 gap-0.5">
+          <XStack className="justify-between">
+            <Text className="text-md leading-[18px] font-bold ">{assistant?.name}</Text>
+            <Text className="text-xs text-text-secondary dark:text-text-secondary-dark shrink-0 text-wrap-none">
               {displayTime}
             </Text>
           </XStack>
@@ -216,12 +211,9 @@ const TopicItem: FC<TopicItemProps> = ({
             <TopicNameSkeleton isDark={isDark} />
           ) : (
             <Text
-              fontSize={13}
-              lineHeight={15}
+              className="text-[13px] font-normal text-text-secondary dark:text-text-secondary-dark"
               numberOfLines={1}
-              ellipsizeMode="tail"
-              fontWeight="400"
-              color="$textSecondary">
+              ellipsizeMode="tail">
               {topic.name}
             </Text>
           )}

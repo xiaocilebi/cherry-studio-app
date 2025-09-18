@@ -1,7 +1,8 @@
 import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
-import { Text, YStack } from 'tamagui'
+
+import { Text, YStack } from '@/componentsV2'
 
 import { useDialog } from '@/hooks/useDialog'
 import { useToast } from '@/hooks/useToast'
@@ -135,7 +136,9 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
     switch (item.type) {
       case 'header':
         return (
-          <Text color="$textPrimary" fontWeight="bold" paddingTop={index !== 0 ? 20 : 0}>
+          <Text
+            className="text-text-primary dark:text-text-primary-dark font-bold"
+            style={{ paddingTop: index !== 0 ? 20 : 0 }}>
             {item.title}
           </Text>
         )
@@ -171,7 +174,7 @@ export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScree
         return item.type
       }}
       estimatedItemSize={40}
-      ItemSeparatorComponent={() => <YStack height={10} />}
+      ItemSeparatorComponent={() => <YStack className="h-2.5" />}
       contentContainerStyle={{ paddingHorizontal: 20 }}
     />
   )

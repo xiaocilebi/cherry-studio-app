@@ -10,6 +10,7 @@ import {
   Cloud,
   Copy,
   Copyright,
+  Edit3,
   Eye,
   EyeOff,
   FileText,
@@ -42,6 +43,7 @@ import {
   Settings2,
   ChevronRight,
   ShieldCheck,
+  Sparkles,
   TextSelect,
   ThumbsUp,
   Trash2,
@@ -73,6 +75,7 @@ interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copy)
 interopIcon(Copyright)
+interopIcon(Edit3)
 interopIcon(Eye)
 interopIcon(EyeOff)
 interopIcon(FileText)
@@ -103,6 +106,7 @@ interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(ShieldCheck)
+interopIcon(Sparkles)
 interopIcon(TextSelect)
 interopIcon(ThumbsUp)
 interopIcon(Trash2)
@@ -125,6 +129,7 @@ const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
 const CopyIcon = withDefaultIconClass(Copy)
 const CopyrightIcon = withDefaultIconClass(Copyright)
+const Edit3Icon = withDefaultIconClass(Edit3)
 const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
 const FileTextIcon = withDefaultIconClass(FileText)
@@ -156,6 +161,7 @@ const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
+const SparklesIcon = withDefaultIconClass(Sparkles)
 const TextSelectIcon = withDefaultIconClass(TextSelect)
 const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
@@ -172,6 +178,7 @@ export {
   CloudIcon as Cloud,
   CopyIcon as Copy,
   CopyrightIcon as Copyright,
+  Edit3Icon as Edit3,
   EyeIcon as Eye,
   EyeOffIcon as EyeOff,
   FileTextIcon as FileText,
@@ -203,6 +210,7 @@ export {
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
   ShieldCheckIcon as ShieldCheck,
+  SparklesIcon as Sparkles,
   TextSelectIcon as TextSelect,
   ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,

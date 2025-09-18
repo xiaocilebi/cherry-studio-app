@@ -11,7 +11,7 @@
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
 - **分析文件总数**: 178
-- **需要迁移的文件**: 83 (72 组件 + 11 页面仍使用 Tamagui)
+- **需要迁移的文件**: 81 (70 组件 + 11 页面仍使用 Tamagui)
 - **已迁移文件**: 18 (`src/componentsV2/`)
 - **无需迁移文件**: 77 (31 组件 + 46 页面已无 Tamagui)
 
@@ -83,7 +83,7 @@
 #### 其他核心组件 (1 个组件，已完成)
 - [x] `ExternalLink.tsx` (已迁移至 `componentsV2/base/ExternalLink`)
 
-### 中等优先级 - 功能组件 (43 项，其中 42 个待迁移)
+### 中等优先级 - 功能组件 (43 项，其中 40 个待迁移)
 
 #### 助手相关组件 (11 个组件)
 - [ ] `assistant/AssistantItem.tsx`
@@ -130,12 +130,12 @@
 - [ ] `sheets/ToolUseSheet.tsx`
 - [ ] `sheets/WebsearchSheet.tsx`
 
-#### 菜单和话题组件 (5 个组件)
+#### 菜单和话题组件 (3 个组件，其中 2 个已完成)
 - [ ] `menu/CustomDrawerContent.tsx`
 - [ ] `menu/MenuTab.tsx`
 - [ ] `menu/MenuTabContent.tsx`
-- [ ] `topic/GroupTopicList.tsx`
-- [ ] `topic/TopicItem.tsx`
+- [x] `topic/GroupTopicList.tsx`
+- [x] `topic/TopicItem.tsx`
 
 ### 页面组件 (0 待迁移 / 39)
 
@@ -298,8 +298,8 @@
 
 ## 进度追踪
 
-- **总体进度**: 106/178 (59.6%)
-- **组件**: 34/105 (32.4%)
+- **总体进度**: 108/178 (60.7%)
+- **组件**: 36/105 (34.3%)
 - **页面**: 56/57 (98.2%)
 - **已完成**: 18/18 (100%)
 
@@ -331,5 +331,41 @@
 - 统一使用 Tailwind 样式规范
 - 符合项目 ESLint 规则
 
+### TopicItem & GroupTopicList 组件 (2025-09-18)
+
+**迁移位置**:
+- `src/components/topic/TopicItem.tsx`
+- `src/components/topic/GroupTopicList.tsx`
+
+**功能描述**:
+- TopicItem: 话题列表项组件，支持重命名、删除、生成话题名称等操作
+- GroupTopicList: 话题分组列表组件，按时间分组展示话题
+
+**迁移变更**:
+
+**TopicItem.tsx**:
+- 替换 `@tamagui/lucide-icons` → `@/componentsV2/icons/LucideIcon` (Edit3, Sparkles, Trash2)
+- 将 `Text, View, XStack, YStack, Input` from 'tamagui' → HeroUI 组件
+- `Input` → `TextField` 组件结构 (TextField.Input)
+- 所有样式属性转换为 Tailwind classes
+- 图标 color 属性转换为 className
+
+**GroupTopicList.tsx**:
+- 将 `Text, YStack` from 'tamagui' → `@/componentsV2`
+- Text 组件样式转换为 Tailwind classes
+- ItemSeparatorComponent 使用 Tailwind 高度类
+
+**样式转换示例**:
+- `color="$textPrimary"` → `className="text-text-primary dark:text-text-primary-dark"`
+- `fontWeight="bold"` → `className="font-bold"`
+- `height={10}` → `className="h-2.5"`
+- `backgroundColor={isActive ? '$green10' : 'transparent'}` → 条件 className
+
+**代码优化效果**:
+- 完全迁移到 HeroUI-native 组件系统
+- 统一使用 Tailwind 样式规范
+- 保持所有原有功能和交互效果
+- 图标系统统一使用 LucideIcon
+
 最后更新: 2025-09-18
-Git 信息: migrate(WelcomeScreen): migrate from Tamagui to HeroUI-native with Tailwind styling
+Git 信息: migrate(TopicComponents): migrate TopicItem and GroupTopicList to HeroUI-native
