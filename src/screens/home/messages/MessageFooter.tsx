@@ -1,13 +1,22 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { AudioLines, CirclePause, Copy, MoreHorizontal, RefreshCw, ThumbsUp, Trash2 } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, XStack } from 'tamagui'
+import { View } from 'react-native'
 
 import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
 import { IconButton } from '@/components/ui/IconButton'
 import SelectionSheet from '@/components/ui/SelectionSheet'
+import { XStack } from '@/componentsV2'
+import {
+  AudioLines,
+  CirclePause,
+  Copy,
+  MoreHorizontal,
+  RefreshCw,
+  ThumbsUp,
+  Trash2
+} from '@/componentsV2/icons/LucideIcon'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
@@ -54,7 +63,7 @@ const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFoot
     {
       id: 'delete',
       label: t('message.delete_message'),
-      icon: <Trash2 size={18} color="$red100" />,
+      icon: <Trash2 size={18} className="text-red-600" />,
       color: '$red100',
       backgroundColor: '$red20',
       onSelect: handleDelete
@@ -64,28 +73,38 @@ const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFoot
   const getAudioIcon = () => {
     switch (playState) {
       case 'playing':
-        return <CirclePause size={18} color="$textSecondary" />
+        return <CirclePause size={18} className="text-text-secondary dark:text-text-secondary-dark " />
       default:
-        return <AudioLines size={18} color="$textSecondary" />
+        return <AudioLines size={18} className="text-text-secondary dark:text-text-secondary-dark" />
     }
   }
 
   return (
-    <View paddingHorizontal={20} paddingBottom={14}>
-      <XStack gap={20}>
-        <IconButton icon={<Copy size={18} color="$textSecondary" />} onPress={handleCopy} />
-        <IconButton icon={<RefreshCw size={18} color="$textSecondary" />} onPress={handleRegenerate} />
+    <View className="px-5 pb-3.5">
+      <XStack className="gap-5">
+        <IconButton
+          icon={<Copy size={18} className="text-text-secondary dark:text-text-secondary-dark" />}
+          onPress={handleCopy}
+        />
+        <IconButton
+          icon={<RefreshCw size={18} className="text-text-secondary dark:text-text-secondary-dark" />}
+          onPress={handleRegenerate}
+        />
         <IconButton icon={getAudioIcon()} onPress={handlePlay} />
         {message.role === 'assistant' && isMultiModel && (
           <IconButton
             icon={
-              message.useful ? <ThumbsUp size={18} color="$green100" /> : <ThumbsUp size={18} color="$textSecondary" />
+              message.useful ? (
+                <ThumbsUp size={18} className="text-green-600" />
+              ) : (
+                <ThumbsUp size={18} className="text-text-secondary dark:text-text-secondary-dark" />
+              )
             }
             onPress={handleBestAnswer}
           />
         )}
         <IconButton
-          icon={<MoreHorizontal size={18} color="$textSecondary" />}
+          icon={<MoreHorizontal size={18} className="text-text-secondary dark:text-text-secondary-dark" />}
           onPress={() => {
             haptic(ImpactFeedbackStyle.Medium)
             bottomSheetModalRef.current?.present()

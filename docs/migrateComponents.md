@@ -135,7 +135,7 @@
 - [ ] `topic/GroupTopicList.tsx`
 - [ ] `topic/TopicItem.tsx`
 
-### 页面组件 (11 待迁移 / 39)
+### 页面组件 (7 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
 - [ ] `WelcomeScreen.tsx`
@@ -144,23 +144,23 @@
 - [x] `assistant/AssistantScreen.tsx`
 - [x] `settings/SettingsScreen.tsx`
 
-#### 聊天和首页相关页面 (18 个页面，其中 9 个待迁移)
+#### 聊天和首页相关页面 (18 个页面，其中 5 个待迁移)
 - [x] `home/WelcomeContent.tsx`
 - [x] `home/markdown/ReactNativeMarkdown.tsx`
 - [x] `home/markdown/useMarkedRenderer.tsx`
 - [ ] `home/messages/CitationList.tsx`
 - [ ] `home/messages/MessageContent.tsx`
 - [ ] `home/messages/MessageContextMenu.tsx`
-- [ ] `home/messages/MessageFooter.tsx`
-- [ ] `home/messages/MessageGroup.tsx`
-- [ ] `home/messages/MessageHeader.tsx`
+- [x] `home/messages/MessageFooter.tsx`
+- [x] `home/messages/MessageGroup.tsx`
+- [x] `home/messages/MessageHeader.tsx`
 - [ ] `home/messages/Messages.tsx`
 - [ ] `home/messages/MultiModelTab.tsx`
 - [x] `home/messages/blocks/ErrorBlock.tsx`
 - [x] `home/messages/blocks/MainTextBlock.tsx`
 - [x] `home/messages/blocks/PlaceholderBlock.tsx`
 - [x] `home/messages/blocks/ThinkingBlock.tsx`
-- [ ] `home/messages/blocks/TranslationBlock.tsx`
+- [x] `home/messages/blocks/TranslationBlock.tsx`
 - [x] `home/messages/blocks/index.tsx`
 - [x] `home/messages/tools/MessageWebSearchTool.tsx`
 
@@ -297,10 +297,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 94/178 (52.8%)
+- **总体进度**: 98/178 (55.1%)
 - **组件**: 32/105 (30.5%)
-- **页面**: 46/57 (80.7%)
+- **页面**: 50/57 (87.7%)
 - **已完成**: 16/16 (100%)
 
 最后更新: 2025-09-18
-Git 信息: fa4db3e migrate(home-components): migrate WelcomeContent, message blocks and tools to HeroUI-native
+Git 信息: migrate(MessageFooter): migrate icons and styling from Tamagui to HeroUI-native
