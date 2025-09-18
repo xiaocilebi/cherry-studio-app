@@ -7,7 +7,6 @@ import { TouchableOpacity } from 'react-native'
 import { Avatar, Stack, styled, Text, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
-import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
@@ -16,6 +15,7 @@ import { MarketIcon } from '../icons/MarketIcon'
 import { UnionIcon } from '../icons/UnionIcon'
 import { SettingDivider, SettingRowRightArrow } from '../settings'
 import SafeAreaContainer from '../ui/SafeAreaContainer'
+import { TopicList } from '@/componentsV2'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
@@ -84,11 +84,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
         <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
           <View flex={1} minHeight={200}>
             {topics.length > 0 && (
-              <GroupedTopicList
-                topics={topics}
-                enableScroll={true}
-                handleNavigateChatScreen={handleNavigateChatScreen}
-              />
+              <TopicList topics={topics} enableScroll={true} handleNavigateChatScreen={handleNavigateChatScreen} />
             )}
           </View>
         </MenuTabContent>

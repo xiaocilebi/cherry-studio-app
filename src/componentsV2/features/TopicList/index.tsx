@@ -2,7 +2,8 @@ import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 
-import { Text, YStack } from '@/componentsV2'
+import Text from '../../base/Text'
+import YStack from '../../layout/YStack'
 
 import { useDialog } from '@/hooks/useDialog'
 import { useToast } from '@/hooks/useToast'
@@ -16,8 +17,7 @@ import { newMessagesActions } from '@/store/newMessage'
 import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
-
-import TopicItem from './TopicItem'
+import { TopicItem } from '../TopicItem'
 
 const logger = loggerService.withContext('GroupTopicList')
 
@@ -30,7 +30,7 @@ interface GroupedTopicListProps {
 // ListItem 类型定义现在使用导入的 TimeFormat
 type ListItem = { type: 'header'; title: string } | { type: 'topic'; topic: Topic; timeFormat: TimeFormat }
 
-export function GroupedTopicList({ topics, enableScroll, handleNavigateChatScreen }: GroupedTopicListProps) {
+export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: GroupedTopicListProps) {
   const { t } = useTranslation()
   const [localTopics, setLocalTopics] = useState<Topic[]>([])
   const dispatch = useAppDispatch()

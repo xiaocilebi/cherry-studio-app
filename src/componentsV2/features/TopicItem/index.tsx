@@ -5,8 +5,12 @@ import ContentLoader, { Rect } from 'react-content-loader/native'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
+import Text from '../../base/Text'
+import TextField from '../../base/TextField'
+import YStack from '../../layout/YStack'
+import XStack from '../../layout/XStack'
+
 import { Edit3, Sparkles, Trash2 } from '@/componentsV2/icons/LucideIcon'
-import { Text, TextField, XStack, YStack } from '@/componentsV2'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
@@ -20,9 +24,8 @@ import { Assistant, Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { storage } from '@/utils'
 import { haptic } from '@/utils/haptic'
-
-import { useDialog } from '../../hooks/useDialog'
-import EmojiAvatar from '../assistant/EmojiAvator'
+import EmojiAvatar from '@/components/assistant/EmojiAvator'
+import { useDialog } from '@/hooks/useDialog'
 
 type TimeFormat = 'time' | 'date'
 
@@ -52,7 +55,7 @@ interface TopicItemProps {
   handleNavigateChatScreen?: (topicId: string) => void
 }
 
-const TopicItem: FC<TopicItemProps> = ({
+export const TopicItem: FC<TopicItemProps> = ({
   topic,
   timeFormat = 'time',
   onDelete,
@@ -222,5 +225,3 @@ const TopicItem: FC<TopicItemProps> = ({
     </ContextMenu>
   )
 }
-
-export default TopicItem

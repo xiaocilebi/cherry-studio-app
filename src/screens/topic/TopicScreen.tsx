@@ -5,10 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
 
 import { Menu, MessageSquareDiff } from '@/componentsV2/icons/LucideIcon'
-import { YStack } from '@/componentsV2'
+import { YStack, HeaderBar, TopicList } from '@/componentsV2'
 
-import { HeaderBar } from '@/componentsV2/interactive/HeaderBar'
-import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
@@ -80,7 +78,7 @@ export default function TopicScreen() {
                 onChangeText={setSearchText}
               />
             </View>
-            <GroupedTopicList topics={filteredTopics} enableScroll={true} />
+            <TopicList topics={filteredTopics} enableScroll={true} />
           </YStack>
         </View>
       </DrawerGestureWrapper>

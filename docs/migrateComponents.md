@@ -12,12 +12,12 @@
 
 - **分析文件总数**: 178
 - **需要迁移的文件**: 81 (70 组件 + 11 页面仍使用 Tamagui)
-- **已迁移文件**: 18 (`src/componentsV2/`)
+- **已迁移文件**: 22 (`src/componentsV2/`)
 - **无需迁移文件**: 77 (31 组件 + 46 页面已无 Tamagui)
 
 ## 迁移进度
 
-### ✅ 已完成迁移的组件 (18/18)
+### ✅ 已完成迁移的组件 (22/22)
 
 位于 `src/componentsV2/`:
 
@@ -27,8 +27,10 @@
 - [x] `base/Text/index.tsx`
 - [x] `base/TextField/index.tsx`
 - [x] `icons/LucideIcon/index.tsx`
-- [x] `interactive/HeaderBar/index.tsx`
-- [x] `interactive/ModelGroup/index.tsx`
+- [x] `features/HeaderBar/index.tsx` (重构路径 - 从 interactive 移至 features)
+- [x] `features/ModelGroup/index.tsx` (重构路径 - 从 interactive 移至 features)
+- [x] `features/TopicItem/index.tsx` (新迁移 - 从 components/topic)
+- [x] `features/TopicList/index.tsx` (新迁移 - 从 components/topic)
 - [x] `layout/Container/index.tsx`
 - [x] `layout/Group/index.tsx`
 - [x] `layout/PressableRow/index.tsx`
@@ -130,12 +132,12 @@
 - [ ] `sheets/ToolUseSheet.tsx`
 - [ ] `sheets/WebsearchSheet.tsx`
 
-#### 菜单和话题组件 (3 个组件，其中 2 个已完成)
-- [ ] `menu/CustomDrawerContent.tsx`
+#### 菜单和话题组件 (5 个组件，其中 4 个已完成)
+- [x] `menu/CustomDrawerContent.tsx` (部分迁移 - 使用新的 TopicList 组件)
 - [ ] `menu/MenuTab.tsx`
 - [ ] `menu/MenuTabContent.tsx`
-- [x] `topic/GroupTopicList.tsx`
-- [x] `topic/TopicItem.tsx`
+- [x] `topic/GroupTopicList.tsx` (已迁移至 `componentsV2/features/TopicList`)
+- [x] `topic/TopicItem.tsx` (已迁移至 `componentsV2/features/TopicItem`)
 
 ### 页面组件 (0 待迁移 / 39)
 
@@ -367,5 +369,44 @@
 - 保持所有原有功能和交互效果
 - 图标系统统一使用 LucideIcon
 
+### 组件重构和迁移 (2025-09-18)
+
+**重构位置**:
+- `src/componentsV2/interactive/HeaderBar` → `src/componentsV2/features/HeaderBar`
+- `src/componentsV2/interactive/ModelGroup` → `src/componentsV2/features/ModelGroup`
+- `src/components/topic/TopicItem.tsx` → `src/componentsV2/features/TopicItem/index.tsx`
+- `src/components/topic/GroupTopicList.tsx` → `src/componentsV2/features/TopicList/index.tsx`
+
+**功能描述**:
+- **目录重构**: 将 `interactive` 目录重命名为 `features`，更准确地反映组件用途
+- **TopicItem 迁移**: 话题项组件完全迁移至 HeroUI-native，支持编辑、删除、生成标题等功能
+- **TopicList 迁移**: 话题列表组件 (原 GroupTopicList) 迁移，支持时间分组和滚动
+- **导入更新**: 更新所有相关文件的导入路径
+
+**迁移变更**:
+
+**TopicItem**:
+- 使用直接导入替代 `@/componentsV2` 统一导入
+- `Text, TextField, XStack, YStack` 组件完全迁移
+- 保持 `ContextMenu`, `EmojiAvatar`, `useDialog` 等依赖组件不变
+- 修复导入路径和 ESLint 规范
+
+**TopicList** (原 GroupTopicList):
+- 重命名为更简洁的 `TopicList`
+- 使用直接导入 `Text, YStack` 组件
+- 保持原有时间分组和 FlashList 性能优化
+- 更新 TopicItem 导入路径
+
+**影响的文件**:
+- `src/components/menu/CustomDrawerContent.tsx` - 更新为使用新的 TopicList 组件
+- `src/screens/topic/TopicScreen.tsx` - 更新导入路径和组件引用
+- `src/componentsV2/index.ts` - 添加新组件导出
+
+**代码优化效果**:
+- 统一组件架构，将功能组件集中到 `features` 目录
+- 完全迁移核心话题相关组件到 HeroUI-native
+- 减少旧组件依赖，提高维护性
+- 保持所有原有功能和交互体验
+
 最后更新: 2025-09-18
-Git 信息: migrate(TopicComponents): migrate TopicItem and GroupTopicList to HeroUI-native
+Git 信息: migrate(TopicComponents): migrate and restructure topic components to HeroUI-native features
