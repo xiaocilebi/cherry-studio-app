@@ -1,10 +1,10 @@
 # Tamagui 到 HeroUI 组件迁移计划
 
 ## 迁移须知
+
 1. 所有新的迁移组件均为与 ./src/componentsV2/ 目录下。组件中具有默认的样式，添加样式时需要查看组件中的样式
 2. 需要将tamagui改为使用heroui-native
 3. 新添加的icon需要在LucideIcon/index.tsx中注册
-
 
 ## 迁移概述
 
@@ -42,12 +42,12 @@
 - [x] `layout/YStack/index.tsx`
 - [x] `index.ts`
 
-
 ## 🔄 待迁移组件
 
 ### 高优先级 - 核心UI组件 (30 项，其中 29 项待迁移)
 
 #### `src/components/ui/` (15 个组件)
+
 - [ ] `AvatarEditButton.tsx`
 - [x] `CustomButton.tsx`
 - [ ] `CustomSlider.tsx`
@@ -65,12 +65,14 @@
 - [ ] `WebsearchIcon.tsx`
 
 #### 顶部导航栏组件 (4 个组件)
+
 - [ ] `header-bar/AssistantSelection.tsx`
 - [ ] `header-bar/index.tsx`
 - [ ] `header-bar/MenuButton.tsx`
 - [ ] `header-bar/NewTopicButton.tsx`
 
 #### 消息输入组件 (10 个组件)
+
 - [ ] `message-input/FilePreview.tsx`
 - [ ] `message-input/MentionButton.tsx`
 - [ ] `message-input/MessageInput.tsx`
@@ -83,11 +85,13 @@
 - [ ] `message-input/preview-items/PreviewItem.tsx`
 
 #### 其他核心组件 (1 个组件，已完成)
+
 - [x] `ExternalLink.tsx` (已迁移至 `componentsV2/base/ExternalLink`)
 
 ### 中等优先级 - 功能组件 (43 项，其中 40 个待迁移)
 
 #### 助手相关组件 (11 个组件)
+
 - [ ] `assistant/AssistantItem.tsx`
 - [ ] `assistant/AssistantItemCard.tsx`
 - [ ] `assistant/AssistantItemSkeleton.tsx`
@@ -101,6 +105,7 @@
 - [ ] `assistant/market/GroupTag.tsx`
 
 #### 设置相关组件 (17 个组件，其中 1 个已完成)
+
 - [ ] `settings/HeaderBar.tsx`
 - [ ] `settings/index.tsx`
 - [ ] `settings/Providers.tsx`
@@ -120,6 +125,7 @@
 - [x] `settings/providers/ModelGroup.tsx` (已迁移至 `componentsV2/interactive/ModelGroup`)
 
 #### 弹窗和模态框组件 (11 个组件)
+
 - [ ] `sheets/BottomSheetSearchInput.tsx`
 - [ ] `sheets/CitationSheet.tsx`
 - [ ] `sheets/ModelSheet.tsx`
@@ -133,6 +139,7 @@
 - [ ] `sheets/WebsearchSheet.tsx`
 
 #### 菜单和话题组件 (5 个组件，其中 4 个已完成)
+
 - [x] `menu/CustomDrawerContent.tsx` (部分迁移 - 使用新的 TopicList 组件)
 - [ ] `menu/MenuTab.tsx`
 - [ ] `menu/MenuTabContent.tsx`
@@ -142,6 +149,7 @@
 ### 页面组件 (0 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
+
 - [x] `WelcomeScreen.tsx`
 - [x] `home/ChatScreen.tsx`
 - [x] `topic/TopicScreen.tsx`
@@ -149,6 +157,7 @@
 - [x] `settings/SettingsScreen.tsx`
 
 #### 聊天和首页相关页面 (18 个页面，全部已迁移)
+
 - [x] `home/WelcomeContent.tsx`
 - [x] `home/markdown/ReactNativeMarkdown.tsx`
 - [x] `home/markdown/useMarkedRenderer.tsx`
@@ -169,6 +178,7 @@
 - [x] `home/messages/tools/MessageWebSearchTool.tsx`
 
 #### 助手相关页面 (5 个页面，全部已迁移)
+
 - [x] `assistant/AssistantDetailScreen.tsx`
 - [x] `assistant/AssistantMarketScreen.tsx`
 - [x] `assistant/tabs/ModelTabScreen.tsx`
@@ -176,6 +186,7 @@
 - [x] `assistant/tabs/ToolTabScreen.tsx`
 
 #### 设置相关页面 (16 个页面，全部已迁移)
+
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [x] `settings/data/BasicDataSettingsScreen.tsx`
 - [x] `settings/data/DataSettingsScreen.tsx`
@@ -193,12 +204,12 @@
 - [x] `settings/websearch/WebSearchProviderSettingsScreen.tsx`
 - [x] `settings/websearch/WebSearchSettingsScreen.tsx`
 
-
 ## ✨ 无需迁移的组件 (共 44 项)
 
 这些组件不使用 Tamagui 或已经迁移完成:
 
 ### 图标组件 (16 个组件)
+
 - [x] `icons/ArrowIcon.tsx`
 - [x] `icons/AssetsIcon.tsx`
 - [x] `icons/DefaultProviderIcon.tsx`
@@ -217,6 +228,7 @@
 - [x] `icons/VoiceIcon.tsx`
 
 ### 其他组件 (15 个组件)
+
 - [x] `message-input/ThinkButton.tsx`
 - [x] `message-input/ToolButton.tsx`
 - [x] `settings/data/index.tsx`
@@ -234,6 +246,7 @@
 - [x] `ui/ProviderIcon.tsx`
 
 ### 不使用 Tamagui 的页面组件 (13 个页面)
+
 - [x] `home/ChatContent.tsx`
 - [x] `home/markdown/MarkdownStyles.tsx`
 - [x] `home/markdown/useMathEquation.tsx`
@@ -255,17 +268,20 @@
 **提取位置**: `src/componentsV2/interactive/ModelGroup/index.tsx`
 
 **功能描述**:
+
 - 统一的模型分组展示组件，使用 Accordion 布局
 - 支持自定义模型项渲染和组按钮渲染
 - 完全响应式设计，支持亮/暗主题
 - 内置空状态处理和国际化支持
 
 **影响的文件**:
+
 - `src/screens/settings/providers/ManageModelsScreen.tsx` - 使用完整功能版本
 - `src/screens/settings/providers/ProviderSettingsScreen.tsx` - 使用简化版本
 - `src/componentsV2/index.ts` - 新增导出
 
 **代码优化效果**:
+
 - 减少重复代码 ~90 行
 - 统一组件行为和样式
 - 提高可维护性和复用性
@@ -310,11 +326,13 @@
 **迁移位置**: `src/screens/WelcomeScreen.tsx`
 
 **功能描述**:
+
 - 应用启动欢迎页面，包含轮播介绍和开始按钮
 - 支持自动轮播和手动切换的功能介绍页面
 - 完全响应式设计，支持中文内容展示
 
 **迁移变更**:
+
 - 将 Tamagui 的 `Button, Text, View, XStack, YStack` 替换为 HeroUI 组件
 - `Button` 从 'tamagui' → 'heroui-native' 并使用 Tailwind 样式
 - `Text, XStack, YStack, Image, SafeAreaContainer` 从 'tamagui' → '@/componentsV2'
@@ -322,12 +340,14 @@
 - 修复 ESLint 警告（转义引号字符）
 
 **样式转换示例**:
+
 - `fontSize={24}` → `className="text-2xl"`
 - `backgroundColor="#9333EA"` → `className="bg-purple-600"`
 - `paddingVertical={20}` → `className="py-5"`
 - `alignItems="center"` → `className="items-center"`
 
 **代码优化效果**:
+
 - 完全迁移到新的组件系统
 - 保持原有功能和视觉效果
 - 统一使用 Tailwind 样式规范
@@ -336,16 +356,19 @@
 ### TopicItem & GroupTopicList 组件 (2025-09-18)
 
 **迁移位置**:
+
 - `src/components/topic/TopicItem.tsx`
 - `src/components/topic/GroupTopicList.tsx`
 
 **功能描述**:
+
 - TopicItem: 话题列表项组件，支持重命名、删除、生成话题名称等操作
 - GroupTopicList: 话题分组列表组件，按时间分组展示话题
 
 **迁移变更**:
 
 **TopicItem.tsx**:
+
 - 替换 `@tamagui/lucide-icons` → `@/componentsV2/icons/LucideIcon` (Edit3, Sparkles, Trash2)
 - 将 `Text, View, XStack, YStack, Input` from 'tamagui' → HeroUI 组件
 - `Input` → `TextField` 组件结构 (TextField.Input)
@@ -353,17 +376,20 @@
 - 图标 color 属性转换为 className
 
 **GroupTopicList.tsx**:
+
 - 将 `Text, YStack` from 'tamagui' → `@/componentsV2`
 - Text 组件样式转换为 Tailwind classes
 - ItemSeparatorComponent 使用 Tailwind 高度类
 
 **样式转换示例**:
+
 - `color="$textPrimary"` → `className="text-text-primary dark:text-text-primary-dark"`
 - `fontWeight="bold"` → `className="font-bold"`
 - `height={10}` → `className="h-2.5"`
 - `backgroundColor={isActive ? '$green10' : 'transparent'}` → 条件 className
 
 **代码优化效果**:
+
 - 完全迁移到 HeroUI-native 组件系统
 - 统一使用 Tailwind 样式规范
 - 保持所有原有功能和交互效果
@@ -372,12 +398,14 @@
 ### 组件重构和迁移 (2025-09-18)
 
 **重构位置**:
+
 - `src/componentsV2/interactive/HeaderBar` → `src/componentsV2/features/HeaderBar`
 - `src/componentsV2/interactive/ModelGroup` → `src/componentsV2/features/ModelGroup`
 - `src/components/topic/TopicItem.tsx` → `src/componentsV2/features/TopicItem/index.tsx`
 - `src/components/topic/GroupTopicList.tsx` → `src/componentsV2/features/TopicList/index.tsx`
 
 **功能描述**:
+
 - **目录重构**: 将 `interactive` 目录重命名为 `features`，更准确地反映组件用途
 - **TopicItem 迁移**: 话题项组件完全迁移至 HeroUI-native，支持编辑、删除、生成标题等功能
 - **TopicList 迁移**: 话题列表组件 (原 GroupTopicList) 迁移，支持时间分组和滚动
@@ -386,23 +414,27 @@
 **迁移变更**:
 
 **TopicItem**:
+
 - 使用直接导入替代 `@/componentsV2` 统一导入
 - `Text, TextField, XStack, YStack` 组件完全迁移
 - 保持 `ContextMenu`, `EmojiAvatar`, `useDialog` 等依赖组件不变
 - 修复导入路径和 ESLint 规范
 
 **TopicList** (原 GroupTopicList):
+
 - 重命名为更简洁的 `TopicList`
 - 使用直接导入 `Text, YStack` 组件
 - 保持原有时间分组和 FlashList 性能优化
 - 更新 TopicItem 导入路径
 
 **影响的文件**:
+
 - `src/components/menu/CustomDrawerContent.tsx` - 更新为使用新的 TopicList 组件
 - `src/screens/topic/TopicScreen.tsx` - 更新导入路径和组件引用
 - `src/componentsV2/index.ts` - 添加新组件导出
 
 **代码优化效果**:
+
 - 统一组件架构，将功能组件集中到 `features` 目录
 - 完全迁移核心话题相关组件到 HeroUI-native
 - 减少旧组件依赖，提高维护性
@@ -414,19 +446,23 @@ Git 信息: migrate(TopicComponents): migrate and restructure topic components t
 ### Icon 组件迁移 (2025-09-19)
 
 **迁移位置**:
+
 - `src/components/icons/*` → `src/componentsV2/icons/*`
 
 **功能描述**:
+
 - 将旧版 SVG / 复杂逻辑图标统一迁移到 V2 目录，便于后续维护与主题适配
 - 新增 `types.ts` 与 `index.ts`，提供共享的 `IconProps` 类型与集中导出
 
 **迁移变更**:
+
 - 为每个图标创建独立目录 `src/componentsV2/icons/<IconName>/index.tsx`
 - 新增 `IconProps` 类型复用，保持与旧实现一致的 `size` / `color` 可选属性
 - 更新全局引用：所有原本引用 `@/components/icons/*` 的组件改为使用 `@/componentsV2/icons`
 - 删除旧的 `src/components/icons` 目录，避免重复实现
 
 **代码优化效果**:
+
 - V2 组件系统内实现统一的图标导入体验，可直接 `import { AssetsIcon } from '@/componentsV2/icons'`
 - 后续新增图标只需在 `src/componentsV2/icons` 下添加目录并在 barrel 文件导出
 - 减少跨目录样式差异，统一暗/亮模式逻辑
@@ -439,10 +475,12 @@ Git 信息: migrate(icon): unify custom icons under componentsV2
 **迁移位置**: `src/components/assistant/ModelTabContent.tsx`
 
 **功能描述**:
+
 - 助手模型配置选项卡组件，包含模型选择、温度控制、上下文数量、最大Token等设置
 - 支持推理模型的特殊设置选项和动态输入验证
 
 **迁移变更**:
+
 - 将 `Button, Switch` 从 'tamagui' → 'heroui-native'
 - 将 `Input` 从 'tamagui' → `TextField` from '@/componentsV2'
 - 将 `Text, XStack, YStack` 从 'tamagui' → `@/componentsV2`
@@ -450,6 +488,7 @@ Git 信息: migrate(icon): unify custom icons under componentsV2
 - 所有样式属性转换为 Tailwind classes
 
 **样式转换示例**:
+
 - `borderRadius={16}` → `className="rounded-2xl"`
 - `minWidth={60} height={25}` → `className="min-w-[60px] h-[25px]"`
 - `fontSize={12} textAlign="center"` → `className="text-xs text-center"`
@@ -457,12 +496,14 @@ Git 信息: migrate(icon): unify custom icons under componentsV2
 - `paddingVertical={2} paddingHorizontal={8}` → `className="py-0.5 px-2"`
 
 **HeroUI组件映射**:
+
 - Button: 使用 `<Button.EndContent>` 结构替代 `endContent` prop, `chromeless` → `variant="ghost"`
 - TextField: `<Input />` → `<TextField><TextField.Input /></TextField>` 结构
 - Input props: 保持 `value`, `onChangeText`, `onBlur`, `keyboardType` 不变
 - 样式Props全部转换为 `className` Tailwind类
 
 **代码优化效果**:
+
 - 完全迁移到 HeroUI-native 组件系统
 - 统一使用 Tailwind 样式规范
 - 保持所有原有功能：数值验证、动态显示、推理设置等
