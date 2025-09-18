@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
-import { HeaderBar } from '@/components/settings/HeaderBar'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useDialog } from '@/hooks/useDialog'
 import { useRestore } from '@/hooks/useRestore'
@@ -12,6 +11,7 @@ import { useWebSocket, WebSocketStatus } from '@/hooks/useWebSocket'
 import { DataSourcesNavigationProps } from '@/types/naviagate'
 
 import { QRCodeScanner } from './QRCodeScanner'
+import { HeaderBar } from '@/componentsV2'
 
 export default function LandropSettingsScreen() {
   const { t } = useTranslation()

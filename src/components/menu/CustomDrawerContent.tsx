@@ -12,9 +12,9 @@ import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
 import { MarketIcon, UnionIcon } from '@/componentsV2/icons'
-import { SettingDivider, SettingRowRightArrow } from '../settings'
 import SafeAreaContainer from '../ui/SafeAreaContainer'
-import { TopicList } from '@/componentsV2'
+import { RowRightArrow, TopicList } from '@/componentsV2'
+import { Divider } from 'heroui-native'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
@@ -63,7 +63,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 {t('assistants.market.title')}
               </Text>
             </XStack>
-            <SettingRowRightArrow />
+            <RowRightArrow />
           </ListItem>
 
           <ListItem onPress={handleNavigateAssistantScreen}>
@@ -73,10 +73,10 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 {t('assistants.market.my_assistant')}
               </Text>
             </XStack>
-            <SettingRowRightArrow />
+            <RowRightArrow />
           </ListItem>
           <Stack paddingHorizontal={10}>
-            <SettingDivider />
+            <Divider />
           </Stack>
         </YStack>
 
@@ -90,7 +90,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       </YStack>
 
       <Stack paddingHorizontal={20} paddingBottom={10}>
-        <SettingDivider />
+        <Divider />
       </Stack>
 
       <XStack paddingHorizontal={20} justifyContent="space-between" alignItems="center">

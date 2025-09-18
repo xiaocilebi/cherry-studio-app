@@ -1,16 +1,14 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight } from '@tamagui/lucide-icons'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import { Text, XStack } from 'tamagui'
+import { Text, RowRightArrow, XStack } from '@/componentsV2'
 
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
-import { SettingHelpText, SettingRowRightArrow } from '../settings'
 import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
 import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
 
@@ -49,20 +47,11 @@ const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, updateA
 
   const emptyContent = (
     <TouchableOpacity onPress={handleNavigateToWebSearhPage} activeOpacity={0.7}>
-      <XStack
-        width="100%"
-        alignItems="center"
-        gap={10}
-        paddingHorizontal={20}
-        paddingVertical={16}
-        borderRadius={16}
-        backgroundColor="$uiCardBackground">
-        <Text color="$textPrimary" fontSize={16} flex={1}>
-          {t('settings.websearch.empty')}
-        </Text>
-        <XStack alignItems="center" gap={5}>
-          <SettingHelpText>{t('settings.websearch.empty.description')}</SettingHelpText>
-          <SettingRowRightArrow />
+      <XStack className="w-full items-center gap-2.5 px-5 py-4 rounded-2xl bg-card">
+        <Text className="text-foreground text-base flex-1">{t('settings.websearch.empty')}</Text>
+        <XStack className="items-center gap-1.5">
+          <Text className="text-[11px] opacity-40">{t('settings.websearch.empty.description')}</Text>
+          <RowRightArrow />
         </XStack>
       </XStack>
     </TouchableOpacity>

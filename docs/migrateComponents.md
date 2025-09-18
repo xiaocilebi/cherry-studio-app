@@ -49,16 +49,16 @@
 
 #### `src/components/ui/` (15 个组件)
 - [ ] `AvatarEditButton.tsx`
-- [ ] `CustomButton.tsx`
+- [x] `CustomButton.tsx`
 - [ ] `CustomSlider.tsx`
-- [ ] `CustomTag.tsx`
+- [x] `CustomTag.tsx`
 - [ ] `DatabackupIcon.tsx`
 - [ ] `ImageSkeleton.tsx`
 - [ ] `MarqueeComponent.tsx`
 - [ ] `ModelTags.tsx`
 - [ ] `SafeAreaContainer.tsx`
 - [ ] `Searching.tsx`
-- [ ] `SearchInput.tsx`
+- [x] `SearchInput.tsx`
 - [ ] `Select.tsx`
 - [ ] `SelectionSheet.tsx`
 - [ ] `Switch.tsx`
@@ -92,9 +92,9 @@
 - [ ] `assistant/AssistantItemCard.tsx`
 - [ ] `assistant/AssistantItemSkeleton.tsx`
 - [ ] `assistant/EmojiAvator.tsx`
-- [ ] `assistant/ModelTabContent.tsx`
-- [ ] `assistant/PromptTabContent.tsx`
-- [ ] `assistant/ToolTabContent.tsx`
+- [x] `assistant/ModelTabContent.tsx` (已完成Tamagui到HeroUI-native迁移，包括TextField组件替换)
+- [x] `assistant/PromptTabContent.tsx` (已迁移至 `features/Assistant/PromptTabContent.tsx`)
+- [x] `assistant/ToolTabContent.tsx` (已迁移至 `features/Assistant/ToolTabContent.tsx`)
 - [ ] `assistant/market/AssistantItemSheet.tsx`
 - [ ] `assistant/market/AssistantMarketLoading.tsx`
 - [ ] `assistant/market/AssistantsTabContent.tsx`
@@ -433,3 +433,39 @@ Git 信息: migrate(TopicComponents): migrate and restructure topic components t
 
 最后更新: 2025-09-19
 Git 信息: migrate(icon): unify custom icons under componentsV2
+
+### ModelTabContent 组件迁移 (2025-09-18)
+
+**迁移位置**: `src/components/assistant/ModelTabContent.tsx`
+
+**功能描述**:
+- 助手模型配置选项卡组件，包含模型选择、温度控制、上下文数量、最大Token等设置
+- 支持推理模型的特殊设置选项和动态输入验证
+
+**迁移变更**:
+- 将 `Button, Switch` 从 'tamagui' → 'heroui-native'
+- 将 `Input` 从 'tamagui' → `TextField` from '@/componentsV2'
+- 将 `Text, XStack, YStack` 从 'tamagui' → `@/componentsV2`
+- 移除 `Stack` 组件，改用 `YStack`
+- 所有样式属性转换为 Tailwind classes
+
+**样式转换示例**:
+- `borderRadius={16}` → `className="rounded-2xl"`
+- `minWidth={60} height={25}` → `className="min-w-[60px] h-[25px]"`
+- `fontSize={12} textAlign="center"` → `className="text-xs text-center"`
+- `backgroundColor="$green10"` → `className="bg-green-10"`
+- `paddingVertical={2} paddingHorizontal={8}` → `className="py-0.5 px-2"`
+
+**HeroUI组件映射**:
+- Button: 使用 `<Button.EndContent>` 结构替代 `endContent` prop, `chromeless` → `variant="ghost"`
+- TextField: `<Input />` → `<TextField><TextField.Input /></TextField>` 结构
+- Input props: 保持 `value`, `onChangeText`, `onBlur`, `keyboardType` 不变
+- 样式Props全部转换为 `className` Tailwind类
+
+**代码优化效果**:
+- 完全迁移到 HeroUI-native 组件系统
+- 统一使用 Tailwind 样式规范
+- 保持所有原有功能：数值验证、动态显示、推理设置等
+- 减少依赖包，提高一致性
+
+最后更新: 2025-09-18

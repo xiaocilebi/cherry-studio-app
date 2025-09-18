@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { View } from 'tamagui'
 
-import { HeaderBar } from '@/components/settings/HeaderBar'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
+import { HeaderBar } from '@/componentsV2'
 
 export default function AssistantMarketLoading() {
   const { t } = useTranslation()

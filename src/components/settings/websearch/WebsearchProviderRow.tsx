@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, XStack } from 'tamagui'
 
 import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
+import { PressableRow, RowRightArrow, Text, XStack } from '@/componentsV2'
 import { WebSearchNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
-import { PressableSettingRow, SettingRowRightArrow } from '..'
 interface WebsearchProviderRowProps {
   provider: WebSearchProvider
   // google, bing or baidu not need expended
@@ -25,29 +23,19 @@ export const WebsearchProviderRow = ({ provider, need_config }: WebsearchProvide
   }
 
   return (
-    <PressableSettingRow onPress={onPress}>
-      <XStack gap={12}>
+    <PressableRow onPress={onPress} disabled={!need_config}>
+      <XStack className="items-center gap-3">
         <WebsearchProviderIcon provider={provider} />
-        <Text>{provider.name}</Text>
+        <Text className="text-[14px] text-text-primary dark:text-text-primary-dark">{provider.name}</Text>
       </XStack>
-      <XStack gap={10} justifyContent="center" alignItems="center">
+      <XStack className="items-center gap-2">
         {provider.apiKey && (
-          <Text
-            borderRadius={8}
-            borderWidth={0.5}
-            backgroundColor="$green10"
-            borderColor="$green20"
-            color="$green100"
-            paddingVertical={2}
-            paddingHorizontal={8}
-            justifyContent="center"
-            alignItems="center"
-            fontSize={12}>
+          <Text className="rounded-lg border border-green-20 bg-green-10 px-2 py-0.5 text-xs text-green-100 dark:text-green-dark-100">
             {t('common.added')}
           </Text>
         )}
-        {need_config && <SettingRowRightArrow />}
+        {need_config && <RowRightArrow />}
       </XStack>
-    </PressableSettingRow>
+    </PressableRow>
   )
 }

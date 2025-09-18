@@ -34,6 +34,7 @@ import {
   Package,
   PenLine,
   Plus,
+  SquareFunction,
   RefreshCw,
   Rocket,
   RotateCcw,
@@ -44,6 +45,7 @@ import {
   ChevronRight,
   ShieldCheck,
   Sparkles,
+  Wrench,
   TextSelect,
   ThumbsUp,
   Trash2,
@@ -97,6 +99,7 @@ interopIcon(MoreHorizontal)
 interopIcon(Package)
 interopIcon(PenLine)
 interopIcon(Plus)
+interopIcon(SquareFunction)
 interopIcon(RefreshCw)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
@@ -107,6 +110,7 @@ interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(ShieldCheck)
 interopIcon(Sparkles)
+interopIcon(Wrench)
 interopIcon(TextSelect)
 interopIcon(ThumbsUp)
 interopIcon(Trash2)
@@ -152,6 +156,7 @@ const MoreHorizontalIcon = withDefaultIconClass(MoreHorizontal)
 const PackageIcon = withDefaultIconClass(Package)
 const PenLineIcon = withDefaultIconClass(PenLine)
 const PlusIcon = withDefaultIconClass(Plus)
+const SquareFunctionIcon = withDefaultIconClass(SquareFunction)
 const RefreshCwIcon = withDefaultIconClass(RefreshCw)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
@@ -162,6 +167,7 @@ const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
 const SparklesIcon = withDefaultIconClass(Sparkles)
+const WrenchIcon = withDefaultIconClass(Wrench)
 const TextSelectIcon = withDefaultIconClass(TextSelect)
 const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
@@ -201,6 +207,7 @@ export {
   PackageIcon as Package,
   PenLineIcon as PenLine,
   PlusIcon as Plus,
+  SquareFunctionIcon as SquareFunction,
   RefreshCwIcon as RefreshCw,
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
@@ -211,6 +218,7 @@ export {
   ChevronRightIcon as ChevronRight,
   ShieldCheckIcon as ShieldCheck,
   SparklesIcon as Sparkles,
+  WrenchIcon as Wrench,
   TextSelectIcon as TextSelect,
   ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,
