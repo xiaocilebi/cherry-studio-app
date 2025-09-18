@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Stack, View } from 'tamagui'
+import { View } from 'react-native'
+import { YStack } from '@/componentsV2'
 
 import { useMessageBlocks } from '@/hooks/useMessageBlocks'
 import { Assistant } from '@/types/assistant'
@@ -28,19 +28,14 @@ const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = fa
 
   if (isUser)
     return (
-      <View style={[styles.userContainer, styles.container]} paddingHorizontal={14} borderRadius={16}>
+      <View className="w-full max-w-full items-end px-[14px] rounded-2xl">
         {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
-        {mediaBlocks.length > 0 && <View style={{ height: 8 }} />}
+        {mediaBlocks.length > 0 && <View className="h-2" />}
         <MessageContextMenu message={message} assistant={assistant}>
           {contentBlocks.length > 0 && (
-            <Stack
-              style={[styles.contentWrapper, styles.userMessageContent]}
-              borderRadius={16}
-              backgroundColor={'$green10'}
-              borderColor={'$green20'}
-              borderWidth={1}>
+            <YStack className="rounded-2xl bg-green-10 border border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20 px-5 rounded-tl-3xl rounded-bl-3xl rounded-br-3xl rounded-tr-2">
               <MessageBlockRenderer blocks={contentBlocks} message={message} />
-            </Stack>
+            </YStack>
           )}
         </MessageContextMenu>
       </View>
@@ -48,46 +43,17 @@ const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = fa
 
   return (
     <MessageContextMenu message={message} assistant={assistant} isMultiModel={isMultiModel}>
-      <View style={[styles.container]} paddingHorizontal={14} paddingBottom={8} borderRadius={16}>
+      <View className="w-full max-w-full px-[14px] pb-2 rounded-2xl">
         {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
         {contentBlocks.length > 0 && (
-          <Stack
-            style={[styles.assistantMessageContent, mediaBlocks.length > 0 && { marginTop: 8 }]}
-            borderRadius={16}
-            backgroundColor={'$green10'}>
+          <YStack
+            className={`rounded-2xl  px-0 w-full max-w-full bg-transparent ${mediaBlocks.length > 0 ? 'mt-2' : ''}`}>
             <MessageBlockRenderer blocks={contentBlocks} message={message} />
-          </Stack>
+          </YStack>
         )}
       </View>
     </MessageContextMenu>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    maxWidth: '100%'
-  },
-  userContainer: {
-    // alignSelf: 'flex-end',
-    alignItems: 'flex-end'
-  },
-
-  contentWrapper: {
-    borderTopRightRadius: 8,
-    borderTopLeftRadius: 24,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24
-  },
-  userMessageContent: {
-    paddingHorizontal: 20
-  },
-  assistantMessageContent: {
-    backgroundColor: 'transparent',
-    paddingHorizontal: 0,
-    maxWidth: '100%',
-    width: '100%'
-  }
-})
 
 export default React.memo(MessageContent)

@@ -1,12 +1,11 @@
-import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, ThumbsUp, Trash2 } from '@tamagui/lucide-icons'
+import { AudioLines, CirclePause, Copy, RefreshCw, TextSelect, ThumbsUp, Trash2 } from '@/componentsV2/icons/LucideIcon'
 import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TranslatedIcon, TranslationIcon } from '@/components/icons/TranslationIcon'
+import { TranslatedIcon, TranslationIcon } from '@/componentsV2/icons'
 import TextSelectionSheet, { TextSelectionSheetRef } from '@/components/sheets/TextSelectionSheet'
 import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
 import { useMessageActions } from '@/hooks/useMessageActions'
-import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
 
@@ -19,7 +18,6 @@ interface MessageItemProps {
 
 const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant, isMultiModel = false }) => {
   const { t } = useTranslation()
-  const { isDark } = useTheme()
   const textSelectionSheetRef = useRef<TextSelectionSheetRef>(null)
   const [messageContent, setMessageContent] = useState('')
 
@@ -60,13 +58,13 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
     {
       title: t('common.copy'),
       iOSIcon: 'document.on.document',
-      androidIcon: <Copy size={16} color="$textPrimary" />,
+      androidIcon: <Copy size={16} />,
       onSelect: handleCopy
     },
     {
       title: t('common.select_text'),
       iOSIcon: 'character.cursor.ibeam',
-      androidIcon: <TextSelect size={16} color="$textPrimary" />,
+      androidIcon: <TextSelect size={16} />,
       onSelect: handleSelectText
     },
     ...(message.role === 'assistant'
@@ -74,7 +72,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
           {
             title: t('common.regenerate'),
             iOSIcon: 'arrow.clockwise' as const,
-            androidIcon: <RefreshCw size={16} color="$textPrimary" />,
+            androidIcon: <RefreshCw size={16} />,
             onSelect: handleRegenerate
           }
         ]
@@ -84,11 +82,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
           {
             title: t('button.best_answer'),
             iOSIcon: isUseful ? ('hand.thumbsup.fill' as const) : ('hand.thumbsup' as const),
-            androidIcon: isUseful ? (
-              <ThumbsUp size={16} fill={isDark ? '#f9f9f9' : '#202020'} color={isDark ? '#f9f9f9' : '#202020'} />
-            ) : (
-              <ThumbsUp size={16} />
-            ),
+            androidIcon: isUseful ? <ThumbsUp size={16} className="fill-current" /> : <ThumbsUp size={16} />,
             onSelect: handleBestAnswer
           }
         ]
@@ -104,13 +98,13 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       title: isTranslated ? t('common.delete_translation') : t('message.translate_message'),
       iOSIcon: 'translate',
       androidIcon: isTranslated ? (
-        <TranslatedIcon size={16} color={isTranslated ? 'red' : '$textPrimary'} />
+        <TranslatedIcon size={16} color={isTranslated ? 'red' : undefined} />
       ) : (
-        <TranslationIcon size={16} color="$textPrimary" />
+        <TranslationIcon size={16} />
       ),
       destructive: isTranslated,
       color: isTranslated ? 'red' : undefined,
-      backgroundColor: isTranslated ? '$red20' : undefined,
+      backgroundColor: isTranslated ? 'rgba(239, 68, 68, 0.1)' : undefined,
       onSelect: isTranslated ? handleDeleteTranslation : handleTranslate
     },
     {
@@ -119,7 +113,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       androidIcon: <Trash2 size={16} color="red" />,
       destructive: true,
       color: 'red',
-      backgroundColor: '$red20',
+      backgroundColor: 'rgba(239, 68, 68, 0.1)',
       onSelect: handleDelete
     }
   ]

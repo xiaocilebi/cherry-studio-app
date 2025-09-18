@@ -13,9 +13,9 @@ import {
   MdiLightbulbOn30,
   MdiLightbulbOn50,
   MdiLightbulbOn80
-} from '../icons/MdiLightbulbIcon'
+} from '@/componentsV2/icons'
 import { ReasoningSheet } from '../sheets/ReasoningSheet'
-import { IconButton } from '../ui/IconButton'
+import { IconButton } from '@/componentsV2'
 
 interface ThinkButtonProps {
   assistant: Assistant

@@ -8,8 +8,7 @@ import { BackHandler, Platform, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
-import { UnionPlusIcon } from '@/components/icons/UnionPlusIcon'
-import { SettingDivider } from '@/components/settings'
+import { UnionPlusIcon } from '@/componentsV2/icons'
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
@@ -24,6 +23,7 @@ import EmojiAvatar from '../EmojiAvator'
 import GroupTag from './GroupTag'
 import { setCurrentTopicId } from '@/store/topic'
 import { useAppDispatch } from '@/store'
+import { Divider } from 'heroui-native'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -207,7 +207,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                 )}
               </YStack>
 
-              <SettingDivider />
+              <Divider />
 
               <BottomSheetScrollView
                 style={{ flex: 1 }}

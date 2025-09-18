@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRight, Edit3, Trash2 } from '@tamagui/lucide-icons'
+import { Edit3, Trash2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SFSymbol } from 'sf-symbols-typescript'
@@ -13,7 +13,7 @@ import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 
 import { ProviderIcon } from '../../ui/ProviderIcon'
-import { SettingRowRightArrow } from '..'
+import { RowRightArrow } from '@/componentsV2'
 
 interface ProviderItemProps {
   provider: Provider
@@ -81,7 +81,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
             {statusText}
           </Text>
         )}
-        <SettingRowRightArrow />
+        <RowRightArrow />
       </XStack>
     </XStack>
   )

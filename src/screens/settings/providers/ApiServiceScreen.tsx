@@ -7,9 +7,18 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button } from 'heroui-native'
 
-import ExternalLink from '@/components/ExternalLink'
 import { ApiCheckSheet } from '@/components/settings/providers/ApiCheckSheet'
-import { Container, GroupTitle, HeaderBar, SafeAreaContainer, Text, TextField, XStack, YStack } from '@/componentsV2'
+import {
+  Container,
+  ExternalLink,
+  GroupTitle,
+  HeaderBar,
+  SafeAreaContainer,
+  Text,
+  TextField,
+  XStack,
+  YStack
+} from '@/componentsV2'
 import { Eye, EyeOff, ShieldCheck } from '@/componentsV2/icons/LucideIcon'
 import { isEmbeddingModel } from '@/config/models'
 import { PROVIDER_URLS } from '@/config/providers'
@@ -207,9 +216,7 @@ export default function ApiServiceScreen() {
 
           <XStack className="justify-between px-3">
             <Text className="text-xs opacity-40">{t('settings.provider.api_key.tip')}</Text>
-            <ExternalLink href={apiKeyWebsite} size={12}>
-              {t('settings.provider.api_key.get')}
-            </ExternalLink>
+            <ExternalLink href={apiKeyWebsite} content={t('settings.provider.api_key.get')} />
           </XStack>
         </YStack>
 

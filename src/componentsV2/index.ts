@@ -24,5 +24,9 @@ export { default as GroupTitle, type GroupTitleProps } from './layout/Group/Grou
 export { default as Container, type ContainerProps } from './layout/Container'
 export { default as SafeAreaContainer, type SafeAreaContainerProps } from './layout/SafeAreaContainer'
 // Interactive components
-export { default as HeaderBar, type HeaderBarProps } from './interactive/HeaderBar'
-export { default as ModelGroup, type ModelGroupProps } from './interactive/ModelGroup'
+export { default as HeaderBar, type HeaderBarProps } from './features/HeaderBar'
+export { default as ModelGroup, type ModelGroupProps } from './features/ModelGroup'
+export { IconButton } from './base/IconButton'
+export { ExternalLink } from './base/ExternalLink'
+export { TopicItem } from './features/TopicItem'
+export { TopicList } from './features/TopicList'

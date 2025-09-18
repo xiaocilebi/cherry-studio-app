@@ -10,7 +10,7 @@ import {
   MdiLightbulbOn30,
   MdiLightbulbOn50,
   MdiLightbulbOn80
-} from '@/components/icons/MdiLightbulbIcon'
+} from '@/componentsV2/icons'
 import { getThinkModelType, MODEL_SUPPORTED_OPTIONS, isDoubaoThinkingAutoModel } from '@/config/models'
 import { Assistant, Model, ThinkingOption } from '@/types/assistant'
 

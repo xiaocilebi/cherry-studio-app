@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native'
 import FileViewer from 'react-native-file-viewer'
 import { Stack, Text, useWindowDimensions, View, XStack, YStack } from 'tamagui'
 
-import { FileIcon } from '@/components/icons/FileIcon'
+import { FileIcon } from '@/componentsV2/icons'
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useToast } from '@/hooks/useToast'
 import { shareFile } from '@/services/FileService'

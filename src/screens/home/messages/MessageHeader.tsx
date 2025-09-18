@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, View, XStack, YStack } from 'tamagui'
+import { View } from 'react-native'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
+import { Text, XStack, YStack } from '@/componentsV2'
 import { Message } from '@/types/message'
 import { storage } from '@/utils'
 
@@ -14,12 +15,12 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ message }) => {
   const { t } = useTranslation()
   const currentLanguage = storage.getString('language')
   return (
-    <View style={{ paddingHorizontal: 16 }}>
+    <View className="px-4">
       {message.model && (
-        <YStack gap={10}>
-          <XStack alignItems="center" gap={4}>
-            <Text fontSize={14}>{t(`provider.${message.model?.provider}`)}</Text>
-            <Text fontSize={10} color="$textSecondary">
+        <YStack className="gap-2.5">
+          <XStack className="items-center gap-1">
+            <Text className="text-sm text-gray-900 dark:text-gray-100">{t(`provider.${message.model?.provider}`)}</Text>
+            <Text className="text-xs text-gray-500 dark:text-gray-400">
               {new Date(message.createdAt).toLocaleTimeString(currentLanguage, {
                 hour: '2-digit',
                 minute: '2-digit',
@@ -27,12 +28,10 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ message }) => {
               })}
             </Text>
           </XStack>
-          <XStack alignItems="center" gap={4}>
+          <XStack className="items-center gap-1">
             <ModelIcon model={message.model} />
 
-            <Text fontSize={14} fontWeight="bold">
-              {message.model?.name}
-            </Text>
+            <Text className="text-sm font-bold text-gray-900 dark:text-gray-100">{message.model?.name}</Text>
           </XStack>
         </YStack>
       )}

@@ -7,15 +7,14 @@ import { TouchableOpacity } from 'react-native'
 import { Avatar, Stack, styled, Text, View, XStack, YStack } from 'tamagui'
 
 import { MenuTabContent } from '@/components/menu/MenuTabContent'
-import { GroupedTopicList } from '@/components/topic/GroupTopicList'
 import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
-import { MarketIcon } from '../icons/MarketIcon'
-import { UnionIcon } from '../icons/UnionIcon'
-import { SettingDivider, SettingRowRightArrow } from '../settings'
+import { MarketIcon, UnionIcon } from '@/componentsV2/icons'
 import SafeAreaContainer from '../ui/SafeAreaContainer'
+import { RowRightArrow, TopicList } from '@/componentsV2'
+import { Divider } from 'heroui-native'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
@@ -64,7 +63,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 {t('assistants.market.title')}
               </Text>
             </XStack>
-            <SettingRowRightArrow />
+            <RowRightArrow />
           </ListItem>
 
           <ListItem onPress={handleNavigateAssistantScreen}>
@@ -74,28 +73,24 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 {t('assistants.market.my_assistant')}
               </Text>
             </XStack>
-            <SettingRowRightArrow />
+            <RowRightArrow />
           </ListItem>
           <Stack paddingHorizontal={10}>
-            <SettingDivider />
+            <Divider />
           </Stack>
         </YStack>
 
         <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
           <View flex={1} minHeight={200}>
             {topics.length > 0 && (
-              <GroupedTopicList
-                topics={topics}
-                enableScroll={true}
-                handleNavigateChatScreen={handleNavigateChatScreen}
-              />
+              <TopicList topics={topics} enableScroll={true} handleNavigateChatScreen={handleNavigateChatScreen} />
             )}
           </View>
         </MenuTabContent>
       </YStack>
 
       <Stack paddingHorizontal={20} paddingBottom={10}>
-        <SettingDivider />
+        <Divider />
       </Stack>
 
       <XStack paddingHorizontal={20} justifyContent="space-between" alignItems="center">

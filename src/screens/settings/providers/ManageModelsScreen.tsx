@@ -6,9 +6,18 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, View } from 'react-native'
 import { Tabs } from 'tamagui'
 
-import { Container, Group, HeaderBar, ModelGroup, SafeAreaContainer, Text, XStack, YStack } from '@/componentsV2'
+import {
+  Container,
+  Group,
+  HeaderBar,
+  ModelGroup,
+  SafeAreaContainer,
+  Text,
+  XStack,
+  YStack,
+  IconButton
+} from '@/componentsV2'
 import { Minus, Plus } from '@/componentsV2/icons/LucideIcon'
-import { IconButton } from '@/components/ui/IconButton'
 import { SearchInput } from '@/components/ui/SearchInput'
 import {
   groupQwenModels,

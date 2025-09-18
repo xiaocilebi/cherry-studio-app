@@ -3,11 +3,14 @@ import {
   ArrowLeft,
   ArrowLeftRight,
   ArrowUpRight,
+  AudioLines,
   Camera,
   ChevronDown,
+  CirclePause,
   Cloud,
   Copy,
   Copyright,
+  Edit3,
   Eye,
   EyeOff,
   FileText,
@@ -27,9 +30,12 @@ import {
   MessageSquareDiff,
   MessageSquareMore,
   Minus,
+  MoreHorizontal,
   Package,
   PenLine,
   Plus,
+  SquareFunction,
+  RefreshCw,
   Rocket,
   RotateCcw,
   Rss,
@@ -38,6 +44,10 @@ import {
   Settings2,
   ChevronRight,
   ShieldCheck,
+  Sparkles,
+  Wrench,
+  TextSelect,
+  ThumbsUp,
   Trash2,
   Wifi
 } from 'lucide-react-native'
@@ -59,12 +69,15 @@ function interopIcon(icon: LucideIcon) {
 interopIcon(ArrowLeft)
 interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
+interopIcon(AudioLines)
 interopIcon(Camera)
 interopIcon(ChevronDown)
+interopIcon(CirclePause)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copy)
 interopIcon(Copyright)
+interopIcon(Edit3)
 interopIcon(Eye)
 interopIcon(EyeOff)
 interopIcon(FileText)
@@ -82,9 +95,12 @@ interopIcon(Menu)
 interopIcon(MessageSquareDiff)
 interopIcon(MessageSquareMore)
 interopIcon(Minus)
+interopIcon(MoreHorizontal)
 interopIcon(Package)
 interopIcon(PenLine)
 interopIcon(Plus)
+interopIcon(SquareFunction)
+interopIcon(RefreshCw)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
 interopIcon(Rss)
@@ -93,6 +109,10 @@ interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
 interopIcon(ShieldCheck)
+interopIcon(Sparkles)
+interopIcon(Wrench)
+interopIcon(TextSelect)
+interopIcon(ThumbsUp)
 interopIcon(Trash2)
 interopIcon(Wifi)
 
@@ -106,11 +126,14 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
+const AudioLinesIcon = withDefaultIconClass(AudioLines)
 const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
+const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
 const CopyIcon = withDefaultIconClass(Copy)
 const CopyrightIcon = withDefaultIconClass(Copyright)
+const Edit3Icon = withDefaultIconClass(Edit3)
 const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
 const FileTextIcon = withDefaultIconClass(FileText)
@@ -129,9 +152,12 @@ const MenuIcon = withDefaultIconClass(Menu)
 const MessageSquareDiffIcon = withDefaultIconClass(MessageSquareDiff)
 const MessageSquareMoreIcon = withDefaultIconClass(MessageSquareMore)
 const MinusIcon = withDefaultIconClass(Minus)
+const MoreHorizontalIcon = withDefaultIconClass(MoreHorizontal)
 const PackageIcon = withDefaultIconClass(Package)
 const PenLineIcon = withDefaultIconClass(PenLine)
 const PlusIcon = withDefaultIconClass(Plus)
+const SquareFunctionIcon = withDefaultIconClass(SquareFunction)
+const RefreshCwIcon = withDefaultIconClass(RefreshCw)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
 const RssIcon = withDefaultIconClass(Rss)
@@ -140,6 +166,10 @@ const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
+const SparklesIcon = withDefaultIconClass(Sparkles)
+const WrenchIcon = withDefaultIconClass(Wrench)
+const TextSelectIcon = withDefaultIconClass(TextSelect)
+const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
 const WifiIcon = withDefaultIconClass(Wifi)
 
@@ -147,11 +177,14 @@ export {
   ArrowLeftIcon as ArrowLeft,
   ArrowLeftRightIcon as ArrowLeftRight,
   ArrowUpRightIcon as ArrowUpRight,
+  AudioLinesIcon as AudioLines,
   CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
+  CirclePauseIcon as CirclePause,
   CloudIcon as Cloud,
   CopyIcon as Copy,
   CopyrightIcon as Copyright,
+  Edit3Icon as Edit3,
   EyeIcon as Eye,
   EyeOffIcon as EyeOff,
   FileTextIcon as FileText,
@@ -170,9 +203,12 @@ export {
   MessageSquareDiffIcon as MessageSquareDiff,
   MessageSquareMoreIcon as MessageSquareMore,
   MinusIcon as Minus,
+  MoreHorizontalIcon as MoreHorizontal,
   PackageIcon as Package,
   PenLineIcon as PenLine,
   PlusIcon as Plus,
+  SquareFunctionIcon as SquareFunction,
+  RefreshCwIcon as RefreshCw,
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
   RssIcon as Rss,
@@ -181,6 +217,10 @@ export {
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
   ShieldCheckIcon as ShieldCheck,
+  SparklesIcon as Sparkles,
+  WrenchIcon as Wrench,
+  TextSelectIcon as TextSelect,
+  ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,
   WifiIcon as Wifi
 }

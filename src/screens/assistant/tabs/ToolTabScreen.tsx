@@ -2,7 +2,7 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
-import { ToolTabContent } from '@/components/assistant/ToolTabContent'
+import { ToolTabContent } from '@/features/Assistant/ToolTabContent'
 import { YStack } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'

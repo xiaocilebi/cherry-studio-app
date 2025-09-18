@@ -1,8 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Group, GroupTitle, Row, TextField, YStack } from '@/componentsV2'
-import { SettingRowTitle } from '@/components/settings'
+import { Group, GroupTitle, Row, TextField, Text, YStack } from '@/componentsV2'
 import { useWebsearchSettings } from '@/hooks/useWebsearchProviders'
 import { Switch } from 'heroui-native'
 
@@ -46,24 +45,24 @@ export default function GeneralSettings() {
       <GroupTitle>{t('settings.general.title')}</GroupTitle>
       <Group>
         <Row>
-          <SettingRowTitle>{t('settings.websearch.contentLengthLimit')}</SettingRowTitle>
+          <Text>{t('settings.websearch.contentLengthLimit')}</Text>
           <TextField className="flex-1 max-w-20">
             <TextField.Input value={contentLimit?.toString() || ''} onChangeText={handleContentLimitChange} />
           </TextField>
         </Row>
         <Row>
-          <SettingRowTitle>{t('settings.websearch.searchCount')}</SettingRowTitle>
+          <Text>{t('settings.websearch.searchCount')}</Text>
           <TextField className="flex-1 max-w-20">
             <TextField.Input value={searchCount.toString()} onChangeText={handleSearchCountChange} />
           </TextField>
         </Row>
 
         <Row>
-          <SettingRowTitle>{t('settings.websearch.searchWithDates')}</SettingRowTitle>
+          <Text>{t('settings.websearch.searchWithDates')}</Text>
           <Switch color="success" isSelected={searchWithDates} onSelectedChange={setSearchWithDates} />
         </Row>
         <Row>
-          <SettingRowTitle>{t('settings.websearch.overrideSearchService')}</SettingRowTitle>
+          <Text>{t('settings.websearch.overrideSearchService')}</Text>
           <Switch color="success" isSelected={overrideSearchService} onSelectedChange={setOverrideSearchService} />
         </Row>
       </Group>

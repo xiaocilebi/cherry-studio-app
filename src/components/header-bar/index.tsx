@@ -9,7 +9,7 @@ import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 
-import { IconButton } from '../ui/IconButton'
+import { IconButton } from '@/componentsV2'
 import { AssistantSelection } from './AssistantSelection'
 import NewTopicButton from './NewTopicButton'
 

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { View } from 'tamagui'
+import { View } from 'react-native'
 
 import { Assistant } from '@/types/assistant'
 import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
@@ -36,7 +36,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
     }
 
     return (
-      <View gap={10}>
+      <View className="gap-2.5">
         {/*<MessageHeader assistant={assistant} message={messagesInGroup[0]} />*/}
         <MultiModelTab assistant={assistant} messages={messagesInGroup} />
       </View>

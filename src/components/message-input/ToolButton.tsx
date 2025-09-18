@@ -7,9 +7,9 @@ import { Assistant, Model } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 import { haptic } from '@/utils/haptic'
 
-import { AssetsIcon } from '../icons/AssetsIcon'
+import { AssetsIcon } from '@/componentsV2/icons'
 import ToolSheet from '../sheets/ToolSheet'
-import { IconButton } from '../ui/IconButton'
+import { IconButton } from '@/componentsV2'
 
 interface AddAssetsButtonProps {
   mentions: Model[]

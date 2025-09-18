@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Stack, YStack, Image } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { DefaultProviderIcon } from '@/components/icons/DefaultProviderIcon'
+import { DefaultProviderIcon } from '@/componentsV2/icons'
 import { useDialog } from '@/hooks/useDialog'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'

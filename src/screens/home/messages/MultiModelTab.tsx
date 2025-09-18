@@ -1,8 +1,10 @@
 import { MotiView } from 'moti'
 import React, { FC, useState } from 'react'
-import { ScrollView, Tabs, Text, View, XStack } from 'tamagui'
+import { ScrollView, View } from 'react-native'
+import { Tabs } from 'tamagui'
+import { Text, XStack } from '@/componentsV2'
 
-import { MultiModalIcon } from '@/components/icons/MultiModelIcon'
+import { MultiModalIcon } from '@/componentsV2/icons'
 import { Assistant } from '@/types/assistant'
 import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
 
@@ -22,7 +24,7 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
   }
 
   return (
-    <View>
+    <View className="flex-1">
       <Tabs
         value={currentTab}
         onValueChange={setCurrentTab}
@@ -31,9 +33,9 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
         flex={1}
         gap={5}>
         <Tabs.List>
-          <XStack flex={1} gap={8} justifyContent="center" alignItems="center" paddingHorizontal={14}>
+          <XStack className="flex-1 gap-2 justify-center items-center px-[14px]">
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <XStack gap={5}>
+              <XStack className="gap-[5px]">
                 {messages.map((_message, index) => {
                   const tabValue = index.toString()
                   return (
@@ -50,9 +52,11 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
                       height={26}>
                       {_message.useful && <MultiModalIcon size={14} />}
                       <Text
-                        fontSize={12}
-                        lineHeight={17}
-                        color={currentTab === tabValue ? '$green100' : '$textPrimary'}>
+                        className={`text-xs leading-[17px] ${
+                          currentTab === tabValue
+                            ? 'text-green-800 dark:text-green-200'
+                            : 'text-gray-900 dark:text-gray-100'
+                        }`}>
                         @{_message.model?.name}({_message.model?.provider})
                       </Text>
                     </Tabs.Tab>
