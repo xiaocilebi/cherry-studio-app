@@ -1,10 +1,12 @@
-import { ChevronDown } from '@tamagui/lucide-icons'
 import { debounce } from 'lodash'
 import { MotiView } from 'moti'
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, Pressable, StyleSheet } from 'react-native'
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, Pressable, StyleSheet, View } from 'react-native'
 import { Easing } from 'react-native-reanimated'
-import { AnimatePresence, Button, View, YStack } from 'tamagui'
+import { Button } from 'heroui-native'
+
+import { ChevronDown } from '@/componentsV2/icons/LucideIcon'
+import { YStack } from '@/componentsV2'
 
 import { useMessages } from '@/hooks/useMessages'
 import { Assistant, Topic } from '@/types/assistant'
@@ -85,14 +87,14 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   }, [debouncedScrollToBottom])
 
   return (
-    <View style={{ flex: 1 }}>
+    <View className="flex-1">
       <FlatList
         ref={flastListRef}
         showsVerticalScrollIndicator={false}
         data={groupedMessages}
         renderItem={renderMessageGroup}
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
-        ItemSeparatorComponent={() => <YStack height={20} />}
+        ItemSeparatorComponent={() => <YStack className="h-5" />}
         contentContainerStyle={{
           flexGrow: 1,
           paddingTop: 16
@@ -109,28 +111,26 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         }}
       />
 
-      <AnimatePresence>
-        {showScrollButton && (
-          <MotiView
-            key="scroll-to-bottom-button"
-            style={styles.fab}
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: 'timing' }}>
-            <Pressable onPress={handleScrollToEnd} hitSlop={8} style={{ position: 'absolute', bottom: 8, right: 12 }}>
-              <Button
-                onPress={handleScrollToEnd}
-                size={40}
-                circular
-                borderWidth={2}
-                borderColor="$green20"
-                icon={<ChevronDown size={24} color="$green100" />}
-              />
-            </Pressable>
-          </MotiView>
-        )}
-      </AnimatePresence>
+      {showScrollButton && (
+        <MotiView
+          key="scroll-to-bottom-button"
+          style={styles.fab}
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: 'timing' }}>
+          <Pressable onPress={handleScrollToEnd} hitSlop={8} style={{ position: 'absolute', bottom: 8, right: 12 }}>
+            <Button
+              isIconOnly
+              onPress={handleScrollToEnd}
+              className="w-10 h-10 rounded-full border-2 border-green-20 dark:border-green-20 bg-green-10 dark:bg-green-dark-10">
+              <Button.LabelContent>
+                <ChevronDown size={24} className="text-green-100 dark:text-green-100" />
+              </Button.LabelContent>
+            </Button>
+          </Pressable>
+        </MotiView>
+      )}
     </View>
   )
 }

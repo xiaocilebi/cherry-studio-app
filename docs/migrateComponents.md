@@ -135,7 +135,7 @@
 - [ ] `topic/GroupTopicList.tsx`
 - [ ] `topic/TopicItem.tsx`
 
-### 页面组件 (3 待迁移 / 39)
+### 页面组件 (1 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
 - [ ] `WelcomeScreen.tsx`
@@ -144,7 +144,7 @@
 - [x] `assistant/AssistantScreen.tsx`
 - [x] `settings/SettingsScreen.tsx`
 
-#### 聊天和首页相关页面 (18 个页面，其中 1 个待迁移)
+#### 聊天和首页相关页面 (18 个页面，全部已迁移)
 - [x] `home/WelcomeContent.tsx`
 - [x] `home/markdown/ReactNativeMarkdown.tsx`
 - [x] `home/markdown/useMarkedRenderer.tsx`
@@ -154,7 +154,7 @@
 - [x] `home/messages/MessageFooter.tsx`
 - [x] `home/messages/MessageGroup.tsx`
 - [x] `home/messages/MessageHeader.tsx`
-- [ ] `home/messages/Messages.tsx`
+- [x] `home/messages/Messages.tsx`
 - [x] `home/messages/MultiModelTab.tsx`
 - [x] `home/messages/blocks/ErrorBlock.tsx`
 - [x] `home/messages/blocks/MainTextBlock.tsx`
@@ -171,7 +171,7 @@
 - [x] `assistant/tabs/PromptTabScreen.tsx`
 - [x] `assistant/tabs/ToolTabScreen.tsx`
 
-#### 设置相关页面 (16 个页面，其中 1 个待迁移)
+#### 设置相关页面 (16 个页面，全部已迁移)
 - [x] `settings/assistant/AssistantSettingsScreen.tsx`
 - [x] `settings/data/BasicDataSettingsScreen.tsx`
 - [x] `settings/data/DataSettingsScreen.tsx`
@@ -181,7 +181,7 @@
 - [x] `settings/general/ThemeSettingsScreen.tsx`
 - [x] `settings/personal/PersonalScreen.tsx`
 - [x] `settings/providers/ApiServiceScreen.tsx`
-- [ ] `settings/providers/ManageModelsScreen.tsx`
+- [x] `settings/providers/ManageModelsScreen.tsx`
 - [x] `settings/providers/ProviderListScreen.tsx`
 - [x] `settings/providers/ProviderSettingsScreen.tsx`
 - [x] `settings/websearch/GeneralSettings.tsx`
@@ -297,10 +297,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 102/178 (57.3%)
+- **总体进度**: 103/178 (57.9%)
 - **组件**: 32/105 (30.5%)
-- **页面**: 54/57 (94.7%)
+- **页面**: 55/57 (96.5%)
 - **已完成**: 16/16 (100%)
 
 最后更新: 2025-09-18
-Git 信息: migrate(MultiModelTab): migrate from Tamagui to HeroUI-native with React Native ScrollView
+Git 信息: migrate(Messages): migrate from Tamagui to HeroUI-native with Button component structure
