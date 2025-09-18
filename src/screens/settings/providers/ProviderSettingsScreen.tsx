@@ -18,11 +18,11 @@ import {
   SafeAreaContainer,
   Text,
   XStack,
-  YStack
+  YStack,
+  IconButton
 } from '@/componentsV2'
 import { HeartPulse, Plus, Settings2 } from '@/componentsV2/icons/LucideIcon'
 import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
-import { IconButton } from '@/components/ui/IconButton'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { CustomSwitch } from '@/components/ui/Switch'
 import { ModelIcon } from '@/components/ui/ModelIcon'

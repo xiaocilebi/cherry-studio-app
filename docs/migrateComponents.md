@@ -11,16 +11,18 @@
 本文档用于追踪 Cherry Studio React Native 应用从 Tamagui 到 HeroUI 组件的迁移进度。
 
 - **分析文件总数**: 178
-- **需要迁移的文件**: 84 (73 组件 + 11 页面仍使用 Tamagui)
-- **已迁移文件**: 16 (`src/componentsV2/`)
-- **无需迁移文件**: 78 (32 组件 + 46 页面已无 Tamagui)
+- **需要迁移的文件**: 83 (72 组件 + 11 页面仍使用 Tamagui)
+- **已迁移文件**: 18 (`src/componentsV2/`)
+- **无需迁移文件**: 77 (31 组件 + 46 页面已无 Tamagui)
 
 ## 迁移进度
 
-### ✅ 已完成迁移的组件 (16/16)
+### ✅ 已完成迁移的组件 (18/18)
 
 位于 `src/componentsV2/`:
 
+- [x] `base/ExternalLink/index.tsx`
+- [x] `base/IconButton/index.tsx`
 - [x] `base/Image/index.tsx`
 - [x] `base/Text/index.tsx`
 - [x] `base/TextField/index.tsx`
@@ -41,7 +43,7 @@
 
 ## 🔄 待迁移组件
 
-### 高优先级 - 核心UI组件 (30 项，全部待迁移)
+### 高优先级 - 核心UI组件 (30 项，其中 29 项待迁移)
 
 #### `src/components/ui/` (15 个组件)
 - [ ] `AvatarEditButton.tsx`
@@ -78,8 +80,8 @@
 - [ ] `message-input/preview-items/ImageItem.tsx`
 - [ ] `message-input/preview-items/PreviewItem.tsx`
 
-#### 其他核心组件 (1 个组件)
-- [ ] `ExternalLink.tsx`
+#### 其他核心组件 (1 个组件，已完成)
+- [x] `ExternalLink.tsx` (已迁移至 `componentsV2/base/ExternalLink`)
 
 ### 中等优先级 - 功能组件 (43 项，其中 42 个待迁移)
 
@@ -190,7 +192,7 @@
 - [x] `settings/websearch/WebSearchSettingsScreen.tsx`
 
 
-## ✨ 无需迁移的组件 (共 45 项)
+## ✨ 无需迁移的组件 (共 44 项)
 
 这些组件不使用 Tamagui 或已经迁移完成:
 
@@ -212,7 +214,7 @@
 - [x] `icons/UserChangeIcon.tsx`
 - [x] `icons/VoiceIcon.tsx`
 
-### 其他组件 (16 个组件)
+### 其他组件 (15 个组件)
 - [x] `message-input/ThinkButton.tsx`
 - [x] `message-input/ToolButton.tsx`
 - [x] `settings/data/index.tsx`
@@ -226,7 +228,6 @@
 - [x] `sheets/ToolSheet/useFileHandler.ts`
 - [x] `ui/ContextMenu.tsx`
 - [x] `ui/DrawerGestureWrapper.tsx`
-- [x] `ui/IconButton.tsx`
 - [x] `ui/ModelIcon.tsx`
 - [x] `ui/ProviderIcon.tsx`
 
@@ -297,10 +298,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 104/178 (58.4%)
-- **组件**: 32/105 (30.5%)
+- **总体进度**: 106/178 (59.6%)
+- **组件**: 34/105 (32.4%)
 - **页面**: 56/57 (98.2%)
-- **已完成**: 16/16 (100%)
+- **已完成**: 18/18 (100%)
 
 ### WelcomeScreen 组件 (2025-09-18)
 

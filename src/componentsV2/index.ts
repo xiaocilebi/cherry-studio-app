@@ -26,3 +26,5 @@ export { default as SafeAreaContainer, type SafeAreaContainerProps } from './lay
 // Interactive components
 export { default as HeaderBar, type HeaderBarProps } from './interactive/HeaderBar'
 export { default as ModelGroup, type ModelGroupProps } from './interactive/ModelGroup'
+export { IconButton } from './base/IconButton'
+export { ExternalLink } from './base/ExternalLink'

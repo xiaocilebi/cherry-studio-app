@@ -9,7 +9,7 @@ import { haptic } from '@/utils/haptic'
 
 import { AssetsIcon } from '../icons/AssetsIcon'
 import ToolSheet from '../sheets/ToolSheet'
-import { IconButton } from '../ui/IconButton'
+import { IconButton } from '@/componentsV2'
 
 interface AddAssetsButtonProps {
   mentions: Model[]

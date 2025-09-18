@@ -1,7 +1,7 @@
 import { ArrowUp } from '@tamagui/lucide-icons'
 import React from 'react'
 
-import { IconButton } from '../ui/IconButton'
+import { IconButton } from '@/componentsV2'
 
 interface SendButtonProps {
   onSend: () => void
