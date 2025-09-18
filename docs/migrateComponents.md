@@ -135,7 +135,7 @@
 - [ ] `topic/GroupTopicList.tsx`
 - [ ] `topic/TopicItem.tsx`
 
-### 页面组件 (4 待迁移 / 39)
+### 页面组件 (3 待迁移 / 39)
 
 #### 高优先级核心页面 (5 个页面)
 - [ ] `WelcomeScreen.tsx`
@@ -144,7 +144,7 @@
 - [x] `assistant/AssistantScreen.tsx`
 - [x] `settings/SettingsScreen.tsx`
 
-#### 聊天和首页相关页面 (18 个页面，其中 2 个待迁移)
+#### 聊天和首页相关页面 (18 个页面，其中 1 个待迁移)
 - [x] `home/WelcomeContent.tsx`
 - [x] `home/markdown/ReactNativeMarkdown.tsx`
 - [x] `home/markdown/useMarkedRenderer.tsx`
@@ -155,7 +155,7 @@
 - [x] `home/messages/MessageGroup.tsx`
 - [x] `home/messages/MessageHeader.tsx`
 - [ ] `home/messages/Messages.tsx`
-- [ ] `home/messages/MultiModelTab.tsx`
+- [x] `home/messages/MultiModelTab.tsx`
 - [x] `home/messages/blocks/ErrorBlock.tsx`
 - [x] `home/messages/blocks/MainTextBlock.tsx`
 - [x] `home/messages/blocks/PlaceholderBlock.tsx`
@@ -297,10 +297,10 @@
 
 ## 进度追踪
 
-- **总体进度**: 101/178 (56.7%)
+- **总体进度**: 102/178 (57.3%)
 - **组件**: 32/105 (30.5%)
-- **页面**: 53/57 (93.0%)
+- **页面**: 54/57 (94.7%)
 - **已完成**: 16/16 (100%)
 
 最后更新: 2025-09-18
-Git 信息: migrate(MessageContextMenu): migrate from Tamagui to HeroUI-native icons and update color tokens
+Git 信息: migrate(MultiModelTab): migrate from Tamagui to HeroUI-native with React Native ScrollView
