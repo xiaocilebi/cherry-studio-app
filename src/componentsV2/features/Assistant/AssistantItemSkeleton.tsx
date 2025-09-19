@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 import ContentLoader, { Rect } from 'react-content-loader/native'
-import { View } from 'tamagui'
+import { View } from 'react-native'
 
 import { useTheme } from '@/hooks/useTheme'
 
 const AssistantItemSkeleton: FC = () => {
   const { isDark } = useTheme()
   return (
-    <View paddingVertical={10} paddingHorizontal={10} borderRadius={16} backgroundColor="$uiCardBackground">
+    <View className="py-2.5 px-2.5 rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark">
       <ContentLoader
         height={46}
         width={300}
