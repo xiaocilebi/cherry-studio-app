@@ -2,8 +2,6 @@ import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 
-
-
 import { useDialog } from '@/hooks/useDialog'
 import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'

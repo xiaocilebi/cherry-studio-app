@@ -2,7 +2,6 @@ import { MotiView } from 'moti'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-
 import { Assistant } from '@/types/assistant'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import YStack from '@/componentsV2/layout/YStack'

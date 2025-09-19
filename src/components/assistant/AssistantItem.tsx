@@ -17,7 +17,6 @@ import { HomeNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
 
-
 const logger = loggerService.withContext('Assistant Item')
 
 interface AssistantItemProps {

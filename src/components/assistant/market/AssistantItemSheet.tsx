@@ -6,7 +6,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Platform, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
+import { Button, Text, View, XStack, YStack } from 'tamagui'
 
 import { UnionPlusIcon } from '@/componentsV2/icons'
 import { ModelIcon } from '@/components/ui/ModelIcon'

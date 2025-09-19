@@ -4,7 +4,6 @@ import { groupBy } from 'lodash'
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
-import { View } from 'react-native'
 
 import {
   Container,
@@ -25,8 +24,6 @@ import { HeartPulse, Plus, Settings2 } from '@/componentsV2/icons/LucideIcon'
 import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { CustomSwitch } from '@/components/ui/Switch'
-import { ModelIcon } from '@/components/ui/ModelIcon'
-import { ModelTags } from '@/components/ui/ModelTags'
 import { useProvider } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
 import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'

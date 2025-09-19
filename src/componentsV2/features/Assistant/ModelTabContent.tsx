@@ -17,8 +17,6 @@ import Row from '@/componentsV2/layout/Row'
 import TextField from '@/componentsV2/base/TextField'
 import YStack from '@/componentsV2/layout/YStack'
 
-
-
 interface ModelTabContentProps {
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>

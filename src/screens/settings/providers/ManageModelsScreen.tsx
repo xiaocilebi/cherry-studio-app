@@ -3,7 +3,7 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import { groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator, ScrollView, View } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import { Tabs } from 'tamagui'
 
 import {

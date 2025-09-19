@@ -1,5 +1,5 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import { ChevronRight, Settings } from '@tamagui/lucide-icons'
+import { Settings } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

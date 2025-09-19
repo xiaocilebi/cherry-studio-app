@@ -5,7 +5,6 @@ import ContentLoader, { Rect } from 'react-content-loader/native'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-
 import { Edit3, Sparkles, Trash2 } from '../../icons/LucideIcon'
 
 import ContextMenu from '@/components/ui/ContextMenu'
