@@ -9,18 +9,19 @@
 ## 迁移概述
 
 - **数据更新时间**: 2025-09-19
-- **HeroUI 组件库**: `src/componentsV2/` 共 45 个 `.tsx` 文件，均已完成迁移并通过 `index.ts` 聚合导出。
-- **旧组件目录**: `src/components/` 共 65 个 `.tsx` 文件，目前 13 个已移除 Tamagui，52 个仍依赖 Tamagui。
-- **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移。
-- **其他核心入口**: 5 个基础文件仍直接引用 Tamagui (`App.tsx`, `constants/Colors.ts`, `hooks/useDialog.tsx`, `hooks/useToast.tsx`, `navigators/AssistantDetailTabNavigator.tsx`)。
-- **总体 Tamagui 引用**: 59 / 172 跟踪文件 → 已完成 113 (65.7%)。
+- **HeroUI 组件库**: `src/componentsV2/` 共 50 个 `.tsx` 文件，均已完成迁移并通过 `index.ts` 聚合导出。
+- **旧组件目录**: `src/components/` 共 58 个 `.tsx` 文件，其中 13 个已移除 Tamagui，45 个仍依赖 Tamagui。
+- **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移（`home/messages/MultiModelTab.tsx`, `settings/providers/ManageModelsScreen.tsx`）。
+- **其他核心入口**: 4 个基础文件仍直接引用 Tamagui (`src/App.tsx`, `src/hooks/useDialog.tsx`, `src/hooks/useToast.tsx`, `src/navigators/AssistantDetailTabNavigator.tsx`)。
+- **总体 Tamagui 引用**: 51 / 181 跟踪文件 → 已完成 130 (71.8%)。
 
 ## 迁移进度
 
-### ✅ HeroUI 组件 (`src/componentsV2/`, 45/45)
+### ✅ HeroUI 组件 (`src/componentsV2/`, 50/50)
 
 **Base**
 
+- [x] `base/CustomTag/index.tsx`
 - [x] `base/ExternalLink/index.tsx`
 - [x] `base/IconButton/index.tsx`
 - [x] `base/Image/index.tsx`
@@ -60,6 +61,13 @@
 - [x] `features/Assistant/PromptTabContent.tsx`
 - [x] `features/Assistant/ToolTabContent.tsx`
 
+**Chat 顶部栏**
+
+- [x] `features/ChatScreen/Header/AssistantSelection.tsx`
+- [x] `features/ChatScreen/Header/index.tsx`
+- [x] `features/ChatScreen/Header/MenuButton.tsx`
+- [x] `features/ChatScreen/Header/NewTopicButton.tsx`
+
 **Icons**
 
 - [x] `icons/ArrowIcon/index.tsx`
@@ -85,11 +93,9 @@
 
 ### 🔄 待迁移组件
 
-#### 高优先级 - 核心 UI (`src/components/ui/`, 14/18 待迁移)
+#### 高优先级 - 核心 UI (`src/components/ui/`, 11/15 待迁移)
 
 - [ ] `AvatarEditButton.tsx`
-- [ ] `CustomButton.tsx`
-- [ ] `CustomTag.tsx`
 - [ ] `DatabackupIcon.tsx`
 - [ ] `ImageSkeleton.tsx`
 - [ ] `MarqueeComponent.tsx`
@@ -99,19 +105,15 @@
 - [ ] `SearchInput.tsx`
 - [ ] `Select.tsx`
 - [ ] `SelectionSheet.tsx`
-- [ ] `Switch.tsx`
 - [ ] `WebsearchIcon.tsx`
 - [x] `ContextMenu.tsx`
 - [x] `DrawerGestureWrapper.tsx`
 - [x] `ModelIcon.tsx`
 - [x] `ProviderIcon.tsx`
 
-#### 顶部导航栏组件 (`src/components/header-bar/`, 4/4 待迁移)
+#### 顶部导航栏组件
 
-- [ ] `AssistantSelection.tsx`
-- [ ] `index.tsx`
-- [ ] `MenuButton.tsx`
-- [ ] `NewTopicButton.tsx`
+- 旧目录 `src/components/header-bar/` 已移除，对应实现已迁移到 `src/componentsV2/features/ChatScreen/Header/`。
 
 #### 消息输入组件 (`src/components/message-input/`, 10/12 待迁移)
 
@@ -184,10 +186,9 @@
 - [ ] `settings/providers/ManageModelsScreen.tsx`
 - 其余 55 个页面文件已移除 Tamagui 依赖，无需迁移。
 
-### 其他 Tamagui 入口 (0/5 已迁移)
+### 其他 Tamagui 入口 (0/4 已迁移)
 
 - [ ] `src/App.tsx`
-- [ ] `src/constants/Colors.ts`
 - [ ] `src/hooks/useDialog.tsx`
 - [ ] `src/hooks/useToast.tsx`
 - [ ] `src/navigators/AssistantDetailTabNavigator.tsx`
@@ -228,8 +229,8 @@
 
 ## 进度追踪
 
-- **总体进度**: 113 / 172 (65.7%) — 已脱离 Tamagui 的文件 / 跟踪总文件
-- **旧组件目录 (`src/components`)**: 13 / 65 (20.0%)
+- **总体进度**: 130 / 181 (71.8%) — 已脱离 Tamagui 的文件 / 跟踪总文件
+- **旧组件目录 (`src/components`)**: 13 / 58 (22.4%)
 - **页面 (`src/screens`)**: 55 / 57 (96.5%)
-- **其他核心入口**: 0 / 5 (0%)
-- **HeroUI 组件库**: 45 / 45 (100%)
+- **其他核心入口**: 0 / 4 (0%)
+- **HeroUI 组件库**: 50 / 50 (100%)

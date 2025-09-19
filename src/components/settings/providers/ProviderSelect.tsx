@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ISelect } from '@/components/ui/Select'
 import { ProviderType } from '@/types/assistant'
+import { Select } from '@/componentsV2'
 
 interface SelectOptionItem {
   label: string
@@ -40,7 +40,7 @@ export function ProviderSelect({ value, onValueChange, placeholder }: ProviderSe
   }
 
   return (
-    <ISelect
+    <Select
       value={value}
       onValueChange={handleValueChange}
       selectOptions={providerOptions}

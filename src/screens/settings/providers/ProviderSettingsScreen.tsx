@@ -120,7 +120,7 @@ export default function ProviderSettingsScreen() {
   return (
     <SafeAreaContainer className="flex-1">
       <HeaderBar
-        title={provider.name}
+        title={t(`provider.${provider.id}`, { defaultValue: provider.name })}
         rightButtons={[
           {
             icon: <Settings2 size={24} />,

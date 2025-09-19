@@ -29,5 +29,6 @@ export { default as ModelGroup, type ModelGroupProps } from './features/ModelGro
 export { IconButton } from './base/IconButton'
 export { ExternalLink } from './base/ExternalLink'
 export { CustomTag } from './base/CustomTag'
+export { Select } from './base/Select'
 export { TopicItem } from './features/TopicItem'
 export { TopicList } from './features/TopicList'

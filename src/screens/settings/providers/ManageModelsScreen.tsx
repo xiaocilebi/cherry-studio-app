@@ -204,7 +204,7 @@ export default function ManageModelsScreen() {
 
   return (
     <SafeAreaContainer className="flex-1">
-      <HeaderBar title={provider?.name || t('settings.models.manage_models')} />
+     {provider && <HeaderBar title={t(`provider.${provider.id}`, { defaultValue: provider.name })} /> }
       {isLoading ? (
         <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ISelect } from '@/components/ui/Select'
 import { WebSearchProvider } from '@/types/websearch'
+import { Select } from '@/componentsV2'
 
 interface SelectOptionItem {
   label: string
@@ -28,7 +28,7 @@ export function WebSearchSelect({ value, onValueChange, selectOptions, placehold
   }
 
   return (
-    <ISelect<WebSearchProvider>
+    <Select<WebSearchProvider>
       value={value}
       onValueChange={handleValueChange}
       selectOptions={selectOptions}

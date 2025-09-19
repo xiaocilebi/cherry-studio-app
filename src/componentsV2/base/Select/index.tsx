@@ -1,7 +1,9 @@
-import { ChevronRight } from '@tamagui/lucide-icons'
 import React from 'react'
-import { Text, XStack } from 'tamagui'
 import * as DropdownMenu from 'zeego/dropdown-menu'
+
+import { ChevronRight } from '@/componentsV2/icons/LucideIcon'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '../Text'
 
 interface SelectOptionItem<T = any> {
   label: string
@@ -15,21 +17,22 @@ interface SelectOptionGroup<T = any> {
   options: SelectOptionItem<T>[]
 }
 
-interface ISelectProps<T = any> {
+interface SelectProps<T = any> {
   value: string | undefined
   onValueChange: (value: string, item?: SelectOptionItem<T>) => void
   selectOptions: SelectOptionGroup<T>[]
   placeholder: string
   width?: string | number
+  className?: string
 }
 
-export function ISelect<T = any>({
+export function Select<T = any>({
   value,
   onValueChange,
   selectOptions,
   placeholder,
-  width = '100%'
-}: ISelectProps<T>) {
+  className
+}: SelectProps<T>) {
   const findSelectedItem = (selectedValue: string): SelectOptionItem<T> | undefined => {
     for (const group of selectOptions) {
       const item = group.options.find(option => option.value === selectedValue)
@@ -68,32 +71,25 @@ export function ISelect<T = any>({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <XStack
-          width={width}
-          height={46}
-          paddingVertical={12}
-          paddingHorizontal={16}
-          alignItems="center"
-          justifyContent="space-between"
-          gap={10}
-          borderRadius={16}
-          backgroundColor="$uiCardBackground">
-          <XStack flex={1} alignItems="center" overflow="hidden" justifyContent="space-between">
+          className={`h-[46px] w-full py-3 px-4 items-center justify-between gap-2.5 rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark ${className || ''}`}
+          >
+          <XStack className="flex-1 items-center overflow-hidden justify-between">
             {selectedDisplayInfo ? (
               <>
-                <Text flexShrink={1} numberOfLines={1} ellipsizeMode="tail">
+                <Text className="flex-shrink text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
                   {selectedDisplayInfo.groupLabel}
                 </Text>
-                <Text flexShrink={0} numberOfLines={1} maxWidth="60%" ellipsizeMode="tail">
+                <Text className="flex-shrink-0 max-w-[60%] text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
                   {selectedDisplayInfo.itemLabel}
                 </Text>
               </>
             ) : (
-              <Text flex={1} numberOfLines={1} ellipsizeMode="tail">
+              <Text className="flex-1 text-text-secondary dark:text-text-secondary-dark" numberOfLines={1} ellipsizeMode="tail">
                 {placeholder}
               </Text>
             )}
           </XStack>
-          <ChevronRight size={16} color="$textSecondary" opacity={0.9} marginRight={-4} />
+          <ChevronRight size={16} className="text-text-secondary dark:text-text-secondary-dark opacity-90 -mr-1" />
         </XStack>
       </DropdownMenu.Trigger>
 
@@ -105,12 +101,12 @@ export function ISelect<T = any>({
               <DropdownMenu.Item key={item.value} onSelect={() => handleValueChange(item.value)}>
                 <DropdownMenu.ItemTitle>{item.label}</DropdownMenu.ItemTitle>
                 {value === item.value && (
-                  // todo
                   <DropdownMenu.ItemIcon
                     ios={{
                       name: 'checkmark',
                       pointSize: 16
-                    }}></DropdownMenu.ItemIcon>
+                    }}
+                  />
                 )}
               </DropdownMenu.Item>
             ))}

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ISelect } from '@/components/ui/Select'
 import { Model } from '@/types/assistant'
+import { Select } from '@/componentsV2'
 
 interface SelectOptionItem {
   label: string
@@ -29,7 +29,7 @@ export function ModelSelect({ value, onValueChange, selectOptions, placeholder }
   }
 
   return (
-    <ISelect<Model>
+    <Select<Model>
       value={value}
       onValueChange={handleValueChange}
       selectOptions={selectOptions}

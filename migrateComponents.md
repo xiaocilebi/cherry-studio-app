@@ -111,3 +111,25 @@ This file tracks the migration of components from the old structure to the new H
     - Moved to ChatScreen-specific location as requested
     - No export integration needed (internal component)
     - Updated AssistantItemSheet import to relative path within componentsV2
+
+### Select (ISelect)
+- **Date**: 2025-09-19
+- **Source**: `src/components/ui/Select.tsx`
+- **Destination**: `src/componentsV2/base/Select.tsx`
+- **Changes**:
+  - **Icon Migration**: Migrated ChevronRight icon from @tamagui/lucide-icons to @/componentsV2/icons/LucideIcon
+    - Updated import: `import { ChevronRight } from '@tamagui/lucide-icons'` → `import { ChevronRight } from '@/componentsV2/icons/LucideIcon'`
+    - Icon styling: `size={16} color="$textSecondary" opacity={0.9} marginRight={-4}` → `size={16} className="text-text-secondary dark:text-text-secondary-dark opacity-90 -mr-1"`
+  - **Component Migration**: Replaced Tamagui components with componentsV2 equivalents
+    - Updated imports: `import { Text, XStack } from 'tamagui'` → `import { Text, XStack } from '@/componentsV2'`
+    - Maintained Zeego dropdown functionality (external dependency preserved)
+  - **Styling Migration**: Replaced all Tamagui styling props with Tailwind classes including light/dark mode variants
+    - **Main container**: `width={width} height={46} paddingVertical={12} paddingHorizontal={16} alignItems="center" justifyContent="space-between" gap={10} borderRadius={16} backgroundColor="$uiCardBackground"` → `h-[46px] py-3 px-4 items-center justify-between gap-2.5 rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark`
+    - **Content container**: `flex={1} alignItems="center" overflow="hidden" justifyContent="space-between"` → `flex-1 items-center overflow-hidden justify-between`
+    - **Group label**: `flexShrink={1}` → `flex-shrink text-text-primary dark:text-text-primary-dark`
+    - **Item label**: `flexShrink={0} maxWidth="60%"` → `flex-shrink-0 max-w-[60%] text-text-primary dark:text-text-primary-dark`
+    - **Placeholder**: `flex={1}` → `flex-1 text-text-secondary dark:text-text-secondary-dark`
+  - **Props Enhancement**: Added optional `className` prop for additional customization
+  - **Type Safety**: Maintained all existing TypeScript interfaces and generics
+  - **Functionality Preserved**: All dropdown behavior, value selection, display logic maintained
+  - **Export Integration**: Added to componentsV2/index.ts exports under base components
