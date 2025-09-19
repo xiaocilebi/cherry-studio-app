@@ -2,8 +2,7 @@ import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 
-import Text from '../../base/Text'
-import YStack from '../../layout/YStack'
+
 
 import { useDialog } from '@/hooks/useDialog'
 import { useToast } from '@/hooks/useToast'
@@ -18,6 +17,8 @@ import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
 import { TopicItem } from '../TopicItem'
+import Text from '@/componentsV2/base/Text'
+import YStack from '@/componentsV2/layout/YStack'
 
 const logger = loggerService.withContext('GroupTopicList')
 
