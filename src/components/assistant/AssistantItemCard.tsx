@@ -8,7 +8,7 @@ import { Assistant } from '@/types/assistant'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
-import EmojiAvatar from './EmojiAvator'
+import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
 import GroupTag from './market/GroupTag'
 
 interface AssistantItemCardProps {

@@ -18,7 +18,7 @@ import { DrawerNavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
 
-import EmojiAvatar from '../assistant/EmojiAvator'
+import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
 import SelectionSheet from '../ui/SelectionSheet'
 
 interface NewTopicButtonProps {

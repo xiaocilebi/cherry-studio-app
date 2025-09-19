@@ -1,10 +1,12 @@
 import { BlurView } from 'expo-blur'
 import React from 'react'
-import { Platform } from 'react-native'
-import { Stack, Text, View } from 'tamagui'
+import { Platform, View } from 'react-native'
+import { cn } from 'heroui-native'
 
 import { useTheme } from '@/hooks/useTheme'
 import { formateEmoji } from '@/utils/formats'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '@/componentsV2/base/Text'
 
 interface EmojiAvatarProps {
   emoji?: string
@@ -27,29 +29,25 @@ const EmojiAvatar = ({
 
   return (
     <View
-      height={size}
-      width={size}
-      borderWidth={borderWidth}
-      borderColor={borderColor}
-      borderRadius={borderRadius || size / 2}
-      position="relative"
-      overflow="hidden"
-      alignItems="center"
-      justifyContent="center">
+      className={cn('relative overflow-hidden items-center justify-center')}
+      style={{
+        height: size,
+        width: size,
+        borderWidth,
+        borderColor,
+        borderRadius: borderRadius || size / 2
+      }}>
       {/* 背景模糊emoji */}
-      <Stack
-        height={size - borderWidth * 2}
-        width={size - borderWidth * 2}
-        inset={0}
-        position="absolute"
-        alignItems="center"
-        justifyContent="center"
-        scale={2}
-        transformOrigin="center center">
-        <Text fontSize={size * 0.7} opacity={0.3}>
+      <YStack
+        className="absolute inset-0 items-center justify-center scale-[2] origin-center"
+        style={{
+          height: size - borderWidth * 2,
+          width: size - borderWidth * 2
+        }}>
+        <Text className="opacity-30" style={{ fontSize: size * 0.7 }}>
           {formateEmoji(emoji)}
         </Text>
-      </Stack>
+      </YStack>
       {/* BlurView模糊层 */}
       <BlurView
         intensity={blurIntensity}
@@ -62,7 +60,7 @@ const EmojiAvatar = ({
         }}
       />
       {/* 前景清晰emoji */}
-      <Text fontSize={size * 0.5}>{formateEmoji(emoji)}</Text>
+      <Text style={{ fontSize: size * 0.5 }}>{formateEmoji(emoji)}</Text>
     </View>
   )
 }

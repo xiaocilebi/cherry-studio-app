@@ -10,10 +10,10 @@
 
 - **数据更新时间**: 2025-09-18
 - **HeroUI 组件库**: `src/componentsV2/` 共 34 个 `.tsx` 文件，均已完成迁移并通过 `index.ts` 聚合导出。
-- **旧组件目录**: `src/components/` 共 74 个 `.tsx` 文件，目前 14 个已移除 Tamagui，60 个仍依赖 Tamagui。
+- **旧组件目录**: `src/components/` 共 74 个 `.tsx` 文件，目前 15 个已移除 Tamagui，59 个仍依赖 Tamagui。
 - **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移。
 - **其他核心入口**: 5 个基础文件仍直接引用 Tamagui (`App.tsx`, `constants/Colors.ts`, `hooks/useDialog.tsx`, `hooks/useToast.tsx`, `navigators/AssistantDetailTabNavigator.tsx`)。
-- **总体 Tamagui 引用**: 67 / 170 跟踪文件 → 已完成 103 (60.6%)。
+- **总体 Tamagui 引用**: 66 / 170 跟踪文件 → 已完成 104 (61.2%)。
 
 ## 迁移进度
 
@@ -108,11 +108,11 @@
 
 ### 中等优先级 - 功能组件
 
-#### 助手相关 (`src/components/assistant/`, 8/9 待迁移)
+#### 助手相关 (`src/components/assistant/`, 7/9 待迁移)
 - [ ] `AssistantItem.tsx`
 - [ ] `AssistantItemCard.tsx`
 - [ ] `AssistantItemSkeleton.tsx`
-- [ ] `EmojiAvator.tsx`
+- [x] `EmojiAvator.tsx`
 - [ ] `market/AssistantItemSheet.tsx`
 - [ ] `market/AssistantMarketLoading.tsx`
 - [ ] `market/AssistantsTabContent.tsx`
@@ -204,8 +204,8 @@
 
 ## 进度追踪
 
-- **总体进度**: 103 / 170 (60.6%) — 已脱离 Tamagui 的文件 / 跟踪总文件
-- **旧组件目录 (`src/components`)**: 14 / 74 (18.9%)
+- **总体进度**: 104 / 170 (61.2%) — 已脱离 Tamagui 的文件 / 跟踪总文件
+- **旧组件目录 (`src/components`)**: 15 / 74 (20.3%)
 - **页面 (`src/screens`)**: 55 / 57 (96.5%)
 - **其他核心入口**: 0 / 5 (0%)
 - **HeroUI 组件库**: 34 / 34 (100%)

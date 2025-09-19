@@ -19,7 +19,7 @@ import { uuid } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
 
-import EmojiAvatar from '../EmojiAvator'
+import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
 import GroupTag from './GroupTag'
 import { setCurrentTopicId } from '@/store/topic'
 import { useAppDispatch } from '@/store'
