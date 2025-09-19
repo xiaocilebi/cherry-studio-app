@@ -1,11 +1,12 @@
 import { MotiView } from 'moti'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, TouchableOpacity } from 'react-native'
 
-import { TextField, YStack } from '@/componentsV2'
+
 import { Assistant } from '@/types/assistant'
-import { KeyboardAvoidingView, KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import YStack from '@/componentsV2/layout/YStack'
+import TextField from '@/componentsV2/base/TextField'
 
 interface PromptTabContentProps {
   assistant: Assistant

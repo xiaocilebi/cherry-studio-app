@@ -4,13 +4,16 @@ import React, { useRef } from 'react'
 import { Pressable } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import { RowRightArrow, Text, XStack, YStack } from '@/componentsV2'
 import { SquareFunction, Wrench } from '@/componentsV2/icons'
 import ToolUseSheet from '@/components/sheets/ToolUseSheet'
 import WebsearchSheet from '@/components/sheets/WebsearchSheet'
 import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
 import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 import { Assistant } from '@/types/assistant'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '@/componentsV2/base/Text'
+import XStack from '@/componentsV2/layout/XStack'
+import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 
 interface ToolTabContentProps {
   assistant: Assistant
