@@ -1,12 +1,14 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
-import { MessageSquareDiff } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable } from 'react-native'
-import { Text, YStack } from 'tamagui'
 
+import { Text, YStack } from '@/componentsV2'
+import { MessageSquareDiff } from '@/componentsV2/icons/LucideIcon'
+import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
+import SelectionSheet from '@/components/ui/SelectionSheet'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { useTopics } from '@/hooks/useTopic'
@@ -18,14 +20,11 @@ import { DrawerNavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
 
-import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
-import SelectionSheet from '../ui/SelectionSheet'
-
 interface NewTopicButtonProps {
   assistant: Assistant
 }
 
-const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
+export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
   const dispatch = useAppDispatch()
@@ -73,12 +72,12 @@ const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
     return assistantWithTopics.map(assistantItem => ({
       key: assistantItem.id,
       label: (
-        <YStack gap={3}>
-          <Text fontSize={16} lineHeight={18} ellipsizeMode="tail" numberOfLines={1}>
+        <YStack className="gap-0.5">
+          <Text className="text-base leading-[18px] text-text-primary dark:text-text-primary-dark" ellipsizeMode="tail" numberOfLines={1}>
             {assistantItem.name}
           </Text>
           {assistantItem.description && (
-            <Text fontSize={12} ellipsizeMode="tail" numberOfLines={1} color="$textSecondary" opacity={0.7}>
+            <Text className="text-xs text-text-secondary dark:text-text-secondary-dark opacity-70" ellipsizeMode="tail" numberOfLines={1}>
               {assistantItem.description}
             </Text>
           )}
@@ -95,7 +94,7 @@ const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
       ),
       onSelect: () => handleSelectAssistant(assistantItem)
     }))
-  }, [assistantWithTopics, isLoading])
+  }, [assistantWithTopics, isLoading, isDark, handleSelectAssistant])
 
   return (
     <>
@@ -118,5 +117,3 @@ const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => {
     </>
   )
 }
-
-export default NewTopicButton

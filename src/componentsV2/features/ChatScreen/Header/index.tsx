@@ -1,23 +1,23 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, ParamListBase, useNavigation } from '@react-navigation/native'
-import { Menu } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
-import { XStack } from 'tamagui'
 
+import { XStack, IconButton } from '@/componentsV2'
+import { Menu } from '@/componentsV2/icons/LucideIcon'
 import { useAssistant } from '@/hooks/useAssistant'
 import { Topic } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 
-import { IconButton } from '@/componentsV2'
+import { NewTopicButton } from './NewTopicButton'
 import { AssistantSelection } from './AssistantSelection'
-import NewTopicButton from './NewTopicButton'
+
 
 interface HeaderBarProps {
   topic: Topic
 }
 
-export const HeaderBar = ({ topic }: HeaderBarProps) => {
+export const ChatScreenHeader = ({ topic }: HeaderBarProps) => {
   const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>()
   const { assistant, isLoading } = useAssistant(topic.assistantId)
 
@@ -31,14 +31,14 @@ export const HeaderBar = ({ topic }: HeaderBarProps) => {
   }
 
   return (
-    <XStack alignItems="center" height={44} justifyContent="space-between" paddingHorizontal={14}>
-      <XStack alignItems="center" minWidth={40}>
+    <XStack className="items-center h-11 justify-between px-3.5">
+      <XStack className="items-center min-w-10">
         <IconButton onPress={handleMenuPress} icon={<Menu size={24} />} />
       </XStack>
-      <XStack flex={1} justifyContent="center" alignItems="center">
+      <XStack className="flex-1 justify-center items-center">
         <AssistantSelection assistant={assistant} topic={topic} />
       </XStack>
-      <XStack alignItems="center" minWidth={40} justifyContent="flex-end">
+      <XStack className="items-center min-w-10 justify-end">
         {topic.messages.length > 0 && <NewTopicButton assistant={assistant} />}
       </XStack>
     </XStack>
