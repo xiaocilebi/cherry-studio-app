@@ -1,14 +1,15 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import { Settings2, X } from '@tamagui/lucide-icons'
 import { BlurView } from 'expo-blur'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, Platform, TouchableOpacity } from 'react-native'
+import { BackHandler, Platform, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, View, XStack, YStack } from 'tamagui'
+import { Button, Divider } from 'heroui-native'
 
+import { Text, XStack, YStack } from '@/componentsV2'
 import { UnionPlusIcon } from '@/componentsV2/icons'
+import { Settings2, X } from '@/componentsV2/icons/LucideIcon'
 import { ModelIcon } from '@/components/ui/ModelIcon'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
@@ -18,12 +19,11 @@ import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
-
-import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
-import GroupTag from './GroupTag'
 import { setCurrentTopicId } from '@/store/topic'
 import { useAppDispatch } from '@/store'
-import { Divider } from 'heroui-native'
+
+import EmojiAvatar from './EmojiAvatar'
+import GroupTag from './GroupTag'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -59,7 +59,6 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
       return () => backHandler.remove()
     }, [ref, isVisible])
 
-    // 添加背景组件渲染函数
     const renderBackdrop = (props: any) => (
       <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
     )
@@ -119,27 +118,19 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
         onDismiss={() => setIsVisible(false)}
         onChange={index => setIsVisible(index >= 0)}>
         {!assistant ? null : (
-          <YStack flex={1} gap={40} position="relative">
-            {/* 背景模糊emoji */}
-            <XStack
-              width={'100%'}
-              height={200}
-              borderRadius={30}
-              top={0}
-              left={0}
-              right={0}
-              overflow="hidden"
-              position="absolute"
-              flexWrap="wrap">
+          <YStack className="flex-1 gap-10 relative">
+            {/* Background blur emoji */}
+            <XStack className="w-full h-[200px] rounded-[30px] absolute top-0 left-0 right-0 overflow-hidden flex-wrap">
               {Array.from({ length: 70 }).map((_, index) => (
-                <View key={index} width={'9.99%'} scale={1.5} alignItems="center" justifyContent="center">
-                  <Text fontSize={20} opacity={emojiOpacity}>
+                <View key={index} className="w-[9.99%] scale-150 items-center justify-center">
+                  <Text className="text-[20px]" style={{ opacity: emojiOpacity }}>
                     {formateEmoji(assistant.emoji)}
                   </Text>
                 </View>
               ))}
             </XStack>
-            {/* BlurView模糊层 */}
+
+            {/* BlurView layer */}
             <BlurView
               intensity={Platform.OS === 'android' ? 90 : 90}
               experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
@@ -163,44 +154,39 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
               }}
               onPress={() => (ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-              <X size={16} />
+              <X className="w-4 h-4" />
             </TouchableOpacity>
 
             {/* Main Content */}
-            <YStack flex={1} gap={16} paddingHorizontal={25}>
+            <YStack className="flex-1 gap-4 px-6">
               {/* Header with emoji and groups */}
-              <YStack justifyContent="center" alignItems="center" gap={20}>
-                <View marginTop={20}>
+              <YStack className="justify-center items-center gap-5">
+                <View className="mt-5">
                   <EmojiAvatar
                     emoji={assistant.emoji}
                     size={120}
                     borderWidth={5}
-                    borderColor={isDark ? '#333333' : '$uiCardBackground'}
+                    borderColor={isDark ? '#333333' : '#ffffff'}
                   />
                 </View>
-                <Text fontSize={22} fontWeight="bold" textAlign="center">
+                <Text className="text-[22px] font-bold text-center text-text-primary dark:text-text-primary-dark">
                   {assistant.name}
                 </Text>
                 {assistant.group && assistant.group.length > 0 && (
-                  <XStack gap={10} flexWrap="wrap" justifyContent="center">
+                  <XStack className="gap-2.5 flex-wrap justify-center">
                     {assistant.group.map((group, index) => (
                       <GroupTag
                         key={index}
                         group={group}
-                        paddingHorizontal={12}
-                        paddingVertical={5}
-                        backgroundColor="$green10"
-                        color="$green100"
-                        borderWidth={0.5}
-                        borderColor="$green20"
+                        className="px-2 text-xs bg-green-10 dark:bg-green-dark-10 text-green-100 dark:text-green-dark-100 border-[0.5px] border-green-20 dark:border-green-dark-20"
                       />
                     ))}
                   </XStack>
                 )}
                 {assistant.defaultModel && (
-                  <XStack gap={2} alignItems="center" justifyContent="center">
+                  <XStack className="gap-0.5 items-center justify-center">
                     <ModelIcon model={assistant.defaultModel} size={14} />
-                    <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail">
+                    <Text className="text-sm text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
                       {assistant.defaultModel.name}
                     </Text>
                   </XStack>
@@ -213,14 +199,14 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                 style={{ flex: 1 }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingVertical: 16 }}>
-                <YStack gap={16}>
+                <YStack className="gap-4">
                   {/* Description */}
                   {assistant.description && (
-                    <YStack gap={5}>
-                      <Text lineHeight={20} fontSize={18} fontWeight="bold" color="$textPrimary">
+                    <YStack className="gap-1">
+                      <Text className="leading-5 text-lg font-bold text-text-primary dark:text-text-primary-dark">
                         {t('common.description')}
                       </Text>
-                      <Text lineHeight={20} color="$textSecondary">
+                      <Text className="leading-5 text-text-secondary dark:text-text-secondary-dark">
                         {assistant.description}
                       </Text>
                     </YStack>
@@ -228,11 +214,11 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
                   {/* Additional details could go here */}
                   {assistant.prompt && (
-                    <YStack gap={5}>
-                      <Text lineHeight={20} fontSize={18} fontWeight="bold" color="$textPrimary">
+                    <YStack className="gap-1">
+                      <Text className="leading-5 text-lg font-bold text-text-primary dark:text-text-primary-dark">
                         {t('common.prompt')}
                       </Text>
-                      <Text fontSize={16} lineHeight={20}>
+                      <Text className="text-base leading-5 text-text-primary dark:text-text-primary-dark">
                         {assistant.prompt}
                       </Text>
                     </YStack>
@@ -240,44 +226,31 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                 </YStack>
               </BottomSheetScrollView>
             </YStack>
+
             {/* Footer positioned absolutely at the bottom */}
-            <XStack
-              paddingHorizontal={25}
-              bottom={bottom}
-              justifyContent="space-between"
-              alignItems="center"
-              gap={15}
-              flexShrink={0}>
+            <XStack className="px-6 justify-between items-center gap-4 flex-shrink-0" style={{ bottom }}>
               {source === 'builtIn' && (
-                <Button
-                  chromeless
-                  circular
-                  size="$5"
-                  icon={<UnionPlusIcon size={30} color="$textPrimary" />}
-                  onPress={handleAddAssistant}
-                />
+                <Button variant='ghost' isIconOnly onPress={handleAddAssistant}>
+                  <Button.LabelContent>
+                    <UnionPlusIcon size={30} />
+                  </Button.LabelContent>
+                </Button>
               )}
               {source === 'external' && (
-                <Button
-                  chromeless
-                  circular
-                  size="$5"
-                  icon={<Settings2 size={30} color="$textPrimary" />}
-                  onPress={handleEditAssistant}
-                />
+                <Button variant='ghost' isIconOnly onPress={handleEditAssistant}>
+                  <Button.LabelContent>
+                    <Settings2 size={30}  />
+                  </Button.LabelContent>
+                </Button>
               )}
               <Button
-                backgroundColor="$green10"
-                borderColor="$green20"
-                borderRadius={30}
-                paddingVertical={10}
-                paddingHorizontal={20}
-                flex={1}
-                pressStyle={{ opacity: 0.85 }}
+                className="bg-green-10 dark:bg-green-dark-10 border-green-20 dark:border-green-dark-20 rounded-[30px] py-2.5 px-5 flex-1"
                 onPress={actionButton?.onPress || handleChatPress}>
-                <Text color="$green100" fontSize={17} fontWeight="700">
-                  {actionButton?.text || t('assistants.market.button.chat')}
-                </Text>
+                <Button.LabelContent>
+                  <Text className="text-green-100 dark:text-green-dark-100 text-[17px] font-bold">
+                    {actionButton?.text || t('assistants.market.button.chat')}
+                  </Text>
+                </Button.LabelContent>
               </Button>
             </XStack>
           </YStack>

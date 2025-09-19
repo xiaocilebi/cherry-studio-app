@@ -6,8 +6,8 @@ import { Button, Text, XStack, YStack } from 'tamagui'
 
 import { Assistant, Topic } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
+import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
 
-import AssistantItemSheet from '../assistant/market/AssistantItemSheet'
 
 interface AssistantSelectionProps {
   assistant: Assistant

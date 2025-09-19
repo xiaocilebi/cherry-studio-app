@@ -49,7 +49,8 @@ import {
   TextSelect,
   ThumbsUp,
   Trash2,
-  Wifi
+  Wifi,
+  X
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
 import { cn } from 'heroui-native'
@@ -115,6 +116,7 @@ interopIcon(TextSelect)
 interopIcon(ThumbsUp)
 interopIcon(Trash2)
 interopIcon(Wifi)
+interopIcon(X)
 
 function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   const Wrapped = (({ className, ...props }: any) => (
@@ -172,6 +174,7 @@ const TextSelectIcon = withDefaultIconClass(TextSelect)
 const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
 const WifiIcon = withDefaultIconClass(Wifi)
+const XIcon = withDefaultIconClass(X)
 
 export {
   ArrowLeftIcon as ArrowLeft,
@@ -222,5 +225,6 @@ export {
   TextSelectIcon as TextSelect,
   ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,
-  WifiIcon as Wifi
+  WifiIcon as Wifi,
+  XIcon as X
 }

@@ -1,15 +1,14 @@
 import { BlurView } from 'expo-blur'
 import React from 'react'
-import { Platform } from 'react-native'
-import { Text, View, XStack, YStack } from 'tamagui'
+import { Platform, Pressable, View } from 'react-native'
 
+import { Text, XStack, YStack } from '@/componentsV2'
 import { useTheme } from '@/hooks/useTheme'
 import { Assistant } from '@/types/assistant'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'
-
-import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
-import GroupTag from './market/GroupTag'
+import EmojiAvatar from './EmojiAvatar'
+import GroupTag from './GroupTag'
 
 interface AssistantItemCardProps {
   assistant: Assistant
@@ -27,27 +26,23 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   }
 
   return (
-    <View padding={6}>
-      <View
+    <View className="p-1.5">
+      <Pressable
         onPress={handlePress}
-        height={230}
-        backgroundColor="$uiCardBackground"
-        borderRadius={16}
-        overflow="hidden"
-        pressStyle={{
-          backgroundColor: '$gray20'
-        }}>
-        {/* 背景模糊emoji */}
-        <XStack width={'100%'} height={'50%'} top={0} left={0} right={0} position="absolute" flexWrap="wrap">
+        className="h-[230px] bg-ui-card-background dark:bg-ui-card-background-dark rounded-2xl overflow-hidden active:bg-gray-20 dark:active:bg-gray-20"
+        style={{ height: 230 }}>
+        {/* Background blur emoji */}
+        <XStack className="w-full h-1/2 absolute top-0 left-0 right-0 flex-wrap">
           {Array.from({ length: 8 }).map((_, index) => (
-            <View key={index} width={'25%'} scale={1.5} alignItems="center" justifyContent="center">
-              <Text fontSize={40} opacity={emojiOpacity}>
+            <View key={index} className="w-1/4 scale-150 items-center justify-center">
+              <Text className="text-[40px]" style={{ opacity: emojiOpacity }}>
                 {formateEmoji(assistant.emoji)}
               </Text>
             </View>
           ))}
         </XStack>
-        {/* BlurView模糊层 */}
+
+        {/* BlurView layer */}
         <BlurView
           intensity={90}
           experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : 'none'}
@@ -58,37 +53,33 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
           }}
         />
 
-        <YStack flex={1} gap={8} alignItems="center" borderRadius={16} paddingVertical={16} paddingHorizontal={14}>
+        <YStack className="flex-1 gap-2 items-center rounded-2xl py-4 px-3.5">
           <EmojiAvatar
             emoji={assistant.emoji}
             size={90}
             borderWidth={5}
-            borderColor={isDark ? '#333333' : '$backgroundPrimary'}
+            borderColor={isDark ? '#333333' : '#f7f7f7'}
           />
-          <Text fontSize={16} textAlign="center" numberOfLines={1} ellipsizeMode="tail">
+          <Text className="text-base text-center text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
             {assistant.name}
           </Text>
-          <YStack flex={1} justifyContent="space-between" alignItems="center">
-            <Text color="$textSecondary" fontSize={12} lineHeight={14} numberOfLines={3} ellipsizeMode="tail">
+          <YStack className="flex-1 justify-between items-center">
+            <Text className="text-text-secondary dark:text-text-secondary-dark text-xs leading-[14px]" numberOfLines={3} ellipsizeMode="tail">
               {assistant.description}
             </Text>
-            <XStack gap={10} flexWrap="wrap" height={18} justifyContent="center" overflow="hidden">
+            <XStack className="gap-2.5 flex-wrap h-[18px] justify-center overflow-hidden">
               {assistant.group &&
                 assistant.group.map((group, index) => (
                   <GroupTag
                     key={index}
                     group={group}
-                    fontSize={10}
-                    backgroundColor="$green10"
-                    color="$green100"
-                    borderWidth={0.5}
-                    borderColor="$green20"
+                    className="text-[10px] bg-green-10 dark:bg-green-dark-10 text-green-100 dark:text-green-dark-100 border-[0.5px] border-green-20 dark:border-green-dark-20"
                   />
                 ))}
             </XStack>
           </YStack>
         </YStack>
-      </View>
+      </Pressable>
     </View>
   )
 }
