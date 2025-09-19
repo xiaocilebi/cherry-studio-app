@@ -8,16 +8,16 @@
 
 ## 迁移概述
 
-- **数据更新时间**: 2025-09-18
-- **HeroUI 组件库**: `src/componentsV2/` 共 34 个 `.tsx` 文件，均已完成迁移并通过 `index.ts` 聚合导出。
-- **旧组件目录**: `src/components/` 共 74 个 `.tsx` 文件，目前 15 个已移除 Tamagui，59 个仍依赖 Tamagui。
+- **数据更新时间**: 2025-09-19
+- **HeroUI 组件库**: `src/componentsV2/` 共 45 个 `.tsx` 文件，均已完成迁移并通过 `index.ts` 聚合导出。
+- **旧组件目录**: `src/components/` 共 65 个 `.tsx` 文件，目前 13 个已移除 Tamagui，52 个仍依赖 Tamagui。
 - **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移。
 - **其他核心入口**: 5 个基础文件仍直接引用 Tamagui (`App.tsx`, `constants/Colors.ts`, `hooks/useDialog.tsx`, `hooks/useToast.tsx`, `navigators/AssistantDetailTabNavigator.tsx`)。
-- **总体 Tamagui 引用**: 66 / 170 跟踪文件 → 已完成 104 (61.2%)。
+- **总体 Tamagui 引用**: 59 / 172 跟踪文件 → 已完成 113 (65.7%)。
 
 ## 迁移进度
 
-### ✅ HeroUI 组件 (`src/componentsV2/`, 34/34)
+### ✅ HeroUI 组件 (`src/componentsV2/`, 45/45)
 
 **Base**
 
@@ -45,6 +45,20 @@
 - [x] `features/ModelGroup/index.tsx`
 - [x] `features/TopicItem/index.tsx`
 - [x] `features/TopicList/index.tsx`
+
+**Assistant**
+
+- [x] `features/Assistant/AssistantItem.tsx`
+- [x] `features/Assistant/AssistantItemCard.tsx`
+- [x] `features/Assistant/AssistantItemSheet.tsx`
+- [x] `features/Assistant/AssistantItemSkeleton.tsx`
+- [x] `features/Assistant/AssistantMarketLoading.tsx`
+- [x] `features/Assistant/AssistantsTabContent.tsx`
+- [x] `features/Assistant/EmojiAvatar.tsx`
+- [x] `features/Assistant/GroupTag.tsx`
+- [x] `features/Assistant/ModelTabContent.tsx`
+- [x] `features/Assistant/PromptTabContent.tsx`
+- [x] `features/Assistant/ToolTabContent.tsx`
 
 **Icons**
 
@@ -116,17 +130,9 @@
 
 ### 中等优先级 - 功能组件
 
-#### 助手相关 (`src/components/assistant/`, 7/9 待迁移)
+#### 助手模块
 
-- [ ] `AssistantItem.tsx`
-- [ ] `AssistantItemCard.tsx`
-- [ ] `AssistantItemSkeleton.tsx`
-- [x] `EmojiAvator.tsx`
-- [ ] `market/AssistantItemSheet.tsx`
-- [ ] `market/AssistantMarketLoading.tsx`
-- [ ] `market/AssistantsTabContent.tsx`
-- [ ] `market/GroupTag.tsx`
-- [x] `ModelTabContent.tsx`
+- 旧目录 `src/components/assistant/` 已清空，对应实现已迁移到 `src/componentsV2/features/Assistant/`。
 
 #### 设置 - Data (`src/components/settings/data/`, 4/4 待迁移)
 
@@ -222,8 +228,8 @@
 
 ## 进度追踪
 
-- **总体进度**: 104 / 170 (61.2%) — 已脱离 Tamagui 的文件 / 跟踪总文件
-- **旧组件目录 (`src/components`)**: 15 / 74 (20.3%)
+- **总体进度**: 113 / 172 (65.7%) — 已脱离 Tamagui 的文件 / 跟踪总文件
+- **旧组件目录 (`src/components`)**: 13 / 65 (20.0%)
 - **页面 (`src/screens`)**: 55 / 57 (96.5%)
 - **其他核心入口**: 0 / 5 (0%)
-- **HeroUI 组件库**: 34 / 34 (100%)
+- **HeroUI 组件库**: 45 / 45 (100%)

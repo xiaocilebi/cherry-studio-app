@@ -12,21 +12,29 @@ module.exports = {
         brand: '#00b96b',
         purple: {
           100: '#9c96f9',
-          20: '#9c96f933'
+          20: '#9c96f933',
+          'dark-100': '#b5affd',
+          'dark-20': '#b5affd33'
         },
         orange: {
           100: '#ffb26e',
           20: '#ffb26e33',
-          10: '#ffb26e1a'
+          10: '#ffb26e1a',
+          'dark-100': '#ffc27f',
+          'dark-20': '#ffc27f33'
         },
         blue: {
           100: '#6fb1fa',
           20: '#6fb1fa33',
-          10: '#6fb1fa1a'
+          10: '#6fb1fa1a',
+          'dark-100': '#8fc2ff',
+          'dark-20': '#8fc2ff33'
         },
         pink: {
           100: '#e398c9',
-          20: '#e398c933'
+          20: '#e398c933',
+          'dark-100': '#f0a8d7',
+          'dark-20': '#f0a8d733'
         },
         red: {
           100: '#ff0000',

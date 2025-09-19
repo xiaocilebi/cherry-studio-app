@@ -1,7 +1,7 @@
-import { CircleDollarSign, Eye, Globe, Languages, Lightbulb, Repeat2, Wrench } from '@tamagui/lucide-icons'
+import { CircleDollarSign, Eye, Globe, Languages, Lightbulb, Repeat2, Wrench } from '@/componentsV2/icons/LucideIcon'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, XStack } from 'tamagui'
+import { XStack } from 'tamagui'
 
 import {
   isEmbeddingModel,
@@ -13,8 +13,8 @@ import {
   isWebSearchModel
 } from '@/config/models'
 import { Model } from '@/types/assistant'
+import { CustomTag } from '@/componentsV2'
 
-import { CustomTag } from './CustomTag'
 
 interface ModelTagsProps {
   model: Model
@@ -42,7 +42,8 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
   ) => {
     const result: {
       key: string
-      color: string
+      backgroundClassName: string
+      textClassName: string
       icon: React.JSX.Element
       label: string
     }[] = []
@@ -50,8 +51,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (isVisionModel(model)) {
       result.push({
         key: 'vision',
-        color: '$green20',
-        icon: <Eye size={size} color="$green100" />,
+        backgroundClassName: 'bg-green-20 dark:bg-green-dark-20',
+        textClassName: 'text-green-100 dark:text-green-dark-100',
+        icon: <Eye size={size} className="text-green-100 dark:text-green-dark-100" />,
         label: t('models.type.vision')
       })
     }
@@ -59,8 +61,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (isWebSearchModel(model)) {
       result.push({
         key: 'websearch',
-        color: '$blue20',
-        icon: <Globe size={size} color="$blue100" />,
+        backgroundClassName: 'bg-blue-20 dark:bg-blue-dark-20',
+        textClassName: 'text-blue-100 dark:text-blue-dark-100',
+        icon: <Globe size={size} className="text-blue-100 dark:text-blue-dark-100" />,
         label: t('models.type.websearch')
       })
     }
@@ -68,8 +71,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (showReasoning && isReasoningModel(model)) {
       result.push({
         key: 'reasoning',
-        color: '$purple20',
-        icon: <Lightbulb size={size} color="$purple100" />,
+        backgroundClassName: 'bg-purple-20 dark:bg-purple-dark-20',
+        textClassName: 'text-purple-100 dark:text-purple-dark-100',
+        icon: <Lightbulb size={size} className="text-purple-100 dark:text-purple-dark-100" />,
         label: t('models.type.reasoning')
       })
     }
@@ -77,8 +81,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (showToolsCalling && isFunctionCallingModel(model)) {
       result.push({
         key: 'function_calling',
-        color: '$orange20',
-        icon: <Wrench size={size} color="$orange100" />,
+        backgroundClassName: 'bg-orange-20 dark:bg-orange-dark-20',
+        textClassName: 'text-orange-100 dark:text-orange-dark-100',
+        icon: <Wrench size={size} className="text-orange-100 dark:text-orange-dark-100" />,
         label: t('models.type.function_calling')
       })
     }
@@ -87,8 +92,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (isEmbeddingModel(model)) {
       result.push({
         key: 'embedding',
-        color: '$foregroundDarkPurple',
-        icon: <Languages size={size} color="$foregroundDarkPurple" />,
+        backgroundClassName: 'bg-purple-20 dark:bg-purple-dark-20',
+        textClassName: 'text-purple-100 dark:text-purple-dark-100',
+        icon: <Languages size={size} className="text-purple-100 dark:text-purple-dark-100" />,
         label: t('models.type.embedding')
       })
     }
@@ -96,8 +102,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (showFree && isFreeModel(model)) {
       result.push({
         key: 'free',
-        color: '$yellow20',
-        icon: <CircleDollarSign size={size} color="$yellow100" />,
+        backgroundClassName: 'bg-yellow-20 dark:bg-yellow-dark-20',
+        textClassName: 'text-yellow-100 dark:text-yellow-dark-100',
+        icon: <CircleDollarSign size={size} className="text-yellow-100 dark:text-yellow-dark-100" />,
         label: t('models.type.free')
       })
     }
@@ -105,8 +112,9 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
     if (isRerankModel(model)) {
       result.push({
         key: 'rerank',
-        color: '$pink20',
-        icon: <Repeat2 size={size} color="$pink100" />,
+        backgroundClassName: 'bg-pink-20 dark:bg-pink-dark-20',
+        textClassName: 'text-pink-100 dark:text-pink-dark-100',
+        icon: <Repeat2 size={size} className="text-pink-100 dark:text-pink-dark-100" />,
         label: t('models.type.rerank')
       })
     }
@@ -123,8 +131,13 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
   return (
     <XStack gap={4} alignItems="center">
       {tags.map(tag => (
-        <CustomTag key={tag.key} size={size} color={tag.color} icon={tag.icon}>
-          {tag.icon ? '' : <Text color={tag.color}>{tag.label}</Text>}
+        <CustomTag
+          key={tag.key}
+          size={size}
+          icon={tag.icon}
+          backgroundClassName={tag.backgroundClassName}
+          textClassName={tag.textClassName}>
+          {tag.icon ? null : tag.label}
         </CustomTag>
       ))}
     </XStack>

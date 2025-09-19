@@ -26,7 +26,7 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   }
 
   return (
-    <View className="p-1.5">
+    <View className="p-1.5 w-full">
       <Pressable
         onPress={handlePress}
         className="h-[230px] bg-ui-card-background dark:bg-ui-card-background-dark rounded-2xl overflow-hidden active:bg-gray-20 dark:active:bg-gray-20"
