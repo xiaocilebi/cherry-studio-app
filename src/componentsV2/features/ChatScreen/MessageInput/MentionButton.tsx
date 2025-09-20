@@ -1,17 +1,17 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { AtSign } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, TouchableOpacity } from 'react-native'
-import { Text, XStack } from 'tamagui'
 
+import { AtSign } from '@/componentsV2/icons/LucideIcon'
+import { ModelIcon } from '@/componentsV2/icons'
 import { Assistant, Model } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getBaseModelName } from '@/utils/naming'
-
-import { ModelIcon } from '@/componentsV2/icons'
-import ModelSheet from '@/componentsV2/features/Sheet/ModelSheet'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '@/componentsV2/base/Text'
+import ModelSheet from '../../Sheet/ModelSheet'
 
 interface MentionButtonProps {
   mentions: Model[]
@@ -22,19 +22,8 @@ interface MentionButtonProps {
 
 const BUTTON_STYLES = {
   maxWidth: 150,
-  container: {
-    gap: 4,
-    alignItems: 'center' as const,
-    backgroundColor: '$green10',
-    borderRadius: 48,
-    borderColor: '$green20',
-    borderWidth: 0.5,
-    paddingVertical: 4,
-    paddingHorizontal: 4
-  },
-  text: {
-    color: '$green100'
-  }
+  container: 'gap-1 items-center bg-green-10 dark:bg-green-dark-10 rounded-[48px] border-green-20 dark:border-green-dark-20 border-[0.5px] py-1 px-1',
+  text: 'text-green-100 dark:text-green-dark-100'
 }
 
 const DISPLAY_CONSTANTS = {
@@ -71,15 +60,16 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
     await updateAssistant(updatedAssistant)
   }
 
-  const renderEmptyState = () => <AtSign size={DISPLAY_CONSTANTS.ICON_SIZE} />
+  const renderEmptyState = () => (
+    <AtSign size={DISPLAY_CONSTANTS.ICON_SIZE} className="text-green-100 dark:text-green-dark-100" />
+  )
 
   const renderSingleModel = (model: Model) => (
-    <XStack {...BUTTON_STYLES.container} justifyContent="center">
+    <XStack className={`${BUTTON_STYLES.container} justify-center`}>
       <ModelIcon model={model} size={DISPLAY_CONSTANTS.MODEL_ICON_SIZE} />
       <Text
-        maxWidth={DISPLAY_CONSTANTS.MAX_TEXT_WIDTH}
+        className={`max-w-[${DISPLAY_CONSTANTS.MAX_TEXT_WIDTH}px] ${BUTTON_STYLES.text}`}
         numberOfLines={1}
-        {...BUTTON_STYLES.text}
         ellipsizeMode="middle">
         {getBaseModelName(model.name)}
       </Text>
@@ -87,11 +77,11 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
   )
 
   const renderMultipleModels = () => (
-    <XStack {...BUTTON_STYLES.container} justifyContent="center">
+    <XStack className={`${BUTTON_STYLES.container} justify-center`}>
       {mentions.slice(0, DISPLAY_CONSTANTS.MAX_VISIBLE_MODELS).map((mention, index) => (
         <ModelIcon key={index} model={mention} size={DISPLAY_CONSTANTS.MODEL_ICON_SIZE} />
       ))}
-      <Text {...BUTTON_STYLES.text}>{t('inputs.mentions', { number: mentions.length })}</Text>
+      <Text className={BUTTON_STYLES.text}>{t('inputs.mentions', { number: mentions.length })}</Text>
     </XStack>
   )
 

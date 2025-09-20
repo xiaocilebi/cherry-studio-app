@@ -131,14 +131,14 @@
 
 ### 🔄 待迁移组件
 
-#### 高优先级 - 消息输入链路 (`src/components/message-input/`, 6/9 待迁移)
+#### 高优先级 - 消息输入链路 (`src/components/message-input/`, 3/9 待迁移)
 
 - [ ] `FilePreview.tsx`
-- [ ] `MentionButton.tsx`
-- [ ] `MessageInput.tsx`
+- [x] `MentionButton.tsx`
+- [x] `MessageInput.tsx`
 - [x] `PauseButton.tsx`
 - [ ] `SendButton.tsx`
-- [ ] `ToolPreview.tsx`
+- [x] `ToolPreview.tsx`
 - [ ] `VoiceButton.tsx`
 - [x] `ThinkButton.tsx`
 - [x] `ToolButton.tsx`

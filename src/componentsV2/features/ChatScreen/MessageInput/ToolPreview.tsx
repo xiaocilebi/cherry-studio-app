@@ -1,11 +1,12 @@
-import { Globe, Palette, X } from '@tamagui/lucide-icons'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
-import { View, XStack } from 'tamagui'
+import { View, Pressable } from 'react-native'
 
+import { Globe, Palette, X } from '@/componentsV2/icons/LucideIcon'
 import { loggerService } from '@/services/LoggerService'
 import { Assistant } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
+import XStack from '@/componentsV2/layout/XStack'
 
 const logger = loggerService.withContext('ToolPreview')
 
@@ -14,7 +15,7 @@ interface ToolPreviewProps {
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant }) => {
+export const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant }) => {
   const handleDisableWebSearch = async () => {
     try {
       haptic(ImpactFeedbackStyle.Medium)
@@ -35,40 +36,24 @@ const ToolPreview: React.FC<ToolPreviewProps> = ({ assistant, updateAssistant })
 
   return (
     <View>
-      <XStack>
+      <XStack className="gap-2">
         {assistant.model && assistant.enableGenerateImage && (
-          <XStack
-            gap={5}
-            borderRadius={48}
-            paddingVertical={4}
-            paddingHorizontal={4}
-            backgroundColor="$green10"
-            borderWidth={0.5}
-            borderColor="$green20"
-            justifyContent="space-between"
-            alignItems="center">
-            <Palette size={20} color="$green100" />
-            <X size={20} color="$green100" onPress={handleDisableGenerateImage} />
+          <XStack className="gap-[5px] rounded-[48px] py-1 px-1 bg-green-10 dark:bg-green-dark-10 border-[0.5px] border-green-20 dark:border-green-dark-20 justify-between items-center">
+            <Palette size={20} className="text-green-100 dark:text-green-dark-100" />
+            <Pressable onPress={handleDisableGenerateImage}>
+              <X size={20} className="text-green-100 dark:text-green-dark-100" />
+            </Pressable>
           </XStack>
         )}
         {assistant.model && assistant.enableWebSearch && (
-          <XStack
-            gap={5}
-            borderRadius={48}
-            paddingVertical={4}
-            paddingHorizontal={4}
-            borderWidth={0.5}
-            borderColor="$green20"
-            backgroundColor="$green10"
-            justifyContent="space-between"
-            alignItems="center">
-            <Globe size={20} color="$green100" />
-            <X size={20} color="$green100" onPress={handleDisableWebSearch} />
+          <XStack className="gap-[5px] rounded-[48px] py-1 px-1 border-[0.5px] border-green-20 dark:border-green-dark-20 bg-green-10 dark:bg-green-dark-10 justify-between items-center">
+            <Globe size={20} className="text-green-100 dark:text-green-dark-100" />
+            <Pressable onPress={handleDisableWebSearch}>
+              <X size={20} className="text-green-100 dark:text-green-dark-100" />
+            </Pressable>
           </XStack>
         )}
       </XStack>
     </View>
   )
 }
-
-export default ToolPreview

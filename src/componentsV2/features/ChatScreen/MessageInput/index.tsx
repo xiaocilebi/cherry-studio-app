@@ -4,7 +4,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, Platform } from 'react-native'
-import { styled, TextArea, XStack, YStack } from 'tamagui'
+import { DropShadowView } from 'heroui-native'
 
 import { isReasoningModel } from '@/config/models'
 import { useAssistant } from '@/hooks/useAssistant'
@@ -17,13 +17,18 @@ import { Model, Topic } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { haptic } from '@/utils/haptic'
-
-import { MentionButton } from './MentionButton'
-import { SendButton } from './SendButton'
-import { ThinkButton } from './ThinkButton'
+import { FilePreview } from './FilePreview'
 import { ToolButton } from './ToolButton'
-import ToolPreview from './ToolPreview'
-import { FilePreview, PauseButton } from '@/componentsV2'
+import { ThinkButton } from './ThinkButton'
+import { MentionButton } from './MentionButton'
+import { ToolPreview } from './ToolPreview'
+import { PauseButton } from './PauseButton'
+import { SendButton } from './SendButton'
+import YStack from '@/componentsV2/layout/YStack'
+import XStack from '@/componentsV2/layout/XStack'
+import TextField from '@/componentsV2/base/TextField'
+
+
 const logger = loggerService.withContext('Message Input')
 
 interface MessageInputProps {
@@ -93,45 +98,30 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
     return null
   }
 
-  const InputContent = styled(YStack, {
-    paddingHorizontal: 18,
-    paddingVertical: 8,
-    paddingBottom: Platform.OS === 'android' ? bottomPad + 8 : bottomPad,
-    borderRadius: 20,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    backgroundColor: '$backgroundOpacity',
-    shadowColor: '$textPrimary',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4
-  })
-
   return (
-    <InputContent>
-      <YStack gap={10}>
+    <DropShadowView
+      className="px-5 py-2 rounded-2xl bg-surface-1"
+      shadowSize="xl"
+      iosShadowStyle={{
+        shadowOffset:{width:0,height: -4}
+      }}
+      androidShadowStyle={{
+        elevation: 10,
+      }}
+      style={{
+        paddingBottom: Platform.OS === 'android' ? bottomPad + 8 : bottomPad
+      }}>
+      <YStack className="gap-[10px]">
         {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
         {/* message */}
-        <XStack top={5}>
-          <TextArea
-            minHeight={50}
-            fontSize={16}
-            placeholder={t('inputs.placeholder')}
-            backgroundColor="$colorTransparent"
-            borderWidth={0}
-            numberOfLines={10}
-            p={0}
-            flex={1}
-            value={text}
-            onChangeText={setText}
-            paddingVertical={0}
-            color="$textSecondary"
-          />
+        <XStack className="top-[5px]">
+          <TextField className='w-full p-0'>
+            <TextField.Input className='h-24 p-0 border-none text-base text-text-primary dark:text-text-primary-dark' placeholder={t('inputs.placeholder')} value={text} onChangeText={setText} multiline numberOfLines={10} colors={{blurBackground: 'transparent',focusBackground: 'transparent', blurBorder: 'transparent', focusBorder: 'transparent'}} />
+          </TextField>
         </XStack>
         {/* button */}
-        <XStack justifyContent="space-between" alignItems="center">
-          <XStack flex={1} gap={10} alignItems="center">
+        <XStack className="justify-between items-center">
+          <XStack className="flex-1 gap-[10px] items-center">
             <ToolButton
               mentions={mentions}
               files={files}
@@ -148,7 +138,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
             />
             <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
           </XStack>
-          <XStack gap={20} alignItems="center">
+          <XStack className="gap-5 items-center">
             <AnimatePresence exitBeforeEnter>
               {isTopicLoading ? (
                 <MotiView
@@ -173,6 +163,6 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
           </XStack>
         </XStack>
       </YStack>
-    </InputContent>
+    </DropShadowView>
   )
 }

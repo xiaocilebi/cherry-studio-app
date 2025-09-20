@@ -17,7 +17,10 @@ import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 import { EmptyModelView } from '@/componentsV2/features/SettingsScreen/EmptyModelView'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
-import { SearchInput, XStack, YStack, Text } from '@/componentsV2'
+import YStack from '@/componentsV2/layout/YStack'
+import XStack from '@/componentsV2/layout/XStack'
+import {SearchInput} from '@/componentsV2/base/SearchInput'
+import Text from '@/componentsV2/base/Text'
 
 interface ModelSheetProps {
   mentions: Model[]
@@ -173,6 +176,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
             </YStack>
             {multiple && (
               <Button
+                size='sm'
                 className={`rounded-full ${
                   isMultiSelectActive
                     ? 'bg-green-10 dark:bg-green-dark-10 border border-green-20 dark:border-green-dark-20'
@@ -188,6 +192,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
             )}
             {multiple && isMultiSelectActive && (
               <Button
+                size='sm'
                 className="rounded-full bg-ui-card dark:bg-ui-card-dark"
                 isIconOnly
                 onPress={handleClearAll}>
@@ -213,10 +218,11 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                 <YStack className="gap-1.5">
                   {group.options.map(item => (
                     <Button
+                      size='sm'
                       key={item.value}
                       variant="ghost"
                       onPress={() => handleModelToggle(item.value)}
-                      className={`justify-between px-2 py-2 rounded-2xl border ${
+                      className={`justify-between px-2 rounded-lg border ${
                         selectedModels.includes(item.value)
                           ? 'border-green-20 dark:border-green-dark-20 bg-green-10 dark:bg-green-dark-10'
                           : 'border-transparent bg-transparent'

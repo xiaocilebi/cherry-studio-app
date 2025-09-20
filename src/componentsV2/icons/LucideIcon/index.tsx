@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   ArrowLeftRight,
   ArrowUpRight,
+  AtSign,
   AudioLines,
   BrushCleaning,
   Camera,
@@ -62,6 +63,7 @@ import {
   ThumbsUp,
   Trash2,
   Wifi,
+  ArrowUp,
   X
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
@@ -79,9 +81,11 @@ function interopIcon(icon: LucideIcon) {
   })
 }
 
+interopIcon(ArrowUp)
 interopIcon(ArrowLeft)
 interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
+interopIcon(AtSign)
 interopIcon(AudioLines)
 interopIcon(BrushCleaning)
 interopIcon(Camera)
@@ -149,9 +153,11 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   return Wrapped
 }
 
+const ArrowUpIcon = withDefaultIconClass(ArrowUp)
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
+const AtSignIcon = withDefaultIconClass(AtSign)
 const AudioLinesIcon = withDefaultIconClass(AudioLines)
 const BrushCleaningIcon = withDefaultIconClass(BrushCleaning)
 const CameraIcon = withDefaultIconClass(Camera)
@@ -213,9 +219,11 @@ const WifiIcon = withDefaultIconClass(Wifi)
 const XIcon = withDefaultIconClass(X)
 
 export {
+  ArrowUpIcon as ArrowUp,
   ArrowLeftIcon as ArrowLeft,
   ArrowLeftRightIcon as ArrowLeftRight,
   ArrowUpRightIcon as ArrowUpRight,
+  AtSignIcon as AtSign,
   AudioLinesIcon as AudioLines,
   BrushCleaningIcon as BrushCleaning,
   CameraIcon as Camera,

@@ -8,7 +8,8 @@ import { FileMetadata } from '@/types/file'
 import { haptic } from '@/utils/haptic'
 
 import { AssetsIcon } from '@/componentsV2/icons'
-import { IconButton, ToolSheet } from '@/componentsV2'
+import { IconButton } from '@/componentsV2/base/IconButton'
+import { ToolSheet } from '../../Sheet/ToolSheet'
 
 interface AddAssetsButtonProps {
   mentions: Model[]

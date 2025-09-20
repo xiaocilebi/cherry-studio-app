@@ -1,7 +1,7 @@
-import { ArrowUp } from '@tamagui/lucide-icons'
 import React from 'react'
 
-import { IconButton } from '@/componentsV2'
+import { ArrowUp } from '@/componentsV2/icons'
+import { IconButton } from '@/componentsV2/base/IconButton'
 
 interface SendButtonProps {
   onSend: () => void
@@ -11,7 +11,7 @@ interface SendButtonProps {
 export const SendButton: React.FC<SendButtonProps> = ({ onSend, disabled = false }) => {
   return (
     <IconButton
-      icon={<ArrowUp size={24} color={disabled ? '#eeeeee' : '#ffffff'} />}
+      icon={<ArrowUp className={`${disabled ? '#eeeeee' : '#ffffff'}`} size={24} />}
       onPress={disabled ? undefined : onSend}
       style={{
         borderRadius: 99,
