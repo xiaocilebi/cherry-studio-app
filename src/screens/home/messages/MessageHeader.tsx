@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { ModelIcon } from '@/components/ui/ModelIcon'
+import { ModelIcon } from '@/componentsV2/icons'
 import { Text, XStack, YStack } from '@/componentsV2'
 import { Message } from '@/types/message'
 import { storage } from '@/utils'

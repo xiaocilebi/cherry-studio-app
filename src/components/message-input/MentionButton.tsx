@@ -11,7 +11,7 @@ import { haptic } from '@/utils/haptic'
 import { getBaseModelName } from '@/utils/naming'
 
 import ModelSheet from '../sheets/ModelSheet'
-import { ModelIcon } from '../ui/ModelIcon'
+import { ModelIcon } from '@/componentsV2/icons'
 
 interface MentionButtonProps {
   mentions: Model[]

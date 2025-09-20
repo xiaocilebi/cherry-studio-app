@@ -5,10 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
 
 import { Menu, MessageSquareDiff } from '@/componentsV2/icons/LucideIcon'
-import { YStack, HeaderBar, TopicList } from '@/componentsV2'
+import { YStack, HeaderBar, TopicList ,SafeAreaContainer, DrawerGestureWrapper } from '@/componentsV2'
 
-import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useSearch } from '@/hooks/useSearch'
 import { useTopics } from '@/hooks/useTopic'

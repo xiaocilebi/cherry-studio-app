@@ -10,7 +10,7 @@ import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
 import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
-import { WebsearchProviderIcon } from '../ui/WebsearchIcon'
+import { WebsearchProviderIcon } from '@/componentsV2/icons'
 
 interface WebsearchSheetProps {
   assistant: Assistant

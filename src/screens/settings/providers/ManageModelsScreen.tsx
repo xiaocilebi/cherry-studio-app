@@ -37,7 +37,7 @@ import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getDefaultGroupName } from '@/utils/naming'
-import { ModelIcon } from '@/components/ui/ModelIcon'
+import { ModelIcon } from '@/componentsV2/icons'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
 const logger = loggerService.withContext('ManageModelsScreen')
 

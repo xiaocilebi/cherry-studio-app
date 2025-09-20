@@ -4,7 +4,7 @@ import Animated from 'react-native-reanimated'
 
 import { Accordion, AccordionLayoutTransition, Chip } from 'heroui-native'
 
-import { ModelIcon } from '@/components/ui/ModelIcon'
+import { ModelIcon } from '@/componentsV2/icons'
 import { Model } from '@/types/assistant'
 import XStack from '@/componentsV2/layout/XStack'
 import Text from '@/componentsV2/base/Text'

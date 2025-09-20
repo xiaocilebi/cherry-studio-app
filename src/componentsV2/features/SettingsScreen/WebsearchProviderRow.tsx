@@ -2,13 +2,13 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { WebsearchProviderIcon } from '@/components/ui/WebsearchIcon'
 import { WebSearchNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 import PressableRow from '@/componentsV2/layout/PressableRow'
 import XStack from '@/componentsV2/layout/XStack'
 import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 import Text from '@/componentsV2/base/Text'
+import { WebsearchProviderIcon } from '@/componentsV2/icons'
 
 interface WebsearchProviderRowProps {
   provider: WebSearchProvider

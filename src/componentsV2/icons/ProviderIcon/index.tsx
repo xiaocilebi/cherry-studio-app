@@ -1,18 +1,20 @@
 import { File, Paths } from 'expo-file-system/next'
-import { Image } from 'expo-image'
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
 import { useTheme } from '@/hooks/useTheme'
 import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
+import Image from '@/componentsV2/base/Image'
+import YStack from '@/componentsV2/layout/YStack'
 
 interface ProviderIconProps {
   provider: Provider
+  size?: number
+  className?: string
 }
 
-export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider }) => {
+export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, className }) => {
   const { isDark } = useTheme()
   const [iconUri, setIconUri] = useState<string>('')
 
@@ -34,9 +36,23 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider }) => {
     loadIcon()
   }, [provider.id, provider.isSystem, isDark])
 
+  const sizeClass = size ? `w-[${size}px] h-[${size}px]` : 'w-5 h-5'
+  const finalClassName = className ? `${sizeClass} ${className}` : sizeClass
+
   if (!iconUri) {
-    return <View style={{ width: 20, height: 20 }} />
+    return (
+      <YStack
+        className={finalClassName}
+        style={size ? { width: size, height: size } : undefined}
+      />
+    )
   }
 
-  return <Image style={{ borderRadius: 99, width: 20, height: 20 }} source={iconUri} />
+  return (
+    <Image
+      className={`${finalClassName} rounded-full`}
+      source={iconUri}
+      style={size ? { width: size, height: size } : undefined}
+    />
+  )
 }
