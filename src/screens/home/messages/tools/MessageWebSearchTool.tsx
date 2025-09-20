@@ -1,9 +1,8 @@
 import { Search } from '@/componentsV2/icons/LucideIcon'
 import React from 'react'
-import { Text, XStack } from '@/componentsV2'
+import { Searching, Text, XStack } from '@/componentsV2'
 
 import { WebSearchToolInput, WebSearchToolOutput } from '@/aiCore/tools/WebSearchTool'
-import Searching from '@/components/ui/Searching'
 import i18n from '@/i18n'
 import { MCPToolResponse } from '@/types/mcp'
 

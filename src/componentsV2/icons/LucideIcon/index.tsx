@@ -3,25 +3,34 @@ import {
   ArrowLeft,
   ArrowLeftRight,
   ArrowUpRight,
+  AtSign,
   AudioLines,
+  BrushCleaning,
   Camera,
+  Check,
   ChevronDown,
+  ChevronsRight,
   CircleDollarSign,
   CirclePause,
   Cloud,
   Copy,
   Copyright,
+  Download,
   Edit3,
   Eye,
   EyeOff,
   FileText,
   Folder,
+  FolderClosed,
   FolderOpen,
   FolderSearch2,
   Github,
   Globe,
   HardDrive,
   HeartPulse,
+  Palette,
+  Image,
+  ImageOff,
   Info,
   Languages,
   Lightbulb,
@@ -46,6 +55,7 @@ import {
   Search,
   Settings2,
   ChevronRight,
+  Share,
   ShieldCheck,
   Sparkles,
   Wrench,
@@ -53,6 +63,7 @@ import {
   ThumbsUp,
   Trash2,
   Wifi,
+  ArrowUp,
   X
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
@@ -70,29 +81,39 @@ function interopIcon(icon: LucideIcon) {
   })
 }
 
+interopIcon(ArrowUp)
 interopIcon(ArrowLeft)
 interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
+interopIcon(AtSign)
 interopIcon(AudioLines)
+interopIcon(BrushCleaning)
 interopIcon(Camera)
+interopIcon(Check)
 interopIcon(ChevronDown)
+interopIcon(ChevronsRight)
 interopIcon(CircleDollarSign)
 interopIcon(CirclePause)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copy)
 interopIcon(Copyright)
+interopIcon(Download)
 interopIcon(Edit3)
 interopIcon(Eye)
 interopIcon(EyeOff)
 interopIcon(FileText)
 interopIcon(Folder)
+interopIcon(FolderClosed)
 interopIcon(FolderOpen)
 interopIcon(FolderSearch2)
 interopIcon(Github)
 interopIcon(Globe)
 interopIcon(HardDrive)
 interopIcon(HeartPulse)
+interopIcon(Palette)
+interopIcon(Image)
+interopIcon(ImageOff)
 interopIcon(Info)
 interopIcon(Languages)
 interopIcon(Lightbulb)
@@ -115,6 +136,7 @@ interopIcon(ScanQrCode)
 interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
+interopIcon(Share)
 interopIcon(ShieldCheck)
 interopIcon(Sparkles)
 interopIcon(Wrench)
@@ -131,28 +153,38 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   return Wrapped
 }
 
+const ArrowUpIcon = withDefaultIconClass(ArrowUp)
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
+const AtSignIcon = withDefaultIconClass(AtSign)
 const AudioLinesIcon = withDefaultIconClass(AudioLines)
+const BrushCleaningIcon = withDefaultIconClass(BrushCleaning)
 const CameraIcon = withDefaultIconClass(Camera)
+const CheckIcon = withDefaultIconClass(Check)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
+const ChevronsRightIcon = withDefaultIconClass(ChevronsRight)
 const CircleDollarSignIcon = withDefaultIconClass(CircleDollarSign)
 const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
 const CopyIcon = withDefaultIconClass(Copy)
 const CopyrightIcon = withDefaultIconClass(Copyright)
+const DownloadIcon = withDefaultIconClass(Download)
 const Edit3Icon = withDefaultIconClass(Edit3)
 const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
 const FileTextIcon = withDefaultIconClass(FileText)
 const FolderIcon = withDefaultIconClass(Folder)
+const FolderClosedIcon = withDefaultIconClass(FolderClosed)
 const FolderOpenIcon = withDefaultIconClass(FolderOpen)
 const FolderSearch2Icon = withDefaultIconClass(FolderSearch2)
 const GithubIcon = withDefaultIconClass(Github)
 const GlobeIcon = withDefaultIconClass(Globe)
 const HardDriveIcon = withDefaultIconClass(HardDrive)
 const HeartPulseIcon = withDefaultIconClass(HeartPulse)
+const PaletteIcon = withDefaultIconClass(Palette)
+const ImageIcon = withDefaultIconClass(Image)
+const ImageOffIcon = withDefaultIconClass(ImageOff)
 const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
 const LightbulbIcon = withDefaultIconClass(Lightbulb)
@@ -176,6 +208,7 @@ const ScanQrCodeIcon = withDefaultIconClass(ScanQrCode)
 const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
+const ShareIcon = withDefaultIconClass(Share)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
 const SparklesIcon = withDefaultIconClass(Sparkles)
 const WrenchIcon = withDefaultIconClass(Wrench)
@@ -186,28 +219,38 @@ const WifiIcon = withDefaultIconClass(Wifi)
 const XIcon = withDefaultIconClass(X)
 
 export {
+  ArrowUpIcon as ArrowUp,
   ArrowLeftIcon as ArrowLeft,
   ArrowLeftRightIcon as ArrowLeftRight,
   ArrowUpRightIcon as ArrowUpRight,
+  AtSignIcon as AtSign,
   AudioLinesIcon as AudioLines,
+  BrushCleaningIcon as BrushCleaning,
   CameraIcon as Camera,
+  CheckIcon as Check,
   ChevronDownIcon as ChevronDown,
+  ChevronsRightIcon as ChevronsRight,
   CircleDollarSignIcon as CircleDollarSign,
   CirclePauseIcon as CirclePause,
   CloudIcon as Cloud,
   CopyIcon as Copy,
   CopyrightIcon as Copyright,
+  DownloadIcon as Download,
   Edit3Icon as Edit3,
   EyeIcon as Eye,
   EyeOffIcon as EyeOff,
   FileTextIcon as FileText,
   FolderIcon as Folder,
+  FolderClosedIcon as FolderClosed,
   FolderOpenIcon as FolderOpen,
   FolderSearch2Icon as FolderSearch2,
   GithubIcon as Github,
   GlobeIcon as Globe,
   HardDriveIcon as HardDrive,
   HeartPulseIcon as HeartPulse,
+  PaletteIcon as Palette,
+  ImageIcon as Image,
+  ImageOffIcon as ImageOff,
   InfoIcon as Info,
   LanguagesIcon as Languages,
   LightbulbIcon as Lightbulb,
@@ -231,6 +274,7 @@ export {
   SearchIcon as Search,
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
+  ShareIcon as Share,
   ShieldCheckIcon as ShieldCheck,
   SparklesIcon as Sparkles,
   WrenchIcon as Wrench,

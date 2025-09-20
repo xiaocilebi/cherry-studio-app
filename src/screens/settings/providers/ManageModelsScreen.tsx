@@ -16,9 +16,8 @@ import {
   XStack,
   YStack,
   IconButton
-} from '@/componentsV2'
+, SearchInput } from '@/componentsV2'
 import { Minus, Plus } from '@/componentsV2/icons/LucideIcon'
-import { SearchInput } from '@/components/ui/SearchInput'
 import {
   groupQwenModels,
   isEmbeddingModel,
@@ -37,7 +36,7 @@ import { getProviderById, saveProvider } from '@/services/ProviderService'
 import { Model, Provider } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getDefaultGroupName } from '@/utils/naming'
-import { ModelIcon } from '@/components/ui/ModelIcon'
+import { ModelIcon } from '@/componentsV2/icons'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
 const logger = loggerService.withContext('ManageModelsScreen')
 

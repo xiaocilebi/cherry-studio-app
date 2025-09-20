@@ -8,29 +8,36 @@
 
 ## 迁移概述
 
-- **数据更新时间**: 2025-09-19
-- **HeroUI 组件库**: `src/componentsV2/` 共 50 个 `.tsx` 文件，均已完成迁移并通过 `index.ts` 聚合导出。
-- **旧组件目录**: `src/components/` 共 58 个 `.tsx` 文件，其中 13 个已移除 Tamagui，45 个仍依赖 Tamagui。
+- **数据更新时间**: 2025-09-20
+- **HeroUI 组件库**: `src/componentsV2/` 共 78 个 `.tsx` 文件，77 个已脱离 Tamagui，剩余 1 个待清理（`features/ChatScreen/MessageInput/PreviewItems/PreviewItem.tsx`）。
+- **旧组件目录**: `src/components/` 共 22 个 `.tsx` 文件，其中 4 个已移除 Tamagui，18 个仍依赖 Tamagui。
 - **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移（`home/messages/MultiModelTab.tsx`, `settings/providers/ManageModelsScreen.tsx`）。
 - **其他核心入口**: 4 个基础文件仍直接引用 Tamagui (`src/App.tsx`, `src/hooks/useDialog.tsx`, `src/hooks/useToast.tsx`, `src/navigators/AssistantDetailTabNavigator.tsx`)。
-- **总体 Tamagui 引用**: 51 / 181 跟踪文件 → 已完成 130 (71.8%)。
+- **总体 Tamagui 引用**: 24 / 161 跟踪文件 → 已完成 137 (85.1%)。
 
 ## 迁移进度
 
-### ✅ HeroUI 组件 (`src/componentsV2/`, 50/50)
+### ✅ HeroUI 组件 (`src/componentsV2/`, 77/78)
 
 **Base**
 
+- [x] `base/AvatarEditButton/index.tsx`
+- [x] `base/ContextMenu/index.tsx`
 - [x] `base/CustomTag/index.tsx`
 - [x] `base/ExternalLink/index.tsx`
 - [x] `base/IconButton/index.tsx`
 - [x] `base/Image/index.tsx`
+- [x] `base/SearchInput/index.tsx`
+- [x] `base/Select/index.tsx`
+- [x] `base/SelectionSheet/index.tsx`
+- [x] `base/Skeleton/ImageSkeleton.tsx`
 - [x] `base/Text/index.tsx`
 - [x] `base/TextField/index.tsx`
 
 **Layout**
 
 - [x] `layout/Container/index.tsx`
+- [x] `layout/DrawerGestureWrapper/index.tsx`
 - [x] `layout/Group/index.tsx`
 - [x] `layout/Group/GroupTitle.tsx`
 - [x] `layout/PressableRow/index.tsx`
@@ -40,14 +47,17 @@
 - [x] `layout/XStack/index.tsx`
 - [x] `layout/YStack/index.tsx`
 
-**Features**
+**Features - 通用**
 
 - [x] `features/HeaderBar/index.tsx`
+- [x] `features/MarqueeComponent/index.tsx`
 - [x] `features/ModelGroup/index.tsx`
+- [x] `features/ModelTags/index.tsx`
+- [x] `features/Searching/index.tsx`
 - [x] `features/TopicItem/index.tsx`
 - [x] `features/TopicList/index.tsx`
 
-**Assistant**
+**Features - Assistant**
 
 - [x] `features/Assistant/AssistantItem.tsx`
 - [x] `features/Assistant/AssistantItemCard.tsx`
@@ -61,12 +71,37 @@
 - [x] `features/Assistant/PromptTabContent.tsx`
 - [x] `features/Assistant/ToolTabContent.tsx`
 
-**Chat 顶部栏**
+**Features - Chat 顶部栏**
 
 - [x] `features/ChatScreen/Header/AssistantSelection.tsx`
 - [x] `features/ChatScreen/Header/index.tsx`
 - [x] `features/ChatScreen/Header/MenuButton.tsx`
 - [x] `features/ChatScreen/Header/NewTopicButton.tsx`
+
+**Features - Chat 消息输入**
+
+- [x] `features/ChatScreen/MessageInput/PauseButton.tsx`
+- [x] `features/ChatScreen/MessageInput/PreviewItems/FileItem.tsx`
+- [x] `features/ChatScreen/MessageInput/PreviewItems/ImageItem.tsx`
+- [ ] `features/ChatScreen/MessageInput/PreviewItems/PreviewItem.tsx`（仍依赖 `tamagui` 的 `View` 容器）
+
+**Features - Menu**
+
+- [x] `features/Menu/CustomDrawerContent.tsx`
+- [x] `features/Menu/MenuTabContent.tsx`
+
+**Features - SettingsScreen**
+
+- [x] `features/SettingsScreen/AddModelSheet.tsx`
+- [x] `features/SettingsScreen/AddProviderSheet.tsx`
+- [x] `features/SettingsScreen/ApiCheckSheet.tsx`
+- [x] `features/SettingsScreen/EmptyModelView.tsx`
+- [x] `features/SettingsScreen/ModelSelect.tsx`
+- [x] `features/SettingsScreen/ProviderIconButton.tsx`
+- [x] `features/SettingsScreen/ProviderItem.tsx`
+- [x] `features/SettingsScreen/ProviderSelect.tsx`
+- [x] `features/SettingsScreen/WebSearchApiCheckSheet.tsx`
+- [x] `features/SettingsScreen/WebsearchProviderRow.tsx`
 
 **Icons**
 
@@ -80,12 +115,15 @@
 - [x] `icons/MarketIcon/index.tsx`
 - [x] `icons/MdiLightbulbIcon/index.tsx`
 - [x] `icons/ModelChangeIcon/index.tsx`
+- [x] `icons/ModelIcon/index.tsx`
 - [x] `icons/MultiModelIcon/index.tsx`
+- [x] `icons/ProviderIcon/index.tsx`
 - [x] `icons/TranslationIcon/index.tsx`
 - [x] `icons/UnionIcon/index.tsx`
 - [x] `icons/UnionPlusIcon/index.tsx`
 - [x] `icons/UserChangeIcon/index.tsx`
 - [x] `icons/VoiceIcon/index.tsx`
+- [x] `icons/WebSearchIcon/index.tsx`
 
 **Barrel**
 
@@ -93,92 +131,37 @@
 
 ### 🔄 待迁移组件
 
-#### 高优先级 - 核心 UI (`src/components/ui/`, 11/15 待迁移)
-
-- [ ] `AvatarEditButton.tsx`
-- [ ] `DatabackupIcon.tsx`
-- [ ] `ImageSkeleton.tsx`
-- [ ] `MarqueeComponent.tsx`
-- [ ] `ModelTags.tsx`
-- [ ] `SafeAreaContainer.tsx`
-- [ ] `Searching.tsx`
-- [ ] `SearchInput.tsx`
-- [ ] `Select.tsx`
-- [ ] `SelectionSheet.tsx`
-- [ ] `WebsearchIcon.tsx`
-- [x] `ContextMenu.tsx`
-- [x] `DrawerGestureWrapper.tsx`
-- [x] `ModelIcon.tsx`
-- [x] `ProviderIcon.tsx`
-
-#### 顶部导航栏组件
-
-- 旧目录 `src/components/header-bar/` 已移除，对应实现已迁移到 `src/componentsV2/features/ChatScreen/Header/`。
-
-#### 消息输入组件 (`src/components/message-input/`, 10/12 待迁移)
+#### 高优先级 - 消息输入链路 (`src/components/message-input/`, 3/9 待迁移)
 
 - [ ] `FilePreview.tsx`
-- [ ] `MentionButton.tsx`
-- [ ] `MessageInput.tsx`
-- [ ] `PauseButton.tsx`
+- [x] `MentionButton.tsx`
+- [x] `MessageInput.tsx`
+- [x] `PauseButton.tsx`
 - [ ] `SendButton.tsx`
-- [ ] `ToolPreview.tsx`
+- [x] `ToolPreview.tsx`
 - [ ] `VoiceButton.tsx`
-- [ ] `preview-items/FileItem.tsx`
-- [ ] `preview-items/ImageItem.tsx`
-- [ ] `preview-items/PreviewItem.tsx`
 - [x] `ThinkButton.tsx`
 - [x] `ToolButton.tsx`
 
-### 中等优先级 - 功能组件
+#### 中等优先级 - 弹窗与模态 (`src/components/sheets/`, 6/12 待迁移)
 
-#### 助手模块
-
-- 旧目录 `src/components/assistant/` 已清空，对应实现已迁移到 `src/componentsV2/features/Assistant/`。
-
-#### 设置 - Data (`src/components/settings/data/`, 4/4 待迁移)
-
-- [ ] `Notion.tsx`
-- [ ] `RestoreProgressModal.tsx`
-- [ ] `WebDav.tsx`
-- [ ] `Yuque.tsx`
-
-#### 设置 - Providers (`src/components/settings/providers/`, 6/8 待迁移)
-
-- [ ] `AddModelSheet.tsx`
-- [ ] `AddProviderSheet.tsx`
-- [ ] `ApiCheckSheet.tsx`
-- [ ] `EmptyModelView.tsx`
-- [ ] `ProviderIconButton.tsx`
-- [ ] `ProviderItem.tsx`
-- [x] `ModelSelect.tsx`（依赖 `ui/Select`，待基础组件迁移后回归验证）
-- [x] `ProviderSelect.tsx`（依赖 `ui/Select`，待基础组件迁移后回归验证）
-
-#### 设置 - Websearch (`src/components/settings/websearch/`, 1/3 待迁移)
-
-- [ ] `ApiCheckSheet.tsx`
-- [x] `WebsearchProviderRow.tsx`
-- [x] `WebsearchSelect.tsx`（依赖 `ui/Select`，待基础组件迁移后回归验证）
-
-#### 弹窗与模态 (`src/components/sheets/`, 10/11 待迁移)
-
-- [ ] `BottomSheetSearchInput.tsx`
-- [ ] `CitationSheet.tsx`
-- [ ] `ModelSheet.tsx`
+- [x] `BottomSheetSearchInput.tsx`
+- [x] `CitationSheet.tsx`
+- [x] `ModelSheet.tsx`
 - [ ] `ReasoningSheet.tsx`
 - [ ] `TextSelectionSheet.tsx`
 - [ ] `ToolSheet/CameraModal.tsx`
-- [ ] `ToolSheet/ExternalTools.tsx`
+- [x] `ToolSheet/ExternalTools.tsx`
 - [ ] `ToolSheet/SystemTools.tsx`
 - [ ] `ToolSheet/ToolSheet.tsx`
 - [ ] `ToolUseSheet.tsx`
+- [x] `ToolSheet.tsx`
 - [x] `WebsearchSheet.tsx`
 
-#### 菜单与话题 (`src/components/menu/`, 3/3 待迁移)
+#### 其他遗留
 
-- [ ] `CustomDrawerContent.tsx`
-- [ ] `MenuTab.tsx`
-- [ ] `MenuTabContent.tsx`
+- [ ] `src/components/settings/data/RestoreProgressModal.tsx`
+- 原 `src/components/ui/` 与 `src/components/settings/providers/` 目录已迁移并合并到 `componentsV2`。
 
 ### 页面组件 (`src/screens/`, 2/57 待迁移)
 
@@ -193,24 +176,19 @@
 - [ ] `src/hooks/useToast.tsx`
 - [ ] `src/navigators/AssistantDetailTabNavigator.tsx`
 
-### 间接依赖（等待基础组件迁移）
+### 间接依赖（等待相关组件迁移或回归验证）
 
-这些文件本身未直接引用 Tamagui，但依赖尚未迁移的 Tamagui 组件，后续需回访：
-
-- `src/components/settings/providers/ModelSelect.tsx`（依赖 `ui/Select`）
-- `src/components/settings/providers/ProviderSelect.tsx`（依赖 `ui/Select`）
-- `src/components/settings/websearch/WebsearchSelect.tsx`（依赖 `ui/Select`）
-- `src/components/sheets/WebsearchSheet.tsx`（依赖 `ui/SelectionSheet`）
+- `src/screens/home/messages/MessageContextMenu.tsx`（依赖 `src/components/sheets/TextSelectionSheet.tsx`）。
+- `src/hooks/useRestore.ts`、`src/screens/settings/data/*`（依赖 `RestoreProgressModal`）。
 
 ## 迁移指南
 
 ### 推荐迁移顺序
 
-1. **核心 UI 组件** (`src/components/ui/`)：优先处理基础控件，避免重复适配。
-2. **顶部导航栏**：直接影响全局导航体验。
-3. **消息输入链路**：保障主聊天流程可用。
-4. **功能模块组件**：逐步替换助手、设置、弹窗等场景。
-5. **页面与基础入口**：收尾阶段统一替换残留的 Tabs、主题与辅助逻辑。
+1. **消息输入链路** (`src/components/message-input/`)：迁移核心交互，确保聊天流程完整。
+2. **弹窗与模态**：统一底部弹窗与工具面板体验。
+3. **数据与设置模块**：替换 `RestoreProgressModal` 等残留组件。
+4. **页面与基础入口**：收尾阶段替换 Tabs、主题与辅助逻辑。
 
 ### 常见迁移模式
 
@@ -229,8 +207,8 @@
 
 ## 进度追踪
 
-- **总体进度**: 130 / 181 (71.8%) — 已脱离 Tamagui 的文件 / 跟踪总文件
-- **旧组件目录 (`src/components`)**: 13 / 58 (22.4%)
+- **总体进度**: 137 / 161 (85.1%) — 已脱离 Tamagui 的文件 / 跟踪总文件
+- **旧组件目录 (`src/components`)**: 5 / 22 (22.7%)
 - **页面 (`src/screens`)**: 55 / 57 (96.5%)
 - **其他核心入口**: 0 / 4 (0%)
-- **HeroUI 组件库**: 50 / 50 (100%)
+- **HeroUI 组件库**: 77 / 78 (98.7%)

@@ -71,7 +71,7 @@ export function Select<T = any>({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <XStack
-          className={`h-[46px] w-full py-3 px-4 items-center justify-between gap-2.5 rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark ${className || ''}`}
+          className={`h-[46px] w-full py-3 px-4 items-center justify-between gap-2.5 rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark ${className || ''}`}
           >
           <XStack className="flex-1 items-center overflow-hidden justify-between">
             {selectedDisplayInfo ? (

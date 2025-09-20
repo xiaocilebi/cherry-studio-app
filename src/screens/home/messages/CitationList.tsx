@@ -3,12 +3,11 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity, View } from 'react-native'
-import { Text, YStack } from '@/componentsV2'
 
 import { FallbackFavicon } from '@/componentsV2/icons'
-import CitationSheet from '@/components/sheets/CitationSheet'
 import { Citation } from '@/types/websearch'
 import { haptic } from '@/utils/haptic'
+import { CitationSheet, Text, YStack } from '@/componentsV2'
 
 interface PreviewIconProps {
   citation: Citation
@@ -51,7 +50,7 @@ const CitationsList: React.FC<CitationsListProps> = ({ citations }) => {
             <PreviewIcon key={i} citation={c} index={i} total={previewItems.length} />
           ))}
         </View>
-        <Text className="text-[10px] text-green-100 dark:text-green-dark-100`">{t('chat.citation', { count })}</Text>
+        <Text className="text-[10px] text-green-100 dark:text-green-dark-100">{t('chat.citation', { count })}</Text>
       </TouchableOpacity>
       <CitationSheet ref={bottomSheetModalRef} citations={citations} />
     </YStack>

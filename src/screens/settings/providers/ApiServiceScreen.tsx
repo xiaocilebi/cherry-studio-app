@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button } from 'heroui-native'
 
-import { ApiCheckSheet } from '@/components/settings/providers/ApiCheckSheet'
 import {
   Container,
   ExternalLink,
@@ -30,6 +29,7 @@ import { loggerService } from '@/services/LoggerService'
 import { ApiStatus, Model } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getModelUniqId } from '@/utils/model'
+import { ApiCheckSheet } from '@/componentsV2/features/SettingsScreen/ApiCheckSheet'
 const logger = loggerService.withContext('ApiServiceScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ApiServiceScreen'>

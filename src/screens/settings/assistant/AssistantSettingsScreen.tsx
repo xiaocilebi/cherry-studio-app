@@ -8,13 +8,13 @@ import { ActivityIndicator } from 'react-native'
 import { Button } from 'heroui-native'
 
 import { Container, HeaderBar, Image, SafeAreaContainer, Text, XStack, YStack, IconButton } from '@/componentsV2'
-import ModelSheet from '@/components/sheets/ModelSheet'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { AssistantSettingsStackParamList } from '@/navigators/settings/AssistantSettingsStackNavigator'
 import { Assistant, Model } from '@/types/assistant'
 import { getModelOrProviderIcon } from '@/utils/icons'
 import { getBaseModelName } from '@/utils/naming'
+import ModelSheet from '@/componentsV2/features/Sheet/ModelSheet'
 
 function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: () => void }) {
   const { t } = useTranslation()

@@ -9,7 +9,7 @@ import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
 import { MarketIcon, UnionIcon } from '@/componentsV2/icons'
-import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
+import {SafeAreaContainer} from '@/componentsV2'
 import { Divider } from 'heroui-native'
 import { MenuTabContent } from './MenuTabContent'
 import YStack from '@/componentsV2/layout/YStack'

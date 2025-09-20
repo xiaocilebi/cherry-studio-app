@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Group, GroupTitle, YStack } from '@/componentsV2'
-import { WebsearchProviderRow } from '@/components/settings/websearch/WebsearchProviderRow'
+import { WebsearchProviderRow } from '@/componentsV2/features/SettingsScreen/WebsearchProviderRow'
 import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 
 export default function ProviderSettings() {

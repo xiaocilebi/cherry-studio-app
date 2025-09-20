@@ -7,7 +7,6 @@ import { View } from 'react-native'
 
 import { Edit3, Sparkles, Trash2 } from '../../icons/LucideIcon'
 
-import ContextMenu from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
 import i18n from '@/i18n'
@@ -25,6 +24,7 @@ import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
 import TextField from '@/componentsV2/base/TextField'
+import { ContextMenu } from '@/componentsV2/base/ContextMenu'
 
 type TimeFormat = 'time' | 'date'
 

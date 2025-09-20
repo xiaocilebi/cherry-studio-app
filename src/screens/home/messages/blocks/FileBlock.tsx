@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
-import FileItem from '@/components/message-input/preview-items/FileItem'
 import { FileMessageBlock } from '@/types/message'
+import { FileItem } from '@/componentsV2'
 
 interface Props {
   block: FileMessageBlock
