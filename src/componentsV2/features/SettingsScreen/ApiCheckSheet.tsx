@@ -1,16 +1,19 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { ChevronsRight } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler } from 'react-native'
+import { BackHandler, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Spinner, Text, View, XStack, YStack } from 'tamagui'
+import { Button, Spinner } from 'heroui-native'
 
 import { useTheme } from '@/hooks/useTheme'
 import { ApiStatus, Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
+import { ChevronsRight } from '@/componentsV2/icons'
 
-import { ModelSelect } from '../../../componentsV2/features/SettingsScreen/ModelSelect'
+import { ModelSelect } from './ModelSelect'
+import YStack from '@/componentsV2/layout/YStack'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '@/componentsV2/base/Text'
 
 interface ApiCheckSheetProps {
   selectedModel: Model | undefined
@@ -66,13 +69,17 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
         onDismiss={() => setIsVisible(false)}
         onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
-          <YStack alignItems="center" paddingTop={10} paddingBottom={30} paddingHorizontal={20} gap={10}>
-            <XStack width="100%" alignItems="center" justifyContent="center">
-              <Text fontSize={24}>{t('settings.provider.api_check.title')}</Text>
+          <YStack className="items-center pt-2.5 pb-7 px-5 gap-2.5">
+            <XStack className="w-full items-center justify-center">
+              <Text className="text-2xl text-text-primary dark:text-text-primary-dark">
+                {t('settings.provider.api_check.title')}
+              </Text>
             </XStack>
 
-            <YStack width="100%" gap={5}>
-              <Text>{t('settings.provider.api_check.tooltip')}</Text>
+            <YStack className="w-full gap-1.5">
+              <Text className="text-text-primary dark:text-text-primary-dark">
+                {t('settings.provider.api_check.tooltip')}
+              </Text>
               <ModelSelect
                 value={selectedModel ? getModelUniqId(selectedModel) : undefined}
                 onValueChange={onModelChange}
@@ -81,46 +88,45 @@ export const ApiCheckSheet = forwardRef<BottomSheetModal, ApiCheckSheetProps>(
               />
             </YStack>
 
-            <XStack width="100%" alignItems="center" justifyContent="center">
+            <XStack className="w-full items-center justify-center">
               <Button
-                height={44}
-                width={224}
-                borderRadius={15}
-                backgroundColor="$green10"
-                borderColor="$green20"
-                disabled={checkApiStatus === 'processing'}
+                variant="tertiary"
+                className="h-11 w-1/2 rounded-lg bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
+                isDisabled={checkApiStatus === 'processing'}
                 onPress={onStartModelCheck}>
-                {checkApiStatus === 'processing' && (
-                  <View>
-                    <XStack gap={10} width="100%" alignItems="center" justifyContent="center">
-                      <Spinner size="small" color="$green100" />
-                      <Text fontSize={18} fontWeight="bold" color="$green100">
-                        {t('button.checking')}
-                      </Text>
-                    </XStack>
-                  </View>
-                )}
+                <Button.LabelContent>
+                  {checkApiStatus === 'processing' && (
+                    <View>
+                      <XStack className="gap-2.5 w-full items-center justify-center">
+                        <Spinner size="sm" color="success" />
+                        <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
+                          {t('button.checking')}
+                        </Text>
+                      </XStack>
+                    </View>
+                  )}
 
-                {checkApiStatus === 'idle' && (
-                  <View>
-                    <XStack width="100%" alignItems="center" justifyContent="space-between">
-                      <Text fontSize={18} fontWeight="bold" color="$green100">
-                        {t('button.start_check_model')}
-                      </Text>
-                      <ChevronsRight color="$green100" />
-                    </XStack>
-                  </View>
-                )}
+                  {checkApiStatus === 'idle' && (
+                    <View>
+                      <XStack className="w-full items-center justify-between">
+                        <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
+                          {t('button.start_check_model')}
+                        </Text>
+                        <ChevronsRight className="text-green-100 dark:text-green-dark-100" />
+                      </XStack>
+                    </View>
+                  )}
 
-                {checkApiStatus === 'success' && (
-                  <View>
-                    <XStack width="100%" alignItems="center" justifyContent="space-between">
-                      <Text fontSize={18} fontWeight="bold" color="$green100">
-                        {t('button.success')}
-                      </Text>
-                    </XStack>
-                  </View>
-                )}
+                  {checkApiStatus === 'success' && (
+                    <View>
+                      <XStack className="w-full items-center justify-center">
+                        <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
+                          {t('button.success')}
+                        </Text>
+                      </XStack>
+                    </View>
+                  )}
+                </Button.LabelContent>
               </Button>
             </XStack>
           </YStack>

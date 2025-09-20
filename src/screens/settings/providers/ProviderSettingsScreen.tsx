@@ -21,7 +21,6 @@ import {
   IconButton
 } from '@/componentsV2'
 import { HeartPulse, Plus, Settings2 } from '@/componentsV2/icons/LucideIcon'
-import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useProvider } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
@@ -30,6 +29,7 @@ import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
 import { ProvidersNavigationProps } from '@/types/naviagate'
 import { Switch } from 'heroui-native'
+import { AddModelSheet } from '@/componentsV2/features/SettingsScreen/AddModelSheet'
 
 const logger = loggerService.withContext('ProviderSettingsScreen')
 

@@ -5,12 +5,12 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { YStack, SafeAreaContainer, Container, Group, HeaderBar } from '@/componentsV2'
-import { ProviderSheet } from '@/components/settings/providers/AddProviderSheet'
-import { ProviderItem } from '@/components/settings/providers/ProviderItem'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
 import { Provider } from '@/types/assistant'
+import { AddProviderSheet } from '@/componentsV2/features/SettingsScreen/AddProviderSheet'
+import { ProviderItem } from '@/componentsV2/features/SettingsScreen/ProviderItem'
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
@@ -94,7 +94,7 @@ export default function ProviderListScreen() {
         </Container>
       )}
 
-      <ProviderSheet ref={bottomSheetRef} mode={sheetMode} editProvider={editingProvider} onSave={handleProviderSave} />
+      <AddProviderSheet ref={bottomSheetRef} mode={sheetMode} editProvider={editingProvider} onSave={handleProviderSave} />
     </SafeAreaContainer>
   )
 }

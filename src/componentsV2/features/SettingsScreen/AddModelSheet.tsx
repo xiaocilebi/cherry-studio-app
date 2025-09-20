@@ -3,12 +3,14 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, XStack, YStack } from 'tamagui'
-
+import { Button } from 'heroui-native'
 import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { Model, Provider } from '@/types/assistant'
 import { getDefaultGroupName } from '@/utils/naming'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '@/componentsV2/base/Text'
+import XStack from '@/componentsV2/layout/XStack'
 
 const logger = loggerService.withContext('AddModelSheet')
 
@@ -17,7 +19,7 @@ interface AddModelSheetProps {
   updateProvider: (provider: Provider) => Promise<void>
 }
 
-const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provider, updateProvider }, ref) => {
+export const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provider, updateProvider }, ref) => {
   const { t } = useTranslation()
   const { isDark } = useTheme()
 
@@ -84,6 +86,16 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
+  const inputStyle = {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 16,
+    backgroundColor: isDark ? '#19191C' : '#ffffffff',
+    borderWidth: 0.5,
+    borderColor: '#a0a1b066',
+    color: isDark ? '#f9f9f9ff' : '#202020ff'
+  }
+
   return (
     <BottomSheetModal
       enableDynamicSizing={true}
@@ -103,82 +115,54 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
       onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetView style={{ paddingBottom: insets.bottom }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <YStack alignItems="center" paddingBottom={30} paddingHorizontal={20} gap={10}>
-            <XStack width="100%" alignItems="center" justifyContent="center">
-              <Text fontSize={20}>{t('settings.models.add.model')}</Text>
+          <YStack className="items-center pb-7 px-5 gap-2.5">
+            <XStack className="w-full items-center justify-center">
+              <Text className="text-xl">{t('settings.models.add.model')}</Text>
             </XStack>
-            <YStack width="100%" gap={24} justifyContent="center" alignItems="center">
+            <YStack className="w-full gap-6 justify-center items-center ">
               {/* Model ID Input */}
-              <YStack width="100%" gap={8}>
-                <XStack gap={8} paddingHorizontal={12}>
-                  <Text color="$textSecondary">{t('settings.models.add.model.id')}</Text>
-                  <Text color="red">*</Text>
+              <YStack className="w-full gap-2">
+                <XStack className="gap-2 px-3">
+                  <Text className="text-text-secondary dark:text-text-secondary-dark">{t('settings.models.add.model.id')}</Text>
+                  <Text size='lg' className="text-red-500 dark:text-red-500">*</Text>
                 </XStack>
                 <BottomSheetTextInput
-                  style={{
-                    paddingHorizontal: 14,
-                    paddingVertical: 12,
-                    borderRadius: 16,
-                    backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                    borderWidth: 0.5,
-                    borderColor: '#a0a1b066',
-                    color: isDark ? '#f9f9f9ff' : '#202020ff'
-                  }}
+                  style={inputStyle}
                   placeholder={t('settings.models.add.model.id.placeholder')}
                   value={modelId}
                   onChangeText={setModelId}
                 />
               </YStack>
               {/* Model Name Input */}
-              <YStack width="100%" gap={8}>
-                <XStack gap={8} paddingHorizontal={12}>
-                  <Text color="$textSecondary">{t('settings.models.add.model.name')}</Text>
+              <YStack className="w-full gap-2">
+                <XStack className="gap-2 px-3">
+                  <Text className="text-text-secondary dark:text-text-secondary-dark">{t('settings.models.add.model.name')}</Text>
                 </XStack>
                 <BottomSheetTextInput
-                  style={{
-                    paddingHorizontal: 14,
-                    paddingVertical: 12,
-                    borderRadius: 16,
-                    backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                    borderWidth: 0.5,
-                    borderColor: '#a0a1b066',
-                    color: isDark ? '#f9f9f9ff' : '#202020ff'
-                  }}
+                  style={inputStyle}
                   placeholder={t('settings.models.add.model.name.placeholder')}
                   value={modelName}
                   onChangeText={setModelName}
                 />
               </YStack>
               {/* Model Group Input */}
-              <YStack width="100%" gap={8}>
-                <XStack gap={8} paddingHorizontal={12}>
-                  <Text color="$textSecondary">{t('settings.models.add.model.group')}</Text>
+              <YStack className="w-full gap-2">
+                <XStack className="gap-2 px-3">
+                  <Text className="text-text-secondary dark:text-text-secondary-dark">{t('settings.models.add.model.group')}</Text>
                 </XStack>
                 <BottomSheetTextInput
-                  style={{
-                    paddingHorizontal: 14,
-                    paddingVertical: 12,
-                    borderRadius: 16,
-                    backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                    borderWidth: 0.5,
-                    borderColor: '#a0a1b066',
-                    color: isDark ? '#f9f9f9ff' : '#202020ff'
-                  }}
+                  style={inputStyle}
                   placeholder={t('settings.models.add.model.group.placeholder')}
                   value={modelGroup}
                   onChangeText={setModelGroup}
                 />
               </YStack>
               <Button
-                backgroundColor="$green10"
-                borderColor="$green20"
-                color="$green100"
-                height={44}
-                width={216}
-                borderRadius={16}
+                variant='tertiary'
+                className="h-11 w-4/6 rounded-2xl bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                 onPress={handleAddModel}
-                disabled={!modelId.trim()}>
-                {t('settings.models.add.model')}
+                isDisabled={!modelId.trim()}>
+                <Button.LabelContent ><Text className='text-green-100 dark:text-green-dark-100'>{t('settings.models.add.model')}</Text></Button.LabelContent>
               </Button>
             </YStack>
           </YStack>
@@ -187,5 +171,4 @@ const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({ provid
     </BottomSheetModal>
   )
 })
-
-export { AddModelSheet }
+AddModelSheet.displayName="AddModelSheet"

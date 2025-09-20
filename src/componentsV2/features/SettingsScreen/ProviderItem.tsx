@@ -1,9 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
-import { Edit3, Trash2 } from '@tamagui/lucide-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SFSymbol } from 'sf-symbols-typescript'
-import { Text, XStack } from 'tamagui'
 
 import ContextMenu from '@/components/ui/ContextMenu'
 import { useDialog } from '@/hooks/useDialog'
@@ -11,9 +9,12 @@ import { useToast } from '@/hooks/useToast'
 import { deleteProvider } from '@/services/ProviderService'
 import { Provider } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
+import { Edit3, Trash2 } from '@/componentsV2/icons/'
+import { ProviderIcon } from '@/components/ui/ProviderIcon'
+import XStack from '@/componentsV2/layout/XStack'
+import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
+import Text from '@/componentsV2/base/Text'
 
-import { ProviderIcon } from '../../ui/ProviderIcon'
-import { RowRightArrow } from '@/componentsV2'
 
 interface ProviderItemProps {
   provider: Provider
@@ -62,22 +63,16 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
   }
 
   const providerRow = (
-    <XStack justifyContent="space-between" alignItems="center" paddingVertical={12} paddingHorizontal={16}>
-      <XStack gap={8} alignItems="center">
+    <XStack className="justify-between items-center py-3 px-4">
+      <XStack className="gap-2 items-center">
         <ProviderIcon provider={provider} />
-        <Text fontSize={16}>{t(`provider.${provider.id}`, { defaultValue: provider.name })}</Text>
+        <Text className="text-base text-text-primary dark:text-text-primary-dark">
+          {t(`provider.${provider.id}`, { defaultValue: provider.name })}
+        </Text>
       </XStack>
-      <XStack gap={10} alignItems="center">
+      <XStack className="gap-2.5 items-center">
         {shouldShowStatus && (
-          <Text
-            paddingVertical={2}
-            paddingHorizontal={8}
-            borderRadius={8}
-            borderWidth={0.5}
-            backgroundColor="$green10"
-            borderColor="$green20"
-            color="$green100"
-            fontSize={14}>
+          <Text className="py-0.5 px-2 rounded-lg border-[0.5px] bg-green-10 border-green-20 text-green-100 text-sm dark:bg-green-dark-10 dark:border-green-dark-20 dark:text-green-dark-100">
             {statusText}
           </Text>
         )}

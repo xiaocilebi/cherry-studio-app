@@ -6,6 +6,7 @@ import {
   AudioLines,
   Camera,
   ChevronDown,
+  ChevronsRight,
   CircleDollarSign,
   CirclePause,
   Cloud,
@@ -76,6 +77,7 @@ interopIcon(ArrowUpRight)
 interopIcon(AudioLines)
 interopIcon(Camera)
 interopIcon(ChevronDown)
+interopIcon(ChevronsRight)
 interopIcon(CircleDollarSign)
 interopIcon(CirclePause)
 interopIcon(CircleUserRound)
@@ -137,6 +139,7 @@ const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const AudioLinesIcon = withDefaultIconClass(AudioLines)
 const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
+const ChevronsRightIcon = withDefaultIconClass(ChevronsRight)
 const CircleDollarSignIcon = withDefaultIconClass(CircleDollarSign)
 const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
@@ -192,6 +195,7 @@ export {
   AudioLinesIcon as AudioLines,
   CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
+  ChevronsRightIcon as ChevronsRight,
   CircleDollarSignIcon as CircleDollarSign,
   CirclePauseIcon as CirclePause,
   CloudIcon as Cloud,

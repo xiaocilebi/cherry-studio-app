@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Button } from 'heroui-native'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
 import { useDialog } from '@/hooks/useDialog'
@@ -15,9 +15,9 @@ import { saveProvider } from '@/services/ProviderService'
 import { Provider, ProviderType } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 import { uuid } from '@/utils'
-
+import { YStack, XStack, Text } from '@/componentsV2'
 import { ProviderIconButton } from './ProviderIconButton'
-import { ProviderSelect } from '@/componentsV2/features/SettingsScreen/ProviderSelect'
+import { ProviderSelect } from './ProviderSelect'
 
 const logger = loggerService.withContext('ProviderSheet')
 
@@ -27,7 +27,7 @@ interface ProviderSheetProps {
   onSave?: (provider: Provider) => void
 }
 
-export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
+export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
   ({ mode = 'add', editProvider, onSave }, ref) => {
     const { t } = useTranslation()
     const { isDark } = useTheme()
@@ -125,6 +125,16 @@ export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
       }
     }
 
+    const inputStyle = {
+      paddingHorizontal: 14,
+      paddingVertical: 12,
+      borderRadius: 16,
+      backgroundColor: isDark ? '#19191C' : '#ffffffff',
+      borderWidth: 0.5,
+      borderColor: '#a0a1b066',
+      color: isDark ? '#f9f9f9ff' : '#202020ff'
+    }
+
     return (
       <BottomSheetModal
         enableDynamicSizing={true}
@@ -144,13 +154,13 @@ export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
         onChange={index => setIsVisible(index >= 0)}>
         <BottomSheetView style={{ paddingBottom: insets.bottom }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <YStack alignItems="center" paddingBottom={30} paddingHorizontal={20} gap={30}>
-              <XStack width="100%" alignItems="center" justifyContent="center">
-                <Text fontSize={20} color="$textSecondary">
+            <YStack className="items-center pb-7 px-5 gap-7">
+              <XStack className="w-full items-center justify-center">
+                <Text className="text-xl">
                   {mode === 'edit' ? t('settings.provider.edit.title') : t('settings.provider.add.title')}
                 </Text>
               </XStack>
-              <YStack width="100%" gap={24} justifyContent="center" alignItems="center">
+              <YStack className="w-full gap-6 justify-center items-center">
                 <ProviderIconButton
                   providerId={providerId}
                   iconUri={
@@ -158,21 +168,13 @@ export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
                   }
                   onImageSelected={handleImageSelected}
                 />
-                <YStack width="100%" gap={8}>
-                  <XStack gap={8} paddingHorizontal={12}>
-                    <Text color="$textSecondary">{t('settings.provider.add.name')}</Text>
-                    <Text color="red">*</Text>
+                <YStack className="w-full gap-2">
+                  <XStack className="gap-2 px-3">
+                    <Text className="text-text-secondary dark:text-text-secondary-dark">{t('settings.provider.add.name')}</Text>
+                    <Text size='lg' className="text-red-500 dark:text-red-500">*</Text>
                   </XStack>
                   <BottomSheetTextInput
-                    style={{
-                      paddingHorizontal: 14,
-                      paddingVertical: 12,
-                      borderRadius: 16,
-                      backgroundColor: isDark ? '#19191C' : '#ffffffff',
-                      borderWidth: 0.5,
-                      borderColor: '#a0a1b066',
-                      color: isDark ? '#f9f9f9ff' : '#202020ff'
-                    }}
+                    style={inputStyle}
                     placeholder={t('settings.provider.add.name.placeholder')}
                     value={providerName}
                     onChangeText={setProviderName}
@@ -184,17 +186,14 @@ export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
                   placeholder={t('settings.provider.add.type')}
                 />
                 <Button
-                  backgroundColor="$green10"
-                  borderColor="$green20"
-                  color="$green100"
-                  height={44}
-                  width={216}
-                  borderRadius={16}
-                  paddingVertical={10}
-                  paddingHorizontal={15}
-                  fontSize={16}
+                  variant='tertiary'
+                  className="h-11 w-4/6 rounded-lg bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                   onPress={handleSaveProvider}>
-                  {mode === 'edit' ? t('common.save') : t('settings.provider.add.title')}
+                  <Button.LabelContent>
+                    <Text className='text-green-100 dark:text-green-dark-100'>
+                      {mode === 'edit' ? t('common.save') : t('settings.provider.add.title')}
+                    </Text>
+                  </Button.LabelContent>
                 </Button>
               </YStack>
             </YStack>
@@ -205,4 +204,4 @@ export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
   }
 )
 
-ProviderSheet.displayName="ProviderSheet"
+AddProviderSheet.displayName = "AddProviderSheet"

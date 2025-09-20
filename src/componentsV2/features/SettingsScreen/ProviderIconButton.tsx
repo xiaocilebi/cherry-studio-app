@@ -1,21 +1,23 @@
-import { PenLine } from '@tamagui/lucide-icons'
 import * as ImagePicker from 'expo-image-picker'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Stack, YStack, Image } from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { TouchableOpacity } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 
-import { DefaultProviderIcon } from '@/componentsV2/icons'
+import { DefaultProviderIcon, PenLine } from '@/componentsV2/icons'
 import { useDialog } from '@/hooks/useDialog'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
 import { getFileType } from '@/utils/file'
+import YStack from '@/componentsV2/layout/YStack'
+import Image from '@/componentsV2/base/Image'
 
 const logger = loggerService.withContext('ProviderIconButton')
 
 // Constants for image validation
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
 const ALLOWED_FORMATS = ['png', 'jpg', 'jpeg']
+
 interface ProviderIconButtonProps {
   providerId: string
   iconUri?: string
@@ -108,43 +110,39 @@ export function ProviderIconButton({ providerId, iconUri, onImageSelected }: Pro
   }
 
   return (
-    <YStack position="relative">
-      <Button
-        size={120}
-        circular
-        borderColor="$green100"
-        borderWidth={5}
-        overflow="hidden"
-        {...(!image && {
-          paddingTop: 12,
-          paddingLeft: 19
-        })}
-        onPress={handleUploadIcon}>
-        {image ? <Image source={{ uri: image }} height={120} width={120} /> : <DefaultProviderIcon />}
-      </Button>
+    <YStack className="relative">
+      <TouchableOpacity
+        onPress={handleUploadIcon}
+        className="w-[120px] h-[120px] rounded-full border-[5px] border-green-100 overflow-hidden"
+        style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {image ? (
+          <Image
+            source={{ uri: image }}
+            className="w-[120px] h-[120px]"
+            style={{ width: 120, height: 120 }}
+          />
+        ) : (
+          <YStack className="w-full h-full pt-3 pl-5 border boder-white">
+            <DefaultProviderIcon />
+          </YStack>
+        )}
+      </TouchableOpacity>
 
-      <Stack
-        height={40}
-        width={40}
-        position="absolute"
-        borderRadius={99}
-        bottom={0}
-        right={0}
-        backgroundColor="$green100"
-        zIndex={10}
-        cursor="pointer">
+      <YStack className="absolute bottom-0 right-0 w-10 h-10 rounded-full z-10">
         <LinearGradient
-          width="100%"
-          height="100%"
-          borderRadius={99}
-          colors={['$green100', '#00B96B']}
+          colors={['#81df94', '#00B96B']}
           start={[1, 1]}
           end={[0, 0]}
-          justifyContent="center"
-          alignItems="center">
-          <PenLine size={24} />
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+          <PenLine size={24} color="white" />
         </LinearGradient>
-      </Stack>
+      </YStack>
     </YStack>
   )
 }

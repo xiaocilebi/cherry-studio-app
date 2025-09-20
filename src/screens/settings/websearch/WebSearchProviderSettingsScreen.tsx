@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button } from 'heroui-native'
 
-import { ApiCheckSheet } from '@/components/settings/websearch/ApiCheckSheet'
 import {
   Container,
   GroupTitle,
@@ -26,6 +25,7 @@ import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNav
 import WebSearchService from '@/services/WebSearchService'
 import { ApiStatus } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
+import { WebSearchApiCheckSheet } from '@/componentsV2/features/SettingsScreen/WebSearchApiCheckSheet'
 
 type WebsearchProviderSettingsRouteProp = RouteProp<WebSearchStackParamList, 'WebSearchProviderSettingsScreen'>
 
@@ -176,7 +176,7 @@ export default function WebSearchProviderSettingsScreen() {
           </TextField>
         </YStack>
       </Container>
-      <ApiCheckSheet ref={bottomSheetRef} onStartModelCheck={checkSearch} checkApiStatus={checkApiStatus} />
+      <WebSearchApiCheckSheet ref={bottomSheetRef} onStartModelCheck={checkSearch} checkApiStatus={checkApiStatus} />
     </SafeAreaContainer>
   )
 }
