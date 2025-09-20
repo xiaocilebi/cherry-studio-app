@@ -5,11 +5,11 @@ import Animated from 'react-native-reanimated'
 import { Accordion, AccordionLayoutTransition, Chip } from 'heroui-native'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
-import { ModelTags } from '@/components/ui/ModelTags'
 import { Model } from '@/types/assistant'
 import XStack from '@/componentsV2/layout/XStack'
 import Text from '@/componentsV2/base/Text'
 import YStack from '@/componentsV2/layout/YStack'
+import { ModelTags } from '../ModelTags'
 
 export interface ModelGroupProps {
   /** Model groups data in format [[groupName, models[]], ...] */

@@ -1,7 +1,6 @@
 import { CircleDollarSign, Eye, Globe, Languages, Lightbulb, Repeat2, Wrench } from '@/componentsV2/icons/LucideIcon'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { XStack } from 'tamagui'
 
 import {
   isEmbeddingModel,
@@ -13,7 +12,8 @@ import {
   isWebSearchModel
 } from '@/config/models'
 import { Model } from '@/types/assistant'
-import { CustomTag } from '@/componentsV2'
+import XStack from '@/componentsV2/layout/XStack'
+import { CustomTag } from '@/componentsV2/base/CustomTag'
 
 
 interface ModelTagsProps {
@@ -129,7 +129,7 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
   }
 
   return (
-    <XStack gap={4} alignItems="center">
+    <XStack className='gap-4 items-center'>
       {tags.map(tag => (
         <CustomTag
           key={tag.key}

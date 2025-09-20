@@ -9,7 +9,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
 
 import { ModelIcon } from '@/components/ui/ModelIcon'
-import { ModelTags } from '@/components/ui/ModelTags'
 import { isEmbeddingModel, isRerankModel } from '@/config/models'
 import { useBottom } from '@/hooks/useBottom'
 import { useAllProviders } from '@/hooks/useProviders'
@@ -17,9 +16,10 @@ import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 
-import { EmptyModelView } from '../settings/providers/EmptyModelView'
 import { ProviderIcon } from '../ui/ProviderIcon'
 import { BottomSheetSearchInput } from './BottomSheetSearchInput'
+import { EmptyModelView } from '@/componentsV2/features/SettingsScreen/EmptyModelView'
+import { ModelTags } from '@/componentsV2/features/ModelTags'
 
 interface ModelSheetProps {
   mentions: Model[]

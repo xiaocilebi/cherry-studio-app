@@ -1,20 +1,25 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import { Settings } from '@tamagui/lucide-icons'
+import { Settings2 } from '@/componentsV2/icons/LucideIcon'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
-import { Avatar, Stack, styled, Text, View, XStack, YStack } from 'tamagui'
 
-import { MenuTabContent } from '@/components/menu/MenuTabContent'
 import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
 import { MarketIcon, UnionIcon } from '@/componentsV2/icons'
-import SafeAreaContainer from '../ui/SafeAreaContainer'
-import { RowRightArrow, TopicList } from '@/componentsV2'
+import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { Divider } from 'heroui-native'
+import { MenuTabContent } from './MenuTabContent'
+import YStack from '@/componentsV2/layout/YStack'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '@/componentsV2/base/Text'
+import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
+import { TopicList } from '../TopicList'
+import Image from '@/componentsV2/base/Image'
+import PressableRow from '@/componentsV2/layout/PressableRow'
+import { IconButton } from '@/componentsV2/base/IconButton'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
@@ -54,68 +59,67 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
 
   return (
     <SafeAreaContainer>
-      <YStack gap={10} flex={1}>
-        <YStack gap={6} paddingHorizontal={10}>
-          <ListItem onPress={handleNavigateAssistantMarketScreen}>
-            <XStack gap={10} alignItems="center" justifyContent="center">
+      <YStack className="gap-2.5 flex-1">
+        <YStack className="gap-1.5 px-2.5">
+          <PressableRow
+            className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
+            onPress={handleNavigateAssistantMarketScreen}
+          >
+            <XStack className="gap-2.5 items-center justify-center">
               <MarketIcon size={24} />
-              <Text fontSize={16} color="$textPrimary">
+              <Text className="text-base ">
                 {t('assistants.market.title')}
               </Text>
             </XStack>
             <RowRightArrow />
-          </ListItem>
+          </PressableRow>
 
-          <ListItem onPress={handleNavigateAssistantScreen}>
-            <XStack gap={10} alignItems="center" justifyContent="center">
+          <PressableRow
+            className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
+            onPress={handleNavigateAssistantScreen}
+          >
+            <XStack className="gap-2.5 items-center justify-center">
               <UnionIcon size={24} />
-              <Text fontSize={16} color="$textPrimary">
+              <Text className="text-base ">
                 {t('assistants.market.my_assistant')}
               </Text>
             </XStack>
             <RowRightArrow />
-          </ListItem>
-          <Stack paddingHorizontal={10}>
+          </PressableRow>
+          <YStack className="px-2.5">
             <Divider />
-          </Stack>
+          </YStack>
         </YStack>
 
         <MenuTabContent title={t('menu.topic.recent')} onSeeAllPress={handleNavigateTopicScreen}>
-          <View flex={1} minHeight={200}>
+          <YStack className="flex-1 min-h-[200px]">
             {topics.length > 0 && (
               <TopicList topics={topics} enableScroll={true} handleNavigateChatScreen={handleNavigateChatScreen} />
             )}
-          </View>
+          </YStack>
         </MenuTabContent>
       </YStack>
 
-      <Stack paddingHorizontal={20} paddingBottom={10}>
+      <YStack className="px-5 pb-2.5">
         <Divider />
-      </Stack>
+      </YStack>
 
-      <XStack paddingHorizontal={20} justifyContent="space-between" alignItems="center">
-        <XStack gap={10} alignItems="center" onPress={handleNavigatePersonalScreen} pressStyle={{ opacity: 0.7 }}>
-          <Avatar circular size={48}>
-            <Avatar.Image accessibilityLabel="Cam" src={avatar || require('@/assets/images/favicon.png')} />
-            <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
-          </Avatar>
-          <Text fontSize={16} color="$textPrimary">
+      <XStack className="justify-between items-center">
+        <PressableRow
+          className="gap-2.5 items-center"
+          onPress={handleNavigatePersonalScreen}
+        >
+          <Image
+            className="w-12 h-12 rounded-full"
+            source={avatar ? { uri: avatar } : require('@/assets/images/favicon.png')}
+          />
+          <Text className="text-base">
             {userName || t('common.cherry_studio')}
           </Text>
-        </XStack>
-        <TouchableOpacity onPress={handleNavigateSettingsScreen} hitSlop={10}>
-          <Settings size={24} color="$textPrimary" />
-        </TouchableOpacity>
+        </PressableRow>
+        <IconButton icon={<Settings2 size={24}  />} onPress={handleNavigateSettingsScreen} style={{paddingRight: 16}}/>
+
       </XStack>
     </SafeAreaContainer>
   )
 }
-
-const ListItem = styled(XStack, {
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  paddingVertical: 10,
-  paddingHorizontal: 10,
-  borderRadius: 9,
-  pressStyle: { backgroundColor: '$gray20' }
-})

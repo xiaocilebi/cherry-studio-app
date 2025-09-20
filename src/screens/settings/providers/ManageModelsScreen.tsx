@@ -38,7 +38,7 @@ import { Model, Provider } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getDefaultGroupName } from '@/utils/naming'
 import { ModelIcon } from '@/components/ui/ModelIcon'
-import { ModelTags } from '@/components/ui/ModelTags'
+import { ModelTags } from '@/componentsV2/features/ModelTags'
 const logger = loggerService.withContext('ManageModelsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ManageModelsScreen'>
