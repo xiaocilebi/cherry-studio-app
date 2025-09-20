@@ -16,9 +16,9 @@ import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 
-import { BottomSheetSearchInput } from './BottomSheetSearchInput'
 import { EmptyModelView } from '@/componentsV2/features/SettingsScreen/EmptyModelView'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
+import { SearchInput } from '@/componentsV2'
 
 interface ModelSheetProps {
   mentions: Model[]
@@ -166,7 +166,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
         <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
           <XStack gap={5} flex={1} alignItems="center" justifyContent="center">
             <Stack flex={1}>
-              <BottomSheetSearchInput
+              <SearchInput
                 value={inputValue}
                 onChangeText={handleSearchChange}
                 placeholder={t('common.search_placeholder')}

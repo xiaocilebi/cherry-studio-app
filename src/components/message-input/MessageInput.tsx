@@ -18,13 +18,12 @@ import { FileMetadata } from '@/types/file'
 import { MessageInputBaseParams } from '@/types/message'
 import { haptic } from '@/utils/haptic'
 
-import FilePreview from './FilePreview'
 import { MentionButton } from './MentionButton'
-import { PauseButton } from './PauseButton'
 import { SendButton } from './SendButton'
 import { ThinkButton } from './ThinkButton'
 import { ToolButton } from './ToolButton'
 import ToolPreview from './ToolPreview'
+import { FilePreview, PauseButton } from '@/componentsV2'
 const logger = loggerService.withContext('Message Input')
 
 interface MessageInputProps {

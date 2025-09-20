@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { View } from 'tamagui'
 
 import { FileMetadata, FileTypes } from '@/types/file'
 import ImageItem from './ImageItem'
 import FileItem from './FileItem'
+import { View } from 'react-native'
 
 
 interface PreviewItemProps {
@@ -20,7 +20,7 @@ const PreviewItem: FC<PreviewItemProps> = ({ file, files, setFiles }) => {
   const isImage = file.type === FileTypes.IMAGE
 
   return (
-    <View style={{ marginRight: 10, marginTop: 8 }}>
+    <View className='pt-2 px-1'>
       {isImage ? (
         <ImageItem
           file={file}
