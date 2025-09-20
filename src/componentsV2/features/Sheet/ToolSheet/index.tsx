@@ -1,7 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { BackHandler } from 'react-native'
-import { YStack } from 'tamagui'
 
 import { useBottom } from '@/hooks/useBottom'
 import { useTheme } from '@/hooks/useTheme'
@@ -13,6 +12,7 @@ import { ExternalTools } from './ExternalTools'
 import { SystemTools } from './SystemTools'
 import { useAIFeatureHandler } from './useAIFeatureHandler'
 import { useFileHandler } from './useFileHandler'
+import YStack from '@/componentsV2/layout/YStack'
 
 interface ToolSheetProps {
   mentions: Model[]
@@ -22,7 +22,7 @@ interface ToolSheetProps {
   updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
+export const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
   ({ mentions, files, setFiles, assistant, updateAssistant }, ref) => {
     const { isDark } = useTheme()
     const bottom = useBottom()
@@ -86,7 +86,7 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
           onDismiss={() => setIsVisible(false)}
           onChange={index => setIsVisible(index >= 0)}>
           <BottomSheetView style={{ paddingBottom: bottom }}>
-            <YStack gap={12}>
+            <YStack className='gap-3'>
               <SystemTools
                 onCameraPress={handleCameraPress}
                 onImagePress={handleAddImage}
@@ -109,5 +109,3 @@ const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
 )
 
 ToolSheet.displayName = 'ToolSheet'
-
-export default ToolSheet

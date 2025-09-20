@@ -3,13 +3,16 @@ import { useNavigation } from '@react-navigation/native'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import { Text, RowRightArrow, XStack , SelectionSheet, SelectionSheetItem } from '@/componentsV2'
 
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
 import { WebsearchProviderIcon } from '@/componentsV2/icons'
+import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '@/componentsV2/base/Text'
+import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 
 interface WebsearchSheetProps {
   assistant: Assistant
@@ -18,7 +21,7 @@ interface WebsearchSheetProps {
   ref: React.RefObject<BottomSheetModal | null>
 }
 
-const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, updateAssistant, ref }) => {
+export const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, updateAssistant, ref }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
 
@@ -58,5 +61,3 @@ const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, updateA
 
   return <SelectionSheet items={providerItems} ref={ref} emptyContent={emptyContent} />
 }
-
-export default WebsearchSheet

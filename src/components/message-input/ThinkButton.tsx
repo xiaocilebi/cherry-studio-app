@@ -14,7 +14,7 @@ import {
   MdiLightbulbOn50,
   MdiLightbulbOn80
 } from '@/componentsV2/icons'
-import { ReasoningSheet } from '../sheets/ReasoningSheet'
+import { ReasoningSheet } from '../../componentsV2/features/Sheet/ReasoningSheet'
 import { IconButton } from '@/componentsV2'
 
 interface ThinkButtonProps {

@@ -1,11 +1,11 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { SquareFunction, Wrench } from '@tamagui/lucide-icons'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SquareFunction, Wrench } from '@/componentsV2/icons/LucideIcon'
 import { Assistant } from '@/types/assistant'
+import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
 
-import { SelectionSheet, SelectionSheetItem } from '@/componentsV2'
 
 interface ToolUseSheetProps {
   assistant: Assistant
@@ -13,21 +13,31 @@ interface ToolUseSheetProps {
   ref: React.RefObject<BottomSheetModal | null>
 }
 
-const ToolUseSheet: FC<ToolUseSheetProps> = ({ assistant, updateAssistant, ref }) => {
+export const ToolUseSheet: FC<ToolUseSheetProps> = ({ assistant, updateAssistant, ref }) => {
   const { t } = useTranslation()
 
   const toolUseOptions: SelectionSheetItem[] = [
     {
       id: 'function',
       label: t('assistants.settings.tooluse.function'),
-      icon: (isSelected: boolean) => <SquareFunction size={20} color={isSelected ? '$green100' : '$textPrimary'} />,
+      icon: (isSelected: boolean) => (
+        <SquareFunction
+          size={20}
+          className={isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}
+        />
+      ),
       isSelected: assistant.settings?.toolUseMode === 'function',
       onSelect: () => handleToolUseModeToggle('function')
     },
     {
       id: 'prompt',
       label: t('assistants.settings.tooluse.prompt'),
-      icon: (isSelected: boolean) => <Wrench size={20} color={isSelected ? '$green100' : '$textPrimary'} />,
+      icon: (isSelected: boolean) => (
+        <Wrench
+          size={20}
+          className={isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}
+        />
+      ),
       isSelected: assistant.settings?.toolUseMode === 'prompt',
       onSelect: () => handleToolUseModeToggle('prompt')
     }
@@ -47,5 +57,3 @@ const ToolUseSheet: FC<ToolUseSheetProps> = ({ assistant, updateAssistant, ref }
 
   return <SelectionSheet items={toolUseOptions} ref={ref} />
 }
-
-export default ToolUseSheet

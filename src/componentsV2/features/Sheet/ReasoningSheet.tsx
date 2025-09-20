@@ -1,7 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'tamagui'
 
 import {
   MdiLightbulbAutoOutline,
@@ -13,7 +12,8 @@ import {
 } from '@/componentsV2/icons'
 import { getThinkModelType, MODEL_SUPPORTED_OPTIONS, isDoubaoThinkingAutoModel } from '@/config/models'
 import { Assistant, Model, ThinkingOption } from '@/types/assistant'
-import { SelectionSheet, SelectionSheetItem } from '@/componentsV2'
+import { View } from 'react-native'
+import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
 
 
 interface ReasoningSheetProps {
@@ -95,7 +95,7 @@ export const ReasoningSheet: FC<ReasoningSheetProps> = ({ model, assistant, upda
     key: option,
     label: t(`assistants.settings.reasoning.${option}`),
     icon: (
-      <View width={20} height={20}>
+      <View className='w-5 h-5'>
         {createThinkingIcon(option)}
       </View>
     ),

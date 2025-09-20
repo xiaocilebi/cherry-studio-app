@@ -1,11 +1,14 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import { X } from '@tamagui/lucide-icons'
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Platform, TouchableOpacity } from 'react-native'
-import { Text, TextArea, XStack, YStack } from 'tamagui'
 
 import { useTheme } from '@/hooks/useTheme'
+import Text from '@/componentsV2/base/Text'
+import YStack from '@/componentsV2/layout/YStack'
+import XStack from '@/componentsV2/layout/XStack'
+import TextField from '@/componentsV2/base/TextField'
+import { X } from '@/componentsV2/icons'
 
 interface TextSelectionSheetProps {
   content: string
@@ -20,20 +23,13 @@ export interface TextSelectionSheetRef {
 function SelectableText({ children }) {
   if (Platform.OS === 'ios') {
     return (
-      <TextArea
-        unstyled={true}
-        color="$textPrimary"
-        multiline
-        editable={false}
-        fontSize={15}
-        lineHeight={24}
-        scrollEnabled={false}>
-        {children}
-      </TextArea>
+      <TextField className='h-full w-full'>
+          <TextField.Input className='h-full w-full text-sm leading-6 border-0 px-4 rounded-none' multiline editable={false} value={children}/>
+      </TextField>
     )
   } else {
     return (
-      <Text userSelect="all" fontSize={15} lineHeight={24}>
+      <Text className='text-sm leading-6'>
         {children}
       </Text>
     )
@@ -82,15 +78,9 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
       backdropComponent={renderBackdrop}
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
-      <YStack flex={1}>
-        <XStack
-          justifyContent="space-between"
-          alignItems="center"
-          paddingHorizontal={16}
-          paddingBottom={16}
-          borderBottomWidth={1}
-          borderBottomColor="$borderColor">
-          <Text fontSize={16} fontWeight="bold">
+      <YStack className="flex-1">
+        <XStack className="items-center justify-between border-b border-black/10 px-4 pb-4 dark:border-white/10">
+          <Text className='text-base font-bold'>
             {t('common.select_text')}
           </Text>
           <TouchableOpacity
@@ -106,9 +96,9 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
         </XStack>
         <BottomSheetScrollView
           contentContainerStyle={{
-            paddingHorizontal: 20,
-            paddingBottom: 40,
-            paddingTop: 10
+            flex:1,
+            height:'100%',
+            width:'100%',
           }}>
           <SelectableText>{content}</SelectableText>
         </BottomSheetScrollView>

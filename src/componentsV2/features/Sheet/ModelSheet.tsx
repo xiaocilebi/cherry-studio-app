@@ -1,24 +1,23 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import { BrushCleaning } from '@tamagui/lucide-icons'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, Platform, useWindowDimensions } from 'react-native'
+import { BackHandler, Platform, useWindowDimensions, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Stack, Text, View, XStack, YStack } from 'tamagui'
+import { Button } from 'heroui-native'
 
 import { ModelIcon, ProviderIcon } from '@/componentsV2/icons'
+import { BrushCleaning } from '@/componentsV2/icons/LucideIcon'
 import { isEmbeddingModel, isRerankModel } from '@/config/models'
 import { useBottom } from '@/hooks/useBottom'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
-
 import { EmptyModelView } from '@/componentsV2/features/SettingsScreen/EmptyModelView'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
-import { SearchInput } from '@/componentsV2'
+import { SearchInput, XStack, YStack, Text } from '@/componentsV2'
 
 interface ModelSheetProps {
   mentions: Model[]
@@ -163,75 +162,90 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
       <BottomSheetScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: insets.bottom }}>
-        <YStack gap={16} paddingHorizontal={20} paddingBottom={20}>
-          <XStack gap={5} flex={1} alignItems="center" justifyContent="center">
-            <Stack flex={1}>
+        <YStack className="gap-4 px-5 pb-5">
+          <XStack className="gap-[5px] flex-1 items-center justify-center">
+            <YStack className="flex-1">
               <SearchInput
                 value={inputValue}
                 onChangeText={handleSearchChange}
                 placeholder={t('common.search_placeholder')}
               />
-            </Stack>
+            </YStack>
             {multiple && (
               <Button
-                circular
-                backgroundColor={isMultiSelectActive ? '$green10' : '$uiCard'}
-                borderColor={isMultiSelectActive ? '$green20' : 'transparent'}
-                borderWidth={1}
+                className={`rounded-full ${
+                  isMultiSelectActive
+                    ? 'bg-green-10 dark:bg-green-dark-10 border border-green-20 dark:border-green-dark-20'
+                    : 'bg-ui-card dark:bg-ui-card-dark border border-transparent'
+                }`}
                 onPress={toggleMultiSelectMode}>
-                <Text color={isMultiSelectActive ? '$green100' : undefined}>{t('button.multiple')}</Text>
+                <Button.LabelContent>
+                  <Text className={isMultiSelectActive ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}>
+                    {t('button.multiple')}
+                  </Text>
+                </Button.LabelContent>
               </Button>
             )}
             {multiple && isMultiSelectActive && (
-              <Button circular backgroundColor="$uiCard" onPress={handleClearAll} icon={<BrushCleaning size={18} />} />
+              <Button
+                className="rounded-full bg-ui-card dark:bg-ui-card-dark"
+                isIconOnly
+                onPress={handleClearAll}>
+                <Button.LabelContent>
+                  <BrushCleaning size={18} className="text-text-primary dark:text-text-primary-dark" />
+                </Button.LabelContent>
+              </Button>
             )}
           </XStack>
           {selectOptions.length === 0 ? (
             <EmptyModelView />
           ) : (
             selectOptions.map((group, groupIndex) => (
-              <View key={group.title || group.label || groupIndex} gap={12}>
-                <XStack gap={12} alignItems="center" justifyContent="flex-start" paddingHorizontal={4}>
-                  <XStack width={32} height={32} borderRadius={8} alignItems="center" justifyContent="center">
+              <View key={group.title || group.label || groupIndex} className="gap-3">
+                <XStack className="gap-3 items-center justify-start px-1">
+                  <XStack className="w-8 h-8 rounded-lg items-center justify-center">
                     <ProviderIcon provider={group.provider} />
                   </XStack>
-                  <Text fontSize={15} fontWeight="bold" color="$gray12">
+                  <Text className="text-[15px] font-bold text-gray-80 dark:text-gray-80">
                     {group.label}
                   </Text>
                 </XStack>
-                <YStack gap={6}>
+                <YStack className="gap-1.5">
                   {group.options.map(item => (
                     <Button
                       key={item.value}
+                      variant="ghost"
                       onPress={() => handleModelToggle(item.value)}
-                      justifyContent="space-between"
-                      chromeless
-                      paddingHorizontal={8}
-                      paddingVertical={8}
-                      borderWidth={1}
-                      borderRadius={16}
-                      borderColor={selectedModels.includes(item.value) ? '$green20' : 'transparent'}
-                      backgroundColor={selectedModels.includes(item.value) ? '$green10' : 'transparent'}>
-                      <XStack gap={8} flex={1} alignItems="center" justifyContent="space-between" width="100%">
-                        <XStack gap={8} flex={1} alignItems="center" maxWidth="80%">
-                          {/* Model icon */}
-                          <XStack justifyContent="center" alignItems="center" flexShrink={0}>
-                            <ModelIcon model={item.model} />
+                      className={`justify-between px-2 py-2 rounded-2xl border ${
+                        selectedModels.includes(item.value)
+                          ? 'border-green-20 dark:border-green-dark-20 bg-green-10 dark:bg-green-dark-10'
+                          : 'border-transparent bg-transparent'
+                      }`}>
+                      <Button.LabelContent>
+                        <XStack className="gap-2 flex-1 items-center justify-between w-full">
+                          <XStack className="gap-2 flex-1 items-center max-w-[80%]">
+                            {/* Model icon */}
+                            <XStack className="justify-center items-center flex-shrink-0">
+                              <ModelIcon model={item.model} />
+                            </XStack>
+                            {/* Model name */}
+                            <Text
+                              className={`flex-1 ${
+                                selectedModels.includes(item.value)
+                                  ? 'text-green-100 dark:text-green-dark-100'
+                                  : 'text-text-primary dark:text-text-primary-dark'
+                              }`}
+                              numberOfLines={1}
+                              ellipsizeMode="tail">
+                              {item.label}
+                            </Text>
                           </XStack>
-                          {/* Model name */}
-                          <Text
-                            color={selectedModels.includes(item.value) ? '$green100' : undefined}
-                            numberOfLines={1}
-                            ellipsizeMode="tail"
-                            flex={1}>
-                            {item.label}
-                          </Text>
+                          <XStack className="gap-2 items-center flex-shrink-0">
+                            {/* Model tags */}
+                            <ModelTags model={item.model} size={11} />
+                          </XStack>
                         </XStack>
-                        <XStack gap={8} alignItems="center" flexShrink={0}>
-                          {/* Model tags */}
-                          <ModelTags model={item.model} size={11} />
-                        </XStack>
-                      </XStack>
+                      </Button.LabelContent>
                     </Button>
                   ))}
                 </YStack>

@@ -1,78 +1,69 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import { X } from '@tamagui/lucide-icons'
 import * as ExpoLinking from 'expo-linking'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, TouchableOpacity } from 'react-native'
-import { Stack, Text, View, XStack, YStack } from 'tamagui'
 
+import { FallbackFavicon, X } from '@/componentsV2/icons'
 import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import { Citation } from '@/types/websearch'
 import { getWebsiteBrand } from '@/utils/websearch'
+import XStack from '@/componentsV2/layout/XStack'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '@/componentsV2/base/Text'
 
-import { FallbackFavicon } from '@/componentsV2/icons'
 const logger = loggerService.withContext('Citation Sheet')
 
-interface CitationSheetProps {
+export interface CitationSheetProps {
   citations: Citation[]
 }
 
-const CitationTitle = ({ number, title }: { number: number; title: string }) => {
-  return (
-    <XStack gap={10} alignItems="center">
-      <Stack
-        borderRadius={99}
-        borderWidth={0.5}
-        padding={3}
-        justifyContent="center"
-        alignItems="center"
-        borderColor="$green20"
-        backgroundColor="$green10"
-        minWidth={20}>
-        <Text fontSize={10} textAlign="center" color="$green100">
-          {number}
-        </Text>
-      </Stack>
-      <Stack flex={1}>
-        <Text fontSize={14} numberOfLines={1} ellipsizeMode="tail">
-          {title}
-        </Text>
-      </Stack>
-    </XStack>
-  )
-}
+const CitationTitle = ({ number, title }: { number: number; title: string }) => (
+  <XStack className="items-center gap-2.5">
+    <YStack className="w-5 h-5 items-center justify-center rounded-sm border border-green-20 bg-green-10 px-1 py-0.5 dark:border-green-dark-20 dark:bg-green-dark-10">
+      <Text className="text-center text-[10px] text-green-100 dark:text-green-dark-100">{number}</Text>
+    </YStack>
+    <YStack className="flex-1">
+      <Text className="text-base text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
+        {title}
+      </Text>
+    </YStack>
+  </XStack>
+)
 
 const Content = ({ content }: { content: string }) => (
-  <XStack marginTop={4}>
-    <Text fontSize={12} lineHeight={16} numberOfLines={3} color="$textSecondary" ellipsizeMode="tail">
+  <XStack className="mt-1">
+    <Text
+      className="text-sm leading-4 text-text-secondary dark:text-text-secondary-dark"
+      numberOfLines={3}
+      ellipsizeMode="tail">
       {content}
     </Text>
   </XStack>
 )
 
 const Footer = ({ url, title }: { url: string; title: string }) => (
-  <XStack gap={6} alignItems="center" marginTop={4}>
+  <XStack className="mt-1.5 items-center gap-1.5">
     <FallbackFavicon hostname={new URL(url).hostname} alt={title || ''} />
-    <Text lineHeight={20} fontSize={10}>
-      {getWebsiteBrand(url)}
-    </Text>
+    <Text className="text-[10px] leading-5 text-text-secondary dark:text-text-secondary-dark">{getWebsiteBrand(url)}</Text>
   </XStack>
 )
 
-const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url: string) => void }) => {
-  return (
-    <YStack paddingVertical={10} gap={5}>
-      <TouchableOpacity onPress={() => onPress(citation.url)}>
-        <CitationTitle number={citation.number} title={citation.title || ''} />
-        <Content content={citation.content || ''} />
-        <Footer url={citation.url} title={citation.title || ''} />
-      </TouchableOpacity>
-    </YStack>
-  )
-}
+const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url: string) => void }) => (
+  <YStack className="gap-2 py-2.5">
+    <TouchableOpacity
+      className="gap-2"
+      activeOpacity={0.7}
+      onPress={() => onPress(citation.url)}>
+      <CitationTitle number={citation.number} title={citation.title || ''} />
+      <Content content={citation.content || ''} />
+      <Footer url={citation.url} title={citation.title || ''} />
+    </TouchableOpacity>
+  </YStack>
+)
 
-const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citations }, ref) => {
+export const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citations }, ref) => {
   const { t } = useTranslation()
   const { isDark } = useTheme()
   const [isVisible, setIsVisible] = useState(false)
@@ -89,7 +80,6 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
     return () => backHandler.remove()
   }, [ref, isVisible])
 
-  // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
@@ -112,6 +102,8 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
     }
   }
 
+  const citationItems = citations ?? []
+
   return (
     <BottomSheetModal
       snapPoints={['40%', '90%']}
@@ -121,22 +113,14 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
         borderRadius: 30,
         backgroundColor: isDark ? '#121213ff' : '#f7f7f7ff'
       }}
-      backdropComponent={renderBackdrop}
       handleIndicatorStyle={{
         backgroundColor: isDark ? '#f9f9f9ff' : '#202020ff'
       }}
+      backdropComponent={renderBackdrop}
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
-      <XStack
-        justifyContent="space-between"
-        alignItems="center"
-        paddingHorizontal={16}
-        paddingBottom={16}
-        borderBottomWidth={1}
-        borderBottomColor="$borderColor">
-        <Text fontSize={16} fontWeight="bold">
-          {t('common.source')}
-        </Text>
+      <XStack className="items-center justify-between border-b border-black/10 px-4 pb-4 dark:border-white/10">
+        <Text className="text-base font-bold text-text-primary dark:text-text-primary-dark">{t('common.source')}</Text>
         <TouchableOpacity
           style={{
             padding: 4,
@@ -148,18 +132,16 @@ const CitationSheet = forwardRef<BottomSheetModal, CitationSheetProps>(({ citati
           <X size={16} />
         </TouchableOpacity>
       </XStack>
-      <BottomSheetScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingHorizontal: 20,
-          paddingBottom: 40,
-          paddingTop: 10
-        }}>
-        {citations.map((citation, index) => (
-          <View key={index} borderBottomWidth={index < citations.length - 1 ? 1 : 0} borderBottomColor="$borderColor">
-            <CitationCard citation={citation} onPress={handlePress} />
-          </View>
-        ))}
+      <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+        <YStack className="px-5 pb-10 pt-2">
+          {citationItems.map((citation, index) => (
+            <YStack
+              key={`${citation.url}-${index}`}
+              className={`${index < citationItems.length - 1 ? 'border-b border-black/5 dark:border-white/5' : ''}`}>
+              <CitationCard citation={citation} onPress={handlePress} />
+            </YStack>
+          ))}
+        </YStack>
       </BottomSheetScrollView>
     </BottomSheetModal>
   )

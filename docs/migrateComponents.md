@@ -143,15 +143,15 @@
 - [x] `ThinkButton.tsx`
 - [x] `ToolButton.tsx`
 
-#### 中等优先级 - 弹窗与模态 (`src/components/sheets/`, 9/12 待迁移)
+#### 中等优先级 - 弹窗与模态 (`src/components/sheets/`, 6/12 待迁移)
 
 - [x] `BottomSheetSearchInput.tsx`
-- [ ] `CitationSheet.tsx`
-- [ ] `ModelSheet.tsx`
+- [x] `CitationSheet.tsx`
+- [x] `ModelSheet.tsx`
 - [ ] `ReasoningSheet.tsx`
 - [ ] `TextSelectionSheet.tsx`
 - [ ] `ToolSheet/CameraModal.tsx`
-- [ ] `ToolSheet/ExternalTools.tsx`
+- [x] `ToolSheet/ExternalTools.tsx`
 - [ ] `ToolSheet/SystemTools.tsx`
 - [ ] `ToolSheet/ToolSheet.tsx`
 - [ ] `ToolUseSheet.tsx`

@@ -10,8 +10,8 @@ import { Assistant, Model } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getBaseModelName } from '@/utils/naming'
 
-import ModelSheet from '../sheets/ModelSheet'
 import { ModelIcon } from '@/componentsV2/icons'
+import ModelSheet from '@/componentsV2/features/Sheet/ModelSheet'
 
 interface MentionButtonProps {
   mentions: Model[]

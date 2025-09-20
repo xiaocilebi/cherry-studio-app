@@ -4,6 +4,7 @@ import {
   ArrowLeftRight,
   ArrowUpRight,
   AudioLines,
+  BrushCleaning,
   Camera,
   Check,
   ChevronDown,
@@ -19,12 +20,15 @@ import {
   EyeOff,
   FileText,
   Folder,
+  FolderClosed,
   FolderOpen,
   FolderSearch2,
   Github,
   Globe,
   HardDrive,
   HeartPulse,
+  Palette,
+  Image,
   ImageOff,
   Info,
   Languages,
@@ -79,6 +83,7 @@ interopIcon(ArrowLeft)
 interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
 interopIcon(AudioLines)
+interopIcon(BrushCleaning)
 interopIcon(Camera)
 interopIcon(Check)
 interopIcon(ChevronDown)
@@ -95,12 +100,15 @@ interopIcon(Eye)
 interopIcon(EyeOff)
 interopIcon(FileText)
 interopIcon(Folder)
+interopIcon(FolderClosed)
 interopIcon(FolderOpen)
 interopIcon(FolderSearch2)
 interopIcon(Github)
 interopIcon(Globe)
 interopIcon(HardDrive)
 interopIcon(HeartPulse)
+interopIcon(Palette)
+interopIcon(Image)
 interopIcon(ImageOff)
 interopIcon(Info)
 interopIcon(Languages)
@@ -145,6 +153,7 @@ const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const AudioLinesIcon = withDefaultIconClass(AudioLines)
+const BrushCleaningIcon = withDefaultIconClass(BrushCleaning)
 const CameraIcon = withDefaultIconClass(Camera)
 const CheckIcon = withDefaultIconClass(Check)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
@@ -160,12 +169,15 @@ const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
 const FileTextIcon = withDefaultIconClass(FileText)
 const FolderIcon = withDefaultIconClass(Folder)
+const FolderClosedIcon = withDefaultIconClass(FolderClosed)
 const FolderOpenIcon = withDefaultIconClass(FolderOpen)
 const FolderSearch2Icon = withDefaultIconClass(FolderSearch2)
 const GithubIcon = withDefaultIconClass(Github)
 const GlobeIcon = withDefaultIconClass(Globe)
 const HardDriveIcon = withDefaultIconClass(HardDrive)
 const HeartPulseIcon = withDefaultIconClass(HeartPulse)
+const PaletteIcon = withDefaultIconClass(Palette)
+const ImageIcon = withDefaultIconClass(Image)
 const ImageOffIcon = withDefaultIconClass(ImageOff)
 const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
@@ -205,6 +217,7 @@ export {
   ArrowLeftRightIcon as ArrowLeftRight,
   ArrowUpRightIcon as ArrowUpRight,
   AudioLinesIcon as AudioLines,
+  BrushCleaningIcon as BrushCleaning,
   CameraIcon as Camera,
   CheckIcon as Check,
   ChevronDownIcon as ChevronDown,
@@ -220,12 +233,15 @@ export {
   EyeOffIcon as EyeOff,
   FileTextIcon as FileText,
   FolderIcon as Folder,
+  FolderClosedIcon as FolderClosed,
   FolderOpenIcon as FolderOpen,
   FolderSearch2Icon as FolderSearch2,
   GithubIcon as Github,
   GlobeIcon as Globe,
   HardDriveIcon as HardDrive,
   HeartPulseIcon as HeartPulse,
+  PaletteIcon as Palette,
+  ImageIcon as Image,
   ImageOffIcon as ImageOff,
   InfoIcon as Info,
   LanguagesIcon as Languages,
