@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Assistant } from '@/types/assistant'
 
-import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
+import { SelectionSheet, SelectionSheetItem } from '@/componentsV2'
 
 interface ToolUseSheetProps {
   assistant: Assistant

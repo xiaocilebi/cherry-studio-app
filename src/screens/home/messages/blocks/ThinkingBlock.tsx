@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 
-import MarqueeComponent from '@/components/ui/MarqueeComponent'
 import { ThinkingMessageBlock } from '@/types/message'
 
 import ReactNativeMarkdown from '../../markdown/ReactNativeMarkdown'
+import { MarqueeComponent } from '@/componentsV2'
 
 interface Props {
   block: ThinkingMessageBlock

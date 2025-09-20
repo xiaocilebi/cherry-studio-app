@@ -2,8 +2,8 @@ import React from 'react'
 import { ScrollView } from 'tamagui'
 
 import { FileMetadata } from '@/types/file'
+import PreviewItem from '@/componentsV2/features/ChatScreen/MessageInput/PreviewItems/PreviewItem'
 
-import PreviewItem from './preview-items/PreviewItem'
 
 interface FilePreviewProps {
   files: FileMetadata[]

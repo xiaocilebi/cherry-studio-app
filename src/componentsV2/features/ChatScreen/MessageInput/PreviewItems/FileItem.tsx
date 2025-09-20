@@ -1,17 +1,19 @@
-import { Share, X } from '@tamagui/lucide-icons'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import FileViewer from 'react-native-file-viewer'
-import { Stack, Text, useWindowDimensions, View, XStack, YStack } from 'tamagui'
 
-import { FileIcon } from '@/componentsV2/icons'
-import ContextMenu from '@/components/ui/ContextMenu'
+import { FileIcon, Share, X } from '@/componentsV2/icons'
 import { useToast } from '@/hooks/useToast'
 import { shareFile } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
 import { formatFileSize } from '@/utils/file'
+import { ContextMenu } from '@/componentsV2/base/ContextMenu'
+import Text from '@/componentsV2/base/Text'
+import XStack from '@/componentsV2/layout/XStack'
+import YStack from '@/componentsV2/layout/YStack'
+
 const logger = loggerService.withContext('File Item')
 
 interface FileItemProps {
@@ -23,9 +25,6 @@ interface FileItemProps {
 }
 
 const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMenu }) => {
-  const { width: screenWidth } = useWindowDimensions()
-  // Default size is 30% of the screen width
-  const fileWidth = width ? width : (screenWidth - 8) * 0.45
   const { t } = useTranslation()
   const toast = useToast()
 
@@ -35,7 +34,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
     })
   }
 
-  const handleRemove = e => {
+  const handleRemove = (e: any) => {
     e.stopPropagation()
     onRemove?.(file)
   }
@@ -47,11 +46,11 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
       if (result.success) {
         logger.info('File shared successfully')
       } else {
-        toast.show(result.message, { color: '$red100', duration: 2500 })
+        toast.show(result.message, { color: 'red', duration: 2500 })
         logger.warn('Failed to share file:', result.message)
       }
     } catch (error) {
-      toast.show(t('common.error_occurred'), { color: '$red100', duration: 2500 })
+      toast.show(t('common.error_occurred'), { color: 'red', duration: 2500 })
       logger.error('Error in handleShareFile:', error)
     }
   }
@@ -64,35 +63,24 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
         {
           title: t('button.share'),
           iOSIcon: 'square.and.arrow.up',
-          androidIcon: <Share size={16} />,
+          androidIcon: <Share size={16} className="text-text-primary dark:text-text-primary-dark" />,
           onSelect: handleShareFile
         }
       ]}
       borderRadius={16}>
-      <XStack
-        gap={6}
-        borderRadius={16}
-        backgroundColor="$green20"
-        justifyContent="flex-start"
-        alignItems="center"
-        paddingVertical={6}
-        paddingHorizontal={6}
-        paddingRight={12}>
-        <Stack
-          width={34}
-          height={34}
-          gap={10}
-          borderRadius={12}
-          backgroundColor="$green100"
-          alignItems="center"
-          justifyContent="center">
-          <FileIcon size={20} />
-        </Stack>
-        <YStack justifyContent="center" gap={3}>
-          <Text fontSize={14} lineHeight={14} numberOfLines={1} ellipsizeMode="middle">
+      <XStack className="gap-1.5 rounded-lg bg-green-20 dark:bg-green-dark-20 justify-start items-center py-1.5 px-1.5 pr-3">
+        <View className="w-9 h-9 gap-2 rounded-[9.5px] bg-green-100 dark:bg-green-dark-100 items-center justify-center">
+          <FileIcon size={20} className="text-white dark:text-black" />
+        </View>
+        <YStack className="justify-center gap-0.75">
+          <Text
+            className="text-sm leading-3.5 text-text-primary dark:text-text-primary-dark"
+            numberOfLines={1}
+            ellipsizeMode="middle"
+          >
             {file.name}
           </Text>
-          <Text fontSize={11} lineHeight={11} color="$textSecondary">
+          <Text className="text-xs leading-2.75 text-text-secondary dark:text-text-secondary-dark">
             {formatFileSize(file.size)}
           </Text>
         </YStack>
@@ -101,15 +89,10 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
         <TouchableOpacity
           onPress={handleRemove}
           hitSlop={5}
-          style={{
-            position: 'absolute',
-            top: -6,
-            right: -6,
-            borderRadius: 99
-          }}>
-          <View borderRadius={99} backgroundColor="$foregroundGray" padding={2}>
-            <X size={14} color="#eeeeee" />
-          </View>
+          className="absolute -top-1.5 -right-1.5 rounded-full">
+            <View className="border border-white rounded-full p-0.5">
+              <X size={14}  />
+            </View>
         </TouchableOpacity>
       )}
     </ContextMenu>

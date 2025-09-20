@@ -5,8 +5,8 @@ import { SFSymbol } from 'sf-symbols-typescript'
 import * as ZeegoContextMenu from 'zeego/context-menu'
 
 import { isAndroid, isIOS } from '@/utils/device'
+import SelectionSheet from '../SelectionSheet'
 
-import SelectionSheet from './SelectionSheet'
 
 export interface ContextMenuListProps {
   title: string
@@ -28,7 +28,7 @@ export interface ContextMenuProps {
   list: ContextMenuListProps[]
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({
+export const ContextMenu: FC<ContextMenuProps> = ({
   children,
   onPress = () => {},
   list,
@@ -125,5 +125,3 @@ const ContextMenu: FC<ContextMenuProps> = ({
     )
   }
 }
-
-export default ContextMenu

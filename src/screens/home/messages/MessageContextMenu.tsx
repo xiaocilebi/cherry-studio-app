@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { TranslatedIcon, TranslationIcon } from '@/componentsV2/icons'
 import TextSelectionSheet, { TextSelectionSheetRef } from '@/components/sheets/TextSelectionSheet'
-import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
 import { useMessageActions } from '@/hooks/useMessageActions'
 import { Assistant } from '@/types/assistant'
 import { Message } from '@/types/message'
+import { ContextMenu, ContextMenuListProps } from '@/componentsV2'
 
 interface MessageItemProps {
   children: React.ReactNode

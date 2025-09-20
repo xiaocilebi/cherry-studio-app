@@ -1,8 +1,7 @@
 import React, { memo } from 'react'
 
-import ImageItem from '@/components/message-input/preview-items/ImageItem'
-import ImageSkeleton from '@/components/ui/ImageSkeleton'
 import { ImageMessageBlock, MessageBlockStatus } from '@/types/message'
+import { ImageItem, ImageSkeleton } from '@/componentsV2'
 
 interface Props {
   block: ImageMessageBlock

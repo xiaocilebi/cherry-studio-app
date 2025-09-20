@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   AudioLines,
   Camera,
+  Check,
   ChevronDown,
   ChevronsRight,
   CircleDollarSign,
@@ -12,6 +13,7 @@ import {
   Cloud,
   Copy,
   Copyright,
+  Download,
   Edit3,
   Eye,
   EyeOff,
@@ -23,6 +25,7 @@ import {
   Globe,
   HardDrive,
   HeartPulse,
+  ImageOff,
   Info,
   Languages,
   Lightbulb,
@@ -47,6 +50,7 @@ import {
   Search,
   Settings2,
   ChevronRight,
+  Share,
   ShieldCheck,
   Sparkles,
   Wrench,
@@ -76,6 +80,7 @@ interopIcon(ArrowLeftRight)
 interopIcon(ArrowUpRight)
 interopIcon(AudioLines)
 interopIcon(Camera)
+interopIcon(Check)
 interopIcon(ChevronDown)
 interopIcon(ChevronsRight)
 interopIcon(CircleDollarSign)
@@ -84,6 +89,7 @@ interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copy)
 interopIcon(Copyright)
+interopIcon(Download)
 interopIcon(Edit3)
 interopIcon(Eye)
 interopIcon(EyeOff)
@@ -95,6 +101,7 @@ interopIcon(Github)
 interopIcon(Globe)
 interopIcon(HardDrive)
 interopIcon(HeartPulse)
+interopIcon(ImageOff)
 interopIcon(Info)
 interopIcon(Languages)
 interopIcon(Lightbulb)
@@ -117,6 +124,7 @@ interopIcon(ScanQrCode)
 interopIcon(Search)
 interopIcon(Settings2)
 interopIcon(ChevronRight)
+interopIcon(Share)
 interopIcon(ShieldCheck)
 interopIcon(Sparkles)
 interopIcon(Wrench)
@@ -138,6 +146,7 @@ const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
 const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const AudioLinesIcon = withDefaultIconClass(AudioLines)
 const CameraIcon = withDefaultIconClass(Camera)
+const CheckIcon = withDefaultIconClass(Check)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
 const ChevronsRightIcon = withDefaultIconClass(ChevronsRight)
 const CircleDollarSignIcon = withDefaultIconClass(CircleDollarSign)
@@ -145,6 +154,7 @@ const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
 const CopyIcon = withDefaultIconClass(Copy)
 const CopyrightIcon = withDefaultIconClass(Copyright)
+const DownloadIcon = withDefaultIconClass(Download)
 const Edit3Icon = withDefaultIconClass(Edit3)
 const EyeIcon = withDefaultIconClass(Eye)
 const EyeOffIcon = withDefaultIconClass(EyeOff)
@@ -156,6 +166,7 @@ const GithubIcon = withDefaultIconClass(Github)
 const GlobeIcon = withDefaultIconClass(Globe)
 const HardDriveIcon = withDefaultIconClass(HardDrive)
 const HeartPulseIcon = withDefaultIconClass(HeartPulse)
+const ImageOffIcon = withDefaultIconClass(ImageOff)
 const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
 const LightbulbIcon = withDefaultIconClass(Lightbulb)
@@ -179,6 +190,7 @@ const ScanQrCodeIcon = withDefaultIconClass(ScanQrCode)
 const SearchIcon = withDefaultIconClass(Search)
 const Settings2Icon = withDefaultIconClass(Settings2)
 const ChevronRightIcon = withDefaultIconClass(ChevronRight)
+const ShareIcon = withDefaultIconClass(Share)
 const ShieldCheckIcon = withDefaultIconClass(ShieldCheck)
 const SparklesIcon = withDefaultIconClass(Sparkles)
 const WrenchIcon = withDefaultIconClass(Wrench)
@@ -194,6 +206,7 @@ export {
   ArrowUpRightIcon as ArrowUpRight,
   AudioLinesIcon as AudioLines,
   CameraIcon as Camera,
+  CheckIcon as Check,
   ChevronDownIcon as ChevronDown,
   ChevronsRightIcon as ChevronsRight,
   CircleDollarSignIcon as CircleDollarSign,
@@ -201,6 +214,7 @@ export {
   CloudIcon as Cloud,
   CopyIcon as Copy,
   CopyrightIcon as Copyright,
+  DownloadIcon as Download,
   Edit3Icon as Edit3,
   EyeIcon as Eye,
   EyeOffIcon as EyeOff,
@@ -212,6 +226,7 @@ export {
   GlobeIcon as Globe,
   HardDriveIcon as HardDrive,
   HeartPulseIcon as HeartPulse,
+  ImageOffIcon as ImageOff,
   InfoIcon as Info,
   LanguagesIcon as Languages,
   LightbulbIcon as Lightbulb,
@@ -235,6 +250,7 @@ export {
   SearchIcon as Search,
   Settings2Icon as Settings2,
   ChevronRightIcon as ChevronRight,
+  ShareIcon as Share,
   ShieldCheckIcon as ShieldCheck,
   SparklesIcon as Sparkles,
   WrenchIcon as Wrench,

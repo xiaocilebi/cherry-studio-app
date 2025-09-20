@@ -13,8 +13,8 @@ import {
 } from '@/componentsV2/icons'
 import { getThinkModelType, MODEL_SUPPORTED_OPTIONS, isDoubaoThinkingAutoModel } from '@/config/models'
 import { Assistant, Model, ThinkingOption } from '@/types/assistant'
+import { SelectionSheet, SelectionSheetItem } from '@/componentsV2'
 
-import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
 
 interface ReasoningSheetProps {
   model: Model

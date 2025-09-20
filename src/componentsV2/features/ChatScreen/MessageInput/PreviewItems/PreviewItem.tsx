@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import { View } from 'tamagui'
 
 import { FileMetadata, FileTypes } from '@/types/file'
-
-import FileItem from './FileItem'
 import ImageItem from './ImageItem'
+import FileItem from './FileItem'
+
 
 interface PreviewItemProps {
   file: FileMetadata

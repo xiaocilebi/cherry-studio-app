@@ -19,9 +19,8 @@ import {
   XStack,
   YStack,
   IconButton
-} from '@/componentsV2'
+, SearchInput } from '@/componentsV2'
 import { HeartPulse, Plus, Settings2 } from '@/componentsV2/icons/LucideIcon'
-import { SearchInput } from '@/components/ui/SearchInput'
 import { useProvider } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
 import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'

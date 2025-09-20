@@ -3,13 +3,12 @@ import { useNavigation } from '@react-navigation/native'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import { Text, RowRightArrow, XStack } from '@/componentsV2'
+import { Text, RowRightArrow, XStack , SelectionSheet, SelectionSheetItem } from '@/componentsV2'
 
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
-import SelectionSheet, { SelectionSheetItem } from '../ui/SelectionSheet'
 import { WebsearchProviderIcon } from '@/componentsV2/icons'
 
 interface WebsearchSheetProps {

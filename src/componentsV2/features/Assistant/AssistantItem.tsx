@@ -4,9 +4,7 @@ import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { Text, XStack, YStack } from '@/componentsV2'
 import { Trash2 } from '@/componentsV2/icons/LucideIcon'
-import ContextMenu, { ContextMenuListProps } from '@/components/ui/ContextMenu'
 import { useTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
@@ -17,6 +15,10 @@ import { Assistant } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import EmojiAvatar from './EmojiAvatar'
+import XStack from '@/componentsV2/layout/XStack'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '@/componentsV2/base/Text'
+import { ContextMenu, ContextMenuListProps } from '@/componentsV2/base/ContextMenu'
 
 const logger = loggerService.withContext('Assistant Item')
 

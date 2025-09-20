@@ -1,17 +1,17 @@
-import { Download, ImageOff, Share, X } from '@tamagui/lucide-icons'
 import { FC, useState } from 'react'
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import ImageView from 'react-native-image-viewing'
-import { Image, useWindowDimensions, View } from 'tamagui'
 
-import ContextMenu from '@/components/ui/ContextMenu'
 import { useToast } from '@/hooks/useToast'
 import { shareFile } from '@/services/FileService'
 import { saveImageToGallery } from '@/services/ImageService'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
+import { Download, Share, X, ImageOff } from '@/componentsV2/icons'
+import { ContextMenu } from '@/componentsV2/base/ContextMenu'
+import Image from '@/componentsV2/base/Image'
 
 const logger = loggerService.withContext('Image Item')
 
@@ -34,7 +34,7 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
   const { t } = useTranslation()
   const toast = useToast()
 
-  const handleRemove = e => {
+  const handleRemove = (e: any) => {
     e.stopPropagation()
     onRemove?.(file)
   }
@@ -52,11 +52,11 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
         toast.show(t('common.saved'))
         logger.info('Image saved successfully')
       } else {
-        toast.show(result.message, { color: '$red100', duration: 2500 })
+        toast.show(result.message, { color: 'red', duration: 2500 })
         logger.warn('Failed to save image:', result.message)
       }
     } catch (error) {
-      toast.show(t('common.error_occurred'), { color: '$red100', duration: 2500 })
+      toast.show(t('common.error_occurred'), { color: 'red', duration: 2500 })
       logger.error('Error in handleSaveImage:', error)
     }
   }
@@ -68,11 +68,11 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
       if (result.success) {
         logger.info('Image shared successfully')
       } else {
-        toast.show(result.message, { color: '$red100', duration: 2500 })
+        toast.show(result.message, { color: 'red', duration: 2500 })
         logger.warn('Failed to share image:', result.message)
       }
     } catch (error) {
-      toast.show(t('common.error_occurred'), { color: '$red100', duration: 2500 })
+      toast.show(t('common.error_occurred'), { color: 'red', duration: 2500 })
       logger.error('Error in handleShareImage:', error)
     }
   }
@@ -86,31 +86,34 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
           {
             title: t('button.save_image'),
             iOSIcon: 'square.and.arrow.down',
-            androidIcon: <Download size={16} />,
+            androidIcon: <Download size={16} className="text-text-primary dark:text-text-primary-dark" />,
             onSelect: handleSaveImage
           },
           {
             title: t('button.share'),
             iOSIcon: 'square.and.arrow.up',
-            androidIcon: <Share size={16} />,
+            androidIcon: <Share size={16} className="text-text-primary dark:text-text-primary-dark" />,
             onSelect: handleShareImage
           }
         ]}
         borderRadius={10}>
         {imageError ? (
           <View
-            width={imageWidth}
-            height={imageWidth}
-            borderRadius={10}
-            backgroundColor="$gray20"
-            alignItems="center"
-            justifyContent="center">
-            <ImageOff size={imageWidth * 0.3} color="$gray20" />
+            className="bg-gray-5 dark:bg-gray-dark-5 items-center justify-center rounded-2.5"
+            style={{
+              width: imageWidth,
+              height: imageWidth
+            }}>
+            <ImageOff
+              size={imageWidth * 0.3}
+              className="text-gray-20 dark:text-gray-dark-20"
+            />
           </View>
         ) : (
           <Image
-            source={{ uri: file.path, width: imageWidth, height: imageWidth }}
-            style={{ borderRadius: 10, backgroundColor: '$gray10' }}
+          style={{ width: imageWidth, height: imageWidth }}
+            source={{ uri: file.path}}
+            className="rounded-sm"
             onError={handleImageError}
           />
         )}
@@ -127,14 +130,9 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
         <TouchableOpacity
           onPress={handleRemove}
           hitSlop={5}
-          style={{
-            position: 'absolute',
-            top: -6,
-            right: -6,
-            borderRadius: 99
-          }}>
-          <View borderRadius={99} backgroundColor="$foregroundGray" padding={2}>
-            <X size={14} color="#eeeeee" />
+          className="absolute -top-1.5 -right-1.5 rounded-full">
+          <View className="border border-white rounded-full p-0.5">
+            <X size={14}  />
           </View>
         </TouchableOpacity>
       )}

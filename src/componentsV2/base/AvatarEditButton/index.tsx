@@ -1,9 +1,11 @@
 import React from 'react'
 import EmojiPicker, { EmojiType } from 'rn-emoji-keyboard'
-import { Button, Stack, Text, YStack } from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { TouchableOpacity } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 
 import { useTheme } from '@/hooks/useTheme'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '../Text'
 
 interface AvatarEditButtonProps {
   /** 头像内容 - 可以是 emoji 字符串或 React 节点（如图标） */
@@ -36,43 +38,49 @@ export function AvatarEditButton({
   }
 
   return (
-    <YStack position="relative">
-      <Button
-        size={size}
-        circular
-        borderColor="$green100"
-        borderWidth={5}
-        overflow="hidden"
+    <YStack className="relative">
+      <TouchableOpacity
         onPress={() => setIsOpen(prev => !prev)}
-        // 如果是图标，需要调整内边距
-        {...(!isEmoji && {
-          paddingTop: 12,
-          paddingLeft: 19
-        })}>
-        {isEmoji ? <Text fontSize={size * 0.58}>{content}</Text> : content}
-      </Button>
+        className="rounded-full border-[5px] border-green-100 overflow-hidden"
+        style={{
+          width: size,
+          height: size,
+          justifyContent: 'center',
+          alignItems: 'center',
+          ...((!isEmoji && {
+            paddingTop: 12,
+            paddingLeft: 19
+          }))
+        }}>
+        {isEmoji ? (
+          <Text style={{ fontSize: size * 0.58 }} className="text-text-primary dark:text-text-primary-dark">
+            {content}
+          </Text>
+        ) : (
+          content
+        )}
+      </TouchableOpacity>
 
-      <Stack
-        height={editButtonSize}
-        width={editButtonSize}
-        position="absolute"
-        borderRadius={99}
-        bottom={0}
-        right={0}
-        backgroundColor="$green100"
-        zIndex={10}>
+      <YStack
+        className="absolute bottom-0 right-0 z-10 rounded-full bg-green-100"
+        style={{
+          width: editButtonSize,
+          height: editButtonSize
+        }}>
         <LinearGradient
-          width="100%"
-          height="100%"
-          borderRadius={99}
-          colors={['$green100', '#00B96B']}
+          colors={['#81df94', '#00B96B']}
           start={[1, 1]}
           end={[0, 0]}
-          justifyContent="center"
-          alignItems="center">
+          style={{
+            width: editButtonSize,
+            height: editButtonSize,
+            borderRadius: editButtonSize / 2,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
           {editIcon}
         </LinearGradient>
-      </Stack>
+      </YStack>
       <EmojiPicker
         onEmojiSelected={handlePick}
         open={isOpen}

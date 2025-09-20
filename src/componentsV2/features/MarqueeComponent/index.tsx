@@ -1,17 +1,20 @@
-import { ChevronsRight } from '@tamagui/lucide-icons'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Spinner, Text, XStack, YStack } from 'tamagui'
+import { Spinner } from 'heroui-native'
 
 import { MessageBlockStatus, ThinkingMessageBlock } from '@/types/message'
+import { ChevronsRight } from '@/componentsV2/icons'
+import Text from '@/componentsV2/base/Text'
+import XStack from '@/componentsV2/layout/XStack'
+import YStack from '@/componentsV2/layout/YStack'
 
-interface Props {
+interface MarqueeComponentProps {
   block: ThinkingMessageBlock
   expanded: boolean
 }
 
-const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
+const MarqueeComponent: React.FC<MarqueeComponentProps> = ({ block, expanded }) => {
   const { t } = useTranslation()
   const [messages, setMessages] = useState<string[]>([])
   const queueRef = useRef<string>('')
@@ -96,13 +99,13 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
             animate={{ width: 20, height: 20, opacity: 1, marginRight: 10 }}
             exit={{ width: 0, height: 0, opacity: 0, marginRight: 0 }}
             transition={{ type: 'timing', duration: 150 }}>
-            <Spinner size="small" color="$colorBrand" />
+            <Spinner size="sm" className="text-green-100 dark:text-green-dark-100" />
           </MotiView>
         )}
       </AnimatePresence>
-      <YStack gap={5} flex={1} position="relative" height="100%">
-        <XStack justifyContent="space-between" alignItems="center">
-          <Text color="$textPrimary" fontWeight="bold" zIndex={2}>
+      <YStack className="gap-1.5 flex-1 relative h-full">
+        <XStack className="justify-between items-center">
+          <Text className="text-text-primary dark:text-text-primary-dark font-bold z-10">
             {t('chat.think', { seconds: Math.floor((block.thinking_millsec || 0) / 1000) })}
           </Text>
           <MotiView
@@ -114,7 +117,7 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
               duration: 150
             }}
             style={{ zIndex: 2 }}>
-            <ChevronsRight size={20} />
+            <ChevronsRight size={20} className="text-text-primary dark:text-text-primary-dark" />
           </MotiView>
         </XStack>
         <AnimatePresence>
@@ -129,7 +132,7 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
                 type: 'timing',
                 duration: 50
               }}>
-              <Text color="$textSecondary" fontSize={12} opacity={0.5}>
+              <Text className="text-text-secondary dark:text-text-secondary-dark text-xs opacity-50">
                 {t('chat.think_expand')}
               </Text>
             </MotiView>
@@ -179,7 +182,12 @@ const MarqueeComponent: React.FC<Props> = ({ block, expanded }) => {
                       type: 'timing',
                       duration: 150
                     }}>
-                    <Text fontSize={12} color="$color9" numberOfLines={1} ellipsizeMode="tail" lineHeight={lineHeight}>
+                    <Text
+                      className="text-xs"
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={{ lineHeight }}
+                    >
                       {message}
                     </Text>
                   </MotiView>

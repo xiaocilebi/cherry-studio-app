@@ -16,9 +16,8 @@ import {
   XStack,
   YStack,
   IconButton
-} from '@/componentsV2'
+, SearchInput } from '@/componentsV2'
 import { Minus, Plus } from '@/componentsV2/icons/LucideIcon'
-import { SearchInput } from '@/components/ui/SearchInput'
 import {
   groupQwenModels,
   isEmbeddingModel,
