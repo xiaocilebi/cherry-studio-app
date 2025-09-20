@@ -2,11 +2,11 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
-import { ModelTabContent } from '@/components/assistant/ModelTabContent'
 import { YStack } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { AssistantDetailTabParamList } from '@/navigators/AssistantDetailTabNavigator'
+import { ModelTabContent } from '@/componentsV2/features/Assistant/ModelTabContent'
 
 type ModelTabRouteProp = RouteProp<AssistantDetailTabParamList, 'ModelTab'>
 

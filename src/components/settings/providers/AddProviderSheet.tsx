@@ -17,7 +17,7 @@ import { FileMetadata } from '@/types/file'
 import { uuid } from '@/utils'
 
 import { ProviderIconButton } from './ProviderIconButton'
-import { ProviderSelect } from './ProviderSelect'
+import { ProviderSelect } from '@/componentsV2/features/SettingsScreen/ProviderSelect'
 
 const logger = loggerService.withContext('ProviderSheet')
 
@@ -27,7 +27,7 @@ interface ProviderSheetProps {
   onSave?: (provider: Provider) => void
 }
 
-const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
+export const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
   ({ mode = 'add', editProvider, onSave }, ref) => {
     const { t } = useTranslation()
     const { isDark } = useTheme()
@@ -205,4 +205,4 @@ const ProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
   }
 )
 
-export { ProviderSheet }
+ProviderSheet.displayName="ProviderSheet"

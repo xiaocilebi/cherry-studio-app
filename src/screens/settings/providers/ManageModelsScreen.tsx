@@ -3,7 +3,7 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import { groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator, ScrollView, View } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import { Tabs } from 'tamagui'
 
 import {
@@ -38,7 +38,7 @@ import { Model, Provider } from '@/types/assistant'
 import { haptic } from '@/utils/haptic'
 import { getDefaultGroupName } from '@/utils/naming'
 import { ModelIcon } from '@/components/ui/ModelIcon'
-import { ModelTags } from '@/components/ui/ModelTags'
+import { ModelTags } from '@/componentsV2/features/ModelTags'
 const logger = loggerService.withContext('ManageModelsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ManageModelsScreen'>
@@ -204,7 +204,7 @@ export default function ManageModelsScreen() {
 
   return (
     <SafeAreaContainer className="flex-1">
-      <HeaderBar title={provider?.name || t('settings.models.manage_models')} />
+     {provider && <HeaderBar title={t(`provider.${provider.id}`, { defaultValue: provider.name })} /> }
       {isLoading ? (
         <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />

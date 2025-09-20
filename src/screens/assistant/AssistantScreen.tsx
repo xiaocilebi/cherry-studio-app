@@ -6,9 +6,6 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import AssistantItem from '@/components/assistant/AssistantItem'
-import AssistantItemSkeleton from '@/components/assistant/AssistantItemSkeleton'
-import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
 import { UnionPlusIcon } from '@/componentsV2/icons'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
@@ -23,13 +20,16 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
+import AssistantItemSkeleton from '@/componentsV2/features/Assistant/AssistantItemSkeleton'
+import AssistantItem from '@/componentsV2/features/Assistant/AssistantItem'
+import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
 
   const { topics } = useTopics()
-  const { assistants, isLoading } = useExternalAssistants()
+  const { assistants,isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
 
   const {
@@ -69,6 +69,7 @@ export default function AssistantScreen() {
   const onChatNavigation = async (topicId: string) => {
     navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
   }
+
 
   return (
     <SafeAreaContainer className="pb-0">

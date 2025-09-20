@@ -10,7 +10,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { ApiStatus, Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 
-import { ModelSelect } from './ModelSelect'
+import { ModelSelect } from '../../../componentsV2/features/SettingsScreen/ModelSelect'
 
 interface ApiCheckSheetProps {
   selectedModel: Model | undefined

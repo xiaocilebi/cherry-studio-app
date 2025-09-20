@@ -2,11 +2,11 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
-import { ToolTabContent } from '@/features/Assistant/ToolTabContent'
 import { YStack } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { AssistantDetailTabParamList } from '@/navigators/AssistantDetailTabNavigator'
+import { ToolTabContent } from '@/componentsV2/features/Assistant/ToolTabContent'
 
 type ToolTabRouteProp = RouteProp<AssistantDetailTabParamList, 'ToolTab'>
 

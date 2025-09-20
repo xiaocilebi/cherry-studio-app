@@ -2,9 +2,9 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import XStack from '../../layout/XStack'
-import Text from '../../base/Text'
 import { ArrowLeft } from '../../icons/LucideIcon'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '@/componentsV2/base/Text'
 
 export interface HeaderBarButton {
   icon: React.ReactNode

@@ -6,6 +6,7 @@ import {
   AudioLines,
   Camera,
   ChevronDown,
+  CircleDollarSign,
   CirclePause,
   Cloud,
   Copy,
@@ -23,6 +24,7 @@ import {
   HeartPulse,
   Info,
   Languages,
+  Lightbulb,
   CircleUserRound,
   LucideIcon,
   Mail,
@@ -36,6 +38,7 @@ import {
   Plus,
   SquareFunction,
   RefreshCw,
+  Repeat2,
   Rocket,
   RotateCcw,
   Rss,
@@ -49,7 +52,8 @@ import {
   TextSelect,
   ThumbsUp,
   Trash2,
-  Wifi
+  Wifi,
+  X
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
 import { cn } from 'heroui-native'
@@ -72,6 +76,7 @@ interopIcon(ArrowUpRight)
 interopIcon(AudioLines)
 interopIcon(Camera)
 interopIcon(ChevronDown)
+interopIcon(CircleDollarSign)
 interopIcon(CirclePause)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
@@ -90,6 +95,7 @@ interopIcon(HardDrive)
 interopIcon(HeartPulse)
 interopIcon(Info)
 interopIcon(Languages)
+interopIcon(Lightbulb)
 interopIcon(Mail)
 interopIcon(Menu)
 interopIcon(MessageSquareDiff)
@@ -101,6 +107,7 @@ interopIcon(PenLine)
 interopIcon(Plus)
 interopIcon(SquareFunction)
 interopIcon(RefreshCw)
+interopIcon(Repeat2)
 interopIcon(Rocket)
 interopIcon(RotateCcw)
 interopIcon(Rss)
@@ -115,6 +122,7 @@ interopIcon(TextSelect)
 interopIcon(ThumbsUp)
 interopIcon(Trash2)
 interopIcon(Wifi)
+interopIcon(X)
 
 function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   const Wrapped = (({ className, ...props }: any) => (
@@ -129,6 +137,7 @@ const ArrowUpRightIcon = withDefaultIconClass(ArrowUpRight)
 const AudioLinesIcon = withDefaultIconClass(AudioLines)
 const CameraIcon = withDefaultIconClass(Camera)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
+const CircleDollarSignIcon = withDefaultIconClass(CircleDollarSign)
 const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
 const CopyIcon = withDefaultIconClass(Copy)
@@ -146,6 +155,7 @@ const HardDriveIcon = withDefaultIconClass(HardDrive)
 const HeartPulseIcon = withDefaultIconClass(HeartPulse)
 const InfoIcon = withDefaultIconClass(Info)
 const LanguagesIcon = withDefaultIconClass(Languages)
+const LightbulbIcon = withDefaultIconClass(Lightbulb)
 const CircleUserRoundIcon = withDefaultIconClass(CircleUserRound)
 const MailIcon = withDefaultIconClass(Mail)
 const MenuIcon = withDefaultIconClass(Menu)
@@ -158,6 +168,7 @@ const PenLineIcon = withDefaultIconClass(PenLine)
 const PlusIcon = withDefaultIconClass(Plus)
 const SquareFunctionIcon = withDefaultIconClass(SquareFunction)
 const RefreshCwIcon = withDefaultIconClass(RefreshCw)
+const Repeat2Icon = withDefaultIconClass(Repeat2)
 const RocketIcon = withDefaultIconClass(Rocket)
 const RotateCcwIcon = withDefaultIconClass(RotateCcw)
 const RssIcon = withDefaultIconClass(Rss)
@@ -172,6 +183,7 @@ const TextSelectIcon = withDefaultIconClass(TextSelect)
 const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
 const WifiIcon = withDefaultIconClass(Wifi)
+const XIcon = withDefaultIconClass(X)
 
 export {
   ArrowLeftIcon as ArrowLeft,
@@ -180,6 +192,7 @@ export {
   AudioLinesIcon as AudioLines,
   CameraIcon as Camera,
   ChevronDownIcon as ChevronDown,
+  CircleDollarSignIcon as CircleDollarSign,
   CirclePauseIcon as CirclePause,
   CloudIcon as Cloud,
   CopyIcon as Copy,
@@ -197,6 +210,7 @@ export {
   HeartPulseIcon as HeartPulse,
   InfoIcon as Info,
   LanguagesIcon as Languages,
+  LightbulbIcon as Lightbulb,
   CircleUserRoundIcon as CircleUserRound,
   MailIcon as Mail,
   MenuIcon as Menu,
@@ -209,6 +223,7 @@ export {
   PlusIcon as Plus,
   SquareFunctionIcon as SquareFunction,
   RefreshCwIcon as RefreshCw,
+  Repeat2Icon as Repeat2,
   RocketIcon as Rocket,
   RotateCcwIcon as RotateCcw,
   RssIcon as Rss,
@@ -222,5 +237,6 @@ export {
   TextSelectIcon as TextSelect,
   ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,
-  WifiIcon as Wifi
+  WifiIcon as Wifi,
+  XIcon as X
 }

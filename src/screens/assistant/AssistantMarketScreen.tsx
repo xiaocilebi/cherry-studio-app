@@ -5,9 +5,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import AssistantItemSheet from '@/components/assistant/market/AssistantItemSheet'
-import AssistantMarketLoading from '@/components/assistant/market/AssistantMarketLoading'
-import AssistantsTabContent from '@/components/assistant/market/AssistantsTabContent'
 import { DrawerGestureWrapper } from '@/components/ui/DrawerGestureWrapper'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { SearchInput } from '@/components/ui/SearchInput'
@@ -18,6 +15,9 @@ import { useSearch } from '@/hooks/useSearch'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
+import AssistantMarketLoading from '@/componentsV2/features/Assistant/AssistantMarketLoading'
+import AssistantsTabContent from '@/componentsV2/features/Assistant/AssistantsTabContent'
+import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
 
 export default function AssistantMarketScreen() {
   const { t } = useTranslation()

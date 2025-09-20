@@ -2,11 +2,11 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
-import { PromptTabContent } from '@/features/Assistant/PromptTabContent'
 import { YStack } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
 import { AssistantDetailTabParamList } from '@/navigators/AssistantDetailTabNavigator'
+import { PromptTabContent } from '@/componentsV2/features/Assistant/PromptTabContent'
 
 type PromptTabRouteProp = RouteProp<AssistantDetailTabParamList, 'PromptTab'>
 

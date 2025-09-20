@@ -9,7 +9,6 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
 import { YStack } from '@/componentsV2'
 
-import { HeaderBar } from '@/components/header-bar'
 import { MessageInput } from '@/components/message-input/MessageInput'
 import SafeAreaContainer from '@/components/ui/SafeAreaContainer'
 import { useBottom } from '@/hooks/useBottom'
@@ -24,6 +23,7 @@ import { haptic } from '@/utils/haptic'
 
 import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
+import { ChatScreenHeader } from '@/componentsV2/features/ChatScreen/Header'
 
 const logger = loggerService.withContext('ChatScreen')
 
@@ -112,7 +112,7 @@ const ChatScreen = () => {
           keyboardVerticalOffset={Platform.OS === 'ios' ? -20 : -specificBottom}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <YStack className="flex-1">
-            <HeaderBar topic={topic} />
+            <ChatScreenHeader topic={topic} />
 
             <View
               style={{

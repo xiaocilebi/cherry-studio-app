@@ -4,7 +4,6 @@ import { groupBy } from 'lodash'
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
-import { View } from 'react-native'
 
 import {
   Container,
@@ -24,15 +23,13 @@ import {
 import { HeartPulse, Plus, Settings2 } from '@/componentsV2/icons/LucideIcon'
 import { AddModelSheet } from '@/components/settings/providers/AddModelSheet'
 import { SearchInput } from '@/components/ui/SearchInput'
-import { CustomSwitch } from '@/components/ui/Switch'
-import { ModelIcon } from '@/components/ui/ModelIcon'
-import { ModelTags } from '@/components/ui/ModelTags'
 import { useProvider } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
 import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { loggerService } from '@/services/LoggerService'
 import { Model } from '@/types/assistant'
 import { ProvidersNavigationProps } from '@/types/naviagate'
+import { Switch } from 'heroui-native'
 
 const logger = loggerService.withContext('ProviderSettingsScreen')
 
@@ -123,7 +120,7 @@ export default function ProviderSettingsScreen() {
   return (
     <SafeAreaContainer className="flex-1">
       <HeaderBar
-        title={provider.name}
+        title={t(`provider.${provider.id}`, { defaultValue: provider.name })}
         rightButtons={[
           {
             icon: <Settings2 size={24} />,
@@ -151,7 +148,7 @@ export default function ProviderSettingsScreen() {
               <Group>
                 <Row>
                   <Text>{t('common.enabled')}</Text>
-                  <CustomSwitch checked={provider.enabled} onCheckedChange={handleEnabledChange} />
+                  <Switch color='success' isSelected={provider.enabled} onSelectedChange={handleEnabledChange} />
                 </Row>
                 <PressableRow onPress={onApiService}>
                   <Text>{t('settings.provider.api_service')}</Text>
