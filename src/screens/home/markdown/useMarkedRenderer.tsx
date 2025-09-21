@@ -56,13 +56,13 @@ class CustomRenderer extends Renderer implements RendererInterface {
     const lang = language || 'text'
     const currentColors = this.isDark ? markdownColors.dark : markdownColors.light
     return (
-      <View key={this.getKey()} className="gap-2.5 px-3.5 pt-0 pb-3.5 rounded-3 mt-2.5" style={containerStyle}>
+      <View key={this.getKey()} className="gap-2 px-3 pt-0 pb-3 rounded-3 mt-2" style={containerStyle}>
         <XStack
-          className="py-2.5 justify-between items-center border-b"
+          className="py-2 justify-between items-center border-b"
           style={{ borderColor: currentColors.codeBorder }}>
           <XStack className="gap-2 flex-1 items-center">
-            {getCodeLanguageIcon(lang) && <Image source={getCodeLanguageIcon(lang)} className="w-4.5 h-4.5" />}
-            <Text className="text-xs leading-3 text-gray-600 select-none">{lang.toUpperCase()}</Text>
+            {getCodeLanguageIcon(lang) && <Image source={getCodeLanguageIcon(lang)} className="w-5 h-5" />}
+            <Text className="text-base">{lang.toUpperCase()}</Text>
           </XStack>
           <IconButton icon={<Copy size={16} color="$gray60" />} onPress={() => this.onCopy(text)} />
         </XStack>
