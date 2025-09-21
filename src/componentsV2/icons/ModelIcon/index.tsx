@@ -20,10 +20,6 @@ export const ModelIcon: React.FC<ModelIconProps> = ({ model, size, className }) 
   const finalClassName = className ? `${sizeClass} ${className}` : sizeClass
 
   return (
-    <Image
-      className={finalClassName}
-      source={iconSource}
-      style={size ? { width: size, height: size } : undefined}
-    />
+    <Image className={finalClassName} source={iconSource} style={size ? { width: size, height: size } : undefined} />
   )
 }

@@ -487,11 +487,8 @@
             "success_description": "復元が成功しました、お楽しみください！"
           },
           "steps": {
-            "restore_assistants": "アシスタントを復元",
-            "restore_llm_providers": "LLMプロバイダーを復元",
-            "restore_messages_blocks": "メッセージとブロックの復元",
-            "restore_topics": "トピックを復元",
-            "restore_websearch": "ウェブ検索を復元する"
+            "restore_messages": "復元メッセージ",
+            "restore_settings": "設定を復元する"
           }
         },
         "third_party": "サードパーティ接続",

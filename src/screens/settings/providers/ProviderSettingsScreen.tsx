@@ -18,8 +18,9 @@ import {
   Text,
   XStack,
   YStack,
-  IconButton
-, SearchInput } from '@/componentsV2'
+  IconButton,
+  SearchInput
+} from '@/componentsV2'
 import { HeartPulse, Plus, Settings2 } from '@/componentsV2/icons/LucideIcon'
 import { useProvider } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
@@ -147,7 +148,7 @@ export default function ProviderSettingsScreen() {
               <Group>
                 <Row>
                   <Text>{t('common.enabled')}</Text>
-                  <Switch color='success' isSelected={provider.enabled} onSelectedChange={handleEnabledChange} />
+                  <Switch color="success" isSelected={provider.enabled} onSelectedChange={handleEnabledChange} />
                 </Row>
                 <PressableRow onPress={onApiService}>
                   <Text>{t('settings.provider.api_service')}</Text>

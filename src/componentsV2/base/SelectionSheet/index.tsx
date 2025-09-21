@@ -61,8 +61,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
       typeof item.label === 'string' ? (
         <Text
           className={`text-base ${item.isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}`}
-          style={item.color && !item.isSelected ? { color: item.color } : undefined}
-        >
+          style={item.color && !item.isSelected ? { color: item.color } : undefined}>
           {item.label}
         </Text>
       ) : (
@@ -88,8 +87,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
               ? 'border-green-20 bg-green-10 dark:border-green-dark-20 dark:bg-green-dark-10'
               : 'border-transparent bg-ui-card-background dark:bg-ui-card-background-dark'
           }`}
-          style={item.backgroundColor && !item.isSelected ? { backgroundColor: item.backgroundColor } : undefined}
-        >
+          style={item.backgroundColor && !item.isSelected ? { backgroundColor: item.backgroundColor } : undefined}>
           {iconElement}
           <XStack className="flex-1 gap-2.5 items-center justify-between">
             {labelElement}
@@ -105,11 +103,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
     item.key?.toString() || item.id?.toString() || item.label?.toString() || index.toString()
 
   if (items.length === 0 && emptyContent) {
-    return (
-      <YStack className="pb-7 px-4 gap-2.5">
-        {emptyContent}
-      </YStack>
-    )
+    return <YStack className="pb-7 px-4 gap-2.5">{emptyContent}</YStack>
   }
 
   const renderBackdrop = (props: any) => (

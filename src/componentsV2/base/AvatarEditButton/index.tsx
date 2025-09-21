@@ -47,10 +47,10 @@ export function AvatarEditButton({
           height: size,
           justifyContent: 'center',
           alignItems: 'center',
-          ...((!isEmoji && {
+          ...(!isEmoji && {
             paddingTop: 12,
             paddingLeft: 19
-          }))
+          })
         }}>
         {isEmoji ? (
           <Text style={{ fontSize: size * 0.58 }} className="text-text-primary dark:text-text-primary-dark">

@@ -15,8 +15,9 @@ import {
   Text,
   XStack,
   YStack,
-  IconButton
-, SearchInput } from '@/componentsV2'
+  IconButton,
+  SearchInput
+} from '@/componentsV2'
 import { Minus, Plus } from '@/componentsV2/icons/LucideIcon'
 import {
   groupQwenModels,
@@ -203,7 +204,7 @@ export default function ManageModelsScreen() {
 
   return (
     <SafeAreaContainer className="flex-1">
-     {provider && <HeaderBar title={t(`provider.${provider.id}`, { defaultValue: provider.name })} /> }
+      {provider && <HeaderBar title={t(`provider.${provider.id}`, { defaultValue: provider.name })} />}
       {isLoading ? (
         <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />

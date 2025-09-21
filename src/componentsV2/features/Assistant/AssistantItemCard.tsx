@@ -54,17 +54,18 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
         />
 
         <YStack className="flex-1 gap-2 items-center rounded-2xl py-4 px-3.5">
-          <EmojiAvatar
-            emoji={assistant.emoji}
-            size={90}
-            borderWidth={5}
-            borderColor={isDark ? '#333333' : '#f7f7f7'}
-          />
-          <Text className="text-base text-center text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
+          <EmojiAvatar emoji={assistant.emoji} size={90} borderWidth={5} borderColor={isDark ? '#333333' : '#f7f7f7'} />
+          <Text
+            className="text-base text-center text-text-primary dark:text-text-primary-dark"
+            numberOfLines={1}
+            ellipsizeMode="tail">
             {assistant.name}
           </Text>
           <YStack className="flex-1 justify-between items-center">
-            <Text className="text-text-secondary dark:text-text-secondary-dark text-xs leading-[14px]" numberOfLines={3} ellipsizeMode="tail">
+            <Text
+              className="text-text-secondary dark:text-text-secondary-dark text-xs leading-[14px]"
+              numberOfLines={3}
+              ellipsizeMode="tail">
               {assistant.description}
             </Text>
             <XStack className="gap-2.5 flex-wrap h-[18px] justify-center overflow-hidden">

@@ -44,7 +44,7 @@ export const ExternalTools: React.FC<ExternalToolsProps> = ({
       isActive: !!assistant.enableWebSearch,
       // 网络搜索模型 && 设置了工具调用 && 设置了网络搜索服务商 才能开启网络搜索
       // shouldShow: !!firstMention && isWebSearchModel(firstMention) && !!assistant.settings?.toolUseMode && !!assistant.webSearchProviderId
-      shouldShow:true
+      shouldShow: true
     },
     {
       key: 'generateImage',
@@ -53,7 +53,7 @@ export const ExternalTools: React.FC<ExternalToolsProps> = ({
       onPress: onGenerateImageToggle,
       isActive: !!assistant.enableGenerateImage,
       // shouldShow: isGenerateImageModels(mentions)
-       shouldShow:true
+      shouldShow: true
     }
   ]
 

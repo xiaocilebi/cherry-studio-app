@@ -26,13 +26,7 @@ interface SelectProps<T = any> {
   className?: string
 }
 
-export function Select<T = any>({
-  value,
-  onValueChange,
-  selectOptions,
-  placeholder,
-  className
-}: SelectProps<T>) {
+export function Select<T = any>({ value, onValueChange, selectOptions, placeholder, className }: SelectProps<T>) {
   const findSelectedItem = (selectedValue: string): SelectOptionItem<T> | undefined => {
     for (const group of selectOptions) {
       const item = group.options.find(option => option.value === selectedValue)
@@ -71,20 +65,28 @@ export function Select<T = any>({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <XStack
-          className={`h-[46px] w-full py-3 px-4 items-center justify-between gap-2.5 rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark ${className || ''}`}
-          >
+          className={`h-[46px] w-full py-3 px-4 items-center justify-between gap-2.5 rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark ${className || ''}`}>
           <XStack className="flex-1 items-center overflow-hidden justify-between">
             {selectedDisplayInfo ? (
               <>
-                <Text className="flex-shrink text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
+                <Text
+                  className="flex-shrink text-text-primary dark:text-text-primary-dark"
+                  numberOfLines={1}
+                  ellipsizeMode="tail">
                   {selectedDisplayInfo.groupLabel}
                 </Text>
-                <Text className="flex-shrink-0 max-w-[60%] text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
+                <Text
+                  className="flex-shrink-0 max-w-[60%] text-text-primary dark:text-text-primary-dark"
+                  numberOfLines={1}
+                  ellipsizeMode="tail">
                   {selectedDisplayInfo.itemLabel}
                 </Text>
               </>
             ) : (
-              <Text className="flex-1 text-text-secondary dark:text-text-secondary-dark" numberOfLines={1} ellipsizeMode="tail">
+              <Text
+                className="flex-1 text-text-secondary dark:text-text-secondary-dark"
+                numberOfLines={1}
+                ellipsizeMode="tail">
                 {placeholder}
               </Text>
             )}

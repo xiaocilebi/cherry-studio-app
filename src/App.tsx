@@ -1,5 +1,5 @@
-import 'react-native-reanimated'
 import '@/i18n'
+import 'react-native-reanimated'
 import '../global.css'
 
 import { HeroUINativeProvider } from 'heroui-native'
@@ -12,9 +12,9 @@ import { useFonts } from 'expo-font'
 import * as Localization from 'expo-localization'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite'
-import { StatusBar } from 'expo-status-bar'
 import React, { Suspense, useEffect } from 'react'
 import { ActivityIndicator } from 'react-native'
+import { SystemBars } from 'react-native-edge-to-edge'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Provider, useSelector } from 'react-redux'
@@ -109,7 +109,7 @@ function ThemedApp() {
           <KeyboardProvider>
             <NavigationContainer theme={reactNavigationTheme}>
               <Theme name={isDark ? 'dark' : 'light'}>
-                <StatusBar style={isDark ? 'light' : 'dark'} />
+                <SystemBars style={isDark ? 'light' : 'dark'} />
                 <DatabaseInitializer />
                 <DialogProvider>
                   <ToastProvider>

@@ -6,7 +6,6 @@ import { SquareFunction, Wrench } from '@/componentsV2/icons/LucideIcon'
 import { Assistant } from '@/types/assistant'
 import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
 
-
 interface ToolUseSheetProps {
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>
@@ -23,7 +22,9 @@ export const ToolUseSheet: FC<ToolUseSheetProps> = ({ assistant, updateAssistant
       icon: (isSelected: boolean) => (
         <SquareFunction
           size={20}
-          className={isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}
+          className={
+            isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'
+          }
         />
       ),
       isSelected: assistant.settings?.toolUseMode === 'function',
@@ -35,7 +36,9 @@ export const ToolUseSheet: FC<ToolUseSheetProps> = ({ assistant, updateAssistant
       icon: (isSelected: boolean) => (
         <Wrench
           size={20}
-          className={isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}
+          className={
+            isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'
+          }
         />
       ),
       isSelected: assistant.settings?.toolUseMode === 'prompt',

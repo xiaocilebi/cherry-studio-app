@@ -30,9 +30,7 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
   if (!assistants || assistants.length === 0) {
     return (
       <YStack className="flex-1 justify-center items-center p-5">
-        <Text className="text-gray-60 dark:text-gray-60 text-base">
-          {t('assistants.market.empty_state')}
-        </Text>
+        <Text className="text-gray-60 dark:text-gray-60 text-base">{t('assistants.market.empty_state')}</Text>
       </YStack>
     )
   }

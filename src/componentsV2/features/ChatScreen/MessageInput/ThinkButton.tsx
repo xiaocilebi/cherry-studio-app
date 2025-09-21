@@ -17,7 +17,6 @@ import {
 import { IconButton } from '@/componentsV2/base/IconButton'
 import { ReasoningSheet } from '../../Sheet/ReasoningSheet'
 
-
 interface ThinkButtonProps {
   assistant: Assistant
   updateAssistant: (assistant: Assistant) => Promise<void>

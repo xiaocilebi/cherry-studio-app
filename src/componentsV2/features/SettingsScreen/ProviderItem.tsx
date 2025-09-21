@@ -14,7 +14,6 @@ import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 import Text from '@/componentsV2/base/Text'
 import { ContextMenu } from '@/componentsV2/base/ContextMenu'
 
-
 interface ProviderItemProps {
   provider: Provider
   mode?: 'enabled' | 'checked' // Add mode prop to distinguish display modes

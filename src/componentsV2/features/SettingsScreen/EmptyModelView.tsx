@@ -1,6 +1,7 @@
+import Text from '@/componentsV2/base/Text'
+import YStack from '@/componentsV2/layout/YStack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, YStack } from '@/componentsV2'
 
 export const EmptyModelView: React.FC = () => {
   const { t } = useTranslation()

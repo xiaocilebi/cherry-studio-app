@@ -5,7 +5,6 @@ import ImageItem from './ImageItem'
 import FileItem from './FileItem'
 import { View } from 'react-native'
 
-
 interface PreviewItemProps {
   file: FileMetadata
   files: FileMetadata[]
@@ -20,7 +19,7 @@ const PreviewItem: FC<PreviewItemProps> = ({ file, files, setFiles }) => {
   const isImage = file.type === FileTypes.IMAGE
 
   return (
-    <View className='pt-2 px-1'>
+    <View className="pt-2 px-1">
       {isImage ? (
         <ImageItem
           file={file}

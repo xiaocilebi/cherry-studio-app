@@ -1,4 +1,3 @@
-
 import { CameraView } from 'expo-camera'
 import React from 'react'
 import { Modal, TouchableOpacity, View } from 'react-native'

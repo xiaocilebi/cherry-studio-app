@@ -15,7 +15,6 @@ import { Assistant, Model, ThinkingOption } from '@/types/assistant'
 import { View } from 'react-native'
 import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
 
-
 interface ReasoningSheetProps {
   model: Model
   assistant: Assistant
@@ -94,11 +93,7 @@ export const ReasoningSheet: FC<ReasoningSheetProps> = ({ model, assistant, upda
   const sheetOptions: SelectionSheetItem[] = supportedOptions.map(option => ({
     key: option,
     label: t(`assistants.settings.reasoning.${option}`),
-    icon: (
-      <View className='w-5 h-5'>
-        {createThinkingIcon(option)}
-      </View>
-    ),
+    icon: <View className="w-5 h-5">{createThinkingIcon(option)}</View>,
     isSelected: currentReasoningEffort === option,
     onSelect: () => onValueChange(option)
   }))

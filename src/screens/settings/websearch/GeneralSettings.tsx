@@ -59,11 +59,15 @@ export default function GeneralSettings() {
 
         <Row>
           <Text>{t('settings.websearch.searchWithDates')}</Text>
-          <Switch color="success" isSelected={searchWithDates} onSelectedChange={setSearchWithDates} />
+          <Switch color="success" isSelected={searchWithDates} onSelectedChange={setSearchWithDates}>
+            <Switch.Thumb colors={{ defaultBackground: 'white', selectedBackground: 'white' }} />
+          </Switch>
         </Row>
         <Row>
           <Text>{t('settings.websearch.overrideSearchService')}</Text>
-          <Switch color="success" isSelected={overrideSearchService} onSelectedChange={setOverrideSearchService} />
+          <Switch color="success" isSelected={overrideSearchService} onSelectedChange={setOverrideSearchService}>
+            <Switch.Thumb colors={{ defaultBackground: 'white', selectedBackground: 'white' }} />
+          </Switch>
         </Row>
       </Group>
     </YStack>

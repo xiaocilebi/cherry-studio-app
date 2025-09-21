@@ -7,7 +7,7 @@ import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
-import { YStack ,SafeAreaContainer, MessageInput} from '@/componentsV2'
+import { YStack, SafeAreaContainer, MessageInput } from '@/componentsV2'
 
 import { useBottom } from '@/hooks/useBottom'
 import { useTopic } from '@/hooks/useTopic'

@@ -65,39 +65,39 @@ export const WebSearchApiCheckSheet = forwardRef<BottomSheetModal, WebSearchApiC
                 className="h-11 w-1/2 rounded-lg bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                 isDisabled={checkApiStatus === 'processing'}
                 onPress={onStartModelCheck}>
-                  <Button.LabelContent>
-                    {checkApiStatus === 'processing' && (
-                      <View>
-                        <XStack className="gap-2.5 w-full items-center justify-center">
-                          <Spinner size="sm" color="success" />
-                          <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
-                            {t('button.checking')}
-                          </Text>
-                        </XStack>
-                      </View>
-                    )}
+                <Button.LabelContent>
+                  {checkApiStatus === 'processing' && (
+                    <View>
+                      <XStack className="gap-2.5 w-full items-center justify-center">
+                        <Spinner size="sm" color="success" />
+                        <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
+                          {t('button.checking')}
+                        </Text>
+                      </XStack>
+                    </View>
+                  )}
 
-                    {checkApiStatus === 'idle' && (
-                      <View>
-                        <XStack className="w-full items-center justify-between">
-                          <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
-                            {t('button.start_check_model')}
-                          </Text>
-                          <ChevronsRight className="text-green-100 dark:text-green-dark-100" />
-                        </XStack>
-                      </View>
-                    )}
+                  {checkApiStatus === 'idle' && (
+                    <View>
+                      <XStack className="w-full items-center justify-between">
+                        <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
+                          {t('button.start_check_model')}
+                        </Text>
+                        <ChevronsRight className="text-green-100 dark:text-green-dark-100" />
+                      </XStack>
+                    </View>
+                  )}
 
-                    {checkApiStatus === 'success' && (
-                      <View>
-                        <XStack className="w-full items-center justify-center">
-                          <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
-                            {t('button.success')}
-                          </Text>
-                        </XStack>
-                      </View>
-                    )}
-                  </Button.LabelContent>
+                  {checkApiStatus === 'success' && (
+                    <View>
+                      <XStack className="w-full items-center justify-center">
+                        <Text className="text-lg font-bold text-green-100 dark:text-green-dark-100">
+                          {t('button.success')}
+                        </Text>
+                      </XStack>
+                    </View>
+                  )}
+                </Button.LabelContent>
               </Button>
             </XStack>
           </YStack>
