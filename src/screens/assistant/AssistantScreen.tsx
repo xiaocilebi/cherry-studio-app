@@ -7,7 +7,15 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
 import { UnionPlusIcon } from '@/componentsV2/icons'
-import { DrawerGestureWrapper ,SafeAreaContainer, Container, HeaderBar, Text, YStack , SearchInput } from '@/componentsV2'
+import {
+  DrawerGestureWrapper,
+  SafeAreaContainer,
+  Container,
+  HeaderBar,
+  Text,
+  YStack,
+  SearchInput
+} from '@/componentsV2'
 import { Menu } from '@/componentsV2/icons/LucideIcon'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSearch } from '@/hooks/useSearch'
@@ -26,7 +34,7 @@ export default function AssistantScreen() {
   const navigation = useNavigation<DrawerNavigationProps>()
 
   const { topics } = useTopics()
-  const { assistants,isLoading } = useExternalAssistants()
+  const { assistants, isLoading } = useExternalAssistants()
   const assistantWithTopics = getAssistantWithTopic(assistants, topics)
 
   const {
@@ -66,7 +74,6 @@ export default function AssistantScreen() {
   const onChatNavigation = async (topicId: string) => {
     navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
   }
-
 
   return (
     <SafeAreaContainer className="pb-0">

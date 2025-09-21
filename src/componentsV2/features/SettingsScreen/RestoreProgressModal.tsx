@@ -39,7 +39,6 @@ const getIconForStatus = (status: StepStatus) => {
   }
 }
 
-
 export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: RestoreProgressModalProps) {
   const { t } = useTranslation()
   const { isDark } = useTheme()
@@ -78,19 +77,12 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
           backgroundColor: isDark ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.4)'
         }}>
         {isDone && (
-          <Pressable
-            onPress={onClose}
-            style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}
-          />
+          <Pressable onPress={onClose} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }} />
         )}
         <YStack className="w-3/4 rounded-2xl overflow-hidden bg-ui-card-background dark:bg-ui-card-background-dark p-4 gap-3">
           <YStack className="items-center gap-3">
-            <Text className='text-2xl font-bold'>
-              {title}
-            </Text>
-            <Text className='text-lg text-text-secondary dark:text-text-secondary-dark'>
-              {description}
-            </Text>
+            <Text className="text-2xl font-bold">{title}</Text>
+            <Text className="text-lg text-text-secondary dark:text-text-secondary-dark">{description}</Text>
           </YStack>
 
           <XStack className="gap-3 justify-center items-center">
@@ -98,15 +90,15 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
               <ErrorView key={step.id} isInvalid={true}>
                 <View className="flex-row items-center gap-2">
                   {getIconForStatus(step.status)}
-                  <Text className='text-lg'>{step.title}</Text>
+                  <Text className="text-lg">{step.title}</Text>
                 </View>
               </ErrorView>
             ))}
           </XStack>
 
-          <XStack className='justify-center items-center'>
+          <XStack className="justify-center items-center">
             <Button
-              size='sm'
+              size="sm"
               className={cn(
                 'w-40 items-center justify-center rounded-[30px] border text-base',
                 overallStatus === 'error'
@@ -117,13 +109,16 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
               )}
               disabled={!isDone}
               onPress={onClose}>
-                <Button.LabelContent>
-                  <Text
-                    className={cn(overallStatus === 'error' && 'text-red-100 dark:text-red-100', overallStatus === 'success' && 'text-green-100 dark:text-green-dark-100', overallStatus === 'running' && 'text-yellow-100 dark:text-yellow-dark-100')}
-                   >
-                    {isDone ? t('common.close') : t('settings.data.restore.progress.pending')}
-                  </Text>
-                </Button.LabelContent>
+              <Button.LabelContent>
+                <Text
+                  className={cn(
+                    overallStatus === 'error' && 'text-red-100 dark:text-red-100',
+                    overallStatus === 'success' && 'text-green-100 dark:text-green-dark-100',
+                    overallStatus === 'running' && 'text-yellow-100 dark:text-yellow-dark-100'
+                  )}>
+                  {isDone ? t('common.close') : t('settings.data.restore.progress.pending')}
+                </Text>
+              </Button.LabelContent>
             </Button>
           </XStack>
         </YStack>

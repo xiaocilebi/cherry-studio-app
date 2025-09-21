@@ -76,8 +76,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
           <Text
             className="text-sm leading-3.5 text-text-primary dark:text-text-primary-dark"
             numberOfLines={1}
-            ellipsizeMode="middle"
-          >
+            ellipsizeMode="middle">
             {file.name}
           </Text>
           <Text className="text-xs leading-2.75 text-text-secondary dark:text-text-secondary-dark">
@@ -86,13 +85,10 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
         </YStack>
       </XStack>
       {onRemove && (
-        <TouchableOpacity
-          onPress={handleRemove}
-          hitSlop={5}
-          className="absolute -top-1.5 -right-1.5 rounded-full">
-            <View className="border border-white rounded-full p-0.5">
-              <X size={14}  />
-            </View>
+        <TouchableOpacity onPress={handleRemove} hitSlop={5} className="absolute -top-1.5 -right-1.5 rounded-full">
+          <View className="border border-white rounded-full p-0.5">
+            <X size={14} />
+          </View>
         </TouchableOpacity>
       )}
     </ContextMenu>

@@ -26,7 +26,6 @@ async function getFileContent(file: FileMetadata) {
   return ''
 }
 
- 
 async function getMessageParam(message: Message): Promise<MessageItem[]> {
   const param: MessageItem[] = []
 

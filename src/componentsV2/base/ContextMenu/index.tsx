@@ -7,7 +7,6 @@ import * as ZeegoContextMenu from 'zeego/context-menu'
 import { isAndroid, isIOS } from '@/utils/device'
 import SelectionSheet from '../SelectionSheet'
 
-
 export interface ContextMenuListProps {
   title: string
   iOSIcon?: SFSymbol

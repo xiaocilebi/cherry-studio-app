@@ -12,7 +12,6 @@ import { haptic } from '@/utils/haptic'
 import { NewTopicButton } from './NewTopicButton'
 import { AssistantSelection } from './AssistantSelection'
 
-
 interface HeaderBarProps {
   topic: Topic
 }

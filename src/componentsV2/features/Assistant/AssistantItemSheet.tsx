@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Divider } from 'heroui-native'
 
 import { Text, XStack, YStack } from '@/componentsV2'
-import { UnionPlusIcon , ModelIcon } from '@/componentsV2/icons'
+import { UnionPlusIcon, ModelIcon } from '@/componentsV2/icons'
 import { Settings2, X } from '@/componentsV2/icons/LucideIcon'
 import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
@@ -185,7 +185,10 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
                 {assistant.defaultModel && (
                   <XStack className="gap-0.5 items-center justify-center">
                     <ModelIcon model={assistant.defaultModel} size={14} />
-                    <Text className="text-sm text-text-primary dark:text-text-primary-dark" numberOfLines={1} ellipsizeMode="tail">
+                    <Text
+                      className="text-sm text-text-primary dark:text-text-primary-dark"
+                      numberOfLines={1}
+                      ellipsizeMode="tail">
                       {assistant.defaultModel.name}
                     </Text>
                   </XStack>
@@ -229,16 +232,16 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
             {/* Footer positioned absolutely at the bottom */}
             <XStack className="px-6 justify-between items-center gap-4 flex-shrink-0" style={{ bottom }}>
               {source === 'builtIn' && (
-                <Button variant='ghost' isIconOnly onPress={handleAddAssistant}>
+                <Button variant="ghost" isIconOnly onPress={handleAddAssistant}>
                   <Button.LabelContent>
                     <UnionPlusIcon size={30} />
                   </Button.LabelContent>
                 </Button>
               )}
               {source === 'external' && (
-                <Button variant='ghost' isIconOnly onPress={handleEditAssistant}>
+                <Button variant="ghost" isIconOnly onPress={handleEditAssistant}>
                   <Button.LabelContent>
-                    <Settings2 size={30}  />
+                    <Settings2 size={30} />
                   </Button.LabelContent>
                 </Button>
               )}

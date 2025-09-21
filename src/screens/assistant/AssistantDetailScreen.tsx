@@ -5,7 +5,15 @@ import { ActivityIndicator, View } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 
 import { DefaultProviderIcon } from '@/componentsV2/icons'
-import { DrawerGestureWrapper ,SafeAreaContainer, Container, HeaderBar, Text, XStack, AvatarEditButton } from '@/componentsV2'
+import {
+  DrawerGestureWrapper,
+  SafeAreaContainer,
+  Container,
+  HeaderBar,
+  Text,
+  XStack,
+  AvatarEditButton
+} from '@/componentsV2'
 import { ArrowLeftRight, PenLine } from '@/componentsV2/icons/LucideIcon'
 import { useAssistant } from '@/hooks/useAssistant'
 import { useSwipeGesture } from '@/hooks/useSwipeGesture'

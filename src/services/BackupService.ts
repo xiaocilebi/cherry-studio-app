@@ -18,9 +18,7 @@ import { upsertWebSearchProviders } from '../../db/queries/websearchProviders.qu
 import { upsertTopics } from './TopicService'
 const logger = loggerService.withContext('Backup Service')
 
-export type RestoreStepId =
-  | 'restore_settings'
-  | 'restore_messages'
+export type RestoreStepId = 'restore_settings' | 'restore_messages'
 
 export type StepStatus = 'pending' | 'in_progress' | 'completed' | 'error'
 

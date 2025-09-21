@@ -40,11 +40,6 @@ export function ProviderSelect({ value, onValueChange, placeholder }: ProviderSe
   }
 
   return (
-    <Select
-      value={value}
-      onValueChange={handleValueChange}
-      selectOptions={providerOptions}
-      placeholder={placeholder}
-    />
+    <Select value={value} onValueChange={handleValueChange} selectOptions={providerOptions} placeholder={placeholder} />
   )
 }

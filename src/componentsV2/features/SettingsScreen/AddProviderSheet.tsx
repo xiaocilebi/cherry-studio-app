@@ -170,8 +170,12 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
                 />
                 <YStack className="w-full gap-2">
                   <XStack className="gap-2 px-3">
-                    <Text className="text-text-secondary dark:text-text-secondary-dark">{t('settings.provider.add.name')}</Text>
-                    <Text size='lg' className="text-red-500 dark:text-red-500">*</Text>
+                    <Text className="text-text-secondary dark:text-text-secondary-dark">
+                      {t('settings.provider.add.name')}
+                    </Text>
+                    <Text size="lg" className="text-red-500 dark:text-red-500">
+                      *
+                    </Text>
                   </XStack>
                   <BottomSheetTextInput
                     style={inputStyle}
@@ -186,11 +190,11 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
                   placeholder={t('settings.provider.add.type')}
                 />
                 <Button
-                  variant='tertiary'
+                  variant="tertiary"
                   className="h-11 w-4/6 rounded-lg bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                   onPress={handleSaveProvider}>
                   <Button.LabelContent>
-                    <Text className='text-green-100 dark:text-green-dark-100'>
+                    <Text className="text-green-100 dark:text-green-dark-100">
                       {mode === 'edit' ? t('common.save') : t('settings.provider.add.title')}
                     </Text>
                   </Button.LabelContent>
@@ -204,4 +208,4 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
   }
 )
 
-AddProviderSheet.displayName = "AddProviderSheet"
+AddProviderSheet.displayName = 'AddProviderSheet'

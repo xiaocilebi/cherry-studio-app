@@ -15,7 +15,6 @@ import { Model } from '@/types/assistant'
 import XStack from '@/componentsV2/layout/XStack'
 import { CustomTag } from '@/componentsV2/base/CustomTag'
 
-
 interface ModelTagsProps {
   model: Model
   showFree?: boolean
@@ -129,7 +128,7 @@ export const ModelTags: React.FC<ModelTagsProps> = ({
   }
 
   return (
-    <XStack className='gap-4 items-center'>
+    <XStack className="gap-4 items-center">
       {tags.map(tag => (
         <CustomTag
           key={tag.key}

@@ -23,16 +23,17 @@ export interface TextSelectionSheetRef {
 function SelectableText({ children }) {
   if (Platform.OS === 'ios') {
     return (
-      <TextField className='h-full w-full'>
-          <TextField.Input className='h-full w-full text-sm leading-6 border-0 px-4 rounded-none' multiline editable={false} value={children}/>
+      <TextField className="h-full w-full">
+        <TextField.Input
+          className="h-full w-full text-sm leading-6 border-0 px-4 rounded-none"
+          multiline
+          editable={false}
+          value={children}
+        />
       </TextField>
     )
   } else {
-    return (
-      <Text className='text-sm leading-6'>
-        {children}
-      </Text>
-    )
+    return <Text className="text-sm leading-6">{children}</Text>
   }
 }
 
@@ -80,9 +81,7 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
       onChange={index => setIsVisible(index >= 0)}>
       <YStack className="flex-1">
         <XStack className="items-center justify-between border-b border-black/10 px-4 pb-4 dark:border-white/10">
-          <Text className='text-base font-bold'>
-            {t('common.select_text')}
-          </Text>
+          <Text className="text-base font-bold">{t('common.select_text')}</Text>
           <TouchableOpacity
             style={{
               padding: 4,
@@ -96,9 +95,9 @@ const TextSelectionSheet = forwardRef<TextSelectionSheetRef, TextSelectionSheetP
         </XStack>
         <BottomSheetScrollView
           contentContainerStyle={{
-            flex:1,
-            height:'100%',
-            width:'100%',
+            flex: 1,
+            height: '100%',
+            width: '100%'
           }}>
           <SelectableText>{content}</SelectableText>
         </BottomSheetScrollView>

@@ -104,15 +104,12 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
               width: imageWidth,
               height: imageWidth
             }}>
-            <ImageOff
-              size={imageWidth * 0.3}
-              className="text-gray-20 dark:text-gray-dark-20"
-            />
+            <ImageOff size={imageWidth * 0.3} className="text-gray-20 dark:text-gray-dark-20" />
           </View>
         ) : (
           <Image
-          style={{ width: imageWidth, height: imageWidth }}
-            source={{ uri: file.path}}
+            style={{ width: imageWidth, height: imageWidth }}
+            source={{ uri: file.path }}
             className="rounded-sm"
             onError={handleImageError}
           />
@@ -127,12 +124,9 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
         animationType="slide"
       />
       {onRemove && (
-        <TouchableOpacity
-          onPress={handleRemove}
-          hitSlop={5}
-          className="absolute -top-1.5 -right-1.5 rounded-full">
+        <TouchableOpacity onPress={handleRemove} hitSlop={5} className="absolute -top-1.5 -right-1.5 rounded-full">
           <View className="border border-white rounded-full p-0.5">
-            <X size={14}  />
+            <X size={14} />
           </View>
         </TouchableOpacity>
       )}

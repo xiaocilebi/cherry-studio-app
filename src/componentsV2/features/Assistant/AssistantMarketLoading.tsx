@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { Spinner } from 'heroui-native'
 
-import {SafeAreaContainer, HeaderBar, DrawerGestureWrapper } from '@/componentsV2'
+import { SafeAreaContainer, HeaderBar, DrawerGestureWrapper } from '@/componentsV2'
 import { Menu } from '@/componentsV2/icons/LucideIcon'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'

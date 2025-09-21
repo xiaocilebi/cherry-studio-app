@@ -86,7 +86,7 @@ export const ToolSheet = forwardRef<BottomSheetModal, ToolSheetProps>(
           onDismiss={() => setIsVisible(false)}
           onChange={index => setIsVisible(index >= 0)}>
           <BottomSheetView style={{ paddingBottom: bottom }}>
-            <YStack className='gap-3'>
+            <YStack className="gap-3">
               <SystemTools
                 onCameraPress={handleCameraPress}
                 onImagePress={handleAddImage}

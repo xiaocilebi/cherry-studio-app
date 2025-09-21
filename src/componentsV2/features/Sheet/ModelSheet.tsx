@@ -19,7 +19,7 @@ import { EmptyModelView } from '@/componentsV2/features/SettingsScreen/EmptyMode
 import { ModelTags } from '@/componentsV2/features/ModelTags'
 import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
-import {SearchInput} from '@/componentsV2/base/SearchInput'
+import { SearchInput } from '@/componentsV2/base/SearchInput'
 import Text from '@/componentsV2/base/Text'
 
 interface ModelSheetProps {
@@ -176,7 +176,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
             </YStack>
             {multiple && (
               <Button
-                size='sm'
+                size="sm"
                 className={`rounded-full ${
                   isMultiSelectActive
                     ? 'bg-green-10 dark:bg-green-dark-10 border border-green-20 dark:border-green-dark-20'
@@ -184,7 +184,12 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                 }`}
                 onPress={toggleMultiSelectMode}>
                 <Button.LabelContent>
-                  <Text className={isMultiSelectActive ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}>
+                  <Text
+                    className={
+                      isMultiSelectActive
+                        ? 'text-green-100 dark:text-green-dark-100'
+                        : 'text-text-primary dark:text-text-primary-dark'
+                    }>
                     {t('button.multiple')}
                   </Text>
                 </Button.LabelContent>
@@ -192,7 +197,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
             )}
             {multiple && isMultiSelectActive && (
               <Button
-                size='sm'
+                size="sm"
                 className="rounded-full bg-ui-card dark:bg-ui-card-dark"
                 isIconOnly
                 onPress={handleClearAll}>
@@ -211,14 +216,12 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                   <XStack className="w-8 h-8 rounded-lg items-center justify-center">
                     <ProviderIcon provider={group.provider} />
                   </XStack>
-                  <Text className="text-[15px] font-bold text-gray-80 dark:text-gray-80">
-                    {group.label}
-                  </Text>
+                  <Text className="text-[15px] font-bold text-gray-80 dark:text-gray-80">{group.label}</Text>
                 </XStack>
                 <YStack className="gap-1.5">
                   {group.options.map(item => (
                     <Button
-                      size='sm'
+                      size="sm"
                       key={item.value}
                       variant="ghost"
                       onPress={() => handleModelToggle(item.value)}

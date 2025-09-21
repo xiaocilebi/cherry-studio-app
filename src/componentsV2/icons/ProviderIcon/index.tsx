@@ -40,12 +40,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, clas
   const finalClassName = className ? `${sizeClass} ${className}` : sizeClass
 
   if (!iconUri) {
-    return (
-      <YStack
-        className={finalClassName}
-        style={size ? { width: size, height: size } : undefined}
-      />
-    )
+    return <YStack className={finalClassName} style={size ? { width: size, height: size } : undefined} />
   }
 
   return (

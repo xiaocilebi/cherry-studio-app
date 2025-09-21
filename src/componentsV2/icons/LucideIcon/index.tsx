@@ -54,6 +54,7 @@ import {
   Rss,
   ScanQrCode,
   Search,
+  Settings,
   Settings2,
   ChevronRight,
   Share,
@@ -151,6 +152,7 @@ interopIcon(TriangleAlert)
 interopIcon(Wifi)
 interopIcon(X)
 interopIcon(XCircle)
+interopIcon(Settings)
 
 function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   const Wrapped = (({ className, ...props }: any) => (
@@ -226,6 +228,7 @@ const TriangleAlertIcon = withDefaultIconClass(TriangleAlert)
 const WifiIcon = withDefaultIconClass(Wifi)
 const XIcon = withDefaultIconClass(X)
 const XCircleIcon = withDefaultIconClass(XCircle)
+const SettingsIcon = withDefaultIconClass(Settings)
 
 export {
   ArrowUpIcon as ArrowUp,
@@ -294,5 +297,6 @@ export {
   TriangleAlertIcon as TriangleAlert,
   WifiIcon as Wifi,
   XIcon as X,
-  XCircleIcon as XCircle
+  XCircleIcon as XCircle,
+  SettingsIcon as Settings
 }

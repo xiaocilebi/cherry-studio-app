@@ -79,7 +79,10 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
               {assistant.name}
             </Text>
             {!isEmpty(assistant.prompt) && (
-              <Text ellipsizeMode="tail" numberOfLines={1} className="text-xs leading-[18px] text-text-secondary dark:text-text-secondary-dark">
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                className="text-xs leading-[18px] text-text-secondary dark:text-text-secondary-dark">
                 {assistant.prompt}
               </Text>
             )}

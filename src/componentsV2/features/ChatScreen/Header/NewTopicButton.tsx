@@ -5,7 +5,7 @@ import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable } from 'react-native'
 
-import { Text, YStack , SelectionSheet } from '@/componentsV2'
+import { Text, YStack, SelectionSheet } from '@/componentsV2'
 import { MessageSquareDiff } from '@/componentsV2/icons/LucideIcon'
 import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
 import { useExternalAssistants } from '@/hooks/useAssistant'
@@ -72,11 +72,17 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
       key: assistantItem.id,
       label: (
         <YStack className="gap-0.5">
-          <Text className="text-base leading-[18px] text-text-primary dark:text-text-primary-dark" ellipsizeMode="tail" numberOfLines={1}>
+          <Text
+            className="text-base leading-[18px] text-text-primary dark:text-text-primary-dark"
+            ellipsizeMode="tail"
+            numberOfLines={1}>
             {assistantItem.name}
           </Text>
           {assistantItem.description && (
-            <Text className="text-xs text-text-secondary dark:text-text-secondary-dark opacity-70" ellipsizeMode="tail" numberOfLines={1}>
+            <Text
+              className="text-xs text-text-secondary dark:text-text-secondary-dark opacity-70"
+              ellipsizeMode="tail"
+              numberOfLines={1}>
               {assistantItem.description}
             </Text>
           )}

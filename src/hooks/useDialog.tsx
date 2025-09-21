@@ -7,7 +7,9 @@ import { Modal, Pressable } from 'react-native'
 import { useTheme } from '@/hooks/useTheme'
 import { haptic } from '@/utils/haptic'
 import { Button, cn } from 'heroui-native'
-import { Text, XStack, YStack } from '@/componentsV2'
+import YStack from '@/componentsV2/layout/YStack'
+import Text from '@/componentsV2/base/Text'
+import XStack from '@/componentsV2/layout/XStack'
 
 export type DialogOptions = {
   title?: React.ReactNode | string
@@ -117,9 +119,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
           <YStack className="w-3/4 rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark">
             <YStack className="gap-3 p-5 items-center">
               {typeof options?.title === 'string' ? (
-                <Text className="text-lg font-bold text-text-primary dark:text-text-primary-dark">
-                  {options.title}
-                </Text>
+                <Text className="text-lg font-bold text-text-primary dark:text-text-primary-dark">{options.title}</Text>
               ) : (
                 options?.title
               )}
@@ -135,16 +135,14 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
             <XStack className="p-5 pt-0 gap-5">
               {showCancel && (
                 <Button
-                  variant='tertiary'
+                  variant="tertiary"
                   className={cn(
                     'flex-1 h-[42px] rounded-[30px] bg-transparent border-gray-20 dark:border-gray-20',
                     options?.cancelStyle?.toString() || ''
                   )}
                   onPress={cancel}>
                   <Button.LabelContent>
-                    <Text className="text-gray-80 dark:text-gray-80 text-[17px]">
-                      {cancelText}
-                    </Text>
+                    <Text className="text-gray-80 dark:text-gray-80 text-[17px]">{cancelText}</Text>
                   </Button.LabelContent>
                 </Button>
               )}
@@ -156,9 +154,7 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
                 )}
                 onPress={confirm}>
                 <Button.LabelContent>
-                  <Text className={cn(confirmTextClassName, 'text-[17px]')}>
-                    {confirmText}
-                  </Text>
+                  <Text className={cn(confirmTextClassName, 'text-[17px]')}>{confirmText}</Text>
                 </Button.LabelContent>
               </Button>
             </XStack>

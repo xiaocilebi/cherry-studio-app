@@ -19,16 +19,21 @@ export interface StepConfig {
 
 // 预定义的步骤配置
 export const RESTORE_STEP_CONFIGS = {
-  RESTORE_SETTINGS: { id: 'restore_settings' as RestoreStepId, titleKey: 'settings.data.restore.steps.restore_settings' },
-  RESTORE_MESSAGES: { id: 'restore_messages' as RestoreStepId, titleKey: 'settings.data.restore.steps.restore_messages' },
+  RESTORE_SETTINGS: {
+    id: 'restore_settings' as RestoreStepId,
+    titleKey: 'settings.data.restore.steps.restore_settings'
+  },
+  RESTORE_MESSAGES: {
+    id: 'restore_messages' as RestoreStepId,
+    titleKey: 'settings.data.restore.steps.restore_messages'
+  }
 } as const
 
 // 预定义的步骤组合
 export const DEFAULT_RESTORE_STEPS: StepConfig[] = [
   RESTORE_STEP_CONFIGS.RESTORE_SETTINGS,
-  RESTORE_STEP_CONFIGS.RESTORE_MESSAGES,
+  RESTORE_STEP_CONFIGS.RESTORE_MESSAGES
 ]
-
 
 const createStepsFromConfig = (stepConfigs: StepConfig[], t: (key: string) => string): RestoreStep[] => {
   return stepConfigs.map(config => ({

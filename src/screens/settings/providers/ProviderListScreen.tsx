@@ -4,7 +4,7 @@ import { Plus } from '@/componentsV2/icons/LucideIcon'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { YStack, SafeAreaContainer, Container, Group, HeaderBar , SearchInput } from '@/componentsV2'
+import { YStack, SafeAreaContainer, Container, Group, HeaderBar, SearchInput } from '@/componentsV2'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useSearch } from '@/hooks/useSearch'
 import { Provider } from '@/types/assistant'
@@ -93,7 +93,12 @@ export default function ProviderListScreen() {
         </Container>
       )}
 
-      <AddProviderSheet ref={bottomSheetRef} mode={sheetMode} editProvider={editingProvider} onSave={handleProviderSave} />
+      <AddProviderSheet
+        ref={bottomSheetRef}
+        mode={sheetMode}
+        editProvider={editingProvider}
+        onSave={handleProviderSave}
+      />
     </SafeAreaContainer>
   )
 }

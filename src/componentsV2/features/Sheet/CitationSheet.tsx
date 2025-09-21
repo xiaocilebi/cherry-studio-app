@@ -46,16 +46,15 @@ const Content = ({ content }: { content: string }) => (
 const Footer = ({ url, title }: { url: string; title: string }) => (
   <XStack className="mt-1.5 items-center gap-1.5">
     <FallbackFavicon hostname={new URL(url).hostname} alt={title || ''} />
-    <Text className="text-[10px] leading-5 text-text-secondary dark:text-text-secondary-dark">{getWebsiteBrand(url)}</Text>
+    <Text className="text-[10px] leading-5 text-text-secondary dark:text-text-secondary-dark">
+      {getWebsiteBrand(url)}
+    </Text>
   </XStack>
 )
 
 const CitationCard = ({ citation, onPress }: { citation: Citation; onPress: (url: string) => void }) => (
   <YStack className="gap-2 py-2.5">
-    <TouchableOpacity
-      className="gap-2"
-      activeOpacity={0.7}
-      onPress={() => onPress(citation.url)}>
+    <TouchableOpacity className="gap-2" activeOpacity={0.7} onPress={() => onPress(citation.url)}>
       <CitationTitle number={citation.number} title={citation.title || ''} />
       <Content content={citation.content || ''} />
       <Footer url={citation.url} title={citation.title || ''} />

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
 import { TranslatedIcon, TranslationIcon } from '@/componentsV2/icons'
-import { IconButton, XStack , SelectionSheet } from '@/componentsV2'
+import { IconButton, XStack, SelectionSheet } from '@/componentsV2'
 import {
   AudioLines,
   CirclePause,

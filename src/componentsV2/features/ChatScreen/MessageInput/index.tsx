@@ -28,7 +28,6 @@ import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
 import TextField from '@/componentsV2/base/TextField'
 
-
 const logger = loggerService.withContext('Message Input')
 
 interface MessageInputProps {
@@ -103,10 +102,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
       className="px-5 py-2 rounded-2xl bg-surface-1"
       shadowSize="xl"
       iosShadowStyle={{
-        shadowOffset:{width:0,height: -4}
+        shadowOffset: { width: 0, height: -4 }
       }}
       androidShadowStyle={{
-        elevation: 10,
+        elevation: 10
       }}
       style={{
         paddingBottom: Platform.OS === 'android' ? bottomPad + 8 : bottomPad
@@ -115,8 +114,21 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
         {files.length > 0 && <FilePreview files={files} setFiles={setFiles} />}
         {/* message */}
         <XStack className="top-[5px]">
-          <TextField className='w-full p-0'>
-            <TextField.Input className='h-24 p-0 border-none text-base text-text-primary dark:text-text-primary-dark' placeholder={t('inputs.placeholder')} value={text} onChangeText={setText} multiline numberOfLines={10} colors={{blurBackground: 'transparent',focusBackground: 'transparent', blurBorder: 'transparent', focusBorder: 'transparent'}} />
+          <TextField className="w-full p-0">
+            <TextField.Input
+              className="h-24 p-0 border-none text-base text-text-primary dark:text-text-primary-dark"
+              placeholder={t('inputs.placeholder')}
+              value={text}
+              onChangeText={setText}
+              multiline
+              numberOfLines={10}
+              colors={{
+                blurBackground: 'transparent',
+                focusBackground: 'transparent',
+                blurBorder: 'transparent',
+                focusBorder: 'transparent'
+              }}
+            />
           </TextField>
         </XStack>
         {/* button */}

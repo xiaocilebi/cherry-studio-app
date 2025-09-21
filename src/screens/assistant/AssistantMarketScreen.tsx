@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { DrawerGestureWrapper ,SafeAreaContainer, Container, HeaderBar, SearchInput } from '@/componentsV2'
+import { DrawerGestureWrapper, SafeAreaContainer, Container, HeaderBar, SearchInput } from '@/componentsV2'
 import { Menu } from '@/componentsV2/icons/LucideIcon'
 import { useBuiltInAssistants } from '@/hooks/useAssistant'
 import { useSearch } from '@/hooks/useSearch'

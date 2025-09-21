@@ -5,7 +5,6 @@ import XStack from '@/componentsV2/layout/XStack'
 
 import Text from '../Text'
 
-
 interface CustomTagProps {
   size?: number
   /** @deprecated use backgroundClassName instead */

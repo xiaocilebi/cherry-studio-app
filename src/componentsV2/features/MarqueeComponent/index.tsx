@@ -182,12 +182,7 @@ const MarqueeComponent: React.FC<MarqueeComponentProps> = ({ block, expanded }) 
                       type: 'timing',
                       duration: 150
                     }}>
-                    <Text
-                      className="text-xs"
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                      style={{ lineHeight }}
-                    >
+                    <Text className="text-xs" numberOfLines={1} ellipsizeMode="tail" style={{ lineHeight }}>
                       {message}
                     </Text>
                   </MotiView>

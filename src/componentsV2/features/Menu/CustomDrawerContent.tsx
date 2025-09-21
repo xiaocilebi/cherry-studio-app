@@ -1,5 +1,4 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import { Settings2 } from '@/componentsV2/icons/LucideIcon'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,8 +7,8 @@ import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
-import { MarketIcon, UnionIcon } from '@/componentsV2/icons'
-import {SafeAreaContainer} from '@/componentsV2'
+import { MarketIcon, Settings, UnionIcon } from '@/componentsV2/icons'
+import { SafeAreaContainer } from '@/componentsV2'
 import { Divider } from 'heroui-native'
 import { MenuTabContent } from './MenuTabContent'
 import YStack from '@/componentsV2/layout/YStack'
@@ -63,26 +62,20 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
         <YStack className="gap-1.5 px-2.5">
           <PressableRow
             className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
-            onPress={handleNavigateAssistantMarketScreen}
-          >
+            onPress={handleNavigateAssistantMarketScreen}>
             <XStack className="gap-2.5 items-center justify-center">
               <MarketIcon size={24} />
-              <Text className="text-base ">
-                {t('assistants.market.title')}
-              </Text>
+              <Text className="text-base ">{t('assistants.market.title')}</Text>
             </XStack>
             <RowRightArrow />
           </PressableRow>
 
           <PressableRow
             className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
-            onPress={handleNavigateAssistantScreen}
-          >
+            onPress={handleNavigateAssistantScreen}>
             <XStack className="gap-2.5 items-center justify-center">
               <UnionIcon size={24} />
-              <Text className="text-base ">
-                {t('assistants.market.my_assistant')}
-              </Text>
+              <Text className="text-base ">{t('assistants.market.my_assistant')}</Text>
             </XStack>
             <RowRightArrow />
           </PressableRow>
@@ -105,20 +98,14 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       </YStack>
 
       <XStack className="justify-between items-center">
-        <PressableRow
-          className="gap-2.5 items-center"
-          onPress={handleNavigatePersonalScreen}
-        >
+        <PressableRow className="gap-2.5 items-center" onPress={handleNavigatePersonalScreen}>
           <Image
             className="w-12 h-12 rounded-full"
             source={avatar ? { uri: avatar } : require('@/assets/images/favicon.png')}
           />
-          <Text className="text-base">
-            {userName || t('common.cherry_studio')}
-          </Text>
+          <Text className="text-base">{userName || t('common.cherry_studio')}</Text>
         </PressableRow>
-        <IconButton icon={<Settings2 size={24}  />} onPress={handleNavigateSettingsScreen} style={{paddingRight: 16}}/>
-
+        <IconButton icon={<Settings size={24} />} onPress={handleNavigateSettingsScreen} style={{ paddingRight: 16 }} />
       </XStack>
     </SafeAreaContainer>
   )

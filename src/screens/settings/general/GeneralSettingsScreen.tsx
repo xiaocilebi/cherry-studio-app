@@ -78,7 +78,7 @@ export default function GeneralSettingsScreen() {
                   <Text className="text-lg">{t('settings.general.language.title')}</Text>
                 </XStack>
                 <XStack className="items-center gap-2">
-                  <Text className="text-blue-500">{getCurrentLanguage()}</Text>
+                  <Text>{getCurrentLanguage()}</Text>
                   <RowRightArrow />
                 </XStack>
               </PressableRow>

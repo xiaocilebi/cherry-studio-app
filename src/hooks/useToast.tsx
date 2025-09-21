@@ -6,7 +6,7 @@ import { View } from 'react-native'
 import { useTheme } from '@/hooks/useTheme'
 import { uuid } from '@/utils'
 import { haptic } from '@/utils/haptic'
-import { Text } from '@/componentsV2'
+import Text from '@/componentsV2/base/Text'
 import { cn } from 'heroui-native'
 
 export type ToastOptions = {
@@ -79,7 +79,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               {toast.icon && toast.icon}
 
               {typeof toast?.content === 'string' ? (
-                <Text className={cn('text-base',toast.color || 'text-green-100 dark:text-green-dark-100')} >
+                <Text className={cn('text-base', toast.color || 'text-green-100 dark:text-green-dark-100')}>
                   {toast.content}
                 </Text>
               ) : (
