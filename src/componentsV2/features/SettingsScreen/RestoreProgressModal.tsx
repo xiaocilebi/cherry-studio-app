@@ -83,7 +83,7 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
             style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}
           />
         )}
-        <YStack className="w-3/4 rounded-[20px] overflow-hidden bg-ui-card-background dark:bg-ui-card-background-dark p-4 gap-3">
+        <YStack className="w-3/4 rounded-2xl overflow-hidden bg-ui-card-background dark:bg-ui-card-background-dark p-4 gap-3">
           <YStack className="items-center gap-3">
             <Text className='text-2xl font-bold'>
               {title}
@@ -108,7 +108,7 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
             <Button
               size='sm'
               className={cn(
-                'w-40 items-center justify-center rounded-lg border text-base',
+                'w-40 items-center justify-center rounded-[30px] border text-base',
                 overallStatus === 'error'
                   ? 'bg-red-20 border-red-20 dark:bg-red-20 dark:border-red-20'
                   : overallStatus === 'success'

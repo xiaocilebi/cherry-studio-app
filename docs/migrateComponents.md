@@ -8,12 +8,12 @@
 
 ## 迁移概述
 
-- **数据更新时间**: 2025-09-20
-- **HeroUI 组件库**: `src/componentsV2/` 共 97 个 `.tsx` 文件，全部已脱离 Tamagui。
-- **旧组件目录**: `src/components/` 共 1 个 `.tsx` 文件，仍依赖 Tamagui（`src/components/settings/data/RestoreProgressModal.tsx`）。
+- **数据更新时间**: 2025-09-21
+- **HeroUI 组件库**: `src/componentsV2/` 共 98 个 `.tsx` 文件，全部已脱离 Tamagui。
+- **旧组件目录**: `src/components/` 暂无遗留 Tamagui 组件。
 - **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移（`home/messages/MultiModelTab.tsx`, `settings/providers/ManageModelsScreen.tsx`）。
 - **其他核心入口**: 4 个基础文件仍直接引用 Tamagui (`src/App.tsx`, `src/hooks/useDialog.tsx`, `src/hooks/useToast.tsx`, `src/navigators/AssistantDetailTabNavigator.tsx`)。
-- **总体 Tamagui 引用**: 7 / 159 跟踪文件 → 已完成 152 (95.6%)。
+- **总体 Tamagui 引用**: 5 / 159 跟踪文件 → 已完成 154 (96.9%)。
 
 ## 迁移进度
 
@@ -121,6 +121,7 @@
 - [x] `features/SettingsScreen/ProviderIconButton.tsx`
 - [x] `features/SettingsScreen/ProviderItem.tsx`
 - [x] `features/SettingsScreen/ProviderSelect.tsx`
+- [x] `features/SettingsScreen/RestoreProgressModal.tsx`
 - [x] `features/SettingsScreen/WebSearchApiCheckSheet.tsx`
 - [x] `features/SettingsScreen/WebsearchProviderRow.tsx`
 
@@ -152,7 +153,7 @@
 
 ### 🔄 待迁移组件
 
-- [ ] `src/components/settings/data/RestoreProgressModal.tsx`
+当前无待迁移的旧组件。
 
 ### 页面组件 (`src/screens/`, 2/57 待迁移)
 
@@ -196,7 +197,7 @@
 
 ## 进度追踪
 
-- **总体进度**: 152 / 159 (95.6%) — 已脱离 Tamagui 的文件 / 跟踪总文件
+- **总体进度**: 154 / 159 (96.9%) — 已脱离 Tamagui 的文件 / 跟踪总文件
 - **旧组件目录 (`src/components`)**: 0 / 1 (0%)
 - **页面 (`src/screens`)**: 55 / 57 (96.5%)
 - **其他核心入口**: 0 / 4 (0%)
