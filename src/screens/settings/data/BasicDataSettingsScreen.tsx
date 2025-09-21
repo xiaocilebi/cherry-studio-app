@@ -14,6 +14,7 @@ import {
   GroupTitle,
   HeaderBar,
   PressableRow,
+  RestoreProgressModal,
   RowRightArrow,
   SafeAreaContainer,
   Text,
@@ -21,9 +22,8 @@ import {
   YStack
 } from '@/componentsV2'
 import { FileText, Folder, FolderOpen, RotateCcw, Trash2 } from '@/componentsV2/icons/LucideIcon'
-import { RestoreProgressModal } from '@/components/settings/data/RestoreProgressModal'
 import { useDialog } from '@/hooks/useDialog'
-import { LOCAL_RESTORE_STEPS, useRestore } from '@/hooks/useRestore'
+import { DEFAULT_RESTORE_STEPS, useRestore } from '@/hooks/useRestore'
 import { getCacheDirectorySize, resetCacheDirectory } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { persistor } from '@/store'
@@ -54,7 +54,7 @@ export default function BasicDataSettingsScreen() {
   const [isResetting, setIsResetting] = useState(false)
   const [cacheSize, setCacheSize] = useState<string>('--')
   const { isModalOpen, restoreSteps, overallStatus, startRestore, closeModal } = useRestore({
-    stepConfigs: LOCAL_RESTORE_STEPS
+    stepConfigs: DEFAULT_RESTORE_STEPS
   })
 
   const loadCacheSize = async () => {

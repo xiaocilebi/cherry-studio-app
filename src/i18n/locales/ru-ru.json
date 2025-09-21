@@ -487,11 +487,8 @@
             "success_description": "Восстановление завершено, приятного времяпровождения!"
           },
           "steps": {
-            "restore_assistants": "Восстановить помощников",
-            "restore_llm_providers": "Восстановить поставщиков LLM",
-            "restore_messages_blocks": "Восстановить сообщения и блоки",
-            "restore_topics": "Восстановить темы",
-            "restore_websearch": "Восстановить веб-поиск"
+            "restore_messages": "восстановить сообщение",
+            "restore_settings": "восстановление конфигурации"
           }
         },
         "third_party": "Подключения к сторонним сервисам",

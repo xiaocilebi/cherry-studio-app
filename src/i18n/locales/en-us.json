@@ -487,11 +487,8 @@
             "success_description": "Restore Successful, Enjoy your time!"
           },
           "steps": {
-            "restore_assistants": "Restore Assistants",
-            "restore_llm_providers": "Restore LLM Providers",
-            "restore_messages_blocks": "Restore Messages and Blocks",
-            "restore_topics": " Restore Topics",
-            "restore_websearch": "Restore Web Search"
+            "restore_messages": "Restore messages",
+            "restore_settings": "Restore configuration"
           }
         },
         "third_party": "Third-party Connections",

@@ -487,11 +487,8 @@
             "success_description": "恢復成功，祝您使用愉快！"
           },
           "steps": {
-            "restore_assistants": "還原助理",
-            "restore_llm_providers": "恢復LLM供應商",
-            "restore_messages_blocks": "恢復訊息",
-            "restore_topics": "恢復主題",
-            "restore_websearch": "恢復網路搜尋"
+            "restore_messages": "恢復訊息",
+            "restore_settings": "恢復設定"
           }
         },
         "third_party": "第三方連接",

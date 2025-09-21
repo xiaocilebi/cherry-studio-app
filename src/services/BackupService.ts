@@ -19,13 +19,8 @@ import { upsertTopics } from './TopicService'
 const logger = loggerService.withContext('Backup Service')
 
 export type RestoreStepId =
-  | 'restore_llm_providers'
-  | 'restore_assistants'
-  | 'restore_websearch'
-  | 'restore_user_avatar'
-  | 'restore_user_name'
-  | 'restore_topics'
-  | 'restore_messages_blocks'
+  | 'restore_settings'
+  | 'restore_messages'
 
 export type StepStatus = 'pending' | 'in_progress' | 'completed' | 'error'
 
@@ -38,21 +33,10 @@ export type ProgressUpdate = {
 type OnProgressCallback = (update: ProgressUpdate) => void
 
 async function restoreIndexedDbData(data: ExportIndexedData, onProgress: OnProgressCallback, dispatch: Dispatch) {
-  onProgress({ step: 'restore_topics', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
+  onProgress({ step: 'restore_messages', status: 'in_progress' })
   await upsertTopics(data.topics)
-  onProgress({ step: 'restore_topics', status: 'completed' })
-  await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
-
-  onProgress({ step: 'restore_messages_blocks', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
   await upsertBlocks(data.message_blocks)
   await upsertMessages(data.messages)
-  onProgress({ step: 'restore_messages_blocks', status: 'completed' })
-  await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
-
-  onProgress({ step: 'restore_user_avatar', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
 
   if (data.settings) {
     const avatarSetting = data.settings.find(setting => setting.id === 'image://avatar')
@@ -62,19 +46,12 @@ async function restoreIndexedDbData(data: ExportIndexedData, onProgress: OnProgr
     }
   }
 
-  onProgress({ step: 'restore_user_avatar', status: 'completed' })
-  await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
+  onProgress({ step: 'restore_messages', status: 'completed' })
 }
 
 async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCallback, dispatch: Dispatch) {
-  onProgress({ step: 'restore_llm_providers', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
+  onProgress({ step: 'restore_settings', status: 'in_progress' })
   await upsertProviders(data.llm.providers)
-  onProgress({ step: 'restore_llm_providers', status: 'completed' })
-  await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
-
-  onProgress({ step: 'restore_assistants', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
   const allSourceAssistants = [data.assistants.defaultAssistant, ...data.assistants.assistants]
 
   // default assistant为built_in, 其余为external
@@ -86,19 +63,11 @@ async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCal
       }) as Assistant
   )
   await upsertAssistants(assistants)
-  onProgress({ step: 'restore_assistants', status: 'completed' })
-  await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
-
-  onProgress({ step: 'restore_websearch', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
   await upsertWebSearchProviders(data.websearch.providers)
-  onProgress({ step: 'restore_websearch', status: 'completed' })
   await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
 
-  onProgress({ step: 'restore_user_name', status: 'in_progress' })
-  await new Promise(resolve => setTimeout(resolve, 100)) // Small delay for UI
   dispatch(setUserName(data.settings.userName))
-  onProgress({ step: 'restore_user_name', status: 'completed' })
+  onProgress({ step: 'restore_settings', status: 'completed' })
 }
 
 export async function restore(

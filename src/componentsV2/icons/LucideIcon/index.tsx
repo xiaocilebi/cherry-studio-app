@@ -10,6 +10,7 @@ import {
   Check,
   ChevronDown,
   ChevronsRight,
+  CircleCheck,
   CircleDollarSign,
   CirclePause,
   Cloud,
@@ -62,9 +63,11 @@ import {
   TextSelect,
   ThumbsUp,
   Trash2,
+  TriangleAlert,
   Wifi,
   ArrowUp,
-  X
+  X,
+  XCircle
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
 import { cn } from 'heroui-native'
@@ -92,6 +95,7 @@ interopIcon(Camera)
 interopIcon(Check)
 interopIcon(ChevronDown)
 interopIcon(ChevronsRight)
+interopIcon(CircleCheck)
 interopIcon(CircleDollarSign)
 interopIcon(CirclePause)
 interopIcon(CircleUserRound)
@@ -143,8 +147,10 @@ interopIcon(Wrench)
 interopIcon(TextSelect)
 interopIcon(ThumbsUp)
 interopIcon(Trash2)
+interopIcon(TriangleAlert)
 interopIcon(Wifi)
 interopIcon(X)
+interopIcon(XCircle)
 
 function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   const Wrapped = (({ className, ...props }: any) => (
@@ -164,6 +170,7 @@ const CameraIcon = withDefaultIconClass(Camera)
 const CheckIcon = withDefaultIconClass(Check)
 const ChevronDownIcon = withDefaultIconClass(ChevronDown)
 const ChevronsRightIcon = withDefaultIconClass(ChevronsRight)
+const CircleCheckIcon = withDefaultIconClass(CircleCheck)
 const CircleDollarSignIcon = withDefaultIconClass(CircleDollarSign)
 const CirclePauseIcon = withDefaultIconClass(CirclePause)
 const CloudIcon = withDefaultIconClass(Cloud)
@@ -215,8 +222,10 @@ const WrenchIcon = withDefaultIconClass(Wrench)
 const TextSelectIcon = withDefaultIconClass(TextSelect)
 const ThumbsUpIcon = withDefaultIconClass(ThumbsUp)
 const Trash2Icon = withDefaultIconClass(Trash2)
+const TriangleAlertIcon = withDefaultIconClass(TriangleAlert)
 const WifiIcon = withDefaultIconClass(Wifi)
 const XIcon = withDefaultIconClass(X)
+const XCircleIcon = withDefaultIconClass(XCircle)
 
 export {
   ArrowUpIcon as ArrowUp,
@@ -230,6 +239,7 @@ export {
   CheckIcon as Check,
   ChevronDownIcon as ChevronDown,
   ChevronsRightIcon as ChevronsRight,
+  CircleCheckIcon as CircleCheck,
   CircleDollarSignIcon as CircleDollarSign,
   CirclePauseIcon as CirclePause,
   CloudIcon as Cloud,
@@ -281,6 +291,8 @@ export {
   TextSelectIcon as TextSelect,
   ThumbsUpIcon as ThumbsUp,
   Trash2Icon as Trash2,
+  TriangleAlertIcon as TriangleAlert,
   WifiIcon as Wifi,
-  XIcon as X
+  XIcon as X,
+  XCircleIcon as XCircle
 }
