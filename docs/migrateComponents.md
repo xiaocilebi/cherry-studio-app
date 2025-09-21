@@ -10,14 +10,14 @@
 
 - **数据更新时间**: 2025-09-21
 - **HeroUI 组件库**: `src/componentsV2/` 共 98 个 `.tsx` 文件，全部已脱离 Tamagui。
-- **旧组件目录**: `src/components/` 暂无遗留 Tamagui 组件。
+- **旧组件目录**: `src/components/` 目录已移除，历史组件全部迁移完成。
 - **页面**: `src/screens/` 共 57 个 `.tsx`，55 个已脱离 Tamagui，剩余 2 个待迁移（`home/messages/MultiModelTab.tsx`, `settings/providers/ManageModelsScreen.tsx`）。
-- **其他核心入口**: 4 个基础文件仍直接引用 Tamagui (`src/App.tsx`, `src/hooks/useDialog.tsx`, `src/hooks/useToast.tsx`, `src/navigators/AssistantDetailTabNavigator.tsx`)。
-- **总体 Tamagui 引用**: 5 / 159 跟踪文件 → 已完成 154 (96.9%)。
+- **其他核心入口**: 4 个基础文件中仅 `src/App.tsx` 仍直接引用 Tamagui（`src/hooks/useDialog.tsx`, `src/hooks/useToast.tsx`, `src/navigators/AssistantDetailTabNavigator.tsx` 已迁移）。
+- **总体 Tamagui 引用**: 3 / 159 跟踪文件 → 已完成 156 (98.1%)。
 
 ## 迁移进度
 
-### ✅ HeroUI 组件 (`src/componentsV2/`, 97/97)
+### ✅ HeroUI 组件 (`src/componentsV2/`, 98/98)
 
 **Base**
 
@@ -161,12 +161,12 @@
 - [ ] `settings/providers/ManageModelsScreen.tsx`
 - 其余 55 个页面文件已移除 Tamagui 依赖，无需迁移。
 
-### 其他 Tamagui 入口 (0/4 已迁移)
+### 其他 Tamagui 入口 (3/4 已迁移)
 
 - [ ] `src/App.tsx`
-- [ ] `src/hooks/useDialog.tsx`
-- [ ] `src/hooks/useToast.tsx`
-- [ ] `src/navigators/AssistantDetailTabNavigator.tsx`
+- [x] `src/hooks/useDialog.tsx`
+- [x] `src/hooks/useToast.tsx`
+- [x] `src/navigators/AssistantDetailTabNavigator.tsx`
 
 ### 间接依赖（等待相关组件迁移或回归验证）
 
@@ -177,7 +177,7 @@
 ### 推荐迁移顺序
 
 1. **数据与设置模块**：替换 `RestoreProgressModal`，解锁数据恢复流程的 HeroUI 版本。
-2. **页面与基础入口**：统一 Tabs、导航与全局弹窗逻辑，清理剩余 6 个 Tamagui 入口。
+2. **页面与基础入口**：统一 Tabs、导航与全局弹窗逻辑，清理剩余 3 个 Tamagui 入口。
 3. **回归与验收**：针对迁移后的 Sheet 与消息输入链路补充回归测试与 Storybook 校验。
 
 ### 常见迁移模式
@@ -197,8 +197,8 @@
 
 ## 进度追踪
 
-- **总体进度**: 154 / 159 (96.9%) — 已脱离 Tamagui 的文件 / 跟踪总文件
-- **旧组件目录 (`src/components`)**: 0 / 1 (0%)
+- **总体进度**: 156 / 159 (98.1%) — 已脱离 Tamagui 的文件 / 跟踪总文件
+- **旧组件目录 (`src/components`)**: 目录已移除，后续无需跟踪
 - **页面 (`src/screens`)**: 55 / 57 (96.5%)
-- **其他核心入口**: 0 / 4 (0%)
-- **HeroUI 组件库**: 97 / 97 (100%)
+- **其他核心入口**: 3 / 4 (75%)
+- **HeroUI 组件库**: 98 / 98 (100%)
