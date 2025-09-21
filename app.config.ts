@@ -101,7 +101,14 @@ export default {
         }
       ],
       ['react-native-compressor'],
-      ['./plugins/withAndroidTransparentNavigation']
+      ["react-native-edge-to-edge",
+        {
+          "android": {
+            "parentTheme": "Material3",
+            "enforceNavigationBarContrast": false
+          }
+        }
+      ]
     ],
     experiments: {
       typedRoutes: true,
