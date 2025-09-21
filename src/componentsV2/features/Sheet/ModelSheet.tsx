@@ -15,12 +15,12 @@ import { useAllProviders } from '@/hooks/useProviders'
 import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
-import { EmptyModelView } from '@/componentsV2/features/SettingsScreen/EmptyModelView'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
 import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
 import { SearchInput } from '@/componentsV2/base/SearchInput'
 import Text from '@/componentsV2/base/Text'
+import { EmptyModelView } from '../SettingsScreen/EmptyModelView'
 
 interface ModelSheetProps {
   mentions: Model[]
