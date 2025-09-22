@@ -4,7 +4,6 @@ import { groupBy, isEmpty, uniqBy } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView } from 'react-native'
-import { Tabs } from 'tamagui'
 
 import {
   Container,
@@ -212,7 +211,7 @@ export default function ManageModelsScreen() {
       ) : (
         <Container className="pb-0" onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
           {/* Filter Tabs */}
-          <Tabs
+          {/*<Tabs
             defaultValue="all"
             value={activeFilterType}
             onValueChange={setActiveFilterType}
@@ -228,7 +227,7 @@ export default function ManageModelsScreen() {
                 ))}
               </Tabs.List>
             </ScrollView>
-          </Tabs>
+          </Tabs>*/}
 
           <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
 

@@ -1,7 +1,5 @@
-import React from 'react'
 
 import { Model } from '@/types/assistant'
-import { Select } from '@/componentsV2'
 
 interface SelectOptionItem {
   label: string
@@ -28,12 +26,4 @@ export function ModelSelect({ value, onValueChange, selectOptions, placeholder }
     // 如果需要访问完整的模型信息，可以使用 item?.model
   }
 
-  return (
-    <Select<Model>
-      value={value}
-      onValueChange={handleValueChange}
-      selectOptions={selectOptions}
-      placeholder={placeholder}
-    />
-  )
-}
+  return null}

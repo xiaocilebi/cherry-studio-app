@@ -29,7 +29,6 @@ export { default as ModelGroup, type ModelGroupProps } from './features/ModelGro
 export { IconButton } from './base/IconButton'
 export { ExternalLink } from './base/ExternalLink'
 export { CustomTag } from './base/CustomTag'
-export { Select } from './base/Select'
 export { SearchInput } from './base/SearchInput'
 export { default as SelectionSheet, type SelectionSheetProps, type SelectionSheetItem } from './base/SelectionSheet'
 export { TopicItem } from './features/TopicItem'

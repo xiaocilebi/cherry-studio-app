@@ -41,7 +41,7 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
         data={assistants}
         renderItem={renderItem}
         numColumns={numColumns}
-        estimatedItemSize={estimatedItemSize}
+        // estimatedItemSize={estimatedItemSize}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews

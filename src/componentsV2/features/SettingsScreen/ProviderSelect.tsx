@@ -1,7 +1,5 @@
-import React from 'react'
 
 import { ProviderType } from '@/types/assistant'
-import { Select } from '@/componentsV2'
 
 interface SelectOptionItem {
   label: string
@@ -39,7 +37,5 @@ export function ProviderSelect({ value, onValueChange, placeholder }: ProviderSe
     onValueChange(newValue as ProviderType)
   }
 
-  return (
-    <Select value={value} onValueChange={handleValueChange} selectOptions={providerOptions} placeholder={placeholder} />
-  )
+  return null
 }

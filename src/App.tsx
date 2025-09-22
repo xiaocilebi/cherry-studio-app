@@ -19,7 +19,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Provider, useSelector } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import { PortalProvider, TamaguiProvider, Theme } from 'tamagui'
 
 import { getDataBackupProviders } from '@/config/backup'
 import { getWebSearchProviders } from '@/config/websearchProviders'
@@ -34,7 +33,6 @@ import { upsertDataBackupProviders } from '../db/queries/backup.queries'
 import { upsertProviders } from '../db/queries/providers.queries'
 import { upsertWebSearchProviders } from '../db/queries/websearchProviders.queries'
 import migrations from '../drizzle/migrations'
-import tamaguiConfig from '../tamagui.config'
 import { getSystemAssistants } from './config/assistants'
 import { SYSTEM_PROVIDERS } from './config/providers'
 import { DialogProvider } from './hooks/useDialog'
@@ -100,15 +98,12 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const { themeSetting, activeTheme, reactNavigationTheme, isDark } = useTheme()
+  const { themeSetting, reactNavigationTheme, isDark } = useTheme()
 
   return (
-    <TamaguiProvider config={tamaguiConfig} defaultTheme={activeTheme}>
       <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
-        <PortalProvider>
           <KeyboardProvider>
             <NavigationContainer theme={reactNavigationTheme}>
-              <Theme name={isDark ? 'dark' : 'light'}>
                 <SystemBars style={isDark ? 'light' : 'dark'} />
                 <DatabaseInitializer />
                 <DialogProvider>
@@ -118,12 +113,9 @@ function ThemedApp() {
                     </BottomSheetModalProvider>
                   </ToastProvider>
                 </DialogProvider>
-              </Theme>
             </NavigationContainer>
           </KeyboardProvider>
-        </PortalProvider>
       </HeroUINativeProvider>
-    </TamaguiProvider>
   )
 }
 
