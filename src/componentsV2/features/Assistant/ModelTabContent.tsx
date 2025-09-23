@@ -50,7 +50,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
 
   // 模型更新函数
   const handleModelChange = async (models: Model[]) => {
-    await handleAssistantChange({ defaultModel: models[0] })
+    await handleAssistantChange({ defaultModel: models[0], model: models[0] })
   }
 
   const handleModelPress = () => {

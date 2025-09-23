@@ -82,7 +82,7 @@ const MarqueeComponent: React.FC<MarqueeComponentProps> = ({ block, expanded }) 
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        width: '100%'
+        width: '100%',
       }}
       animate={{
         height: containerHeight
@@ -99,13 +99,13 @@ const MarqueeComponent: React.FC<MarqueeComponentProps> = ({ block, expanded }) 
             animate={{ width: 20, height: 20, opacity: 1, marginRight: 10 }}
             exit={{ width: 0, height: 0, opacity: 0, marginRight: 0 }}
             transition={{ type: 'timing', duration: 150 }}>
-            <Spinner size="sm" className="text-green-100 dark:text-green-dark-100" />
+            <Spinner size="sm" color='#0067A8' />
           </MotiView>
         )}
       </AnimatePresence>
-      <YStack className="gap-1.5 flex-1 relative h-full">
+      <YStack className="gap-1 flex-1 relative h-full">
         <XStack className="justify-between items-center">
-          <Text className="text-text-primary dark:text-text-primary-dark font-bold z-10">
+          <Text className="text-lg text-text-primary dark:text-text-primary-dark font-bold z-10">
             {t('chat.think', { seconds: Math.floor((block.thinking_millsec || 0) / 1000) })}
           </Text>
           <MotiView

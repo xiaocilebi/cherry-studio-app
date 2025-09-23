@@ -327,7 +327,7 @@ export class GeminiAPIClient extends BaseApiClient<
       }
 
       if ([FileTypes.TEXT, FileTypes.DOCUMENT].includes(file.type)) {
-        const fileContent = new File(file.path).text().trim()
+        const fileContent = (await new File(file.path).text()).trim()
         parts.push({
           text: file.origin_name + '\n' + fileContent
         })

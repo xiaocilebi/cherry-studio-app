@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity, View } from 'react-native'
-import FileViewer from 'react-native-file-viewer'
+import { viewDocument } from '@react-native-documents/viewer'
 
 import { FileIcon, Share, X } from '@/componentsV2/icons'
 import { useToast } from '@/hooks/useToast'
@@ -29,7 +29,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
   const toast = useToast()
 
   const handlePreview = () => {
-    FileViewer.open(file.path, { displayName: file.name }).catch(error => {
+    viewDocument({uri: file.path,mimeType:file.type}).catch(error => {
       logger.error('Handle Preview Error', error)
     })
   }

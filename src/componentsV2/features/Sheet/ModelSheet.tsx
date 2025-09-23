@@ -10,7 +10,6 @@ import { Button } from 'heroui-native'
 import { ModelIcon, ProviderIcon } from '@/componentsV2/icons'
 import { BrushCleaning } from '@/componentsV2/icons/LucideIcon'
 import { isEmbeddingModel, isRerankModel } from '@/config/models'
-import { useBottom } from '@/hooks/useBottom'
 import { useAllProviders } from '@/hooks/useProviders'
 import { useTheme } from '@/hooks/useTheme'
 import { Model } from '@/types/assistant'
@@ -37,7 +36,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const [isMultiSelectActive, setIsMultiSelectActive] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const insets = useSafeAreaInsets()
-  const bottom = useBottom()
   const dimensions = useWindowDimensions()
 
   const debouncedSetQuery = debounce((query: string) => {

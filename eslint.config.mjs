@@ -56,8 +56,7 @@ const ignores = [
   '.metro/**',
   'metro.config.js',
   'ios/Pods/**',
-  'android/app/build/**',
-  'tamagui.config.ts'
+  'android/app/build/**'
 ]
 
 export default [

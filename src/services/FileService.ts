@@ -25,8 +25,8 @@ async function ensureDirExists(dir: Directory) {
   }
 }
 
-export function readFile(file: FileMetadata): string {
-  return new File(file.path).text()
+export async function readFile(file: FileMetadata): Promise<string> {
+  return (await new File(file.path).text())
 }
 
 export function readBase64File(file: FileMetadata): string {
@@ -44,7 +44,7 @@ export async function writeBase64File(data: string): Promise<FileMetadata> {
   const fileUri = DEFAULT_IMAGES_STORAGE.uri + `${fileName}.png`
 
   await FileSystem.writeAsStringAsync(fileUri, cleanedBase64, {
-    encoding: FileSystem.EncodingType.Base64
+    encoding: 'base64'
   })
 
   return {
@@ -60,9 +60,6 @@ export async function writeBase64File(data: string): Promise<FileMetadata> {
   }
 }
 
-export function readBinaryFile(file: FileMetadata): Blob {
-  return new File(file.path).blob()
-}
 
 export function readStreamFile(file: FileMetadata): ReadableStream {
   return new File(file.path).readableStream()
@@ -89,8 +86,7 @@ export async function uploadFiles(
       })
 
       const fileInfo = await FileSystem.getInfoAsync(destinationUri, {
-        size: true,
-        md5: true
+        md5: true,
       })
 
       if (!fileInfo.exists) {
@@ -248,7 +244,6 @@ export async function shareFile(uri: string): Promise<ShareFileResult> {
 export default {
   readFile,
   readBase64File,
-  readBinaryFile,
   readStreamFile,
   getFile: getFileById,
   getAllFiles,

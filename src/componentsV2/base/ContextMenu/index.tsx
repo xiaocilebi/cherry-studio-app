@@ -2,7 +2,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { FC, useRef } from 'react'
 import { Pressable } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
-import * as ZeegoContextMenu from 'zeego/context-menu'
+import { ContextMenu as IOSContextMenu, Host, Button } from '@expo/ui/swift-ui';
+
 
 import { isAndroid, isIOS } from '@/utils/device'
 import SelectionSheet from '../SelectionSheet'
@@ -38,7 +39,6 @@ export const ContextMenu: FC<ContextMenuProps> = ({
   const selectionSheetRef = useRef<BottomSheetModal>(null)
 
   if (isIOS) {
-    const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
     const TriggerContent = withHighLight ? (
       <Pressable
         onPress={onPress}
@@ -60,21 +60,20 @@ export const ContextMenu: FC<ContextMenuProps> = ({
     }
 
     return (
-      <Root
-        // @ts-expect-error: https://github.com/nandorojo/zeego/issues/80
-        __unsafeIosProps={{
-          shouldWaitForMenuToHideBeforeFiringOnPressMenuItem: false
-        }}>
-        <Trigger disabled={disableContextMenu}>{TriggerContent}</Trigger>
-        <Content>
+      <Host>
+        <IOSContextMenu activationMethod="longPress">
+          <IOSContextMenu.Items>
           {list.map(item => (
-            <Item key={item.title} onSelect={item.onSelect} destructive={item.destructive}>
-              <ItemTitle>{item.title}</ItemTitle>
-              {item.iOSIcon && <ItemIcon ios={{ name: item.iOSIcon }} />}
-            </Item>
+            <Button key={item.title} systemImage={item.iOSIcon} onPress={item.onSelect}>
+              {item.title}
+            </Button>
           ))}
-        </Content>
-      </Root>
+          </IOSContextMenu.Items>
+          <IOSContextMenu.Trigger>
+            {TriggerContent}
+          </IOSContextMenu.Trigger>
+        </IOSContextMenu>
+      </Host>
     )
   }
 

@@ -85,7 +85,7 @@ export async function restore(
 
     const dataFile = new File(unzipPath, 'data.json')
 
-    const { reduxData, indexedData } = transformBackupData(dataFile.text())
+    const { reduxData, indexedData } = transformBackupData(await dataFile.text())
 
     await restoreReduxData(reduxData, onProgress, dispatch)
     await restoreIndexedDbData(indexedData, onProgress, dispatch)

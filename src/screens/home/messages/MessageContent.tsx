@@ -33,7 +33,7 @@ const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = fa
         {mediaBlocks.length > 0 && <View className="h-2" />}
         <MessageContextMenu message={message} assistant={assistant}>
           {contentBlocks.length > 0 && (
-            <YStack className="rounded-2xl bg-green-10 border border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20 px-5 rounded-tl-3xl rounded-bl-3xl rounded-br-3xl rounded-tr-2">
+            <YStack className="bg-green-10 border border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20 px-5 rounded-l-xl rounded-tr-xl rounded-br-sm ">
               <MessageBlockRenderer blocks={contentBlocks} message={message} />
             </YStack>
           )}
@@ -43,7 +43,7 @@ const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = fa
 
   return (
     <MessageContextMenu message={message} assistant={assistant} isMultiModel={isMultiModel}>
-      <View className="w-full max-w-full px-[14px] pb-2 rounded-2xl">
+      <View className="w-full max-w-full px-[14px] rounded-2xl">
         {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}
         {contentBlocks.length > 0 && (
           <YStack
