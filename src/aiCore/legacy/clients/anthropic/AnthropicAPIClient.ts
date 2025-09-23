@@ -336,7 +336,7 @@ export class AnthropicAPIClient extends BaseApiClient<
             }
           })
         } else {
-          const fileContent = new File(file.path).text().trim()
+          const fileContent = (await new File(file.path).text()).trim()
           parts.push({
             type: 'text',
             text: file.origin_name + '\n' + fileContent
