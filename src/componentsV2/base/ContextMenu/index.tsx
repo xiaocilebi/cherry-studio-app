@@ -61,11 +61,13 @@ export const ContextMenu: FC<ContextMenuProps> = ({
 
     return (
       <Host>
-        <IOSContextMenu>
+        <IOSContextMenu activationMethod="longPress">
           <IOSContextMenu.Items>
           {list.map(item => (
-            <Button key={item.title} systemImage={item.iOSIcon} onPress={item.onSelect}>{ item.title}</Button>
-                ))}
+            <Button key={item.title} systemImage={item.iOSIcon} onPress={item.onSelect}>
+              {item.title}
+            </Button>
+          ))}
           </IOSContextMenu.Items>
           <IOSContextMenu.Trigger>
             {TriggerContent}

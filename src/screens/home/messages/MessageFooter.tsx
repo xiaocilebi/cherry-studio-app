@@ -50,20 +50,20 @@ const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFoot
       id: 'translate',
       label: isTranslated ? t('common.delete_translation') : t('message.translate_message'),
       icon: isTranslated ? (
-        <TranslatedIcon size={18} color={isTranslated ? 'red' : '$textPrimary'} />
+        <TranslatedIcon size={18} color={isTranslated ? 'red' : undefined} />
       ) : (
-        <TranslationIcon size={18} color="$textPrimary" />
+        <TranslationIcon size={18} />
       ),
-      color: isTranslated ? '$red100' : undefined,
-      backgroundColor: isTranslated ? '$red20' : undefined,
+      color: isTranslated ? 'text-red-100 dark:text-red-100' : undefined,
+      backgroundColor: isTranslated ? 'bg-red-20 dark:bg-red-20' : undefined,
       onSelect: isTranslated ? handleDeleteTranslation : handleTranslate
     },
     {
       id: 'delete',
       label: t('message.delete_message'),
-      icon: <Trash2 size={18} className="text-red-600" />,
-      color: '$red100',
-      backgroundColor: '$red20',
+      icon: <Trash2 size={18} className="text-red-100 dark:text-red-100" />,
+      color: 'text-red-100 dark:text-red-100',
+      backgroundColor: 'bg-red-20 dark:bg-red-20',
       onSelect: handleDelete
     }
   ]
