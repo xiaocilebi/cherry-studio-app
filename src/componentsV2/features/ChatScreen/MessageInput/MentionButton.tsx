@@ -43,20 +43,24 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
     haptic(ImpactFeedbackStyle.Medium)
     bottomSheetModalRef.current?.present()
   }
-
-  const handleModelChange = async (models: Model[], isMultiSelectActive?: boolean) => {
+  /**
+   * @description Change Model Event
+   * 1. Assistant没有defaultModel时，选择模型后设定defaultModel和model，如果为多选，则设置第一个模型为defaultModel
+   * 2. Assistant有defaultModel时，选择模型后修改model，如果为多选，则设置第一个模型为model
+   * @param models
+   * @returns
+   */
+  const handleModelChange = async (models: Model[]) => {
     setMentions(models)
 
-    if (isMultiSelectActive) return
-
-    // 当助手没有默认模型且只选择了一个模型时，设置为默认模型
-    const shouldSetDefaultModel = !assistant.defaultModel && models.length === 1
-
-    const updatedAssistant: Assistant = {
-      ...assistant,
-      defaultModel: shouldSetDefaultModel ? models[0] : assistant.defaultModel,
-      model: models[0]
+    let updatedAssistant = { ...assistant }
+    if(assistant.defaultModel){
+      updatedAssistant.model = models[0]
+    }else{
+      updatedAssistant.defaultModel = models[0]
+      updatedAssistant.model = models[0]
     }
+
 
     await updateAssistant(updatedAssistant)
   }

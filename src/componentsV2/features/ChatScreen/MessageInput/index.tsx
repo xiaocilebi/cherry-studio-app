@@ -47,10 +47,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
 
   const isReasoning = isReasoningModel(assistant?.model)
 
-  useEffect(() => {
-    if (!assistant || !assistant?.defaultModel) return
-    setMentions([assistant?.defaultModel])
-  }, [assistant, assistant?.id, assistant?.defaultModel])
+  // topic切换时渲染
+  useEffect(()=>
+    {
+      setMentions(assistant?.defaultModel?[assistant?.defaultModel]:[])
+    },[topic.id])
 
   const sendMessage = async () => {
     if (isEmpty(text.trim()) || !assistant) {
