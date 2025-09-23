@@ -18,7 +18,6 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
   assistants,
   onAssistantPress,
   numColumns = 2,
-  estimatedItemSize = 230
 }) => {
   const { t } = useTranslation()
   const insets = useSafeAreaInsets()
@@ -41,7 +40,6 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
         data={assistants}
         renderItem={renderItem}
         numColumns={numColumns}
-        // estimatedItemSize={estimatedItemSize}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews

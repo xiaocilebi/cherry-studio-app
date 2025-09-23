@@ -109,6 +109,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
             scrollToBottom()
           }
         }}
+        keyboardDismissMode='on-drag'
       />
 
       {showScrollButton && (
