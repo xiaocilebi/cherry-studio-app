@@ -1,5 +1,5 @@
 import { FlashList } from '@shopify/flash-list'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -22,9 +22,9 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
   const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
-  const renderItem = ({ item }: { item: Assistant }) => (
+  const renderItem = useCallback(({ item }: { item: Assistant }) => (
     <AssistantItemCard assistant={item} onAssistantPress={onAssistantPress} />
-  )
+  ), [onAssistantPress])
 
   if (!assistants || assistants.length === 0) {
     return (
