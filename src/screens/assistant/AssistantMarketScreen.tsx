@@ -51,9 +51,10 @@ export default function AssistantMarketScreen() {
 
   useEffect(() => {
     if (builtInAssistants.length > 0 && isInitializing) {
-      setTimeout(() => {
+      const id = setTimeout(() => {
         setIsInitializing(false)
       }, 100)
+      return () => clearTimeout(id)
     }
   }, [builtInAssistants, isInitializing])
 

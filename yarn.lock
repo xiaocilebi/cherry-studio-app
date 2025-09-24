@@ -3424,6 +3424,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@legendapp/list@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "@legendapp/list@npm:2.0.6"
+  dependencies:
+    use-sync-external-store: "npm:^1.5.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/95ec09925173ce647078366d9516b1a09a611813be68cc3dfd1365f02b388a2c6c764e5eb0a8fcaa288727078a9df21d897a05a9ccec14be58ecef5a494e287c
+  languageName: node
+  linkType: hard
+
 "@mistralai/mistralai@npm:^1.7.4":
   version: 1.10.0
   resolution: "@mistralai/mistralai@npm:1.10.0"
@@ -4505,19 +4517,6 @@ __metadata:
   version: 1.1.0
   resolution: "@rtsao/scc@npm:1.1.0"
   checksum: 10c0/b5bcfb0d87f7d1c1c7c0f7693f53b07866ed9fec4c34a97a8c948fb9a7c0082e416ce4d3b60beb4f5e167cbe04cdeefbf6771320f3ede059b9ce91188c409a5b
-  languageName: node
-  linkType: hard
-
-"@shopify/flash-list@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@shopify/flash-list@npm:2.0.2"
-  dependencies:
-    tslib: "npm:2.8.1"
-  peerDependencies:
-    "@babel/runtime": "*"
-    react: "*"
-    react-native: "*"
-  checksum: 10c0/c4e88348ce66e8f51c6213a42574a097d54cebf2125dc3fd8c077f3f7b83e25209c67bcb9a9102a3178c146cf5c23a978febd9a5ed5328ba1d7c663b5a8149d2
   languageName: node
   linkType: hard
 
@@ -5966,6 +5965,7 @@ __metadata:
     "@expo/ui": "npm:0.2.0-beta.3"
     "@google/genai": "npm:^1.17.0"
     "@gorhom/bottom-sheet": "npm:^5.2.6"
+    "@legendapp/list": "npm:^2.0.6"
     "@mistralai/mistralai": "npm:^1.7.4"
     "@mozilla/readability": "npm:^0.6.0"
     "@openrouter/ai-sdk-provider": "npm:^1.1.2"
@@ -5986,7 +5986,6 @@ __metadata:
     "@react-navigation/native-stack": "npm:^7.3.13"
     "@react-navigation/stack": "npm:^7.3.2"
     "@reduxjs/toolkit": "npm:^2.5.1"
-    "@shopify/flash-list": "npm:2.0.2"
     "@shopify/react-native-skia": "npm:2.2.12"
     "@stardazed/streams-text-encoding": "npm:^1.0.2"
     "@tryfabric/martian": "npm:^1.2.4"
@@ -17466,7 +17465,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.8.1, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
+"tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

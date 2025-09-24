@@ -1,5 +1,5 @@
 import { BlurView } from 'expo-blur'
-import React from 'react'
+import React, { memo } from 'react'
 import { Platform, Pressable, View } from 'react-native'
 
 import { Text, XStack, YStack } from '@/componentsV2'
@@ -85,4 +85,4 @@ const AssistantItemCard = ({ assistant, onAssistantPress }: AssistantItemCardPro
   )
 }
 
-export default AssistantItemCard
+export default memo(AssistantItemCard)

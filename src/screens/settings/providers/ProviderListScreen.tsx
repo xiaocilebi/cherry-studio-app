@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { Plus } from '@/componentsV2/icons/LucideIcon'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,6 +9,7 @@ import { useSearch } from '@/hooks/useSearch'
 import { Provider } from '@/types/assistant'
 import { AddProviderSheet } from '@/componentsV2/features/SettingsScreen/AddProviderSheet'
 import { ProviderItem } from '@/componentsV2/features/SettingsScreen/ProviderItem'
+import { LegendList } from '@legendapp/list'
 
 export default function ProviderListScreen() {
   const { t } = useTranslation()
@@ -51,7 +51,7 @@ export default function ProviderListScreen() {
     setRefreshKey(prev => prev + 1)
   }
 
-  const renderProviderItem = ({ item }: ListRenderItemInfo<Provider>) => (
+  const renderProviderItem = ({ item }: { item: Provider }) => (
     <ProviderItem
       key={`${item.id}-${refreshKey}`}
       provider={item}
@@ -79,7 +79,7 @@ export default function ProviderListScreen() {
 
           <YStack className="flex-1" style={{ height: '100%' }}>
             <Group className="flex-1">
-              <FlashList
+              <LegendList
                 data={filteredProviders}
                 renderItem={renderProviderItem}
                 keyExtractor={item => item.id}
@@ -87,6 +87,8 @@ export default function ProviderListScreen() {
                 showsVerticalScrollIndicator={false}
                 extraData={providers}
                 contentContainerStyle={{ paddingBottom: 30 }}
+                drawDistance={2000}
+                recycleItems
               />
             </Group>
           </YStack>

@@ -1,4 +1,5 @@
 import { SystemProviderId } from '@/types/assistant'
+import { ImageRequireSource } from 'react-native'
 
 const MODEL_ICONS_DARK = {
   chatgpt: require('@/assets/images/llmIcons/dark/openai.png'),
@@ -80,9 +81,9 @@ const MODEL_ICONS_LIGHT = {
   stable: require('@/assets/images/llmIcons/light/stability.png')
 }
 
-export function getModelIcon(modelId: string, isDark: boolean): any {
+export function getModelIcon(modelId: string, isDark: boolean): ImageRequireSource | undefined {
   const modelIcons = isDark ? MODEL_ICONS_DARK : MODEL_ICONS_LIGHT
-  let result = null
+  let result = undefined
 
   for (const key in modelIcons) {
     const regex = new RegExp(key, 'i')
@@ -96,7 +97,7 @@ export function getModelIcon(modelId: string, isDark: boolean): any {
   return result
 }
 
-const PROVIDER_ICONS_DARK: Record<SystemProviderId | 'default', any> = {
+const PROVIDER_ICONS_DARK: Record<SystemProviderId | 'default', ImageRequireSource> = {
   gemini: require('@/assets/images/llmIcons/dark/google.png'),
   grok: require('@/assets/images/llmIcons/dark/grok.png'),
   deepseek: require('@/assets/images/llmIcons/dark/deepseek.png'),
@@ -152,7 +153,7 @@ const PROVIDER_ICONS_DARK: Record<SystemProviderId | 'default', any> = {
   default: require('@/assets/images/llmIcons/dark/openai.png')
 }
 
-const PROVIDER_ICONS_LIGHT: Record<SystemProviderId | 'default', any> = {
+const PROVIDER_ICONS_LIGHT: Record<SystemProviderId | 'default', ImageRequireSource> = {
   gemini: require('@/assets/images/llmIcons/light/google.png'),
   grok: require('@/assets/images/llmIcons/light/grok.png'),
   deepseek: require('@/assets/images/llmIcons/light/deepseek.png'),
@@ -208,12 +209,12 @@ const PROVIDER_ICONS_LIGHT: Record<SystemProviderId | 'default', any> = {
   default: require('@/assets/images/llmIcons/light/openai.png')
 }
 
-export function getProviderIcon(providerId: string, isDark: boolean): any {
+export function getProviderIcon(providerId: string, isDark: boolean): ImageRequireSource {
   const providerIcons = isDark ? PROVIDER_ICONS_DARK : PROVIDER_ICONS_LIGHT
   return providerIcons[providerId as SystemProviderId] || providerIcons.default
 }
 
-export function getModelOrProviderIcon(modelId: string, providerId: string, isDark: boolean): any {
+export function getModelOrProviderIcon(modelId: string, providerId: string, isDark: boolean): ImageRequireSource {
   // 先尝试获取模型图标
   const modelIcon = getModelIcon(modelId, isDark)
 
