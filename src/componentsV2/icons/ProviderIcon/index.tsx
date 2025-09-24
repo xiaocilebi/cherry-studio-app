@@ -7,6 +7,7 @@ import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
 import Image from '@/componentsV2/base/Image'
 import YStack from '@/componentsV2/layout/YStack'
+import { ImageRequireSource } from 'react-native'
 
 interface ProviderIconProps {
   provider: Provider
@@ -16,7 +17,7 @@ interface ProviderIconProps {
 
 export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, className }) => {
   const { isDark } = useTheme()
-  const [iconUri, setIconUri] = useState<string>('')
+  const [iconUri, setIconUri] = useState<ImageRequireSource|string|undefined>(undefined)
 
   useEffect(() => {
     const loadIcon = async () => {
@@ -46,7 +47,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, clas
   return (
     <Image
       className={`${finalClassName} rounded-full`}
-      source={iconUri}
+      source={typeof iconUri === 'string' ? { uri: iconUri } : iconUri}
       style={size ? { width: size, height: size } : undefined}
     />
   )
