@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import { Pressable } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import { SquareFunction, Wrench, WebsearchProviderIcon } from '@/componentsV2/icons'
+import { SquareFunction, Wrench, WebsearchProviderIcon, Globe } from '@/componentsV2/icons'
 import { useWebsearchProviders } from '@/hooks/useWebsearchProviders'
 import { Assistant } from '@/types/assistant'
 import YStack from '@/componentsV2/layout/YStack'
@@ -34,6 +34,32 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
   }
 
   const provider = apiProviders.find(p => p.id === assistant.webSearchProviderId)
+
+  const getWebsearchDisplayContent = () => {
+    if (provider) {
+      return {
+        icon: <WebsearchProviderIcon provider={provider} />,
+        text: provider.name,
+        isActive: true
+      }
+    }
+
+    if (assistant.enableWebSearch) {
+      return {
+        icon: <Globe size={20} />,
+        text: t('settings.websearch.builtin'),
+        isActive: true
+      }
+    }
+
+    return {
+      icon: null,
+      text: t('settings.websearch.empty'),
+      isActive: false
+    }
+  }
+
+  const websearchContent = getWebsearchDisplayContent()
 
   return (
     <MotiView
@@ -84,13 +110,13 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
             onPress={handleWebsearchPress}
             className="flex-row items-center justify-between rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark px-3 py-3 active:opacity-80">
             <XStack className="flex-1 items-center gap-2">
-              {provider ? (
+              {websearchContent.isActive ? (
                 <XStack className="flex-1 items-center gap-2 max-w-[80%]">
                   <XStack className="items-center justify-center">
-                    <WebsearchProviderIcon provider={provider} />
+                    {websearchContent.icon}
                   </XStack>
                   <Text className="flex-1 text-sm" numberOfLines={1} ellipsizeMode="tail">
-                    {provider.name}
+                    {websearchContent.text}
                   </Text>
                 </XStack>
               ) : (
@@ -98,7 +124,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
                   className="flex-1 text-sm text-text-secondary dark:text-text-secondary"
                   numberOfLines={1}
                   ellipsizeMode="tail">
-                  {t('settings.websearch.empty')}
+                  {websearchContent.text}
                 </Text>
               )}
             </XStack>

@@ -8,11 +8,13 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { WebSearchProvider } from '@/types/websearch'
 
-import { WebsearchProviderIcon } from '@/componentsV2/icons'
+import { Globe, WebsearchProviderIcon } from '@/componentsV2/icons'
 import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
 import XStack from '@/componentsV2/layout/XStack'
 import Text from '@/componentsV2/base/Text'
 import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
+import { isWebSearchModel } from '@/config/models'
+import { cn } from 'heroui-native'
 
 interface WebsearchSheetProps {
   assistant: Assistant
@@ -29,9 +31,18 @@ export const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, 
     const newProviderId = id === assistant.webSearchProviderId ? undefined : id
     await updateAssistant({
       ...assistant,
-      webSearchProviderId: newProviderId
+      webSearchProviderId: newProviderId,
+      enableWebSearch:false
     })
     ref.current?.dismiss()
+  }
+
+  const handleBuiltinSelect = async () =>{
+    await updateAssistant({
+      ...assistant,
+      webSearchProviderId:undefined,
+      enableWebSearch:!assistant.enableWebSearch
+    })
   }
 
   const handleNavigateToWebSearhPage = () => {
@@ -39,13 +50,24 @@ export const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, 
     navigation.navigate('Home', { screen: 'WebSearchSettings' })
   }
 
-  const providerItems: SelectionSheetItem[] = providers.map(p => ({
-    id: p.id,
-    label: p.name,
-    icon: <WebsearchProviderIcon provider={p} />,
-    isSelected: assistant.webSearchProviderId === p.id,
-    onSelect: () => handleItemSelect(p.id)
-  }))
+  const isWebSearchModelEnabled = assistant.model && isWebSearchModel(assistant.model)
+
+  const providerItems: SelectionSheetItem[] = [
+    ...(isWebSearchModelEnabled ? [{
+      id: 'builtin',
+      label: t('settings.websearch.builtin'),
+      icon: <Globe size={20} className={cn(assistant.enableWebSearch&&'text-green-100 dark:text-green-dark-100')} />,
+      isSelected: assistant.enableWebSearch,
+      onSelect: () => handleBuiltinSelect()
+    }] : []),
+    ...providers.map(p => ({
+      id: p.id,
+      label: p.name,
+      icon: <WebsearchProviderIcon provider={p} />,
+      isSelected: assistant.webSearchProviderId === p.id,
+      onSelect: () => handleItemSelect(p.id)
+    })),
+  ]
 
   const emptyContent = (
     <TouchableOpacity onPress={handleNavigateToWebSearhPage} activeOpacity={0.7}>
