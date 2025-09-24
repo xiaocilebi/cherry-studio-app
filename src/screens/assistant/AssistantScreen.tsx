@@ -90,7 +90,7 @@ export default function AssistantScreen() {
               onPress: onAddAssistant
             }}
           />
-          <Container className="p-0 gap-2.5">
+          <Container className="p-0">
             <View className="px-4">
               <SearchInput
                 placeholder={t('common.search_placeholder')}
@@ -109,6 +109,7 @@ export default function AssistantScreen() {
                 contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
                 drawDistance={2000}
                 recycleItems
+                waitForInitialLayout
               />
             ) : (
               <LegendList
@@ -119,15 +120,16 @@ export default function AssistantScreen() {
                 )}
                 keyExtractor={item => item.id}
                 estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack className="h-2.5" />}
+                ItemSeparatorComponent={() => <YStack className="h-2" />}
                 ListEmptyComponent={
-                  <YStack className="flex-1 justify-center items-center pt-8">
+                  <YStack className="flex-1 justify-center items-center">
                     <Text>{t('settings.assistant.empty')}</Text>
                   </YStack>
                 }
-                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
+                contentContainerStyle={{ paddingHorizontal: 16,  paddingBottom: 30 }}
                 drawDistance={2000}
                 recycleItems
+                waitForInitialLayout
               />
             )}
           </Container>
