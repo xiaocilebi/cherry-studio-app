@@ -240,6 +240,10 @@ export async function shareFile(uri: string): Promise<ShareFileResult> {
   }
 }
 
+export async function downloadFileAsync(url: string, destination: File,){
+  return File.downloadFileAsync(url,destination)
+}
+
 export default {
   readFile,
   readBase64File,
@@ -251,5 +255,6 @@ export default {
   resetCacheDirectory,
   getDirectorySizeAsync,
   getCacheDirectorySize,
-  shareFile
+  shareFile,
+  downloadFileAsync
 }

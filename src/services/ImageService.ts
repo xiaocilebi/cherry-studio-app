@@ -1,4 +1,4 @@
-import * as FileSystem from 'expo-file-system'
+import { File} from 'expo-file-system'
 import * as MediaLibrary from 'expo-media-library'
 
 import { loggerService } from '@/services/LoggerService'
@@ -29,7 +29,7 @@ export async function saveImageToGallery(imageUri: string): Promise<SaveImageRes
     }
 
     // 检查文件是否存在
-    const fileInfo = await FileSystem.getInfoAsync(imageUri)
+    const fileInfo = new File(imageUri).info()
 
     if (!fileInfo.exists) {
       logger.error('Image file not found:', imageUri)

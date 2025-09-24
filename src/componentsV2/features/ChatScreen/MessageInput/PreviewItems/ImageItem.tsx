@@ -12,6 +12,7 @@ import { FileMetadata } from '@/types/file'
 import { Download, Share, X, ImageOff } from '@/componentsV2/icons'
 import { ContextMenu } from '@/componentsV2/base/ContextMenu'
 import Image from '@/componentsV2/base/Image'
+import ImageViewerFooterComponent from '@/componentsV2/base/ImageViewerFooterComponent'
 
 const logger = loggerService.withContext('Image Item')
 
@@ -122,6 +123,12 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
         onRequestClose={() => setIsVisible(false)}
         presentationStyle="fullScreen"
         animationType="slide"
+        FooterComponent={({ imageIndex: idx }: any) => (
+          <ImageViewerFooterComponent
+            uri={(imagesForViewer[idx] || file).path}
+            onSaved={() => setIsVisible(false)}
+          />
+        )}
       />
       {onRemove && (
         <TouchableOpacity onPress={handleRemove} hitSlop={5} className="absolute -top-1.5 -right-1.5 rounded-full">

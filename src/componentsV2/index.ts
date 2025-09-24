@@ -39,6 +39,7 @@ export { default as FileItem } from './features/ChatScreen/MessageInput/PreviewI
 export { PauseButton } from './features/ChatScreen/MessageInput/PauseButton'
 export { DrawerGestureWrapper } from './layout/DrawerGestureWrapper'
 export { ContextMenu, ContextMenuProps, ContextMenuListProps } from './base/ContextMenu'
+export { default as ImageViewerFooterComponent } from './base/ImageViewerFooterComponent'
 export { AvatarEditButton } from './base/AvatarEditButton'
 export { ImageSkeleton } from './base/Skeleton/ImageSkeleton'
 export { default as Searching } from './features/Searching'

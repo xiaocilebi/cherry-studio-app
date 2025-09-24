@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity, useWindowDimensions } from 'react-native'
 import ImageView from 'react-native-image-viewing'
 
-import { Image } from '@/componentsV2'
+import { Image , ImageViewerFooterComponent } from '@/componentsV2'
 import { ImageOff } from '@/componentsV2/icons/LucideIcon'
 
 export interface MarkdownImageProps {
@@ -45,6 +45,7 @@ const MarkdownImage: React.FC<MarkdownImageProps> = ({ uri, alt }) => {
         onRequestClose={() => setVisible(false)}
         presentationStyle="fullScreen"
         animationType="slide"
+        FooterComponent={() => <ImageViewerFooterComponent uri={uri} onSaved={() => setVisible(false)} />}
       />
     </View>
   )
