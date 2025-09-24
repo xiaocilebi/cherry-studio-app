@@ -24,7 +24,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
   const renderAssistantMessages = () => {
     if (messagesInGroup.length === 1) {
       return (
-        <View className='gap-2'>
+        <View className="gap-2">
           <MessageHeader message={messagesInGroup[0]} />
           <MessageItem message={messagesInGroup[0]} assistant={assistant} />
           {/* 输出过程中不显示footer */}

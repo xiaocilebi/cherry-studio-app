@@ -1,4 +1,4 @@
-import { LegendList } from "@legendapp/list";
+import { LegendList } from '@legendapp/list'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -14,17 +14,14 @@ interface AssistantsTabProps {
   estimatedItemSize?: number
 }
 
-const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
-  assistants,
-  onAssistantPress,
-  numColumns = 2,
-}) => {
+const AssistantsTabContent: React.FC<AssistantsTabProps> = ({ assistants, onAssistantPress, numColumns = 2 }) => {
   const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
-  const renderItem = useCallback(({ item }: { item: Assistant }) => (
-    <AssistantItemCard assistant={item} onAssistantPress={onAssistantPress} />
-  ), [onAssistantPress])
+  const renderItem = useCallback(
+    ({ item }: { item: Assistant }) => <AssistantItemCard assistant={item} onAssistantPress={onAssistantPress} />,
+    [onAssistantPress]
+  )
 
   if (!assistants || assistants.length === 0) {
     return (

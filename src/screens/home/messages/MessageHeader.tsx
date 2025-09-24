@@ -22,7 +22,9 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ message }) => {
           <ModelIcon model={message.model} />
           <Text className="text-base">{getBaseModelName(message.model?.name)}</Text>
           <Text>|</Text>
-          <Text className="text-base text-text-secondary dark:text-text-secondary-dark">{t(`provider.${message.model?.provider}`)}</Text>
+          <Text className="text-base text-text-secondary dark:text-text-secondary-dark">
+            {t(`provider.${message.model?.provider}`)}
+          </Text>
           <Text className="text-xs text-text-secondary dark:text-text-secondary-dark">
             {new Date(message.createdAt).toLocaleTimeString(currentLanguage, {
               hour: '2-digit',

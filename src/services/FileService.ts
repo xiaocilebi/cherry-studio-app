@@ -26,7 +26,7 @@ async function ensureDirExists(dir: Directory) {
 }
 
 export async function readFile(file: FileMetadata): Promise<string> {
-  return (await new File(file.path).text())
+  return await new File(file.path).text()
 }
 
 export function readBase64File(file: FileMetadata): string {
@@ -60,7 +60,6 @@ export async function writeBase64File(data: string): Promise<FileMetadata> {
   }
 }
 
-
 export function readStreamFile(file: FileMetadata): ReadableStream {
   return new File(file.path).readableStream()
 }
@@ -86,7 +85,7 @@ export async function uploadFiles(
       })
 
       const fileInfo = await FileSystem.getInfoAsync(destinationUri, {
-        md5: true,
+        md5: true
       })
 
       if (!fileInfo.exists) {

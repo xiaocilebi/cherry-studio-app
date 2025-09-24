@@ -82,7 +82,7 @@ const MarqueeComponent: React.FC<MarqueeComponentProps> = ({ block, expanded }) 
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        width: '100%',
+        width: '100%'
       }}
       animate={{
         height: containerHeight
@@ -99,7 +99,7 @@ const MarqueeComponent: React.FC<MarqueeComponentProps> = ({ block, expanded }) 
             animate={{ width: 20, height: 20, opacity: 1, marginRight: 10 }}
             exit={{ width: 0, height: 0, opacity: 0, marginRight: 0 }}
             transition={{ type: 'timing', duration: 150 }}>
-            <Spinner size="sm" color='#0067A8' />
+            <Spinner size="sm" color="#0067A8" />
           </MotiView>
         )}
       </AnimatePresence>

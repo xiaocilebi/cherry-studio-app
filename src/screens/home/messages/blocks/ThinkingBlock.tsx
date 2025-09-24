@@ -13,7 +13,7 @@ interface Props {
 }
 
 const ThinkingBlock: React.FC<Props> = ({ block }) => {
-  const {isDark} = useTheme()
+  const { isDark } = useTheme()
   const [expanded, setExpanded] = useState(false)
 
   const toggleExpanded = () => {
@@ -32,8 +32,7 @@ const ThinkingBlock: React.FC<Props> = ({ block }) => {
         colors={gradientColors as any}
         locations={[0, 0.61, 1]}
         start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
+        end={{ x: 1, y: 1 }}>
         <Pressable onPress={toggleExpanded} style={styles.headerPressable}>
           <MarqueeComponent block={block} expanded={expanded} />
         </Pressable>
@@ -57,13 +56,13 @@ const styles = StyleSheet.create({
   headerPressable: {
     width: '100%',
     justifyContent: 'center',
-    alignItems:'center',
-    paddingHorizontal:16,
-    paddingVertical:10
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 10
   },
   contentContainer: {
-    paddingHorizontal:16,
-    paddingVertical:10,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     borderRadius: 8
   }
 })

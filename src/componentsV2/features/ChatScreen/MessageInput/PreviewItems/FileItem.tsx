@@ -29,7 +29,7 @@ const FileItem: FC<FileItemProps> = ({ file, onRemove, width, disabledContextMen
   const toast = useToast()
 
   const handlePreview = () => {
-    viewDocument({uri: file.path,mimeType:file.type}).catch(error => {
+    viewDocument({ uri: file.path, mimeType: file.type }).catch(error => {
       logger.error('Handle Preview Error', error)
     })
   }

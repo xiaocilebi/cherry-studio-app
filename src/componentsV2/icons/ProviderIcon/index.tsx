@@ -17,7 +17,7 @@ interface ProviderIconProps {
 
 export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, className }) => {
   const { isDark } = useTheme()
-  const [iconUri, setIconUri] = useState<ImageRequireSource|string|undefined>(undefined)
+  const [iconUri, setIconUri] = useState<ImageRequireSource | string | undefined>(undefined)
 
   useEffect(() => {
     const loadIcon = async () => {

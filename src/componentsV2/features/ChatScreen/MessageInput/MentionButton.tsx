@@ -53,13 +53,12 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
     setMentions(models)
 
     let updatedAssistant = { ...assistant }
-    if(assistant.defaultModel){
+    if (assistant.defaultModel) {
       updatedAssistant.model = models[0]
-    }else{
+    } else {
       updatedAssistant.defaultModel = models[0]
       updatedAssistant.model = models[0]
     }
-
 
     await updateAssistant(updatedAssistant)
   }
@@ -71,10 +70,7 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
   const renderSingleModel = (model: Model) => (
     <XStack className={`${BUTTON_STYLES.container} justify-center`}>
       <ModelIcon model={model} size={DISPLAY_CONSTANTS.MODEL_ICON_SIZE} />
-      <Text
-        className={`max-w-28 ${BUTTON_STYLES.text}`}
-        numberOfLines={1}
-        ellipsizeMode="middle">
+      <Text className={`max-w-28 ${BUTTON_STYLES.text}`} numberOfLines={1} ellipsizeMode="middle">
         {getBaseModelName(model.name)}
       </Text>
     </XStack>

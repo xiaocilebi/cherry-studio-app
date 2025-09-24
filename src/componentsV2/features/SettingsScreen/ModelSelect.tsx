@@ -1,4 +1,3 @@
-
 import { Model } from '@/types/assistant'
 
 interface SelectOptionItem {
@@ -26,4 +25,5 @@ export function ModelSelect({ value, onValueChange, selectOptions, placeholder }
     // 如果需要访问完整的模型信息，可以使用 item?.model
   }
 
-  return null}
+  return null
+}

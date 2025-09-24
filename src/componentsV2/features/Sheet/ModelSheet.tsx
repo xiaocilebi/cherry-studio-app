@@ -157,9 +157,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     }
   }
 
-  const navigateToProvidersSetting = (provider:Provider) =>{
+  const navigateToProvidersSetting = (provider: Provider) => {
     ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
-    navigation.navigate('ProvidersSettings',{screen:'ProviderSettingsScreen', params:{providerId:provider.id}})
+    navigation.navigate('ProvidersSettings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
   }
 
   // 添加背景组件渲染函数
@@ -201,8 +201,13 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
               <TouchableOpacity
                 disabled
                 activeOpacity={1}
-                style={{ marginTop: index !== 0 ? 12 : 0, flexDirection: 'row',justifyContent:'space-between',alignItems:'center' }}
-                className='px-2'>
+                style={{
+                  marginTop: index !== 0 ? 12 : 0,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}
+                className="px-2">
                 <XStack className="gap-3 items-center justify-start px-0">
                   <XStack className="items-center justify-center">
                     <ProviderIcon provider={item.provider} size={24} />
@@ -210,7 +215,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                   <Text className="text-lg font-bold text-gray-80 dark:text-gray-80">{item.label}</Text>
                 </XStack>
                 <TouchableOpacity onPress={() => navigateToProvidersSetting(item.provider)}>
-                  <Settings className='text-gray-80 dark:text-gray-80' size={16}/>
+                  <Settings className="text-gray-80 dark:text-gray-80" size={16} />
                 </TouchableOpacity>
               </TouchableOpacity>
             )
@@ -234,7 +239,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                   </XStack>
                   <Text
                     className={`flex-1 ${
-                      isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'
+                      isSelected
+                        ? 'text-green-100 dark:text-green-dark-100'
+                        : 'text-text-primary dark:text-text-primary-dark'
                     }`}
                     numberOfLines={1}
                     ellipsizeMode="tail">
@@ -253,7 +260,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
         }
         getItemType={item => item.type}
         ItemSeparatorComponent={() => <YStack className="h-2" />}
-        ListHeaderComponentStyle={{minHeight:50}}
+        ListHeaderComponentStyle={{ minHeight: 50 }}
         ListHeaderComponent={
           <YStack className="gap-4" style={{ paddingTop: 4 }}>
             <XStack className="gap-[5px] flex-1 items-center justify-center">
@@ -286,7 +293,11 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                 </Button>
               )}
               {multiple && isMultiSelectActive && (
-                <Button size="sm" className="rounded-full bg-ui-card dark:bg-ui-card-dark" isIconOnly onPress={handleClearAll}>
+                <Button
+                  size="sm"
+                  className="rounded-full bg-ui-card dark:bg-ui-card-dark"
+                  isIconOnly
+                  onPress={handleClearAll}>
                   <Button.LabelContent>
                     <BrushCleaning size={18} className="text-text-primary dark:text-text-primary-dark" />
                   </Button.LabelContent>
@@ -297,7 +308,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
         }
         ListEmptyComponent={<EmptyModelView />}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: insets.bottom}}
+        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: insets.bottom }}
         renderScrollComponent={BottomSheetLegendListScrollable}
         estimatedItemSize={ESTIMATED_ITEM_SIZE}
         drawDistance={DRAW_DISTANCE}

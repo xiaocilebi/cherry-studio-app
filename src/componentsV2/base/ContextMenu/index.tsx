@@ -2,8 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { FC, useRef } from 'react'
 import { Pressable } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
-import { ContextMenu as IOSContextMenu, Host, Button } from '@expo/ui/swift-ui';
-
+import { ContextMenu as IOSContextMenu, Host, Button } from '@expo/ui/swift-ui'
 
 import { isAndroid, isIOS } from '@/utils/device'
 import SelectionSheet from '../SelectionSheet'
@@ -63,15 +62,13 @@ export const ContextMenu: FC<ContextMenuProps> = ({
       <Host>
         <IOSContextMenu activationMethod="longPress">
           <IOSContextMenu.Items>
-          {list.map(item => (
-            <Button key={item.title} systemImage={item.iOSIcon} onPress={item.onSelect}>
-              {item.title}
-            </Button>
-          ))}
+            {list.map(item => (
+              <Button key={item.title} systemImage={item.iOSIcon} onPress={item.onSelect}>
+                {item.title}
+              </Button>
+            ))}
           </IOSContextMenu.Items>
-          <IOSContextMenu.Trigger>
-            {TriggerContent}
-          </IOSContextMenu.Trigger>
+          <IOSContextMenu.Trigger>{TriggerContent}</IOSContextMenu.Trigger>
         </IOSContextMenu>
       </Host>
     )

@@ -112,9 +112,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
             <XStack className="flex-1 items-center gap-2">
               {websearchContent.isActive ? (
                 <XStack className="flex-1 items-center gap-2 max-w-[80%]">
-                  <XStack className="items-center justify-center">
-                    {websearchContent.icon}
-                  </XStack>
+                  <XStack className="items-center justify-center">{websearchContent.icon}</XStack>
                   <Text className="flex-1 text-sm" numberOfLines={1} ellipsizeMode="tail">
                     {websearchContent.text}
                   </Text>

@@ -101,21 +101,21 @@ function ThemedApp() {
   const { themeSetting, reactNavigationTheme, isDark } = useTheme()
 
   return (
-      <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
-          <KeyboardProvider>
-            <NavigationContainer theme={reactNavigationTheme}>
-                <SystemBars style={isDark ? 'light' : 'dark'} />
-                <DatabaseInitializer />
-                <DialogProvider>
-                  <ToastProvider>
-                    <BottomSheetModalProvider>
-                      <MainStackNavigator />
-                    </BottomSheetModalProvider>
-                  </ToastProvider>
-                </DialogProvider>
-            </NavigationContainer>
-          </KeyboardProvider>
-      </HeroUINativeProvider>
+    <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
+      <KeyboardProvider>
+        <NavigationContainer theme={reactNavigationTheme}>
+          <SystemBars style={isDark ? 'light' : 'dark'} />
+          <DatabaseInitializer />
+          <DialogProvider>
+            <ToastProvider>
+              <BottomSheetModalProvider>
+                <MainStackNavigator />
+              </BottomSheetModalProvider>
+            </ToastProvider>
+          </DialogProvider>
+        </NavigationContainer>
+      </KeyboardProvider>
+    </HeroUINativeProvider>
   )
 }
 
