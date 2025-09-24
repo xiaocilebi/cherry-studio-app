@@ -88,6 +88,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
 
   return (
     <View className="flex-1">
+      {/* todo change to use legend list*/}
       <FlatList
         ref={flastListRef}
         showsVerticalScrollIndicator={false}

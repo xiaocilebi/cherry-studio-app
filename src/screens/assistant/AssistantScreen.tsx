@@ -1,6 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,6 +27,7 @@ import { haptic } from '@/utils/haptic'
 import AssistantItemSkeleton from '@/componentsV2/features/Assistant/AssistantItemSkeleton'
 import AssistantItem from '@/componentsV2/features/Assistant/AssistantItem'
 import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
+import { LegendList } from '@legendapp/list'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
@@ -100,16 +100,18 @@ export default function AssistantScreen() {
             </View>
 
             {isLoading ? (
-              <FlashList
+              <LegendList
                 data={Array.from({ length: 5 })}
                 renderItem={() => <AssistantItemSkeleton />}
                 keyExtractor={(_, index) => `skeleton-${index}`}
                 estimatedItemSize={80}
                 ItemSeparatorComponent={() => <YStack className="h-2.5" />}
                 contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
+                drawDistance={2000}
+                recycleItems
               />
             ) : (
-              <FlashList
+              <LegendList
                 showsVerticalScrollIndicator={false}
                 data={filteredAssistants}
                 renderItem={({ item }) => (
@@ -124,6 +126,8 @@ export default function AssistantScreen() {
                   </YStack>
                 }
                 contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
+                drawDistance={2000}
+                recycleItems
               />
             )}
           </Container>

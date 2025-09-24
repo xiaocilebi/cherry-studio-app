@@ -1,4 +1,3 @@
-import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, useMemo, useState } from 'react' // 引入 useMemo
 import { useTranslation } from 'react-i18next'
 
@@ -17,6 +16,7 @@ import { TopicItem } from '../TopicItem'
 import Text from '@/componentsV2/base/Text'
 import YStack from '@/componentsV2/layout/YStack'
 import { useDialog } from '@/hooks/useDialog'
+import { LegendList } from '@legendapp/list'
 
 const logger = loggerService.withContext('GroupTopicList')
 
@@ -157,7 +157,7 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
   }
 
   return (
-    <FlashList
+    <LegendList
       data={listData}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
@@ -175,6 +175,8 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
       estimatedItemSize={40}
       ItemSeparatorComponent={() => <YStack className="h-2.5" />}
       contentContainerStyle={{ paddingHorizontal: 20 }}
+      drawDistance={2000}
+      recycleItems
     />
   )
 }

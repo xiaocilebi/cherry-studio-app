@@ -1,4 +1,4 @@
-import { FlashList } from '@shopify/flash-list'
+import { LegendList } from "@legendapp/list";
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -36,14 +36,14 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({
 
   return (
     <YStack className="flex-1">
-      <FlashList
+      <LegendList
         data={assistants}
         renderItem={renderItem}
         numColumns={numColumns}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        removeClippedSubviews
-        drawDistance={200}
+        recycleItems
+        estimatedItemSize={230}
         contentContainerStyle={{ paddingBottom: insets.bottom }}
       />
     </YStack>
