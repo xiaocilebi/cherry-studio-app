@@ -30,7 +30,6 @@ const BUTTON_STYLES = {
 const DISPLAY_CONSTANTS = {
   ICON_SIZE: 20,
   MODEL_ICON_SIZE: 20,
-  MAX_TEXT_WIDTH: 110,
   MAX_VISIBLE_MODELS: 3
 } as const
 
@@ -73,7 +72,7 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
     <XStack className={`${BUTTON_STYLES.container} justify-center`}>
       <ModelIcon model={model} size={DISPLAY_CONSTANTS.MODEL_ICON_SIZE} />
       <Text
-        className={`max-w-[${DISPLAY_CONSTANTS.MAX_TEXT_WIDTH}px] ${BUTTON_STYLES.text}`}
+        className={`max-w-28 ${BUTTON_STYLES.text}`}
         numberOfLines={1}
         ellipsizeMode="middle">
         {getBaseModelName(model.name)}
