@@ -126,7 +126,7 @@ export default function AssistantScreen() {
                     <Text>{t('settings.assistant.empty')}</Text>
                   </YStack>
                 }
-                contentContainerStyle={{ paddingHorizontal: 16,  paddingBottom: 30 }}
+                contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 30 }}
                 drawDistance={2000}
                 recycleItems
                 waitForInitialLayout

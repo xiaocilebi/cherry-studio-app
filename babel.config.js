@@ -23,7 +23,7 @@ module.exports = function (api) {
           }
         }
       ],
-      'react-native-worklets/plugin',
+      'react-native-worklets/plugin'
     ]
   }
 }

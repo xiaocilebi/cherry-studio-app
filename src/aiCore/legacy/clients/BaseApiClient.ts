@@ -1,4 +1,4 @@
-import { File } from 'expo-file-system/next'
+import { File } from 'expo-file-system'
 import { isEmpty } from 'lodash'
 
 import {
@@ -307,7 +307,7 @@ export abstract class BaseApiClient<
 
         for (const fileBlock of textFileBlocks) {
           const file = fileBlock.file
-          const fileContent = (await new File(file.path).text()).trim()
+          const fileContent = new File(file.path).textSync().trim()
           const fileNameRow = 'file: ' + file.origin_name + '\n\n'
           text = text + fileNameRow + fileContent + divider
         }

@@ -32,16 +32,16 @@ export const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, 
     await updateAssistant({
       ...assistant,
       webSearchProviderId: newProviderId,
-      enableWebSearch:false
+      enableWebSearch: false
     })
     ref.current?.dismiss()
   }
 
-  const handleBuiltinSelect = async () =>{
+  const handleBuiltinSelect = async () => {
     await updateAssistant({
       ...assistant,
-      webSearchProviderId:undefined,
-      enableWebSearch:!assistant.enableWebSearch
+      webSearchProviderId: undefined,
+      enableWebSearch: !assistant.enableWebSearch
     })
   }
 
@@ -53,20 +53,26 @@ export const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, 
   const isWebSearchModelEnabled = assistant.model && isWebSearchModel(assistant.model)
 
   const providerItems: SelectionSheetItem[] = [
-    ...(isWebSearchModelEnabled ? [{
-      id: 'builtin',
-      label: t('settings.websearch.builtin'),
-      icon: <Globe size={20} className={cn(assistant.enableWebSearch&&'text-green-100 dark:text-green-dark-100')} />,
-      isSelected: assistant.enableWebSearch,
-      onSelect: () => handleBuiltinSelect()
-    }] : []),
+    ...(isWebSearchModelEnabled
+      ? [
+          {
+            id: 'builtin',
+            label: t('settings.websearch.builtin'),
+            icon: (
+              <Globe size={20} className={cn(assistant.enableWebSearch && 'text-green-100 dark:text-green-dark-100')} />
+            ),
+            isSelected: assistant.enableWebSearch,
+            onSelect: () => handleBuiltinSelect()
+          }
+        ]
+      : []),
     ...providers.map(p => ({
       id: p.id,
       label: p.name,
       icon: <WebsearchProviderIcon provider={p} />,
       isSelected: assistant.webSearchProviderId === p.id,
       onSelect: () => handleItemSelect(p.id)
-    })),
+    }))
   ]
 
   const emptyContent = (

@@ -41,7 +41,6 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
   // Link LegendList with BottomSheet gestures
   const BottomSheetLegendListScrollable = useBottomSheetScrollableCreator()
 
-
   useEffect(() => {
     if (!isVisible || !ref?.current) return
 
@@ -65,8 +64,10 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
     const labelElement =
       typeof item.label === 'string' ? (
         <Text
-          className={cn(`text-base ${item.isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}`,item.color&& !item.isSelected ?  item.color  : undefined)}
-          >
+          className={cn(
+            `text-base ${item.isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-primary dark:text-text-primary-dark'}`,
+            item.color && !item.isSelected ? item.color : undefined
+          )}>
           {item.label}
         </Text>
       ) : (
@@ -75,7 +76,10 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
     const descriptionElement =
       typeof item.description === 'string' ? (
         <Text
-          className={cn(`text-[11px] opacity-70 flex-1 ${item.isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-secondary dark:text-text-secondary-dark'}`,item.color&& !item.isSelected ?  item.color  : undefined)}
+          className={cn(
+            `text-[11px] opacity-70 flex-1 ${item.isSelected ? 'text-green-100 dark:text-green-dark-100' : 'text-text-secondary dark:text-text-secondary-dark'}`,
+            item.color && !item.isSelected ? item.color : undefined
+          )}
           numberOfLines={1}
           ellipsizeMode="tail">
           {item.description}
@@ -86,11 +90,14 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
     return (
       <TouchableOpacity onPress={() => handleSelect(item)} activeOpacity={0.5}>
         <XStack
-          className={cn(`items-center gap-2.5 px-3.5 py-3 rounded-lg border ${
-            item.isSelected
-              ? 'border-green-20 bg-green-10 dark:border-green-dark-20 dark:bg-green-dark-10'
-              : 'border-transparent bg-ui-card-background dark:bg-ui-card-background-dark'
-          }`, item.backgroundColor && !item.isSelected ? item.backgroundColor  : undefined)}>
+          className={cn(
+            `items-center gap-2.5 px-3.5 py-3 rounded-lg border ${
+              item.isSelected
+                ? 'border-green-20 bg-green-10 dark:border-green-dark-20 dark:bg-green-dark-10'
+                : 'border-transparent bg-ui-card-background dark:bg-ui-card-background-dark'
+            }`,
+            item.backgroundColor && !item.isSelected ? item.backgroundColor : undefined
+          )}>
           {iconElement}
           <XStack className="flex-1 gap-2.5 items-center justify-between">
             {labelElement}
@@ -112,7 +119,6 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
-
 
   return (
     <BottomSheetModal

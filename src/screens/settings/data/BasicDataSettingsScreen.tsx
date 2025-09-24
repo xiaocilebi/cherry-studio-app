@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { reloadAppAsync } from 'expo'
 import * as DocumentPicker from 'expo-document-picker'
-import { Paths } from 'expo-file-system/next'
+import { Paths } from 'expo-file-system'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { File, Paths } from 'expo-file-system/next'
+import { File, Paths } from 'expo-file-system'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

@@ -1,4 +1,4 @@
-import { File, Paths } from 'expo-file-system/next'
+import { File, Paths } from 'expo-file-system'
 import React, { useEffect, useState } from 'react'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
@@ -17,7 +17,7 @@ interface ProviderIconProps {
 
 export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, className }) => {
   const { isDark } = useTheme()
-  const [iconUri, setIconUri] = useState<ImageRequireSource|string|undefined>(undefined)
+  const [iconUri, setIconUri] = useState<ImageRequireSource | string | undefined>(undefined)
 
   useEffect(() => {
     const loadIcon = async () => {

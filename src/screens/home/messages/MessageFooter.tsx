@@ -78,7 +78,7 @@ const MessageFooter = ({ message, assistant, isMultiModel = false }: MessageFoot
   }
 
   return (
-    <View className="px-5 pb-3.5">
+    <View className="px-5 pb-5">
       <XStack className="gap-5">
         <IconButton
           icon={<Copy size={18} className="text-text-secondary dark:text-text-secondary-dark" />}
