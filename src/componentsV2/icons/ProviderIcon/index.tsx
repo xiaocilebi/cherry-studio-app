@@ -1,4 +1,4 @@
-import { File, Paths } from 'expo-file-system/next'
+import { File, Paths } from 'expo-file-system'
 import React, { useEffect, useState } from 'react'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'

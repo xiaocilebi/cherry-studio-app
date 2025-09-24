@@ -23,7 +23,7 @@ import {
   WebSearchToolResultError
 } from '@anthropic-ai/sdk/resources/messages'
 import { MessageStream } from '@anthropic-ai/sdk/resources/messages/messages'
-import { File, Paths } from 'expo-file-system/next'
+import { File, Paths } from 'expo-file-system'
 import { t } from 'i18next'
 
 import { findTokenLimit, isClaudeReasoningModel, isReasoningModel, isWebSearchModel } from '@/config/models'
@@ -336,7 +336,7 @@ export class AnthropicAPIClient extends BaseApiClient<
             }
           })
         } else {
-          const fileContent = (await new File(file.path).text()).trim()
+          const fileContent = new File(file.path).textSync().trim()
           parts.push({
             type: 'text',
             text: file.origin_name + '\n' + fileContent

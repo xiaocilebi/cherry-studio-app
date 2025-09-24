@@ -1,5 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit'
-import { Directory, File, Paths } from 'expo-file-system/next'
+import { Directory, File, Paths } from 'expo-file-system'
 import { unzip } from 'react-native-zip-archive'
 
 import { DEFAULT_DOCUMENTS_STORAGE } from '@/constants/storage'
@@ -85,7 +85,7 @@ export async function restore(
 
     const dataFile = new File(unzipPath, 'data.json')
 
-    const { reduxData, indexedData } = transformBackupData(await dataFile.text())
+    const { reduxData, indexedData } = transformBackupData(dataFile.textSync())
 
     await restoreReduxData(reduxData, onProgress, dispatch)
     await restoreIndexedDbData(indexedData, onProgress, dispatch)

@@ -1,5 +1,5 @@
-import * as FileSystem from 'expo-file-system'
-import { Directory, File, Paths } from 'expo-file-system/next'
+import { Directory, File, Paths } from 'expo-file-system'
+import * as FileSystem from 'expo-file-system/legacy'
 import * as Sharing from 'expo-sharing'
 
 import { DEFAULT_DOCUMENTS_STORAGE, DEFAULT_IMAGES_STORAGE, DEFAULT_STORAGE } from '@/constants/storage'
@@ -18,15 +18,15 @@ const logger = loggerService.withContext('File Service')
 
 // 辅助函数，确保目录存在
 async function ensureDirExists(dir: Directory) {
-  const dirInfo = await FileSystem.getInfoAsync(dir.uri)
+  const dirInfo = dir.info()
 
   if (!dirInfo.exists) {
-    await FileSystem.makeDirectoryAsync(dir.uri, { intermediates: true })
+    dir.create()
   }
 }
 
-export async function readFile(file: FileMetadata): Promise<string> {
-  return await new File(file.path).text()
+export function readFile(file: FileMetadata): string {
+  return new File(file.path).textSync()
 }
 
 export function readBase64File(file: FileMetadata): string {
@@ -43,16 +43,19 @@ export async function writeBase64File(data: string): Promise<FileMetadata> {
   const fileName = uuid()
   const fileUri = DEFAULT_IMAGES_STORAGE.uri + `${fileName}.png`
 
+  // Use legacy API to write base64 data directly
   await FileSystem.writeAsStringAsync(fileUri, cleanedBase64, {
-    encoding: 'base64'
+    encoding: FileSystem.EncodingType.Base64,
   })
+
+  const file = new File(fileUri)
 
   return {
     id: fileName,
     name: fileName,
     origin_name: fileName,
     path: fileUri,
-    size: 0,
+    size: file.size,
     ext: '.png',
     type: FileTypes.IMAGE,
     created_at: '',
@@ -77,25 +80,21 @@ export async function uploadFiles(
           : DEFAULT_DOCUMENTS_STORAGE
       await ensureDirExists(storageDir)
       const sourceUri = file.path
+      const sourceFile = new File(sourceUri)
       // ios upload image will be .JPG
       const destinationUri = `${storageDir.uri}${file.id}.${file.ext.toLowerCase()}`
-      await FileSystem.copyAsync({
-        from: sourceUri,
-        to: destinationUri
-      })
+      const destinationFile = new File(destinationUri)
+      sourceFile.move(destinationFile)
 
-      const fileInfo = await FileSystem.getInfoAsync(destinationUri, {
-        md5: true
-      })
 
-      if (!fileInfo.exists) {
+      if (!sourceFile.exists) {
         throw new Error('Failed to copy file or get info.')
       }
 
       const finalFile: FileMetadata = {
         ...file,
         path: destinationUri,
-        size: fileInfo.size
+        size: sourceFile.size
       }
       console.log('finalFile', finalFile)
       upsertFiles([finalFile])
@@ -153,7 +152,8 @@ export async function resetCacheDirectory() {
     }
 
     // Recreate Files directory
-    await FileSystem.makeDirectoryAsync(DEFAULT_STORAGE.uri, { intermediates: true })
+    DEFAULT_STORAGE.create()
+
   } catch (error) {
     logger.error('resetCacheDirectory', error)
   }
@@ -214,7 +214,7 @@ export async function shareFile(uri: string): Promise<ShareFileResult> {
       }
     }
 
-    const fileInfo = await FileSystem.getInfoAsync(uri)
+    const fileInfo = new File(uri).info()
 
     if (!fileInfo.exists) {
       logger.error('File not found:', uri)
