@@ -1,4 +1,5 @@
-import { BottomSheetBackdrop, BottomSheetFlashList, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetScrollableCreator } from '@gorhom/bottom-sheet'
+import { LegendList } from '@legendapp/list'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useEffect, useState } from 'react'
 import { BackHandler, TouchableOpacity, View } from 'react-native'
@@ -37,6 +38,9 @@ export interface SelectionSheetProps {
 const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, snapPoints = [], ref, placeholder }) => {
   const { isDark } = useTheme()
   const [isVisible, setIsVisible] = useState(false)
+  // Link LegendList with BottomSheet gestures
+  const BottomSheetLegendListScrollable = useBottomSheetScrollableCreator()
+
 
   useEffect(() => {
     if (!isVisible || !ref?.current) return
@@ -109,6 +113,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
+
   return (
     <BottomSheetModal
       ref={ref}
@@ -124,14 +129,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
       backdropComponent={renderBackdrop}
       onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
-      {placeholder && (
-        <View className="px-4 pb-2">
-          <Text className="text-sm text-text-secondary dark:text-text-secondary-dark text-center opacity-60">
-            {placeholder}
-          </Text>
-        </View>
-      )}
-      <BottomSheetFlashList
+      <LegendList
         data={items}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
@@ -139,6 +137,18 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
         estimatedItemSize={60}
         ItemSeparatorComponent={() => <YStack className="h-2.5" />}
         contentContainerStyle={{ paddingBottom: 40, paddingHorizontal: 16 }}
+        renderScrollComponent={BottomSheetLegendListScrollable}
+        drawDistance={1000}
+        ListHeaderComponent={
+          placeholder ? (
+            <View className="px-4 pb-2">
+              <Text className="text-sm text-text-secondary dark:text-text-secondary-dark text-center opacity-60">
+                {placeholder}
+              </Text>
+            </View>
+          ) : undefined
+        }
+        recycleItems
       />
     </BottomSheetModal>
   )
