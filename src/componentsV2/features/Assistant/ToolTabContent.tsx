@@ -85,13 +85,13 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
               {assistant.settings?.toolUseMode ? (
                 <XStack className="flex-1 items-center gap-2">
                   {assistant.settings.toolUseMode === 'function' ? <SquareFunction size={20} /> : <Wrench size={20} />}
-                  <Text className="flex-1 text-sm" numberOfLines={1} ellipsizeMode="tail">
+                  <Text className="flex-1 text-base" numberOfLines={1} ellipsizeMode="tail">
                     {t(`assistants.settings.tooluse.${assistant.settings?.toolUseMode}`)}
                   </Text>
                 </XStack>
               ) : (
                 <Text
-                  className="flex-1 text-sm text-text-secondary dark:text-text-secondary"
+                  className="flex-1 text-base text-text-secondary dark:text-text-secondary"
                   numberOfLines={1}
                   ellipsizeMode="tail">
                   {t('assistants.settings.tooluse.empty')}
@@ -113,13 +113,13 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
               {websearchContent.isActive ? (
                 <XStack className="flex-1 items-center gap-2 max-w-[80%]">
                   <XStack className="items-center justify-center">{websearchContent.icon}</XStack>
-                  <Text className="flex-1 text-sm" numberOfLines={1} ellipsizeMode="tail">
+                  <Text className="flex-1 text-base" numberOfLines={1} ellipsizeMode="tail">
                     {websearchContent.text}
                   </Text>
                 </XStack>
               ) : (
                 <Text
-                  className="flex-1 text-sm text-text-secondary dark:text-text-secondary"
+                  className="flex-1 text-base text-text-secondary dark:text-text-secondary"
                   numberOfLines={1}
                   ellipsizeMode="tail">
                   {websearchContent.text}

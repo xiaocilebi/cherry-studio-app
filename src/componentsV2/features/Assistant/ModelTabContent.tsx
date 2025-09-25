@@ -83,15 +83,15 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         <Button.LabelContent className="flex-1 justify-between items-center flex-row">
           {model.length > 0 ? (
             <>
-              <Text className="leading-[17px] flex-shrink" numberOfLines={1} ellipsizeMode="tail">
+              <Text className="text-base" numberOfLines={1} ellipsizeMode="tail">
                 {t(`provider.${model[0].provider}`)}
               </Text>
-              <Text className="leading-5 text-xs flex-shrink-0 max-w-[80%]" numberOfLines={1} ellipsizeMode="tail">
+              <Text className="text-base max-w-[80%]" numberOfLines={1} ellipsizeMode="tail">
                 {model[0].name}
               </Text>
             </>
           ) : (
-            <Text className="leading-5 flex-1" numberOfLines={1} ellipsizeMode="tail">
+            <Text className="text-base" numberOfLines={1} ellipsizeMode="tail">
               {t('settings.models.empty')}
             </Text>
           )}
@@ -194,7 +194,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               <Text className="flex-1">{t('assistants.settings.reasoning')}</Text>
 
               <YStack className="justify-end">
-                <Text className="text-xs bg-green-10 dark:bg-green-dark-10 border-green-20 dark:border-green-dark-20 text-green-100 dark:text-green-dark-100 border-[0.5px] py-[2px] px-2 rounded-lg">
+                <Text className="text-sm bg-green-10 dark:bg-green-dark-10 border-green-20 dark:border-green-dark-20 text-green-100 dark:text-green-dark-100 border-[0.5px] py-[2px] px-2 rounded-lg">
                   {t(`assistants.settings.reasoning.${settings.reasoning_effort || 'off'}`)}
                 </Text>
               </YStack>
