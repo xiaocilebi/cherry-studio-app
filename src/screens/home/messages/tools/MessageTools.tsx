@@ -8,7 +8,7 @@ interface Props {
   block: ToolMessageBlock
 }
 
-// TODO: 知识库tool
+
 export default function MessageTools({ block }: Props) {
   const toolResponse = block.metadata?.rawMcpToolResponse
   if (!toolResponse) return null
