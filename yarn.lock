@@ -6021,6 +6021,7 @@ __metadata:
     expo-atlas: "npm:^0.4.0"
     expo-blur: "npm:~15.0.7"
     expo-build-properties: "npm:~1.0.9"
+    expo-calendar: "npm:^15.0.7"
     expo-camera: "npm:~17.0.8"
     expo-clipboard: "npm:~8.0.7"
     expo-constants: "npm:~18.0.9"
@@ -9241,6 +9242,16 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10c0/5addb03be44b702d5321bfd5550b663cd36d1b6cb6d50d87bd11c41d6d702ccbdba76b4361590f511236bc9ff740f616d387e05bdafe6a6acc096e03773d00e0
+  languageName: node
+  linkType: hard
+
+"expo-calendar@npm:^15.0.7":
+  version: 15.0.7
+  resolution: "expo-calendar@npm:15.0.7"
+  peerDependencies:
+    expo: "*"
+    react-native: "*"
+  checksum: 10c0/4297c70e42e0bc2f9e84e454bdd4ab5949e314cc47a90eacb8b64afc1ca39e2ab08f6ab4ec617b05e1c8067c77c313474b4649d56640f0d565eaf14193a5adbd
   languageName: node
   linkType: hard
 
