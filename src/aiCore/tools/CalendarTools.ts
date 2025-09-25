@@ -35,3 +35,37 @@ export const createCalendarEvent = tool({
     return { message: `Created "${title}"` }
   },
 })
+
+export const getCalendarEvents = tool({
+  description:'Get all calendar events',
+  // This tool has no inputs; provide an empty schema to satisfy types
+  inputSchema: z.object({}),
+  outputSchema: z.object({
+    events: z.array(z.object({
+      id: z.string(),
+      title: z.string(),
+    })),
+  }),
+  execute: async () => {
+    await Calendar.requestCalendarPermissionsAsync()
+
+    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT)
+
+    const events = calendars.map((c) =>{
+      return {
+        id: c.id,
+        title: c.title,
+      }
+    })
+
+    return {events}
+  },
+})
+
+/**
+ * Combined export of all calendar tools as a ToolSet
+ */
+export const calendarTools = {
+  createCalendarEvent,
+  getCalendarEvents,
+}

@@ -20,6 +20,7 @@ import { StreamTextParams } from '@/types/aiCoretypes'
 import { Assistant, Provider } from '@/types/assistant'
 import { MCPTool } from '@/types/tool'
 
+import { calendarTools } from '../tools/CalendarTools'
 import { setupToolsConfig } from '../utils/mcp'
 import { buildProviderOptions } from '../utils/options'
 import { getTemperature, getTopP } from './modelParameters'
@@ -77,11 +78,13 @@ export async function buildStreamTextParams(
 
   const enableGenerateImage = !!(isGenerateImageModel(model) && assistant.enableGenerateImage)
 
-  const tools = setupToolsConfig(mcpTools)
+  let tools = setupToolsConfig(mcpTools)
 
   // if (webSearchProviderId) {
   //   tools['builtin_web_search'] = webSearchTool(webSearchProviderId)
   // }
+
+  tools = { ...tools, ...calendarTools }
 
   // 构建真正的 providerOptions
   const providerOptions = buildProviderOptions(assistant, model, provider, {
@@ -102,6 +105,10 @@ export async function buildStreamTextParams(
     tools,
     stopWhen: stepCountIs(10),
     maxRetries: 0
+  }
+
+  if (tools && Object.keys(tools).length > 0) {
+    params.tools = tools
   }
 
   if (assistant.prompt) {

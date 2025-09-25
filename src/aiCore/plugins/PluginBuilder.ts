@@ -7,7 +7,6 @@ import { Assistant } from '@/types/assistant'
 import { AiSdkMiddlewareConfig } from '../middleware/AiSdkMiddlewareBuilder'
 import reasoningTimePlugin from './reasoningTimePlugin'
 import { searchOrchestrationPlugin } from './searchOrchestrationPlugin'
-import calendarPlugin from './calendarPlugin'
 
 const logger = loggerService.withContext('PluginBuilder')
 
@@ -28,7 +27,6 @@ export function buildPlugins(
   // 2. 支持工具调用时添加搜索插件
   if (middlewareConfig.isSupportedToolUse || middlewareConfig.isPromptToolUse) {
     plugins.push(searchOrchestrationPlugin(middlewareConfig.assistant, middlewareConfig.topicId || ''))
-    plugins.push(calendarPlugin)
   }
 
   // 3. 推理模型时添加推理插件
