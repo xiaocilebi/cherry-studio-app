@@ -212,7 +212,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                   <XStack className="items-center justify-center">
                     <ProviderIcon provider={item.provider} size={24} />
                   </XStack>
-                  <Text className="text-lg font-bold text-gray-80 dark:text-gray-80">{item.label}</Text>
+                  <Text className="text-lg font-bold text-gray-80 dark:text-gray-80">{item.label.toUpperCase()}</Text>
                 </XStack>
                 <TouchableOpacity onPress={() => navigateToProvidersSetting(item.provider)}>
                   <Settings className="text-gray-80 dark:text-gray-80" size={16} />
