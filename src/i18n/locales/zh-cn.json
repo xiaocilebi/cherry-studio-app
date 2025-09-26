@@ -280,6 +280,11 @@
       "mentions": "@ {{number}} 个模型",
       "placeholder": "发送消息..."
     },
+    "mcp": {
+      "market": {
+        "title": "MCP市场"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "最新助手",

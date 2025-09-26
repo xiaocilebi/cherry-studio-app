@@ -280,6 +280,11 @@
       "mentions": "@ {{number}} モデル",
       "placeholder": "メッセージを送信..."
     },
+    "mcp": {
+      "market": {
+        "title": "MCP市場"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "最近のアシスタント",

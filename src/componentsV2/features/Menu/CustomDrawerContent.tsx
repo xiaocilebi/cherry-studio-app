@@ -97,7 +97,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
             onPress={handleNavigateMcpMarketScreen}>
             <XStack className="gap-2.5 items-center justify-center">
               <UnionIcon size={24} />
-              <Text className="text-base ">{t('assistants.market.my_assistant')}</Text>
+              <Text className="text-base ">{t('mcp.market.title')}</Text>
             </XStack>
             <RowRightArrow />
           </PressableRow>

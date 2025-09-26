@@ -280,6 +280,11 @@
       "mentions": "@ {{number}} моделей",
       "placeholder": "Отправить сообщение..."
     },
+    "mcp": {
+      "market": {
+        "title": "Рынок MCP"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "Недавний помощник",

@@ -280,6 +280,11 @@
       "mentions": "@ {{number}} models",
       "placeholder": "Send Message..."
     },
+    "mcp": {
+      "market": {
+        "title": "MCP Market"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "Recent Assistant",
