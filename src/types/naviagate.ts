@@ -9,6 +9,7 @@ import { GeneralSettingsStackParamList } from '@/navigators/settings/GeneralSett
 import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNavigator'
 import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
 import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
+import { McpStackParamList } from '@/navigators/McpStackNavigator'
 
 // Root Stack Navigator (MainStackNavigator)
 export type RootStackParamList = {
@@ -40,6 +41,8 @@ export type AppDrawerParamList = {
     | { screen: 'AssistantMarketScreen' }
     | { screen: 'AssistantDetailScreen'; params: { assistantId: string; tab?: string } }
     | undefined
+  Mcp:
+    | { screen: 'McpMarketScreen' }
 }
 
 // Navigation Props
@@ -49,6 +52,7 @@ export type DrawerNavigationProps = DrawerNavigationProp<AppDrawerParamList>
 // Nested Navigator Props
 export type HomeNavigationProps = StackNavigationProp<HomeStackParamList>
 export type AssistantNavigationProps = StackNavigationProp<AssistantStackParamList>
+export type McpNavigationProps = StackNavigationProp<McpStackParamList>
 export type SettingsNavigationProps = StackNavigationProp<SettingsStackParamList>
 
 // Settings Sub-Navigator Props

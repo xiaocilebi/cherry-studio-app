@@ -43,6 +43,11 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     props.navigation.navigate('Assistant', { screen: 'AssistantScreen' })
   }
 
+  const handleNavigateMcpMarketScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    props.navigation.navigate('Mcp', { screen: 'McpMarketScreen' })
+  }
+
   const handleNavigateSettingsScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
     props.navigation.navigate('Home', { screen: 'SettingsScreen' })
@@ -80,6 +85,16 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
           <PressableRow
             className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
             onPress={handleNavigateAssistantScreen}>
+            <XStack className="gap-2.5 items-center justify-center">
+              <UnionIcon size={24} />
+              <Text className="text-base ">{t('assistants.market.my_assistant')}</Text>
+            </XStack>
+            <RowRightArrow />
+          </PressableRow>
+
+          <PressableRow
+            className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
+            onPress={handleNavigateMcpMarketScreen}>
             <XStack className="gap-2.5 items-center justify-center">
               <UnionIcon size={24} />
               <Text className="text-base ">{t('assistants.market.my_assistant')}</Text>
