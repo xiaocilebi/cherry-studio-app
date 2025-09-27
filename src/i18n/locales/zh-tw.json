@@ -281,6 +281,17 @@
       "placeholder": "傳送訊息..."
     },
     "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "取得、作業系統日曆"
+        },
+        "fetch": {
+          "description": "從網址取得網頁內容"
+        },
+        "time": {
+          "description": "取得目前時間"
+        }
+      },
       "market": {
         "title": "MCP市場"
       }

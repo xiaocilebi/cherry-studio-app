@@ -281,6 +281,17 @@
       "placeholder": "Отправить сообщение..."
     },
     "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "Получить операционный календарь"
+        },
+        "fetch": {
+          "description": "Получить содержимое веб-страницы по URL"
+        },
+        "time": {
+          "description": "Получить текущее время"
+        }
+      },
       "market": {
         "title": "Рынок MCP"
       }

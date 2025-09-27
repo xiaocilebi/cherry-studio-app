@@ -281,6 +281,17 @@
       "placeholder": "Send Message..."
     },
     "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "Get, operating system calendar"
+        },
+        "fetch": {
+          "description": "Fetch web content from a URL"
+        },
+        "time": {
+          "description": "Get the current time"
+        }
+      },
       "market": {
         "title": "MCP Market"
       }

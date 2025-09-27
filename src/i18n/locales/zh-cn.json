@@ -281,6 +281,17 @@
       "placeholder": "发送消息..."
     },
     "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "获取、操作系统日历"
+        },
+        "fetch": {
+          "description": "从URL中获取网页内容"
+        },
+        "time": {
+          "description": "获取当前时间"
+        }
+      },
       "market": {
         "title": "MCP市场"
       }

@@ -12,6 +12,7 @@ export * from './messages'
 export * from './providers'
 export * from './topics'
 export * from './websearchProviders'
+export * from './mcp'
 
 export const assistantsRelations = relations(assistants, ({ many }) => ({
   topics: many(topics)

@@ -281,6 +281,17 @@
       "placeholder": "メッセージを送信..."
     },
     "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "取得、オペレーティングシステムのカレンダー"
+        },
+        "fetch": {
+          "description": "URLからウェブページの内容を取得する"
+        },
+        "time": {
+          "description": "現在時刻を取得する"
+        }
+      },
       "market": {
         "title": "MCP市場"
       }

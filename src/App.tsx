@@ -39,6 +39,8 @@ import { DialogProvider } from './hooks/useDialog'
 import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
+import { initBuiltinMcp } from './config/mcp'
+import { upsertMcps } from '../db/queries/mcp.queries'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -69,6 +71,8 @@ function DatabaseInitializer() {
         await upsertWebSearchProviders(websearchProviders)
         const dataBackupProviders = getDataBackupProviders()
         await upsertDataBackupProviders(dataBackupProviders)
+        const builtinMcp = initBuiltinMcp()
+        await upsertMcps(builtinMcp)
         storage.set('language', Localization.getLocales()[0]?.languageTag)
         dispatch(setInitialized(true))
         logger.info('App data initialized successfully.')
