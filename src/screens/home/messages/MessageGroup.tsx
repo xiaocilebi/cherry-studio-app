@@ -2,11 +2,9 @@ import React, { FC } from 'react'
 import { View } from 'react-native'
 
 import { Assistant } from '@/types/assistant'
-import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
+import { GroupedMessage } from '@/types/message'
 
 import MessageItem from './Message'
-import MessageFooter from './MessageFooter'
-import MessageHeader from './MessageHeader'
 import MultiModelTab from './MultiModelTab'
 
 interface MessageGroupProps {
@@ -25,12 +23,12 @@ const MessageGroup: FC<MessageGroupProps> = ({ assistant, item }) => {
     if (messagesInGroup.length === 1) {
       return (
         <View className="gap-2">
-          <MessageHeader message={messagesInGroup[0]} />
+          {/*<MessageHeader message={messagesInGroup[0]} />*/}
           <MessageItem message={messagesInGroup[0]} assistant={assistant} />
           {/* 输出过程中不显示footer */}
-          {messagesInGroup[0].status !== AssistantMessageStatus.PROCESSING && (
+          {/*{messagesInGroup[0].status !== AssistantMessageStatus.PROCESSING && (
             <MessageFooter assistant={assistant} message={messagesInGroup[0]} />
-          )}
+          )}*/}
         </View>
       )
     }

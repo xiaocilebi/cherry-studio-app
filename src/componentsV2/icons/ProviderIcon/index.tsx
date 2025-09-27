@@ -37,7 +37,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, clas
     loadIcon()
   }, [provider.id, provider.isSystem, isDark])
 
-  const sizeClass = size ? `w-[${size}px] h-[${size}px]` : 'w-5 h-5'
+  const sizeClass = size ? `w-[${size}px] h-[${size}px]` : 'w-6 h-6'
   const finalClassName = className ? `${sizeClass} ${className}` : sizeClass
 
   if (!iconUri) {

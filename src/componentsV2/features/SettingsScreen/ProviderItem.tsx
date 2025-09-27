@@ -64,7 +64,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
     <XStack className="justify-between items-center py-3 px-4">
       <XStack className="gap-2 items-center">
         <ProviderIcon provider={provider} />
-        <Text className="text-base text-text-primary dark:text-text-primary-dark">
+        <Text className="text-lg text-text-primary dark:text-text-primary-dark">
           {t(`provider.${provider.id}`, { defaultValue: provider.name })}
         </Text>
       </XStack>

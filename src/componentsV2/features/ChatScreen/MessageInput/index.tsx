@@ -124,7 +124,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
               numberOfLines={10}
               colors={{
                 blurBackground: 'transparent',
-                focusBackground: 'transparent',
+                // focusBackground: 'transparent',
                 blurBorder: 'transparent',
                 focusBorder: 'transparent'
               }}
