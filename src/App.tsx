@@ -58,6 +58,7 @@ function DatabaseInitializer() {
   useDrizzleStudio(expoDb)
 
   useEffect(() => {
+    // tofix: when add new schema this will not run
     const initializeApp = async () => {
       if (initialized) return
 

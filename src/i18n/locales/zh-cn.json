@@ -283,7 +283,7 @@
     "mcp": {
       "builtin": {
         "calendar": {
-          "description": "获取、操作系统日历"
+          "description": "获取系统日历，添加日程"
         },
         "fetch": {
           "description": "从URL中获取网页内容"
@@ -294,6 +294,11 @@
       },
       "market": {
         "title": "MCP市场"
+      },
+      "type": {
+        "inMemory": "内置",
+        "streamableHttp": "流式 HTTP",
+        "sse": "服务器发送事件"
       }
     },
     "menu": {
