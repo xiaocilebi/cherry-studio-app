@@ -42,6 +42,7 @@ const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = fa
 
   return (
     <View className="flex-1">
+      {/*使用expo/ui的contextmenu存在bug，当滑动messages时会偏移，zeego由于上游问题暂时没有迁移到expo 54*/}
       {/*<MessageContextMenu message={message} assistant={assistant} isMultiModel={isMultiModel}>*/}
       <View className="flex-1 w-full max-w-full px-[14px] rounded-2xl">
         {mediaBlocks.length > 0 && <MessageBlockRenderer blocks={mediaBlocks} message={message} />}

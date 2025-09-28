@@ -66,7 +66,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   }
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 py-4">
       <LegendList
         ref={legendListRef}
         showsVerticalScrollIndicator={false}
@@ -76,8 +76,6 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         ItemSeparatorComponent={() => <YStack className="h-5" />}
         contentContainerStyle={{
           flexGrow: 1,
-          paddingTop: 16,
-          paddingBottom: 30
         }}
         onScroll={handleScroll}
         maintainScrollAtEnd
