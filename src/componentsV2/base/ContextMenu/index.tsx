@@ -9,7 +9,7 @@ import SelectionSheet from '../SelectionSheet'
 
 export interface ContextMenuListProps {
   title: string
-  iOSIcon?: SFSymbol
+  iOSIcon?: SFSymbol | string
   androidIcon?: React.ReactNode
   destructive?: boolean
   color?: string
@@ -63,7 +63,7 @@ export const ContextMenu: FC<ContextMenuProps> = ({
         <IOSContextMenu activationMethod="longPress">
           <IOSContextMenu.Items>
             {list.map(item => (
-              <Button key={item.title} systemImage={item.iOSIcon} onPress={item.onSelect}>
+              <Button key={item.title} systemImage={item.iOSIcon} role={item.destructive ? 'destructive' : 'default'} onPress={item.onSelect}>
                 {item.title}
               </Button>
             ))}

@@ -1,4 +1,4 @@
-import { File} from 'expo-file-system'
+import { File } from 'expo-file-system'
 import * as MediaLibrary from 'expo-media-library'
 
 import { loggerService } from '@/services/LoggerService'

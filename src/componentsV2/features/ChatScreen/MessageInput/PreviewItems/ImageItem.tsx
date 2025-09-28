@@ -124,10 +124,7 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
         presentationStyle="fullScreen"
         animationType="slide"
         FooterComponent={({ imageIndex: idx }: any) => (
-          <ImageViewerFooterComponent
-            uri={(imagesForViewer[idx] || file).path}
-            onSaved={() => setIsVisible(false)}
-          />
+          <ImageViewerFooterComponent uri={(imagesForViewer[idx] || file).path} onSaved={() => setIsVisible(false)} />
         )}
       />
       {onRemove && (

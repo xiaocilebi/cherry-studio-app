@@ -45,7 +45,7 @@ export async function writeBase64File(data: string): Promise<FileMetadata> {
 
   // Use legacy API to write base64 data directly
   await FileSystem.writeAsStringAsync(fileUri, cleanedBase64, {
-    encoding: FileSystem.EncodingType.Base64,
+    encoding: FileSystem.EncodingType.Base64
   })
 
   const file = new File(fileUri)
@@ -85,7 +85,6 @@ export async function uploadFiles(
       const destinationUri = `${storageDir.uri}${file.id}.${file.ext.toLowerCase()}`
       const destinationFile = new File(destinationUri)
       sourceFile.move(destinationFile)
-
 
       if (!sourceFile.exists) {
         throw new Error('Failed to copy file or get info.')
@@ -153,7 +152,6 @@ export async function resetCacheDirectory() {
 
     // Recreate Files directory
     DEFAULT_STORAGE.create()
-
   } catch (error) {
     logger.error('resetCacheDirectory', error)
   }
@@ -240,8 +238,8 @@ export async function shareFile(uri: string): Promise<ShareFileResult> {
   }
 }
 
-export async function downloadFileAsync(url: string, destination: File,){
-  return File.downloadFileAsync(url,destination)
+export async function downloadFileAsync(url: string, destination: File) {
+  return File.downloadFileAsync(url, destination)
 }
 
 export default {

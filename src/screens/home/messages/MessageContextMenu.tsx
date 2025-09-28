@@ -57,7 +57,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
   const contextMenuItems: ContextMenuListProps[] = [
     {
       title: t('common.copy'),
-      iOSIcon: 'document.on.document',
+      iOSIcon: 'doc.on.doc',
       androidIcon: <Copy size={16} />,
       onSelect: handleCopy
     },
@@ -71,7 +71,7 @@ const MessageContextMenu: FC<MessageItemProps> = ({ children, message, assistant
       ? [
           {
             title: t('common.regenerate'),
-            iOSIcon: 'arrow.clockwise' as const,
+            iOSIcon: 'arrow.clockwise',
             androidIcon: <RefreshCw size={16} />,
             onSelect: handleRegenerate
           }
