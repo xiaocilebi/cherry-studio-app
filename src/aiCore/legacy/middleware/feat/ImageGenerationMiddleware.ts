@@ -53,7 +53,9 @@ export const ImageGenerationMiddleware: CompletionsMiddleware =
               const binaryData: Uint8Array = await new File(block.file.path).bytes()
               const standardUint8Array = new Uint8Array(binaryData)
               const mimeType = `${block.file.type}/${block.file.ext.slice(1)}`
-              return await toFile(new Blob([standardUint8Array]), block.file.origin_name || 'image.png', { type: mimeType })
+              return await toFile(new Blob([standardUint8Array]), block.file.origin_name || 'image.png', {
+                type: mimeType
+              })
             })
           )
           imageFiles = imageFiles.concat(userImages.filter(Boolean) as Blob[])

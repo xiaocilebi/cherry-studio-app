@@ -65,7 +65,6 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
     setShowScrollButton(distanceFromBottom > threshold)
   }
 
-
   return (
     <View className="flex-1">
       <LegendList
@@ -78,7 +77,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         contentContainerStyle={{
           flexGrow: 1,
           paddingTop: 16,
-          paddingBottom:30
+          paddingBottom: 30
         }}
         onScroll={handleScroll}
         maintainScrollAtEnd
@@ -95,14 +94,14 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ type: 'timing' }}>
-            <Button
-              isIconOnly
-              onPress={handleScrollToEnd}
-              className="w-10 h-10 rounded-full border-2 border-green-20 dark:border-green-20 bg-green-10 dark:bg-green-dark-10 right-2 bottom-2">
-              <Button.LabelContent>
-                <ChevronDown size={24} className="text-green-100 dark:text-green-100" />
-              </Button.LabelContent>
-            </Button>
+          <Button
+            isIconOnly
+            onPress={handleScrollToEnd}
+            className="w-10 h-10 rounded-full border-2 border-green-20 dark:border-green-20 bg-green-10 dark:bg-green-dark-10 right-2 bottom-2">
+            <Button.LabelContent>
+              <ChevronDown size={24} className="text-green-100 dark:text-green-100" />
+            </Button.LabelContent>
+          </Button>
         </MotiView>
       )}
     </View>
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
 })
 

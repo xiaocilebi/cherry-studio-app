@@ -9,7 +9,7 @@ import SelectionSheet from '../SelectionSheet'
 
 export interface ContextMenuListProps {
   title: string
-  iOSIcon?: SFSymbol
+  iOSIcon?: SFSymbol | string
   androidIcon?: React.ReactNode
   destructive?: boolean
   color?: string
