@@ -23,7 +23,6 @@ import { MCPTool } from '@/types/tool'
 import { setupToolsConfig } from '../utils/mcp'
 import { buildProviderOptions } from '../utils/options'
 import { getTemperature, getTopP } from './modelParameters'
-import { SystemTool } from '../tools/SystemTools'
 
 const logger = loggerService.withContext('parameterBuilder')
 
@@ -83,8 +82,6 @@ export async function buildStreamTextParams(
   // if (webSearchProviderId) {
   //   tools['builtin_web_search'] = webSearchTool(webSearchProviderId)
   // }
-
-  tools = { ...tools, ...SystemTool }
 
   // 构建真正的 providerOptions
   const providerOptions = buildProviderOptions(assistant, model, provider, {

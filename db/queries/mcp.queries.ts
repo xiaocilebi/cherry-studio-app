@@ -1,9 +1,9 @@
-
 import { loggerService } from '@/services/LoggerService'
 import { MCPServer } from '@/types/mcp'
 
 import { db } from '..'
 import { mcp } from '../schema/mcp'
+import { safeJsonParse } from '@/utils/json'
 
 const logger = loggerService.withContext('DataBase MCP')
 
@@ -13,12 +13,14 @@ const logger = loggerService.withContext('DataBase MCP')
  * @returns 一个 MCPServer 对象。
  */
 export function transformDbToMcp(dbRecord: any): MCPServer {
+  // console.log('transformDbToMcp', dbRecord)
   return {
     id: dbRecord.id,
     name: dbRecord.name,
     type: dbRecord.type,
     description: dbRecord.description,
-    isActive: !!dbRecord.isActive
+    isActive: !!dbRecord.is_active,
+    disabledTools: dbRecord.disabled_tools ? safeJsonParse(dbRecord.disabled_tools) : undefined
   }
 }
 
@@ -33,7 +35,8 @@ function transformMcpToDb(mcpServer: MCPServer): any {
     name: mcpServer.name,
     type: mcpServer.type || 'stdio',
     description: mcpServer.description || null,
-    isActive: mcpServer.isActive ? 1 : 0
+    is_active: mcpServer.isActive ? 1 : 0,
+    disabled_tools: JSON.stringify(mcpServer.disabledTools || [])
   }
 }
 
@@ -60,16 +63,16 @@ export async function getMcps(): Promise<MCPServer[]> {
 export async function upsertMcps(mcpServers: MCPServer[]) {
   try {
     const dbRecords = mcpServers.map(transformMcpToDb)
-    const upsertPromises = dbRecords.map(record =>
-      db
-        .insert(mcp)
-        .values(record)
-        .onConflictDoUpdate({
-          target: [mcp.id],
+    await db.transaction(async tx => {
+      const upsertPromises = dbRecords.map(record =>
+        tx.insert(mcp).values(record).onConflictDoUpdate({
+          target: mcp.id,
           set: record
         })
-    )
-    await Promise.all(upsertPromises)
+      )
+
+      await Promise.all(upsertPromises)
+    })
   } catch (error) {
     logger.error('Error upserting MCP servers:', error)
     throw error

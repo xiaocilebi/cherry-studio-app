@@ -5,5 +5,6 @@ export const mcp = sqliteTable('mcp', {
   name: text('name').notNull(),
   type: text('type').notNull(),
   description: text('description'),
-  isActive: integer('enabled', { mode: 'boolean' }),
+  is_active: integer('is_active', { mode: 'boolean' }),
+  disabled_tools: text('disabled_tools')
 })

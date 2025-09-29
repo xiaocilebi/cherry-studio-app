@@ -44,7 +44,7 @@ export async function fetchChatCompletion({
   onChunkReceived({ type: ChunkType.LLM_RESPONSE_CREATED })
 
   if (isPromptToolUse(assistant) || isSupportedToolUse(assistant)) {
-    mcpTools.push(...(await fetchMcpTools(assistant)))
+    mcpTools.push(...(await fetchAssistantMcpTools(assistant)))
   }
 
   if (prompt) {
@@ -248,8 +248,8 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
   }
 }
 
-export async function fetchMcpTools(assistant: Assistant) {
-  let mcpTools: MCPTool[] = [] // Initialize as empty array
+export async function fetchAssistantMcpTools(assistant: Assistant) {
+  let mcpTools: MCPTool[] = []
   const activedMcpServers = await getActiveMcps()
   const assistantMcpServers = assistant.mcpServers || []
 
@@ -260,7 +260,7 @@ export async function fetchMcpTools(assistant: Assistant) {
       const toolPromises = enabledMCPs.map(async (mcpServer: MCPServer) => {
         try {
           const tools = BUILTIN_TOOLS[mcpServer.id]
-          return tools.filter((tool: any) => !mcpServer.disabledTools?.includes(tool.name))
+          return tools.filter((tool: MCPTool) => !mcpServer.disabledTools?.includes(tool.name))
         } catch (error) {
           logger.error(`Error fetching tools from MCP server ${mcpServer.name}:`, error as Error)
           return []
