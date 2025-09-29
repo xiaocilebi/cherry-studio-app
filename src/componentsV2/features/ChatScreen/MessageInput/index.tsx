@@ -27,6 +27,7 @@ import { SendButton } from './SendButton'
 import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
 import TextField from '@/componentsV2/base/TextField'
+import { McpButton } from './McpButton'
 
 const logger = loggerService.withContext('Message Input')
 
@@ -50,7 +51,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
   // topic切换时渲染
   useEffect(() => {
     setMentions(assistant?.defaultModel ? [assistant?.defaultModel] : [])
-  }, [topic.id])
+  }, [topic.id, assistant])
 
   const sendMessage = async () => {
     if (isEmpty(text.trim()) || !assistant) {
@@ -148,6 +149,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
               assistant={assistant}
               updateAssistant={updateAssistant}
             />
+            <McpButton assistant={assistant} updateAssistant={updateAssistant} />
             <ToolPreview assistant={assistant} updateAssistant={updateAssistant} />
           </XStack>
           <XStack className="gap-5 items-center">

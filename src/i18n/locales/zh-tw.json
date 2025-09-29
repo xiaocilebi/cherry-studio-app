@@ -294,6 +294,16 @@
       },
       "market": {
         "title": "MCP市場"
+      },
+      "server": {
+        "empty": "暫無MCP伺服器...",
+        "selected": "已選擇{{num}}個MCP伺服器",
+        "title": "MCP伺服器"
+      },
+      "type": {
+        "inMemory": "內建",
+        "sse": "伺服器傳送事件",
+        "streamableHttp": "串流式 HTTP"
       }
     },
     "menu": {

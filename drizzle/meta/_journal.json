@@ -29,6 +29,13 @@
       "when": 1758956623108,
       "tag": "0003_concerned_deathbird",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1759066535839,
+      "tag": "0004_good_firestar",
+      "breakpoints": true
     }
   ]
 }

@@ -9,7 +9,7 @@ import { buildStreamTextParams, convertMessagesToSdkMessages } from '@/aiCore/pr
 import { isDedicatedImageGenerationModel, isEmbeddingModel } from '@/config/models'
 import i18n from '@/i18n'
 import { loggerService } from '@/services/LoggerService'
-import { FetchChatCompletionParams, Model, Provider } from '@/types/assistant'
+import { Assistant, FetchChatCompletionParams, Model, Provider } from '@/types/assistant'
 import { ChunkType } from '@/types/chunk'
 import { SdkModel } from '@/types/sdk'
 import { MCPTool } from '@/types/tool'
@@ -21,6 +21,9 @@ import { createBlankAssistant, getAssistantById, getDefaultModel } from './Assis
 import { getAssistantProvider } from './ProviderService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
 import { getTopicById, upsertTopics } from './TopicService'
+import { getActiveMcps } from './McpService'
+import { MCPServer } from '@/types/mcp'
+import { BUILTIN_TOOLS } from '@/config/mcp'
 
 const logger = loggerService.withContext('fetchChatCompletion')
 
@@ -39,6 +42,10 @@ export async function fetchChatCompletion({
   const mcpTools: MCPTool[] = []
 
   onChunkReceived({ type: ChunkType.LLM_RESPONSE_CREATED })
+
+  if (isPromptToolUse(assistant) || isSupportedToolUse(assistant)) {
+    mcpTools.push(...(await fetchMcpTools(assistant)))
+  }
 
   if (prompt) {
     messages = [
@@ -239,4 +246,34 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
     logger.error('Error during translation:', error)
     return ''
   }
+}
+
+export async function fetchMcpTools(assistant: Assistant) {
+  let mcpTools: MCPTool[] = [] // Initialize as empty array
+  const activedMcpServers = await getActiveMcps()
+  const assistantMcpServers = assistant.mcpServers || []
+
+  const enabledMCPs = activedMcpServers.filter(server => assistantMcpServers.some(s => s.id === server.id))
+
+  if (enabledMCPs && enabledMCPs.length > 0) {
+    try {
+      const toolPromises = enabledMCPs.map(async (mcpServer: MCPServer) => {
+        try {
+          const tools = BUILTIN_TOOLS[mcpServer.id]
+          return tools.filter((tool: any) => !mcpServer.disabledTools?.includes(tool.name))
+        } catch (error) {
+          logger.error(`Error fetching tools from MCP server ${mcpServer.name}:`, error as Error)
+          return []
+        }
+      })
+      const results = await Promise.allSettled(toolPromises)
+      mcpTools = results
+        .filter((result): result is PromiseFulfilledResult<MCPTool[]> => result.status === 'fulfilled')
+        .map(result => result.value)
+        .flat()
+    } catch (toolError) {
+      logger.error('Error fetching MCP tools:', toolError as Error)
+    }
+  }
+  return mcpTools
 }

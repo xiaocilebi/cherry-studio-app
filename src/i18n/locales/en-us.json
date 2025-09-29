@@ -294,6 +294,16 @@
       },
       "market": {
         "title": "MCP Market"
+      },
+      "server": {
+        "empty": "No MCP servers available...",
+        "selected": "{{num}} MCP servers selected",
+        "title": "MCP Server"
+      },
+      "type": {
+        "inMemory": "built-in",
+        "sse": "Server-Sent Events",
+        "streamableHttp": "Streaming HTTP"
       }
     },
     "menu": {

@@ -23,10 +23,10 @@ export const McpItemCard: FC<McpItemCardProps> = ({ mcp,updateMcps }) => {
   };
 
   return (
-    <View className="p-1.5 w-full">
+    <View className="w-full">
     <PressableRow
       onPress={handlePress}
-      className="bg-ui-card-background dark:bg-ui-card-background-dark rounded-lg overflow-hidden active:bg-gray-20 dark:active:bg-gray-20 justify-between p-2">
+      className="bg-ui-card-background dark:bg-ui-card-background-dark rounded-xl overflow-hidden active:bg-gray-20 dark:active:bg-gray-20 justify-between p-2">
         <YStack className="h-full gap-2">
           <Text className="text-lg">{mcp.name}</Text>
           <Text className="text-sm text-text-secondary dark:text-text-secondary-dark">{mcp.description}</Text>

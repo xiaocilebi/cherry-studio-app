@@ -29,16 +29,23 @@ export interface SelectionSheetProps {
   snapPoints?: string[]
   ref: React.RefObject<BottomSheetModal | null>
   placeholder?: string
+  shouldDismiss?: boolean
 }
 
 /**
  * 用于在BottomSheetModal中显示列表
  */
 
-const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, snapPoints = [], ref, placeholder }) => {
+const SelectionSheet: React.FC<SelectionSheetProps> = ({
+  items,
+  emptyContent,
+  snapPoints = [],
+  ref,
+  placeholder,
+  shouldDismiss = true
+}) => {
   const { isDark } = useTheme()
   const [isVisible, setIsVisible] = useState(false)
-  // Link LegendList with BottomSheet gestures
   const BottomSheetLegendListScrollable = useBottomSheetScrollableCreator()
 
   useEffect(() => {
@@ -54,7 +61,10 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
   }, [ref, isVisible])
 
   const handleSelect = (item: SelectionSheetItem) => {
-    ref.current?.dismiss()
+    if (shouldDismiss) {
+      ref.current?.dismiss()
+    }
+
     haptic(ImpactFeedbackStyle.Medium)
     item.onSelect?.()
   }

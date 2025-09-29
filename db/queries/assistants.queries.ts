@@ -31,7 +31,7 @@ export function transformDbToAssistant(dbRecord: any): Assistant {
     enableWebSearch: !!dbRecord.enable_web_search,
     webSearchProviderId: dbRecord.websearch_provider_id,
     enableGenerateImage: !!dbRecord.enable_generate_image,
-    // mcpServers: safeJsonParse(dbRecord.mcp_servers),
+    mcpServers: safeJsonParse(dbRecord.mcpServers),
     knowledgeRecognition: dbRecord.knowledge_recognition,
     tags: safeJsonParse(dbRecord.tags, []),
     group: safeJsonParse(dbRecord.group, []),
@@ -59,7 +59,7 @@ function transformAssistantToDb(assistant: Assistant): any {
     enable_web_search: assistant.enableWebSearch ? 1 : 0,
     websearch_provider_id: assistant.webSearchProviderId === undefined ? null : assistant.webSearchProviderId,
     enable_generate_image: assistant.enableGenerateImage ? 1 : 0,
-    // mcp_servers: assistant.mcpServers ? JSON.stringify(assistant.mcpServers) : null,
+    mcpServers: assistant.mcpServers ? JSON.stringify(assistant.mcpServers) : null,
     knowledge_recognition: assistant.knowledgeRecognition,
     tags: assistant.tags ? JSON.stringify(assistant.tags) : null,
     group: assistant.group ? JSON.stringify(assistant.group) : null
@@ -118,6 +118,7 @@ export async function getAssistantById(id: string): Promise<Assistant | null> {
  */
 export async function upsertAssistants(assistantsToUpsert: Assistant[]) {
   try {
+    console.log('assistantsToUpsert', assistantsToUpsert)
     const dbRecords = assistantsToUpsert.map(transformAssistantToDb)
     const upsertPromises = dbRecords.map(record =>
       db

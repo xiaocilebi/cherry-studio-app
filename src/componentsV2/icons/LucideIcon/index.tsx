@@ -31,6 +31,7 @@ import {
   HeartPulse,
   Palette,
   Image,
+  Hammer,
   ImageOff,
   Info,
   Languages,
@@ -102,6 +103,7 @@ interopIcon(CirclePause)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copy)
+interopIcon(Hammer)
 interopIcon(Copyright)
 interopIcon(Download)
 interopIcon(Edit3)
@@ -161,6 +163,7 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   return Wrapped
 }
 
+const HammerIcon = withDefaultIconClass(Hammer)
 const ArrowUpIcon = withDefaultIconClass(ArrowUp)
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
@@ -264,6 +267,7 @@ export {
   PaletteIcon as Palette,
   ImageIcon as Image,
   ImageOffIcon as ImageOff,
+  HammerIcon as Hammer,
   InfoIcon as Info,
   LanguagesIcon as Languages,
   LightbulbIcon as Lightbulb,

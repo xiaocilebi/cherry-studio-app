@@ -294,6 +294,16 @@
       },
       "market": {
         "title": "MCP市場"
+      },
+      "server": {
+        "empty": "MCPサーバーがありません...",
+        "selected": "選択された{{num}}個のMCPサーバー",
+        "title": "MCPサーバー"
+      },
+      "type": {
+        "inMemory": "内蔵",
+        "sse": "サーバー送信イベント",
+        "streamableHttp": "ストリーミングHTTP"
       }
     },
     "menu": {

@@ -1,5 +1,21 @@
+import { BuiltinTool } from '@/types/tool'
+import { uuid } from '@/utils'
 import { tool } from 'ai'
 import { z } from 'zod'
+
+export const TIME_TOOLS: BuiltinTool[] = [
+  {
+    id: uuid(),
+    name: 'GetCurrentTime',
+    type: 'builtin',
+    description: 'Get current time and date',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      required: []
+    }
+  }
+]
 
 /**
  * Get current time
@@ -9,9 +25,9 @@ export const getCurrentTime = tool({
   inputSchema: z.object({}),
   execute: () => {
     return {
-     time: new Date().toLocaleString()
+      time: new Date().toLocaleString()
     }
-  },
+  }
 })
 
 /**

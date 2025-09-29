@@ -294,6 +294,16 @@
       },
       "market": {
         "title": "Рынок MCP"
+      },
+      "server": {
+        "empty": "Нет доступных серверов MCP...",
+        "selected": "Выбрано {{num}} серверов MCP",
+        "title": "Сервер MCP"
+      },
+      "type": {
+        "inMemory": "встроенный",
+        "sse": "События, отправляемые сервером",
+        "streamableHttp": "Потоковый HTTP"
       }
     },
     "menu": {

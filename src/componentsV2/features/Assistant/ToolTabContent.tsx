@@ -13,6 +13,7 @@ import XStack from '@/componentsV2/layout/XStack'
 import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 import { WebsearchSheet } from '../Sheet/WebsearchSheet'
 import { ToolUseSheet } from '../Sheet/ToolUseSheet'
+import { McpServerSheet } from '../Sheet/McpServerSheet'
 
 interface ToolTabContentProps {
   assistant: Assistant
@@ -23,6 +24,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
   const { t } = useTranslation()
   const toolUseSheetRef = useRef<BottomSheetModal>(null)
   const websearchSheetRef = useRef<BottomSheetModal>(null)
+  const mcpServerSheetRef = useRef<BottomSheetModal>(null)
   const { apiProviders } = useWebsearchProviders()
 
   const handleToolUsePress = () => {
@@ -31,6 +33,10 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
 
   const handleWebsearchPress = () => {
     websearchSheetRef.current?.present()
+  }
+
+  const handleMcpServerPress = () => {
+    mcpServerSheetRef.current?.present()
   }
 
   const provider = apiProviders.find(p => p.id === assistant.webSearchProviderId)
@@ -129,6 +135,29 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
             <RowRightArrow />
           </Pressable>
         </YStack>
+
+        <YStack className="w-full gap-2">
+          <Text className="text-sm font-medium text-text-secondary dark:text-text-secondary">
+            {t('mcp.server.title')}
+          </Text>
+          <Pressable
+            onPress={handleMcpServerPress}
+            className="flex-row items-center justify-between rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark px-3 py-3 active:opacity-80">
+            <XStack className="flex-1 items-center gap-2">
+              {assistant.mcpServers && assistant.mcpServers.length > 0 ? (
+                <Text>{t('mcp.server.selected', { num: assistant.mcpServers.length })}</Text>
+              ) : (
+                <Text
+                  className="flex-1 text-base text-text-secondary dark:text-text-secondary"
+                  numberOfLines={1}
+                  ellipsizeMode="tail">
+                  {t('mcp.server.empty')}
+                </Text>
+              )}
+            </XStack>
+            <RowRightArrow />
+          </Pressable>
+        </YStack>
       </YStack>
       <ToolUseSheet ref={toolUseSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
       <WebsearchSheet
@@ -137,6 +166,7 @@ export function ToolTabContent({ assistant, updateAssistant }: ToolTabContentPro
         updateAssistant={updateAssistant}
         providers={apiProviders.filter(p => p.apiKey)}
       />
+      <McpServerSheet ref={mcpServerSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
     </MotiView>
   )
 }

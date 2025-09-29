@@ -27,7 +27,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
     })
   }, [assistant])
 
-  const handleBlur = () => {
+  const handleSave = () => {
     if (formData.name !== assistant.name || formData.prompt !== assistant.prompt) {
       updateAssistant({
         ...assistant,
@@ -60,6 +60,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
               placeholder={t('assistants.name')}
               value={formData.name}
               onChangeText={name => setFormData(prev => ({ ...prev, name }))}
+              onEndEditing={handleSave}
             />
           </TextField>
 
@@ -68,13 +69,14 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
               {t('common.prompt')}
             </TextField.Label>
             <TextField.Input
-            className="flex-1 rounded-lg  px-3 py-3 text-sm"
+              className="flex-1 rounded-lg  px-3 py-3 text-sm"
               placeholder={t('common.prompt')}
               multiline
               numberOfLines={20}
               textAlignVertical="top"
               value={formData.prompt}
               onChangeText={prompt => setFormData(prev => ({ ...prev, prompt }))}
+              onEndEditing={handleSave}
             />
           </TextField>
         </YStack>

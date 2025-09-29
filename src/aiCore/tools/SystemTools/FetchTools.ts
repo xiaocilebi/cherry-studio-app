@@ -1,12 +1,39 @@
+import { BuiltinTool } from '@/types/tool'
+import { uuid } from '@/utils'
 import { tool } from 'ai'
 import { z } from 'zod'
 
 const RequestPayloadSchema = z.object({
-  url: z.string().url(),
+  url: z.url(),
   headers: z.record(z.string(), z.string()).optional()
 })
 
 type RequestPayload = z.infer<typeof RequestPayloadSchema>
+
+export const FETCH_TOOLS: BuiltinTool[] = [
+  {
+    id: uuid(),
+    name: 'FetchUrlAsHtml',
+    type: 'builtin',
+    description: 'Fetch URL content as HTML',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: {
+          type: 'string',
+          format: 'uri',
+          description: 'The URL to fetch'
+        },
+        headers: {
+          type: 'object',
+          additionalProperties: { type: 'string' },
+          description: 'Optional HTTP headers'
+        }
+      },
+      required: ['url']
+    }
+  }
+]
 
 class Fetcher {
   private static async _fetch({ url, headers }: RequestPayload): Promise<Response> {
@@ -52,16 +79,15 @@ class Fetcher {
 export const fetchUrlAsHtml = tool({
   description: 'Fetch URL content as HTML',
   inputSchema: RequestPayloadSchema,
-  execute: async (params) => {
+  execute: async params => {
     const result = await Fetcher.html(params)
     return result
   }
 })
 
-
 /**
  * Combined export of all fetch tools as a ToolSet
  */
 export const fetchTools = {
-  FetchUrlAsHtml: fetchUrlAsHtml,
+  FetchUrlAsHtml: fetchUrlAsHtml
 }
