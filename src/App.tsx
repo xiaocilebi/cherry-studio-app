@@ -3,6 +3,8 @@ import 'react-native-reanimated'
 import '../global.css'
 
 import { HeroUINativeProvider } from 'heroui-native'
+import { createTamagui, TamaguiProvider } from 'tamagui'
+import { defaultConfig } from '@tamagui/config/v4'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { NavigationContainer } from '@react-navigation/native'
@@ -103,24 +105,28 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const { themeSetting, reactNavigationTheme, isDark } = useTheme()
+  const { themeSetting, activeTheme, reactNavigationTheme, isDark } = useTheme()
+
+  const config = createTamagui(defaultConfig)
 
   return (
-    <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
-      <KeyboardProvider>
-        <NavigationContainer theme={reactNavigationTheme}>
-          <SystemBars style={isDark ? 'light' : 'dark'} />
-          <DatabaseInitializer />
-          <DialogProvider>
-            <ToastProvider>
-              <BottomSheetModalProvider>
-                <MainStackNavigator />
-              </BottomSheetModalProvider>
-            </ToastProvider>
-          </DialogProvider>
-        </NavigationContainer>
-      </KeyboardProvider>
-    </HeroUINativeProvider>
+    <TamaguiProvider config={config} defaultTheme={activeTheme}>
+      <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
+        <KeyboardProvider>
+          <NavigationContainer theme={reactNavigationTheme}>
+            <SystemBars style={isDark ? 'light' : 'dark'} />
+            <DatabaseInitializer />
+            <DialogProvider>
+              <ToastProvider>
+                <BottomSheetModalProvider>
+                  <MainStackNavigator />
+                </BottomSheetModalProvider>
+              </ToastProvider>
+            </DialogProvider>
+          </NavigationContainer>
+        </KeyboardProvider>
+      </HeroUINativeProvider>
+    </TamaguiProvider>
   )
 }
 

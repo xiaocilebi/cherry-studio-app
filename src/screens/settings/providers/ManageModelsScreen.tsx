@@ -38,6 +38,7 @@ import { haptic } from '@/utils/haptic'
 import { getDefaultGroupName } from '@/utils/naming'
 import { ModelIcon } from '@/componentsV2/icons'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
+import { Tabs } from 'tamagui'
 const logger = loggerService.withContext('ManageModelsScreen')
 
 type ProviderSettingsRouteProp = RouteProp<ProvidersStackParamList, 'ManageModelsScreen'>
@@ -211,7 +212,7 @@ export default function ManageModelsScreen() {
       ) : (
         <Container className="pb-0" onStartShouldSetResponder={() => false} onMoveShouldSetResponder={() => false}>
           {/* Filter Tabs */}
-          {/*<Tabs
+          <Tabs
             defaultValue="all"
             value={activeFilterType}
             onValueChange={setActiveFilterType}
@@ -227,7 +228,7 @@ export default function ManageModelsScreen() {
                 ))}
               </Tabs.List>
             </ScrollView>
-          </Tabs>*/}
+          </Tabs>
 
           <SearchInput placeholder={t('settings.models.search')} value={searchText} onChangeText={setSearchText} />
 

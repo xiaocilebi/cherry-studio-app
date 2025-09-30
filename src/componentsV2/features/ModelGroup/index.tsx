@@ -51,8 +51,8 @@ export default function ModelGroup({
 
   if (showEmptyState && modelGroups.length === 0) {
     return (
-      <YStack className="flex-1 justify-center items-center">
-        <Text className="text-center text-gray-500">{t(emptyStateKey)}</Text>
+      <YStack className="flex-1 justify-center items-center h-20">
+        <Text className="text-center text-text-secondary dark:text-text-secondary-dark">{t(emptyStateKey)}</Text>
       </YStack>
     )
   }
