@@ -290,6 +290,9 @@
         },
         "time": {
           "description": "現在時刻を取得する"
+        },
+        "reminder": {
+          "description": "リマインダーの取得、作成、更新、削除"
         }
       },
       "market": {

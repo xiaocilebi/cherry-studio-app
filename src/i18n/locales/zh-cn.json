@@ -290,6 +290,9 @@
         },
         "time": {
           "description": "获取当前时间"
+        },
+        "reminder": {
+          "description": "获取、添加、修改、删除提醒事项"
         }
       },
       "market": {

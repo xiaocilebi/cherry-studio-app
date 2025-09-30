@@ -290,6 +290,9 @@
         },
         "time": {
           "description": "取得目前時間"
+        },
+        "reminder": {
+          "description": "獲取、添加、修改、刪除提醒事項"
         }
       },
       "market": {

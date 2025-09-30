@@ -290,6 +290,9 @@
         },
         "time": {
           "description": "Get the current time"
+        },
+        "reminder": {
+          "description": "Get, create, update, and delete reminders"
         }
       },
       "market": {
