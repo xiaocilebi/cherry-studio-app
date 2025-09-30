@@ -108,11 +108,26 @@ export const BUILTIN_TOOLS: Record<BuiltinMcpId, MCPTool[]> = {
             type: 'string',
             format: 'uri',
             description: 'The URL to fetch'
-          },
-          headers: {
-            type: 'object',
-            additionalProperties: { type: 'string' },
-            description: 'Optional HTTP headers'
+          }
+        },
+        required: ['url']
+      }
+    },
+    {
+      id: uuid(),
+      name: 'FetchUrlAsJson',
+      serverId: uuid(),
+      serverName: '@cherry/fetch',
+      isBuiltIn: true,
+      type: 'mcp',
+      description: 'Fetch URL content as JSON',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          url: {
+            type: 'string',
+            format: 'uri',
+            description: 'The URL to fetch'
           }
         },
         required: ['url']
