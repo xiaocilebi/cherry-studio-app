@@ -18,7 +18,7 @@ import EmojiAvatar from './EmojiAvatar'
 import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
-import { ContextMenu, ContextMenuListProps } from '@/componentsV2/base/ContextMenu'
+import ContextMenu, { ContextMenuListProps } from '@/componentsV2/base/ContextMenu'
 
 const logger = loggerService.withContext('Assistant Item')
 

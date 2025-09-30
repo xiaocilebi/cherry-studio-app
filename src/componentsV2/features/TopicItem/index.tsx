@@ -24,7 +24,7 @@ import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
 import TextField from '@/componentsV2/base/TextField'
-import { ContextMenu } from '@/componentsV2/base/ContextMenu'
+import ContextMenu from '@/componentsV2/base/ContextMenu'
 
 type TimeFormat = 'time' | 'date'
 

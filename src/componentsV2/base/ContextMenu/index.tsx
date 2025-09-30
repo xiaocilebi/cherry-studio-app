@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { FC, useRef } from 'react'
 import { Pressable } from 'react-native'
 import { SFSymbol } from 'sf-symbols-typescript'
-import { ContextMenu as IOSContextMenu, Host, Button } from '@expo/ui/swift-ui'
+import * as ZeegoContextMenu from 'zeego/context-menu'
 
 import { isAndroid, isIOS } from '@/utils/device'
 import SelectionSheet from '../SelectionSheet'
@@ -27,7 +27,7 @@ export interface ContextMenuProps {
   list: ContextMenuListProps[]
 }
 
-export const ContextMenu: FC<ContextMenuProps> = ({
+const ContextMenu: FC<ContextMenuProps> = ({
   children,
   onPress = () => {},
   list,
@@ -38,16 +38,18 @@ export const ContextMenu: FC<ContextMenuProps> = ({
   const selectionSheetRef = useRef<BottomSheetModal>(null)
 
   if (isIOS) {
+    const { Root, Trigger, Content, Item, ItemTitle, ItemIcon } = ZeegoContextMenu
     const TriggerContent = withHighLight ? (
       <Pressable
         onPress={onPress}
         onLongPress={() => {}}
         unstable_pressDelay={50}
         delayLongPress={350}
-        className="active:opacity-70"
-        style={{
+        // FIXME: 这里失效了
+        style={({ pressed }) => ({
+          backgroundColor: pressed ? '#a0a1b033' : 'transparent',
           borderRadius
-        }}>
+        })}>
         {children}
       </Pressable>
     ) : (
@@ -59,18 +61,21 @@ export const ContextMenu: FC<ContextMenuProps> = ({
     }
 
     return (
-      <Host>
-        <IOSContextMenu activationMethod="longPress">
-          <IOSContextMenu.Items>
-            {list.map(item => (
-              <Button key={item.title} systemImage={item.iOSIcon} role={item.destructive ? 'destructive' : 'default'} onPress={item.onSelect}>
-                {item.title}
-              </Button>
-            ))}
-          </IOSContextMenu.Items>
-          <IOSContextMenu.Trigger>{TriggerContent}</IOSContextMenu.Trigger>
-        </IOSContextMenu>
-      </Host>
+      <Root
+        // @ts-expect-error: https://github.com/nandorojo/zeego/issues/80
+        __unsafeIosProps={{
+          shouldWaitForMenuToHideBeforeFiringOnPressMenuItem: false
+        }}>
+        <Trigger disabled={disableContextMenu}>{TriggerContent}</Trigger>
+        <Content>
+          {list.map(item => (
+            <Item key={item.title} onSelect={item.onSelect} destructive={item.destructive}>
+              <ItemTitle>{item.title}</ItemTitle>
+              {item.iOSIcon && <ItemIcon ios={{ name: item.iOSIcon }} />}
+            </Item>
+          ))}
+        </Content>
+      </Root>
     )
   }
 
@@ -98,10 +103,11 @@ export const ContextMenu: FC<ContextMenuProps> = ({
           delayLongPress={400}
           onPress={onPress}
           onLongPress={openBottomSheet}
-          className="active:opacity-70"
-          style={{
+          style={({ pressed }) => ({
+            backgroundColor: pressed ? '#a0a1b033' : 'transparent',
+            opacity: pressed ? 0.9 : 1,
             borderRadius
-          }}>
+          })}>
           {children}
         </Pressable>
 
@@ -120,3 +126,7 @@ export const ContextMenu: FC<ContextMenuProps> = ({
     )
   }
 }
+
+ContextMenu.displayName = 'ContextMenu'
+
+export default ContextMenu

@@ -56,6 +56,7 @@
     "@react-native-community/datetimepicker": "8.4.4",
     "@react-native-documents/viewer": "^1.0.3",
     "@react-native-masked-view/masked-view": "0.3.2",
+    "@react-native-menu/menu": "1.2.2",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/drawer": "^7.3.12",
     "@react-navigation/material-top-tabs": "^7.3.7",
@@ -129,6 +130,8 @@
     "react-native-edge-to-edge": "^1.7.0",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-image-viewing": "^0.2.2",
+    "react-native-ios-context-menu": "3.2.1",
+    "react-native-ios-utilities": "5.2.0",
     "react-native-keyboard-controller": "^1.18.5",
     "react-native-marked": "^7.0.2",
     "react-native-mathjax-svg": "^0.9.9",
@@ -158,7 +161,8 @@
     "tokenx": "^1.0.1",
     "turndown": "7.2.0",
     "vitest": "^3.2.4",
-    "webdav": "^5.8.0"
+    "webdav": "^5.8.0",
+    "zeego": "^3.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
