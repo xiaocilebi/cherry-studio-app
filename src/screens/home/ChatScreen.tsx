@@ -7,7 +7,8 @@ import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
-import { YStack, SafeAreaContainer, MessageInput } from '@/componentsV2'
+import { YStack, SafeAreaContainer } from '@/componentsV2'
+import { MessageInputContainer } from '@/componentsV2/features/ChatScreen/MessageInput/MessageInputContainer'
 
 import { useBottom } from '@/hooks/useBottom'
 import { useTopic } from '@/hooks/useTopic'
@@ -120,7 +121,7 @@ const ChatScreen = () => {
               {/* if remove key, change topic will not re-render */}
               {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}
             </View>
-            <MessageInput topic={topic} />
+            <MessageInputContainer topic={topic} />
           </YStack>
         </KeyboardAvoidingView>
       </PanGestureHandler>

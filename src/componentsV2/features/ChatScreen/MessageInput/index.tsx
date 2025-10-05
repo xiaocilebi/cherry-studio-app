@@ -1,22 +1,11 @@
-import { ImpactFeedbackStyle } from 'expo-haptics'
-import { isEmpty } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { DropShadowView } from 'heroui-native'
 
-import { isReasoningModel } from '@/config/models'
-import { useAssistant } from '@/hooks/useAssistant'
 import { useBottom } from '@/hooks/useBottom'
-import { useMessageOperations, useTopicLoading } from '@/hooks/useMessageOperation'
-import { loggerService } from '@/services/LoggerService'
-import { sendMessage as _sendMessage, getUserMessage } from '@/services/MessagesService'
-import { useAppDispatch } from '@/store'
-import { Model, Topic } from '@/types/assistant'
-import { FileMetadata } from '@/types/file'
-import { MessageInputBaseParams } from '@/types/message'
-import { haptic } from '@/utils/haptic'
+import { Assistant, Topic } from '@/types/assistant'
 import { FilePreview } from './FilePreview'
 import { ToolButton } from './ToolButton'
 import { ThinkButton } from './ThinkButton'
@@ -28,75 +17,19 @@ import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
 import TextField from '@/componentsV2/base/TextField'
 import { McpButton } from './McpButton'
-
-const logger = loggerService.withContext('Message Input')
+import { useMessageInputLogic } from './hooks/useMessageInputLogic'
 
 interface MessageInputProps {
   topic: Topic
+  assistant: Assistant
+  updateAssistant: (assistant: Assistant) => Promise<void>
 }
 
-export const MessageInput: React.FC<MessageInputProps> = ({ topic }) => {
+export const MessageInput: React.FC<MessageInputProps> = ({ topic, assistant, updateAssistant }) => {
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const { assistant, isLoading, updateAssistant } = useAssistant(topic.assistantId)
   const bottomPad = useBottom()
-  const [text, setText] = useState('')
-  const [files, setFiles] = useState<FileMetadata[]>([])
-  const [mentions, setMentions] = useState<Model[]>([])
-  const isTopicLoading = useTopicLoading(topic)
-  const { pauseMessages } = useMessageOperations(topic)
-
-  const isReasoning = isReasoningModel(assistant?.model)
-
-  // topic切换时渲染
-  useEffect(() => {
-    setMentions(assistant?.defaultModel ? [assistant?.defaultModel] : [])
-  }, [topic.id])
-
-  const sendMessage = async () => {
-    if (isEmpty(text.trim()) || !assistant) {
-      haptic(ImpactFeedbackStyle.Rigid)
-      return
-    }
-
-    haptic(ImpactFeedbackStyle.Medium)
-
-    setText('')
-    setFiles([])
-    Keyboard.dismiss()
-
-    try {
-      const baseUserMessage: MessageInputBaseParams = { assistant, topic, content: text }
-
-      if (files.length > 0) {
-        baseUserMessage.files = files
-      }
-
-      const { message, blocks } = getUserMessage(baseUserMessage)
-
-      if (mentions.length > 0) {
-        message.mentions = mentions
-      }
-
-      await _sendMessage(message, blocks, assistant, topic.id, dispatch)
-    } catch (error) {
-      logger.error('Error sending message:', error)
-    }
-  }
-
-  const onPause = async () => {
-    haptic(ImpactFeedbackStyle.Medium)
-
-    try {
-      await pauseMessages()
-    } catch (error) {
-      logger.error('Error pause message:', error)
-    }
-  }
-
-  if (isLoading || !assistant) {
-    return null
-  }
+  const { text, setText, files, setFiles, mentions, setMentions, isReasoning, isTopicLoading, sendMessage, onPause } =
+    useMessageInputLogic(topic, assistant)
 
   return (
     <DropShadowView
