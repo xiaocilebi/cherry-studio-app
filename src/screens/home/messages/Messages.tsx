@@ -1,7 +1,6 @@
 import { MotiView } from 'moti'
 import React, { FC, useCallback, useRef, useState } from 'react'
 import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View } from 'react-native'
-import { Easing } from 'react-native-reanimated'
 
 import { YStack } from '@/componentsV2'
 
@@ -40,8 +39,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         transition={{
           type: 'timing',
           duration: 300,
-          delay: 250,
-          easing: Easing.out(Easing.ease)
+          delay: 100
         }}>
         <MessageGroup assistant={assistant} item={item} />
       </MotiView>
@@ -75,7 +73,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         ItemSeparatorComponent={() => <YStack className="h-5" />}
         contentContainerStyle={{
-          flexGrow: 1,
+          flexGrow: 1
         }}
         onScroll={handleScroll}
         maintainScrollAtEnd
