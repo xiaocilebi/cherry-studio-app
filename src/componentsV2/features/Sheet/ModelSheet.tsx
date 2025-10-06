@@ -2,7 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetScrollableCreator 
 import { LegendList } from '@legendapp/list'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
-import React, { forwardRef, useEffect, useMemo, useState } from 'react'
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Platform, useWindowDimensions, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -41,6 +41,14 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const insets = useSafeAreaInsets()
   const dimensions = useWindowDimensions()
   const navigation = useNavigation<HomeNavigationProps>()
+
+  const dismissDataRef = useRef<{
+    selectedModelIds: string[]
+    isMultiSelectActive: boolean
+  }>({
+    selectedModelIds: mentions.map(m => getModelUniqId(m)),
+    isMultiSelectActive: false
+  })
 
   const debouncedSetQuery = debounce((query: string) => {
     setSearchQuery(query)
@@ -93,7 +101,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
   const allModelOptions = selectOptions.flatMap(group => group.options)
 
-  // Build flattened list data for LegendList
   type ListItem =
     | { type: 'header'; label: string; provider: Provider }
     | { type: 'model'; label: string; value: string; model: Model }
@@ -133,27 +140,35 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
     setSelectedModels(newSelection)
 
-    const newMentions = allModelOptions
-      .filter(option => newSelection.includes(option.value))
-      .map(option => option.model)
-    await setMentions(newMentions, isMultiSelectActive)
+    dismissDataRef.current = {
+      selectedModelIds: newSelection,
+      isMultiSelectActive
+    }
   }
 
   const handleClearAll = async () => {
     setSelectedModels([])
-    await setMentions([])
+    dismissDataRef.current = {
+      selectedModelIds: [],
+      isMultiSelectActive
+    }
   }
 
   const toggleMultiSelectMode = async () => {
     const newMultiSelectActive = !isMultiSelectActive
     setIsMultiSelectActive(newMultiSelectActive)
 
+    let newSelection = selectedModels
     // 如果切换到单选模式且当前有多个选择，只保留第一个
     if (!newMultiSelectActive && selectedModels.length > 1) {
       const firstSelected = selectedModels[0]
-      setSelectedModels([firstSelected])
-      const newMentions = allModelOptions.filter(option => option.value === firstSelected).map(option => option.model)
-      await setMentions(newMentions)
+      newSelection = [firstSelected]
+      setSelectedModels(newSelection)
+    }
+
+    dismissDataRef.current = {
+      selectedModelIds: newSelection,
+      isMultiSelectActive: newMultiSelectActive
     }
   }
 
@@ -162,12 +177,22 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     navigation.navigate('ProvidersSettings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
   }
 
+  const handleDismiss = async () => {
+    const { selectedModelIds, isMultiSelectActive: wasMultiSelectActive } = dismissDataRef.current
+
+    const newMentions = allModelOptions
+      .filter(option => selectedModelIds.includes(option.value))
+      .map(option => option.model)
+
+    await setMentions(newMentions, wasMultiSelectActive)
+    setIsVisible(false)
+  }
+
   // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
-  // Create scrollable component for BottomSheet + LegendList integration
   const BottomSheetLegendListScrollable = useBottomSheetScrollableCreator()
 
   const ESTIMATED_ITEM_SIZE = 20
@@ -191,7 +216,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       keyboardBehavior={Platform.OS === 'ios' ? 'interactive' : 'fillParent'}
       keyboardBlurBehavior="restore"
       maxDynamicContentSize={dimensions.height - 2 * insets.top}
-      onDismiss={() => setIsVisible(false)}
+      onDismiss={handleDismiss}
       onChange={index => setIsVisible(index >= 0)}>
       <LegendList
         data={listData}
