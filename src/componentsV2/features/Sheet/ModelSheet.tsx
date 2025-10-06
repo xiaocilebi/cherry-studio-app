@@ -41,6 +41,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const insets = useSafeAreaInsets()
   const dimensions = useWindowDimensions()
   const navigation = useNavigation<HomeNavigationProps>()
+  const { providers } = useAllProviders()
 
   const dismissDataRef = useRef<{
     selectedModelIds: string[]
@@ -75,7 +76,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     return () => backHandler.remove()
   }, [ref, isVisible])
 
-  const { providers } = useAllProviders()
   const selectOptions = providers
     .filter(p => p.models && p.models.length > 0 && p.enabled)
     .map(p => ({

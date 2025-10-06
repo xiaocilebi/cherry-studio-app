@@ -44,7 +44,19 @@ export function useTopic(topicId: string) {
 }
 
 export function useTopics() {
-  const query = db.select().from(topicSchema).orderBy(desc(topicSchema.created_at))
+  const query = db
+    .select({
+      id: topicSchema.id,
+      assistant_id: topicSchema.assistant_id,
+      name: topicSchema.name,
+      created_at: topicSchema.created_at,
+      updated_at: topicSchema.updated_at,
+      pinned: topicSchema.pinned,
+      prompt: topicSchema.prompt,
+      is_name_manually_edited: topicSchema.is_name_manually_edited
+    })
+    .from(topicSchema)
+    .orderBy(desc(topicSchema.created_at))
   const { data: rawTopics, updatedAt } = useLiveQuery(query)
 
   if (!updatedAt) {
