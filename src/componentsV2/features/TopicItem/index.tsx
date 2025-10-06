@@ -69,18 +69,20 @@ export const TopicItem: FC<TopicItemProps> = ({
   const [isGeneratingName, setIsGeneratingName] = useState(false)
   const dialog = useDialog()
   const { isDark } = useTheme()
-  const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
+  const isActive = useAppSelector(
+    state => state.topic.currentTopicId === topic.id,
+    (prev, next) => prev === next
+  )
   const toast = useToast()
 
   const openTopic = () => {
-    dispatch(setCurrentTopicId(topic.id))
-
     if (handleNavigateChatScreen) {
       handleNavigateChatScreen(topic.id)
     } else {
       haptic(ImpactFeedbackStyle.Medium)
       navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topic.id } })
     }
+    dispatch(setCurrentTopicId(topic.id))
   }
 
   const date = new Date(topic.updatedAt)

@@ -3,7 +3,7 @@ import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-naviga
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import * as React from 'react'
 import { useCallback, useEffect } from 'react'
-import { ActivityIndicator, Platform, View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import { useDispatch } from 'react-redux'
@@ -90,11 +90,7 @@ const ChatScreen = () => {
   }
 
   if (!topic || isLoading) {
-    return (
-      <SafeAreaContainer style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator />
-      </SafeAreaContainer>
-    )
+    return null
   }
 
   const hasMessage = topic.messages.length > 0
@@ -119,7 +115,7 @@ const ChatScreen = () => {
               }}>
               {/* ChatContent use key to re-render screen content */}
               {/* if remove key, change topic will not re-render */}
-              {!hasMessage ? <WelcomeContent /> : <ChatContent key={topic.id} topic={topic} />}
+              {!hasMessage ? <WelcomeContent /> : <ChatContent key={topicId} topicId={topicId} />}
             </View>
             <MessageInputContainer topic={topic} />
           </YStack>
