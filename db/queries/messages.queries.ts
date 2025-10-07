@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 
 import { loggerService } from '@/services/LoggerService'
 import { Message } from '@/types/message'
@@ -43,22 +43,22 @@ export async function upsertMessages(messagesToUpsert: Message | Message[]): Pro
         .onConflictDoUpdate({
           target: messages.id,
           set: {
-            role: messages.role,
-            assistant_id: messages.assistant_id,
-            topic_id: messages.topic_id,
-            created_at: messages.created_at,
-            updated_at: messages.updated_at,
-            status: messages.status,
-            model_id: messages.model_id,
-            model: messages.model,
-            type: messages.type,
-            useful: messages.useful,
-            ask_id: messages.ask_id,
-            mentions: messages.mentions,
-            usage: messages.usage,
-            metrics: messages.metrics,
-            multi_model_message_style: messages.multi_model_message_style,
-            fold_selected: messages.fold_selected
+            role: sql`excluded.role`,
+            assistant_id: sql`excluded.assistant_id`,
+            topic_id: sql`excluded.topic_id`,
+            created_at: sql`excluded.created_at`,
+            updated_at: sql`excluded.updated_at`,
+            status: sql`excluded.status`,
+            model_id: sql`excluded.model_id`,
+            model: sql`excluded.model`,
+            type: sql`excluded.type`,
+            useful: sql`excluded.useful`,
+            ask_id: sql`excluded.ask_id`,
+            mentions: sql`excluded.mentions`,
+            usage: sql`excluded.usage`,
+            metrics: sql`excluded.metrics`,
+            multi_model_message_style: sql`excluded.multi_model_message_style`,
+            fold_selected: sql`excluded.fold_selected`
           }
         })
         .returning()
