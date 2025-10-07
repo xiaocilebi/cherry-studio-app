@@ -24,7 +24,7 @@ export function transformDbToAssistant(dbRecord: any): Assistant {
     enableWebSearch: !!dbRecord.enable_web_search,
     webSearchProviderId: dbRecord.websearch_provider_id,
     enableGenerateImage: !!dbRecord.enable_generate_image,
-    mcpServers: safeJsonParse(dbRecord.mcpServers),
+    mcpServers: safeJsonParse(dbRecord.mcp_servers),
     knowledgeRecognition: dbRecord.knowledge_recognition,
     tags: safeJsonParse(dbRecord.tags, []),
     group: safeJsonParse(dbRecord.group, []),
@@ -52,7 +52,7 @@ export function transformAssistantToDb(assistant: Assistant): any {
     enable_web_search: assistant.enableWebSearch ? 1 : 0,
     websearch_provider_id: assistant.webSearchProviderId === undefined ? null : assistant.webSearchProviderId,
     enable_generate_image: assistant.enableGenerateImage ? 1 : 0,
-    mcpServers: assistant.mcpServers ? JSON.stringify(assistant.mcpServers) : null,
+    mcp_servers: assistant.mcpServers ? JSON.stringify(assistant.mcpServers) : null,
     knowledge_recognition: assistant.knowledgeRecognition,
     tags: assistant.tags ? JSON.stringify(assistant.tags) : null,
     group: assistant.group ? JSON.stringify(assistant.group) : null
