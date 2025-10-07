@@ -5,7 +5,7 @@ import { MessageBlock } from '@/types/message'
 
 import { db } from '..'
 import { transformDbToMessageBlock, transformMessageBlockToDb, transformPartialMessageBlockToDb } from '../mappers'
-import { messageBlocks, messages } from '../schema'
+import { messageBlocks } from '../schema'
 import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase Message Blocks')
@@ -26,13 +26,10 @@ export async function upsertBlocks(blocks: MessageBlock | MessageBlock[]) {
     await db.transaction(async tx => {
       const updateFields = buildExcludedSet(dbRecords[0])
 
-      await tx
-        .insert(messageBlocks)
-        .values(dbRecords)
-        .onConflictDoUpdate({
-          target: messageBlocks.id,
-          set: updateFields
-        })
+      await tx.insert(messageBlocks).values(dbRecords).onConflictDoUpdate({
+        target: messageBlocks.id,
+        set: updateFields
+      })
     })
   } catch (error) {
     logger.error('Error upserting block(s):', error)
@@ -80,61 +77,6 @@ export async function removeAllBlocks() {
     await db.delete(messageBlocks)
   } catch (error) {
     logger.error('Error removing all blocks:', error)
-    throw error
-  }
-}
-
-/**
- * 根据主题 ID 删除其下所有消息块
- * @description 通过 messages 表关联查找主题下的所有消息，然后删除这些消息的所有块
- * @param topicId - 主题的唯一标识符
- * @throws 当删除操作失败时抛出错误
- */
-export async function deleteBlocksByTopicId(topicId: string): Promise<void> {
-  try {
-    const messagesWithTopic = await db.select({ id: messages.id }).from(messages).where(eq(messages.topic_id, topicId))
-    const messageIds = messagesWithTopic.map(message => message.id)
-
-    if (messageIds.length === 0) {
-      logger.info(`No messages found for topic ID ${topicId}. Nothing to delete.`)
-      return
-    }
-
-    const blocks = await db.select().from(messageBlocks).where(inArray(messageBlocks.message_id, messageIds))
-
-    if (blocks.length === 0) {
-      logger.info(`No blocks found for messages in topic ID ${topicId}. Nothing to delete.`)
-      return
-    }
-
-    const blockIds = blocks.map(block => block.id)
-    await removeManyBlocks(blockIds)
-    logger.info(`Successfully deleted ${blockIds.length} blocks for topic ID ${topicId}.`)
-  } catch (error) {
-    logger.error(`Error deleting blocks for topic ID ${topicId}:`, error)
-    throw error
-  }
-}
-
-/**
- * 根据消息 ID 删除其下所有消息块
- * @param messageId - 消息的唯一标识符
- * @throws 当删除操作失败时抛出错误
- */
-export async function deleteBlocksByMessageId(messageId: string): Promise<void> {
-  try {
-    const blocks = await getBlocksByMessageId(messageId)
-
-    if (blocks.length === 0) {
-      logger.info(`No blocks found for message ID ${messageId}. Nothing to delete.`)
-      return
-    }
-
-    const blockIds = blocks.map(block => block.id)
-    await removeManyBlocks(blockIds)
-    logger.info(`Successfully deleted ${blockIds.length} blocks for message ID ${messageId}.`)
-  } catch (error) {
-    logger.error(`Error deleting blocks for message ID ${messageId}:`, error)
     throw error
   }
 }
