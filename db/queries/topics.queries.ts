@@ -84,21 +84,24 @@ export async function deleteTopicsByAssistantId(assistantId: string): Promise<vo
  */
 export async function updateTopicMessages(topicId: string, messages: Message[]) {
   try {
-    const topic = await getTopicById(topicId)
-
-    if (!topic) {
-      throw new Error(`Topic with ID ${topicId} not found`)
-    }
-
-    topic.messages = messages.map(message => ({
+    const messagesWithTimestamps = messages.map(message => ({
       ...message,
       createdAt: message.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }))
 
-    const dbRecord = transformTopicToDb(topic)
+    const result = await db
+      .update(topics)
+      .set({
+        messages: JSON.stringify(messagesWithTimestamps),
+        updated_at: new Date().toISOString()
+      })
+      .where(eq(topics.id, topicId))
+      .returning()
 
-    await db.update(topics).set(dbRecord).where(eq(topics.id, topicId))
+    if (result.length === 0) {
+      throw new Error(`Topic with ID ${topicId} not found`)
+    }
   } catch (error) {
     logger.error(`Error updating topic messages for topic ID ${topicId}:`, error)
     throw error
