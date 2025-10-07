@@ -122,10 +122,6 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({
   const keyExtractor = (item: SelectionSheetItem, index: number) =>
     item.key?.toString() || item.id?.toString() || item.label?.toString() || index.toString()
 
-  if (items.length === 0 && emptyContent) {
-    return <YStack className="pb-7 px-4 gap-2.5">{emptyContent}</YStack>
-  }
-
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
@@ -164,6 +160,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({
             </View>
           ) : undefined
         }
+        ListEmptyComponent={emptyContent ? <YStack className="pb-7 px-4 gap-2.5">{emptyContent}</YStack> : undefined}
         recycleItems
       />
     </BottomSheetModal>
