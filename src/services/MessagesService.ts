@@ -24,14 +24,7 @@ import {
 } from '@/utils/messageUtils/create'
 import { getTopicQueue } from '@/utils/queue'
 
-import {
-  deleteBlocksByMessageId,
-  deleteBlocksByTopicId,
-  getBlockById,
-  removeManyBlocks,
-  updateOneBlock,
-  upsertBlocks
-} from '../../db/queries/messageBlocks.queries'
+import { getBlockById, removeManyBlocks, updateOneBlock, upsertBlocks } from '../../db/queries/messageBlocks.queries'
 import {
   deleteMessageById as _deleteMessageById,
   deleteMessagesByTopicId as _deleteMessagesByTopicId,
@@ -158,7 +151,6 @@ export async function sendMessage(
 
     // add message to database
     await saveMessageAndBlocksToDB(userMessage, userMessageBlocks)
-    await upsertMessages(userMessage)
 
     const mentionedModels = userMessage.mentions
 
@@ -170,7 +162,6 @@ export async function sendMessage(
         model: assistant.model
       })
       await saveMessageAndBlocksToDB(assistantMessage, [])
-      await upsertMessages(assistantMessage)
       await fetchAndProcessAssistantResponseImpl(topicId, assistant, assistantMessage, dispatch)
     }
   } catch (error) {
@@ -378,6 +369,8 @@ export const saveUpdatedBlockToDB = async (blockId: string | null, messageId: st
 
 export async function saveMessageAndBlocksToDB(message: Message, blocks: MessageBlock[], messageIndex: number = -1) {
   try {
+    await upsertMessages(message)
+
     if (blocks.length > 0) {
       await upsertBlocks(blocks)
     }
@@ -406,6 +399,7 @@ export async function saveMessageAndBlocksToDB(message: Message, blocks: Message
     }
   } catch (error) {
     logger.error('Error saving message blocks:', error)
+    throw error
   }
 }
 
@@ -560,8 +554,7 @@ export async function cleanupMultipleBlocks(blockIds: string[]) {
 
 export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
   try {
-    await deleteBlocksByTopicId(topicId)
-    await _deleteMessagesByTopicId(topicId)
+    return _deleteMessagesByTopicId(topicId)
   } catch (error) {
     logger.error('Error in deleteMessagesByTopicId:', error)
     throw error
@@ -570,8 +563,8 @@ export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
 
 export async function deleteMessageById(messageId: string): Promise<void> {
   try {
-    await deleteBlocksByMessageId(messageId)
-    await _deleteMessageById(messageId)
+    // await deleteBlocksByMessageId(messageId)
+    return _deleteMessageById(messageId)
   } catch (error) {
     logger.error('Error in deleteMessageById:', error)
     throw error

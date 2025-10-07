@@ -1,10 +1,14 @@
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
+import { messages } from './messages'
+
 export const messageBlocks = sqliteTable(
   'message_blocks',
   {
     id: text('id').notNull().unique().primaryKey(),
-    message_id: text('message_id').notNull(),
+    message_id: text('message_id')
+      .notNull()
+      .references(() => messages.id, { onDelete: 'cascade' }),
     type: text('type').notNull(), // MessageBlockType enum values
     created_at: text('created_at').notNull(),
     updated_at: text('updated_at'),
