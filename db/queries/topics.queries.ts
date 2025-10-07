@@ -134,17 +134,16 @@ export async function getTopicById(topicId: string): Promise<Topic | undefined> 
  */
 export async function getTopics(): Promise<Topic[]> {
   try {
-    const results = await db.select().from(topics)
+    const results = await db
+      .select()
+      .from(topics)
+      .orderBy(desc(topics.updated_at))
 
     if (results.length === 0) {
       return []
     }
 
-    const topicsWithMessages = await Promise.all(
-      results.map(async dbRecord => transformDbToTopic(dbRecord))
-    )
-
-    return topicsWithMessages.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+    return results.map(transformDbToTopic)
   } catch (error) {
     logger.error('Error getting topics:', error)
     throw error
@@ -160,15 +159,17 @@ export async function getTopics(): Promise<Topic[]> {
  */
 export async function getTopicsByAssistantId(assistantId: string): Promise<Topic[]> {
   try {
-    const results = await db.select().from(topics).where(eq(topics.assistant_id, assistantId))
+    const results = await db
+      .select()
+      .from(topics)
+      .where(eq(topics.assistant_id, assistantId))
+      .orderBy(desc(topics.updated_at))
 
     if (results.length === 0) {
       return []
     }
 
-    const topicsWithMessages = results.map(dbRecord => transformDbToTopic(dbRecord))
-
-    return topicsWithMessages.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+    return results.map(transformDbToTopic)
   } catch (error) {
     logger.error(`Error getting topics by assistant ID ${assistantId}:`, error)
     throw error
