@@ -6,7 +6,6 @@ import { Message } from '@/types/message'
 import { db } from '..'
 import { transformDbToMessage, transformMessageToDb } from '../mappers'
 import { messages } from '../schema'
-import { getBlocksIdByMessageId } from './messageBlocks.queries'
 
 const logger = loggerService.withContext('DataBase Messages')
 
@@ -139,22 +138,28 @@ export async function updateMessageById(messageId: string, updates: Partial<Mess
 
 /**
  * 根据消息 ID 获取指定消息
- * @description 会自动关联查询该消息的所有块 ID
+ * @description 使用 Drizzle 关系查询一次性获取消息及其块 ID
  * @param messageId - 消息的唯一标识符
  * @returns 如果找到则返回消息对象（包含块 ID 数组），否则返回 undefined
  * @throws 当查询操作失败时抛出错误
  */
 export async function getMessageById(messageId: string): Promise<Message | undefined> {
   try {
-    const result = await db.select().from(messages).where(eq(messages.id, messageId)).limit(1)
+    const result = await db.query.messages.findFirst({
+      where: eq(messages.id, messageId),
+      with: {
+        blocks: {
+          columns: { id: true }
+        }
+      }
+    })
 
-    if (result.length === 0) {
+    if (!result) {
       return undefined
     }
 
-    const blocks = await getBlocksIdByMessageId(messageId)
-    const message = transformDbToMessage(result[0])
-    message.blocks = blocks
+    const message = transformDbToMessage(result)
+    message.blocks = result.blocks.map(block => block.id)
     return message
   } catch (error) {
     logger.error(`Error getting message by ID ${messageId}:`, error)
@@ -164,28 +169,31 @@ export async function getMessageById(messageId: string): Promise<Message | undef
 
 /**
  * 根据主题 ID 获取该主题下的所有消息
- * @description 会自动关联查询每条消息的所有块 ID
+ * @description 使用 Drizzle 关系查询一次性获取消息及其块 ID
  * @param topicId - 主题的唯一标识符
  * @returns 返回该主题下的所有消息数组（每条消息包含块 ID 数组）
  * @throws 当查询操作失败时抛出错误
  */
 export async function getMessagesByTopicId(topicId: string): Promise<Message[]> {
   try {
-    const results = await db.select().from(messages).where(eq(messages.topic_id, topicId))
+    const results = await db.query.messages.findMany({
+      where: eq(messages.topic_id, topicId),
+      with: {
+        blocks: {
+          columns: { id: true }
+        }
+      }
+    })
 
     if (results.length === 0) {
       return []
     }
 
-    const messagesResult = results.map(transformDbToMessage)
-    const blocksPromises = messagesResult.map(message => getBlocksIdByMessageId(message.id))
-    const blocksResults = await Promise.all(blocksPromises)
-
-    for (let i = 0; i < messagesResult.length; i++) {
-      messagesResult[i].blocks = blocksResults[i]
-    }
-
-    return messagesResult
+    return results.map(result => {
+      const message = transformDbToMessage(result)
+      message.blocks = result.blocks.map(block => block.id)
+      return message
+    })
   } catch (error) {
     logger.error(`Error getting messages for topic ID ${topicId}:`, error)
     throw error
