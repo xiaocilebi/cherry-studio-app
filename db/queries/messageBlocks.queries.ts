@@ -38,20 +38,6 @@ export async function upsertBlocks(blocks: MessageBlock | MessageBlock[]) {
 }
 
 /**
- * 删除指定的单个消息块
- * @param blockId - 消息块的唯一标识符
- * @throws 当删除操作失败时抛出错误
- */
-export async function removeOneBlock(blockId: string) {
-  try {
-    await db.delete(messageBlocks).where(eq(messageBlocks.id, blockId))
-  } catch (error) {
-    logger.error(`Error removing block with ID ${blockId}:`, error)
-    throw error
-  }
-}
-
-/**
  * 批量删除多个消息块
  * @param blockIds - 消息块 ID 数组
  * @throws 当删除操作失败时抛出错误
@@ -123,43 +109,6 @@ export async function updateOneBlock(update: {
     return transformDbToMessageBlock(updatedRecord)
   } catch (error) {
     logger.error('Failed to update message block in database:', error)
-    throw error
-  }
-}
-
-/**
- * 根据消息 ID 获取该消息的所有块
- * @param messageId - 消息的唯一标识符
- * @returns 返回该消息的所有消息块数组
- * @throws 当查询操作失败时抛出错误
- */
-export async function getBlocksByMessageId(messageId: string): Promise<MessageBlock[]> {
-  try {
-    const dbRecords = await db.select().from(messageBlocks).where(eq(messageBlocks.message_id, messageId))
-    return dbRecords.map(transformDbToMessageBlock)
-  } catch (error) {
-    logger.error(`Error getting blocks for message ID ${messageId}:`, error)
-    throw error
-  }
-}
-
-/**
- * 根据消息 ID 获取该消息的所有块 ID
- * @description 只返回块的 ID 数组，不返回完整的块对象
- * @param messageId - 消息的唯一标识符
- * @returns 返回该消息的所有消息块 ID 数组
- * @throws 当查询操作失败时抛出错误
- */
-export async function getBlocksIdByMessageId(messageId: string): Promise<string[]> {
-  try {
-    const dbRecords = await db
-      .select({ id: messageBlocks.id })
-      .from(messageBlocks)
-      .where(eq(messageBlocks.message_id, messageId))
-
-    return dbRecords.map(record => record.id)
-  } catch (error) {
-    logger.error(`Error getting block IDs for message ID ${messageId}:`, error)
     throw error
   }
 }

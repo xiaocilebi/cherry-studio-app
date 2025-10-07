@@ -222,29 +222,3 @@ export async function getNewestTopic(): Promise<Topic | undefined> {
   }
 }
 
-/**
- * 根据助手 ID 获取该助手的最新主题
- * @description 按创建时间降序排序，返回指定助手最新创建的主题
- * @param assistantId - 助手的唯一标识符
- * @returns 如果存在主题则返回最新的主题对象，否则返回 undefined
- * @throws 当查询操作失败时抛出错误
- */
-export async function getNewestTopicByAssistantId(assistantId: string): Promise<Topic | undefined> {
-  try {
-    const result = await db
-      .select()
-      .from(topics)
-      .where(eq(topics.assistant_id, assistantId))
-      .orderBy(desc(topics.created_at))
-      .limit(1)
-
-    if (result.length === 0) {
-      return undefined
-    }
-
-    return transformDbToTopic(result[0])
-  } catch (error) {
-    logger.error(`Error getting newest topic by assistant ID ${assistantId}:`, error)
-    throw error
-  }
-}
