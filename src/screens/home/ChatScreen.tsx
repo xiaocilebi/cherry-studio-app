@@ -1,5 +1,5 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
-import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
@@ -12,8 +12,6 @@ import { MessageInputContainer } from '@/componentsV2/features/ChatScreen/Messag
 import { useAssistant } from '@/hooks/useAssistant'
 import { useBottom } from '@/hooks/useBottom'
 import { useTopic } from '@/hooks/useTopic'
-import { HomeStackParamList } from '@/navigators/HomeStackNavigator'
-import { loggerService } from '@/services/LoggerService'
 import { useAppSelector } from '@/store'
 import { haptic } from '@/utils/haptic'
 
@@ -21,15 +19,9 @@ import ChatContent from './ChatContent'
 import WelcomeContent from './WelcomeContent'
 import { ChatScreenHeader } from '@/componentsV2/features/ChatScreen/Header'
 
-const logger = loggerService.withContext('ChatScreen')
-
-type ChatScreenRouteProp = RouteProp<HomeStackParamList, 'ChatScreen'>
-
 const ChatScreen = () => {
-  const route = useRoute<ChatScreenRouteProp>()
   const navigation = useNavigation<DrawerNavigationProp<any>>()
-  const currentTopicId = useAppSelector(state => state.topic.currentTopicId)
-  const topicId = route.params?.topicId || currentTopicId
+  const topicId = useAppSelector(state => state.topic.currentTopicId)
   const [shouldLoadTopic, setShouldLoadTopic] = useState(false)
   const previousTopicId = useRef<string>('')
   const { topic, isLoading } = useTopic(shouldLoadTopic ? topicId : '')
@@ -38,7 +30,6 @@ const ChatScreen = () => {
 
   // 监听 topicId 变化，延迟 300ms 避免在 drawer 动画期间查询数据库
   useEffect(() => {
-    console.log('ChatScreen topicid', route.params?.topicId)
     if (previousTopicId.current !== topicId) {
       // topicId 变化，重置为 false，避免立即查询
       setShouldLoadTopic(false)

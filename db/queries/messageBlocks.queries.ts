@@ -456,11 +456,22 @@ export async function getBlocksByMessageId(messageId: string): Promise<MessageBl
  * @returns 块 ID 数组。
  */
 export async function getBlocksIdByMessageId(messageId: string): Promise<string[]> {
+  const startTime = performance.now()
+
   try {
     const dbRecords = await db
       .select({ id: messageBlocks.id })
       .from(messageBlocks)
       .where(eq(messageBlocks.message_id, messageId))
+
+    const duration = performance.now() - startTime
+    const blockCount = dbRecords.length
+
+    logger.debug(`📦 getBlocksIdByMessageId`, {
+      messageId: messageId.substring(0, 8),
+      blockCount,
+      duration: `${duration.toFixed(2)}ms`
+    })
 
     return dbRecords.map(record => record.id)
   } catch (error) {

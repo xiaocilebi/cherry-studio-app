@@ -5,7 +5,7 @@ import { Tabs } from 'tamagui'
 import { Text, XStack } from '@/componentsV2'
 
 import { Assistant } from '@/types/assistant'
-import { AssistantMessageStatus, GroupedMessage } from '@/types/message'
+import { AssistantMessageStatus, GroupedMessage, MessageBlock } from '@/types/message'
 import { MultiModalIcon } from '@/componentsV2/icons'
 import MessageItem from './Message'
 import MessageFooter from './MessageFooter'
@@ -13,9 +13,10 @@ import MessageFooter from './MessageFooter'
 interface MultiModelTabProps {
   assistant: Assistant
   messages: GroupedMessage[]
+  messageBlocks: Record<string, MessageBlock[]>
 }
 
-const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
+const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages, messageBlocks }) => {
   const [currentTab, setCurrentTab] = useState('0')
 
   if (!messages || messages.length === 0) {
@@ -76,7 +77,7 @@ const MultiModelTab: FC<MultiModelTabProps> = ({ assistant, messages }) => {
               transition={{
                 type: 'timing'
               }}>
-              <MessageItem message={message} assistant={assistant} isMultiModel={true} />
+              <MessageItem message={message} assistant={assistant} isMultiModel={true} messageBlocks={messageBlocks} />
               {/* 输出过程中不显示footer */}
               {message.status !== AssistantMessageStatus.PROCESSING && (
                 <MessageFooter assistant={assistant} message={message} isMultiModel={true} />

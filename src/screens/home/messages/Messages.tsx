@@ -5,6 +5,7 @@ import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View } from 'react
 import { YStack } from '@/componentsV2'
 
 import { useMessages } from '@/hooks/useMessages'
+import { useTopicBlocks } from '@/hooks/useMessageBlocks'
 import { Assistant, Topic } from '@/types/assistant'
 import { GroupedMessage } from '@/types/message'
 import { getGroupedMessages } from '@/utils/messageUtils/filters'
@@ -21,6 +22,7 @@ interface MessagesProps {
 
 const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
   const { messages } = useMessages(topic.id)
+  const { messageBlocks } = useTopicBlocks(topic.id)
   const groupedMessages = Object.entries(getGroupedMessages(messages))
   const legendListRef = useRef<LegendListRef>(null)
   const [showScrollButton, setShowScrollButton] = useState(false)
@@ -41,7 +43,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
           duration: 300,
           delay: 100
         }}>
-        <MessageGroup assistant={assistant} item={item} />
+        <MessageGroup assistant={assistant} item={item} messageBlocks={messageBlocks} />
       </MotiView>
     )
   }

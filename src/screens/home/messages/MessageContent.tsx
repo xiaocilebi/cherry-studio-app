@@ -2,9 +2,8 @@ import React from 'react'
 import { View } from 'react-native'
 import { YStack } from '@/componentsV2'
 
-import { useMessageBlocks } from '@/hooks/useMessageBlocks'
 import { Assistant } from '@/types/assistant'
-import { Message, MessageBlockType } from '@/types/message'
+import { Message, MessageBlock, MessageBlockType } from '@/types/message'
 
 import MessageBlockRenderer from './blocks'
 import MessageContextMenu from './MessageContextMenu'
@@ -13,16 +12,16 @@ interface Props {
   message: Message
   assistant?: Assistant
   isMultiModel?: boolean
+  blocks: MessageBlock[]
 }
 
-const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = false }) => {
+const MessageContent: React.FC<Props> = ({ message, assistant, isMultiModel = false, blocks = [] }) => {
   const isUser = message.role === 'user'
-  const { processedBlocks } = useMessageBlocks(message.id)
 
-  const mediaBlocks = processedBlocks.filter(
+  const mediaBlocks = blocks.filter(
     block => block.type === MessageBlockType.IMAGE || block.type === MessageBlockType.FILE
   )
-  const contentBlocks = processedBlocks.filter(
+  const contentBlocks = blocks.filter(
     block => block.type !== MessageBlockType.IMAGE && block.type !== MessageBlockType.FILE
   )
 
