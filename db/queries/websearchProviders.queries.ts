@@ -6,6 +6,7 @@ import { WebSearchProvider } from '@/types/websearch'
 import { db } from '..'
 import { transformDbToWebSearchProvider, transformWebSearchProviderToDb } from '../mappers'
 import { websearch_providers } from '../schema'
+import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase WebSearchProviders')
 
@@ -16,18 +17,22 @@ const logger = loggerService.withContext('DataBase WebSearchProviders')
  * @throws 当数据库操作失败时抛出错误
  */
 export async function upsertWebSearchProviders(providersToUpsert: WebSearchProvider[]) {
+  if (providersToUpsert.length === 0) return
+
   try {
     const dbRecords = providersToUpsert.map(transformWebSearchProviderToDb)
-    const upsertPromises = dbRecords.map(record =>
-      db
+
+    await db.transaction(async tx => {
+      const updateFields = buildExcludedSet(dbRecords[0])
+
+      await tx
         .insert(websearch_providers)
-        .values(record)
+        .values(dbRecords)
         .onConflictDoUpdate({
-          target: [websearch_providers.id],
-          set: record
+          target: websearch_providers.id,
+          set: updateFields
         })
-    )
-    await Promise.all(upsertPromises)
+    })
   } catch (error) {
     logger.error('Error in upsertWebSearchProviders:', error)
     throw error

@@ -6,6 +6,7 @@ import { Assistant } from '@/types/assistant'
 import { db } from '..'
 import { transformDbToAssistant, transformAssistantToDb } from '../mappers'
 import { assistants } from '../schema'
+import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase Assistants')
 
@@ -16,18 +17,22 @@ const logger = loggerService.withContext('DataBase Assistants')
  * @throws 当数据库操作失败时抛出错误
  */
 export async function upsertAssistants(assistantsToUpsert: Assistant[]) {
+  if (assistantsToUpsert.length === 0) return
+
   try {
     const dbRecords = assistantsToUpsert.map(transformAssistantToDb)
-    const upsertPromises = dbRecords.map(record =>
-      db
+
+    await db.transaction(async tx => {
+      const updateFields = buildExcludedSet(dbRecords[0])
+
+      await tx
         .insert(assistants)
-        .values(record)
+        .values(dbRecords)
         .onConflictDoUpdate({
-          target: [assistants.id],
-          set: record
+          target: assistants.id,
+          set: updateFields
         })
-    )
-    await Promise.all(upsertPromises)
+    })
   } catch (error) {
     logger.error('Error upserting assistants:', error)
     throw error

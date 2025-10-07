@@ -6,6 +6,7 @@ import { Provider } from '@/types/assistant'
 import { db } from '..'
 import { transformDbToProvider, transformProviderToDb } from '../mappers'
 import { providers } from '../schema'
+import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase Providers')
 
@@ -16,18 +17,22 @@ const logger = loggerService.withContext('DataBase Providers')
  * @throws 当数据库操作失败时抛出错误
  */
 export async function upsertProviders(providersToUpsert: Provider[]) {
+  if (providersToUpsert.length === 0) return
+
   try {
     const dbRecords = providersToUpsert.map(transformProviderToDb)
-    const upsertPromises = dbRecords.map(record =>
-      db
+
+    await db.transaction(async tx => {
+      const updateFields = buildExcludedSet(dbRecords[0])
+
+      await tx
         .insert(providers)
-        .values(record)
+        .values(dbRecords)
         .onConflictDoUpdate({
-          target: [providers.id],
-          set: record
+          target: providers.id,
+          set: updateFields
         })
-    )
-    await Promise.all(upsertPromises)
+    })
   } catch (error) {
     logger.error('Error in upsertProviders:', error)
     throw error

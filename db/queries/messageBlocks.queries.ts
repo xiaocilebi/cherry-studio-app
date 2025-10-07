@@ -6,6 +6,7 @@ import { MessageBlock } from '@/types/message'
 import { db } from '..'
 import { transformDbToMessageBlock, transformMessageBlockToDb, transformPartialMessageBlockToDb } from '../mappers'
 import { messageBlocks, messages } from '../schema'
+import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase Message Blocks')
 
@@ -23,13 +24,15 @@ export async function upsertBlocks(blocks: MessageBlock | MessageBlock[]) {
     const dbRecords = blocksArray.map(transformMessageBlockToDb)
 
     await db.transaction(async tx => {
-      const upsertPromises = dbRecords.map(record =>
-        tx.insert(messageBlocks).values(record).onConflictDoUpdate({
+      const updateFields = buildExcludedSet(dbRecords[0])
+
+      await tx
+        .insert(messageBlocks)
+        .values(dbRecords)
+        .onConflictDoUpdate({
           target: messageBlocks.id,
-          set: record
+          set: updateFields
         })
-      )
-      await Promise.all(upsertPromises)
     })
   } catch (error) {
     logger.error('Error upserting block(s):', error)

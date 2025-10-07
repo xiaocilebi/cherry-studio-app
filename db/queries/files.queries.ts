@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
@@ -6,6 +6,7 @@ import { FileMetadata } from '@/types/file'
 import { db } from '..'
 import { transformDbToFile, transformFileToDb } from '../mappers'
 import { files } from '../schema'
+import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase Files')
 
@@ -39,19 +40,23 @@ async function upsertFile(filesToUpsert: FileMetadata) {
  * @throws 当数据库操作失败时抛出错误
  */
 export async function upsertFiles(filesToUpsert: FileMetadata[]) {
+  if (filesToUpsert.length === 0) return
+
   try {
     const dbRecords = filesToUpsert.map(transformFileToDb)
-    const upsertPromises = dbRecords.map(async record => {
-      await db
+
+    await db.transaction(async tx => {
+      const updateFields = buildExcludedSet(dbRecords[0])
+      updateFields.count = sql`1` // 特殊处理：冲突时重置 count 为 1
+
+      await tx
         .insert(files)
-        .values(record)
+        .values(dbRecords)
         .onConflictDoUpdate({
-          target: [files.id],
-          set: { ...record, count: 1 }
+          target: files.id,
+          set: updateFields
         })
     })
-
-    await Promise.all(upsertPromises)
   } catch (error) {
     logger.error('Error upserting files:', error)
     throw error

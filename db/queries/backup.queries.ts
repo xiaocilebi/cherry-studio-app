@@ -5,6 +5,7 @@ import { loggerService } from '@/services/LoggerService'
 import { db } from '../index'
 import { transformDbToDataBackupProvider, transformDataBackupProviderToDb } from '../mappers'
 import { backup_providers } from '../schema'
+import { buildExcludedSet } from '../utils/buildExcludedSet'
 
 const logger = loggerService.withContext('DataBase Backup')
 
@@ -16,20 +17,22 @@ const logger = loggerService.withContext('DataBase Backup')
  * @throws 当数据库操作失败时抛出错误
  */
 export async function upsertDataBackupProviders(providersToUpsert: any[]) {
+  if (providersToUpsert.length === 0) return
+
   try {
     const dbRecords = providersToUpsert.map(transformDataBackupProviderToDb)
 
-    const upsertPromises = dbRecords.map(record => {
-      return db
-        .insert(backup_providers)
-        .values(record)
-        .onConflictDoUpdate({
-          target: [backup_providers.id],
-          set: record
-        })
-      })
+    await db.transaction(async tx => {
+      const updateFields = buildExcludedSet(dbRecords[0])
 
-    return await Promise.all(upsertPromises)
+      await tx
+        .insert(backup_providers)
+        .values(dbRecords)
+        .onConflictDoUpdate({
+          target: backup_providers.id,
+          set: updateFields
+        })
+    })
   } catch (error) {
     logger.error('Error upserting backup providers:', error)
     throw error
