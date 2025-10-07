@@ -2,11 +2,10 @@ import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import * as React from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
-import { useDispatch } from 'react-redux'
 import { YStack, SafeAreaContainer } from '@/componentsV2'
 import { MessageInputContainer } from '@/componentsV2/features/ChatScreen/MessageInput/MessageInputContainer'
 
@@ -14,11 +13,8 @@ import { useAssistant } from '@/hooks/useAssistant'
 import { useBottom } from '@/hooks/useBottom'
 import { useTopic } from '@/hooks/useTopic'
 import { HomeStackParamList } from '@/navigators/HomeStackNavigator'
-import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
-import { createNewTopic, getNewestTopic } from '@/services/TopicService'
 import { useAppSelector } from '@/store'
-import { setCurrentTopicId } from '@/store/topic'
 import { haptic } from '@/utils/haptic'
 
 import ChatContent from './ChatContent'
@@ -38,45 +34,11 @@ const ChatScreen = () => {
   const previousTopicId = useRef<string>('')
   const { topic, isLoading } = useTopic(shouldLoadTopic ? topicId : '')
   const { assistant, isLoading: assistantLoading } = useAssistant(topic?.assistantId || '')
-  const dispatch = useDispatch()
   const specificBottom = useBottom()
-
-  const initializeTopic = useCallback(async () => {
-    try {
-      logger.verbose('Initializing topic', { topicId })
-
-      const newestTopic = await getNewestTopic()
-
-      if (newestTopic) {
-        logger.info('Found existing newest topic', { topicId: newestTopic.id })
-        navigation.setParams({ topicId: newestTopic.id })
-      } else {
-        logger.info('Creating new topic with default assistant')
-        const defaultAssistant = await getDefaultAssistant()
-        const newTopic = await createNewTopic(defaultAssistant)
-        navigation.setParams({ topicId: newTopic.id })
-        dispatch(setCurrentTopicId(newTopic.id))
-        logger.info('New topic created', { topicId: newTopic.id })
-      }
-    } catch (error) {
-      logger.error('Failed to initialize topic', error, { topicId })
-    }
-  }, [topicId, navigation, dispatch])
-
-  useEffect(() => {
-    // Only initialize if topicId indicates a new or missing topic
-    // 1. 'new' -> explicit new topic request
-    // 2. undefined -> after deleting all topics
-    // 3. '' -> initial state when topics are empty
-    const shouldInitialize = topicId === 'new' || topicId === undefined || topicId === ''
-
-    if (shouldInitialize) {
-      initializeTopic()
-    }
-  }, [topicId, initializeTopic])
 
   // 监听 topicId 变化，延迟 300ms 避免在 drawer 动画期间查询数据库
   useEffect(() => {
+    console.log('ChatScreen topicid', route.params?.topicId)
     if (previousTopicId.current !== topicId) {
       // topicId 变化，重置为 false，避免立即查询
       setShouldLoadTopic(false)

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions, TouchableOpacity, View } from 'react-native'
 import PagerView from 'react-native-pager-view'
@@ -8,6 +8,9 @@ import { Button } from 'heroui-native'
 import { Image, SafeAreaContainer, Text, XStack, YStack } from '@/componentsV2'
 import { useAppDispatch } from '@/store'
 import { setWelcomeShown } from '@/store/app'
+import { getDefaultAssistant } from '@/services/AssistantService'
+import { createNewTopic } from '@/services/TopicService'
+import { RootNavigationProps } from '@/types/naviagate'
 
 const { width } = Dimensions.get('window')
 
@@ -45,7 +48,7 @@ const carouselItems = [
 ]
 
 export default function WelcomeScreen() {
-  const navigation = useNavigation()
+  const navigation = useNavigation<RootNavigationProps>()
   const dispatch = useAppDispatch()
 
   const [activeIndex, setActiveIndex] = useState(0)
@@ -53,8 +56,16 @@ export default function WelcomeScreen() {
   // 为每个指示器创建动画值
   const [indicatorWidths] = useState(carouselItems.map((_, index) => new Animated.Value(index === 0 ? 24 : 8)))
 
-  const handleStart = () => {
-    navigation.dispatch(StackActions.replace('HomeScreen'))
+  const handleStart = async () => {
+    const defaultAssistant = await getDefaultAssistant()
+    const newTopic = await createNewTopic(defaultAssistant)
+    navigation.navigate('HomeScreen', {
+      screen: 'Home',
+      params: {
+        screen: 'ChatScreen',
+        params: { topicId: newTopic.id }
+      }
+    })
     AsyncStorage.setItem('accessToken', 'true')
     dispatch(setWelcomeShown(true))
   }

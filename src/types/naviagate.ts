@@ -1,4 +1,5 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
+import type { NavigatorScreenParams } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import { AssistantStackParamList } from '@/navigators/AssistantStackNavigator'
@@ -10,18 +11,6 @@ import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNav
 import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
 import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import { McpStackParamList } from '@/navigators/McpStackNavigator'
-
-// Root Stack Navigator (MainStackNavigator)
-export type RootStackParamList = {
-  WelcomeScreen: undefined
-  HomeScreen: { screen: string; params: { topicId: string } } | undefined // This is actually the AppDrawerNavigator
-  // ChatScreen: { topicId: string }
-  // TopicScreen: undefined
-  // AssistantScreen: undefined
-  // AssistantMarketScreen: undefined
-  // AssistantDetailScreen: { assistantId: string; tab?: string }
-  // Settings: { screen: string; params?: any } | undefined
-}
 
 // App Drawer Navigator
 export type AppDrawerParamList = {
@@ -41,8 +30,13 @@ export type AppDrawerParamList = {
     | { screen: 'AssistantMarketScreen' }
     | { screen: 'AssistantDetailScreen'; params: { assistantId: string; tab?: string } }
     | undefined
-  Mcp:
-    | { screen: 'McpMarketScreen' }
+  Mcp: { screen: 'McpMarketScreen' }
+}
+
+// Root Stack Navigator (MainStackNavigator)
+export type RootStackParamList = {
+  WelcomeScreen: undefined
+  HomeScreen: NavigatorScreenParams<AppDrawerParamList> | undefined
 }
 
 // Navigation Props
