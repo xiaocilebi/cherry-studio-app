@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { Message } from '@/types/message'
 
 import { db } from '../../db'
-import { transformDbToMessage } from '../../db/queries/messages.queries'
+import { transformDbToMessage } from '../../db/mappers'
 import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '../../db/schema'
 
 export const useMessages = (topicId: string) => {

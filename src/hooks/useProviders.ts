@@ -4,7 +4,8 @@ import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
 import { Provider } from '@/types/assistant'
 
 import { db } from '../../db'
-import { transformDbToProvider, upsertProviders } from '../../db/queries/providers.queries'
+import { transformDbToProvider } from '../../db/mappers'
+import { upsertProviders } from '../../db/queries/providers.queries'
 import { providers as providersSchema } from '../../db/schema'
 
 /**

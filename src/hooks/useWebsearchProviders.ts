@@ -7,7 +7,8 @@ import { setContentLimit, setMaxResult, setOverrideSearchService, setSearchWithT
 import { WebSearchProvider } from '@/types/websearch'
 
 import { db } from '../../db'
-import { transformDbToWebSearchProvider, upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
+import { transformDbToWebSearchProvider } from '../../db/mappers'
+import { upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
 import { websearch_providers } from '../../db/schema'
 
 export function useWebsearchProviders() {

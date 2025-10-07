@@ -2,7 +2,8 @@ import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
 
 import { db } from '../../db'
-import { transformDbToDataBackupProvider, upsertDataBackupProviders } from '../../db/queries/backup.queries'
+import { transformDbToDataBackupProvider } from '../../db/mappers'
+import { upsertDataBackupProviders } from '../../db/queries/backup.queries'
 import { backup_providers } from '../../db/schema'
 
 export function useDataBackupProvider(providerId: string) {

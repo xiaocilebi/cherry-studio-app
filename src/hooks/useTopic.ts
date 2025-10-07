@@ -5,7 +5,8 @@ import { loggerService } from '@/services/LoggerService'
 import { Topic } from '@/types/assistant'
 
 import { db } from '../../db'
-import { transformDbToTopic, upsertTopics } from '../../db/queries/topics.queries'
+import { transformDbToTopic } from '../../db/mappers'
+import { upsertTopics } from '../../db/queries/topics.queries'
 import { topics as topicSchema } from '../../db/schema'
 
 const logger = loggerService.withContext('useTopic')

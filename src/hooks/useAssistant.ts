@@ -7,7 +7,8 @@ import { resetBuiltInAssistants as _resetBuiltInAssistants } from '@/store/assis
 import { Assistant } from '@/types/assistant'
 
 import { db } from '../../db'
-import { transformDbToAssistant, upsertAssistants } from '../../db/queries/assistants.queries'
+import { transformDbToAssistant } from '../../db/mappers'
+import { upsertAssistants } from '../../db/queries/assistants.queries'
 import { assistants as assistantsSchema } from '../../db/schema'
 
 export function useAssistant(assistantId: string) {
