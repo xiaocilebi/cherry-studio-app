@@ -24,7 +24,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, clas
       if (provider.isSystem) {
         setIconUri(getProviderIcon(provider.id, isDark))
       } else {
-        const file = new File(Paths.join(DEFAULT_ICONS_STORAGE, `${provider.id}.jpg`))
+        const file = new File(Paths.join(DEFAULT_ICONS_STORAGE, `${provider.id}.png`))
 
         if (file.exists) {
           setIconUri(file.uri)

@@ -84,6 +84,10 @@ export async function uploadFiles(
       // ios upload image will be .JPG
       const destinationUri = `${storageDir.uri}${file.id}.${file.ext.toLowerCase()}`
       const destinationFile = new File(destinationUri)
+
+      if (destinationFile.exists) {
+        destinationFile.delete()
+      }
       sourceFile.move(destinationFile)
 
       if (!sourceFile.exists) {
