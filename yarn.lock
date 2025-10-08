@@ -4692,6 +4692,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native/js-polyfills@npm:^0.82.0":
+  version: 0.82.0
+  resolution: "@react-native/js-polyfills@npm:0.82.0"
+  checksum: 10c0/cf13e1a7106fa55dec93a6ee952c24598566b602e836984e82c1bce980e9094b24da1963e522b4cacf4f4d65d9c18d58bd3d4e7df707609e24146996a6e9a380
+  languageName: node
+  linkType: hard
+
 "@react-native/normalize-color@npm:^2.1.0":
   version: 2.1.0
   resolution: "@react-native/normalize-color@npm:2.1.0"
@@ -7973,6 +7980,7 @@ __metadata:
     "@react-native-documents/viewer": "npm:^1.0.3"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-native-menu/menu": "npm:1.2.2"
+    "@react-native/js-polyfills": "npm:^0.82.0"
     "@react-navigation/bottom-tabs": "npm:^7.0.0"
     "@react-navigation/drawer": "npm:^7.3.12"
     "@react-navigation/material-top-tabs": "npm:^7.3.7"

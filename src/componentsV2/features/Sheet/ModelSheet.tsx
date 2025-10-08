@@ -61,7 +61,12 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   }
 
   useEffect(() => {
-    setSelectedModels(mentions.map(m => getModelUniqId(m)))
+    const newSelectedModels = mentions.map(m => getModelUniqId(m))
+    setSelectedModels(newSelectedModels)
+    dismissDataRef.current = {
+      ...dismissDataRef.current,
+      selectedModelIds: newSelectedModels
+    }
   }, [mentions])
 
   useEffect(() => {
