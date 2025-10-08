@@ -5,7 +5,6 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, View } from 'react-native'
 
-import { UnionPlusIcon } from '@/componentsV2/icons'
 import {
   DrawerGestureWrapper,
   SafeAreaContainer,
@@ -15,7 +14,7 @@ import {
   YStack,
   SearchInput
 } from '@/componentsV2'
-import { Menu } from '@/componentsV2/icons/LucideIcon'
+import { Menu, Plus, Store } from '@/componentsV2/icons/LucideIcon'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSearch } from '@/hooks/useSearch'
 import { useTopics } from '@/hooks/useTopic'
@@ -55,6 +54,11 @@ export default function AssistantScreen() {
     bottomSheetRef.current?.present()
   }
 
+  const onNavigateToMarketScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    navigation.navigate('Assistant', { screen: 'AssistantMarketScreen' })
+  }
+
   const onAddAssistant = async () => {
     haptic(ImpactFeedbackStyle.Medium)
     const newAssistant = await createAssistant()
@@ -92,10 +96,16 @@ export default function AssistantScreen() {
               icon: <Menu size={24} />,
               onPress: handleMenuPress
             }}
-            rightButton={{
-              icon: <UnionPlusIcon size={20} />,
-              onPress: onAddAssistant
-            }}
+            rightButtons={[
+              {
+                icon: <Store size={24} />,
+                onPress: onNavigateToMarketScreen
+              },
+              {
+                icon: <Plus size={24} />,
+                onPress: onAddAssistant
+              }
+            ]}
           />
           <Container className="p-0">
             <View className="px-4">

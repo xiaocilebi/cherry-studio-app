@@ -7,7 +7,7 @@ import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
-import { MarketIcon, MCPIcon, Settings, UnionIcon } from '@/componentsV2/icons'
+import { MCPIcon, Settings, UnionIcon } from '@/componentsV2/icons'
 import { Divider } from 'heroui-native'
 import { MenuTabContent } from './MenuTabContent'
 import YStack from '@/componentsV2/layout/YStack'
@@ -31,11 +31,6 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
   const handleNavigateTopicScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
     props.navigation.navigate('Home', { screen: 'TopicScreen' })
-  }
-
-  const handleNavigateAssistantMarketScreen = () => {
-    haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('Assistant', { screen: 'AssistantMarketScreen' })
   }
 
   const handleNavigateAssistantScreen = () => {
@@ -72,16 +67,6 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       }}>
       <YStack className="gap-2.5 flex-1">
         <YStack className="gap-1.5 px-2.5">
-          <PressableRow
-            className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
-            onPress={handleNavigateAssistantMarketScreen}>
-            <XStack className="gap-2.5 items-center justify-center">
-              <MarketIcon size={24} />
-              <Text className="text-base ">{t('assistants.market.title')}</Text>
-            </XStack>
-            <RowRightArrow />
-          </PressableRow>
-
           <PressableRow
             className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
             onPress={handleNavigateAssistantScreen}>

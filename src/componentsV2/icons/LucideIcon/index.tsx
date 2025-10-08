@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Store,
   ArrowLeft,
   ArrowLeftRight,
   ArrowUpRight,
@@ -86,6 +87,7 @@ function interopIcon(icon: LucideIcon) {
   })
 }
 
+interopIcon(Store)
 interopIcon(ArrowUp)
 interopIcon(ArrowLeft)
 interopIcon(ArrowLeftRight)
@@ -163,6 +165,7 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   return Wrapped
 }
 
+const StoreIcon = withDefaultIconClass(Store)
 const HammerIcon = withDefaultIconClass(Hammer)
 const ArrowUpIcon = withDefaultIconClass(ArrowUp)
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
@@ -234,6 +237,7 @@ const XCircleIcon = withDefaultIconClass(XCircle)
 const SettingsIcon = withDefaultIconClass(Settings)
 
 export {
+  StoreIcon as Store,
   ArrowUpIcon as ArrowUp,
   ArrowLeftIcon as ArrowLeft,
   ArrowLeftRightIcon as ArrowLeftRight,
