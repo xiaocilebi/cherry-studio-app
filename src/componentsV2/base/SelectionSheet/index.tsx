@@ -150,7 +150,6 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({
         ItemSeparatorComponent={() => <YStack className="h-2.5" />}
         contentContainerStyle={{ paddingBottom: 40, paddingHorizontal: 16 }}
         renderScrollComponent={BottomSheetLegendListScrollable}
-        drawDistance={1000}
         ListHeaderComponent={
           placeholder ? (
             <View className="px-4 pb-2">

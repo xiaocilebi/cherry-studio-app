@@ -78,6 +78,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
           flexGrow: 1
         }}
         onScroll={handleScroll}
+        recycleItems
         maintainScrollAtEnd
         maintainScrollAtEndThreshold={0.1}
         keyboardShouldPersistTaps="never"
