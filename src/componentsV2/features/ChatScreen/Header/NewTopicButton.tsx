@@ -10,14 +10,13 @@ import { MessageSquareDiff } from '@/componentsV2/icons/LucideIcon'
 import EmojiAvatar from '@/componentsV2/features/Assistant/EmojiAvatar'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useTheme } from '@/hooks/useTheme'
-import { useTopics } from '@/hooks/useTopic'
 import { createNewTopic, getNewestTopic } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
 import { setCurrentTopicId } from '@/store/topic'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
-import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
+import { isEmpty } from 'lodash'
 
 interface NewTopicButtonProps {
   assistant: Assistant
@@ -27,9 +26,7 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
   const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
   const dispatch = useAppDispatch()
-  const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
-  const assistantWithTopics = getAssistantWithTopic(assistants, topics)
   const selectionSheetRef = useRef<BottomSheetModal | null>(null)
   const { isDark } = useTheme()
 
@@ -64,26 +61,23 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
   }
 
   const selectionItems = React.useMemo(() => {
-    if (isLoading || !assistantWithTopics.length) {
+    if (isLoading || !assistants.length) {
       return []
     }
 
-    return assistantWithTopics.map(assistantItem => ({
+    return assistants.map(assistantItem => ({
       key: assistantItem.id,
       label: (
-        <YStack className="gap-0.5">
-          <Text
-            className="text-base leading-[18px] text-text-primary dark:text-text-primary-dark"
-            ellipsizeMode="tail"
-            numberOfLines={1}>
-            {assistantItem.name}
+        <YStack className="gap-1 flex-1 justify-center">
+          <Text className="text-sm font-bold" numberOfLines={1} ellipsizeMode="tail">
+            {assistant.name}
           </Text>
-          {assistantItem.description && (
+          {!isEmpty(assistant.prompt) && (
             <Text
-              className="text-xs text-text-secondary dark:text-text-secondary-dark opacity-70"
               ellipsizeMode="tail"
-              numberOfLines={1}>
-              {assistantItem.description}
+              numberOfLines={1}
+              className="text-xs  text-text-secondary dark:text-text-secondary-dark">
+              {assistant.prompt}
             </Text>
           )}
         </YStack>
@@ -99,7 +93,7 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
       ),
       onSelect: () => handleSelectAssistant(assistantItem)
     }))
-  }, [assistantWithTopics, isLoading, isDark, handleSelectAssistant])
+  }, [isLoading, assistants, assistant.name, assistant.prompt, isDark, handleSelectAssistant])
 
   return (
     <>

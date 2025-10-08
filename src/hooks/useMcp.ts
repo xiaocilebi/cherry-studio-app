@@ -1,4 +1,5 @@
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useMemo } from 'react'
 import { db } from '../../db'
 import { mcp as mcpSchema } from '../../db/schema'
 import { MCPServer } from '@/types/mcp'
@@ -12,6 +13,11 @@ export function useMcpServers() {
     await upsertMcps(mcps)
   }
 
+  const processedMcps = useMemo(() => {
+    if (!rawMcps) return []
+    return rawMcps.map(mcp => transformDbToMcp(mcp))
+  }, [rawMcps])
+
   if (!updatedAt) {
     return {
       mcpServers: [],
@@ -19,8 +25,6 @@ export function useMcpServers() {
       updateMcpServers
     }
   }
-
-  const processedMcps = rawMcps.map(mcp => transformDbToMcp(mcp))
 
   return {
     mcpServers: processedMcps,
@@ -32,7 +36,9 @@ export function useMcpServers() {
 export function useActiveMcpServers() {
   const { mcpServers: mcps, isLoading, updateMcpServers } = useMcpServers()
 
-  const activeMcpServers = mcps.filter(mcp => mcp.isActive === true)
+  const activeMcpServers = useMemo(() => {
+    return mcps.filter(mcp => mcp.isActive === true)
+  }, [mcps])
 
   return {
     activeMcpServers,

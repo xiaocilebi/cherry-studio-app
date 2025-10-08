@@ -17,11 +17,9 @@ import {
 import { Menu, Plus, Store } from '@/componentsV2/icons/LucideIcon'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSearch } from '@/hooks/useSearch'
-import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
-import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
 import AssistantItem from '@/componentsV2/features/Assistant/AssistantItem'
 import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
@@ -31,16 +29,14 @@ export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
 
-  const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
-  const assistantWithTopics = getAssistantWithTopic(assistants, topics)
 
   const {
     searchText,
     setSearchText,
     filteredItems: filteredAssistants
   } = useSearch(
-    assistantWithTopics,
+    assistants,
     useCallback((assistant: Assistant) => [assistant.name, assistant.description || ''], []),
     { delay: 300 }
   )
