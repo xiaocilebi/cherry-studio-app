@@ -3,7 +3,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 
 import { UnionPlusIcon } from '@/componentsV2/icons'
 import {
@@ -24,7 +24,6 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
-import AssistantItemSkeleton from '@/componentsV2/features/Assistant/AssistantItemSkeleton'
 import AssistantItem from '@/componentsV2/features/Assistant/AssistantItem'
 import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
 import { LegendList } from '@legendapp/list'
@@ -75,6 +74,14 @@ export default function AssistantScreen() {
     navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
   }
 
+  if (isLoading) {
+    return (
+      <SafeAreaContainer style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator />
+      </SafeAreaContainer>
+    )
+  }
+
   return (
     <SafeAreaContainer className="pb-0">
       <DrawerGestureWrapper>
@@ -98,40 +105,23 @@ export default function AssistantScreen() {
                 onChangeText={setSearchText}
               />
             </View>
-
-            {isLoading ? (
-              <LegendList
-                data={Array.from({ length: 5 })}
-                renderItem={() => <AssistantItemSkeleton />}
-                keyExtractor={(_, index) => `skeleton-${index}`}
-                estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack className="h-2.5" />}
-                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
-                drawDistance={2000}
-                recycleItems
-                waitForInitialLayout
-              />
-            ) : (
-              <LegendList
-                showsVerticalScrollIndicator={false}
-                data={filteredAssistants}
-                renderItem={({ item }) => (
-                  <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />
-                )}
-                keyExtractor={item => item.id}
-                estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack className="h-2" />}
-                ListEmptyComponent={
-                  <YStack className="flex-1 justify-center items-center">
-                    <Text>{t('settings.assistant.empty')}</Text>
-                  </YStack>
-                }
-                contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 30 }}
-                drawDistance={2000}
-                recycleItems
-                waitForInitialLayout
-              />
-            )}
+            <LegendList
+              showsVerticalScrollIndicator={false}
+              data={filteredAssistants}
+              renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
+              keyExtractor={item => item.id}
+              estimatedItemSize={80}
+              ItemSeparatorComponent={() => <YStack className="h-2" />}
+              ListEmptyComponent={
+                <YStack className="flex-1 justify-center items-center">
+                  <Text>{t('settings.assistant.empty')}</Text>
+                </YStack>
+              }
+              contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 30 }}
+              drawDistance={200}
+              recycleItems
+              waitForInitialLayout
+            />
           </Container>
           <AssistantItemSheet
             ref={bottomSheetRef}
