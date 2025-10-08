@@ -76,10 +76,7 @@ export async function removeAllBlocks() {
  * @returns 返回更新后的消息块对象，未找到时返回 null
  * @throws 当更新操作失败时抛出错误
  */
-export async function updateOneBlock(update: {
-  id: string
-  changes: Partial<MessageBlock>
-}): Promise<MessageBlock | null> {
+export async function updateOneBlock(update: { id: string; changes: Partial<MessageBlock> }) {
   const { id, changes } = update
 
   if (Object.keys(changes).length === 0) {
@@ -94,19 +91,7 @@ export async function updateOneBlock(update: {
   }
 
   try {
-    const updatedRecords = await db
-      .update(messageBlocks)
-      .set(dbUpdatePayload)
-      .where(eq(messageBlocks.id, id))
-      .returning()
-
-    if (updatedRecords.length === 0) {
-      logger.warn(`Block with id "${id}" not found for update.`)
-      return null
-    }
-
-    const updatedRecord = updatedRecords[0]
-    return transformDbToMessageBlock(updatedRecord)
+    await db.update(messageBlocks).set(dbUpdatePayload).where(eq(messageBlocks.id, id))
   } catch (error) {
     logger.error('Failed to update message block in database:', error)
     throw error
