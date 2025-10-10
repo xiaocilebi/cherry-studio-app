@@ -169,12 +169,9 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
 
         return item.topic.id
       }}
-      getItemType={item => {
-        return item.type
-      }}
       estimatedItemSize={40}
       ItemSeparatorComponent={() => <YStack className="h-2.5" />}
-      contentContainerStyle={{ paddingHorizontal: 20 }}
+      contentContainerStyle={{ paddingHorizontal: 20, flex: 1 }}
       drawDistance={2000}
       recycleItems
     />
