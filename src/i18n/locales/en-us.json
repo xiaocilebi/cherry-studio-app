@@ -142,7 +142,11 @@
       "translate": "Translate",
       "visit": "Visit",
       "websearch": "Web Search",
-      "yesterday": "Yesterday"
+      "yesterday": "Yesterday",
+      "welcome": {
+        "message1": "Welcome to Cherry Studio",
+        "message2": "Start creating and explore endless possibilities!"
+      }
     },
     "error": {
       "availableProviders": "Available Providers",

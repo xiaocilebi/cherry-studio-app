@@ -142,7 +142,11 @@
       "translate": "Перевод",
       "visit": "Посетить",
       "websearch": "Поиск в интернете",
-      "yesterday": "Вчера"
+      "yesterday": "Вчера",
+      "welcome": {
+        "message1": "Добро пожаловать в Cherry Studio",
+        "message2": "Начните создавать и откройте бесконечные возможности!"
+      }
     },
     "error": {
       "availableProviders": "Доступные провайдеры",

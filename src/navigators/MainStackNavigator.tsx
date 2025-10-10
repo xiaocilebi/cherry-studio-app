@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
 import AppDrawerNavigator from '@/navigators/AppDrawerNavigator'
-import WelcomeScreen from '@/screens/WelcomeScreen'
+import WelcomeStackNavigator from '@/navigators/WelcomeStackNavigator'
 import { useAppSelector } from '@/store'
 import { RootStackParamList } from '@/types/naviagate'
 
@@ -16,7 +16,7 @@ export default function MainStackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
       {/* index */}
-      {!welcomeShown && <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />}
+      {!welcomeShown && <Stack.Screen name="Welcome" component={WelcomeStackNavigator} />}
       <Stack.Screen name="HomeScreen" component={AppDrawerNavigator} />
     </Stack.Navigator>
   )

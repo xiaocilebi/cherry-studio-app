@@ -11,6 +11,7 @@ import { ProvidersStackParamList } from '@/navigators/settings/ProvidersStackNav
 import { WebSearchStackParamList } from '@/navigators/settings/WebSearchStackNavigator'
 import { SettingsStackParamList } from '@/navigators/SettingsStackNavigator'
 import { McpStackParamList } from '@/navigators/McpStackNavigator'
+import { WelcomeStackParamList } from '@/navigators/WelcomeStackNavigator'
 
 // App Drawer Navigator
 export type AppDrawerParamList = {
@@ -35,7 +36,7 @@ export type AppDrawerParamList = {
 
 // Root Stack Navigator (MainStackNavigator)
 export type RootStackParamList = {
-  WelcomeScreen: undefined
+  Welcome: NavigatorScreenParams<WelcomeStackParamList> | undefined
   HomeScreen: NavigatorScreenParams<AppDrawerParamList> | undefined
 }
 
@@ -48,6 +49,7 @@ export type HomeNavigationProps = StackNavigationProp<HomeStackParamList>
 export type AssistantNavigationProps = StackNavigationProp<AssistantStackParamList>
 export type McpNavigationProps = StackNavigationProp<McpStackParamList>
 export type SettingsNavigationProps = StackNavigationProp<SettingsStackParamList>
+export type WelcomeNavigationProps = StackNavigationProp<WelcomeStackParamList>
 
 // Settings Sub-Navigator Props
 export type GeneralSettingsNavigationProps = StackNavigationProp<GeneralSettingsStackParamList>

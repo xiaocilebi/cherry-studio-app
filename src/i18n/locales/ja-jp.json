@@ -142,7 +142,11 @@
       "translate": "翻訳",
       "visit": "訪問",
       "websearch": "ウェブ検索",
-      "yesterday": "昨日"
+      "yesterday": "昨日",
+      "welcome": {
+        "message1": "Cherry Studio へようこそ",
+        "message2": "創作を始めて、無限の可能性を楽しみましょう！"
+      }
     },
     "error": {
       "availableProviders": "利用可能なプロバイダー",
