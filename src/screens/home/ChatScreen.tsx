@@ -2,7 +2,6 @@ import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import * as React from 'react'
-import { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Platform, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
@@ -22,27 +21,10 @@ import { ChatScreenHeader } from '@/componentsV2/features/ChatScreen/Header'
 const ChatScreen = () => {
   const navigation = useNavigation<DrawerNavigationProp<any>>()
   const topicId = useAppSelector(state => state.topic.currentTopicId)
-  const [shouldLoadTopic, setShouldLoadTopic] = useState(false)
-  const previousTopicId = useRef<string>('')
-  const { topic, isLoading } = useTopic(shouldLoadTopic ? topicId : '')
+
+  const { topic, isLoading } = useTopic(topicId ?? '')
   const { assistant, isLoading: assistantLoading } = useAssistant(topic?.assistantId || '')
   const specificBottom = useBottom()
-
-  // 监听 topicId 变化，延迟 300ms 避免在 drawer 动画期间查询数据库
-  useEffect(() => {
-    if (previousTopicId.current !== topicId) {
-      // topicId 变化，重置为 false，避免立即查询
-      setShouldLoadTopic(false)
-      previousTopicId.current = topicId
-
-      // 延迟 300ms 后再允许加载数据
-      const timer = setTimeout(() => {
-        setShouldLoadTopic(true)
-      }, 300)
-
-      return () => clearTimeout(timer)
-    }
-  }, [topicId])
 
   // 处理侧滑手势
   const handleSwipeGesture = (event: any) => {
