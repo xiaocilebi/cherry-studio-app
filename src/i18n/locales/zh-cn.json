@@ -93,9 +93,6 @@
       "welcome": "我是您的生产力 AI 助手。您可以创建助手、管理模型等。"
     },
     "common": {
-      "start": "开始使用Cherry Studio App 🎉",
-      "login": "登录",
-      "import_from_cherry_studio": "从 Cherry Studio 导入",
       "added": "已添加",
       "camera": "相机",
       "cancel": "取消",
@@ -116,10 +113,12 @@
       "file": "文件",
       "generateImage": "创建图片",
       "go_to_settings": "前往设置",
+      "import_from_cherry_studio": "从 Cherry Studio 导入",
       "language": "语言",
       "last_month": "上月",
       "last_week": "上周",
       "loading": "加载中...",
+      "login": "登录",
       "manage": "管理",
       "model": "模型",
       "name": "姓名",
@@ -138,6 +137,7 @@
       "see_all": "查看全部",
       "select_text": "选择文本",
       "source": "来源",
+      "start": "开始使用Cherry Studio App 🎉",
       "stop": "停止",
       "this_week": "本周",
       "today": "今天",
@@ -145,11 +145,11 @@
       "translate": "翻译",
       "visit": "访问",
       "websearch": "网络搜索",
-      "yesterday": "昨天",
       "welcome": {
         "message1": "欢迎使用Cherry Studio",
         "message2": "开始创作，享受无限可能！"
-      }
+      },
+      "yesterday": "昨天"
     },
     "error": {
       "availableProviders": "可用提供商",
@@ -295,11 +295,11 @@
         "fetch": {
           "description": "从URL中获取网页内容"
         },
-        "time": {
-          "description": "获取当前时间"
-        },
         "reminder": {
           "description": "获取、添加、修改、删除提醒事项"
+        },
+        "time": {
+          "description": "获取当前时间"
         }
       },
       "market": {
@@ -377,6 +377,7 @@
       "baidu-cloud": "百度云千帆",
       "burncloud": "BurnCloud",
       "cephalon": "Cephalon",
+      "cherryin": "CherryIn",
       "copilot": "GitHub Copilot",
       "dashscope": "阿里云百炼",
       "deepseek": "深度求索",

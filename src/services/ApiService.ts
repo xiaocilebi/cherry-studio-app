@@ -140,7 +140,7 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
         callType: 'check',
         messages: 'hi',
         assistant,
-        streamOutput: true,
+        streamOutput: false,
         shouldThrow: true
       }
 
@@ -152,22 +152,7 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
       }
     }
   } catch (error: any) {
-    if (error.message.includes('stream')) {
-      const params: CompletionsParams = {
-        callType: 'check',
-        messages: 'hi',
-        assistant,
-        streamOutput: false,
-        shouldThrow: true
-      }
-      const result = await ai.completions(params)
-
-      if (!result.getText()) {
-        throw new Error('No response received')
-      }
-    } else {
-      throw error
-    }
+    logger.error('Check Api Error', error)
   }
 }
 

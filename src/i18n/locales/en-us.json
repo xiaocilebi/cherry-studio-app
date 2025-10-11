@@ -113,10 +113,12 @@
       "file": "File",
       "generateImage": "Create an image",
       "go_to_settings": "Settings",
+      "import_from_cherry_studio": "Import from Cherry Studio",
       "language": "Language",
       "last_month": "Last Month",
       "last_week": "Last Week",
       "loading": "Loading...",
+      "login": "Sign in",
       "manage": "Manage",
       "model": "Model",
       "name": "Name",
@@ -135,6 +137,7 @@
       "see_all": "See All",
       "select_text": "Select Text",
       "source": "Source",
+      "start": "Get Started with Cherry Studio App 🎉",
       "stop": "Stop",
       "this_week": "This Week",
       "today": "Today",
@@ -142,11 +145,11 @@
       "translate": "Translate",
       "visit": "Visit",
       "websearch": "Web Search",
-      "yesterday": "Yesterday",
       "welcome": {
         "message1": "Welcome to Cherry Studio",
         "message2": "Start creating and explore endless possibilities!"
-      }
+      },
+      "yesterday": "Yesterday"
     },
     "error": {
       "availableProviders": "Available Providers",
@@ -292,11 +295,11 @@
         "fetch": {
           "description": "Fetch web content from a URL"
         },
-        "time": {
-          "description": "Get the current time"
-        },
         "reminder": {
           "description": "Get, create, update, and delete reminders"
+        },
+        "time": {
+          "description": "Get the current time"
         }
       },
       "market": {
@@ -374,6 +377,7 @@
       "baidu-cloud": "Baidu Cloud",
       "burncloud": "BurnCloud",
       "cephalon": "Cephalon",
+      "cherryin": "CherryIn",
       "copilot": "GitHub Copilot",
       "dashscope": "Alibaba Cloud",
       "deepseek": "DeepSeek",

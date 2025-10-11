@@ -113,10 +113,12 @@
       "file": "ファイル",
       "generateImage": "画像を作成する",
       "go_to_settings": "設定に移動",
+      "import_from_cherry_studio": "チェリースタジオからインポート",
       "language": "言語",
       "last_month": "先月",
       "last_week": "先週",
       "loading": "読み込み中...",
+      "login": "ログイン",
       "manage": "管理",
       "model": "モデル",
       "name": "名前",
@@ -135,6 +137,7 @@
       "see_all": "すべて表示",
       "select_text": "テキストを選択",
       "source": "ソース",
+      "start": "Cherry Studioアプリを使ってみましょう 🎉",
       "stop": "停止",
       "this_week": "今週",
       "today": "今日",
@@ -142,11 +145,11 @@
       "translate": "翻訳",
       "visit": "訪問",
       "websearch": "ウェブ検索",
-      "yesterday": "昨日",
       "welcome": {
         "message1": "Cherry Studio へようこそ",
         "message2": "創作を始めて、無限の可能性を楽しみましょう！"
-      }
+      },
+      "yesterday": "昨日"
     },
     "error": {
       "availableProviders": "利用可能なプロバイダー",
@@ -292,11 +295,11 @@
         "fetch": {
           "description": "URLからウェブページの内容を取得する"
         },
-        "time": {
-          "description": "現在時刻を取得する"
-        },
         "reminder": {
           "description": "リマインダーの取得、作成、更新、削除"
+        },
+        "time": {
+          "description": "現在時刻を取得する"
         }
       },
       "market": {
@@ -374,6 +377,7 @@
       "baidu-cloud": "Baidu Cloud",
       "burncloud": "BurnCloud",
       "cephalon": "Cephalon",
+      "cherryin": "チェリーイン",
       "copilot": "GitHub Copilot",
       "dashscope": "Alibaba Cloud",
       "deepseek": "DeepSeek",
