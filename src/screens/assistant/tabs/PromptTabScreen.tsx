@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { YStack } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { AssistantDetailTabParamList } from '@/navigators/AssistantDetailTabNavigator'
 import { PromptTabContent } from '@/componentsV2/features/Assistant/PromptTabContent'
 

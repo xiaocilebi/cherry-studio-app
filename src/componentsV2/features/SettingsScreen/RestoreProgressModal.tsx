@@ -7,8 +7,7 @@ import { Modal, Pressable, View } from 'react-native'
 import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 import { RestoreStepId, StepStatus } from '@/services/BackupService'
-import { useTheme } from '@/hooks/useTheme'
-import { Button, cn, ErrorView, Spinner } from 'heroui-native'
+import { useTheme, Button, cn, ErrorView, Spinner } from 'heroui-native'
 import Text from '@/componentsV2/base/Text'
 
 export interface RestoreStep {

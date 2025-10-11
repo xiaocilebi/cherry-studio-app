@@ -4,13 +4,12 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useEffect, useState } from 'react'
 import { BackHandler, TouchableOpacity, View } from 'react-native'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme, cn } from 'heroui-native'
 import { haptic } from '@/utils/haptic'
 import { Check } from '@/componentsV2/icons'
 import Text from '../Text'
 import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
-import { cn } from 'heroui-native'
 
 export interface SelectionSheetItem {
   label: React.ReactNode | string

@@ -2,7 +2,7 @@ import { File, Paths } from 'expo-file-system'
 import React, { useEffect, useState } from 'react'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
 import Image from '@/componentsV2/base/Image'

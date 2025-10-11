@@ -3,11 +3,10 @@ import { AnimatePresence, MotiView } from 'moti'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme, cn } from 'heroui-native'
 import { uuid } from '@/utils'
 import { haptic } from '@/utils/haptic'
 import Text from '@/componentsV2/base/Text'
-import { cn } from 'heroui-native'
 
 export type ToastOptions = {
   key?: string

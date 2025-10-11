@@ -3,7 +3,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { BackHandler } from 'react-native'
 
 import { useBottom } from '@/hooks/useBottom'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { Container, Group, PressableRow, RestoreProgressModal, Text, XStack } from '@/componentsV2'
 import { Folder, Wifi } from '@/componentsV2/icons'
 import { useTranslation } from 'react-i18next'

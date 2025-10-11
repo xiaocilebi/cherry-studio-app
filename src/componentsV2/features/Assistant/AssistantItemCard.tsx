@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { Platform, Pressable, View } from 'react-native'
 
 import { Text, XStack, YStack } from '@/componentsV2'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { Assistant } from '@/types/assistant'
 import { formateEmoji } from '@/utils/formats'
 import { haptic } from '@/utils/haptic'

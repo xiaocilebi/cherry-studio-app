@@ -5,11 +5,10 @@ import { ChevronDown, Languages, MessageSquareMore, Rocket, Settings2 } from '@/
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import { Button } from 'heroui-native'
+import { Button, useTheme } from 'heroui-native'
 
 import { Container, HeaderBar, Image, SafeAreaContainer, Text, XStack, YStack, IconButton } from '@/componentsV2'
 import { useAssistant } from '@/hooks/useAssistant'
-import { useTheme } from '@/hooks/useTheme'
 import { AssistantSettingsStackParamList } from '@/navigators/settings/AssistantSettingsStackNavigator'
 import { Assistant, Model } from '@/types/assistant'
 import { getModelOrProviderIcon } from '@/utils/icons'

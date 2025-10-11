@@ -3,7 +3,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 
 import { Search } from '@/componentsV2/icons/LucideIcon'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 

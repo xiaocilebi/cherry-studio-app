@@ -7,7 +7,7 @@ import { View } from 'react-native'
 
 import { Edit3, Sparkles, Trash2 } from '../../icons/LucideIcon'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { useToast } from '@/hooks/useToast'
 import i18n from '@/i18n'
 import { fetchTopicNaming } from '@/services/ApiService'

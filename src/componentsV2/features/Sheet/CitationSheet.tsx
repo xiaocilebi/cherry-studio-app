@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { BackHandler, TouchableOpacity } from 'react-native'
 
 import { FallbackFavicon, X } from '@/componentsV2/icons'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { loggerService } from '@/services/LoggerService'
 import { Citation } from '@/types/websearch'
 import { getWebsiteBrand } from '@/utils/websearch'
