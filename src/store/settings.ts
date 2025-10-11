@@ -27,15 +27,12 @@ const settingsSlice = createSlice({
     setUserName: (state, action: PayloadAction<string>) => {
       state.userName = action.payload
     },
-    setUserId: (state, action: PayloadAction<string>) => {
-      state.userId = action.payload
-    },
     setTheme: (state, action: PayloadAction<ThemeMode>) => {
       state.theme = action.payload
     }
   }
 })
 
-export const { setAvatar, setUserName, setUserId, setTheme } = settingsSlice.actions
+export const { setAvatar, setUserName, setTheme } = settingsSlice.actions
 
 export default settingsSlice.reducer

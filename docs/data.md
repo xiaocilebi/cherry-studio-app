@@ -50,18 +50,8 @@ interface TopicState {
 interface WebSearchState {
   searchWithTime: boolean // Add current date to search queries
   maxResults: number // Maximum search results count
-  excludeDomains: string[] // Domains to exclude from search
-  subscribeSources: SubscribeSource[] // Subscription sources for blacklists
   overrideSearchService: boolean // Override search service settings
   contentLimit?: number // Content limit for search results
-  providerConfig: Record<string, any> // Provider-specific configurations
-}
-
-interface SubscribeSource {
-  key: number // Unique identifier
-  url: string // Source URL
-  name: string // Display name
-  blacklist?: string[] // Domain blacklist from this source
 }
 ```
 
