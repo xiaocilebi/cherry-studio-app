@@ -8,7 +8,6 @@ import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
 import { createNewTopic, deleteTopicById, renameTopic } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
-import { newMessagesActions } from '@/store/newMessage'
 import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
 import { DateGroupKey, getTimeFormatForGroup, groupItemsByDate, TimeFormat } from '@/utils/date'
@@ -17,6 +16,7 @@ import Text from '@/componentsV2/base/Text'
 import YStack from '@/componentsV2/layout/YStack'
 import { useDialog } from '@/hooks/useDialog'
 import { LegendList } from '@legendapp/list'
+import { newMessagesActions } from '@/store/newMessage'
 
 const logger = loggerService.withContext('GroupTopicList')
 
