@@ -1,4 +1,3 @@
-import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { useColorScheme } from 'react-native'
 import { useSelector } from 'react-redux'
 
@@ -11,8 +10,6 @@ export function useTheme() {
 
   const settedTheme = themeSetting === ThemeMode.system ? systemColorScheme : themeSetting
   const activeTheme = settedTheme === ThemeMode.dark ? 'dark' : 'light'
-  const reactNavigationTheme = activeTheme === 'dark' ? DarkTheme : DefaultTheme
-  const isDark = activeTheme === 'dark'
 
-  return { themeSetting, settedTheme, activeTheme, reactNavigationTheme, isDark }
+  return { themeSetting, settedTheme, activeTheme }
 }

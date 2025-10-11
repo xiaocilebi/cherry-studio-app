@@ -2,12 +2,12 @@ import '@/i18n'
 import 'react-native-reanimated'
 import '../global.css'
 
-import { HeroUINativeProvider } from 'heroui-native'
+import { HeroUINativeProvider, useTheme as useHerouiTheme } from 'heroui-native'
 import { createTamagui, TamaguiProvider } from 'tamagui'
 import { defaultConfig } from '@tamagui/config/v4'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { NavigationContainer } from '@react-navigation/native'
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin'
 import { useFonts } from 'expo-font'
@@ -105,7 +105,8 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const { themeSetting, activeTheme, reactNavigationTheme, isDark } = useTheme()
+  const { themeSetting, activeTheme } = useTheme()
+  const { isDark } = useHerouiTheme()
 
   const config = createTamagui(defaultConfig)
 
@@ -113,8 +114,8 @@ function ThemedApp() {
     <TamaguiProvider config={config} defaultTheme={activeTheme}>
       <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
         <KeyboardProvider>
-          <NavigationContainer theme={reactNavigationTheme}>
-            <SystemBars style={isDark ? 'light' : 'dark'} />
+          <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
+            <SystemBars style={isDark ? 'dark' : 'light'} />
             <DatabaseInitializer />
             <DialogProvider>
               <ToastProvider>

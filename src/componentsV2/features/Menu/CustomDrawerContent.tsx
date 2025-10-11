@@ -8,7 +8,7 @@ import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
 import { MCPIcon, Settings, UnionIcon } from '@/componentsV2/icons'
-import { Divider } from 'heroui-native'
+import { Divider, useTheme } from 'heroui-native'
 import { MenuTabContent } from './MenuTabContent'
 import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
@@ -23,6 +23,7 @@ import { useSafeArea } from '@/hooks/useSafeArea'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
+  const { isDark } = useTheme()
   const { avatar, userName } = useSettings()
   const insets = useSafeArea()
 
@@ -63,7 +64,8 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       style={{
         flex: 1,
         paddingTop: insets.top,
-        paddingBottom: insets.bottom
+        paddingBottom: insets.bottom,
+        backgroundColor: isDark ? '#121213' : '#f7f7f7'
       }}>
       <YStack className="gap-2.5 flex-1">
         <YStack className="gap-1.5 px-2.5">
