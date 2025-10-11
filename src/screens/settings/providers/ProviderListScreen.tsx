@@ -27,7 +27,7 @@ export default function ProviderListScreen() {
   } = useSearch(
     providers,
     useCallback((provider: Provider) => [provider.name || ''], []),
-    { delay: 300 }
+    { delay: 100 }
   )
 
   const onAddProvider = () => {

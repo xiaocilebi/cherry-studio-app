@@ -18,7 +18,12 @@ export function useAllProviders() {
 
   const processedProviders = useMemo(() => {
     if (!rawProviders || rawProviders.length === 0) return []
-    return rawProviders.map(provider => transformDbToProvider(provider))
+    const transformed = rawProviders.map(provider => transformDbToProvider(provider))
+    // Sort by enabled: true first, then false
+    return transformed.sort((a, b) => {
+      if (a.enabled === b.enabled) return 0
+      return a.enabled ? -1 : 1
+    })
   }, [rawProviders])
 
   if (!updatedAt || !rawProviders || rawProviders.length === 0) {

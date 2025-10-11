@@ -139,7 +139,7 @@ export default function ManageModelsScreen() {
   } = useSearch(
     allModels,
     useCallback((model: Model) => [model.id, model.name || ''], []),
-    { delay: 300 }
+    { delay: 100 }
   )
 
   const filteredModels = filterModels(searchFilteredModels, '', activeFilterType)

@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import { sortBy } from 'lodash'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Button } from 'heroui-native'
@@ -51,7 +51,7 @@ export default function ApiServiceScreen() {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
   // 当 provider 改变时更新本地状态
-  React.useEffect(() => {
+  useEffect(() => {
     if (provider) {
       setApiKey(provider.apiKey || '')
       setApiHost(provider.apiHost || '')

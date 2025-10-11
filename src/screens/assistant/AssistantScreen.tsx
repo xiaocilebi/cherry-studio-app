@@ -38,7 +38,7 @@ export default function AssistantScreen() {
   } = useSearch(
     assistants,
     useCallback((assistant: Assistant) => [assistant.name, assistant.description || ''], []),
-    { delay: 300 }
+    { delay: 100 }
   )
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
