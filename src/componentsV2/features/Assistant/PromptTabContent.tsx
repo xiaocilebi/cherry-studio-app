@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Assistant } from '@/types/assistant'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 import YStack from '@/componentsV2/layout/YStack'
 import TextField from '@/componentsV2/base/TextField'
 
@@ -27,7 +27,7 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
     })
   }, [assistant])
 
-  const handleBlur = () => {
+  const handleSave = () => {
     if (formData.name !== assistant.name || formData.prompt !== assistant.prompt) {
       updateAssistant({
         ...assistant,
@@ -49,38 +49,38 @@ export function PromptTabContent({ assistant, updateAssistant }: PromptTabConten
       transition={{
         type: 'timing'
       }}>
-      <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1">
+      <KeyboardAvoidingView className='flex-1'>
         <YStack className="flex-1 gap-4">
           <TextField className="gap-2">
             <TextField.Label className="text-sm font-medium text-text-secondary dark:text-text-secondary">
               {t('common.name')}
             </TextField.Label>
             <TextField.Input
-              className="h-12 rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark px-3 py-3 text-sm"
+              className="h-12 rounded-lg  px-3 py-3 text-sm"
               placeholder={t('assistants.name')}
               value={formData.name}
               onChangeText={name => setFormData(prev => ({ ...prev, name }))}
-              onBlur={handleBlur}
+              onEndEditing={handleSave}
             />
           </TextField>
 
-          <TextField className="gap-2 flex-1">
+          <TextField className="gap-2 h-4/5">
             <TextField.Label className="text-sm font-medium text-text-secondary dark:text-text-secondary">
               {t('common.prompt')}
             </TextField.Label>
             <TextField.Input
-              className="h-auto min-h-60 rounded-lg bg-ui-card-background dark:bg-ui-card-background-dark px-3  text-sm pb-safe"
+              className="flex-1 rounded-lg  px-3 py-3 text-sm"
               placeholder={t('common.prompt')}
               multiline
               numberOfLines={20}
               textAlignVertical="top"
               value={formData.prompt}
               onChangeText={prompt => setFormData(prev => ({ ...prev, prompt }))}
-              onBlur={handleBlur}
+              onEndEditing={handleSave}
             />
           </TextField>
         </YStack>
-      </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
     </MotiView>
   )
 }

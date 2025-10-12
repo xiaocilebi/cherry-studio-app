@@ -1,16 +1,50 @@
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useMemo } from 'react'
+
+import { MessageBlock } from '@/types/message'
 
 import { db } from '../../db'
-import { transformDbToMessageBlock } from '../../db/queries/messageBlocks.queries'
-import { messageBlocks as messageBlocksSchema } from '../../db/schema'
+import { transformDbToMessageBlock } from '../../db/mappers'
+import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '../../db/schema'
 
-export const useMessageBlocks = (messageId: string) => {
-  const query = db.select().from(messageBlocksSchema).where(eq(messageBlocksSchema.message_id, messageId))
+/**
+ * Topic 级别的 blocks 监听器（推荐使用）
+ */
+export const useTopicBlocks = (topicId: string) => {
+  // 单次查询获取这个 topic 下所有 messages 的所有 blocks
+  const query = db
+    .select({
+      block: messageBlocksSchema,
+      messageId: messagesSchema.id
+    })
+    .from(messageBlocksSchema)
+    .innerJoin(messagesSchema, eq(messageBlocksSchema.message_id, messagesSchema.id))
+    .where(eq(messagesSchema.topic_id, topicId))
 
-  const { data: rawBlocks } = useLiveQuery(query)
+  const { data: rawData } = useLiveQuery(query, [topicId])
 
-  const processedBlocks = !rawBlocks ? [] : rawBlocks.map(block => transformDbToMessageBlock(block))
+  // 在内存中按 message_id 分组
+  const messageBlocks = useMemo(() => {
+    if (!rawData) {
+      return {}
+    }
 
-  return { processedBlocks }
+    const grouped = rawData.reduce(
+      (acc, { block, messageId }) => {
+        if (!acc[messageId]) {
+          acc[messageId] = []
+        }
+        acc[messageId].push(transformDbToMessageBlock(block))
+        return acc
+      },
+      {} as Record<string, MessageBlock[]>
+    )
+
+    return grouped
+  }, [rawData])
+
+  return {
+    messageBlocks: messageBlocks
+  }
 }

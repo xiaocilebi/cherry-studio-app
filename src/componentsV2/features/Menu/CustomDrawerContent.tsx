@@ -7,8 +7,8 @@ import { useSettings } from '@/hooks/useSettings'
 import { useTopics } from '@/hooks/useTopic'
 import { haptic } from '@/utils/haptic'
 
-import { MarketIcon, Settings, UnionIcon } from '@/componentsV2/icons'
-import { Divider } from 'heroui-native'
+import { MCPIcon, Settings, UnionIcon } from '@/componentsV2/icons'
+import { Divider, useTheme } from 'heroui-native'
 import { MenuTabContent } from './MenuTabContent'
 import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
@@ -23,6 +23,7 @@ import { useSafeArea } from '@/hooks/useSafeArea'
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { t } = useTranslation()
+  const { isDark } = useTheme()
   const { avatar, userName } = useSettings()
   const insets = useSafeArea()
 
@@ -33,14 +34,14 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     props.navigation.navigate('Home', { screen: 'TopicScreen' })
   }
 
-  const handleNavigateAssistantMarketScreen = () => {
-    haptic(ImpactFeedbackStyle.Medium)
-    props.navigation.navigate('Assistant', { screen: 'AssistantMarketScreen' })
-  }
-
   const handleNavigateAssistantScreen = () => {
     haptic(ImpactFeedbackStyle.Medium)
     props.navigation.navigate('Assistant', { screen: 'AssistantScreen' })
+  }
+
+  const handleNavigateMcpMarketScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    props.navigation.navigate('Mcp', { screen: 'McpMarketScreen' })
   }
 
   const handleNavigateSettingsScreen = () => {
@@ -63,26 +64,27 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
       style={{
         flex: 1,
         paddingTop: insets.top,
-        paddingBottom: insets.bottom
+        paddingBottom: insets.bottom,
+        backgroundColor: isDark ? '#121213' : '#f7f7f7'
       }}>
       <YStack className="gap-2.5 flex-1">
         <YStack className="gap-1.5 px-2.5">
-          <PressableRow
-            className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
-            onPress={handleNavigateAssistantMarketScreen}>
-            <XStack className="gap-2.5 items-center justify-center">
-              <MarketIcon size={24} />
-              <Text className="text-base ">{t('assistants.market.title')}</Text>
-            </XStack>
-            <RowRightArrow />
-          </PressableRow>
-
           <PressableRow
             className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
             onPress={handleNavigateAssistantScreen}>
             <XStack className="gap-2.5 items-center justify-center">
               <UnionIcon size={24} />
               <Text className="text-base ">{t('assistants.market.my_assistant')}</Text>
+            </XStack>
+            <RowRightArrow />
+          </PressableRow>
+
+          <PressableRow
+            className="flex-row justify-between items-center py-2.5 px-2.5 rounded-lg"
+            onPress={handleNavigateMcpMarketScreen}>
+            <XStack className="gap-2.5 items-center justify-center">
+              <MCPIcon size={24} />
+              <Text className="text-base ">{t('mcp.market.title')}</Text>
             </XStack>
             <RowRightArrow />
           </PressableRow>

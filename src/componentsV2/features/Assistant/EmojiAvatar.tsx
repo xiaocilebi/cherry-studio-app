@@ -1,9 +1,8 @@
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import { Platform, View } from 'react-native'
-import { cn } from 'heroui-native'
+import { cn, useTheme } from 'heroui-native'
 
-import { useTheme } from '@/hooks/useTheme'
 import { formateEmoji } from '@/utils/formats'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'

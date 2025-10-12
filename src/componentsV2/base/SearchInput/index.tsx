@@ -16,7 +16,7 @@ export const SearchInput = ({ placeholder, onChangeText, value }: SearchInputPro
         placeholder={placeholder}
         onChangeText={onChangeText}
         value={value}
-        className="w-full h-10 rounded-lg bg-transparent text-base leading-5">
+        className="w-full h-10 rounded-lg bg-transparent text-base">
         <TextField.InputStartContent>
           <Search size={20} className="text-text-secondary dark:text-text-secondary-dark " />
         </TextField.InputStartContent>

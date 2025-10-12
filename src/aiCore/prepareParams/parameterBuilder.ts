@@ -77,7 +77,7 @@ export async function buildStreamTextParams(
 
   const enableGenerateImage = !!(isGenerateImageModel(model) && assistant.enableGenerateImage)
 
-  const tools = setupToolsConfig(mcpTools)
+  let tools = setupToolsConfig(mcpTools)
 
   // if (webSearchProviderId) {
   //   tools['builtin_web_search'] = webSearchTool(webSearchProviderId)
@@ -102,6 +102,10 @@ export async function buildStreamTextParams(
     tools,
     stopWhen: stepCountIs(10),
     maxRetries: 0
+  }
+
+  if (tools && Object.keys(tools).length > 0) {
+    params.tools = tools
   }
 
   if (assistant.prompt) {

@@ -12,7 +12,7 @@ import { Edit3, Trash2, ProviderIcon } from '@/componentsV2/icons'
 import XStack from '@/componentsV2/layout/XStack'
 import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 import Text from '@/componentsV2/base/Text'
-import { ContextMenu } from '@/componentsV2/base/ContextMenu'
+import ContextMenu from '@/componentsV2/base/ContextMenu'
 
 interface ProviderItemProps {
   provider: Provider
@@ -64,7 +64,7 @@ export const ProviderItem: React.FC<ProviderItemProps> = ({ provider, mode = 'en
     <XStack className="justify-between items-center py-3 px-4">
       <XStack className="gap-2 items-center">
         <ProviderIcon provider={provider} />
-        <Text className="text-base text-text-primary dark:text-text-primary-dark">
+        <Text className="text-lg text-text-primary dark:text-text-primary-dark">
           {t(`provider.${provider.id}`, { defaultValue: provider.name })}
         </Text>
       </XStack>

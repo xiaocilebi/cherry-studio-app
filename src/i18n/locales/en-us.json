@@ -113,10 +113,12 @@
       "file": "File",
       "generateImage": "Create an image",
       "go_to_settings": "Settings",
+      "import_from_cherry_studio": "Import from Cherry Studio",
       "language": "Language",
       "last_month": "Last Month",
       "last_week": "Last Week",
       "loading": "Loading...",
+      "login": "Sign in",
       "manage": "Manage",
       "model": "Model",
       "name": "Name",
@@ -135,6 +137,7 @@
       "see_all": "See All",
       "select_text": "Select Text",
       "source": "Source",
+      "start": "Get Started with Cherry Studio App 🎉",
       "stop": "Stop",
       "this_week": "This Week",
       "today": "Today",
@@ -142,6 +145,10 @@
       "translate": "Translate",
       "visit": "Visit",
       "websearch": "Web Search",
+      "welcome": {
+        "message1": "Welcome to Cherry Studio",
+        "message2": "Start creating and explore endless possibilities!"
+      },
       "yesterday": "Yesterday"
     },
     "error": {
@@ -280,6 +287,35 @@
       "mentions": "@ {{number}} models",
       "placeholder": "Send Message..."
     },
+    "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "Get, operating system calendar"
+        },
+        "fetch": {
+          "description": "Fetch web content from a URL"
+        },
+        "reminder": {
+          "description": "Get, create, update, and delete reminders"
+        },
+        "time": {
+          "description": "Get the current time"
+        }
+      },
+      "market": {
+        "title": "MCP Market"
+      },
+      "server": {
+        "empty": "No MCP servers available...",
+        "selected": "{{num}} MCP servers selected",
+        "title": "MCP Server"
+      },
+      "type": {
+        "inMemory": "built-in",
+        "sse": "Server-Sent Events",
+        "streamableHttp": "Streaming HTTP"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "Recent Assistant",
@@ -341,6 +377,7 @@
       "baidu-cloud": "Baidu Cloud",
       "burncloud": "BurnCloud",
       "cephalon": "Cephalon",
+      "cherryin": "CherryIn",
       "copilot": "GitHub Copilot",
       "dashscope": "Alibaba Cloud",
       "deepseek": "DeepSeek",

@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from '@/store'
@@ -7,7 +8,8 @@ import { resetBuiltInAssistants as _resetBuiltInAssistants } from '@/store/assis
 import { Assistant } from '@/types/assistant'
 
 import { db } from '../../db'
-import { transformDbToAssistant, upsertAssistants } from '../../db/queries/assistants.queries'
+import { transformDbToAssistant } from '../../db/mappers'
+import { upsertAssistants } from '../../db/queries/assistants.queries'
 import { assistants as assistantsSchema } from '../../db/schema'
 
 export function useAssistant(assistantId: string) {
@@ -19,6 +21,13 @@ export function useAssistant(assistantId: string) {
     await upsertAssistants([assistant])
   }
 
+  const processedAssistant = useMemo(() => {
+    if (!rawAssistant || rawAssistant.length === 0) {
+      return null
+    }
+    return transformDbToAssistant(rawAssistant[0])
+  }, [rawAssistant])
+
   if (!updatedAt) {
     return {
       assistant: null,
@@ -28,15 +37,13 @@ export function useAssistant(assistantId: string) {
   }
 
   // Handle case where assistant was deleted
-  if (!rawAssistant || rawAssistant.length === 0) {
+  if (!processedAssistant) {
     return {
       assistant: null,
       isLoading: false,
       updateAssistant
     }
   }
-
-  const processedAssistant = transformDbToAssistant(rawAssistant[0])
 
   return {
     assistant: processedAssistant,
@@ -54,6 +61,11 @@ export function useAssistants() {
     await upsertAssistants(assistants)
   }
 
+  const processedAssistants = useMemo(() => {
+    if (!rawAssistants) return []
+    return rawAssistants.map(provider => transformDbToAssistant(provider))
+  }, [rawAssistants])
+
   if (!updatedAt) {
     return {
       assistants: [],
@@ -61,8 +73,6 @@ export function useAssistants() {
       updateAssistants
     }
   }
-
-  const processedAssistants = rawAssistants.map(provider => transformDbToAssistant(provider))
 
   return {
     assistants: processedAssistants,
@@ -87,6 +97,11 @@ export function useExternalAssistants() {
     await upsertAssistants(assistants)
   }
 
+  const processedAssistants = useMemo(() => {
+    if (!rawAssistants) return []
+    return rawAssistants.map(provider => transformDbToAssistant(provider))
+  }, [rawAssistants])
+
   if (!updatedAt) {
     return {
       assistants: [],
@@ -94,8 +109,6 @@ export function useExternalAssistants() {
       updateAssistants
     }
   }
-
-  const processedAssistants = rawAssistants.map(provider => transformDbToAssistant(provider))
 
   return {
     assistants: processedAssistants,

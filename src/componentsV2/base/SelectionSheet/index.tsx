@@ -4,13 +4,12 @@ import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useEffect, useState } from 'react'
 import { BackHandler, TouchableOpacity, View } from 'react-native'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme, cn } from 'heroui-native'
 import { haptic } from '@/utils/haptic'
 import { Check } from '@/componentsV2/icons'
 import Text from '../Text'
 import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
-import { cn } from 'heroui-native'
 
 export interface SelectionSheetItem {
   label: React.ReactNode | string
@@ -29,16 +28,23 @@ export interface SelectionSheetProps {
   snapPoints?: string[]
   ref: React.RefObject<BottomSheetModal | null>
   placeholder?: string
+  shouldDismiss?: boolean
 }
 
 /**
  * 用于在BottomSheetModal中显示列表
  */
 
-const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, snapPoints = [], ref, placeholder }) => {
+const SelectionSheet: React.FC<SelectionSheetProps> = ({
+  items,
+  emptyContent,
+  snapPoints = [],
+  ref,
+  placeholder,
+  shouldDismiss = true
+}) => {
   const { isDark } = useTheme()
   const [isVisible, setIsVisible] = useState(false)
-  // Link LegendList with BottomSheet gestures
   const BottomSheetLegendListScrollable = useBottomSheetScrollableCreator()
 
   useEffect(() => {
@@ -54,7 +60,10 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
   }, [ref, isVisible])
 
   const handleSelect = (item: SelectionSheetItem) => {
-    ref.current?.dismiss()
+    if (shouldDismiss) {
+      ref.current?.dismiss()
+    }
+
     haptic(ImpactFeedbackStyle.Medium)
     item.onSelect?.()
   }
@@ -112,10 +121,6 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
   const keyExtractor = (item: SelectionSheetItem, index: number) =>
     item.key?.toString() || item.id?.toString() || item.label?.toString() || index.toString()
 
-  if (items.length === 0 && emptyContent) {
-    return <YStack className="pb-7 px-4 gap-2.5">{emptyContent}</YStack>
-  }
-
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
@@ -144,7 +149,6 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
         ItemSeparatorComponent={() => <YStack className="h-2.5" />}
         contentContainerStyle={{ paddingBottom: 40, paddingHorizontal: 16 }}
         renderScrollComponent={BottomSheetLegendListScrollable}
-        drawDistance={1000}
         ListHeaderComponent={
           placeholder ? (
             <View className="px-4 pb-2">
@@ -154,6 +158,7 @@ const SelectionSheet: React.FC<SelectionSheetProps> = ({ items, emptyContent, sn
             </View>
           ) : undefined
         }
+        ListEmptyComponent={emptyContent ? <YStack className="pb-7 px-4 gap-2.5">{emptyContent}</YStack> : undefined}
         recycleItems
       />
     </BottomSheetModal>

@@ -32,7 +32,7 @@ export class ApiClientFactory {
     let instance: BaseApiClient
 
     // 首先检查特殊的 Provider ID
-    if (provider.id === 'cherryin') {
+    if (provider.id === 'cherryai') {
       instance = new CherryinAPIClient(provider) as BaseApiClient
       return instance
     }

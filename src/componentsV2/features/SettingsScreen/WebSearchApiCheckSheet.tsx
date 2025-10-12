@@ -2,9 +2,8 @@ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/
 import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, View } from 'react-native'
-import { Button, Spinner } from 'heroui-native'
+import { Button, Spinner, useTheme } from 'heroui-native'
 
-import { useTheme } from '@/hooks/useTheme'
 import { ApiStatus } from '@/types/assistant'
 import { ChevronsRight } from '@/componentsV2/icons'
 import YStack from '@/componentsV2/layout/YStack'

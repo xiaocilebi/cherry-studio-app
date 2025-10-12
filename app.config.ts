@@ -100,6 +100,13 @@ export default {
           isAccessMediaLocationEnabled: true
         }
       ],
+      [
+             "expo-calendar",
+             {
+               "calendarPermission": "Allow Cherry Studio App to access your calendar.",
+               "remindersPermission": "Allow Cherry Studio App to access your reminders."
+             }
+      ],
       ['react-native-compressor'],
       ["react-native-edge-to-edge",
         {

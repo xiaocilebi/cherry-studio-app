@@ -26,7 +26,7 @@ export default function TopicScreen() {
   } = useSearch(
     topics,
     useCallback(topic => [topic.name], []),
-    { delay: 300 }
+    { delay: 100 }
   )
 
   const handleAddNewTopic = async () => {

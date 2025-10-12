@@ -33,7 +33,6 @@ export default class BochaProvider extends BaseWebSearchProvider {
       const params: BochaSearchParams = {
         query,
         count: websearch.maxResults,
-        exclude: websearch.excludeDomains.join(','),
         freshness: websearch.searchWithTime ? 'oneDay' : 'noLimit',
         summary: true,
         page: 1

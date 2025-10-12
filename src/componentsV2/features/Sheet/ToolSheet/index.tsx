@@ -3,7 +3,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { BackHandler } from 'react-native'
 
 import { useBottom } from '@/hooks/useBottom'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { Assistant, Model } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 

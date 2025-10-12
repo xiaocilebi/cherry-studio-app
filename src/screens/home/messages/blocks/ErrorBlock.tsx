@@ -7,7 +7,7 @@ import { BackHandler, ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Text, XStack, YStack } from '@/componentsV2'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { getHttpMessageLabel } from '@/i18n/label'
 import {
   isSerializedAiSdkAPICallError,

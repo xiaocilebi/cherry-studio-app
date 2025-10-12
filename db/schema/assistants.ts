@@ -15,7 +15,7 @@ export const assistants = sqliteTable('assistants', {
   settings: text('settings'),
   enable_web_search: integer('enable_web_search', { mode: 'boolean' }),
   enable_generate_image: integer('enable_generate_image', { mode: 'boolean' }),
-  // mcpServers: blob('mcp_servers'),
+  mcp_servers: text('mcp_servers'),
   knowledge_recognition: text('knowledge_recognition'),
   tags: text('tags'),
   group: text('group'),

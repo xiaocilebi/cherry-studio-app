@@ -3,9 +3,8 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 
-import { UnionPlusIcon } from '@/componentsV2/icons'
 import {
   DrawerGestureWrapper,
   SafeAreaContainer,
@@ -15,16 +14,13 @@ import {
   YStack,
   SearchInput
 } from '@/componentsV2'
-import { Menu } from '@/componentsV2/icons/LucideIcon'
+import { Menu, Plus, Store } from '@/componentsV2/icons/LucideIcon'
 import { useExternalAssistants } from '@/hooks/useAssistant'
 import { useSearch } from '@/hooks/useSearch'
-import { useTopics } from '@/hooks/useTopic'
 import { createAssistant } from '@/services/AssistantService'
 import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
-import { getAssistantWithTopic } from '@/utils/assistants'
 import { haptic } from '@/utils/haptic'
-import AssistantItemSkeleton from '@/componentsV2/features/Assistant/AssistantItemSkeleton'
 import AssistantItem from '@/componentsV2/features/Assistant/AssistantItem'
 import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
 import { LegendList } from '@legendapp/list'
@@ -33,18 +29,16 @@ export default function AssistantScreen() {
   const { t } = useTranslation()
   const navigation = useNavigation<DrawerNavigationProps>()
 
-  const { topics } = useTopics()
   const { assistants, isLoading } = useExternalAssistants()
-  const assistantWithTopics = getAssistantWithTopic(assistants, topics)
 
   const {
     searchText,
     setSearchText,
     filteredItems: filteredAssistants
   } = useSearch(
-    assistantWithTopics,
+    assistants,
     useCallback((assistant: Assistant) => [assistant.name, assistant.description || ''], []),
-    { delay: 300 }
+    { delay: 100 }
   )
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
@@ -54,6 +48,11 @@ export default function AssistantScreen() {
     haptic(ImpactFeedbackStyle.Medium)
     setSelectedAssistant(assistant)
     bottomSheetRef.current?.present()
+  }
+
+  const onNavigateToMarketScreen = () => {
+    haptic(ImpactFeedbackStyle.Medium)
+    navigation.navigate('Assistant', { screen: 'AssistantMarketScreen' })
   }
 
   const onAddAssistant = async () => {
@@ -75,6 +74,14 @@ export default function AssistantScreen() {
     navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId } })
   }
 
+  if (isLoading) {
+    return (
+      <SafeAreaContainer style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator />
+      </SafeAreaContainer>
+    )
+  }
+
   return (
     <SafeAreaContainer className="pb-0">
       <DrawerGestureWrapper>
@@ -85,10 +92,16 @@ export default function AssistantScreen() {
               icon: <Menu size={24} />,
               onPress: handleMenuPress
             }}
-            rightButton={{
-              icon: <UnionPlusIcon size={20} />,
-              onPress: onAddAssistant
-            }}
+            rightButtons={[
+              {
+                icon: <Store size={24} />,
+                onPress: onNavigateToMarketScreen
+              },
+              {
+                icon: <Plus size={24} />,
+                onPress: onAddAssistant
+              }
+            ]}
           />
           <Container className="p-0">
             <View className="px-4">
@@ -98,40 +111,23 @@ export default function AssistantScreen() {
                 onChangeText={setSearchText}
               />
             </View>
-
-            {isLoading ? (
-              <LegendList
-                data={Array.from({ length: 5 })}
-                renderItem={() => <AssistantItemSkeleton />}
-                keyExtractor={(_, index) => `skeleton-${index}`}
-                estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack className="h-2.5" />}
-                contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 30 }}
-                drawDistance={2000}
-                recycleItems
-                waitForInitialLayout
-              />
-            ) : (
-              <LegendList
-                showsVerticalScrollIndicator={false}
-                data={filteredAssistants}
-                renderItem={({ item }) => (
-                  <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />
-                )}
-                keyExtractor={item => item.id}
-                estimatedItemSize={80}
-                ItemSeparatorComponent={() => <YStack className="h-2" />}
-                ListEmptyComponent={
-                  <YStack className="flex-1 justify-center items-center">
-                    <Text>{t('settings.assistant.empty')}</Text>
-                  </YStack>
-                }
-                contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 30 }}
-                drawDistance={2000}
-                recycleItems
-                waitForInitialLayout
-              />
-            )}
+            <LegendList
+              showsVerticalScrollIndicator={false}
+              data={filteredAssistants}
+              renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
+              keyExtractor={item => item.id}
+              estimatedItemSize={80}
+              ItemSeparatorComponent={() => <YStack className="h-2" />}
+              ListEmptyComponent={
+                <YStack className="flex-1 justify-center items-center">
+                  <Text>{t('settings.assistant.empty')}</Text>
+                </YStack>
+              }
+              contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 30 }}
+              drawDistance={200}
+              recycleItems
+              waitForInitialLayout
+            />
           </Container>
           <AssistantItemSheet
             ref={bottomSheetRef}

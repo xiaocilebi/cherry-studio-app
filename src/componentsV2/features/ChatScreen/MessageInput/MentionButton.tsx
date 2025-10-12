@@ -63,9 +63,7 @@ export const MentionButton: React.FC<MentionButtonProps> = ({ mentions, setMenti
     await updateAssistant(updatedAssistant)
   }
 
-  const renderEmptyState = () => (
-    <AtSign size={DISPLAY_CONSTANTS.ICON_SIZE} className="text-green-100 dark:text-green-dark-100" />
-  )
+  const renderEmptyState = () => <AtSign size={DISPLAY_CONSTANTS.ICON_SIZE} />
 
   const renderSingleModel = (model: Model) => (
     <XStack className={`${BUTTON_STYLES.container} justify-center`}>

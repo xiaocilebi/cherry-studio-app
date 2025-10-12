@@ -4,31 +4,29 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button } from 'heroui-native'
+import { Button, useTheme } from 'heroui-native'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
 import { useDialog } from '@/hooks/useDialog'
-import { useTheme } from '@/hooks/useTheme'
 import { uploadFiles } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
-import { saveProvider } from '@/services/ProviderService'
 import { Provider, ProviderType } from '@/types/assistant'
 import { FileMetadata } from '@/types/file'
 import { uuid } from '@/utils'
 import { YStack, XStack, Text } from '@/componentsV2'
 import { ProviderIconButton } from './ProviderIconButton'
 import { ProviderSelect } from './ProviderSelect'
+import { saveProvider } from '@/services/ProviderService'
 
 const logger = loggerService.withContext('ProviderSheet')
 
 interface ProviderSheetProps {
   mode?: 'add' | 'edit'
   editProvider?: Provider
-  onSave?: (provider: Provider) => void
 }
 
 export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>(
-  ({ mode = 'add', editProvider, onSave }, ref) => {
+  ({ mode = 'add', editProvider }, ref) => {
     const { t } = useTranslation()
     const { isDark } = useTheme()
     const insets = useSafeAreaInsets()
@@ -107,7 +105,6 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
         await uploadProviderImage(selectedImageFile)
         const providerData = createProviderData()
         await saveProvider(providerData)
-        onSave?.(providerData)
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
       } catch (error) {
         logger.error('handleSaveProvider', error as Error)
@@ -164,7 +161,7 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
                 <ProviderIconButton
                   providerId={providerId}
                   iconUri={
-                    mode === 'edit' ? new File(Paths.join(DEFAULT_ICONS_STORAGE, `${providerId}.jpg`)).uri : undefined
+                    mode === 'edit' ? new File(Paths.join(DEFAULT_ICONS_STORAGE, `${providerId}.png`)).uri : undefined
                   }
                   onImageSelected={handleImageSelected}
                 />

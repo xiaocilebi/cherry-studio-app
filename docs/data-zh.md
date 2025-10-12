@@ -50,18 +50,8 @@ interface TopicState {
 interface WebSearchState {
   searchWithTime: boolean // 在搜索查询中添加当前日期
   maxResults: number // 最大搜索结果数量
-  excludeDomains: string[] // 搜索中排除的域名
-  subscribeSources: SubscribeSource[] // 黑名单的订阅源
   overrideSearchService: boolean // 覆盖搜索服务设置
   contentLimit?: number // 搜索结果内容限制
-  providerConfig: Record<string, any> // 提供商特定配置
-}
-
-interface SubscribeSource {
-  key: number // 唯一标识符
-  url: string // 源 URL
-  name: string // 显示名称
-  blacklist?: string[] // 来自此源的域名黑名单
 }
 ```
 
