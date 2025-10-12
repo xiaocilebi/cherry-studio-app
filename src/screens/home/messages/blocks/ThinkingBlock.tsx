@@ -6,7 +6,7 @@ import { ThinkingMessageBlock } from '@/types/message'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MarqueeComponent } from '@/componentsV2'
 import ReactNativeMarkdown from '../../markdown/ReactNativeMarkdown'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 
 interface Props {
   block: ThinkingMessageBlock

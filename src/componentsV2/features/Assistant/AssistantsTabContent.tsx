@@ -40,6 +40,7 @@ const AssistantsTabContent: React.FC<AssistantsTabProps> = ({ assistants, onAssi
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         recycleItems
+        drawDistance={100}
         estimatedItemSize={230}
         contentContainerStyle={{ paddingBottom: insets.bottom }}
       />

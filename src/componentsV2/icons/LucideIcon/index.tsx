@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Store,
   ArrowLeft,
   ArrowLeftRight,
   ArrowUpRight,
@@ -31,6 +32,7 @@ import {
   HeartPulse,
   Palette,
   Image,
+  Hammer,
   ImageOff,
   Info,
   Languages,
@@ -85,6 +87,7 @@ function interopIcon(icon: LucideIcon) {
   })
 }
 
+interopIcon(Store)
 interopIcon(ArrowUp)
 interopIcon(ArrowLeft)
 interopIcon(ArrowLeftRight)
@@ -102,6 +105,7 @@ interopIcon(CirclePause)
 interopIcon(CircleUserRound)
 interopIcon(Cloud)
 interopIcon(Copy)
+interopIcon(Hammer)
 interopIcon(Copyright)
 interopIcon(Download)
 interopIcon(Edit3)
@@ -161,6 +165,8 @@ function withDefaultIconClass<T extends LucideIcon>(Icon: T): T {
   return Wrapped
 }
 
+const StoreIcon = withDefaultIconClass(Store)
+const HammerIcon = withDefaultIconClass(Hammer)
 const ArrowUpIcon = withDefaultIconClass(ArrowUp)
 const ArrowLeftIcon = withDefaultIconClass(ArrowLeft)
 const ArrowLeftRightIcon = withDefaultIconClass(ArrowLeftRight)
@@ -231,6 +237,7 @@ const XCircleIcon = withDefaultIconClass(XCircle)
 const SettingsIcon = withDefaultIconClass(Settings)
 
 export {
+  StoreIcon as Store,
   ArrowUpIcon as ArrowUp,
   ArrowLeftIcon as ArrowLeft,
   ArrowLeftRightIcon as ArrowLeftRight,
@@ -264,6 +271,7 @@ export {
   PaletteIcon as Palette,
   ImageIcon as Image,
   ImageOffIcon as ImageOff,
+  HammerIcon as Hammer,
   InfoIcon as Info,
   LanguagesIcon as Languages,
   LightbulbIcon as Lightbulb,

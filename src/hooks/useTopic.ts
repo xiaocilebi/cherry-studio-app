@@ -1,11 +1,14 @@
 import { desc, eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useMemo } from 'react'
 
 import { loggerService } from '@/services/LoggerService'
+import store from '@/store'
 import { Topic } from '@/types/assistant'
 
 import { db } from '../../db'
-import { transformDbToTopic, upsertTopics } from '../../db/queries/topics.queries'
+import { transformDbToTopic } from '../../db/mappers'
+import { upsertTopics } from '../../db/queries/topics.queries'
 import { topics as topicSchema } from '../../db/schema'
 
 const logger = loggerService.withContext('useTopic')
@@ -25,16 +28,19 @@ export function useTopic(topicId: string) {
     await upsertTopics([topic])
   }
 
+  const processedTopic = useMemo(() => {
+    if (!rawTopic || rawTopic.length === 0) return null
+    return transformDbToTopic(rawTopic[0])
+  }, [rawTopic])
+
   // 当删除最后一个topic时会返回 rawTopic.length === 0, 需要返回加载状态
-  if (!updatedAt || rawTopic.length === 0) {
+  if (!updatedAt || !processedTopic) {
     return {
       topic: null,
       isLoading: true,
       updateTopic
     }
   }
-
-  const processedTopic = transformDbToTopic(rawTopic[0])
 
   return {
     topic: processedTopic,
@@ -44,8 +50,25 @@ export function useTopic(topicId: string) {
 }
 
 export function useTopics() {
-  const query = db.select().from(topicSchema).orderBy(desc(topicSchema.created_at))
+  const query = db
+    .select({
+      id: topicSchema.id,
+      assistant_id: topicSchema.assistant_id,
+      name: topicSchema.name,
+      created_at: topicSchema.created_at,
+      updated_at: topicSchema.updated_at,
+      pinned: topicSchema.pinned,
+      prompt: topicSchema.prompt,
+      is_name_manually_edited: topicSchema.is_name_manually_edited
+    })
+    .from(topicSchema)
+    .orderBy(desc(topicSchema.created_at))
   const { data: rawTopics, updatedAt } = useLiveQuery(query)
+
+  const processedTopics = useMemo(() => {
+    if (!rawTopics) return []
+    return rawTopics.map(transformDbToTopic)
+  }, [rawTopics])
 
   if (!updatedAt) {
     return {
@@ -53,8 +76,6 @@ export function useTopics() {
       isLoading: true
     }
   }
-
-  const processedTopics = rawTopics.map(transformDbToTopic)
 
   return {
     topics: processedTopics,
@@ -67,16 +88,17 @@ export function useNewestTopic(): { topic: Topic | null; isLoading: boolean } {
 
   const { data: rawTopics, updatedAt } = useLiveQuery(query)
 
+  const processedTopic = useMemo(() => {
+    if (!rawTopics || rawTopics.length === 0) return null
+    return transformDbToTopic(rawTopics[0])
+  }, [rawTopics])
+
   if (!updatedAt) {
     return {
       topic: null,
       isLoading: true
     }
   }
-
-  const newestRawTopic = rawTopics[0]
-
-  const processedTopic = transformDbToTopic(newestRawTopic)
 
   return {
     topic: processedTopic,

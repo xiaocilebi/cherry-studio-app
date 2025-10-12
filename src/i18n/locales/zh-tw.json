@@ -113,10 +113,12 @@
       "file": "檔案",
       "generateImage": "建立圖片",
       "go_to_settings": "前往設定",
+      "import_from_cherry_studio": "從 Cherry Studio 導入",
       "language": "語言",
       "last_month": "上個月",
       "last_week": "上週",
       "loading": "載入中...",
+      "login": "登入",
       "manage": "管理",
       "model": "模型",
       "name": "姓名",
@@ -135,6 +137,7 @@
       "see_all": "查看全部",
       "select_text": "選擇文本",
       "source": "來源",
+      "start": "開始使用Cherry Studio App 🎉",
       "stop": "停止",
       "this_week": "本週",
       "today": "今天",
@@ -142,6 +145,10 @@
       "translate": "翻譯",
       "visit": "訪問",
       "websearch": "網路搜尋",
+      "welcome": {
+        "message1": "歡迎使用 Cherry Studio",
+        "message2": "開始創作，享受無限可能！"
+      },
       "yesterday": "昨天"
     },
     "error": {
@@ -280,6 +287,35 @@
       "mentions": "@ {{number}} 個模型",
       "placeholder": "傳送訊息..."
     },
+    "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "取得、作業系統日曆"
+        },
+        "fetch": {
+          "description": "從網址取得網頁內容"
+        },
+        "reminder": {
+          "description": "獲取、添加、修改、刪除提醒事項"
+        },
+        "time": {
+          "description": "取得目前時間"
+        }
+      },
+      "market": {
+        "title": "MCP市場"
+      },
+      "server": {
+        "empty": "暫無MCP伺服器...",
+        "selected": "已選擇{{num}}個MCP伺服器",
+        "title": "MCP伺服器"
+      },
+      "type": {
+        "inMemory": "內建",
+        "sse": "伺服器傳送事件",
+        "streamableHttp": "串流式 HTTP"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "近期助手",
@@ -341,6 +377,7 @@
       "baidu-cloud": "百度雲千帆",
       "burncloud": "BurnCloud",
       "cephalon": "Cephalon",
+      "cherryin": "櫻桃入",
       "copilot": "GitHub Copilot",
       "dashscope": "阿里雲百鍊",
       "deepseek": "深度求索",

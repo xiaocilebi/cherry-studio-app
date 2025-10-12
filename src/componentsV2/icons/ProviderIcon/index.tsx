@@ -2,7 +2,7 @@ import { File, Paths } from 'expo-file-system'
 import React, { useEffect, useState } from 'react'
 
 import { DEFAULT_ICONS_STORAGE } from '@/constants/storage'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { Provider } from '@/types/assistant'
 import { getProviderIcon } from '@/utils/icons/'
 import Image from '@/componentsV2/base/Image'
@@ -24,7 +24,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, clas
       if (provider.isSystem) {
         setIconUri(getProviderIcon(provider.id, isDark))
       } else {
-        const file = new File(Paths.join(DEFAULT_ICONS_STORAGE, `${provider.id}.jpg`))
+        const file = new File(Paths.join(DEFAULT_ICONS_STORAGE, `${provider.id}.png`))
 
         if (file.exists) {
           setIconUri(file.uri)
@@ -37,7 +37,7 @@ export const ProviderIcon: React.FC<ProviderIconProps> = ({ provider, size, clas
     loadIcon()
   }, [provider.id, provider.isSystem, isDark])
 
-  const sizeClass = size ? `w-[${size}px] h-[${size}px]` : 'w-5 h-5'
+  const sizeClass = size ? `w-[${size}px] h-[${size}px]` : 'w-6 h-6'
   const finalClassName = className ? `${sizeClass} ${className}` : sizeClass
 
   if (!iconUri) {

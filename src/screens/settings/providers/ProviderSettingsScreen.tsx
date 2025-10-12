@@ -58,7 +58,7 @@ export default function ProviderSettingsScreen() {
   } = useSearch(
     allModels,
     useCallback((model: Model) => [model.name || '', model.id || ''], []),
-    { delay: 300 }
+    { delay: 100 }
   )
 
   // 使用 groupBy 对过滤后的模型按 group 字段分组
@@ -148,7 +148,9 @@ export default function ProviderSettingsScreen() {
               <Group>
                 <Row>
                   <Text>{t('common.enabled')}</Text>
-                  <Switch color="success" isSelected={provider.enabled} onSelectedChange={handleEnabledChange} />
+                  <Switch color="success" isSelected={provider.enabled} onSelectedChange={handleEnabledChange}>
+                    <Switch.Thumb colors={{ defaultBackground: 'white', selectedBackground: 'white' }} />
+                  </Switch>
                 </Row>
                 <PressableRow onPress={onApiService}>
                   <Text>{t('settings.provider.api_service')}</Text>

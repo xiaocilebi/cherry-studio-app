@@ -113,10 +113,12 @@
       "file": "ファイル",
       "generateImage": "画像を作成する",
       "go_to_settings": "設定に移動",
+      "import_from_cherry_studio": "チェリースタジオからインポート",
       "language": "言語",
       "last_month": "先月",
       "last_week": "先週",
       "loading": "読み込み中...",
+      "login": "ログイン",
       "manage": "管理",
       "model": "モデル",
       "name": "名前",
@@ -135,6 +137,7 @@
       "see_all": "すべて表示",
       "select_text": "テキストを選択",
       "source": "ソース",
+      "start": "Cherry Studioアプリを使ってみましょう 🎉",
       "stop": "停止",
       "this_week": "今週",
       "today": "今日",
@@ -142,6 +145,10 @@
       "translate": "翻訳",
       "visit": "訪問",
       "websearch": "ウェブ検索",
+      "welcome": {
+        "message1": "Cherry Studio へようこそ",
+        "message2": "創作を始めて、無限の可能性を楽しみましょう！"
+      },
       "yesterday": "昨日"
     },
     "error": {
@@ -280,6 +287,35 @@
       "mentions": "@ {{number}} モデル",
       "placeholder": "メッセージを送信..."
     },
+    "mcp": {
+      "builtin": {
+        "calendar": {
+          "description": "取得、オペレーティングシステムのカレンダー"
+        },
+        "fetch": {
+          "description": "URLからウェブページの内容を取得する"
+        },
+        "reminder": {
+          "description": "リマインダーの取得、作成、更新、削除"
+        },
+        "time": {
+          "description": "現在時刻を取得する"
+        }
+      },
+      "market": {
+        "title": "MCP市場"
+      },
+      "server": {
+        "empty": "MCPサーバーがありません...",
+        "selected": "選択された{{num}}個のMCPサーバー",
+        "title": "MCPサーバー"
+      },
+      "type": {
+        "inMemory": "内蔵",
+        "sse": "サーバー送信イベント",
+        "streamableHttp": "ストリーミングHTTP"
+      }
+    },
     "menu": {
       "assistant": {
         "recent": "最近のアシスタント",
@@ -341,6 +377,7 @@
       "baidu-cloud": "Baidu Cloud",
       "burncloud": "BurnCloud",
       "cephalon": "Cephalon",
+      "cherryin": "チェリーイン",
       "copilot": "GitHub Copilot",
       "dashscope": "Alibaba Cloud",
       "deepseek": "DeepSeek",

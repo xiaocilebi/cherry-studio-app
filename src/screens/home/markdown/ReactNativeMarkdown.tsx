@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Markdown from 'react-native-marked'
 import { View } from 'react-native'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { MainTextMessageBlock, ThinkingMessageBlock, TranslationMessageBlock } from '@/types/message'
 import { escapeBrackets, removeSvgEmptyLines } from '@/utils/formats'
 

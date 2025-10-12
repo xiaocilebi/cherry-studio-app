@@ -2,10 +2,12 @@ import '@/i18n'
 import 'react-native-reanimated'
 import '../global.css'
 
-import { HeroUINativeProvider } from 'heroui-native'
+import { HeroUINativeProvider, useTheme as useHerouiTheme } from 'heroui-native'
+import { createTamagui, TamaguiProvider } from 'tamagui'
+import { defaultConfig } from '@tamagui/config/v4'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { NavigationContainer } from '@react-navigation/native'
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin'
 import { useFonts } from 'expo-font'
@@ -39,6 +41,8 @@ import { DialogProvider } from './hooks/useDialog'
 import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
+import { initBuiltinMcp } from './config/mcp'
+import { upsertMcps } from '../db/queries/mcp.queries'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -46,52 +50,54 @@ const logger = loggerService.withContext('DataBase Assistants')
 
 // 数据库初始化组件
 function DatabaseInitializer() {
-  const { success, error } = useMigrations(db, migrations);
+  const { success, error } = useMigrations(db, migrations)
   const [loaded] = useFonts({
-    JetbrainMono: require('./assets/fonts/JetBrainsMono-Regular.ttf'),
-  });
-  const initialized = useSelector((state: RootState) => state.app.initialized);
-  const dispatch = useAppDispatch();
+    JetbrainMono: require('./assets/fonts/JetBrainsMono-Regular.ttf')
+  })
+  const initialized = useSelector((state: RootState) => state.app.initialized)
+  const dispatch = useAppDispatch()
 
-  useDrizzleStudio(expoDb);
+  useDrizzleStudio(expoDb)
 
   useEffect(() => {
     if (success) {
-      logger.info('Migrations completed successfully', expoDb.databasePath);
+      logger.info('Migrations completed successfully', expoDb.databasePath)
     } else if (error) {
-      logger.error('Migrations failed', error);
+      logger.error('Migrations failed', error)
     }
-  }, [success, error]); 
+  }, [success, error])
 
   useEffect(() => {
     if (success && loaded && !initialized) {
       const initializeApp = async () => {
         try {
-          logger.info('First launch, initializing app data...');
-          const systemAssistants = getSystemAssistants();
-          await upsertAssistants([...systemAssistants]);
-          await upsertProviders(SYSTEM_PROVIDERS);
-          const websearchProviders = getWebSearchProviders();
-          await upsertWebSearchProviders(websearchProviders);
-          const dataBackupProviders = getDataBackupProviders();
-          await upsertDataBackupProviders(dataBackupProviders);
-          storage.set('language', Localization.getLocales()[0]?.languageTag);
-          dispatch(setInitialized(true));
-          logger.info('App data initialized successfully.');
+          logger.info('First launch, initializing app data...')
+          const systemAssistants = getSystemAssistants()
+          await upsertAssistants([...systemAssistants])
+          await upsertProviders(SYSTEM_PROVIDERS)
+          const websearchProviders = getWebSearchProviders()
+          await upsertWebSearchProviders(websearchProviders)
+          const dataBackupProviders = getDataBackupProviders()
+          await upsertDataBackupProviders(dataBackupProviders)
+          storage.set('language', Localization.getLocales()[0]?.languageTag)
+          const builtinMcp = initBuiltinMcp()
+          await upsertMcps(builtinMcp)
+          dispatch(setInitialized(true))
+          logger.info('App data initialized successfully.')
         } catch (e) {
-          logger.error('Failed to initialize app data', e);
+          logger.error('Failed to initialize app data', e)
         }
-      };
+      }
 
-      initializeApp();
+      initializeApp()
     }
-  }, [success, loaded, initialized, dispatch]);
+  }, [success, loaded, initialized, dispatch])
 
   useEffect(() => {
     if (loaded && initialized) {
-      SplashScreen.hideAsync();
+      SplashScreen.hideAsync()
     }
-  }, [loaded, initialized]);
+  }, [loaded, initialized])
 
   return null;
 }
@@ -99,24 +105,29 @@ function DatabaseInitializer() {
 
 // 主题和导航组件
 function ThemedApp() {
-  const { themeSetting, reactNavigationTheme, isDark } = useTheme()
+  const { themeSetting, activeTheme } = useTheme()
+  const { isDark } = useHerouiTheme()
+
+  const config = createTamagui(defaultConfig)
 
   return (
-    <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
-      <KeyboardProvider>
-        <NavigationContainer theme={reactNavigationTheme}>
-          <SystemBars style={isDark ? 'light' : 'dark'} />
-          <DatabaseInitializer />
-          <DialogProvider>
-            <ToastProvider>
-              <BottomSheetModalProvider>
-                <MainStackNavigator />
-              </BottomSheetModalProvider>
-            </ToastProvider>
-          </DialogProvider>
-        </NavigationContainer>
-      </KeyboardProvider>
-    </HeroUINativeProvider>
+    <TamaguiProvider config={config} defaultTheme={activeTheme}>
+      <HeroUINativeProvider config={{ colorScheme: themeSetting }}>
+        <KeyboardProvider>
+          <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
+            <SystemBars style={isDark ? 'dark' : 'light'} />
+            <DatabaseInitializer />
+            <DialogProvider>
+              <ToastProvider>
+                <BottomSheetModalProvider>
+                  <MainStackNavigator />
+                </BottomSheetModalProvider>
+              </ToastProvider>
+            </DialogProvider>
+          </NavigationContainer>
+        </KeyboardProvider>
+      </HeroUINativeProvider>
+    </TamaguiProvider>
   )
 }
 

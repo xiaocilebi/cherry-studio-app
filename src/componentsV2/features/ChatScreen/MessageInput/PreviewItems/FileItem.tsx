@@ -9,10 +9,10 @@ import { shareFile } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
 import { formatFileSize } from '@/utils/file'
-import { ContextMenu } from '@/componentsV2/base/ContextMenu'
 import Text from '@/componentsV2/base/Text'
 import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
+import ContextMenu from '@/componentsV2/base/ContextMenu'
 
 const logger = loggerService.withContext('File Item')
 

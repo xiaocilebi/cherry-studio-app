@@ -7,7 +7,7 @@ import { View } from 'react-native'
 
 import { Edit3, Sparkles, Trash2 } from '../../icons/LucideIcon'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import { useToast } from '@/hooks/useToast'
 import i18n from '@/i18n'
 import { fetchTopicNaming } from '@/services/ApiService'
@@ -24,7 +24,7 @@ import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
 import TextField from '@/componentsV2/base/TextField'
-import { ContextMenu } from '@/componentsV2/base/ContextMenu'
+import ContextMenu from '@/componentsV2/base/ContextMenu'
 
 type TimeFormat = 'time' | 'date'
 
@@ -69,18 +69,20 @@ export const TopicItem: FC<TopicItemProps> = ({
   const [isGeneratingName, setIsGeneratingName] = useState(false)
   const dialog = useDialog()
   const { isDark } = useTheme()
-  const isActive = useAppSelector(state => state.topic.currentTopicId === topic.id)
+  const isActive = useAppSelector(
+    state => state.topic.currentTopicId === topic.id,
+    (prev, next) => prev === next
+  )
   const toast = useToast()
 
   const openTopic = () => {
-    dispatch(setCurrentTopicId(topic.id))
-
     if (handleNavigateChatScreen) {
       handleNavigateChatScreen(topic.id)
     } else {
       haptic(ImpactFeedbackStyle.Medium)
       navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: topic.id } })
     }
+    dispatch(setCurrentTopicId(topic.id))
   }
 
   const date = new Date(topic.updatedAt)

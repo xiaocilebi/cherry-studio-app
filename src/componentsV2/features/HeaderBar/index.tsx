@@ -63,7 +63,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
       {/* Right area */}
       <XStack className="min-w-[40px] items-center justify-end">
         {buttonsToRender.length > 0 ? (
-          <XStack className="gap-2">
+          <XStack className="gap-3">
             {buttonsToRender.map((button, index) => (
               <TouchableOpacity key={index} hitSlop={10} onPress={button.onPress}>
                 {button.icon}

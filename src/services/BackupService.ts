@@ -33,8 +33,8 @@ type OnProgressCallback = (update: ProgressUpdate) => void
 async function restoreIndexedDbData(data: ExportIndexedData, onProgress: OnProgressCallback, dispatch: Dispatch) {
   onProgress({ step: 'restore_messages', status: 'in_progress' })
   await upsertTopics(data.topics)
-  await upsertBlocks(data.message_blocks)
   await upsertMessages(data.messages)
+  await upsertBlocks(data.message_blocks)
 
   if (data.settings) {
     const avatarSetting = data.settings.find(setting => setting.id === 'image://avatar')

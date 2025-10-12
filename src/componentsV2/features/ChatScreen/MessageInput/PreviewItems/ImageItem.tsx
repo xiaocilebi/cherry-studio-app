@@ -10,9 +10,9 @@ import { saveImageToGallery } from '@/services/ImageService'
 import { loggerService } from '@/services/LoggerService'
 import { FileMetadata } from '@/types/file'
 import { Download, Share, X, ImageOff } from '@/componentsV2/icons'
-import { ContextMenu } from '@/componentsV2/base/ContextMenu'
 import Image from '@/componentsV2/base/Image'
 import ImageViewerFooterComponent from '@/componentsV2/base/ImageViewerFooterComponent'
+import ContextMenu from '@/componentsV2/base/ContextMenu'
 
 const logger = loggerService.withContext('Image Item')
 
@@ -124,10 +124,7 @@ const ImageItem: FC<ImageItemProps> = ({ file, allImages = [], onRemove, size, d
         presentationStyle="fullScreen"
         animationType="slide"
         FooterComponent={({ imageIndex: idx }: any) => (
-          <ImageViewerFooterComponent
-            uri={(imagesForViewer[idx] || file).path}
-            onSaved={() => setIsVisible(false)}
-          />
+          <ImageViewerFooterComponent uri={(imagesForViewer[idx] || file).path} onSaved={() => setIsVisible(false)} />
         )}
       />
       {onRemove && (

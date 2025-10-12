@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/useToast'
 import { downloadFileAsync, writeBase64File } from '@/services/FileService'
 import { SaveImageResult, saveImageToGallery } from '@/services/ImageService'
 import { DEFAULT_IMAGES_STORAGE } from '@/constants/storage'
-import { Paths,File } from 'expo-file-system'
+import { Paths, File } from 'expo-file-system'
 import { uuid } from '@/utils'
 
 export interface ImageViewerFooterComponentProps {
@@ -35,8 +35,8 @@ const ImageViewerFooterComponent: React.FC<ImageViewerFooterComponentProps> = ({
       } else if (isFileUrl) {
         result = await saveImageToGallery(uri)
       } else if (isHttpUrl) {
-        const destination = new File(Paths.join(DEFAULT_IMAGES_STORAGE,`${uuid}.jpg`))
-        const output = await downloadFileAsync(uri,destination)
+        const destination = new File(Paths.join(DEFAULT_IMAGES_STORAGE, `${uuid}.jpg`))
+        const output = await downloadFileAsync(uri, destination)
         result = await saveImageToGallery(output.uri)
       }
 
@@ -53,10 +53,7 @@ const ImageViewerFooterComponent: React.FC<ImageViewerFooterComponentProps> = ({
 
   return (
     <View className="w-full items-center p-safe">
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={handleSave}
-        className="flex-row items-center gap-2">
+      <TouchableOpacity activeOpacity={0.8} onPress={handleSave} className="flex-row items-center gap-2">
         <Download size={18} />
         <Text className="text-lg">{t('button.save_image')}</Text>
       </TouchableOpacity>

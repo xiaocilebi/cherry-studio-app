@@ -1,10 +1,12 @@
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useMemo } from 'react'
 
 import { Provider } from '@/types/assistant'
 
 import { db } from '../../db'
-import { transformDbToProvider, upsertProviders } from '../../db/queries/providers.queries'
+import { transformDbToProvider } from '../../db/mappers'
+import { upsertProviders } from '../../db/queries/providers.queries'
 import { providers as providersSchema } from '../../db/schema'
 
 /**
@@ -14,6 +16,16 @@ export function useAllProviders() {
   const query = db.select().from(providersSchema)
   const { data: rawProviders, updatedAt } = useLiveQuery(query)
 
+  const processedProviders = useMemo(() => {
+    if (!rawProviders || rawProviders.length === 0) return []
+    const transformed = rawProviders.map(provider => transformDbToProvider(provider))
+    // Sort by enabled: true first, then false
+    return transformed.sort((a, b) => {
+      if (a.enabled === b.enabled) return 0
+      return a.enabled ? -1 : 1
+    })
+  }, [rawProviders])
+
   if (!updatedAt || !rawProviders || rawProviders.length === 0) {
     return {
       providers: [],
@@ -21,7 +33,6 @@ export function useAllProviders() {
     }
   }
 
-  const processedProviders = rawProviders.map(provider => transformDbToProvider(provider))
   return {
     providers: processedProviders,
     isLoading: false
@@ -40,7 +51,12 @@ export function useProvider(providerId: string) {
     await upsertProviders([provider])
   }
 
-  if (!updatedAt || !rawProvider || rawProvider.length === 0) {
+  const provider = useMemo(() => {
+    if (!rawProvider || rawProvider.length === 0) return null
+    return transformDbToProvider(rawProvider[0])
+  }, [rawProvider])
+
+  if (!updatedAt || !provider) {
     return {
       provider: null,
       isLoading: true,
@@ -48,7 +64,6 @@ export function useProvider(providerId: string) {
     }
   }
 
-  const provider = transformDbToProvider(rawProvider[0])
   return {
     provider,
     isLoading: false,

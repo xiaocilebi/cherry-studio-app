@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from '@/store'
@@ -7,12 +8,26 @@ import { setContentLimit, setMaxResult, setOverrideSearchService, setSearchWithT
 import { WebSearchProvider } from '@/types/websearch'
 
 import { db } from '../../db'
-import { transformDbToWebSearchProvider, upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
+import { transformDbToWebSearchProvider } from '../../db/mappers'
+import { upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
 import { websearch_providers } from '../../db/schema'
 
 export function useWebsearchProviders() {
   const query = db.select().from(websearch_providers)
   const { data: rawProviders, updatedAt } = useLiveQuery(query)
+
+  const processedProviders = useMemo(() => {
+    if (!rawProviders || rawProviders.length === 0) return []
+    return rawProviders.map(provider => transformDbToWebSearchProvider(provider))
+  }, [rawProviders])
+
+  const freeProviders = useMemo(() => {
+    return processedProviders.filter(provider => provider.id.startsWith('local-'))
+  }, [processedProviders])
+
+  const apiProviders = useMemo(() => {
+    return processedProviders.filter(provider => !provider.id.startsWith('local-') && provider.id !== 'searxng')
+  }, [processedProviders])
 
   if (!updatedAt || !rawProviders || rawProviders.length === 0) {
     return {
@@ -21,12 +36,6 @@ export function useWebsearchProviders() {
       isLoading: true
     }
   }
-
-  const processedProviders = rawProviders.map(provider => transformDbToWebSearchProvider(provider))
-  const freeProviders = processedProviders.filter(provider => provider.id.startsWith('local-'))
-  const apiProviders = processedProviders.filter(
-    provider => !provider.id.startsWith('local-') && provider.id !== 'searxng'
-  )
 
   return {
     freeProviders,
@@ -42,6 +51,11 @@ export function useAllWebSearchProviders() {
   const query = db.select().from(websearch_providers)
   const { data: rawProviders, updatedAt } = useLiveQuery(query)
 
+  const processedProviders = useMemo(() => {
+    if (!rawProviders || rawProviders.length === 0) return []
+    return rawProviders.map(provider => transformDbToWebSearchProvider(provider))
+  }, [rawProviders])
+
   if (!updatedAt || !rawProviders || rawProviders.length === 0) {
     return {
       providers: [],
@@ -49,7 +63,6 @@ export function useAllWebSearchProviders() {
     }
   }
 
-  const processedProviders = rawProviders.map(provider => transformDbToWebSearchProvider(provider))
   return {
     providers: processedProviders,
     isLoading: false
@@ -68,7 +81,12 @@ export function useWebSearchProvider(providerId: string) {
     await upsertWebSearchProviders([provider])
   }
 
-  if (!updatedAt || !rawProvider || rawProvider.length === 0) {
+  const provider = useMemo(() => {
+    if (!rawProvider || rawProvider.length === 0) return null
+    return transformDbToWebSearchProvider(rawProvider[0])
+  }, [rawProvider])
+
+  if (!updatedAt || !provider) {
     return {
       provider: null,
       isLoading: true,
@@ -76,7 +94,6 @@ export function useWebSearchProvider(providerId: string) {
     }
   }
 
-  const provider = transformDbToWebSearchProvider(rawProvider[0])
   return {
     provider,
     isLoading: false,

@@ -22,8 +22,8 @@ interface BlockManagerDependencies {
   assistantMsgId: string
   topicId: string
   // 节流器管理从外部传入
-  throttledBlockUpdate: (id: string, blockUpdate: any) => void
-  cancelThrottledBlockUpdate: (id: string) => void
+  throttledBlockUpdate: (id: string, blockUpdate: Partial<MessageBlock>) => Promise<void>
+  cancelThrottledBlockUpdate: (id: string) => Promise<void>
 }
 
 export class BlockManager {
@@ -77,12 +77,12 @@ export class BlockManager {
     if (isBlockTypeChanged || isComplete) {
       // 如果块类型改变，则取消上一个块的节流更新
       if (isBlockTypeChanged && this._activeBlockInfo) {
-        this.deps.cancelThrottledBlockUpdate(this._activeBlockInfo.id)
+        await this.deps.cancelThrottledBlockUpdate(this._activeBlockInfo.id)
       }
 
       // 如果当前块完成，则取消当前块的节流更新
       if (isComplete) {
-        this.deps.cancelThrottledBlockUpdate(blockId)
+        await this.deps.cancelThrottledBlockUpdate(blockId)
         this._activeBlockInfo = null // 块完成时清空activeBlockInfo
       } else {
         this._activeBlockInfo = { id: blockId, type: blockType } // 更新活跃块信息
@@ -93,7 +93,7 @@ export class BlockManager {
       this._lastBlockType = blockType
     } else {
       this._activeBlockInfo = { id: blockId, type: blockType } // 更新活跃块信息
-      this.deps.throttledBlockUpdate(blockId, changes)
+      await this.deps.throttledBlockUpdate(blockId, changes)
     }
   }
 

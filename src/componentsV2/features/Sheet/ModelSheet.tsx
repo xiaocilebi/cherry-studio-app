@@ -2,17 +2,16 @@ import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetScrollableCreator 
 import { LegendList } from '@legendapp/list'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
-import React, { forwardRef, useEffect, useMemo, useState } from 'react'
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Platform, useWindowDimensions, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button } from 'heroui-native'
+import { Button, useTheme } from 'heroui-native'
 
 import { ModelIcon, ProviderIcon } from '@/componentsV2/icons'
 import { BrushCleaning, Settings } from '@/componentsV2/icons/LucideIcon'
 import { isEmbeddingModel, isRerankModel } from '@/config/models'
 import { useAllProviders } from '@/hooks/useProviders'
-import { useTheme } from '@/hooks/useTheme'
 import { Model, Provider } from '@/types/assistant'
 import { getModelUniqId } from '@/utils/model'
 import { ModelTags } from '@/componentsV2/features/ModelTags'
@@ -41,6 +40,15 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const insets = useSafeAreaInsets()
   const dimensions = useWindowDimensions()
   const navigation = useNavigation<HomeNavigationProps>()
+  const { providers } = useAllProviders()
+
+  const dismissDataRef = useRef<{
+    selectedModelIds: string[]
+    isMultiSelectActive: boolean
+  }>({
+    selectedModelIds: mentions.map(m => getModelUniqId(m)),
+    isMultiSelectActive: false
+  })
 
   const debouncedSetQuery = debounce((query: string) => {
     setSearchQuery(query)
@@ -52,7 +60,12 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   }
 
   useEffect(() => {
-    setSelectedModels(mentions.map(m => getModelUniqId(m)))
+    const newSelectedModels = mentions.map(m => getModelUniqId(m))
+    setSelectedModels(newSelectedModels)
+    dismissDataRef.current = {
+      ...dismissDataRef.current,
+      selectedModelIds: newSelectedModels
+    }
   }, [mentions])
 
   useEffect(() => {
@@ -67,7 +80,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     return () => backHandler.remove()
   }, [ref, isVisible])
 
-  const { providers } = useAllProviders()
   const selectOptions = providers
     .filter(p => p.models && p.models.length > 0 && p.enabled)
     .map(p => ({
@@ -93,7 +105,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
   const allModelOptions = selectOptions.flatMap(group => group.options)
 
-  // Build flattened list data for LegendList
   type ListItem =
     | { type: 'header'; label: string; provider: Provider }
     | { type: 'model'; label: string; value: string; model: Model }
@@ -133,27 +144,35 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
     setSelectedModels(newSelection)
 
-    const newMentions = allModelOptions
-      .filter(option => newSelection.includes(option.value))
-      .map(option => option.model)
-    await setMentions(newMentions, isMultiSelectActive)
+    dismissDataRef.current = {
+      selectedModelIds: newSelection,
+      isMultiSelectActive
+    }
   }
 
   const handleClearAll = async () => {
     setSelectedModels([])
-    await setMentions([])
+    dismissDataRef.current = {
+      selectedModelIds: [],
+      isMultiSelectActive
+    }
   }
 
   const toggleMultiSelectMode = async () => {
     const newMultiSelectActive = !isMultiSelectActive
     setIsMultiSelectActive(newMultiSelectActive)
 
+    let newSelection = selectedModels
     // 如果切换到单选模式且当前有多个选择，只保留第一个
     if (!newMultiSelectActive && selectedModels.length > 1) {
       const firstSelected = selectedModels[0]
-      setSelectedModels([firstSelected])
-      const newMentions = allModelOptions.filter(option => option.value === firstSelected).map(option => option.model)
-      await setMentions(newMentions)
+      newSelection = [firstSelected]
+      setSelectedModels(newSelection)
+    }
+
+    dismissDataRef.current = {
+      selectedModelIds: newSelection,
+      isMultiSelectActive: newMultiSelectActive
     }
   }
 
@@ -162,12 +181,22 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     navigation.navigate('ProvidersSettings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
   }
 
+  const handleDismiss = async () => {
+    const { selectedModelIds, isMultiSelectActive: wasMultiSelectActive } = dismissDataRef.current
+
+    const newMentions = allModelOptions
+      .filter(option => selectedModelIds.includes(option.value))
+      .map(option => option.model)
+
+    await setMentions(newMentions, wasMultiSelectActive)
+    setIsVisible(false)
+  }
+
   // 添加背景组件渲染函数
   const renderBackdrop = (props: any) => (
     <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.5} pressBehavior="close" />
   )
 
-  // Create scrollable component for BottomSheet + LegendList integration
   const BottomSheetLegendListScrollable = useBottomSheetScrollableCreator()
 
   const ESTIMATED_ITEM_SIZE = 20
@@ -191,7 +220,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       keyboardBehavior={Platform.OS === 'ios' ? 'interactive' : 'fillParent'}
       keyboardBlurBehavior="restore"
       maxDynamicContentSize={dimensions.height - 2 * insets.top}
-      onDismiss={() => setIsVisible(false)}
+      onDismiss={handleDismiss}
       onChange={index => setIsVisible(index >= 0)}>
       <LegendList
         data={listData}
@@ -212,7 +241,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                   <XStack className="items-center justify-center">
                     <ProviderIcon provider={item.provider} size={24} />
                   </XStack>
-                  <Text className="text-lg font-bold text-gray-80 dark:text-gray-80">{item.label}</Text>
+                  <Text className="text-lg font-bold text-gray-80 dark:text-gray-80">{item.label.toUpperCase()}</Text>
                 </XStack>
                 <TouchableOpacity onPress={() => navigateToProvidersSetting(item.provider)}>
                   <Settings className="text-gray-80 dark:text-gray-80" size={16} />

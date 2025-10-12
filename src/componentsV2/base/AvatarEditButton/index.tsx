@@ -3,7 +3,7 @@ import EmojiPicker, { EmojiType } from 'rn-emoji-keyboard'
 import { TouchableOpacity } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from 'heroui-native'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '../Text'
 
