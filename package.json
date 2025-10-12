@@ -40,7 +40,7 @@
     "@aws-sdk/client-bedrock-runtime": "^3.840.0",
     "@aws-sdk/client-s3": "^3.840.0",
     "@cherrystudio/ai-core": "^1.0.1",
-    "@expo/ui": "0.2.0-beta.3",
+    "@expo/ui": "~0.2.0-beta.7",
     "@google/genai": "^1.17.0",
     "@gorhom/bottom-sheet": "^5.2.6",
     "@legendapp/list": "^2.0.6",
@@ -79,7 +79,7 @@
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.6",
     "drizzle-orm": "^0.43.1",
-    "expo": "54.0.9",
+    "expo": "^54.0.13",
     "expo-asset": "~12.0.9",
     "expo-blur": "~15.0.7",
     "expo-build-properties": "~1.0.9",
@@ -88,7 +88,7 @@
     "expo-clipboard": "~8.0.7",
     "expo-constants": "~18.0.9",
     "expo-crypto": "~15.0.7",
-    "expo-dev-client": "~6.0.12",
+    "expo-dev-client": "~6.0.15",
     "expo-document-picker": "~14.0.7",
     "expo-drizzle-studio-plugin": "^0.2.0",
     "expo-file-system": "~19.0.14",
@@ -134,7 +134,7 @@
     "react-native-image-viewing": "^0.2.2",
     "react-native-ios-context-menu": "3.2.1",
     "react-native-ios-utilities": "5.2.0",
-    "react-native-keyboard-controller": "^1.18.5",
+    "react-native-keyboard-controller": "1.18.5",
     "react-native-marked": "^7.0.2",
     "react-native-mathjax-svg": "^0.9.9",
     "react-native-mmkv": "^3.3.0",
@@ -202,6 +202,7 @@
   "private": true,
   "packageManager": "yarn@4.9.1",
   "resolutions": {
-    "esbuild": "^0.25.4"
+    "esbuild": "^0.25.4",
+    "expo-sqlite": "16.0.8"
   }
 }

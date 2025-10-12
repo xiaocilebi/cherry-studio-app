@@ -51,54 +51,53 @@ const logger = loggerService.withContext('DataBase Assistants')
 // 数据库初始化组件
 function DatabaseInitializer() {
   const { success, error } = useMigrations(db, migrations)
-  const initialized = useSelector((state: RootState) => state.app.initialized)
-  const dispatch = useAppDispatch()
   const [loaded] = useFonts({
     JetbrainMono: require('./assets/fonts/JetBrainsMono-Regular.ttf')
   })
+  const initialized = useSelector((state: RootState) => state.app.initialized)
+  const dispatch = useAppDispatch()
 
   useDrizzleStudio(expoDb)
 
   useEffect(() => {
-    // tofix: when add new schema this will not run
-    const initializeApp = async () => {
-      if (initialized) return
-
-      try {
-        logger.info('First launch, initializing app data...')
-        const systemAssistants = getSystemAssistants()
-        // const builtInAssistants = getBuiltInAssistants()
-        await upsertAssistants([...systemAssistants])
-        await upsertProviders(SYSTEM_PROVIDERS)
-        const websearchProviders = getWebSearchProviders()
-        await upsertWebSearchProviders(websearchProviders)
-        const dataBackupProviders = getDataBackupProviders()
-        await upsertDataBackupProviders(dataBackupProviders)
-        const builtinMcp = initBuiltinMcp()
-        await upsertMcps(builtinMcp)
-        storage.set('language', Localization.getLocales()[0]?.languageTag)
-        dispatch(setInitialized(true))
-        logger.info('App data initialized successfully.')
-      } catch (e) {
-        logger.error('Failed to initialize app data', e)
-      }
+    if (success) {
+      logger.info('Migrations completed successfully', expoDb.databasePath)
+    } else if (error) {
+      logger.error('Migrations failed', error)
     }
-
-    const handleMigrations = async () => {
-      if (success && loaded) {
-        logger.info('Migrations completed successfully', expoDb.databasePath)
-        await initializeApp()
-      } else if (error) {
-        logger.error('Migrations failed', error)
-      }
-    }
-
-    handleMigrations()
-  }, [success, error, initialized, dispatch, loaded])
+  }, [success, error])
 
   useEffect(() => {
-    SplashScreen.hideAsync()
-  }, [])
+    if (success && loaded && !initialized) {
+      const initializeApp = async () => {
+        try {
+          logger.info('First launch, initializing app data...')
+          const systemAssistants = getSystemAssistants()
+          await upsertAssistants([...systemAssistants])
+          await upsertProviders(SYSTEM_PROVIDERS)
+          const websearchProviders = getWebSearchProviders()
+          await upsertWebSearchProviders(websearchProviders)
+          const dataBackupProviders = getDataBackupProviders()
+          await upsertDataBackupProviders(dataBackupProviders)
+          storage.set('language', Localization.getLocales()[0]?.languageTag)
+          const builtinMcp = initBuiltinMcp()
+          await upsertMcps(builtinMcp)
+          dispatch(setInitialized(true))
+          logger.info('App data initialized successfully.')
+        } catch (e) {
+          logger.error('Failed to initialize app data', e)
+        }
+      }
+
+      initializeApp()
+    }
+  }, [success, loaded, initialized, dispatch])
+
+  useEffect(() => {
+    if (loaded && initialized) {
+      SplashScreen.hideAsync()
+    }
+  }, [loaded, initialized])
 
   return null
 }
