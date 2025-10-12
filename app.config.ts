@@ -26,7 +26,21 @@ export default {
       predictiveBackGestureEnabled: true
     },
     plugins: [
-      ['expo-build-properties', { ios: { deploymentTarget: '15.5' } }],
+      [
+        'expo-build-properties',
+        {
+          ios: { deploymentTarget: '15.5' },
+          android: {
+            kotlinVersion: '2.0.21',
+            buildToolsVersion: '35.0.0',
+            compileSdkVersion: 35,
+            targetSdkVersion: 35,
+            minSdkVersion: 24,
+            gradleVersion: '8.13',
+            androidGradlePluginVersion: '8.13.0'
+          }
+        }
+      ],
       [
         'expo-splash-screen',
         {
