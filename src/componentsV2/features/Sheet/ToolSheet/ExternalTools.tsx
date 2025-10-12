@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button } from 'heroui-native'
-
 import { Check, Globe, Palette } from '@/componentsV2/icons'
 
 import { Assistant, Model } from '@/types/assistant'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
+import PressableRow from '@/componentsV2/layout/PressableRow'
+import XStack from '@/componentsV2/layout/XStack'
 
 interface ExternalTool {
   key: string
@@ -71,21 +71,16 @@ export const ExternalTools: React.FC<ExternalToolsProps> = ({
           : 'text-text-primary dark:text-text-primary-dark'
 
         return (
-          <Button
+          <PressableRow
             key={option.key}
-            variant="ghost"
             className="my-1 w-full items-center justify-between rounded-xl px-0 py-2"
             onPress={option.onPress}>
-            <Button.StartContent className="mr-3 items-center justify-center">
+            <XStack className="gap-5">
               {React.cloneElement(option.icon, { className: activeColorClass } as any)}
-            </Button.StartContent>
-            <Button.LabelContent className="flex-1 items-start">
               <Text className={`text-base ${activeColorClass}`}>{option.label}</Text>
-            </Button.LabelContent>
-            <Button.EndContent>
-              {option.isActive ? <Check size={20} className="text-green-100 dark:text-green-dark-100" /> : null}
-            </Button.EndContent>
-          </Button>
+            </XStack>
+            {option.isActive && <Check size={20} className="text-green-100 dark:text-green-dark-100" />}
+          </PressableRow>
         )
       })}
     </YStack>

@@ -62,11 +62,11 @@ export const ReasoningSheet: FC<ReasoningSheetProps> = ({ model, assistant, upda
     return MODEL_SUPPORTED_OPTIONS[modelType]
   }, [model, modelType])
 
-  const onValueChange = (option?: ThinkingOption) => {
+  const onValueChange = async (option?: ThinkingOption) => {
     const isEnabled = option !== undefined && option !== 'off'
 
     if (!isEnabled) {
-      updateAssistant({
+      await updateAssistant({
         ...assistant,
         settings: {
           ...assistant.settings,
@@ -76,7 +76,7 @@ export const ReasoningSheet: FC<ReasoningSheetProps> = ({ model, assistant, upda
         }
       })
     } else {
-      updateAssistant({
+      await updateAssistant({
         ...assistant,
         settings: {
           ...assistant.settings,

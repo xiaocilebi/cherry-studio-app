@@ -5,7 +5,8 @@ import { IconButton } from '@/componentsV2/base/IconButton'
 import { McpServerSheet } from '../../Sheet/McpServerSheet'
 import { Assistant } from '@/types/assistant'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { cn } from 'heroui-native'
+import XStack from '@/componentsV2/layout/XStack'
+import Text from '@/componentsV2/base/Text'
 
 interface McpButtonProps {
   assistant: Assistant
@@ -19,21 +20,21 @@ export const McpButton: React.FC<McpButtonProps> = ({ assistant, updateAssistant
     mcpServerSheetRef.current?.present()
   }
 
+  const McpIconContent = () => {
+    if (assistant.mcpServers?.length && assistant.mcpServers?.length > 0) {
+      return (
+        <XStack className="gap-1 rounded-xl py-1 px-2 bg-green-10 dark:bg-green-dark-10 border-[0.5px] border-green-20 dark:border-green-dark-20 justify-between items-center">
+          <Hammer size={20} className="text-green-100 dark:text-green-dark-100" />
+          <Text className="text-green-100 dark:text-green-dark-100">{assistant.mcpServers?.length}</Text>
+        </XStack>
+      )
+    }
+    return <Hammer size={20} />
+  }
+
   return (
     <>
-      <IconButton
-        icon={
-          <Hammer
-            size={20}
-            className={cn(
-              assistant.mcpServers?.length && assistant.mcpServers?.length > 0
-                ? 'text-green-100 dark:text-green-dark-100'
-                : undefined
-            )}
-          />
-        }
-        onPress={openMcpServerSheet}
-      />
+      <IconButton icon={<McpIconContent />} onPress={openMcpServerSheet} />
       <McpServerSheet ref={mcpServerSheetRef} assistant={assistant} updateAssistant={updateAssistant} />
     </>
   )
