@@ -44,10 +44,13 @@ export const McpServerSheet: FC<McpServerProps> = ({ ref, assistant, updateAssis
           ? currentMcpServers.filter(s => s.id !== mcpServer.id)
           : [...currentMcpServers, mcpServer]
 
+        console.log('updatedMcpServers', updatedMcpServers)
+
         await updateAssistant({ ...assistant, mcpServers: updatedMcpServers })
       }
     }
   })
+  console.log('providerItems', providerItems)
 
   const emptyContent = (
     <TouchableOpacity onPress={handleNavigateToMcpMarket} activeOpacity={0.7}>

@@ -3,12 +3,11 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { BackHandler, TouchableOpacity, View } from 'react-native'
 
 import { X } from '@/componentsV2/icons/LucideIcon'
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { MCPServer } from '@/types/mcp'
 import YStack from '@/componentsV2/layout/YStack'
 import XStack from '@/componentsV2/layout/XStack'
 import Text from '@/componentsV2/base/Text'
-import { Accordion, Divider, Switch } from 'heroui-native'
+import { Accordion, Divider, Switch, useTheme } from 'heroui-native'
 import { useTranslation } from 'react-i18next'
 import { MCPTool } from '@/types/tool'
 import { fetchMcpTools } from '@/services/McpService'
@@ -20,7 +19,7 @@ interface McpServerItemSheetProps {
 
 const McpServerItemSheet = forwardRef<BottomSheetModal, McpServerItemSheetProps>(
   ({ selectedMcp, updateMcpServers }, ref) => {
-    const { isDark } = useCustomTheme()
+    const { isDark } = useTheme()
     const { t } = useTranslation()
     const [isVisible, setIsVisible] = useState(false)
     const [tools, setTools] = useState<MCPTool[]>([])

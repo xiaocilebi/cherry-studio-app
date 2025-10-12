@@ -5,12 +5,11 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BackHandler, Platform, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Button, Divider } from 'heroui-native'
+import { Button, Divider, useTheme } from 'heroui-native'
 
 import { Text, XStack, YStack } from '@/componentsV2'
 import { UnionPlusIcon, ModelIcon } from '@/componentsV2/icons'
 import { Settings2, X } from '@/componentsV2/icons/LucideIcon'
-import { useTheme as useCustomTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
 import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
@@ -38,7 +37,7 @@ interface AssistantItemSheetProps {
 const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>(
   ({ assistant, source, onEdit, onChatNavigation, actionButton }, ref) => {
     const { t } = useTranslation()
-    const { isDark } = useCustomTheme()
+    const { isDark } = useTheme()
     const { bottom } = useSafeAreaInsets()
     const dispatch = useAppDispatch()
     const toast = useToast()
