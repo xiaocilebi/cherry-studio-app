@@ -56,7 +56,7 @@
     "@react-native-community/datetimepicker": "8.4.4",
     "@react-native-documents/viewer": "^1.0.3",
     "@react-native-masked-view/masked-view": "0.3.2",
-    "@react-native-menu/menu": "1.2.2",
+    "@react-native-menu/menu": "patch:@react-native-menu/menu@npm%3A1.2.2#~/.yarn/patches/@react-native-menu-menu-npm-1.2.2-2f9d419d7a.patch",
     "@react-native/js-polyfills": "^0.82.0",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/drawer": "^7.3.12",

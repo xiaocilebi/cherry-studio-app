@@ -4488,6 +4488,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-menu/menu@patch:@react-native-menu/menu@npm%3A1.2.2#~/.yarn/patches/@react-native-menu-menu-npm-1.2.2-2f9d419d7a.patch":
+  version: 1.2.2
+  resolution: "@react-native-menu/menu@patch:@react-native-menu/menu@npm%3A1.2.2#~/.yarn/patches/@react-native-menu-menu-npm-1.2.2-2f9d419d7a.patch::version=1.2.2&hash=6056b5"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/18f855e12249457e531b3d78ec9db0335ce1cc44b618778ff0dde514c4437689f4a4ebd29b5d8bc60d12c426a7b74c3446c87355c0027a3be4dca3edfcf246ac
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:0.81.4":
   version: 0.81.4
   resolution: "@react-native/assets-registry@npm:0.81.4"
@@ -7942,7 +7952,7 @@ __metadata:
     "@react-native-community/datetimepicker": "npm:8.4.4"
     "@react-native-documents/viewer": "npm:^1.0.3"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
-    "@react-native-menu/menu": "npm:1.2.2"
+    "@react-native-menu/menu": "patch:@react-native-menu/menu@npm%3A1.2.2#~/.yarn/patches/@react-native-menu-menu-npm-1.2.2-2f9d419d7a.patch"
     "@react-native/js-polyfills": "npm:^0.82.0"
     "@react-navigation/bottom-tabs": "npm:^7.0.0"
     "@react-navigation/drawer": "npm:^7.3.12"
