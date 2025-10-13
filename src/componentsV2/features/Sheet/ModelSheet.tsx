@@ -2,9 +2,9 @@ import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetScrollableCreator 
 import { LegendList } from '@legendapp/list'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BackHandler, Platform, useWindowDimensions, TouchableOpacity } from 'react-native'
+import { BackHandler, Platform, useWindowDimensions, TouchableOpacity, InteractionManager } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, useTheme } from 'heroui-native'
 
@@ -40,15 +40,6 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   const insets = useSafeAreaInsets()
   const dimensions = useWindowDimensions()
   const navigation = useNavigation<HomeNavigationProps>()
-  const { providers } = useAllProviders()
-
-  const dismissDataRef = useRef<{
-    selectedModelIds: string[]
-    isMultiSelectActive: boolean
-  }>({
-    selectedModelIds: mentions.map(m => getModelUniqId(m)),
-    isMultiSelectActive: false
-  })
 
   const debouncedSetQuery = debounce((query: string) => {
     setSearchQuery(query)
@@ -60,12 +51,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
   }
 
   useEffect(() => {
-    const newSelectedModels = mentions.map(m => getModelUniqId(m))
-    setSelectedModels(newSelectedModels)
-    dismissDataRef.current = {
-      ...dismissDataRef.current,
-      selectedModelIds: newSelectedModels
-    }
+    setSelectedModels(mentions.map(m => getModelUniqId(m)))
   }, [mentions])
 
   useEffect(() => {
@@ -80,6 +66,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
     return () => backHandler.remove()
   }, [ref, isVisible])
 
+  const { providers } = useAllProviders()
   const selectOptions = providers
     .filter(p => p.models && p.models.length > 0 && p.enabled)
     .map(p => ({
@@ -105,6 +92,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
   const allModelOptions = selectOptions.flatMap(group => group.options)
 
+  // Build flattened list data for LegendList
   type ListItem =
     | { type: 'header'; label: string; provider: Provider }
     | { type: 'model'; label: string; value: string; model: Model }
@@ -144,52 +132,35 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
 
     setSelectedModels(newSelection)
 
-    dismissDataRef.current = {
-      selectedModelIds: newSelection,
-      isMultiSelectActive
-    }
+    const newMentions = allModelOptions
+      .filter(option => newSelection.includes(option.value))
+      .map(option => option.model)
+    InteractionManager.runAfterInteractions(async () => {
+      await setMentions(newMentions, isMultiSelectActive)
+    })
   }
 
   const handleClearAll = async () => {
     setSelectedModels([])
-    dismissDataRef.current = {
-      selectedModelIds: [],
-      isMultiSelectActive
-    }
+    await setMentions([])
   }
 
   const toggleMultiSelectMode = async () => {
     const newMultiSelectActive = !isMultiSelectActive
     setIsMultiSelectActive(newMultiSelectActive)
 
-    let newSelection = selectedModels
     // 如果切换到单选模式且当前有多个选择，只保留第一个
     if (!newMultiSelectActive && selectedModels.length > 1) {
       const firstSelected = selectedModels[0]
-      newSelection = [firstSelected]
-      setSelectedModels(newSelection)
-    }
-
-    dismissDataRef.current = {
-      selectedModelIds: newSelection,
-      isMultiSelectActive: newMultiSelectActive
+      setSelectedModels([firstSelected])
+      const newMentions = allModelOptions.filter(option => option.value === firstSelected).map(option => option.model)
+      await setMentions(newMentions)
     }
   }
 
   const navigateToProvidersSetting = (provider: Provider) => {
     ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
     navigation.navigate('ProvidersSettings', { screen: 'ProviderSettingsScreen', params: { providerId: provider.id } })
-  }
-
-  const handleDismiss = async () => {
-    const { selectedModelIds, isMultiSelectActive: wasMultiSelectActive } = dismissDataRef.current
-
-    const newMentions = allModelOptions
-      .filter(option => selectedModelIds.includes(option.value))
-      .map(option => option.model)
-
-    await setMentions(newMentions, wasMultiSelectActive)
-    setIsVisible(false)
   }
 
   // 添加背景组件渲染函数
@@ -220,7 +191,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
       keyboardBehavior={Platform.OS === 'ios' ? 'interactive' : 'fillParent'}
       keyboardBlurBehavior="restore"
       maxDynamicContentSize={dimensions.height - 2 * insets.top}
-      onDismiss={handleDismiss}
+      onDismiss={() => setIsVisible(false)}
       onChange={index => setIsVisible(index >= 0)}>
       <LegendList
         data={listData}
