@@ -108,7 +108,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               className="h-[25px] text-xs leading-[14.4px] text-center"
               value={temperatureInput}
               onChangeText={setTemperatureInput}
-              onBlur={() => {
+              onEndEditing={() => {
                 const parsedValue = parseFloat(temperatureInput)
 
                 if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= 1) {
@@ -128,7 +128,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               className="h-[25px] text-xs leading-[14.4px] text-center"
               value={contextInput}
               onChangeText={setContextInput}
-              onBlur={() => {
+              onEndEditing={() => {
                 const parsedValue = parseInt(contextInput)
 
                 if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= 30) {
@@ -170,7 +170,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
                 className="h-[25px] text-xs leading-[14.4px] text-center"
                 value={maxTokensInput}
                 onChangeText={setMaxTokensInput}
-                onBlur={() => {
+                onEndEditing={() => {
                   const parsedValue = parseInt(maxTokensInput)
 
                   if (!isNaN(parsedValue) && parsedValue > 0) {
