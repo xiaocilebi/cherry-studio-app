@@ -31,8 +31,7 @@
       "android": {
         "buildType": "apk",
         "withoutCredentials": "true",
-        "gradleCommand": ":app:assembleRelease",
-        "autoPrebuild": false
+        "gradleCommand": ":app:assembleRelease"
       },
       "env": {
         "BUNDLE_ID": "dev.com.cherry_studio.app"
