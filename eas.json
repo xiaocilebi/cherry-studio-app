@@ -8,10 +8,12 @@
       "developmentClient": true,
       "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "withoutCredentials": "true",
+        "gradleCommand": ":app:assembleDebug -PabiFilters=arm64-v8a"
       },
       "env": {
-        "BUNDLE_ID": "com.cherry_studio.app"
+        "BUNDLE_ID": "dev.com.cherry_studio.app"
       }
     },
     "preview": {
@@ -20,11 +22,20 @@
         "buildType": "apk"
       },
       "env": {
-        "BUNDLE_ID": "com.cherry_studio.app"
+        "BUNDLE_ID": "preview.com.cherry_studio.app"
       }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "withoutCredentials": "true",
+        "gradleCommand": ":app:assembleRelease -PabiFilters=arm64-v8a"
+      },
+      "env": {
+        "BUNDLE_ID": "dev.com.cherry_studio.app"
+      }
     }
   },
   "submit": {

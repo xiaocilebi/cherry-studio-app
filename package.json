@@ -200,7 +200,7 @@
     "typescript": "~5.9.2"
   },
   "private": true,
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.10.3",
   "resolutions": {
     "esbuild": "^0.25.4",
     "expo-sqlite": "16.0.8"
