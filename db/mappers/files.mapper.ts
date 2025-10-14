@@ -5,7 +5,7 @@ import { FileMetadata } from '@/types/file'
  * @param dbRecord - 从数据库检索的记录。
  * @returns 一个 File 对象。
  */
-export function transformDbToFile(dbRecord: FileMetadata): FileMetadata {
+export function transformDbToFile(dbRecord: any): FileMetadata {
   return {
     id: dbRecord.id,
     origin_name: dbRecord.origin_name,

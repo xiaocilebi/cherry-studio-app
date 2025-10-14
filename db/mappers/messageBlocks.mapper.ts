@@ -34,10 +34,10 @@ export function transformPartialMessageBlockToDb(changes: Partial<MessageBlock>)
         dbChanges.type = changes.type
         break
       case 'createdAt':
-        dbChanges.created_at = changes.createdAt
+        dbChanges.created_at = changes.createdAt ? new Date(changes.createdAt).getTime() : undefined
         break
       case 'updatedAt':
-        dbChanges.updated_at = changes.updatedAt
+        dbChanges.updated_at = changes.updatedAt ? new Date(changes.updatedAt).getTime() : undefined
         break
       case 'status':
         dbChanges.status = changes.status
@@ -241,8 +241,8 @@ export function transformMessageBlockToDb(messageBlock: MessageBlock): any {
     id: messageBlock.id,
     message_id: messageBlock.messageId,
     type: messageBlock.type,
-    created_at: messageBlock.createdAt,
-    updated_at: messageBlock.updatedAt,
+    created_at: new Date(messageBlock.createdAt).getTime(),
+    updated_at: messageBlock.updatedAt ? new Date(messageBlock.updatedAt).getTime() : null,
     status: messageBlock.status,
     model: messageBlock.model ? JSON.stringify(messageBlock.model) : null,
     metadata: messageBlock.metadata ? JSON.stringify(messageBlock.metadata) : null,

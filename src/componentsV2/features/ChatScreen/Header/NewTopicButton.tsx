@@ -17,6 +17,7 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import { isEmpty } from 'lodash'
+import { getHasMessagesWithTopicId } from '../../../../../db/queries/messages.queries'
 
 interface NewTopicButtonProps {
   assistant: Assistant
@@ -34,15 +35,15 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
     haptic(ImpactFeedbackStyle.Medium)
     const targetAssistant = selectedAssistant || assistant
     const newestTopic = await getNewestTopic()
-
-    if (newestTopic && newestTopic.assistantId === targetAssistant.id && newestTopic.messages.length === 0) {
-      newestTopic.assistantId = targetAssistant.id
-      dispatch(setCurrentTopicId(newestTopic.id))
-      navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newestTopic.id } })
-    } else {
+    const hasMessages = await getHasMessagesWithTopicId(newestTopic?.id ?? '')
+    if (hasMessages || !newestTopic) {
       const newTopic = await createNewTopic(targetAssistant)
       dispatch(setCurrentTopicId(newTopic.id))
       navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newTopic.id } })
+    } else {
+      newestTopic.assistantId = targetAssistant.id
+      dispatch(setCurrentTopicId(newestTopic.id))
+      navigation.navigate('Home', { screen: 'ChatScreen', params: { topicId: newestTopic.id } })
     }
   }
 

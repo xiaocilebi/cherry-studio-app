@@ -21,9 +21,8 @@ export async function createNewTopic(assistant: Assistant): Promise<Topic> {
     id: uuid(),
     assistantId: assistant.id,
     name: t('topics.new_topic'),
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    messages: []
+    createdAt: Date.now(),
+    updatedAt: Date.now()
   }
   logger.info('createNewTopic', newTopic.id)
   await _upsertTopics(newTopic)
@@ -126,7 +125,7 @@ export async function renameTopic(topicId: string, newName: string): Promise<voi
     const updatedTopic: Topic = {
       ...topic,
       name: newName.trim(),
-      updatedAt: new Date().toISOString(),
+      updatedAt: Date.now(),
       isNameManuallyEdited: true
     }
 

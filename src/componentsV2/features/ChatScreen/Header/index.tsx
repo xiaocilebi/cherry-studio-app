@@ -38,7 +38,7 @@ export const ChatScreenHeader = ({ topic }: HeaderBarProps) => {
         <AssistantSelection assistant={assistant} topic={topic} />
       </XStack>
       <XStack className="items-center min-w-10 justify-end">
-        {topic.messages.length > 0 && <NewTopicButton assistant={assistant} />}
+        <NewTopicButton assistant={assistant} />
       </XStack>
     </XStack>
   )

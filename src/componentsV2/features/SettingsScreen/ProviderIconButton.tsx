@@ -39,7 +39,7 @@ const createFileFromImageAsset = (
     size: asset.fileSize || 0,
     ext,
     type: getFileType(ext),
-    created_at: new Date().toISOString(),
+    created_at: Date.now(),
     count: 1
   }
 }

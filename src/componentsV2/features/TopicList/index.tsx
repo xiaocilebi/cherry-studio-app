@@ -120,7 +120,7 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
       await renameTopic(topicId, newName)
 
       const updatedTopics = localTopics.map(topic =>
-        topic.id === topicId ? { ...topic, name: newName, updatedAt: new Date().toISOString() } : topic
+        topic.id === topicId ? { ...topic, name: newName, updatedAt: Date.now() } : topic
       )
       setLocalTopics(updatedTopics)
 

@@ -1,4 +1,5 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { createUpdateTimestamps } from './columnHelpers'
 
 export const assistants = sqliteTable('assistants', {
   id: text('id').notNull().unique().primaryKey(),
@@ -19,5 +20,6 @@ export const assistants = sqliteTable('assistants', {
   knowledge_recognition: text('knowledge_recognition'),
   tags: text('tags'),
   group: text('group'),
-  websearch_provider_id: text('websearch_provider_id')
+  websearch_provider_id: text('websearch_provider_id'),
+  ...createUpdateTimestamps
 })

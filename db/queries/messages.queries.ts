@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm'
+import { eq, sql, count } from 'drizzle-orm'
 
 import { loggerService } from '@/services/LoggerService'
 import { Message } from '@/types/message'
@@ -196,6 +196,17 @@ export async function getMessagesByTopicId(topicId: string): Promise<Message[]> 
     })
   } catch (error) {
     logger.error(`Error getting messages for topic ID ${topicId}:`, error)
+    throw error
+  }
+}
+
+export async function getHasMessagesWithTopicId(topicId: string): Promise<boolean> {
+  try {
+    const result = await db.select({ count: count() }).from(messages).where(eq(messages.topic_id, topicId))
+
+    return result[0].count > 0
+  } catch (error) {
+    logger.error(`Error checking if topic ID ${topicId} has messages:`, error)
     throw error
   }
 }

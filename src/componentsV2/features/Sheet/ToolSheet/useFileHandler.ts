@@ -55,7 +55,7 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
             ext: asset.fileName?.split('.').pop() || 'jpg',
             type: getFileType(asset.fileName?.split('.').pop() || 'jpg'),
             mime_type: asset.mimeType || '',
-            created_at: new Date().toISOString(),
+            created_at: Date.now(),
             count: 1
           }
         })
@@ -87,7 +87,7 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
           ext: asset.name.split('.').pop() || '',
           type: getFileType(asset.name.split('.').pop() || ''),
           mime_type: asset.mimeType || '',
-          created_at: new Date().toISOString(),
+          created_at: Date.now(),
           count: 1
         }
       })
@@ -121,7 +121,7 @@ export const useFileHandler = ({ files, setFiles, onSuccess }: UseFileHandlerPro
         size: fileInfo.size,
         ext: 'jpg',
         type: FileTypes.IMAGE,
-        created_at: new Date().toISOString(),
+        created_at: Date.now(),
         count: 1
       }
 

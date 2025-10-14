@@ -2,7 +2,6 @@ import { desc, eq } from 'drizzle-orm'
 
 import { loggerService } from '@/services/LoggerService'
 import { Topic } from '@/types/assistant'
-import { Message } from '@/types/message'
 
 import { db } from '..'
 import { transformDbToTopic, transformTopicToDb } from '../mappers'
@@ -76,39 +75,6 @@ export async function deleteTopicsByAssistantId(assistantId: string): Promise<vo
 }
 
 /**
- * 更新主题的消息列表
- * @description 更新主题关联的所有消息，自动设置时间戳
- * @param topicId - 主题的唯一标识符
- * @param messages - 新的消息数组
- * @throws 当主题不存在或更新操作失败时抛出错误
- */
-export async function updateTopicMessages(topicId: string, messages: Message[]) {
-  try {
-    const messagesWithTimestamps = messages.map(message => ({
-      ...message,
-      createdAt: message.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    }))
-
-    const result = await db
-      .update(topics)
-      .set({
-        messages: JSON.stringify(messagesWithTimestamps),
-        updated_at: new Date().toISOString()
-      })
-      .where(eq(topics.id, topicId))
-      .returning()
-
-    if (result.length === 0) {
-      throw new Error(`Topic with ID ${topicId} not found`)
-    }
-  } catch (error) {
-    logger.error(`Error updating topic messages for topic ID ${topicId}:`, error)
-    throw error
-  }
-}
-
-/**
  * 根据 ID 获取指定主题
  * @param topicId - 主题的唯一标识符
  * @returns 如果找到则返回主题对象，否则返回 undefined
@@ -137,10 +103,7 @@ export async function getTopicById(topicId: string): Promise<Topic | undefined> 
  */
 export async function getTopics(): Promise<Topic[]> {
   try {
-    const results = await db
-      .select()
-      .from(topics)
-      .orderBy(desc(topics.updated_at))
+    const results = await db.select().from(topics).orderBy(desc(topics.updated_at))
 
     if (results.length === 0) {
       return []
@@ -221,4 +184,3 @@ export async function getNewestTopic(): Promise<Topic | undefined> {
     throw error
   }
 }
-

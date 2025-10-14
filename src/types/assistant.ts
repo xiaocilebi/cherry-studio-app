@@ -26,7 +26,7 @@ export type Assistant = {
   knowledgeRecognition?: 'off' | 'on'
   tags?: string[] // 助手标签
   group?: string[] // 助手分组
-  mcpServers? : MCPServer[]
+  mcpServers?: MCPServer[]
 }
 
 const ThinkModelTypes = [
@@ -98,9 +98,8 @@ export type Topic = {
   id: string
   assistantId: string
   name: string
-  createdAt: string
-  updatedAt: string
-  messages: Message[]
+  createdAt: number
+  updatedAt: number
   pinned?: boolean
   prompt?: string
   isNameManuallyEdited?: boolean

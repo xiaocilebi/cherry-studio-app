@@ -15,7 +15,6 @@ import { useAppSelector } from '@/store'
 import { haptic } from '@/utils/haptic'
 
 import ChatContent from './ChatContent'
-import WelcomeContent from './WelcomeContent'
 import { ChatScreenHeader } from '@/componentsV2/features/ChatScreen/Header'
 
 const ChatScreen = () => {
@@ -52,8 +51,6 @@ const ChatScreen = () => {
     )
   }
 
-  const hasMessage = topic.messages.length > 0
-
   return (
     <SafeAreaContainer style={{ paddingBottom: 0 }}>
       <PanGestureHandler
@@ -74,7 +71,7 @@ const ChatScreen = () => {
               }}>
               {/* ChatContent use key to re-render screen content */}
               {/* if remove key, change topic will not re-render */}
-              {!hasMessage ? <WelcomeContent /> : <ChatContent key={topicId} topic={topic} assistant={assistant} />}
+              <ChatContent key={topicId} topic={topic} assistant={assistant} />
             </View>
             <MessageInputContainer topic={topic} />
           </YStack>

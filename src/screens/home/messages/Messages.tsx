@@ -14,6 +14,7 @@ import MessageGroup from './MessageGroup'
 import { LegendList, LegendListRef } from '@legendapp/list'
 import { Button } from 'heroui-native'
 import { ChevronDown } from '@/componentsV2/icons'
+import WelcomeContent from '../WelcomeContent'
 
 interface MessagesProps {
   assistant: Assistant
@@ -83,6 +84,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         maintainScrollAtEndThreshold={0.1}
         keyboardShouldPersistTaps="never"
         keyboardDismissMode="on-drag"
+        ListEmptyComponent={<WelcomeContent />}
       />
 
       {showScrollButton && (

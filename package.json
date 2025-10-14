@@ -73,7 +73,7 @@
     "ai": "^5.0.38",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
-    "babel-plugin-react-compiler": "^19.1.0-rc.2",
+    "babel-plugin-react-compiler": "^1.0.0",
     "buffer": "^6.0.3",
     "burnt": "^0.13.0",
     "dayjs": "^1.11.13",
@@ -200,7 +200,7 @@
     "typescript": "~5.9.2"
   },
   "private": true,
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.10.3",
   "resolutions": {
     "esbuild": "^0.25.4",
     "expo-sqlite": "16.0.8"
