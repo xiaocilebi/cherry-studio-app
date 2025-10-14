@@ -203,11 +203,11 @@ export async function regenerateAssistantMessage(
       assistantMessage.mentions
         ? {
             status: AssistantMessageStatus.PENDING,
-            updatedAt: new Date().toISOString()
+            updatedAt: Date.now()
           }
         : {
             status: AssistantMessageStatus.PENDING,
-            updatedAt: new Date().toISOString(),
+            updatedAt: Date.now(),
             model: assistant.model
           }
     )

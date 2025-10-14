@@ -86,10 +86,6 @@ export async function updateOneBlock(update: { id: string; changes: Partial<Mess
 
   const dbUpdatePayload = transformPartialMessageBlockToDb(changes)
 
-  if (!dbUpdatePayload.updated_at) {
-    dbUpdatePayload.updated_at = new Date().toISOString()
-  }
-
   try {
     await db.update(messageBlocks).set(dbUpdatePayload).where(eq(messageBlocks.id, id))
   } catch (error) {

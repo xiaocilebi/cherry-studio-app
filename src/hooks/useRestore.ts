@@ -91,7 +91,7 @@ export function useRestore(options: UseRestoreOptions = {}) {
     size: file.size || 0,
     ext: file.name.split('.').pop() || '',
     type: getFileType(file.name.split('.').pop() || ''),
-    created_at: new Date().toISOString(),
+    created_at: Date.now(),
     count: 1
   })
 

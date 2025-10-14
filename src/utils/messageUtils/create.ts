@@ -37,7 +37,7 @@ export function createBaseMessageBlock<T extends MessageBlockType>(
   type: T,
   overrides: Partial<Omit<BaseMessageBlock, 'id' | 'messageId' | 'type'>> = {}
 ): BaseMessageBlock & { type: T } {
-  const now = new Date().toISOString()
+  const now = Date.now()
   return {
     id: uuid(),
     messageId,
@@ -288,7 +288,7 @@ export function createMessage(
   assistantId: string,
   overrides: PartialBy<Omit<Message, 'role' | 'topicId' | 'assistantId' | 'createdAt' | 'status'>, 'blocks' | 'id'> = {}
 ): Message {
-  const now = new Date().toISOString()
+  const now = Date.now()
   const messageId = overrides.id || uuid()
 
   const { blocks: initialBlocks, id, ...restOverrides } = overrides
@@ -326,7 +326,7 @@ export function createAssistantMessage(
   topicId: Topic['id'],
   overrides: Partial<Omit<Message, 'id' | 'role' | 'assistantId' | 'topicId' | 'createdAt' | 'type' | 'status'>> = {}
 ): Message {
-  const now = new Date().toISOString()
+  const now = Date.now()
   const messageId = uuid()
 
   return {

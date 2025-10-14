@@ -98,9 +98,8 @@ export type Topic = {
   id: string
   assistantId: string
   name: string
-  createdAt: string
-  updatedAt: string
-  // messages: Message[]
+  createdAt: number
+  updatedAt: number
   pinned?: boolean
   prompt?: string
   isNameManuallyEdited?: boolean
