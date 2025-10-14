@@ -37,7 +37,8 @@ export default {
             targetSdkVersion: 35,
             minSdkVersion: 24,
             gradleVersion: '8.13',
-            androidGradlePluginVersion: '8.13.0'
+            androidGradlePluginVersion: '8.13.0',
+            buildArchs: ['arm64-v8a']
           }
         }
       ],
@@ -115,18 +116,19 @@ export default {
         }
       ],
       [
-             "expo-calendar",
-             {
-               "calendarPermission": "Allow Cherry Studio App to access your calendar.",
-               "remindersPermission": "Allow Cherry Studio App to access your reminders."
-             }
+        'expo-calendar',
+        {
+          calendarPermission: 'Allow Cherry Studio App to access your calendar.',
+          remindersPermission: 'Allow Cherry Studio App to access your reminders.'
+        }
       ],
       ['react-native-compressor'],
-      ["react-native-edge-to-edge",
+      [
+        'react-native-edge-to-edge',
         {
-          "android": {
-            "parentTheme": "Material3",
-            "enforceNavigationBarContrast": false
+          android: {
+            parentTheme: 'Material3',
+            enforceNavigationBarContrast: false
           }
         }
       ]
