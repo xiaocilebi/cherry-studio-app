@@ -1,6 +1,7 @@
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 import { messages } from './messages'
+import { createUpdateTimestamps } from './columnHelpers'
 
 export const messageBlocks = sqliteTable(
   'message_blocks',
@@ -10,8 +11,6 @@ export const messageBlocks = sqliteTable(
       .notNull()
       .references(() => messages.id, { onDelete: 'cascade' }),
     type: text('type').notNull(), // MessageBlockType enum values
-    created_at: text('created_at').notNull(),
-    updated_at: text('updated_at'),
     status: text('status').notNull(), // MessageBlockStatus enum values
     model: text('model'), // Model object as JSON
     metadata: text('metadata'), // Record<string, any> as JSON
@@ -42,7 +41,9 @@ export const messageBlocks = sqliteTable(
 
     // Main text block specific fields
     knowledge_base_ids: text('knowledge_base_ids'), // string[] as JSON
-    citation_references: text('citation_references') // Citation references as JSON
+    citation_references: text('citation_references'), // Citation references as JSON
+
+    ...createUpdateTimestamps
   },
   table => [index('idx_message_blocks_message_id').on(table.message_id)]
 )

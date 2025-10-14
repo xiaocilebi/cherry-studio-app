@@ -11,29 +11,6 @@ import { buildExcludedSet } from '../utils/buildExcludedSet'
 const logger = loggerService.withContext('DataBase Files')
 
 /**
- * 插入或更新单个文件记录（内部使用）
- * @description 仅供内部使用，处理单个文件的 upsert 操作，冲突时重置 count 为 1
- * @param filesToUpsert - 待插入或更新的文件元数据
- * @throws 当数据库操作失败时抛出错误
- */
-async function upsertFile(filesToUpsert: FileMetadata) {
-  try {
-    const dbRecord = transformFileToDb(filesToUpsert)
-
-    await db
-      .insert(files)
-      .values(dbRecord)
-      .onConflictDoUpdate({
-        target: [files.id],
-        set: { ...dbRecord, count: 1 }
-      })
-  } catch (error) {
-    logger.error('Error upserting file:', error)
-    throw error
-  }
-}
-
-/**
  * 批量插入或更新文件记录
  * @description 使用 upsert 模式批量处理文件记录，ID 冲突时重置 count 为 1
  * @param filesToUpsert - 待插入或更新的文件元数据数组
@@ -49,13 +26,10 @@ export async function upsertFiles(filesToUpsert: FileMetadata[]) {
       const updateFields = buildExcludedSet(dbRecords[0])
       updateFields.count = sql`1` // 特殊处理：冲突时重置 count 为 1
 
-      await tx
-        .insert(files)
-        .values(dbRecords)
-        .onConflictDoUpdate({
-          target: files.id,
-          set: updateFields
-        })
+      await tx.insert(files).values(dbRecords).onConflictDoUpdate({
+        target: files.id,
+        set: updateFields
+      })
     })
   } catch (error) {
     logger.error('Error upserting files:', error)
@@ -85,7 +59,7 @@ export async function deleteFileById(fileId: string) {
  */
 export async function getAllFiles(): Promise<FileMetadata[] | null> {
   try {
-    const result = (await db.select().from(files)) as FileMetadata[]
+    const result = await db.select().from(files)
 
     if (result.length === 0) {
       return null
@@ -106,7 +80,7 @@ export async function getAllFiles(): Promise<FileMetadata[] | null> {
  */
 export async function getFileById(id: string): Promise<FileMetadata | null> {
   try {
-    const result = (await db.select().from(files).where(eq(files.id, id)).limit(1)) as FileMetadata[]
+    const result = await db.select().from(files).where(eq(files.id, id)).limit(1)
 
     if (result.length === 0) {
       return null

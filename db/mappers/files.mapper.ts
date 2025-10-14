@@ -5,11 +5,11 @@ import { FileMetadata } from '@/types/file'
  * @param dbRecord - 从数据库检索的记录。
  * @returns 一个 File 对象。
  */
-export function transformDbToFile(dbRecord: FileMetadata): FileMetadata {
+export function transformDbToFile(dbRecord: any): FileMetadata {
   return {
     id: dbRecord.id,
     origin_name: dbRecord.origin_name,
-    created_at: dbRecord.created_at,
+    created_at: new Date(dbRecord.created_at).toISOString(),
     name: dbRecord.name,
     path: dbRecord.path,
     size: dbRecord.size,
@@ -28,7 +28,7 @@ export function transformFileToDb(file: FileMetadata) {
   return {
     id: file.id,
     origin_name: file.origin_name,
-    created_at: file.created_at,
+    created_at: new Date(file.created_at).getTime(),
     name: file.name,
     path: file.path,
     size: file.size,

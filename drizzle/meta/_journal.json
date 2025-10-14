@@ -64,6 +64,13 @@
       "when": 1759821545563,
       "tag": "0008_crazy_pestilence",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1760411631743,
+      "tag": "0009_clear_grandmaster",
+      "breakpoints": true
     }
   ]
 }
