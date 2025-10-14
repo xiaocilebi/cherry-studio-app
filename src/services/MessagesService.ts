@@ -30,7 +30,6 @@ import {
   updateMessageById,
   upsertMessages
 } from '../../db/queries/messages.queries'
-import { getTopicById, updateTopicMessages } from '../../db/queries/topics.queries'
 import { fetchTopicNaming } from './ApiService'
 import { getAssistantById, getDefaultModel } from './AssistantService'
 import { BlockManager, createCallbacks } from './messageStreaming'
@@ -135,12 +134,6 @@ export async function sendMessage(
   dispatch: AppDispatch
 ) {
   try {
-    // mock mentions model
-    // userMessage.mentions = [
-    //   { id: 'deepseek-ai/DeepSeek-V3', name: 'deepseek-ai/DeepSeek-V3', provider: 'silicon', group: 'deepseek-ai' },
-    //   { id: 'deepseek-ai/DeepSeek-R1', name: 'deepseek-ai/DeepSeek-R1', provider: 'silicon', group: 'deepseek-ai' }
-    // ]
-
     if (userMessage.blocks.length === 0) {
       logger.warn('sendMessage: No blocks in the provided message.')
       return
@@ -422,35 +415,12 @@ export const saveUpdatedBlockToDB = async (blockId: string | null, messageId: st
   }
 }
 
-export async function saveMessageAndBlocksToDB(message: Message, blocks: MessageBlock[], messageIndex: number = -1) {
+export async function saveMessageAndBlocksToDB(message: Message, blocks: MessageBlock[]) {
   try {
     await upsertMessages(message)
 
     if (blocks.length > 0) {
       await upsertBlocks(blocks)
-    }
-
-    // get topic from database
-    const topic = await getTopicById(message.topicId)
-    logger.info('saveMessageAndBlocksToDB topic:', topic)
-
-    if (topic) {
-      const _messageIndex = topic.messages.findIndex(m => m.id === message.id)
-      const updatedMessages = [...topic.messages]
-
-      if (_messageIndex !== -1) {
-        updatedMessages[_messageIndex] = message
-      } else {
-        if (messageIndex !== -1) {
-          updatedMessages.splice(messageIndex, 0, message)
-        } else {
-          updatedMessages.push(message)
-        }
-      }
-
-      await updateTopicMessages(topic.id, updatedMessages)
-    } else {
-      logger.error(`[saveMessageAndBlocksToDB] Topic ${message.topicId} not found.`)
     }
   } catch (error) {
     logger.error('Error saving message blocks:', error)

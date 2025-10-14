@@ -11,7 +11,6 @@ export const topics = sqliteTable(
       .notNull()
       .references(() => assistants.id),
     name: text('name').notNull(),
-    messages: text('messages').notNull().default('[]'),
     pinned: integer('pinned', { mode: 'boolean' }),
     prompt: text('prompt'),
     is_name_manually_edited: integer('is_name_manually_edited', { mode: 'boolean' }),

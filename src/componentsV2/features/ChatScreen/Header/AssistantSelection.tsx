@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable } from 'react-native'
+import { Pressable, Keyboard } from 'react-native'
 
 import { Text, XStack, YStack } from '@/componentsV2'
 import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
@@ -20,6 +20,7 @@ export const AssistantSelection: React.FC<AssistantSelectionProps> = ({ assistan
   const { t } = useTranslation()
 
   const handlePress = () => {
+    Keyboard.dismiss()
     bottomSheetRef.current?.present()
   }
 

@@ -24,6 +24,7 @@ import { getTopicById, upsertTopics } from './TopicService'
 import { getActiveMcps } from './McpService'
 import { MCPServer } from '@/types/mcp'
 import { BUILTIN_TOOLS } from '@/config/mcp'
+import { getMessagesByTopicId } from '../../db/queries/messages.queries'
 
 const logger = loggerService.withContext('fetchChatCompletion')
 
@@ -159,6 +160,7 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
 export async function fetchTopicNaming(topicId: string, regenerate: boolean = false) {
   logger.info('Fetching topic naming...')
   const topic = await getTopicById(topicId)
+  const messages = await getMessagesByTopicId(topicId)
 
   if (!topic) {
     logger.error(`[fetchTopicNaming] Topic with ID ${topicId} not found.`)
@@ -191,7 +193,7 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
   const provider = await getAssistantProvider(quickAssistant)
 
   // 总结上下文总是取最后5条消息
-  const contextMessages = takeRight(topic.messages, 5)
+  const contextMessages = takeRight(messages, 5)
 
   // LLM对多条消息的总结有问题，用单条结构化的消息表示会话内容会更好
   const mainTextMessages = await filterMainTextMessages(contextMessages)

@@ -11,6 +11,7 @@ import m0006 from './0006_clammy_mojo.sql';
 import m0007 from './0007_brown_sprite.sql';
 import m0008 from './0008_crazy_pestilence.sql';
 import m0009 from './0009_clear_grandmaster.sql';
+import m0010 from './0010_sparkling_psynapse.sql';
 
   export default {
     journal,
@@ -24,7 +25,8 @@ m0005,
 m0006,
 m0007,
 m0008,
-m0009
+m0009,
+m0010
     }
   }
   
