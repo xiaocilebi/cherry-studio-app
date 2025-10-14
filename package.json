@@ -73,7 +73,7 @@
     "ai": "^5.0.38",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
-    "babel-plugin-react-compiler": "^19.1.0-rc.2",
+    "babel-plugin-react-compiler": "^1.0.0",
     "buffer": "^6.0.3",
     "burnt": "^0.13.0",
     "dayjs": "^1.11.13",
