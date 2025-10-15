@@ -6,7 +6,7 @@ import { getCurrentTopicId } from '@/hooks/useTopic'
 import { getDefaultAssistant } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
 import { deleteMessagesByTopicId } from '@/services/MessagesService'
-import { createNewTopic, deleteTopicById, renameTopic } from '@/services/TopicService'
+import { createNewTopic, renameTopic } from '@/services/TopicService'
 import { useAppDispatch } from '@/store'
 import { setCurrentTopicId } from '@/store/topic'
 import { Topic } from '@/types/assistant'
@@ -17,6 +17,7 @@ import YStack from '@/componentsV2/layout/YStack'
 import { useDialog } from '@/hooks/useDialog'
 import { LegendList } from '@legendapp/list'
 import { newMessagesActions } from '@/store/newMessage'
+import { topicDatabase } from '@/database'
 
 const logger = loggerService.withContext('GroupTopicList')
 
@@ -85,7 +86,7 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
           setLocalTopics(updatedTopics)
 
           await deleteMessagesByTopicId(topicId)
-          await deleteTopicById(topicId)
+          await topicDatabase.deleteTopicById(topicId)
           dispatch(newMessagesActions.deleteTopicLoading({ topicId }))
 
           toast.show(t('message.topic_deleted'))

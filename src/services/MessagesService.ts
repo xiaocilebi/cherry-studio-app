@@ -21,9 +21,9 @@ import {
 } from '@/utils/messageUtils/create'
 import { getTopicQueue } from '@/utils/queue'
 
-import { messageBlockDatabase, messageDatabase } from '@database'
+import { assistantDatabase, messageBlockDatabase, messageDatabase } from '@database'
 import { fetchTopicNaming } from './ApiService'
-import { getAssistantById, getDefaultModel } from './AssistantService'
+import { getDefaultModel } from './AssistantService'
 import { BlockManager, createCallbacks } from './messageStreaming'
 import { transformMessagesAndFetch } from './OrchestrationService'
 import { getAssistantProvider } from './ProviderService'
@@ -590,7 +590,7 @@ export async function deleteMessageById(messageId: string): Promise<void> {
 
 export async function fetchTranslateThunk(assistantMessageId: string, message: Message) {
   let callbacks: StreamProcessorCallbacks = {}
-  const translateAssistant = await getAssistantById('translate')
+  const translateAssistant = await assistantDatabase.getAssistantById('translate')
 
   const newBlock = createTranslationBlock(assistantMessageId, '', {
     status: MessageBlockStatus.STREAMING

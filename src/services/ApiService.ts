@@ -17,14 +17,13 @@ import { isPromptToolUse, isSupportedToolUse } from '@/utils/mcpTool'
 import { filterMainTextMessages } from '@/utils/messageUtils/filters'
 
 import AiProviderNew from '../aiCore/index_new'
-import { createBlankAssistant, getAssistantById, getDefaultModel } from './AssistantService'
+import { getDefaultModel } from './AssistantService'
 import { getAssistantProvider } from './ProviderService'
 import { createStreamProcessor, StreamProcessorCallbacks } from './StreamProcessingService'
-import { getTopicById, upsertTopics } from './TopicService'
 import { getActiveMcps } from './McpService'
 import { MCPServer } from '@/types/mcp'
 import { BUILTIN_TOOLS } from '@/config/mcp'
-import { messageDatabase } from '@database'
+import { assistantDatabase, messageDatabase, topicDatabase } from '@database'
 
 const logger = loggerService.withContext('fetchChatCompletion')
 
@@ -130,8 +129,14 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
 
   const ai = new LegacyAiProvider(provider)
 
-  const assistant = createBlankAssistant()
-  assistant.model = model
+  const assistant: Assistant = {
+    id: 'checkApi',
+    name: 'Check Api Assistant',
+    prompt: '',
+    topics: [],
+    type: 'external',
+    model: model
+  }
 
   try {
     if (isEmbeddingModel(model)) {
@@ -159,7 +164,7 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
 
 export async function fetchTopicNaming(topicId: string, regenerate: boolean = false) {
   logger.info('Fetching topic naming...')
-  const topic = await getTopicById(topicId)
+  const topic = await topicDatabase.getTopicById(topicId)
   const messages = await messageDatabase.getMessagesByTopicId(topicId)
 
   if (!topic) {
@@ -175,7 +180,7 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
 
   callbacks = {
     onTextComplete: async finalText => {
-      await upsertTopics([
+      await topicDatabase.upsertTopics([
         {
           ...topic,
           name: finalText
@@ -184,7 +189,7 @@ export async function fetchTopicNaming(topicId: string, regenerate: boolean = fa
     }
   }
   const streamProcessorCallbacks = createStreamProcessor(callbacks)
-  const quickAssistant = await getAssistantById('quick')
+  const quickAssistant = await assistantDatabase.getAssistantById('quick')
 
   if (!quickAssistant.defaultModel) {
     return

@@ -15,18 +15,7 @@ import { assistantDatabase } from '@database'
 const logger = loggerService.withContext('Assistant Service')
 
 export async function getDefaultAssistant(): Promise<Assistant> {
-  return await getAssistantById('default')
-}
-
-export async function getAssistantById(assistantId: string): Promise<Assistant> {
-  const assistant = await assistantDatabase.getAssistantById(assistantId)
-
-  if (!assistant) {
-    logger.error(`Assistant with ID ${assistantId} not found`)
-    throw new Error(`Assistant with ID ${assistantId} not found`)
-  }
-
-  return assistant
+  return await assistantDatabase.getAssistantById('default')
 }
 
 export function getDefaultTopic(assistantId: string): Topic {
@@ -78,15 +67,6 @@ export const getAssistantSettings = (assistant: Assistant): AssistantSettings =>
   }
 }
 
-export async function saveAssistant(assistant: Assistant): Promise<void> {
-  try {
-    await assistantDatabase.upsertAssistants([assistant])
-  } catch (error) {
-    logger.error('Error saving assistant:', error)
-    throw new Error('Failed to save assistant')
-  }
-}
-
 export async function createAssistant() {
   const newAssistant: Assistant = {
     id: uuid(),
@@ -97,44 +77,6 @@ export async function createAssistant() {
     type: 'external'
   }
 
-  await saveAssistant(newAssistant)
+  await assistantDatabase.upsertAssistants([newAssistant])
   return newAssistant
-}
-
-export function createBlankAssistant() {
-  const blankAssistant: Assistant = {
-    id: 'blank',
-    name: 'Blank Assistant',
-    prompt: '',
-    topics: [],
-    type: 'external'
-  }
-  return blankAssistant
-}
-
-export async function getExternalAssistants(): Promise<Assistant[]> {
-  try {
-    return await assistantDatabase.getExternalAssistants()
-  } catch (error) {
-    logger.error('Failed to get starred assistants:', error)
-    return []
-  }
-}
-
-export async function deleteAssistantById(assistantId: string) {
-  try {
-    await assistantDatabase.deleteAssistantById(assistantId)
-  } catch (error) {
-    logger.error('Failed to delete Assistant', error)
-  }
-}
-
-export async function getRecentAssistants(): Promise<Assistant[]> {
-  try {
-    const starredAssistants = await getExternalAssistants()
-    return starredAssistants.filter(assistant => assistant.topics.length > 0)
-  } catch (error) {
-    logger.error('Failed to get starred assistants:', error)
-    return []
-  }
 }
