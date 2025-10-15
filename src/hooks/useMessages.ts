@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { Message } from '@/types/message'
 
-import { db } from '@db/index'
+import { db } from '@db'
 import { transformDbToMessage } from '@db/mappers'
 import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '@db/schema'
 

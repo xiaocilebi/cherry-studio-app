@@ -58,7 +58,7 @@ export async function writeBase64File(data: string): Promise<FileMetadata> {
     size: file.size,
     ext: '.png',
     type: FileTypes.IMAGE,
-    created_at: '',
+    created_at: Date.now(),
     count: 1
   }
 }

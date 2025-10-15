@@ -11,7 +11,9 @@
       "@mcp-trace/trace-core": ["../packages/mcp-trace/trace-core"],
       "@mcp-trace/trace-node": ["../packages/mcp-trace/trace-node"],
       "@db/*": ["../db/*"],
-      "@database/*": ["./database/*"]
+      "@db": ["../db/index"],
+      "@database/*": ["./database/*"],
+      "@database": ["./database/index"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"]

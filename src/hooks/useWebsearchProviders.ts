@@ -7,7 +7,7 @@ import { RootState } from '@/store'
 import { setContentLimit, setMaxResult, setOverrideSearchService, setSearchWithTime } from '@/store/websearch'
 import { WebSearchProvider } from '@/types/websearch'
 
-import { db } from '@db/index'
+import { db } from '@db'
 import { transformDbToWebSearchProvider } from '@db/mappers'
 import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
 import { websearch_providers } from '@db/schema'

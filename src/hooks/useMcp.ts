@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
 import { useMemo } from 'react'
-import { db } from '@db/index'
+import { db } from '@db'
 import { mcp as mcpSchema } from '@db/schema'
 import { MCPServer } from '@/types/mcp'
 import { transformDbToMcp } from '@db/mappers'

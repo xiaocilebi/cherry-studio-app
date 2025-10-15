@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
 import { useMemo } from 'react'
 
-import { db } from '@db/index'
+import { db } from '@db'
 import { transformDbToDataBackupProvider } from '@db/mappers'
 import { upsertDataBackupProviders } from '@db/queries/backup.queries'
 import { backup_providers } from '@db/schema'

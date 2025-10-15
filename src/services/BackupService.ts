@@ -10,7 +10,7 @@ import { ExportIndexedData, ExportReduxData, ImportIndexedData, ImportReduxData 
 import { FileMetadata } from '@/types/file'
 import { Message } from '@/types/message'
 
-import { upsertAssistants } from '@db/queries/assistants.queries'
+import { assistantDatabase } from '@database'
 import { upsertBlocks } from '@db/queries/messageBlocks.queries'
 import { upsertMessages } from '@db/queries/messages.queries'
 import { upsertProviders } from '@db/queries/providers.queries'
@@ -60,7 +60,7 @@ async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCal
         type: index === 0 ? 'system' : 'external'
       }) as Assistant
   )
-  await upsertAssistants(assistants)
+  await assistantDatabase.upsertAssistants(assistants)
   await upsertWebSearchProviders(data.websearch.providers)
   await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
 

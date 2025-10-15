@@ -6,7 +6,7 @@ import { loggerService } from '@/services/LoggerService'
 import store from '@/store'
 import { Topic } from '@/types/assistant'
 
-import { db } from '@db/index'
+import { db } from '@db'
 import { transformDbToTopic } from '@db/mappers'
 import { upsertTopics } from '@db/queries/topics.queries'
 import { topics as topicSchema } from '@db/schema'

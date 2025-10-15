@@ -29,7 +29,7 @@ import { loggerService } from '@/services/LoggerService'
 import store, { persistor, RootState, useAppDispatch } from '@/store'
 import { setInitialized } from '@/store/app'
 
-import { upsertAssistants } from '@db/queries/assistants.queries'
+import { assistantDatabase } from '@database'
 import { upsertDataBackupProviders } from '@db/queries/backup.queries'
 import { upsertProviders } from '@db/queries/providers.queries'
 import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
@@ -42,7 +42,7 @@ import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
 import { initBuiltinMcp } from './config/mcp'
 import { upsertMcps } from '@db/queries/mcp.queries'
-import { DATABASE_NAME, db, expoDb } from '@db/index'
+import { DATABASE_NAME, db, expoDb } from '@db'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -73,7 +73,7 @@ function DatabaseInitializer() {
         try {
           logger.info('First launch, initializing app data...')
           const systemAssistants = getSystemAssistants()
-          await upsertAssistants([...systemAssistants])
+          await assistantDatabase.upsertAssistants([...systemAssistants])
           await upsertProviders(SYSTEM_PROVIDERS)
           const websearchProviders = getWebSearchProviders()
           await upsertWebSearchProviders(websearchProviders)

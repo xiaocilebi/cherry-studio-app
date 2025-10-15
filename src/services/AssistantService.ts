@@ -11,12 +11,7 @@ import { loggerService } from '@/services/LoggerService'
 import { Assistant, AssistantSettings, Topic } from '@/types/assistant'
 import { uuid } from '@/utils'
 
-import {
-  deleteAssistantById as _deleteAssistantById,
-  getAssistantById as _getAssistantById,
-  getExternalAssistants as _getExternalAssistants,
-  upsertAssistants
-} from '@db/queries/assistants.queries'
+import { assistantDatabase } from '@database'
 const logger = loggerService.withContext('Assistant Service')
 
 export async function getDefaultAssistant(): Promise<Assistant> {
@@ -24,7 +19,7 @@ export async function getDefaultAssistant(): Promise<Assistant> {
 }
 
 export async function getAssistantById(assistantId: string): Promise<Assistant> {
-  const assistant = await _getAssistantById(assistantId)
+  const assistant = await assistantDatabase.getAssistantById(assistantId)
 
   if (!assistant) {
     logger.error(`Assistant with ID ${assistantId} not found`)
@@ -85,7 +80,7 @@ export const getAssistantSettings = (assistant: Assistant): AssistantSettings =>
 
 export async function saveAssistant(assistant: Assistant): Promise<void> {
   try {
-    await upsertAssistants([assistant])
+    await assistantDatabase.upsertAssistants([assistant])
   } catch (error) {
     logger.error('Error saving assistant:', error)
     throw new Error('Failed to save assistant')
@@ -119,7 +114,7 @@ export function createBlankAssistant() {
 
 export async function getExternalAssistants(): Promise<Assistant[]> {
   try {
-    return await _getExternalAssistants()
+    return await assistantDatabase.getExternalAssistants()
   } catch (error) {
     logger.error('Failed to get starred assistants:', error)
     return []
@@ -128,7 +123,7 @@ export async function getExternalAssistants(): Promise<Assistant[]> {
 
 export async function deleteAssistantById(assistantId: string) {
   try {
-    await _deleteAssistantById(assistantId)
+    await assistantDatabase.deleteAssistantById(assistantId)
   } catch (error) {
     logger.error('Failed to delete Assistant', error)
   }
