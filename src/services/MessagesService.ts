@@ -21,17 +21,9 @@ import {
 } from '@/utils/messageUtils/create'
 import { getTopicQueue } from '@/utils/queue'
 
-import { getBlockById, removeManyBlocks, updateOneBlock, upsertBlocks } from '../../db/queries/messageBlocks.queries'
-import {
-  deleteMessageById as _deleteMessageById,
-  deleteMessagesByTopicId as _deleteMessagesByTopicId,
-  getMessageById,
-  getMessagesByTopicId,
-  updateMessageById,
-  upsertMessages
-} from '../../db/queries/messages.queries'
+import { assistantDatabase, messageBlockDatabase, messageDatabase } from '@database'
 import { fetchTopicNaming } from './ApiService'
-import { getAssistantById, getDefaultModel } from './AssistantService'
+import { getDefaultModel } from './AssistantService'
 import { BlockManager, createCallbacks } from './messageStreaming'
 import { transformMessagesAndFetch } from './OrchestrationService'
 import { getAssistantProvider } from './ProviderService'
@@ -170,7 +162,7 @@ export async function regenerateAssistantMessage(
 
   try {
     // 1. Use selector to get all messages for the topic
-    const allMessagesForTopic = await getMessagesByTopicId(topicId)
+    const allMessagesForTopic = await messageDatabase.getMessagesByTopicId(topicId)
 
     // 2. Find the original user query (Restored Logic)
     const originalUserQuery = allMessagesForTopic.find(m => m.id === assistantMessage.askId)
@@ -183,7 +175,7 @@ export async function regenerateAssistantMessage(
     }
 
     // 3. Verify the assistant message itself exists in entities
-    const messageToResetEntity = await getMessageById(assistantMessage.id)
+    const messageToResetEntity = await messageDatabase.getMessageById(assistantMessage.id)
 
     if (!messageToResetEntity) {
       // No need to check topicId again as selector implicitly handles it
@@ -212,14 +204,14 @@ export async function regenerateAssistantMessage(
           }
     )
 
-    await upsertMessages(resetAssistantMsg)
+    await messageDatabase.upsertMessages(resetAssistantMsg)
     // 6. Remove old blocks from Database
     await cleanupMultipleBlocks(blockIdsToDelete)
 
     // // 7. Update DB: Save the reset message state within the topic and delete old blocks
     // // Fetch the current state *after* Database updates to get the latest message list
     // // Use the selector to get the final ordered list of messages for the topic
-    // const finalMessagesToSave = await getMessagesByTopicId(topicId)
+    // const finalMessagesToSave = await messageDatabase.getMessagesByTopicId(topicId)
 
     // 7. Add fetch/process call to the queue
     const assistantConfigForRegen = {
@@ -290,7 +282,7 @@ const flushPendingBlockUpdates = async (ids?: string[]): Promise<void> => {
 
   try {
     for (const { id, changes } of updates) {
-      await updateOneBlock({ id, changes })
+      await messageBlockDatabase.updateOneBlock({ id, changes })
     }
   } catch (error) {
     for (const { id, changes } of updates) {
@@ -390,8 +382,8 @@ const updateExistingMessageAndBlocksInDB = async (
   updatedBlocks: MessageBlock[]
 ) => {
   try {
-    await updateMessageById(updatedMessage.id, updatedMessage)
-    await upsertBlocks(updatedBlocks)
+    await messageDatabase.updateMessageById(updatedMessage.id, updatedMessage)
+    await messageBlockDatabase.upsertBlocks(updatedBlocks)
   } catch (error) {
     console.error(`[updateExistingMsg] Failed to update message ${updatedMessage.id}:`, error)
   }
@@ -406,7 +398,7 @@ export const saveUpdatedBlockToDB = async (blockId: string | null, messageId: st
 
   await flushSpecificBlocks([blockId])
 
-  const blockToSave = await getBlockById(blockId)
+  const blockToSave = await messageBlockDatabase.getBlockById(blockId)
 
   if (blockToSave) {
     await saveUpdatesToDB(messageId, topicId, {}, [blockToSave]) // Pass messageId, topicId, empty message updates, and the block
@@ -417,10 +409,10 @@ export const saveUpdatedBlockToDB = async (blockId: string | null, messageId: st
 
 export async function saveMessageAndBlocksToDB(message: Message, blocks: MessageBlock[]) {
   try {
-    await upsertMessages(message)
+    await messageDatabase.upsertMessages(message)
 
     if (blocks.length > 0) {
-      await upsertBlocks(blocks)
+      await messageBlockDatabase.upsertBlocks(blocks)
     }
   } catch (error) {
     logger.error('Error saving message blocks:', error)
@@ -451,7 +443,7 @@ export async function fetchAndProcessAssistantResponseImpl(
       cancelThrottledBlockUpdate
     })
 
-    const allMessagesForTopic = await getMessagesByTopicId(topicId)
+    const allMessagesForTopic = await messageDatabase.getMessagesByTopicId(topicId)
     let messagesForContext: Message[] = []
     const userMessageId = assistantMessage.askId
     const userMessageIndex = allMessagesForTopic.findIndex(m => m?.id === userMessageId)
@@ -532,7 +524,7 @@ export async function multiModelResponses(
       model: mentionedModel,
       modelId: mentionedModel.id
     })
-    await upsertMessages(assistantMessage)
+    await messageDatabase.upsertMessages(assistantMessage)
     assistantMessageStubs.push(assistantMessage)
     tasksToQueue.push({ assistantConfig: assistantForThisMention, messageStub: assistantMessage })
   }
@@ -556,7 +548,7 @@ export async function cleanupMultipleBlocks(blockIds: string[]) {
   // })
 
   // const getBlocksFiles = async (blockIds: string[]) => {
-  //   const blocks = await Promise.all(blockIds.map(id => getBlockById(id)))
+  //   const blocks = await Promise.all(blockIds.map(id => messageBlockDatabase.getBlockById(id)))
 
   //   const files = blocks
   //     .filter((block): block is MessageBlock => block !== null)
@@ -573,13 +565,13 @@ export async function cleanupMultipleBlocks(blockIds: string[]) {
   // getBlocksFiles(blockIds).then(cleanupFiles)
 
   if (blockIds.length > 0) {
-    await removeManyBlocks(blockIds)
+    await messageBlockDatabase.removeManyBlocks(blockIds)
   }
 }
 
 export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
   try {
-    return _deleteMessagesByTopicId(topicId)
+    return messageDatabase.deleteMessagesByTopicId(topicId)
   } catch (error) {
     logger.error('Error in deleteMessagesByTopicId:', error)
     throw error
@@ -589,7 +581,7 @@ export async function deleteMessagesByTopicId(topicId: string): Promise<void> {
 export async function deleteMessageById(messageId: string): Promise<void> {
   try {
     // await deleteBlocksByMessageId(messageId)
-    return _deleteMessageById(messageId)
+    return messageDatabase.deleteMessageById(messageId)
   } catch (error) {
     logger.error('Error in deleteMessageById:', error)
     throw error
@@ -598,7 +590,7 @@ export async function deleteMessageById(messageId: string): Promise<void> {
 
 export async function fetchTranslateThunk(assistantMessageId: string, message: Message) {
   let callbacks: StreamProcessorCallbacks = {}
-  const translateAssistant = await getAssistantById('translate')
+  const translateAssistant = await assistantDatabase.getAssistantById('translate')
 
   const newBlock = createTranslationBlock(assistantMessageId, '', {
     status: MessageBlockStatus.STREAMING

@@ -7,7 +7,7 @@ import { newMessagesActions } from '@/store/newMessage'
 import { Topic } from '@/types/assistant'
 import { abortCompletion } from '@/utils/abortController'
 
-import { getMessagesByTopicId } from '../../db/queries/messages.queries'
+import { messageDatabase } from '@database'
 
 const logger = loggerService.withContext('UseMessageOperations')
 
@@ -30,7 +30,7 @@ export function useMessageOperations(topic: Topic) {
    * todo: 暂停当前主题正在进行的消息生成。 / Pauses ongoing message generation for the current topic.
    */
   const pauseMessages = useCallback(async () => {
-    const topicMessages = await getMessagesByTopicId(topic.id)
+    const topicMessages = await messageDatabase.getMessagesByTopicId(topic.id)
     if (!topicMessages) return
 
     const streamingMessages = topicMessages.filter(m => m.status === 'processing' || m.status === 'pending')

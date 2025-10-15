@@ -72,6 +72,7 @@ const Messages: FC<MessagesProps> = ({ assistant, topic }) => {
         ref={legendListRef}
         showsVerticalScrollIndicator={false}
         data={groupedMessages}
+        extraData={assistant}
         renderItem={renderMessageGroup}
         keyExtractor={([key, group]) => `${key}-${group[0]?.id}`}
         ItemSeparatorComponent={() => <YStack className="h-5" />}

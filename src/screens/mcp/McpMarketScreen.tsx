@@ -4,7 +4,7 @@ import { haptic } from '@/utils/haptic'
 import { ImpactFeedbackStyle } from 'expo-haptics'
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { useMcpServers } from '@/hooks/useMcp'
@@ -40,7 +40,11 @@ export function McpMarketScreen() {
   }
 
   if (isLoading) {
-    return null
+    return (
+      <SafeAreaContainer style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator />
+      </SafeAreaContainer>
+    )
   }
   return (
     <SafeAreaContainer className="pb-0">

@@ -11,7 +11,6 @@ import { Text, XStack, YStack } from '@/componentsV2'
 import { UnionPlusIcon, ModelIcon } from '@/componentsV2/icons'
 import { Settings2, X } from '@/componentsV2/icons/LucideIcon'
 import { useToast } from '@/hooks/useToast'
-import { saveAssistant } from '@/services/AssistantService'
 import { createNewTopic } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { uuid } from '@/utils'
@@ -22,6 +21,7 @@ import { useAppDispatch } from '@/store'
 
 import EmojiAvatar from './EmojiAvatar'
 import GroupTag from './GroupTag'
+import { assistantDatabase } from '@/database'
 
 interface AssistantItemSheetProps {
   assistant: Assistant | null
@@ -74,7 +74,7 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
           id: uuid(),
           type: 'external'
         }
-        await saveAssistant(newAssistant)
+        await assistantDatabase.upsertAssistants([newAssistant])
       }
 
       const topic = await createNewTopic(newAssistant)
@@ -85,11 +85,13 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
 
     const handleAddAssistant = async () => {
       if (assistant) {
-        await saveAssistant({
-          ...assistant,
-          id: uuid(),
-          type: 'external'
-        })
+        await assistantDatabase.upsertAssistants([
+          {
+            ...assistant,
+            id: uuid(),
+            type: 'external'
+          }
+        ])
         ;(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss()
         haptic(ImpactFeedbackStyle.Medium)
         toast.show(t('assistants.market.add.success', { assistant_name: assistant.name }))

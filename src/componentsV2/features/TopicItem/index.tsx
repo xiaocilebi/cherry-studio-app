@@ -11,7 +11,6 @@ import { useTheme } from 'heroui-native'
 import { useToast } from '@/hooks/useToast'
 import i18n from '@/i18n'
 import { fetchTopicNaming } from '@/services/ApiService'
-import { getAssistantById } from '@/services/AssistantService'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { setCurrentTopicId } from '@/store/topic'
 import { Assistant, Topic } from '@/types/assistant'
@@ -25,6 +24,7 @@ import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
 import TextField from '@/componentsV2/base/TextField'
 import ContextMenu from '@/componentsV2/base/ContextMenu'
+import { assistantDatabase } from '@/database'
 
 type TimeFormat = 'time' | 'date'
 
@@ -108,7 +108,7 @@ export const TopicItem: FC<TopicItemProps> = ({
     }
 
     const fetchAssistant = async () => {
-      setAssistant(await getAssistantById(topic.assistantId))
+      setAssistant(await assistantDatabase.getAssistantById(topic.assistantId))
     }
 
     fetchCurrentLanguage()

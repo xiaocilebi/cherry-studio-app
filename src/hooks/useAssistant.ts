@@ -7,10 +7,10 @@ import { RootState } from '@/store'
 import { resetBuiltInAssistants as _resetBuiltInAssistants } from '@/store/assistant'
 import { Assistant } from '@/types/assistant'
 
-import { db } from '../../db'
-import { transformDbToAssistant } from '../../db/mappers'
-import { upsertAssistants } from '../../db/queries/assistants.queries'
-import { assistants as assistantsSchema } from '../../db/schema'
+import { transformDbToAssistant } from '@db/mappers'
+import { assistantDatabase } from '@database'
+import { assistants as assistantsSchema } from '@db/schema'
+import { db } from '@db'
 
 export function useAssistant(assistantId: string) {
   const query = db.select().from(assistantsSchema).where(eq(assistantsSchema.id, assistantId))
@@ -18,7 +18,7 @@ export function useAssistant(assistantId: string) {
   const { data: rawAssistant, updatedAt } = useLiveQuery(query, [assistantId])
 
   const updateAssistant = async (assistant: Assistant) => {
-    await upsertAssistants([assistant])
+    await assistantDatabase.upsertAssistants([assistant])
   }
 
   const processedAssistant = useMemo(() => {
@@ -58,7 +58,7 @@ export function useAssistants() {
   const { data: rawAssistants, updatedAt } = useLiveQuery(query)
 
   const updateAssistants = async (assistants: Assistant[]) => {
-    await upsertAssistants(assistants)
+    await assistantDatabase.upsertAssistants(assistants)
   }
 
   const processedAssistants = useMemo(() => {
@@ -94,7 +94,7 @@ export function useExternalAssistants() {
   const { data: rawAssistants, updatedAt } = useLiveQuery(query)
 
   const updateAssistants = async (assistants: Assistant[]) => {
-    await upsertAssistants(assistants)
+    await assistantDatabase.upsertAssistants(assistants)
   }
 
   const processedAssistants = useMemo(() => {

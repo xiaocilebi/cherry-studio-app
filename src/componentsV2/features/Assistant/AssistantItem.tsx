@@ -8,9 +8,7 @@ import { Trash2 } from '@/componentsV2/icons/LucideIcon'
 import { useTheme } from 'heroui-native'
 import { useToast } from '@/hooks/useToast'
 import { getCurrentTopicId } from '@/hooks/useTopic'
-import { deleteAssistantById } from '@/services/AssistantService'
 import { loggerService } from '@/services/LoggerService'
-import { deleteTopicsByAssistantId, isTopicOwnedByAssistant } from '@/services/TopicService'
 import { Assistant } from '@/types/assistant'
 import { HomeNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
@@ -19,6 +17,7 @@ import XStack from '@/componentsV2/layout/XStack'
 import YStack from '@/componentsV2/layout/YStack'
 import Text from '@/componentsV2/base/Text'
 import ContextMenu, { ContextMenuListProps } from '@/componentsV2/base/ContextMenu'
+import { assistantDatabase, topicDatabase } from '@/database'
 
 const logger = loggerService.withContext('Assistant Item')
 
@@ -40,12 +39,14 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
 
   const handleDelete = async () => {
     try {
-      if (await isTopicOwnedByAssistant(assistant.id, getCurrentTopicId())) {
+      const isTopicOwnedByAssistant = await topicDatabase.isTopicOwnedByAssistant(assistant.id, getCurrentTopicId())
+
+      if (isTopicOwnedByAssistant) {
         navigation.navigate('ChatScreen', { topicId: 'new' })
       }
 
-      await deleteAssistantById(assistant.id)
-      await deleteTopicsByAssistantId(assistant.id)
+      await assistantDatabase.deleteAssistantById(assistant.id)
+      await topicDatabase.deleteTopicsByAssistantId(assistant.id)
       toast.show(t('message.assistant_deleted'))
     } catch (error) {
       logger.error('Delete Assistant error', error)

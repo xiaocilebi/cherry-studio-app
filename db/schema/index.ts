@@ -6,7 +6,6 @@ import { messages } from './messages'
 import { topics } from './topics'
 
 export * from './assistants'
-export * from './backupProviders'
 export * from './files'
 export * from './knowledges'
 export * from './messageBlocks'

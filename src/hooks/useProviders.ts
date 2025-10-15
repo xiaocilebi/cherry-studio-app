@@ -4,10 +4,10 @@ import { useMemo } from 'react'
 
 import { Provider } from '@/types/assistant'
 
-import { db } from '../../db'
-import { transformDbToProvider } from '../../db/mappers'
-import { upsertProviders } from '../../db/queries/providers.queries'
-import { providers as providersSchema } from '../../db/schema'
+import { db } from '@db'
+import { transformDbToProvider } from '@db/mappers'
+import { providerDatabase } from '@database'
+import { providers as providersSchema } from '@db/schema'
 
 /**
  * Fetch all providers from the database.
@@ -48,7 +48,7 @@ export function useProvider(providerId: string) {
   const { data: rawProvider, updatedAt } = useLiveQuery(query)
 
   const updateProvider = async (provider: Provider) => {
-    await upsertProviders([provider])
+    await providerDatabase.upsertProviders([provider])
   }
 
   const provider = useMemo(() => {
