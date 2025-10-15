@@ -24,7 +24,7 @@ import { getTopicById, upsertTopics } from './TopicService'
 import { getActiveMcps } from './McpService'
 import { MCPServer } from '@/types/mcp'
 import { BUILTIN_TOOLS } from '@/config/mcp'
-import { getMessagesByTopicId } from '@db/queries/messages.queries'
+import { messageDatabase } from '@database'
 
 const logger = loggerService.withContext('fetchChatCompletion')
 
@@ -160,7 +160,7 @@ export async function checkApi(provider: Provider, model: Model): Promise<void> 
 export async function fetchTopicNaming(topicId: string, regenerate: boolean = false) {
   logger.info('Fetching topic naming...')
   const topic = await getTopicById(topicId)
-  const messages = await getMessagesByTopicId(topicId)
+  const messages = await messageDatabase.getMessagesByTopicId(topicId)
 
   if (!topic) {
     logger.error(`[fetchTopicNaming] Topic with ID ${topicId} not found.`)

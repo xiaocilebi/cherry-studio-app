@@ -17,7 +17,7 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import { isEmpty } from 'lodash'
-import { getHasMessagesWithTopicId } from '@db/queries/messages.queries'
+import { messageDatabase } from '@database'
 
 interface NewTopicButtonProps {
   assistant: Assistant
@@ -35,7 +35,7 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
     haptic(ImpactFeedbackStyle.Medium)
     const targetAssistant = selectedAssistant || assistant
     const newestTopic = await getNewestTopic()
-    const hasMessages = await getHasMessagesWithTopicId(newestTopic?.id ?? '')
+    const hasMessages = await messageDatabase.getHasMessagesWithTopicId(newestTopic?.id ?? '')
     if (hasMessages || !newestTopic) {
       const newTopic = await createNewTopic(targetAssistant)
       dispatch(setCurrentTopicId(newTopic.id))

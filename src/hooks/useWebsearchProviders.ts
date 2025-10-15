@@ -9,7 +9,7 @@ import { WebSearchProvider } from '@/types/websearch'
 
 import { db } from '@db'
 import { transformDbToWebSearchProvider } from '@db/mappers'
-import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
+import { websearchProviderDatabase } from '@database'
 import { websearch_providers } from '@db/schema'
 
 export function useWebsearchProviders() {
@@ -78,7 +78,7 @@ export function useWebSearchProvider(providerId: string) {
   const { data: rawProvider, updatedAt } = useLiveQuery(query)
 
   const updateProvider = async (provider: WebSearchProvider) => {
-    await upsertWebSearchProviders([provider])
+    await websearchProviderDatabase.upsertWebSearchProviders([provider])
   }
 
   const provider = useMemo(() => {

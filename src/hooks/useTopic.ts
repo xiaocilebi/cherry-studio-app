@@ -8,7 +8,7 @@ import { Topic } from '@/types/assistant'
 
 import { db } from '@db'
 import { transformDbToTopic } from '@db/mappers'
-import { upsertTopics } from '@db/queries/topics.queries'
+import { topicDatabase } from '@database'
 import { topics as topicSchema } from '@db/schema'
 
 const logger = loggerService.withContext('useTopic')
@@ -25,7 +25,7 @@ export function useTopic(topicId: string) {
   logger.debug('rawTopic', rawTopic)
 
   const updateTopic = async (topic: Topic) => {
-    await upsertTopics([topic])
+    await topicDatabase.upsertTopics([topic])
   }
 
   const processedTopic = useMemo(() => {

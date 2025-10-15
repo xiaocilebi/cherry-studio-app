@@ -4,16 +4,7 @@ import { loggerService } from '@/services/LoggerService'
 import { Assistant, Topic } from '@/types/assistant'
 import { uuid } from '@/utils'
 
-import {
-  deleteTopicById as _deleteTopicById,
-  deleteTopicsByAssistantId as _deleteTopicsByAssistantId,
-  getNewestTopic as _getNewestTopic,
-  getTopicById as _getTopicById,
-  getTopics as _getTopics,
-  getTopicsByAssistantId as _getTopicsByAssistantId,
-  isTopicOwnedByAssistant as _isTopicOwnedByAssistant,
-  upsertTopics as _upsertTopics
-} from '@db/queries/topics.queries'
+import { topicDatabase } from '@database'
 const logger = loggerService.withContext('Topic Service')
 
 export async function createNewTopic(assistant: Assistant): Promise<Topic> {
@@ -25,7 +16,7 @@ export async function createNewTopic(assistant: Assistant): Promise<Topic> {
     updatedAt: Date.now()
   }
   logger.info('createNewTopic', newTopic.id)
-  await _upsertTopics(newTopic)
+  await topicDatabase.upsertTopics(newTopic)
   return newTopic
 }
 
@@ -37,7 +28,7 @@ export async function upsertTopics(topics: Topic[]): Promise<void> {
     updatedAt: topic.updatedAt,
     assistantId: topic.assistantId
   }))
-  await _upsertTopics(updatedTopics)
+  await topicDatabase.upsertTopics(updatedTopics)
 }
 
 /**
@@ -45,7 +36,7 @@ export async function upsertTopics(topics: Topic[]): Promise<void> {
  * @returns Topic
  */
 export async function getNewestTopic(): Promise<Topic | null> {
-  const newestTopic = await _getNewestTopic()
+  const newestTopic = await topicDatabase.getNewestTopic()
 
   if (!newestTopic) {
     return null
@@ -56,7 +47,7 @@ export async function getNewestTopic(): Promise<Topic | null> {
 
 export async function deleteTopicById(topicId: string): Promise<void> {
   try {
-    await _deleteTopicById(topicId)
+    await topicDatabase.deleteTopicById(topicId)
   } catch (error) {
     logger.error('Failed to delete topic:', error)
     throw error
@@ -65,7 +56,7 @@ export async function deleteTopicById(topicId: string): Promise<void> {
 
 export async function getTopicById(topicId: string): Promise<Topic | null> {
   try {
-    const topic = await _getTopicById(topicId)
+    const topic = await topicDatabase.getTopicById(topicId)
 
     if (!topic) {
       return null
@@ -80,7 +71,7 @@ export async function getTopicById(topicId: string): Promise<Topic | null> {
 
 export async function getTopics(): Promise<Topic[]> {
   try {
-    return await _getTopics()
+    return await topicDatabase.getTopics()
   } catch (error) {
     logger.error('Failed to get topics', error)
     return []
@@ -89,7 +80,7 @@ export async function getTopics(): Promise<Topic[]> {
 
 export async function getTopicsByAssistantId(assistantId: string): Promise<Topic[]> {
   try {
-    return await _getTopicsByAssistantId(assistantId)
+    return await topicDatabase.getTopicsByAssistantId(assistantId)
   } catch (error) {
     logger.error('Failed to get topics By AssistantId', assistantId, error)
     return []
@@ -98,7 +89,7 @@ export async function getTopicsByAssistantId(assistantId: string): Promise<Topic
 
 export async function isTopicOwnedByAssistant(assistantId: string, topicId: string): Promise<boolean> {
   try {
-    return await _isTopicOwnedByAssistant(assistantId, topicId)
+    return await topicDatabase.isTopicOwnedByAssistant(assistantId, topicId)
   } catch (error) {
     logger.error('Failed to get topics By AssistantId', assistantId, error)
     return false
@@ -107,7 +98,7 @@ export async function isTopicOwnedByAssistant(assistantId: string, topicId: stri
 
 export async function deleteTopicsByAssistantId(assistantId: string): Promise<void> {
   try {
-    await _deleteTopicsByAssistantId(assistantId)
+    await topicDatabase.deleteTopicsByAssistantId(assistantId)
   } catch (error) {
     logger.error('Failed to delete topic:', error)
     throw error

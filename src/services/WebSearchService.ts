@@ -13,7 +13,7 @@ import {
 } from '@/types/websearch'
 import { hasObjectKey } from '@/utils'
 
-import { getAllWebSearchProviders, getWebSearchProviderByIdSync } from '@db/queries/websearchProviders.queries'
+import { websearchProviderDatabase } from '@database'
 const logger = loggerService.withContext('WebSearch Service')
 
 class WebSearchService {
@@ -39,7 +39,7 @@ class WebSearchService {
    * @returns 如果默认搜索提供商已启用则返回true，否则返回false
    */
   public async isWebSearchEnabled(providerId?: WebSearchProvider['id']): Promise<boolean> {
-    const providers = await getAllWebSearchProviders()
+    const providers = await websearchProviderDatabase.getAllWebSearchProviders()
     const provider = providers.find(provider => provider.id === providerId)
 
     if (!provider) {
@@ -68,7 +68,7 @@ class WebSearchService {
    */
   public getWebSearchProvider(providerId?: string): WebSearchProvider | undefined {
     if (!providerId) return
-    const provider = getWebSearchProviderByIdSync(providerId)
+    const provider = websearchProviderDatabase.getWebSearchProviderByIdSync(providerId)
 
     return provider
   }

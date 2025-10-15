@@ -30,7 +30,7 @@ import { persistor } from '@/store'
 import { NavigationProps } from '@/types/naviagate'
 import { formatFileSize } from '@/utils/file'
 
-import { resetDatabase } from '@db/queries/reset.queries'
+import { databaseMaintenance } from '@database'
 const logger = loggerService.withContext('BasicDataSettingsScreen')
 
 interface SettingItemConfig {
@@ -97,7 +97,7 @@ export default function BasicDataSettingsScreen() {
         setIsResetting(true)
 
         try {
-          await resetDatabase() // reset sqlite
+          await databaseMaintenance.resetDatabase() // reset sqlite
           await persistor.purge() // reset redux
           await resetCacheDirectory() // reset cache
         } catch (error) {

@@ -1,6 +1,5 @@
 // Unified exports for all mappers
 export * from './assistants.mapper'
-export * from './backup.mapper'
 export * from './files.mapper'
 export * from './mcp.mapper'
 export * from './messageBlocks.mapper'

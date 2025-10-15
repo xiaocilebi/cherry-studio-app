@@ -7,7 +7,7 @@ import { loggerService } from '@/services/LoggerService'
 import { FileMetadata, FileTypes } from '@/types/file'
 import { uuid } from '@/utils'
 
-import { deleteFileById, getAllFiles, getFileById, upsertFiles } from '@db/queries/files.queries'
+import { fileDatabase } from '@database'
 
 export interface ShareFileResult {
   success: boolean
@@ -15,6 +15,7 @@ export interface ShareFileResult {
 }
 
 const logger = loggerService.withContext('File Service')
+const { getAllFiles, getFileById } = fileDatabase
 
 // 辅助函数，确保目录存在
 async function ensureDirExists(dir: Directory) {
@@ -100,7 +101,7 @@ export async function uploadFiles(
         size: sourceFile.size
       }
       console.log('finalFile', finalFile)
-      upsertFiles([finalFile])
+      fileDatabase.upsertFiles([finalFile])
       return finalFile
     } catch (error) {
       logger.error('Error uploading file:', error)
@@ -112,16 +113,16 @@ export async function uploadFiles(
 
 async function deleteFile(id: string, force: boolean = false): Promise<void> {
   try {
-    const file = await getFileById(id)
+    const file = await fileDatabase.getFileById(id)
     if (!file) return
     const sourceFile = new File(file.path)
 
     if (!force && file.count > 1) {
-      upsertFiles([{ ...file, count: file.count - 1 }])
+      fileDatabase.upsertFiles([{ ...file, count: file.count - 1 }])
       return
     }
 
-    deleteFileById(id)
+    fileDatabase.deleteFileById(id)
 
     sourceFile.delete()
   } catch (error) {

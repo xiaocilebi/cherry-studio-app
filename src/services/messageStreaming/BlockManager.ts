@@ -1,7 +1,6 @@
 import { AssistantMessageStatus, MessageBlock, MessageBlockStatus, MessageBlockType } from '@/types/message'
 
-import { updateOneBlock, upsertBlocks } from '@db/queries/messageBlocks.queries'
-import { getMessageById, upsertMessages } from '@db/queries/messages.queries'
+import { messageBlockDatabase, messageDatabase } from '@database'
 import { loggerService } from '../LoggerService'
 
 const logger = loggerService.withContext('Block Manager')
@@ -88,7 +87,7 @@ export class BlockManager {
         this._activeBlockInfo = { id: blockId, type: blockType } // 更新活跃块信息
       }
 
-      await updateOneBlock({ id: blockId, changes })
+      await messageBlockDatabase.updateOneBlock({ id: blockId, changes })
       this.deps.saveUpdatedBlockToDB(blockId, this.deps.assistantMsgId, this.deps.topicId)
       this._lastBlockType = blockType
     } else {
@@ -105,9 +104,9 @@ export class BlockManager {
     this._lastBlockType = newBlockType
     this._activeBlockInfo = { id: newBlock.id, type: newBlockType } // 设置新的活跃块信息
 
-    await upsertBlocks(newBlock)
+    await messageBlockDatabase.upsertBlocks(newBlock)
     // change message status
-    const toBeUpdatedMessage = await getMessageById(newBlock.messageId)
+    const toBeUpdatedMessage = await messageDatabase.getMessageById(newBlock.messageId)
 
     if (!toBeUpdatedMessage) {
       logger.error(`[upsertBlockReference] Message ${newBlock.messageId} not found.`)
@@ -128,7 +127,7 @@ export class BlockManager {
       toBeUpdatedMessage.status = AssistantMessageStatus.PROCESSING
     }
 
-    const updatedMessage = await upsertMessages(toBeUpdatedMessage)
+    const updatedMessage = await messageDatabase.upsertMessages(toBeUpdatedMessage)
 
     if (!updatedMessage) {
       logger.error(`[handleBlockTransition] Failed to update message ${toBeUpdatedMessage.id} in state.`)

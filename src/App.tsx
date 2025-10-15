@@ -22,17 +22,13 @@ import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Provider, useSelector } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
-import { getDataBackupProviders } from '@/config/backup'
 import { getWebSearchProviders } from '@/config/websearchProviders'
 import { useTheme } from '@/hooks/useTheme'
 import { loggerService } from '@/services/LoggerService'
 import store, { persistor, RootState, useAppDispatch } from '@/store'
 import { setInitialized } from '@/store/app'
 
-import { assistantDatabase } from '@database'
-import { upsertDataBackupProviders } from '@db/queries/backup.queries'
-import { upsertProviders } from '@db/queries/providers.queries'
-import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
+import { assistantDatabase, mcpDatabase, providerDatabase, websearchProviderDatabase } from '@database'
 import migrations from '../drizzle/migrations'
 import { getSystemAssistants } from './config/assistants'
 import { SYSTEM_PROVIDERS } from './config/providers'
@@ -41,7 +37,6 @@ import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
 import { initBuiltinMcp } from './config/mcp'
-import { upsertMcps } from '@db/queries/mcp.queries'
 import { DATABASE_NAME, db, expoDb } from '@db'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -74,12 +69,12 @@ function DatabaseInitializer() {
           logger.info('First launch, initializing app data...')
           const systemAssistants = getSystemAssistants()
           await assistantDatabase.upsertAssistants([...systemAssistants])
-          await upsertProviders(SYSTEM_PROVIDERS)
+          await providerDatabase.upsertProviders(SYSTEM_PROVIDERS)
           const websearchProviders = getWebSearchProviders()
-          await upsertWebSearchProviders(websearchProviders)
+          await websearchProviderDatabase.upsertWebSearchProviders(websearchProviders)
           storage.set('language', Localization.getLocales()[0]?.languageTag)
           const builtinMcp = initBuiltinMcp()
-          await upsertMcps(builtinMcp)
+          await mcpDatabase.upsertMcps(builtinMcp)
           dispatch(setInitialized(true))
           logger.info('App data initialized successfully.')
         } catch (e) {

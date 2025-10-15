@@ -13,8 +13,7 @@ import { HomeNavigationProps } from '@/types/naviagate'
 import { filterMessages } from '@/utils/messageUtils/filters'
 import { getMainTextContent, findTranslationBlocks } from '@/utils/messageUtils/find'
 
-import { removeManyBlocks } from '@db/queries/messageBlocks.queries'
-import { getMessagesByTopicId, updateMessageById, upsertMessages } from '@db/queries/messages.queries'
+import { messageBlockDatabase, messageDatabase } from '@database'
 import { useDialog } from './useDialog'
 import { useToast } from './useToast'
 
@@ -172,13 +171,13 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
 
     try {
       const translationBlocks = await findTranslationBlocks(message)
-      await removeManyBlocks(translationBlocks.map(block => block.id))
+      await messageBlockDatabase.removeManyBlocks(translationBlocks.map(block => block.id))
 
       const updatedMessage = {
         ...message,
         blocks: message.blocks.filter(blockId => !translationBlocks.some(block => block.id === blockId))
       }
-      await upsertMessages(updatedMessage)
+      await messageDatabase.upsertMessages(updatedMessage)
       setIsTranslated(false)
     } catch (error) {
       logger.error('Error deleting translation:', error)
@@ -203,7 +202,7 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
       // 如果要标记为最佳答案，需要先将同一个askId组中的其他消息设置为非最佳答案
       if (newUsefulState && message.askId) {
         // 获取当前话题的所有消息
-        const allMessages = await getMessagesByTopicId(message.topicId)
+        const allMessages = await messageDatabase.getMessagesByTopicId(message.topicId)
 
         // 找到同一个askId组的所有消息（包括问题消息和其他回答）
         const relatedMessages = allMessages.filter(msg => msg.askId === message.askId || msg.id === message.askId)
@@ -211,14 +210,14 @@ export const useMessageActions = ({ message, assistant }: UseMessageActionsProps
         // 将所有相关消息的useful状态设置为false
         const updatePromises = relatedMessages
           .filter(msg => msg.id !== message.id && msg.useful) // 排除当前消息，只更新其他有用标记的消息
-          .map(msg => updateMessageById(msg.id, { useful: false }))
+          .map(msg => messageDatabase.updateMessageById(msg.id, { useful: false }))
 
         await Promise.all(updatePromises)
         logger.info(`Reset useful state for ${updatePromises.length} related messages in askId group: ${message.askId}`)
       }
 
       // 更新当前消息的useful状态
-      await updateMessageById(message.id, { useful: newUsefulState })
+      await messageDatabase.updateMessageById(message.id, { useful: newUsefulState })
 
       const successMessage = newUsefulState ? t('message.marked_as_best_answer') : t('message.unmarked_as_best_answer')
 

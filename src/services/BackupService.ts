@@ -10,12 +10,14 @@ import { ExportIndexedData, ExportReduxData, ImportIndexedData, ImportReduxData 
 import { FileMetadata } from '@/types/file'
 import { Message } from '@/types/message'
 
-import { assistantDatabase } from '@database'
-import { upsertBlocks } from '@db/queries/messageBlocks.queries'
-import { upsertMessages } from '@db/queries/messages.queries'
-import { upsertProviders } from '@db/queries/providers.queries'
-import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
-import { upsertTopics } from '@db/queries/topics.queries'
+import {
+  assistantDatabase,
+  messageBlockDatabase,
+  messageDatabase,
+  providerDatabase,
+  topicDatabase,
+  websearchProviderDatabase
+} from '@database'
 const logger = loggerService.withContext('Backup Service')
 
 export type RestoreStepId = 'restore_settings' | 'restore_messages'
@@ -32,9 +34,9 @@ type OnProgressCallback = (update: ProgressUpdate) => void
 
 async function restoreIndexedDbData(data: ExportIndexedData, onProgress: OnProgressCallback, dispatch: Dispatch) {
   onProgress({ step: 'restore_messages', status: 'in_progress' })
-  await upsertTopics(data.topics)
-  await upsertMessages(data.messages)
-  await upsertBlocks(data.message_blocks)
+  await topicDatabase.upsertTopics(data.topics)
+  await messageDatabase.upsertMessages(data.messages)
+  await messageBlockDatabase.upsertBlocks(data.message_blocks)
 
   if (data.settings) {
     const avatarSetting = data.settings.find(setting => setting.id === 'image://avatar')
@@ -49,7 +51,7 @@ async function restoreIndexedDbData(data: ExportIndexedData, onProgress: OnProgr
 
 async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCallback, dispatch: Dispatch) {
   onProgress({ step: 'restore_settings', status: 'in_progress' })
-  await upsertProviders(data.llm.providers)
+  await providerDatabase.upsertProviders(data.llm.providers)
   const allSourceAssistants = [data.assistants.defaultAssistant, ...data.assistants.assistants]
 
   // default assistant为built_in, 其余为external
@@ -61,7 +63,7 @@ async function restoreReduxData(data: ExportReduxData, onProgress: OnProgressCal
       }) as Assistant
   )
   await assistantDatabase.upsertAssistants(assistants)
-  await upsertWebSearchProviders(data.websearch.providers)
+  await websearchProviderDatabase.upsertWebSearchProviders(data.websearch.providers)
   await new Promise(resolve => setTimeout(resolve, 200)) // Delay between steps
 
   dispatch(setUserName(data.settings.userName))
