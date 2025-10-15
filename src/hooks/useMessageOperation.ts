@@ -7,7 +7,7 @@ import { newMessagesActions } from '@/store/newMessage'
 import { Topic } from '@/types/assistant'
 import { abortCompletion } from '@/utils/abortController'
 
-import { getMessagesByTopicId } from '../../db/queries/messages.queries'
+import { getMessagesByTopicId } from '@db/queries/messages.queries'
 
 const logger = loggerService.withContext('UseMessageOperations')
 

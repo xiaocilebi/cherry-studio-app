@@ -7,7 +7,7 @@ import {
   getProviderById as _getProviderById,
   getProviderByIdSync as _getProviderByIdSync,
   upsertProviders
-} from '../../db/queries/providers.queries'
+} from '@db/queries/providers.queries'
 import { getDefaultModel } from './AssistantService'
 const logger = loggerService.withContext('Provider Service')
 

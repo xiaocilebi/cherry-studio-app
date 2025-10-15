@@ -17,7 +17,7 @@ import { Assistant } from '@/types/assistant'
 import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import { isEmpty } from 'lodash'
-import { getHasMessagesWithTopicId } from '../../../../../db/queries/messages.queries'
+import { getHasMessagesWithTopicId } from '@db/queries/messages.queries'
 
 interface NewTopicButtonProps {
   assistant: Assistant

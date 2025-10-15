@@ -715,8 +715,8 @@ export async function getMessagesWithBlocksByTopicId(topicId: string): Promise<M
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
 import { useEffect, useState } from 'react'
 import { Message } from '@/types/message'
-import { db } from '../../db'
-import { messages as messagesSchema, messageBlocks as messageBlocksSchema } from '../../db/schema'
+import { db } from '@db/index'
+import { messages as messagesSchema, messageBlocks as messageBlocksSchema } from '@db/schema'
 import { eq } from 'drizzle-orm'
 
 export const useMessages = (topicId: string) => {
@@ -836,9 +836,9 @@ ON DELETE CASCADE;
 import { eq } from 'drizzle-orm'
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
 import { useMemo } from 'react'
-import { db } from '../../db'
-import { messageBlocks, messages } from '../../db/schema'
-import { transformDbToMessageBlock } from '../../db/queries/messageBlocks.queries'
+import { db } from '@db/index'
+import { messageBlocks, messages } from '@db/schema'
+import { transformDbToMessageBlock } from '@db/queries/messageBlocks.queries'
 import { MessageBlock } from '@/types/message'
 
 /**

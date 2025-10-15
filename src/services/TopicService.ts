@@ -13,7 +13,7 @@ import {
   getTopicsByAssistantId as _getTopicsByAssistantId,
   isTopicOwnedByAssistant as _isTopicOwnedByAssistant,
   upsertTopics as _upsertTopics
-} from '../../db/queries/topics.queries'
+} from '@db/queries/topics.queries'
 const logger = loggerService.withContext('Topic Service')
 
 export async function createNewTopic(assistant: Assistant): Promise<Topic> {

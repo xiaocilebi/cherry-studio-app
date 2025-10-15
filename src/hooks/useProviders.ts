@@ -4,10 +4,10 @@ import { useMemo } from 'react'
 
 import { Provider } from '@/types/assistant'
 
-import { db } from '../../db'
-import { transformDbToProvider } from '../../db/mappers'
-import { upsertProviders } from '../../db/queries/providers.queries'
-import { providers as providersSchema } from '../../db/schema'
+import { db } from '@db/index'
+import { transformDbToProvider } from '@db/mappers'
+import { upsertProviders } from '@db/queries/providers.queries'
+import { providers as providersSchema } from '@db/schema'
 
 /**
  * Fetch all providers from the database.

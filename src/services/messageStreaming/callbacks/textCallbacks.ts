@@ -3,7 +3,7 @@ import { CitationMessageBlock, MessageBlock, MessageBlockStatus, MessageBlockTyp
 import { WebSearchSource } from '@/types/websearch'
 import { createMainTextBlock } from '@/utils/messageUtils/create'
 
-import { getBlockById } from '../../../../db/queries/messageBlocks.queries'
+import { getBlockById } from '@db/queries/messageBlocks.queries'
 import { BlockManager } from '../BlockManager'
 
 const logger = loggerService.withContext('Text Callbacks')

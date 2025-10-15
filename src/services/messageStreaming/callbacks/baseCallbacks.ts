@@ -13,7 +13,7 @@ import { formatErrorMessage, isAbortError } from '@/utils/error'
 import { createBaseMessageBlock, createErrorBlock } from '@/utils/messageUtils/create'
 import { findAllBlocks } from '@/utils/messageUtils/find'
 
-import { getMessageById, getMessagesByTopicId, upsertMessages } from '../../../../db/queries/messages.queries'
+import { getMessageById, getMessagesByTopicId, upsertMessages } from '@db/queries/messages.queries'
 import { BlockManager } from '../BlockManager'
 
 const logger = loggerService.withContext('Base Callbacks')

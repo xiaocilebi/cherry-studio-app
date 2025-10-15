@@ -29,11 +29,10 @@ import { loggerService } from '@/services/LoggerService'
 import store, { persistor, RootState, useAppDispatch } from '@/store'
 import { setInitialized } from '@/store/app'
 
-import { DATABASE_NAME, db, expoDb } from '../db'
-import { upsertAssistants } from '../db/queries/assistants.queries'
-import { upsertDataBackupProviders } from '../db/queries/backup.queries'
-import { upsertProviders } from '../db/queries/providers.queries'
-import { upsertWebSearchProviders } from '../db/queries/websearchProviders.queries'
+import { upsertAssistants } from '@db/queries/assistants.queries'
+import { upsertDataBackupProviders } from '@db/queries/backup.queries'
+import { upsertProviders } from '@db/queries/providers.queries'
+import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
 import migrations from '../drizzle/migrations'
 import { getSystemAssistants } from './config/assistants'
 import { SYSTEM_PROVIDERS } from './config/providers'
@@ -42,7 +41,8 @@ import { ToastProvider } from './hooks/useToast'
 import MainStackNavigator from './navigators/MainStackNavigator'
 import { storage } from './utils'
 import { initBuiltinMcp } from './config/mcp'
-import { upsertMcps } from '../db/queries/mcp.queries'
+import { upsertMcps } from '@db/queries/mcp.queries'
+import { DATABASE_NAME, db, expoDb } from '@db/index'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -99,9 +99,8 @@ function DatabaseInitializer() {
     }
   }, [loaded, initialized])
 
-  return null;
+  return null
 }
-
 
 // 主题和导航组件
 function ThemedApp() {

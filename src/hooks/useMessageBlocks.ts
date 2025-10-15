@@ -4,9 +4,9 @@ import { useMemo } from 'react'
 
 import { MessageBlock } from '@/types/message'
 
-import { db } from '../../db'
-import { transformDbToMessageBlock } from '../../db/mappers'
-import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '../../db/schema'
+import { db } from '@db/index'
+import { transformDbToMessageBlock } from '@db/mappers'
+import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '@db/schema'
 
 /**
  * Topic 级别的 blocks 监听器（推荐使用）

@@ -1,7 +1,7 @@
 import { AssistantMessageStatus, MessageBlock, MessageBlockStatus, MessageBlockType } from '@/types/message'
 
-import { updateOneBlock, upsertBlocks } from '../../../db/queries/messageBlocks.queries'
-import { getMessageById, upsertMessages } from '../../../db/queries/messages.queries'
+import { updateOneBlock, upsertBlocks } from '@db/queries/messageBlocks.queries'
+import { getMessageById, upsertMessages } from '@db/queries/messages.queries'
 import { loggerService } from '../LoggerService'
 
 const logger = loggerService.withContext('Block Manager')

@@ -30,7 +30,7 @@ import { persistor } from '@/store'
 import { NavigationProps } from '@/types/naviagate'
 import { formatFileSize } from '@/utils/file'
 
-import { resetDatabase } from '../../../../db/queries/reset.queries'
+import { resetDatabase } from '@db/queries/reset.queries'
 const logger = loggerService.withContext('BasicDataSettingsScreen')
 
 interface SettingItemConfig {

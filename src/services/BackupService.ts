@@ -10,12 +10,12 @@ import { ExportIndexedData, ExportReduxData, ImportIndexedData, ImportReduxData 
 import { FileMetadata } from '@/types/file'
 import { Message } from '@/types/message'
 
-import { upsertAssistants } from '../../db/queries/assistants.queries'
-import { upsertBlocks } from '../../db/queries/messageBlocks.queries'
-import { upsertMessages } from '../../db/queries/messages.queries'
-import { upsertProviders } from '../../db/queries/providers.queries'
-import { upsertWebSearchProviders } from '../../db/queries/websearchProviders.queries'
-import { upsertTopics } from './TopicService'
+import { upsertAssistants } from '@db/queries/assistants.queries'
+import { upsertBlocks } from '@db/queries/messageBlocks.queries'
+import { upsertMessages } from '@db/queries/messages.queries'
+import { upsertProviders } from '@db/queries/providers.queries'
+import { upsertWebSearchProviders } from '@db/queries/websearchProviders.queries'
+import { upsertTopics } from '@db/queries/topics.queries'
 const logger = loggerService.withContext('Backup Service')
 
 export type RestoreStepId = 'restore_settings' | 'restore_messages'

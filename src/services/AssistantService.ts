@@ -16,7 +16,7 @@ import {
   getAssistantById as _getAssistantById,
   getExternalAssistants as _getExternalAssistants,
   upsertAssistants
-} from '../../db/queries/assistants.queries'
+} from '@db/queries/assistants.queries'
 const logger = loggerService.withContext('Assistant Service')
 
 export async function getDefaultAssistant(): Promise<Assistant> {

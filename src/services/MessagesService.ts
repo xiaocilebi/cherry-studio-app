@@ -21,7 +21,7 @@ import {
 } from '@/utils/messageUtils/create'
 import { getTopicQueue } from '@/utils/queue'
 
-import { getBlockById, removeManyBlocks, updateOneBlock, upsertBlocks } from '../../db/queries/messageBlocks.queries'
+import { getBlockById, removeManyBlocks, updateOneBlock, upsertBlocks } from '@db/queries/messageBlocks.queries'
 import {
   deleteMessageById as _deleteMessageById,
   deleteMessagesByTopicId as _deleteMessagesByTopicId,
@@ -29,7 +29,7 @@ import {
   getMessagesByTopicId,
   updateMessageById,
   upsertMessages
-} from '../../db/queries/messages.queries'
+} from '@db/queries/messages.queries'
 import { fetchTopicNaming } from './ApiService'
 import { getAssistantById, getDefaultModel } from './AssistantService'
 import { BlockManager, createCallbacks } from './messageStreaming'

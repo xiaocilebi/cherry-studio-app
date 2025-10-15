@@ -11,7 +11,7 @@ import {
   type TranslationMessageBlock
 } from '@/types/message'
 
-import { getBlockById } from '../../../db/queries/messageBlocks.queries'
+import { getBlockById } from '@db/queries/messageBlocks.queries'
 
 export const findAllBlocks = async (message: Message): Promise<MessageBlock[]> => {
   if (!message || !message.blocks || message.blocks.length === 0) {

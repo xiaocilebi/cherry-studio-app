@@ -13,8 +13,8 @@ import { HomeNavigationProps } from '@/types/naviagate'
 import { filterMessages } from '@/utils/messageUtils/filters'
 import { getMainTextContent, findTranslationBlocks } from '@/utils/messageUtils/find'
 
-import { removeManyBlocks } from '../../db/queries/messageBlocks.queries'
-import { getMessagesByTopicId, updateMessageById, upsertMessages } from '../../db/queries/messages.queries'
+import { removeManyBlocks } from '@db/queries/messageBlocks.queries'
+import { getMessagesByTopicId, updateMessageById, upsertMessages } from '@db/queries/messages.queries'
 import { useDialog } from './useDialog'
 import { useToast } from './useToast'
 

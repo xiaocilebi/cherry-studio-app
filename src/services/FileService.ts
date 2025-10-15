@@ -7,7 +7,7 @@ import { loggerService } from '@/services/LoggerService'
 import { FileMetadata, FileTypes } from '@/types/file'
 import { uuid } from '@/utils'
 
-import { deleteFileById, getAllFiles, getFileById, upsertFiles } from '../../db/queries/files.queries'
+import { deleteFileById, getAllFiles, getFileById, upsertFiles } from '@db/queries/files.queries'
 
 export interface ShareFileResult {
   success: boolean

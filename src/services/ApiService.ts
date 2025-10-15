@@ -24,7 +24,7 @@ import { getTopicById, upsertTopics } from './TopicService'
 import { getActiveMcps } from './McpService'
 import { MCPServer } from '@/types/mcp'
 import { BUILTIN_TOOLS } from '@/config/mcp'
-import { getMessagesByTopicId } from '../../db/queries/messages.queries'
+import { getMessagesByTopicId } from '@db/queries/messages.queries'
 
 const logger = loggerService.withContext('fetchChatCompletion')
 

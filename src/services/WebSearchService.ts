@@ -13,7 +13,7 @@ import {
 } from '@/types/websearch'
 import { hasObjectKey } from '@/utils'
 
-import { getAllWebSearchProviders, getWebSearchProviderByIdSync } from '../../db/queries/websearchProviders.queries'
+import { getAllWebSearchProviders, getWebSearchProviderByIdSync } from '@db/queries/websearchProviders.queries'
 const logger = loggerService.withContext('WebSearch Service')
 
 class WebSearchService {

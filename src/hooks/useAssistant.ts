@@ -7,10 +7,10 @@ import { RootState } from '@/store'
 import { resetBuiltInAssistants as _resetBuiltInAssistants } from '@/store/assistant'
 import { Assistant } from '@/types/assistant'
 
-import { db } from '../../db'
-import { transformDbToAssistant } from '../../db/mappers'
-import { upsertAssistants } from '../../db/queries/assistants.queries'
-import { assistants as assistantsSchema } from '../../db/schema'
+import { transformDbToAssistant } from '@db/mappers'
+import { upsertAssistants } from '@db/queries/assistants.queries'
+import { assistants as assistantsSchema } from '@db/schema'
+import { db } from '@db/index'
 
 export function useAssistant(assistantId: string) {
   const query = db.select().from(assistantsSchema).where(eq(assistantsSchema.id, assistantId))

@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 
 import { Message } from '@/types/message'
 
-import { db } from '../../db'
-import { transformDbToMessage } from '../../db/mappers'
-import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '../../db/schema'
+import { db } from '@db/index'
+import { transformDbToMessage } from '@db/mappers'
+import { messageBlocks as messageBlocksSchema, messages as messagesSchema } from '@db/schema'
 
 export const useMessages = (topicId: string) => {
   const startTime = performance.now()

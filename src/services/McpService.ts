@@ -1,5 +1,5 @@
 import { MCPServer } from '@/types/mcp'
-import { getMcps } from '../../db/queries/mcp.queries'
+import { getMcps } from '@db/queries/mcp.queries'
 import { BUILTIN_TOOLS } from '@/config/mcp'
 
 export async function getActiveMcps() {

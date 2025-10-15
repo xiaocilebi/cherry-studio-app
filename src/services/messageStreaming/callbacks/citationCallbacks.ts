@@ -4,7 +4,7 @@ import { CitationMessageBlock, MessageBlockStatus, MessageBlockType } from '@/ty
 import { createCitationBlock } from '@/utils/messageUtils/create'
 import { findMainTextBlocks } from '@/utils/messageUtils/find'
 
-import { getMessageById } from '../../../../db/queries/messages.queries'
+import { getMessageById } from '@db/queries/messages.queries'
 import { BlockManager } from '../BlockManager'
 
 const logger = loggerService.withContext('Citation Callbacks')
