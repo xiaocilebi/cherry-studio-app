@@ -7,6 +7,7 @@ import { Assistant } from '@/types/assistant'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import XStack from '@/componentsV2/layout/XStack'
 import Text from '@/componentsV2/base/Text'
+import { Keyboard } from 'react-native'
 
 interface McpButtonProps {
   assistant: Assistant
@@ -17,6 +18,7 @@ export const McpButton: React.FC<McpButtonProps> = ({ assistant, updateAssistant
   const mcpServerSheetRef = useRef<BottomSheetModal>(null)
 
   const openMcpServerSheet = () => {
+    Keyboard.dismiss()
     mcpServerSheetRef.current?.present()
   }
 
