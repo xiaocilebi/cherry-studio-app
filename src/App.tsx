@@ -77,8 +77,6 @@ function DatabaseInitializer() {
           await upsertProviders(SYSTEM_PROVIDERS)
           const websearchProviders = getWebSearchProviders()
           await upsertWebSearchProviders(websearchProviders)
-          const dataBackupProviders = getDataBackupProviders()
-          await upsertDataBackupProviders(dataBackupProviders)
           storage.set('language', Localization.getLocales()[0]?.languageTag)
           const builtinMcp = initBuiltinMcp()
           await upsertMcps(builtinMcp)
