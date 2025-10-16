@@ -18,16 +18,16 @@ export class CherryinAPIClient extends OpenAIAPIClient {
     options = options || {}
     options.headers = options.headers || {}
 
-    const signature = await window.api.cherryin.generateSignature({
-      method: 'POST',
-      path: '/chat/completions',
-      query: '',
-      body: payload
-    })
+    // const signature = await window.api.cherryin.generateSignature({
+    //   method: 'POST',
+    //   path: '/chat/completions',
+    //   query: '',
+    //   body: payload
+    // })
 
     options.headers = {
-      ...options.headers,
-      ...signature
+      ...options.headers
+      // ...signature
     }
 
     // @ts-ignore - SDK参数可能有额外的字段
