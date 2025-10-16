@@ -29,7 +29,7 @@ export default {
       [
         'expo-build-properties',
         {
-          ios: { deploymentTarget: '18.0' },
+          ios: { deploymentTarget: '15.5' },
           android: {
             kotlinVersion: '2.0.21',
             buildToolsVersion: '35.0.0',

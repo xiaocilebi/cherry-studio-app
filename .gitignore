@@ -50,7 +50,6 @@ yarn-error.*
 app-example
 
 # build
-ios
 android
 *.ipa
 *.apk
