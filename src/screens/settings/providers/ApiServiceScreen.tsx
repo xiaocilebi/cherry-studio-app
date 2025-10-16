@@ -160,14 +160,14 @@ export default function ApiServiceScreen() {
           <XStack className="justify-between items-center">
             <GroupTitle>{t('settings.provider.api_key')}</GroupTitle>
             <Button size="sm" isIconOnly variant="ghost" onPress={handleOpenBottomSheet}>
-              <Button.LabelContent>
+              <Button.Label>
                 {checkApiStatus === 'idle' && <ShieldCheck size={16} />}
                 {checkApiStatus === 'error' && <XCircle size={16} />}
                 {checkApiStatus === 'processing' && <Spinner size="sm" />}
                 {checkApiStatus === 'success' && (
                   <ShieldCheck size={16} className="text-green-100 dark:text-green-dark-100" />
                 )}
-              </Button.LabelContent>
+              </Button.Label>
             </Button>
           </XStack>
 
@@ -181,9 +181,9 @@ export default function ApiServiceScreen() {
                 onChangeText={text => handleProviderConfigChange('apiKey', text)}>
                 <TextField.InputEndContent>
                   <Button size="sm" variant="ghost" isIconOnly onPress={toggleApiKeyVisibility}>
-                    <Button.LabelContent>
+                    <Button.Label>
                       {showApiKey ? <EyeOff className="text-white" size={16} /> : <Eye size={16} />}
-                    </Button.LabelContent>
+                    </Button.Label>
                   </Button>
                 </TextField.InputEndContent>
               </TextField.Input>

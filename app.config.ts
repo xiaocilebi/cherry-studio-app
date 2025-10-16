@@ -12,7 +12,7 @@ export default {
     entryPoint: './src/app.js',
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'com.anonymous.cherrystudio',
+      bundleIdentifier: 'com.cherry-studio.app',
       userInterfaceStyle: 'automatic'
     },
     android: {
@@ -21,7 +21,7 @@ export default {
         backgroundColor: '#F65D5D'
       },
       edgeToEdgeEnabled: true,
-      package: 'com.anonymous.cherrystudio',
+      package: 'com.cherry-studio.app',
       userInterfaceStyle: 'automatic',
       predictiveBackGestureEnabled: true
     },
@@ -29,7 +29,7 @@ export default {
       [
         'expo-build-properties',
         {
-          ios: { deploymentTarget: '15.5' },
+          ios: { deploymentTarget: '16.0' },
           android: {
             kotlinVersion: '2.0.21',
             buildToolsVersion: '35.0.0',

@@ -129,9 +129,9 @@ export default function WebSearchProviderSettingsScreen() {
             <XStack className="justify-between items-center">
               <GroupTitle>{t('settings.websearch.api_key')}</GroupTitle>
               <Button size="sm" isIconOnly variant="ghost" onPress={handleOpenBottomSheet}>
-                <Button.LabelContent>
+                <Button.Label>
                   <ShieldCheck size={16} className="text-blue-500" />
-                </Button.LabelContent>
+                </Button.Label>
               </Button>
             </XStack>
 
@@ -145,9 +145,9 @@ export default function WebSearchProviderSettingsScreen() {
                   onChangeText={text => handleProviderConfigChange('apiKey', text)}>
                   <TextField.InputEndContent>
                     <Button size="sm" variant="ghost" isIconOnly onPress={toggleApiKeyVisibility}>
-                      <Button.LabelContent>
+                      <Button.Label>
                         {showApiKey ? <EyeOff className="text-white" size={16} /> : <Eye size={16} />}
-                      </Button.LabelContent>
+                      </Button.Label>
                     </Button>
                   </TextField.InputEndContent>
                 </TextField.Input>

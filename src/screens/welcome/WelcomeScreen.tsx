@@ -59,15 +59,11 @@ export default function WelcomeScreen() {
         <View className="justify-center items-center h-1/4 w-full bg-ui-card-background dark:bg-ui-card-background-dark ">
           <YStack className="flex-1 justify-center items-center gap-5">
             <Button variant="primary" onPress={() => bottomSheetModalRef.current?.present()}>
-              <Button.LabelContent className="w-2/3" classNames={{ text: 'text-lg' }}>
-                {t('common.import_from_cherry_studio')}
-              </Button.LabelContent>
+              <Button.Label className="w-2/3 text-lg">{t('common.import_from_cherry_studio')}</Button.Label>
             </Button>
 
             <Button variant="secondary" onPress={handleStart}>
-              <Button.LabelContent className="w-2/3" classNames={{ text: 'text-lg' }}>
-                {t('common.start')}
-              </Button.LabelContent>
+              <Button.Label className="w-2/3 text-lg">{t('common.start')}</Button.Label>
             </Button>
           </YStack>
         </View>

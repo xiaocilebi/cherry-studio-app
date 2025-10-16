@@ -140,9 +140,9 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
                     options?.cancelStyle?.toString() || ''
                   )}
                   onPress={cancel}>
-                  <Button.LabelContent>
+                  <Button.Label>
                     <Text className="text-gray-80 dark:text-gray-80 text-[17px]">{cancelText}</Text>
-                  </Button.LabelContent>
+                  </Button.Label>
                 </Button>
               )}
               <Button
@@ -152,9 +152,9 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
                   options?.confirmStyle?.toString() || ''
                 )}
                 onPress={confirm}>
-                <Button.LabelContent>
+                <Button.Label>
                   <Text className={cn(confirmTextClassName, 'text-[17px]')}>{confirmText}</Text>
-                </Button.LabelContent>
+                </Button.Label>
               </Button>
             </XStack>
           </YStack>

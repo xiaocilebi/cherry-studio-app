@@ -106,9 +106,9 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
                     ? 'bg-green-20 border-green-20 dark:bg-green-dark-20 dark:border-green-dark-20'
                     : 'bg-yellow-20 border-yellow-20 dark:bg-yellow-dark-20 dark:border-yellow-dark-20'
               )}
-              disabled={!isDone}
+              isDisabled={!isDone}
               onPress={onClose}>
-              <Button.LabelContent>
+              <Button.Label>
                 <Text
                   className={cn(
                     overallStatus === 'error' && 'text-red-100 dark:text-red-100',
@@ -117,7 +117,7 @@ export function RestoreProgressModal({ isOpen, steps, overallStatus, onClose }: 
                   )}>
                   {isDone ? t('common.close') : t('settings.data.restore.progress.pending')}
                 </Text>
-              </Button.LabelContent>
+              </Button.Label>
             </Button>
           </XStack>
         </YStack>

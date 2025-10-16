@@ -3,7 +3,6 @@ import { loggerService } from '@/services/LoggerService'
 import { db } from '..'
 import {
   assistants,
-  backup_providers,
   files,
   knowledges,
   messageBlocks,
@@ -49,9 +48,6 @@ export async function clearAllTables(): Promise<void> {
 
       await tx.delete(websearch_providers)
       logger.info('Cleared websearch_providers table')
-
-      await tx.delete(backup_providers)
-      logger.info('Cleared backup_providers table')
 
       await tx.delete(files)
       logger.info('Cleared files table')

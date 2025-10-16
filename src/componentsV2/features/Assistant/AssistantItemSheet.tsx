@@ -234,26 +234,26 @@ const AssistantItemSheet = forwardRef<BottomSheetModal, AssistantItemSheetProps>
             <XStack className="px-6 justify-between items-center gap-4 flex-shrink-0" style={{ bottom }}>
               {source === 'builtIn' && (
                 <Button variant="ghost" isIconOnly onPress={handleAddAssistant}>
-                  <Button.LabelContent>
+                  <Button.Label>
                     <UnionPlusIcon size={30} />
-                  </Button.LabelContent>
+                  </Button.Label>
                 </Button>
               )}
               {source === 'external' && (
                 <Button variant="ghost" isIconOnly onPress={handleEditAssistant}>
-                  <Button.LabelContent>
+                  <Button.Label>
                     <Settings2 size={30} />
-                  </Button.LabelContent>
+                  </Button.Label>
                 </Button>
               )}
               <Button
                 className="bg-green-10 dark:bg-green-dark-10 border-green-20 dark:border-green-dark-20 rounded-[30px] py-2.5 px-5 flex-1"
                 onPress={actionButton?.onPress || handleChatPress}>
-                <Button.LabelContent>
+                <Button.Label>
                   <Text className="text-green-100 dark:text-green-dark-100 text-[17px] font-bold">
                     {actionButton?.text || t('assistants.market.button.chat')}
                   </Text>
-                </Button.LabelContent>
+                </Button.Label>
               </Button>
             </XStack>
           </YStack>

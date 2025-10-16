@@ -25,7 +25,7 @@ function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: ()
       variant="ghost"
       className="w-full   bg-ui-card-background dark:bg-ui-card-background-dark px-3  justify-between"
       onPress={onPress}>
-      <Button.LabelContent>
+      <Button.Label>
         <XStack className="flex-1 items-center gap-2 overflow-hidden">
           {model ? (
             <>
@@ -47,10 +47,8 @@ function ModelPicker({ assistant, onPress }: { assistant: Assistant; onPress: ()
             </Text>
           )}
         </XStack>
-      </Button.LabelContent>
-      <Button.EndContent>
-        <ChevronDown size={18} className="text-text-secondary dark:text-text-secondary-dark opacity-90" />
-      </Button.EndContent>
+      </Button.Label>
+      <ChevronDown size={18} className="text-text-secondary dark:text-text-secondary-dark opacity-90" />
     </Button>
   )
 }

@@ -64,7 +64,7 @@ export const WebSearchApiCheckSheet = forwardRef<BottomSheetModal, WebSearchApiC
                 className="h-11 w-1/2 rounded-lg bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                 isDisabled={checkApiStatus === 'processing'}
                 onPress={onStartModelCheck}>
-                <Button.LabelContent>
+                <Button.Label>
                   {checkApiStatus === 'processing' && (
                     <View>
                       <XStack className="gap-2.5 w-full items-center justify-center">
@@ -96,7 +96,7 @@ export const WebSearchApiCheckSheet = forwardRef<BottomSheetModal, WebSearchApiC
                       </XStack>
                     </View>
                   )}
-                </Button.LabelContent>
+                </Button.Label>
               </Button>
             </XStack>
           </YStack>

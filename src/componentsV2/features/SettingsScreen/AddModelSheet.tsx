@@ -169,9 +169,9 @@ export const AddModelSheet = forwardRef<BottomSheetModal, AddModelSheetProps>(({
                 className="h-11 w-4/6 rounded-2xl bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                 onPress={handleAddModel}
                 isDisabled={!modelId.trim()}>
-                <Button.LabelContent>
+                <Button.Label>
                   <Text className="text-green-100 dark:text-green-dark-100">{t('settings.models.add.model')}</Text>
-                </Button.LabelContent>
+                </Button.Label>
               </Button>
             </YStack>
           </YStack>
