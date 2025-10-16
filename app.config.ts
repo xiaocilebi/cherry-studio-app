@@ -21,7 +21,7 @@ export default {
         backgroundColor: '#F65D5D'
       },
       edgeToEdgeEnabled: true,
-      package: 'com.cherry-studio.app',
+      package: 'com.cherry_studio.app',
       userInterfaceStyle: 'automatic',
       predictiveBackGestureEnabled: true
     },
@@ -29,7 +29,7 @@ export default {
       [
         'expo-build-properties',
         {
-          ios: { deploymentTarget: '16.0' },
+          ios: { deploymentTarget: '15.5' },
           android: {
             kotlinVersion: '2.0.21',
             buildToolsVersion: '35.0.0',
