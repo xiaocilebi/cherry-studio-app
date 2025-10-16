@@ -51,12 +51,8 @@ export function ModelSelect({ provider, onSelectModel }: ModelSelectProps) {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <Button variant="tertiary">
-          <Button.LabelContent>
-            {selectedModel ? selectedModel.id : t('settings.provider.api_check.tooltip')}
-          </Button.LabelContent>
-          <Button.EndContent>
-            <ChevronDown />
-          </Button.EndContent>
+          <Button.Label>{selectedModel ? selectedModel.id : t('settings.provider.api_check.tooltip')}</Button.Label>
+          <ChevronDown />
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content>

@@ -280,7 +280,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                       : 'bg-ui-card dark:bg-ui-card-dark border border-transparent'
                   }`}
                   onPress={toggleMultiSelectMode}>
-                  <Button.LabelContent>
+                  <Button.Label>
                     <Text
                       className={
                         isMultiSelectActive
@@ -289,7 +289,7 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                       }>
                       {t('button.multiple')}
                     </Text>
-                  </Button.LabelContent>
+                  </Button.Label>
                 </Button>
               )}
               {multiple && isMultiSelectActive && (
@@ -298,9 +298,9 @@ const ModelSheet = forwardRef<BottomSheetModal, ModelSheetProps>(({ mentions, se
                   className="rounded-full bg-ui-card dark:bg-ui-card-dark"
                   isIconOnly
                   onPress={handleClearAll}>
-                  <Button.LabelContent>
+                  <Button.Label>
                     <BrushCleaning size={18} className="text-text-primary dark:text-text-primary-dark" />
-                  </Button.LabelContent>
+                  </Button.Label>
                 </Button>
               )}
             </XStack>

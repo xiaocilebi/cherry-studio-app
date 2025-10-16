@@ -122,16 +122,6 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
       }
     }
 
-    const inputStyle = {
-      paddingHorizontal: 14,
-      paddingVertical: 12,
-      borderRadius: 16,
-      backgroundColor: isDark ? '#19191C' : '#ffffffff',
-      borderWidth: 0.5,
-      borderColor: '#a0a1b066',
-      color: isDark ? '#f9f9f9ff' : '#202020ff'
-    }
-
     return (
       <BottomSheetModal
         enableDynamicSizing={true}
@@ -166,7 +156,7 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
                   onImageSelected={handleImageSelected}
                 />
                 <YStack className="w-full gap-2">
-                  <XStack className="gap-2 px-3">
+                  <XStack className="gap-2">
                     <Text className="text-text-secondary dark:text-text-secondary-dark">
                       {t('settings.provider.add.name')}
                     </Text>
@@ -175,26 +165,34 @@ export const AddProviderSheet = forwardRef<BottomSheetModal, ProviderSheetProps>
                     </Text>
                   </XStack>
                   <BottomSheetTextInput
-                    style={inputStyle}
+                    className="h-10 px-3 py-3 rounded-md bg-ui-card-background dark:bg-ui-card-background-dark border border-gray-20"
                     placeholder={t('settings.provider.add.name.placeholder')}
                     value={providerName}
                     onChangeText={setProviderName}
                   />
                 </YStack>
-                <ProviderSelect
-                  value={selectedProviderType}
-                  onValueChange={setSelectedProviderType}
-                  placeholder={t('settings.provider.add.type')}
-                />
+                <YStack className="w-full gap-2">
+                  <XStack className="gap-2">
+                    <Text className="text-text-secondary dark:text-text-secondary-dark">
+                      {t('settings.provider.add.type')}
+                    </Text>
+                  </XStack>
+                  <ProviderSelect
+                    value={selectedProviderType}
+                    onValueChange={setSelectedProviderType}
+                    placeholder={t('settings.provider.add.type')}
+                  />
+                </YStack>
+
                 <Button
                   variant="tertiary"
                   className="h-11 w-4/6 rounded-lg bg-green-10 border-green-20 dark:bg-green-dark-10 dark:border-green-dark-20"
                   onPress={handleSaveProvider}>
-                  <Button.LabelContent>
+                  <Button.Label>
                     <Text className="text-green-100 dark:text-green-dark-100">
                       {mode === 'edit' ? t('common.save') : t('settings.provider.add.title')}
                     </Text>
-                  </Button.LabelContent>
+                  </Button.Label>
                 </Button>
               </YStack>
             </YStack>

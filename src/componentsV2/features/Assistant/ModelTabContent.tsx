@@ -80,7 +80,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
         variant="tertiary"
         className="border-0 justify-between bg-ui-card-background dark:bg-ui-card-background-dark rounded-xl"
         onPress={handleModelPress}>
-        <Button.LabelContent className="flex-1 justify-between items-center flex-row">
+        <Button.Label className="flex-1 justify-between items-center flex-row">
           {model.length > 0 ? (
             <>
               <Text className="text-base" numberOfLines={1} ellipsizeMode="tail">
@@ -95,10 +95,8 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
               {t('settings.models.empty')}
             </Text>
           )}
-        </Button.LabelContent>
-        <Button.EndContent>
-          <ChevronRight size={14} />
-        </Button.EndContent>
+        </Button.Label>
+        <ChevronRight size={14} />
       </Button>
       <Group>
         <Row>
@@ -190,7 +188,7 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
             variant="tertiary"
             className="border-0 py-3 pl-4 pr-5 justify-between bg-transparent rounded-xl"
             onPress={handleReasoningPress}>
-            <Button.LabelContent className="flex-1 justify-between items-center flex-row">
+            <Button.Label className="flex-1 justify-between items-center flex-row">
               <Text className="flex-1">{t('assistants.settings.reasoning')}</Text>
 
               <YStack className="justify-end">
@@ -198,10 +196,8 @@ export function ModelTabContent({ assistant, updateAssistant }: ModelTabContentP
                   {t(`assistants.settings.reasoning.${settings.reasoning_effort || 'off'}`)}
                 </Text>
               </YStack>
-            </Button.LabelContent>
-            <Button.EndContent>
-              <ChevronRight size={14} />
-            </Button.EndContent>
+            </Button.Label>
+            <ChevronRight size={14} />
           </Button>
         )}
       </Group>

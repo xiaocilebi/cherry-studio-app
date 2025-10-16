@@ -51,9 +51,9 @@ export const SystemTools: React.FC<SystemToolsProps> = ({ onCameraPress, onImage
           className="flex-1 aspect-[1.618] flex-col items-center justify-center gap-2 rounded-lg bg-gray-20"
           onPress={option.onPress}>
           <Button.StartContent className="items-center justify-center">{option.icon}</Button.StartContent>
-          <Button.LabelContent>
+          <Button.Label>
             <Text className="text-base text-text-primary dark:text-text-primary-dark text-center">{option.label}</Text>
-          </Button.LabelContent>
+          </Button.Label>
         </Button>
       ))}
     </XStack>
