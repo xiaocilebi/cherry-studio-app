@@ -51,6 +51,7 @@ app-example
 
 # build
 android
+ios
 *.ipa
 *.apk
 
