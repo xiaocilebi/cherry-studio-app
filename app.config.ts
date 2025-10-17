@@ -12,7 +12,7 @@ export default {
     entryPoint: './src/app.js',
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'com.cherry-studio.app',
+      bundleIdentifier: process.env.BUNDLE_ID,
       userInterfaceStyle: 'automatic'
     },
     android: {
