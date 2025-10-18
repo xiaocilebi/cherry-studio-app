@@ -102,7 +102,7 @@ export const NewTopicButton: React.FC<NewTopicButtonProps> = ({ assistant }) => 
         onPress={() => handleAddNewTopic()}
         onLongPress={openAssistantSelection}
         unstable_pressDelay={50}
-        delayLongPress={350}
+        delayLongPress={150}
         className="active:opacity-20"
         disabled={isLoading}>
         <MessageSquareDiff size={24} />

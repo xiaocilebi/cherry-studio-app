@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { SquareFunction, Wrench } from '@/componentsV2/icons/LucideIcon'
 import { Assistant } from '@/types/assistant'
 import SelectionSheet, { SelectionSheetItem } from '@/componentsV2/base/SelectionSheet'
+import { delay } from 'lodash'
 
 interface ToolUseSheetProps {
   assistant: Assistant
@@ -55,7 +56,7 @@ export const ToolUseSheet: FC<ToolUseSheetProps> = ({ assistant, updateAssistant
         toolUseMode: newToolUseMode
       }
     })
-    ref.current?.dismiss()
+    delay(() => ref.current?.dismiss(), 50)
   }
 
   return <SelectionSheet items={toolUseOptions} ref={ref} />

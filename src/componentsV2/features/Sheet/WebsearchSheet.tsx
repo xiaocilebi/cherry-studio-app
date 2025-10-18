@@ -15,6 +15,7 @@ import Text from '@/componentsV2/base/Text'
 import RowRightArrow from '@/componentsV2/layout/Row/RowRightArrow'
 import { isWebSearchModel } from '@/config/models'
 import { cn } from 'heroui-native'
+import { delay } from 'lodash'
 
 interface WebsearchSheetProps {
   assistant: Assistant
@@ -34,7 +35,7 @@ export const WebsearchSheet: FC<WebsearchSheetProps> = ({ providers, assistant, 
       webSearchProviderId: newProviderId,
       enableWebSearch: false
     })
-    ref.current?.dismiss()
+    delay(() => ref.current?.dismiss(), 50)
   }
 
   const handleBuiltinSelect = async () => {
