@@ -53,6 +53,7 @@ export default function BasicDataSettingsScreen() {
   const { t } = useTranslation()
   const dialog = useDialog()
   const [isResetting, setIsResetting] = useState(false)
+  const [isBackup, setIsBackup] = useState(false)
   const [cacheSize, setCacheSize] = useState<string>('--')
   const { isModalOpen, restoreSteps, overallStatus, startRestore, closeModal } = useRestore({
     stepConfigs: DEFAULT_RESTORE_STEPS
@@ -70,11 +71,17 @@ export default function BasicDataSettingsScreen() {
 
   useEffect(() => {
     loadCacheSize()
-  }, [])
+  }, [isBackup])
 
   const handleBackup = async () => {
-    const backupUri = await backup()
-    await shareFile(backupUri)
+    try {
+      setIsBackup(true)
+      const backupUri = await backup()
+      setIsBackup(false)
+      await shareFile(backupUri)
+    } catch (error) {
+      logger.error('handleBackup', error as Error)
+    }
   }
 
   const handleRestore = async () => {
@@ -126,8 +133,8 @@ export default function BasicDataSettingsScreen() {
 
     dialog.open({
       type: 'warning',
-      title: t('settings.data.reset'),
-      content: t('settings.data.reset_warning'),
+      title: t('settings.data.clear_cache.title'),
+      content: t('settings.data.clear_cache.warning'),
       confirmText: t('common.confirm'),
       cancelText: t('common.cancel'),
       onConFirm: async () => {
@@ -140,7 +147,7 @@ export default function BasicDataSettingsScreen() {
           dialog.open({
             type: 'error',
             title: t('common.error'),
-            content: t('settings.data.data_reset.error')
+            content: t('settings.data.clear_cache.error')
           })
           logger.error('handleDataReset', error as Error)
         } finally {
