@@ -12,7 +12,7 @@ export default {
     entryPoint: './src/app.js',
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'com.cherry-studio.app',
+      bundleIdentifier: 'com.cherry-ai.cherry-studio-app',
       userInterfaceStyle: 'automatic'
     },
     android: {
@@ -21,7 +21,7 @@ export default {
         backgroundColor: '#F65D5D'
       },
       edgeToEdgeEnabled: true,
-      package: 'com.cherry_studio.app',
+      package: 'com.cherry-ai.cherry-studio-app',
       userInterfaceStyle: 'automatic',
       predictiveBackGestureEnabled: true
     },
