@@ -18,18 +18,16 @@
       "android": {
         "buildType": "apk",
         "env": {
-          "BUNDLE_ID": "com.cherry_studio.app"
+          "BUNDLE_ID": "com.cherry-ai.cherry-studio-app"
         }
       },
       "ios": {
         "env": {
-          "BUNDLE_ID": "com.cherry-studio.app"
+          "BUNDLE_ID": "com.cherry-ai.cherry-studio-app"
         }
       }
     },
     "production": {
-      "autoIncrement": true,
-      "distribution": "internal",
       "android": {
         "buildType": "apk",
         "withoutCredentials": "true",
