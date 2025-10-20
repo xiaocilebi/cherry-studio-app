@@ -210,3 +210,28 @@ export async function getHasMessagesWithTopicId(topicId: string): Promise<boolea
     throw error
   }
 }
+
+export async function getAllMessages(): Promise<Message[]> {
+  try {
+    const results = await db.query.messages.findMany({
+      with: {
+        blocks: {
+          columns: { id: true }
+        }
+      }
+    })
+
+    if (results.length === 0) {
+      return []
+    }
+
+    return results.map(result => {
+      const message = transformDbToMessage(result)
+      message.blocks = result.blocks.map(block => block.id)
+      return message
+    })
+  } catch (error) {
+    logger.error(`Error getting all messages:`, error)
+    throw error
+  }
+}

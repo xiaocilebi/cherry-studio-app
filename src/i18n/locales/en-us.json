@@ -477,7 +477,9 @@
         "basic_title": "Basic Data Settings",
         "clear_cache": {
           "button": "Clear Cache ({{cacheSize}})",
-          "title": "Clear Cache"
+          "error": "Failed to clear cache. Please try again. If the issue persists, report it on GitHub.",
+          "title": "Clear Cache",
+          "warning": "Clearing the cache will erase all cached data, including cache files, images, and backups."
         },
         "cloud_backup": "Cloud Backup Settings",
         "data.title": "Data Directory",
@@ -508,7 +510,6 @@
           "title": "Landrop"
         },
         "log_location": "Log file location",
-        "recovery": "Data Recovery",
         "reset": "Data Reset",
         "reset_success": "Data reset successful! The app has been restored to its initial state.",
         "reset_warning": "Are you sure you want to reset all data? This will delete all conversations, messages, and user-created content. This action cannot be undone.",
@@ -526,7 +527,8 @@
           "steps": {
             "restore_messages": "Restore messages",
             "restore_settings": "Restore configuration"
-          }
+          },
+          "title": "Data Restore"
         },
         "third_party": "Third-party Connections",
         "title": "Data Settings"

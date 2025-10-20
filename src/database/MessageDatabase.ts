@@ -1,5 +1,6 @@
 import { Message } from '@/types/message'
 import {
+  getAllMessages as _getAllMessages,
   deleteMessageById as _deleteMessageById,
   deleteMessagesByTopicId as _deleteMessagesByTopicId,
   getHasMessagesWithTopicId as _getHasMessagesWithTopicId,
@@ -42,6 +43,10 @@ export async function getHasMessagesWithTopicId(topicId: string) {
   return _getHasMessagesWithTopicId(topicId)
 }
 
+export async function getAllMessages() {
+  return _getAllMessages()
+}
+
 export const messageDatabase = {
   upsertMessages,
   deleteMessagesByTopicId,
@@ -50,5 +55,6 @@ export const messageDatabase = {
   updateMessageById,
   getMessageById,
   getMessagesByTopicId,
-  getHasMessagesWithTopicId
+  getHasMessagesWithTopicId,
+  getAllMessages
 }

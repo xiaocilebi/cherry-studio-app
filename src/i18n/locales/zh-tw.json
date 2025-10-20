@@ -477,7 +477,9 @@
         "basic_title": "基礎資料設定",
         "clear_cache": {
           "button": "清除快取 ({{cacheSize}})",
-          "title": "清除快取"
+          "error": "清除快取失敗。請重試，如果問題持續存在，請在GitHub上回報。",
+          "title": "清除快取",
+          "warning": "清除快取將刪除所有快取資料，包括快取檔案、圖片和備份。"
         },
         "cloud_backup": "雲端備份設定",
         "data.title": "資料目錄",
@@ -508,7 +510,6 @@
           "title": "Landrop"
         },
         "log_location": "記錄檔位置",
-        "recovery": "資料恢復",
         "reset": "資料重置",
         "reset_success": "資料重置成功！應用程式已恢復至初始狀態。",
         "reset_warning": "您確定要重設所有資料嗎？這將會刪除所有對話、訊息和用戶建立的內容。此操作無法復原。",
@@ -526,7 +527,8 @@
           "steps": {
             "restore_messages": "恢復訊息",
             "restore_settings": "恢復設定"
-          }
+          },
+          "title": "資料恢復"
         },
         "third_party": "第三方連接",
         "title": "資料設定"

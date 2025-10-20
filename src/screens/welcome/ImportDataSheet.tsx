@@ -95,7 +95,7 @@ export const ImportDataSheet = forwardRef<BottomSheetModal, ImportDataSheetProps
               <PressableRow onPress={handleRestore}>
                 <XStack className="items-center gap-3">
                   <Folder size={24} />
-                  <Text>{t('settings.data.recovery')}</Text>
+                  <Text>{t('settings.data.restore.title')}</Text>
                 </XStack>
               </PressableRow>
               <PressableRow onPress={handleNavigateToLandrop}>
