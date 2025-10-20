@@ -508,11 +508,11 @@
           "title": "局域网传输"
         },
         "log_location": "日志文件位置",
-        "recovery": "数据恢复",
         "reset": "数据重置",
         "reset_success": "数据重置成功！应用已恢复到初始状态。",
         "reset_warning": "您确定要重置所有数据吗？这将删除所有对话、消息和用户创建的内容。此操作无法撤销。",
         "restore": {
+          "title": "数据恢复",
           "error": "恢复错误",
           "error_message": "恢复过程中出现错误，请检查文件并重试。",
           "progress": {

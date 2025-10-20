@@ -114,3 +114,14 @@ export async function getBlockById(blockId: string): Promise<MessageBlock | null
     throw error
   }
 }
+
+export async function getAllBlocks(): Promise<MessageBlock[]> {
+  try {
+    const dbRecords = await db.select().from(messageBlocks).execute()
+
+    return dbRecords.map(transformDbToMessageBlock)
+  } catch (error) {
+    logger.error('Error getting all blocks:', error)
+    throw error
+  }
+}

@@ -508,11 +508,11 @@
           "title": "Landrop"
         },
         "log_location": "記錄檔位置",
-        "recovery": "資料恢復",
         "reset": "資料重置",
         "reset_success": "資料重置成功！應用程式已恢復至初始狀態。",
         "reset_warning": "您確定要重設所有資料嗎？這將會刪除所有對話、訊息和用戶建立的內容。此操作無法復原。",
         "restore": {
+          "title": "資料恢復",
           "error": "恢復錯誤",
           "error_message": "還原過程中發生錯誤。請檢查檔案並再次嘗試。",
           "progress": {

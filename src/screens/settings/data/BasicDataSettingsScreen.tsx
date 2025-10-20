@@ -21,16 +21,17 @@ import {
   XStack,
   YStack
 } from '@/componentsV2'
-import { FileText, Folder, FolderOpen, RotateCcw, Trash2 } from '@/componentsV2/icons/LucideIcon'
+import { FileText, Folder, FolderOpen, RotateCcw, Save, Trash2 } from '@/componentsV2/icons/LucideIcon'
 import { useDialog } from '@/hooks/useDialog'
 import { DEFAULT_RESTORE_STEPS, useRestore } from '@/hooks/useRestore'
-import { getCacheDirectorySize, resetCacheDirectory } from '@/services/FileService'
+import { getCacheDirectorySize, resetCacheDirectory, shareFile } from '@/services/FileService'
 import { loggerService } from '@/services/LoggerService'
 import { persistor } from '@/store'
 import { NavigationProps } from '@/types/naviagate'
 import { formatFileSize } from '@/utils/file'
 
 import { databaseMaintenance } from '@database'
+import { backup } from '@/services/BackupService'
 const logger = loggerService.withContext('BasicDataSettingsScreen')
 
 interface SettingItemConfig {
@@ -70,6 +71,11 @@ export default function BasicDataSettingsScreen() {
   useEffect(() => {
     loadCacheSize()
   }, [])
+
+  const handleBackup = async () => {
+    const backupUri = await backup()
+    await shareFile(backupUri)
+  }
 
   const handleRestore = async () => {
     const result = await DocumentPicker.getDocumentAsync({ type: 'application/zip' })
@@ -198,14 +204,13 @@ export default function BasicDataSettingsScreen() {
     {
       title: t('settings.data.title'),
       items: [
-        // todo
-        // {
-        //   title: t('settings.data.backup'),
-        //   icon: <Save size={24} />,
-        //   onPress: () => {}
-        // },
         {
-          title: t('settings.data.recovery'),
+          title: t('settings.data.backup'),
+          icon: <Save size={24} />,
+          onPress: handleBackup
+        },
+        {
+          title: t('settings.data.restore.title'),
           icon: <Folder size={24} />,
           onPress: handleRestore
         },
