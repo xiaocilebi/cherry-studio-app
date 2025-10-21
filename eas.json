@@ -28,6 +28,11 @@
       }
     },
     "production": {
+      "autoIncrement": true,
+      "channel": "production",
+      "env": {
+        "PROFILE": "production"
+      },
       "android": {
         "buildType": "apk",
         "withoutCredentials": "true",
