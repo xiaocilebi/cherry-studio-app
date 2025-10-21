@@ -10,6 +10,12 @@ export default {
     userInterfaceStyle: 'automatic',
     newArchEnabled: true,
     entryPoint: './src/app.js',
+    updates: {
+      url: 'https://u.expo.dev/80096eaf-3ad0-4b87-a466-15f04da1bacc'
+    },
+    runtimeVersion: {
+      policy: 'appVersion'
+    },
     ios: {
       supportsTablet: true,
       bundleIdentifier: 'com.cherry-ai.cherry-studio-app',
