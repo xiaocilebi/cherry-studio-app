@@ -96,7 +96,10 @@ export default class ModernAiProvider {
       throw new Error('Model is required for completions. Please use constructor with model parameter.')
     }
 
-    this.config = providerToAiSdkConfig(this.actualProvider, this.model)
+    // 确保配置存在
+    if (!this.config) {
+      this.config = providerToAiSdkConfig(this.actualProvider, this.model)
+    }
 
     // 准备特殊配置
     await prepareSpecialProviderConfig(this.actualProvider, this.config)
