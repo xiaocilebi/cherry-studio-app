@@ -23,7 +23,7 @@ import { DrawerNavigationProps } from '@/types/naviagate'
 import { haptic } from '@/utils/haptic'
 import AssistantItem from '@/componentsV2/features/Assistant/AssistantItem'
 import AssistantItemSheet from '@/componentsV2/features/Assistant/AssistantItemSheet'
-import { LegendList } from '@legendapp/list'
+import { FlashList } from '@shopify/flash-list'
 
 export default function AssistantScreen() {
   const { t } = useTranslation()
@@ -111,12 +111,11 @@ export default function AssistantScreen() {
                 onChangeText={setSearchText}
               />
             </View>
-            <LegendList
+            <FlashList
               showsVerticalScrollIndicator={false}
               data={filteredAssistants}
               renderItem={({ item }) => <AssistantItem assistant={item} onAssistantPress={handleAssistantItemPress} />}
               keyExtractor={item => item.id}
-              estimatedItemSize={80}
               ItemSeparatorComponent={() => <YStack className="h-2" />}
               ListEmptyComponent={
                 <YStack className="flex-1 justify-center items-center">
@@ -124,9 +123,6 @@ export default function AssistantScreen() {
                 </YStack>
               }
               contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 30 }}
-              drawDistance={200}
-              recycleItems
-              waitForInitialLayout
             />
           </Container>
           <AssistantItemSheet

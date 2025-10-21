@@ -15,7 +15,7 @@ import { TopicItem } from '../TopicItem'
 import Text from '@/componentsV2/base/Text'
 import YStack from '@/componentsV2/layout/YStack'
 import { useDialog } from '@/hooks/useDialog'
-import { LegendList } from '@legendapp/list'
+import { FlashList } from '@shopify/flash-list'
 import { newMessagesActions } from '@/store/newMessage'
 import { topicDatabase } from '@/database'
 
@@ -158,7 +158,7 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
   }
 
   return (
-    <LegendList
+    <FlashList
       data={listData}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
@@ -170,11 +170,8 @@ export function TopicList({ topics, enableScroll, handleNavigateChatScreen }: Gr
 
         return item.topic.id
       }}
-      estimatedItemSize={40}
       ItemSeparatorComponent={() => <YStack className="h-2.5" />}
-      contentContainerStyle={{ paddingHorizontal: 20, flex: 1 }}
-      drawDistance={2000}
-      recycleItems
+      contentContainerStyle={{ paddingHorizontal: 20 }}
     />
   )
 }
