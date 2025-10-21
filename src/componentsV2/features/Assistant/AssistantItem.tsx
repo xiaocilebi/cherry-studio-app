@@ -67,7 +67,7 @@ const AssistantItem: FC<AssistantItemProps> = ({ assistant, onAssistantPress }) 
   return (
     <ContextMenu borderRadius={16} list={contextMenuItems} onPress={handlePress}>
       <View className="py-2.5 px-2.5 justify-between items-center rounded-2xl bg-ui-card-background dark:bg-ui-card-background-dark">
-        <XStack className="gap-3.5 flex-1">
+        <XStack className="gap-3.5">
           <EmojiAvatar
             emoji={assistant.emoji}
             size={46}

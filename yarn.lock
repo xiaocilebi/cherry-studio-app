@@ -3473,15 +3473,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@legendapp/list@npm:^2.0.6":
-  version: 2.0.12
-  resolution: "@legendapp/list@npm:2.0.12"
+"@legendapp/list@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@legendapp/list@npm:2.0.13"
   dependencies:
     use-sync-external-store: "npm:^1.5.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/86a3e1230fefa15864e0fd5da71a48136e9897ebe496a4caa368f23b2f9eff905ee18634b630077278df492205340f0cd8415da85404834cc4453c7ebe763701
+  checksum: 10c0/92cdcf709986143a1d8494646216094e8bd1b28a70b85ceb9bd8a8aec00df61778c19f101b7d9876c709d44b60f7ad4cd197e389e29c08f58478ab138c064e65
   languageName: node
   linkType: hard
 
@@ -5082,6 +5082,17 @@ __metadata:
   version: 1.1.0
   resolution: "@rtsao/scc@npm:1.1.0"
   checksum: 10c0/b5bcfb0d87f7d1c1c7c0f7693f53b07866ed9fec4c34a97a8c948fb9a7c0082e416ce4d3b60beb4f5e167cbe04cdeefbf6771320f3ede059b9ce91188c409a5b
+  languageName: node
+  linkType: hard
+
+"@shopify/flash-list@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@shopify/flash-list@npm:2.1.0"
+  peerDependencies:
+    "@babel/runtime": "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/88f566814307838296df053aa33544cf0b268dc3574526fd4002cd73b3aa33e6cc8af3d5284b0f5eecf490cbf772078d07a0c9193b2486be9cc077eb5cb7c27d
   languageName: node
   linkType: hard
 
@@ -7938,7 +7949,7 @@ __metadata:
     "@expo/ui": "npm:~0.2.0-beta.7"
     "@google/genai": "npm:^1.17.0"
     "@gorhom/bottom-sheet": "npm:^5.2.6"
-    "@legendapp/list": "npm:^2.0.6"
+    "@legendapp/list": "npm:^2.0.13"
     "@mistralai/mistralai": "npm:^1.7.4"
     "@mozilla/readability": "npm:^0.6.0"
     "@openrouter/ai-sdk-provider": "npm:^1.1.2"
@@ -7961,6 +7972,7 @@ __metadata:
     "@react-navigation/native-stack": "npm:^7.3.13"
     "@react-navigation/stack": "npm:^7.3.2"
     "@reduxjs/toolkit": "npm:^2.5.1"
+    "@shopify/flash-list": "npm:^2.1.0"
     "@shopify/react-native-skia": "npm:2.2.12"
     "@stardazed/streams-text-encoding": "npm:^1.0.2"
     "@tamagui/config": "npm:^1.135.0"
