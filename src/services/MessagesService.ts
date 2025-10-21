@@ -149,7 +149,7 @@ export async function sendMessage(
   } catch (error) {
     logger.error('Error in sendMessage:', error)
   } finally {
-    finishTopicLoading(topicId)
+    await finishTopicLoading(topicId)
   }
 }
 
@@ -224,7 +224,7 @@ export async function regenerateAssistantMessage(
   } catch (error) {
     logger.error('Error in regenerateAssistantMessage:', error)
   } finally {
-    finishTopicLoading(topicId)
+    await finishTopicLoading(topicId)
   }
 }
 
